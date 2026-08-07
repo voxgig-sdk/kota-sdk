@@ -1,0 +1,331 @@
+# Entity: dependents_management_intent
+
+main: kit: entity: dependents_management_intent: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "action_required"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "coverage_option"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    {
+      name: "dependent"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "disclosure"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "parent_intent_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "parent_intent_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "plan"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "dependents_management_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "policy_amendment_intent_id"
+                orig: "id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "policy_id"
+                orig: "policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent"
+          parts: [
+            "policies"
+            "{policy_id}"
+            "policy_amendment_intents"
+            "{policy_amendment_intent_id}"
+            "create_dependents_management_intent"
+          ]
+          rename: {
+            param: {
+              id: "policy_amendment_intent_id"
+            }
+          }
+          select: {
+            exist: [
+              "policy_amendment_intent_id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "enrolment_intent_id"
+                orig: "enrolment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent"
+          parts: [
+            "enrolment_intents"
+            "{enrolment_intent_id}"
+            "create_dependents_management_intent"
+          ]
+          select: {
+            exist: [
+              "enrolment_intent_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "dependents_management_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/dependents_management_intents/{dependents_management_intent_id}/cancel"
+          parts: [
+            "dependents_management_intents"
+            "{id}"
+            "cancel"
+          ]
+          rename: {
+            param: {
+              dependents_management_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "cancel"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "dependents_management_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/dependents_management_intents/{dependents_management_intent_id}/confirm"
+          parts: [
+            "dependents_management_intents"
+            "{id}"
+            "confirm"
+          ]
+          rename: {
+            param: {
+              dependents_management_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "confirm"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "dependents_management_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/dependents_management_intents/{dependents_management_intent_id}"
+          parts: [
+            "dependents_management_intents"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              dependents_management_intent_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "enrolment_intent"
+      ]
+      [
+        "policy"
+        "policy_amendment_intent"
+      ]
+    ]
+  }
+
+
+
+}

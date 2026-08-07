@@ -1,0 +1,33 @@
+# BasicEmployerHealthInsurancePolicyFlow
+
+main: kit: flow: BasicEmployerHealthInsurancePolicyFlow:
+{
+  entity: "employer_health_insurance_policy",
+  kind: "basic",
+  name: "BasicEmployerHealthInsurancePolicyFlow",
+  step: [
+    {
+      input: {
+        ref: "employer_health_insurance_policy_ref01",
+        srcdatavar: "employer_health_insurance_policy_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        employer_id: "employer01",
+        id: "employer_health_insurance_policy01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employer_health_insurance_policy_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEmployerHealthInsurancePolicyFlow"
+}

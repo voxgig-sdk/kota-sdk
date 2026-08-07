@@ -1,0 +1,324 @@
+# Entity: plan
+
+main: kit: entity: plan: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "available_from"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "available_to"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "country"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "coverage_option"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    {
+      name: "description"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "disclosure"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "document"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "eligible_count"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$INTEGER`"
+        ]
+      ]
+    }
+    {
+      name: "employee_eligibility_criterion"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "employer_eligibility_criterion"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "health_insurance"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "ineligible_count"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$INTEGER`"
+        ]
+      ]
+    }
+    {
+      name: "name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "provider"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "total_count"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$INTEGER`"
+        ]
+      ]
+    }
+    {
+      name: "type"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "plan"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "available_on"
+                orig: "available_on"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "country"
+                orig: "country"
+                reqd: false
+                type: "`$ANY`"
+              }
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "group_id"
+                orig: "group_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "provider_id"
+                orig: "provider_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "sort_by"
+                orig: "sort_by"
+                reqd: false
+                type: "`$ANY`"
+              }
+              {
+                kind: "query"
+                name: "sort_dir"
+                orig: "sort_dir"
+                reqd: false
+                type: "`$ANY`"
+              }
+              {
+                kind: "query"
+                name: "start_date"
+                orig: "start_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "type"
+                orig: "type"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/plans"
+          parts: [
+            "plans"
+          ]
+          select: {
+            exist: [
+              "available_on"
+              "country"
+              "group_id"
+              "page"
+              "page_size"
+              "provider_id"
+              "sort_by"
+              "sort_dir"
+              "start_date"
+              "type"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "plan_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "group_id"
+                orig: "group_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "start_date"
+                orig: "start_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/plans/{plan_id}"
+          parts: [
+            "plans"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              plan_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "group_id"
+              "id"
+              "start_date"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

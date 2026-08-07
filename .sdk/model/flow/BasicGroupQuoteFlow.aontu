@@ -1,0 +1,32 @@
+# BasicGroupQuoteFlow
+
+main: kit: flow: BasicGroupQuoteFlow:
+{
+  entity: "group_quote",
+  kind: "basic",
+  name: "BasicGroupQuoteFlow",
+  step: [
+    {
+      input: {
+        ref: "group_quote_ref01",
+        srcdatavar: "group_quote_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "group_quote01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-group_quote_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGroupQuoteFlow"
+}

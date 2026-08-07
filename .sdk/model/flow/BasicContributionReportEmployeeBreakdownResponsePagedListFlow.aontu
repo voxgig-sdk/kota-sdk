@@ -1,0 +1,26 @@
+# BasicContributionReportEmployeeBreakdownResponsePagedListFlow
+
+main: kit: flow: BasicContributionReportEmployeeBreakdownResponsePagedListFlow:
+{
+  entity: "contribution_report_employee_breakdown_response_paged_list",
+  kind: "basic",
+  name: "BasicContributionReportEmployeeBreakdownResponsePagedListFlow",
+  step: [
+    {
+      match: {
+        contribution_report_id: "contribution_report01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "contribution_report_employee_breakdown_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContributionReportEmployeeBreakdownResponsePagedListFlow"
+}

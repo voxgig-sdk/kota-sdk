@@ -1,0 +1,384 @@
+# Entity: associated_person
+
+main: kit: entity: associated_person: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "date_of_birth"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "email"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "employee_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "first_name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "last_name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "phone_number"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "platform_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "relationship_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "sex_at_birth"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "associated_person"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/employees/{employee_id}/associated_persons"
+          parts: [
+            "employees"
+            "{employee_id}"
+            "associated_persons"
+          ]
+          select: {
+            exist: [
+              "employee_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/employees/{employee_id}/associated_persons"
+          parts: [
+            "employees"
+            "{employee_id}"
+            "associated_persons"
+          ]
+          select: {
+            exist: [
+              "employee_id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "associated_person_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/employees/{employee_id}/associated_persons/{associated_person_id}"
+          parts: [
+            "employees"
+            "{employee_id}"
+            "associated_persons"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "associated_person_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/employees/{employee_id}/associated_persons/{associated_person_id}"
+          parts: [
+            "employees"
+            "{employee_id}"
+            "associated_persons"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "associated_person_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/employees/{employee_id}/associated_persons/{associated_person_id}"
+          parts: [
+            "employees"
+            "{employee_id}"
+            "associated_persons"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "employee"
+      ]
+    ]
+  }
+
+
+
+}

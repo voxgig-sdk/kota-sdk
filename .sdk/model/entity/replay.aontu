@@ -1,0 +1,79 @@
+# Entity: replay
+
+main: kit: entity: replay: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "delivery"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "event_id"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "replay"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "evt_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "event_id"
+                orig: "event_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/events/{event_id}/replay"
+          parts: [
+            "events"
+            "{event_id}"
+            "replay"
+          ]
+          select: {
+            exist: [
+              "event_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "event"
+      ]
+    ]
+  }
+
+
+
+}

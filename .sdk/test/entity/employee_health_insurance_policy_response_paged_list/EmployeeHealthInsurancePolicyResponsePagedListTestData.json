@@ -1,0 +1,81 @@
+{
+  "existing": {
+    "employee_health_insurance_policy_response_paged_list": {
+      "EMPLOYEE_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST00": {
+        "cancellation_date": "sa0",
+        "coverage_level": "sa1",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "end_date": "sa4",
+        "enrolled_dependants_count": "sa5",
+        "enrolment_type": "sa6",
+        "estimated_gross_premium": "sa7",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "id": "EMPLOYEE_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST00",
+        "object": "saa",
+        "opt_out_deadline_date": "sab",
+        "policy_number": "sac",
+        "renewal": "sad",
+        "start_date": "sae",
+        "status": "saf"
+      },
+      "EMPLOYEE_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST01": {
+        "cancellation_date": "s140",
+        "coverage_level": "s141",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "end_date": "s144",
+        "enrolled_dependants_count": "s145",
+        "enrolment_type": "s146",
+        "estimated_gross_premium": "s147",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "id": "EMPLOYEE_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST01",
+        "object": "s14a",
+        "opt_out_deadline_date": "s14b",
+        "policy_number": "s14c",
+        "renewal": "s14d",
+        "start_date": "s14e",
+        "status": "s14f"
+      },
+      "EMPLOYEE_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST02": {
+        "cancellation_date": "s1e0",
+        "coverage_level": "s1e1",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "end_date": "s1e4",
+        "enrolled_dependants_count": "s1e5",
+        "enrolment_type": "s1e6",
+        "estimated_gross_premium": "s1e7",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "id": "EMPLOYEE_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST02",
+        "object": "s1ea",
+        "opt_out_deadline_date": "s1eb",
+        "policy_number": "s1ec",
+        "renewal": "s1ed",
+        "start_date": "s1ee",
+        "status": "s1ef"
+      }
+    }
+  },
+  "new": {
+    "employee_health_insurance_policy_response_paged_list": {
+      "employee_health_insurance_policy_response_paged_list_ref01": {
+        "cancellation_date": "s280",
+        "coverage_level": "s281",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "end_date": "s284",
+        "enrolled_dependants_count": "s285",
+        "enrolment_type": "s286",
+        "estimated_gross_premium": "s287",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "object": "s28a",
+        "opt_out_deadline_date": "s28b",
+        "policy_number": "s28c",
+        "renewal": "s28d",
+        "start_date": "s28e",
+        "status": "s28f"
+      }
+    }
+  }
+}

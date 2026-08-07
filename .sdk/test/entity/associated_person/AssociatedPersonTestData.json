@@ -1,0 +1,61 @@
+{
+  "existing": {
+    "associated_person": {
+      "ASSOCIATED_PERSON00": {
+        "date_of_birth": "s6e",
+        "email": "s6f",
+        "employee_id": "EMPLOYEE01",
+        "first_name": "s71",
+        "id": "ASSOCIATED_PERSON00",
+        "last_name": "s73",
+        "object": "s74",
+        "phone_number": "s75",
+        "platform_id": "PLATFORM01",
+        "relationship_type": "s77",
+        "sex_at_birth": "s78"
+      },
+      "ASSOCIATED_PERSON01": {
+        "date_of_birth": "sdc",
+        "email": "sdd",
+        "employee_id": "EMPLOYEE01",
+        "first_name": "sdf",
+        "id": "ASSOCIATED_PERSON01",
+        "last_name": "se1",
+        "object": "se2",
+        "phone_number": "se3",
+        "platform_id": "PLATFORM01",
+        "relationship_type": "se5",
+        "sex_at_birth": "se6"
+      },
+      "ASSOCIATED_PERSON02": {
+        "date_of_birth": "s14a",
+        "email": "s14b",
+        "employee_id": "EMPLOYEE01",
+        "first_name": "s14d",
+        "id": "ASSOCIATED_PERSON02",
+        "last_name": "s14f",
+        "object": "s150",
+        "phone_number": "s151",
+        "platform_id": "PLATFORM01",
+        "relationship_type": "s153",
+        "sex_at_birth": "s154"
+      }
+    }
+  },
+  "new": {
+    "associated_person": {
+      "associated_person_ref01": {
+        "date_of_birth": "s1b8",
+        "email": "s1b9",
+        "employee_id": "EMPLOYEE01",
+        "first_name": "s1bb",
+        "last_name": "s1bd",
+        "object": "s1be",
+        "phone_number": "s1bf",
+        "platform_id": "PLATFORM01",
+        "relationship_type": "s1c1",
+        "sex_at_birth": "s1c2"
+      }
+    }
+  }
+}

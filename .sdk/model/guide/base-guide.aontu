@@ -1,0 +1,412 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 40
+  metrics: count: path: 69
+  metrics: count: method: 85
+
+  entity: associated_person: {
+    path: "/employees/{employee_id}/associated_persons": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/employees/{employee_id}/associated_persons/{associated_person_id}": {
+      rename: param: "associated_person_id": *"id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+  }
+
+  entity: associated_person_eligibility_response_paged_list: {
+    path: "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: contribution_report: {
+    path: "/contribution_reports": {
+      op: list: method: *GET
+    }
+    path: "/contribution_reports/{contribution_report_id}": {
+      rename: param: "contribution_report_id": *"id"
+      op: load: method: *GET
+    }
+    path: "/contribution_reports/{contribution_report_id}/finalize": {
+      action: "finalize": {}
+      rename: param: "contribution_report_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: contribution_report_employee_breakdown: {
+    path: "/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}": {
+      rename: param: "employee_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: contribution_report_employee_breakdown_response_paged_list: {
+    path: "/contribution_reports/{contribution_report_id}/employee_breakdowns": {
+      action: "employee_breakdowns": {}
+      rename: param: "contribution_report_id": *"id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: create_hosted_session_token: {
+    path: "/hosted/sessions": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: create_session_token: {
+    path: "/embed/sessions": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: dependent: {
+    path: "/dependents_management_intents/{dependents_management_intent_id}/dependents": {
+      op: create: method: *POST
+    }
+    path: "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}": {
+      rename: param: "associated_person_id": *"id"
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: dependents_management_intent: {
+    path: "/dependents_management_intents/{dependents_management_intent_id}": {
+      rename: param: "dependents_management_intent_id": *"id"
+      op: load: method: *GET
+    }
+    path: "/dependents_management_intents/{dependents_management_intent_id}/cancel": {
+      action: "cancel": {}
+      rename: param: "dependents_management_intent_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/dependents_management_intents/{dependents_management_intent_id}/confirm": {
+      action: "confirm": {}
+      rename: param: "dependents_management_intent_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent": {
+      op: create: method: *POST
+    }
+    path: "/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent": {
+      rename: param: "id": *"policy_amendment_intent_id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: eligibility_check: {
+    path: "/groups/{group_id}/eligibility_check": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: employee: {
+    path: "/employees": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/employees/{employee_id}": {
+      rename: param: "employee_id": *"id"
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+    path: "/employees/{employee_id}/offboard": {
+      action: "offboard": {}
+      rename: param: "employee_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/employees/{employee_id}/offboard/cancel": {
+      action: "offboard_cancel": {}
+      rename: param: "employee_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: employee_health_insurance_offer: {
+    path: "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}": {
+      rename: param: "employee_offer_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: employee_health_insurance_offer_response_paged_list: {
+    path: "/employees/{employee_id}/health_insurance/offers": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: employee_health_insurance_policy: {
+    path: "/employees/{employee_id}/health_insurance/policies/{employee_policy_id}": {
+      rename: param: "employee_policy_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: employee_health_insurance_policy_response_paged_list: {
+    path: "/employees/{employee_id}/health_insurance/policies": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: employer: {
+    path: "/employers": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/employers/{employer_id}": {
+      rename: param: "employer_id": *"id"
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+    path: "/employers/{employer_id}/offboard": {
+      action: "offboard": {}
+      rename: param: "employer_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: employer_health_insurance_policy: {
+    path: "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}": {
+      rename: param: "employer_policy_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: employer_health_insurance_policy_response_paged_list: {
+    path: "/employers/{employer_id}/health_insurance/policies": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: employer_health_insurance_quote: {
+    path: "/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}": {
+      rename: param: "employer_quote_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: employer_health_insurance_quote_response_paged_list: {
+    path: "/employers/{employer_id}/health_insurance/quotes": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: enrolment_intent: {
+    path: "/enrolment_intents": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/enrolment_intents/{enrolment_intent_id}": {
+      rename: param: "enrolment_intent_id": *"id"
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+    path: "/enrolment_intents/{enrolment_intent_id}/confirm": {
+      action: "confirm": {}
+      rename: param: "enrolment_intent_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/enrolment_intents/{enrolment_intent_id}/coverage-selections": {
+      action: "coverage_selection": {}
+      rename: param: "enrolment_intent_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/enrolment_intents/{enrolment_intent_id}/reject": {
+      action: "reject": {}
+      rename: param: "enrolment_intent_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: enrolment_intent_requirement_response_paged_list: {
+    path: "/enrolment_intents/{enrolment_intent_id}/requirements": {
+      action: "requirements": {}
+      rename: param: "enrolment_intent_id": *"id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: event: {
+    path: "/events": {
+      op: list: method: *GET
+    }
+    path: "/events/{event_id}": {
+      rename: param: "event_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: group: {
+    path: "/groups": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/groups/{group_id}": {
+      rename: param: "group_id": *"id"
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+  }
+
+  entity: group_employee: {
+    path: "/groups/{group_id}/employees": {
+      rename: param: "group_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: group_employee_response_paged_list: {
+    path: "/groups/{group_id}/employees": {
+      action: "employees": {}
+      rename: param: "group_id": *"id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: group_policy: {
+    path: "/group_policies": {
+      op: list: method: *GET
+    }
+    path: "/group_policies/{group_policy_id}": {
+      rename: param: "group_policy_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: group_policy_intent: {
+    path: "/group_policy_intents": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/group_policy_intents/{group_policy_intent_id}": {
+      rename: param: "group_policy_intent_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: group_policy_intent_requirement_response_paged_list: {
+    path: "/group_policy_intents/{group_policy_intent_id}/requirements": {
+      action: "requirements": {}
+      rename: param: "group_policy_intent_id": *"id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: group_quote: {
+    path: "/group_quote_intents/{group_quote_intent_id}/quote": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: group_quote_intent: {
+    path: "/group_quote_intents": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/group_quote_intents/{group_quote_intent_id}": {
+      rename: param: "group_quote_intent_id": *"id"
+      op: load: method: *GET
+    }
+    path: "/group_quote_intents/{group_quote_intent_id}/reject": {
+      action: "reject": {}
+      rename: param: "group_quote_intent_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: group_quote_intent_requirement_response_paged_list: {
+    path: "/group_quote_intents/{group_quote_intent_id}/requirements": {
+      action: "requirements": {}
+      rename: param: "group_quote_intent_id": *"id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: plan: {
+    path: "/plans": {
+      op: list: method: *GET
+    }
+    path: "/plans/{plan_id}": {
+      rename: param: "plan_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: policy: {
+    path: "/policies": {
+      op: list: method: *GET
+    }
+    path: "/policies/{policy_id}": {
+      rename: param: "policy_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: policy_amendment_intent: {
+    path: "/policies/{policy_id}/policy_amendment_intents": {
+      rename: param: "policy_id": *"id"
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/policies/{policy_id}/policy_amendment_intents/{id}/cancel": {
+      action: "cancel": {}
+      op: create: method: *POST
+    }
+    path: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}": {
+      rename: param: "policy_amendment_intent_id": *"id"
+      op: load: method: *GET
+    }
+    path: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm": {
+      action: "confirm": {}
+      rename: param: "policy_amendment_intent_id": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: policy_import_intent: {
+    path: "/policy_import_intents": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/policy_import_intents/{policy_import_intent_id}": {
+      rename: param: "policy_import_intent_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: provider: {
+    path: "/providers": {
+      op: list: method: *GET
+    }
+    path: "/providers/{provider_id}": {
+      rename: param: "provider_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: replay: {
+    path: "/events/{event_id}/replay": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: webhook_endpoint: {
+    path: "/webhooks/endpoints/{webhook_endpoint_id}": {
+      rename: param: "webhook_endpoint_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: webhook_endpoint_response_paged_list: {
+    path: "/webhooks/endpoints": {
+      op: list: method: *GET
+    }
+  }
+
+}

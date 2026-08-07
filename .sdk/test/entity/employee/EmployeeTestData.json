@@ -1,0 +1,97 @@
+{
+  "existing": {
+    "employee": {
+      "EMPLOYEE00": {
+        "bank_account": "sc8",
+        "date_of_birth": "sc9",
+        "earliest_benefits_start_date": "sca",
+        "email": "scb",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "first_name": "sce",
+        "home_address": "scf",
+        "id": "EMPLOYEE00",
+        "last_name": "sd1",
+        "metadata": "sd2",
+        "national_tax_id": "NATIONAL_TAX01",
+        "nationality": "sd4",
+        "object": "sd5",
+        "offboard_on": "sd6",
+        "phone_number": "sd7",
+        "platform_id": "PLATFORM01",
+        "sex_at_birth": "sd9",
+        "start_on": "sda",
+        "status": "sdb"
+      },
+      "EMPLOYEE01": {
+        "bank_account": "s190",
+        "date_of_birth": "s191",
+        "earliest_benefits_start_date": "s192",
+        "email": "s193",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "first_name": "s196",
+        "home_address": "s197",
+        "id": "EMPLOYEE01",
+        "last_name": "s199",
+        "metadata": "s19a",
+        "national_tax_id": "NATIONAL_TAX01",
+        "nationality": "s19c",
+        "object": "s19d",
+        "offboard_on": "s19e",
+        "phone_number": "s19f",
+        "platform_id": "PLATFORM01",
+        "sex_at_birth": "s1a1",
+        "start_on": "s1a2",
+        "status": "s1a3"
+      },
+      "EMPLOYEE02": {
+        "bank_account": "s258",
+        "date_of_birth": "s259",
+        "earliest_benefits_start_date": "s25a",
+        "email": "s25b",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "first_name": "s25e",
+        "home_address": "s25f",
+        "id": "EMPLOYEE02",
+        "last_name": "s261",
+        "metadata": "s262",
+        "national_tax_id": "NATIONAL_TAX01",
+        "nationality": "s264",
+        "object": "s265",
+        "offboard_on": "s266",
+        "phone_number": "s267",
+        "platform_id": "PLATFORM01",
+        "sex_at_birth": "s269",
+        "start_on": "s26a",
+        "status": "s26b"
+      }
+    }
+  },
+  "new": {
+    "employee": {
+      "employee_ref01": {
+        "bank_account": "s320",
+        "date_of_birth": "s321",
+        "earliest_benefits_start_date": "s322",
+        "email": "s323",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "first_name": "s326",
+        "home_address": "s327",
+        "last_name": "s329",
+        "metadata": "s32a",
+        "national_tax_id": "NATIONAL_TAX01",
+        "nationality": "s32c",
+        "object": "s32d",
+        "offboard_on": "s32e",
+        "phone_number": "s32f",
+        "platform_id": "PLATFORM01",
+        "sex_at_birth": "s331",
+        "start_on": "s332",
+        "status": "s333"
+      }
+    }
+  }
+}

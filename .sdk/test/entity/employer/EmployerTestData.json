@@ -1,0 +1,61 @@
+{
+  "existing": {
+    "employer": {
+      "EMPLOYER00": {
+        "contact": "s6e",
+        "earliest_benefits_start_date": "s6f",
+        "id": "EMPLOYER00",
+        "legal_address": "s71",
+        "legal_name": "s72",
+        "metadata": "s73",
+        "object": "s74",
+        "offboard_on": "s75",
+        "platform_id": "PLATFORM01",
+        "registration_number": "s77",
+        "status": "s78"
+      },
+      "EMPLOYER01": {
+        "contact": "sdc",
+        "earliest_benefits_start_date": "sdd",
+        "id": "EMPLOYER01",
+        "legal_address": "sdf",
+        "legal_name": "se0",
+        "metadata": "se1",
+        "object": "se2",
+        "offboard_on": "se3",
+        "platform_id": "PLATFORM01",
+        "registration_number": "se5",
+        "status": "se6"
+      },
+      "EMPLOYER02": {
+        "contact": "s14a",
+        "earliest_benefits_start_date": "s14b",
+        "id": "EMPLOYER02",
+        "legal_address": "s14d",
+        "legal_name": "s14e",
+        "metadata": "s14f",
+        "object": "s150",
+        "offboard_on": "s151",
+        "platform_id": "PLATFORM01",
+        "registration_number": "s153",
+        "status": "s154"
+      }
+    }
+  },
+  "new": {
+    "employer": {
+      "employer_ref01": {
+        "contact": "s1b8",
+        "earliest_benefits_start_date": "s1b9",
+        "legal_address": "s1bb",
+        "legal_name": "s1bc",
+        "metadata": "s1bd",
+        "object": "s1be",
+        "offboard_on": "s1bf",
+        "platform_id": "PLATFORM01",
+        "registration_number": "s1c1",
+        "status": "s1c2"
+      }
+    }
+  }
+}

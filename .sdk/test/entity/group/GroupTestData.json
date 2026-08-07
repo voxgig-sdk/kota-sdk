@@ -1,0 +1,61 @@
+{
+  "existing": {
+    "group": {
+      "GROUP00": {
+        "description": "s6e",
+        "employer_id": "EMPLOYER01",
+        "enrolment_type": "s70",
+        "group_policy_id": "GROUP_POLICY01",
+        "group_policy_intent_id": "GROUP_POLICY_INTENT01",
+        "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
+        "group_type": "s74",
+        "id": "GROUP00",
+        "name": "s76",
+        "object": "s77",
+        "status": "s78"
+      },
+      "GROUP01": {
+        "description": "sdc",
+        "employer_id": "EMPLOYER01",
+        "enrolment_type": "sde",
+        "group_policy_id": "GROUP_POLICY01",
+        "group_policy_intent_id": "GROUP_POLICY_INTENT01",
+        "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
+        "group_type": "se2",
+        "id": "GROUP01",
+        "name": "se4",
+        "object": "se5",
+        "status": "se6"
+      },
+      "GROUP02": {
+        "description": "s14a",
+        "employer_id": "EMPLOYER01",
+        "enrolment_type": "s14c",
+        "group_policy_id": "GROUP_POLICY01",
+        "group_policy_intent_id": "GROUP_POLICY_INTENT01",
+        "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
+        "group_type": "s150",
+        "id": "GROUP02",
+        "name": "s152",
+        "object": "s153",
+        "status": "s154"
+      }
+    }
+  },
+  "new": {
+    "group": {
+      "group_ref01": {
+        "description": "s1b8",
+        "employer_id": "EMPLOYER01",
+        "enrolment_type": "s1ba",
+        "group_policy_id": "GROUP_POLICY01",
+        "group_policy_intent_id": "GROUP_POLICY_INTENT01",
+        "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
+        "group_type": "s1be",
+        "name": "s1c0",
+        "object": "s1c1",
+        "status": "s1c2"
+      }
+    }
+  }
+}

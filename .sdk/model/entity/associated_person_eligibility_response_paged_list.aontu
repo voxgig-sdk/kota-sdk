@@ -1,0 +1,138 @@
+# Entity: associated_person_eligibility_response_paged_list
+
+main: kit: entity: associated_person_eligibility_response_paged_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "associated_person_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "date_of_birth"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "eligibility_status"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "first_name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "ineligibility_reason"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "last_name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "relationship"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "sex_at_birth"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  name: "associated_person_eligibility_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "dependents_management_intent_id"
+                orig: "dependents_management_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility"
+          parts: [
+            "dependents_management_intents"
+            "{dependents_management_intent_id}"
+            "associated_persons_eligibility"
+          ]
+          select: {
+            exist: [
+              "dependents_management_intent_id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "dependents_management_intent"
+      ]
+    ]
+  }
+
+
+
+}

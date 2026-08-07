@@ -1,0 +1,126 @@
+# Entity: group_quote
+
+main: kit: entity: group_quote: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "cost_sharing"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "currency"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "employee_count"
+      req: true
+      type: "`$INTEGER`"
+    }
+    {
+      name: "expires_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "generated_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "pdf_expires_at"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "pdf_url"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "total_monthly_premium"
+      req: true
+      type: "`$NUMBER`"
+    }
+  ]
+
+  name: "group_quote"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "group_quote_intent_id"
+                orig: "group_quote_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/group_quote_intents/{group_quote_intent_id}/quote"
+          parts: [
+            "group_quote_intents"
+            "{group_quote_intent_id}"
+            "quote"
+          ]
+          select: {
+            exist: [
+              "group_quote_intent_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "group_quote_intent"
+      ]
+    ]
+  }
+
+
+
+}

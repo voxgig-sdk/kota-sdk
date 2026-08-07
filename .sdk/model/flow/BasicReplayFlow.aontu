@@ -1,0 +1,22 @@
+# BasicReplayFlow
+
+main: kit: flow: BasicReplayFlow:
+{
+  entity: "replay",
+  kind: "basic",
+  name: "BasicReplayFlow",
+  step: [
+    {
+      input: {
+        ref: "replay_ref01"
+      }
+
+      match: {
+        event_id: "event01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicReplayFlow"
+}

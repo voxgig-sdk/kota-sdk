@@ -1,0 +1,71 @@
+# BasicEmployerFlow
+
+main: kit: flow: BasicEmployerFlow:
+{
+  entity: "employer",
+  kind: "basic",
+  name: "BasicEmployerFlow",
+  step: [
+    {
+      input: {
+        ref: "employer_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "employer_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "employer_ref01",
+        srcdatavar: "employer_ref01_data",
+        suffix: "_up0",
+        textfield: "legal_name"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employer_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "employer_ref01",
+        srcdatavar: "employer_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "employer01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employer_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEmployerFlow"
+}

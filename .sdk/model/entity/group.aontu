@@ -1,0 +1,279 @@
+# Entity: group
+
+main: kit: entity: group: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "description"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "employer_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "enrolment_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "group_policy_id"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "group_policy_intent_id"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "group_quote_intent_id"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "group_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/groups"
+          parts: [
+            "groups"
+          ]
+          select: {
+            exist: [
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "employer_id"
+                orig: "employer_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "status"
+                orig: "status"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/groups"
+          parts: [
+            "groups"
+          ]
+          select: {
+            exist: [
+              "employer_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "group_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/groups/{group_id}"
+          parts: [
+            "groups"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              group_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "group_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/groups/{group_id}"
+          parts: [
+            "groups"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              group_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

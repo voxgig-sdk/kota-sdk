@@ -1,0 +1,26 @@
+# BasicAssociatedPersonEligibilityResponsePagedListFlow
+
+main: kit: flow: BasicAssociatedPersonEligibilityResponsePagedListFlow:
+{
+  entity: "associated_person_eligibility_response_paged_list",
+  kind: "basic",
+  name: "BasicAssociatedPersonEligibilityResponsePagedListFlow",
+  step: [
+    {
+      match: {
+        dependents_management_intent_id: "dependents_management_intent01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "associated_person_eligibility_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAssociatedPersonEligibilityResponsePagedListFlow"
+}

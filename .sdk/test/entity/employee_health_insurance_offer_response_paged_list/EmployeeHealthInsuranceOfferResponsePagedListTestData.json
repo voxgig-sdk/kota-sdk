@@ -1,0 +1,49 @@
+{
+  "existing": {
+    "employee_health_insurance_offer_response_paged_list": {
+      "EMPLOYEE_HEALTH_INSURANCE_OFFER_RESPONSE_PAGED_LIST00": {
+        "coverage_level": "s50",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "id": "EMPLOYEE_HEALTH_INSURANCE_OFFER_RESPONSE_PAGED_LIST00",
+        "object": "s55",
+        "required_action": "s56",
+        "status": "s57"
+      },
+      "EMPLOYEE_HEALTH_INSURANCE_OFFER_RESPONSE_PAGED_LIST01": {
+        "coverage_level": "sa0",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "id": "EMPLOYEE_HEALTH_INSURANCE_OFFER_RESPONSE_PAGED_LIST01",
+        "object": "sa5",
+        "required_action": "sa6",
+        "status": "sa7"
+      },
+      "EMPLOYEE_HEALTH_INSURANCE_OFFER_RESPONSE_PAGED_LIST02": {
+        "coverage_level": "sf0",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "id": "EMPLOYEE_HEALTH_INSURANCE_OFFER_RESPONSE_PAGED_LIST02",
+        "object": "sf5",
+        "required_action": "sf6",
+        "status": "sf7"
+      }
+    }
+  },
+  "new": {
+    "employee_health_insurance_offer_response_paged_list": {
+      "employee_health_insurance_offer_response_paged_list_ref01": {
+        "coverage_level": "s140",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "object": "s145",
+        "required_action": "s146",
+        "status": "s147"
+      }
+    }
+  }
+}

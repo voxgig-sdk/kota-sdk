@@ -1,0 +1,65 @@
+{
+  "existing": {
+    "employer_health_insurance_policy": {
+      "EMPLOYER_HEALTH_INSURANCE_POLICY00": {
+        "cancellation_date": "s78",
+        "coverage_level": [],
+        "employer_cancellation_period_length": "s7a",
+        "employer_id": "EMPLOYER01",
+        "end_date": "s7c",
+        "enrolment_type": "s7d",
+        "group_policy_number": "s7e",
+        "id": "EMPLOYER_HEALTH_INSURANCE_POLICY00",
+        "object": "s80",
+        "renewal": "s81",
+        "start_date": "s82",
+        "status": "s83"
+      },
+      "EMPLOYER_HEALTH_INSURANCE_POLICY01": {
+        "cancellation_date": "sf0",
+        "coverage_level": [],
+        "employer_cancellation_period_length": "sf2",
+        "employer_id": "EMPLOYER01",
+        "end_date": "sf4",
+        "enrolment_type": "sf5",
+        "group_policy_number": "sf6",
+        "id": "EMPLOYER_HEALTH_INSURANCE_POLICY01",
+        "object": "sf8",
+        "renewal": "sf9",
+        "start_date": "sfa",
+        "status": "sfb"
+      },
+      "EMPLOYER_HEALTH_INSURANCE_POLICY02": {
+        "cancellation_date": "s168",
+        "coverage_level": [],
+        "employer_cancellation_period_length": "s16a",
+        "employer_id": "EMPLOYER01",
+        "end_date": "s16c",
+        "enrolment_type": "s16d",
+        "group_policy_number": "s16e",
+        "id": "EMPLOYER_HEALTH_INSURANCE_POLICY02",
+        "object": "s170",
+        "renewal": "s171",
+        "start_date": "s172",
+        "status": "s173"
+      }
+    }
+  },
+  "new": {
+    "employer_health_insurance_policy": {
+      "employer_health_insurance_policy_ref01": {
+        "cancellation_date": "s1e0",
+        "coverage_level": [],
+        "employer_cancellation_period_length": "s1e2",
+        "employer_id": "EMPLOYER01",
+        "end_date": "s1e4",
+        "enrolment_type": "s1e5",
+        "group_policy_number": "s1e6",
+        "object": "s1e8",
+        "renewal": "s1e9",
+        "start_date": "s1ea",
+        "status": "s1eb"
+      }
+    }
+  }
+}

@@ -1,0 +1,374 @@
+# Entity: policy_amendment_intent
+
+main: kit: entity: policy_amendment_intent: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "amendment_reason"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "disclosure"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "pending_confirmation"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "policy_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "processing_error"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "requested_change"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "required_action"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "policy_amendment_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "policy_id"
+                orig: "policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/policies/{policy_id}/policy_amendment_intents/{id}/cancel"
+          parts: [
+            "policies"
+            "{policy_id}"
+            "policy_amendment_intents"
+            "{id}"
+            "cancel"
+          ]
+          select: {
+            "$action": "cancel"
+            exist: [
+              "id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "policy_amendment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "policy_id"
+                orig: "policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm"
+          parts: [
+            "policies"
+            "{policy_id}"
+            "policy_amendment_intents"
+            "{id}"
+            "confirm"
+          ]
+          rename: {
+            param: {
+              policy_amendment_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "confirm"
+            exist: [
+              "id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/policies/{policy_id}/policy_amendment_intents"
+          parts: [
+            "policies"
+            "{id}"
+            "policy_amendment_intents"
+          ]
+          rename: {
+            param: {
+              policy_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "status"
+                orig: "status"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/policies/{policy_id}/policy_amendment_intents"
+          parts: [
+            "policies"
+            "{id}"
+            "policy_amendment_intents"
+          ]
+          rename: {
+            param: {
+              policy_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "policy_amendment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "policy_id"
+                orig: "policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}"
+          parts: [
+            "policies"
+            "{policy_id}"
+            "policy_amendment_intents"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              policy_amendment_intent_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "policy"
+      ]
+    ]
+  }
+
+
+
+}

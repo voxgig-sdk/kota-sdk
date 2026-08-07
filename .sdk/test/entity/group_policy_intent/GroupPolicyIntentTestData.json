@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "group_policy_intent": {
+      "GROUP_POLICY_INTENT00": {
+        "action_required": "s64",
+        "cost_sharing": "s65",
+        "disclosure": [],
+        "due_date": "s67",
+        "group_id": "GROUP01",
+        "id": "GROUP_POLICY_INTENT00",
+        "object": "s6a",
+        "plan_id": "PLAN01",
+        "quote_intent_id": "QUOTE_INTENT01",
+        "status": "s6d"
+      },
+      "GROUP_POLICY_INTENT01": {
+        "action_required": "sc8",
+        "cost_sharing": "sc9",
+        "disclosure": [],
+        "due_date": "scb",
+        "group_id": "GROUP01",
+        "id": "GROUP_POLICY_INTENT01",
+        "object": "sce",
+        "plan_id": "PLAN01",
+        "quote_intent_id": "QUOTE_INTENT01",
+        "status": "sd1"
+      },
+      "GROUP_POLICY_INTENT02": {
+        "action_required": "s12c",
+        "cost_sharing": "s12d",
+        "disclosure": [],
+        "due_date": "s12f",
+        "group_id": "GROUP01",
+        "id": "GROUP_POLICY_INTENT02",
+        "object": "s132",
+        "plan_id": "PLAN01",
+        "quote_intent_id": "QUOTE_INTENT01",
+        "status": "s135"
+      }
+    }
+  },
+  "new": {
+    "group_policy_intent": {
+      "group_policy_intent_ref01": {
+        "action_required": "s190",
+        "cost_sharing": "s191",
+        "disclosure": [],
+        "due_date": "s193",
+        "group_id": "GROUP01",
+        "object": "s196",
+        "plan_id": "PLAN01",
+        "quote_intent_id": "QUOTE_INTENT01",
+        "status": "s199"
+      }
+    }
+  }
+}

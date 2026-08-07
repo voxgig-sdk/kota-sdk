@@ -1,0 +1,33 @@
+# BasicContributionReportEmployeeBreakdownFlow
+
+main: kit: flow: BasicContributionReportEmployeeBreakdownFlow:
+{
+  entity: "contribution_report_employee_breakdown",
+  kind: "basic",
+  name: "BasicContributionReportEmployeeBreakdownFlow",
+  step: [
+    {
+      input: {
+        ref: "contribution_report_employee_breakdown_ref01",
+        srcdatavar: "contribution_report_employee_breakdown_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        contribution_report_id: "contribution_report01",
+        id: "contribution_report_employee_breakdown01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-contribution_report_employee_breakdown_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContributionReportEmployeeBreakdownFlow"
+}

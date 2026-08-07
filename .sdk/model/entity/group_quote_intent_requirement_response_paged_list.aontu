@@ -1,0 +1,136 @@
+# Entity: group_quote_intent_requirement_response_paged_list
+
+main: kit: entity: group_quote_intent_requirement_response_paged_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "is_fulfilled"
+      req: true
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "object_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "requirement_type"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_quote_intent_requirement_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "group_quote_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "object_id"
+                orig: "object_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "object_type"
+                orig: "object_type"
+                reqd: false
+                type: "`$ANY`"
+              }
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/group_quote_intents/{group_quote_intent_id}/requirements"
+          parts: [
+            "group_quote_intents"
+            "{id}"
+            "requirements"
+          ]
+          rename: {
+            param: {
+              group_quote_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "requirements"
+            exist: [
+              "id"
+              "object_id"
+              "object_type"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

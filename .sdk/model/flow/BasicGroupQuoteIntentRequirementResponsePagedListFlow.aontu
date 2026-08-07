@@ -1,0 +1,26 @@
+# BasicGroupQuoteIntentRequirementResponsePagedListFlow
+
+main: kit: flow: BasicGroupQuoteIntentRequirementResponsePagedListFlow:
+{
+  entity: "group_quote_intent_requirement_response_paged_list",
+  kind: "basic",
+  name: "BasicGroupQuoteIntentRequirementResponsePagedListFlow",
+  step: [
+    {
+      match: {
+        group_quote_intent_id: "group_quote_intent01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "group_quote_intent_requirement_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGroupQuoteIntentRequirementResponsePagedListFlow"
+}

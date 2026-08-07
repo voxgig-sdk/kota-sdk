@@ -1,0 +1,33 @@
+# BasicEmployerHealthInsuranceQuoteFlow
+
+main: kit: flow: BasicEmployerHealthInsuranceQuoteFlow:
+{
+  entity: "employer_health_insurance_quote",
+  kind: "basic",
+  name: "BasicEmployerHealthInsuranceQuoteFlow",
+  step: [
+    {
+      input: {
+        ref: "employer_health_insurance_quote_ref01",
+        srcdatavar: "employer_health_insurance_quote_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        employer_id: "employer01",
+        id: "employer_health_insurance_quote01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employer_health_insurance_quote_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEmployerHealthInsuranceQuoteFlow"
+}

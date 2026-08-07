@@ -1,0 +1,41 @@
+{
+  "existing": {
+    "event": {
+      "EVENT00": {
+        "api_version": "s3c",
+        "created": "s3d",
+        "data": "s3e",
+        "id": "EVENT00",
+        "platform_id": "PLATFORM01",
+        "type": "s41"
+      },
+      "EVENT01": {
+        "api_version": "s78",
+        "created": "s79",
+        "data": "s7a",
+        "id": "EVENT01",
+        "platform_id": "PLATFORM01",
+        "type": "s7d"
+      },
+      "EVENT02": {
+        "api_version": "sb4",
+        "created": "sb5",
+        "data": "sb6",
+        "id": "EVENT02",
+        "platform_id": "PLATFORM01",
+        "type": "sb9"
+      }
+    }
+  },
+  "new": {
+    "event": {
+      "event_ref01": {
+        "api_version": "sf0",
+        "created": "sf1",
+        "data": "sf2",
+        "platform_id": "PLATFORM01",
+        "type": "sf5"
+      }
+    }
+  }
+}

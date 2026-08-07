@@ -1,0 +1,89 @@
+{
+  "existing": {
+    "plan": {
+      "PLAN00": {
+        "available_from": "sb4",
+        "available_to": "sb5",
+        "country": "sb6",
+        "coverage_option": "sb7",
+        "description": "sb8",
+        "disclosure": [],
+        "document": [],
+        "eligible_count": "sbb",
+        "employee_eligibility_criterion": [],
+        "employer_eligibility_criterion": [],
+        "health_insurance": "sbe",
+        "id": "PLAN00",
+        "ineligible_count": "sc0",
+        "name": "sc1",
+        "object": "sc2",
+        "provider": "sc3",
+        "total_count": "sc4",
+        "type": "sc5"
+      },
+      "PLAN01": {
+        "available_from": "s168",
+        "available_to": "s169",
+        "country": "s16a",
+        "coverage_option": "s16b",
+        "description": "s16c",
+        "disclosure": [],
+        "document": [],
+        "eligible_count": "s16f",
+        "employee_eligibility_criterion": [],
+        "employer_eligibility_criterion": [],
+        "health_insurance": "s172",
+        "id": "PLAN01",
+        "ineligible_count": "s174",
+        "name": "s175",
+        "object": "s176",
+        "provider": "s177",
+        "total_count": "s178",
+        "type": "s179"
+      },
+      "PLAN02": {
+        "available_from": "s21c",
+        "available_to": "s21d",
+        "country": "s21e",
+        "coverage_option": "s21f",
+        "description": "s220",
+        "disclosure": [],
+        "document": [],
+        "eligible_count": "s223",
+        "employee_eligibility_criterion": [],
+        "employer_eligibility_criterion": [],
+        "health_insurance": "s226",
+        "id": "PLAN02",
+        "ineligible_count": "s228",
+        "name": "s229",
+        "object": "s22a",
+        "provider": "s22b",
+        "total_count": "s22c",
+        "type": "s22d"
+      }
+    }
+  },
+  "new": {
+    "plan": {
+      "plan_ref01": {
+        "available_from": "s2d0",
+        "available_to": "s2d1",
+        "country": "s2d2",
+        "coverage_option": "s2d3",
+        "description": "s2d4",
+        "disclosure": [],
+        "document": [],
+        "eligible_count": "s2d7",
+        "employee_eligibility_criterion": [],
+        "employer_eligibility_criterion": [],
+        "health_insurance": "s2da",
+        "ineligible_count": "s2dc",
+        "name": "s2dd",
+        "object": "s2de",
+        "provider": "s2df",
+        "total_count": "s2e0",
+        "type": "s2e1"
+      }
+    }
+  }
+}

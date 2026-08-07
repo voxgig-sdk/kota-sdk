@@ -1,0 +1,53 @@
+{
+  "existing": {
+    "contribution_report": {
+      "CONTRIBUTION_REPORT00": {
+        "created_at": "s5a",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "s5d",
+        "id": "CONTRIBUTION_REPORT00",
+        "last_updated_at": "s5f",
+        "object": "s60",
+        "period": "s61",
+        "status": "s62"
+      },
+      "CONTRIBUTION_REPORT01": {
+        "created_at": "sb4",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "sb7",
+        "id": "CONTRIBUTION_REPORT01",
+        "last_updated_at": "sb9",
+        "object": "sba",
+        "period": "sbb",
+        "status": "sbc"
+      },
+      "CONTRIBUTION_REPORT02": {
+        "created_at": "s10e",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "s111",
+        "id": "CONTRIBUTION_REPORT02",
+        "last_updated_at": "s113",
+        "object": "s114",
+        "period": "s115",
+        "status": "s116"
+      }
+    }
+  },
+  "new": {
+    "contribution_report": {
+      "contribution_report_ref01": {
+        "created_at": "s168",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "s16b",
+        "last_updated_at": "s16d",
+        "object": "s16e",
+        "period": "s16f",
+        "status": "s170"
+      }
+    }
+  }
+}

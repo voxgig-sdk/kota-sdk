@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "policy_amendment_intent": {
+      "POLICY_AMENDMENT_INTENT00": {
+        "amendment_reason": "s64",
+        "disclosure": [],
+        "id": "POLICY_AMENDMENT_INTENT00",
+        "object": "s67",
+        "pending_confirmation": "s68",
+        "policy_id": "POLICY01",
+        "processing_error": "s6a",
+        "requested_change": [],
+        "required_action": "s6c",
+        "status": "s6d"
+      },
+      "POLICY_AMENDMENT_INTENT01": {
+        "amendment_reason": "sc8",
+        "disclosure": [],
+        "id": "POLICY_AMENDMENT_INTENT01",
+        "object": "scb",
+        "pending_confirmation": "scc",
+        "policy_id": "POLICY01",
+        "processing_error": "sce",
+        "requested_change": [],
+        "required_action": "sd0",
+        "status": "sd1"
+      },
+      "POLICY_AMENDMENT_INTENT02": {
+        "amendment_reason": "s12c",
+        "disclosure": [],
+        "id": "POLICY_AMENDMENT_INTENT02",
+        "object": "s12f",
+        "pending_confirmation": "s130",
+        "policy_id": "POLICY01",
+        "processing_error": "s132",
+        "requested_change": [],
+        "required_action": "s134",
+        "status": "s135"
+      }
+    }
+  },
+  "new": {
+    "policy_amendment_intent": {
+      "policy_amendment_intent_ref01": {
+        "amendment_reason": "s190",
+        "disclosure": [],
+        "object": "s193",
+        "pending_confirmation": "s194",
+        "policy_id": "POLICY01",
+        "processing_error": "s196",
+        "requested_change": [],
+        "required_action": "s198",
+        "status": "s199"
+      }
+    }
+  }
+}

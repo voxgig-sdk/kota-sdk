@@ -1,0 +1,162 @@
+# Entity: employer_health_insurance_policy
+
+main: kit: entity: employer_health_insurance_policy: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "cancellation_date"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "coverage_level"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "employer_cancellation_period_length"
+      req: true
+      type: "`$INTEGER`"
+    }
+    {
+      name: "employer_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "end_date"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "enrolment_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "group_policy_number"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "renewal"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "start_date"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employer_health_insurance_policy"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employer_id"
+                orig: "employer_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "employer_policy_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}"
+          parts: [
+            "employers"
+            "{employer_id}"
+            "health_insurance"
+            "policies"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              employer_policy_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "employer_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "employer"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,41 @@
+{
+  "existing": {
+    "group_policy_intent_requirement_response_paged_list": {
+      "GROUP_POLICY_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST00": {
+        "id": "GROUP_POLICY_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST00",
+        "is_fulfilled": false,
+        "object": "s3e",
+        "object_id": "OBJECT01",
+        "object_type": "s40",
+        "requirement_type": "s41"
+      },
+      "GROUP_POLICY_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST01": {
+        "id": "GROUP_POLICY_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST01",
+        "is_fulfilled": false,
+        "object": "s7a",
+        "object_id": "OBJECT01",
+        "object_type": "s7c",
+        "requirement_type": "s7d"
+      },
+      "GROUP_POLICY_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST02": {
+        "id": "GROUP_POLICY_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST02",
+        "is_fulfilled": false,
+        "object": "sb6",
+        "object_id": "OBJECT01",
+        "object_type": "sb8",
+        "requirement_type": "sb9"
+      }
+    }
+  },
+  "new": {
+    "group_policy_intent_requirement_response_paged_list": {
+      "group_policy_intent_requirement_response_paged_list_ref01": {
+        "is_fulfilled": false,
+        "object": "sf2",
+        "object_id": "OBJECT01",
+        "object_type": "sf4",
+        "requirement_type": "sf5"
+      }
+    }
+  }
+}

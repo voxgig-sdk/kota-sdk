@@ -1,0 +1,198 @@
+# Entity: dependent
+
+main: kit: entity: dependent: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "action_required"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "coverage_option"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    {
+      name: "dependent"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "disclosure"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "parent_intent_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "parent_intent_type"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "plan"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "dependent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "idempotency_key"
+                orig: "idempotency_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "dependents_management_intent_id"
+                orig: "dependents_management_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/dependents_management_intents/{dependents_management_intent_id}/dependents"
+          parts: [
+            "dependents_management_intents"
+            "{dependents_management_intent_id}"
+            "dependents"
+          ]
+          select: {
+            exist: [
+              "dependents_management_intent_id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "dependents_management_intent_id"
+                orig: "dependents_management_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "associated_person_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}"
+          parts: [
+            "dependents_management_intents"
+            "{dependents_management_intent_id}"
+            "dependents"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "dependents_management_intent_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "dependents_management_intent"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,26 @@
+# BasicEnrolmentIntentRequirementResponsePagedListFlow
+
+main: kit: flow: BasicEnrolmentIntentRequirementResponsePagedListFlow:
+{
+  entity: "enrolment_intent_requirement_response_paged_list",
+  kind: "basic",
+  name: "BasicEnrolmentIntentRequirementResponsePagedListFlow",
+  step: [
+    {
+      match: {
+        enrolment_intent_id: "enrolment_intent01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "enrolment_intent_requirement_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEnrolmentIntentRequirementResponsePagedListFlow"
+}

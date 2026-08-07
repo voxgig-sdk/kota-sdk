@@ -1,0 +1,69 @@
+{
+  "existing": {
+    "group_policy": {
+      "GROUP_POLICY00": {
+        "cancellation_date": "s82",
+        "disclosure": [],
+        "employer_id": "EMPLOYER01",
+        "end_date": "s85",
+        "group_id": "GROUP01",
+        "health_insurance": "s87",
+        "id": "GROUP_POLICY00",
+        "object": "s89",
+        "plan": "s8a",
+        "provider": "s8b",
+        "start_date": "s8c",
+        "status": "s8d",
+        "type": "s8e"
+      },
+      "GROUP_POLICY01": {
+        "cancellation_date": "s104",
+        "disclosure": [],
+        "employer_id": "EMPLOYER01",
+        "end_date": "s107",
+        "group_id": "GROUP01",
+        "health_insurance": "s109",
+        "id": "GROUP_POLICY01",
+        "object": "s10b",
+        "plan": "s10c",
+        "provider": "s10d",
+        "start_date": "s10e",
+        "status": "s10f",
+        "type": "s110"
+      },
+      "GROUP_POLICY02": {
+        "cancellation_date": "s186",
+        "disclosure": [],
+        "employer_id": "EMPLOYER01",
+        "end_date": "s189",
+        "group_id": "GROUP01",
+        "health_insurance": "s18b",
+        "id": "GROUP_POLICY02",
+        "object": "s18d",
+        "plan": "s18e",
+        "provider": "s18f",
+        "start_date": "s190",
+        "status": "s191",
+        "type": "s192"
+      }
+    }
+  },
+  "new": {
+    "group_policy": {
+      "group_policy_ref01": {
+        "cancellation_date": "s208",
+        "disclosure": [],
+        "employer_id": "EMPLOYER01",
+        "end_date": "s20b",
+        "group_id": "GROUP01",
+        "health_insurance": "s20d",
+        "object": "s20f",
+        "plan": "s210",
+        "provider": "s211",
+        "start_date": "s212",
+        "status": "s213",
+        "type": "s214"
+      }
+    }
+  }
+}

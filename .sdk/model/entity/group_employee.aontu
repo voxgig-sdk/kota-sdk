@@ -1,0 +1,141 @@
+# Entity: group_employee
+
+main: kit: entity: group_employee: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "desired_policy_start_date"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "eligibility_status"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "enrolment"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "enrolment_date"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "enrolment_status"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "group_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "policy"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "scheduled_group_transition"
+      req: true
+      type: "`$ARRAY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_employee"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "idempotency_key"
+                orig: "idempotency_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "group_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/groups/{group_id}/employees"
+          parts: [
+            "groups"
+            "{id}"
+            "employees"
+          ]
+          rename: {
+            param: {
+              group_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

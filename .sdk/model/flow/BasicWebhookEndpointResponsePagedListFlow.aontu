@@ -1,0 +1,22 @@
+# BasicWebhookEndpointResponsePagedListFlow
+
+main: kit: flow: BasicWebhookEndpointResponsePagedListFlow:
+{
+  entity: "webhook_endpoint_response_paged_list",
+  kind: "basic",
+  name: "BasicWebhookEndpointResponsePagedListFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "webhook_endpoint_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicWebhookEndpointResponsePagedListFlow"
+}

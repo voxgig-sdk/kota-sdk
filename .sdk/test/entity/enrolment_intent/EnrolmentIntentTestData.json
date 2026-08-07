@@ -1,0 +1,65 @@
+{
+  "existing": {
+    "enrolment_intent": {
+      "ENROLMENT_INTENT00": {
+        "action_required": "s78",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "force_confirmation": false,
+        "group_id": "GROUP01",
+        "id": "ENROLMENT_INTENT00",
+        "ineligibility_reason": "s7e",
+        "object": "s7f",
+        "pending_confirmation": "s80",
+        "policy_configuration": "s81",
+        "policy_enrolment": [],
+        "status": "s83"
+      },
+      "ENROLMENT_INTENT01": {
+        "action_required": "sf0",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "force_confirmation": false,
+        "group_id": "GROUP01",
+        "id": "ENROLMENT_INTENT01",
+        "ineligibility_reason": "sf6",
+        "object": "sf7",
+        "pending_confirmation": "sf8",
+        "policy_configuration": "sf9",
+        "policy_enrolment": [],
+        "status": "sfb"
+      },
+      "ENROLMENT_INTENT02": {
+        "action_required": "s168",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "force_confirmation": false,
+        "group_id": "GROUP01",
+        "id": "ENROLMENT_INTENT02",
+        "ineligibility_reason": "s16e",
+        "object": "s16f",
+        "pending_confirmation": "s170",
+        "policy_configuration": "s171",
+        "policy_enrolment": [],
+        "status": "s173"
+      }
+    }
+  },
+  "new": {
+    "enrolment_intent": {
+      "enrolment_intent_ref01": {
+        "action_required": "s1e0",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "force_confirmation": false,
+        "group_id": "GROUP01",
+        "ineligibility_reason": "s1e6",
+        "object": "s1e7",
+        "pending_confirmation": "s1e8",
+        "policy_configuration": "s1e9",
+        "policy_enrolment": [],
+        "status": "s1eb"
+      }
+    }
+  }
+}

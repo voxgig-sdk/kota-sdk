@@ -1,0 +1,136 @@
+# Entity: employer_health_insurance_quote_response_paged_list
+
+main: kit: entity: employer_health_insurance_quote_response_paged_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "coverage_level"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "employer_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "quoted_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "required_action"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employer_health_insurance_quote_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employer_id"
+                orig: "employer_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "status"
+                orig: "status"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/employers/{employer_id}/health_insurance/quotes"
+          parts: [
+            "employers"
+            "{employer_id}"
+            "health_insurance"
+            "quotes"
+          ]
+          select: {
+            exist: [
+              "employer_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "employer"
+      ]
+    ]
+  }
+
+
+
+}

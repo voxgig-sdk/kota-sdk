@@ -1,0 +1,52 @@
+# BasicPolicyImportIntentFlow
+
+main: kit: flow: BasicPolicyImportIntentFlow:
+{
+  entity: "policy_import_intent",
+  kind: "basic",
+  name: "BasicPolicyImportIntentFlow",
+  step: [
+    {
+      input: {
+        ref: "policy_import_intent_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "policy_import_intent_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "policy_import_intent_ref01",
+        srcdatavar: "policy_import_intent_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "policy_import_intent01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-policy_import_intent_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPolicyImportIntentFlow"
+}

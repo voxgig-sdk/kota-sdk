@@ -1,0 +1,94 @@
+# Entity: eligibility_check
+
+main: kit: entity: eligibility_check: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "eligibility_status"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "plan"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "provider"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "reason"
+      req: true
+      type: "`$ARRAY`"
+    }
+  ]
+
+  name: "eligibility_check"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "group_id"
+                orig: "group_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/groups/{group_id}/eligibility_check"
+          parts: [
+            "groups"
+            "{group_id}"
+            "eligibility_check"
+          ]
+          select: {
+            exist: [
+              "group_id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "group"
+      ]
+    ]
+  }
+
+
+
+}

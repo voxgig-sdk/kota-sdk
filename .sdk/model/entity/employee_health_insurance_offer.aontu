@@ -1,0 +1,136 @@
+# Entity: employee_health_insurance_offer
+
+main: kit: entity: employee_health_insurance_offer: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "coverage_level"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "employee_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "employer_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "external_customer_id"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "required_action"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employee_health_insurance_offer"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "eeho_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "employee_offer_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}"
+          parts: [
+            "employees"
+            "{employee_id}"
+            "health_insurance"
+            "offers"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              employee_offer_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "employee"
+      ]
+    ]
+  }
+
+
+
+}

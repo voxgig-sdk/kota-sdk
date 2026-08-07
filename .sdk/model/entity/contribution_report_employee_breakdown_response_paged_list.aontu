@@ -1,0 +1,157 @@
+# Entity: contribution_report_employee_breakdown_response_paged_list
+
+main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "contribution_report_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "created_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "currency"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "employee_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "employer_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "external_customer_id"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "finalized_at"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "health_insurance"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "last_updated_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "period"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  name: "contribution_report_employee_breakdown_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "contribution_report_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/contribution_reports/{contribution_report_id}/employee_breakdowns"
+          parts: [
+            "contribution_reports"
+            "{id}"
+            "employee_breakdowns"
+          ]
+          rename: {
+            param: {
+              contribution_report_id: "id"
+            }
+          }
+          select: {
+            "$action": "employee_breakdowns"
+            exist: [
+              "id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

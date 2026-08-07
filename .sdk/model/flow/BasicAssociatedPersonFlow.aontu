@@ -1,0 +1,118 @@
+# BasicAssociatedPersonFlow
+
+main: kit: flow: BasicAssociatedPersonFlow:
+{
+  entity: "associated_person",
+  kind: "basic",
+  name: "BasicAssociatedPersonFlow",
+  step: [
+    {
+      input: {
+        ref: "associated_person_ref01"
+      }
+
+      match: {
+        employee_id: "employee01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        employee_id: "employee01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "associated_person_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      data: {
+        employee_id: "employee01"
+      }
+
+      input: {
+        ref: "associated_person_ref01",
+        srcdatavar: "associated_person_ref01_data",
+        suffix: "_up0",
+        textfield: "date_of_birth"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-associated_person_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "associated_person_ref01",
+        srcdatavar: "associated_person_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        employee_id: "employee01",
+        id: "associated_person01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-associated_person_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "associated_person_ref01",
+        suffix: "_rm0"
+      }
+
+      match: {
+        employee_id: "employee01",
+        id: "associated_person01"
+      }
+
+      op: "remove"
+    }
+
+    {
+      input: {
+        suffix: "_rt0"
+      }
+
+      match: {
+        employee_id: "employee01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "associated_person_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAssociatedPersonFlow"
+}

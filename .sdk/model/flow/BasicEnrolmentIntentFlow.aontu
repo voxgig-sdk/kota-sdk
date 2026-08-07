@@ -1,0 +1,71 @@
+# BasicEnrolmentIntentFlow
+
+main: kit: flow: BasicEnrolmentIntentFlow:
+{
+  entity: "enrolment_intent",
+  kind: "basic",
+  name: "BasicEnrolmentIntentFlow",
+  step: [
+    {
+      input: {
+        ref: "enrolment_intent_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "enrolment_intent_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "enrolment_intent_ref01",
+        srcdatavar: "enrolment_intent_ref01_data",
+        suffix: "_up0",
+        textfield: "employee_id"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-enrolment_intent_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "enrolment_intent_ref01",
+        srcdatavar: "enrolment_intent_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "enrolment_intent01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-enrolment_intent_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEnrolmentIntentFlow"
+}

@@ -1,0 +1,44 @@
+{
+  "existing": {
+    "eligibility_check": {
+      "ELIGIBILITY_CHECK00": {
+        "eligibility_status": "s32",
+        "object": "s33",
+        "plan": "s34",
+        "provider": "s35",
+        "reason": [],
+        "group_id": "GROUP01",
+        "id": "ELIGIBILITY_CHECK00"
+      },
+      "ELIGIBILITY_CHECK01": {
+        "eligibility_status": "s64",
+        "object": "s65",
+        "plan": "s66",
+        "provider": "s67",
+        "reason": [],
+        "group_id": "GROUP01",
+        "id": "ELIGIBILITY_CHECK01"
+      },
+      "ELIGIBILITY_CHECK02": {
+        "eligibility_status": "s96",
+        "object": "s97",
+        "plan": "s98",
+        "provider": "s99",
+        "reason": [],
+        "group_id": "GROUP01",
+        "id": "ELIGIBILITY_CHECK02"
+      }
+    }
+  },
+  "new": {
+    "eligibility_check": {
+      "eligibility_check_ref01": {
+        "eligibility_status": "sc8",
+        "object": "sc9",
+        "plan": "sca",
+        "provider": "scb",
+        "reason": []
+      }
+    }
+  }
+}

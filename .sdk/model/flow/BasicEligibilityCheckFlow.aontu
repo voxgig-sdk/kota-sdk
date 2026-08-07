@@ -1,0 +1,22 @@
+# BasicEligibilityCheckFlow
+
+main: kit: flow: BasicEligibilityCheckFlow:
+{
+  entity: "eligibility_check",
+  kind: "basic",
+  name: "BasicEligibilityCheckFlow",
+  step: [
+    {
+      input: {
+        ref: "eligibility_check_ref01"
+      }
+
+      match: {
+        group_id: "group01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicEligibilityCheckFlow"
+}

@@ -1,0 +1,234 @@
+# Entity: policy_import_intent
+
+main: kit: entity: policy_import_intent: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "associated_person"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "employee_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "group_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "member_number"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "policy_end_date"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "policy_start_date"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "provider_policy_number"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "policy_import_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/policy_import_intents"
+          parts: [
+            "policy_import_intents"
+          ]
+          select: {
+            exist: [
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "group_id"
+                orig: "group_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "status"
+                orig: "status"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/policy_import_intents"
+          parts: [
+            "policy_import_intents"
+          ]
+          select: {
+            exist: [
+              "employee_id"
+              "group_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "pii_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "policy_import_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/policy_import_intents/{policy_import_intent_id}"
+          parts: [
+            "policy_import_intents"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              policy_import_intent_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

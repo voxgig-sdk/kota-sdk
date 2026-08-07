@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "provider": {
+      "PROVIDER00": {
+        "description": "s64",
+        "employer_platform_url": "s65",
+        "id": "PROVIDER00",
+        "kota_hub_url": "s67",
+        "logo_url": "s68",
+        "name": "s69",
+        "object": "s6a",
+        "support_phone": "s6b",
+        "supported_country": [],
+        "website_url": "s6d"
+      },
+      "PROVIDER01": {
+        "description": "sc8",
+        "employer_platform_url": "sc9",
+        "id": "PROVIDER01",
+        "kota_hub_url": "scb",
+        "logo_url": "scc",
+        "name": "scd",
+        "object": "sce",
+        "support_phone": "scf",
+        "supported_country": [],
+        "website_url": "sd1"
+      },
+      "PROVIDER02": {
+        "description": "s12c",
+        "employer_platform_url": "s12d",
+        "id": "PROVIDER02",
+        "kota_hub_url": "s12f",
+        "logo_url": "s130",
+        "name": "s131",
+        "object": "s132",
+        "support_phone": "s133",
+        "supported_country": [],
+        "website_url": "s135"
+      }
+    }
+  },
+  "new": {
+    "provider": {
+      "provider_ref01": {
+        "description": "s190",
+        "employer_platform_url": "s191",
+        "kota_hub_url": "s193",
+        "logo_url": "s194",
+        "name": "s195",
+        "object": "s196",
+        "support_phone": "s197",
+        "supported_country": [],
+        "website_url": "s199"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# BasicGroupPolicyIntentRequirementResponsePagedListFlow
+
+main: kit: flow: BasicGroupPolicyIntentRequirementResponsePagedListFlow:
+{
+  entity: "group_policy_intent_requirement_response_paged_list",
+  kind: "basic",
+  name: "BasicGroupPolicyIntentRequirementResponsePagedListFlow",
+  step: [
+    {
+      match: {
+        group_policy_intent_id: "group_policy_intent01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "group_policy_intent_requirement_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGroupPolicyIntentRequirementResponsePagedListFlow"
+}

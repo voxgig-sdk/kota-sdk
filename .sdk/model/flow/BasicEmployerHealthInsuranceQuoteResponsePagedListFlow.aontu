@@ -1,0 +1,26 @@
+# BasicEmployerHealthInsuranceQuoteResponsePagedListFlow
+
+main: kit: flow: BasicEmployerHealthInsuranceQuoteResponsePagedListFlow:
+{
+  entity: "employer_health_insurance_quote_response_paged_list",
+  kind: "basic",
+  name: "BasicEmployerHealthInsuranceQuoteResponsePagedListFlow",
+  step: [
+    {
+      match: {
+        employer_id: "employer01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "employer_health_insurance_quote_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEmployerHealthInsuranceQuoteResponsePagedListFlow"
+}

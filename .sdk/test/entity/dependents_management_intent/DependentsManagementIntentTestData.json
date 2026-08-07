@@ -1,0 +1,66 @@
+{
+  "existing": {
+    "dependents_management_intent": {
+      "DEPENDENTS_MANAGEMENT_INTENT00": {
+        "action_required": "s64",
+        "coverage_option": "s65",
+        "dependent": [],
+        "disclosure": [],
+        "id": "DEPENDENTS_MANAGEMENT_INTENT00",
+        "object": "s69",
+        "parent_intent_id": "PARENT_INTENT01",
+        "parent_intent_type": "s6b",
+        "plan": "s6c",
+        "status": "s6d",
+        "policy_amendment_intent_id": "POLICY_AMENDMENT_INTENT01",
+        "policy_id": "POLICY01",
+        "enrolment_intent_id": "ENROLMENT_INTENT01"
+      },
+      "DEPENDENTS_MANAGEMENT_INTENT01": {
+        "action_required": "sc8",
+        "coverage_option": "sc9",
+        "dependent": [],
+        "disclosure": [],
+        "id": "DEPENDENTS_MANAGEMENT_INTENT01",
+        "object": "scd",
+        "parent_intent_id": "PARENT_INTENT01",
+        "parent_intent_type": "scf",
+        "plan": "sd0",
+        "status": "sd1",
+        "policy_amendment_intent_id": "POLICY_AMENDMENT_INTENT01",
+        "policy_id": "POLICY01",
+        "enrolment_intent_id": "ENROLMENT_INTENT01"
+      },
+      "DEPENDENTS_MANAGEMENT_INTENT02": {
+        "action_required": "s12c",
+        "coverage_option": "s12d",
+        "dependent": [],
+        "disclosure": [],
+        "id": "DEPENDENTS_MANAGEMENT_INTENT02",
+        "object": "s131",
+        "parent_intent_id": "PARENT_INTENT01",
+        "parent_intent_type": "s133",
+        "plan": "s134",
+        "status": "s135",
+        "policy_amendment_intent_id": "POLICY_AMENDMENT_INTENT01",
+        "policy_id": "POLICY01",
+        "enrolment_intent_id": "ENROLMENT_INTENT01"
+      }
+    }
+  },
+  "new": {
+    "dependents_management_intent": {
+      "dependents_management_intent_ref01": {
+        "action_required": "s190",
+        "coverage_option": "s191",
+        "dependent": [],
+        "disclosure": [],
+        "object": "s195",
+        "parent_intent_id": "PARENT_INTENT01",
+        "parent_intent_type": "s197",
+        "plan": "s198",
+        "status": "s199"
+      }
+    }
+  }
+}

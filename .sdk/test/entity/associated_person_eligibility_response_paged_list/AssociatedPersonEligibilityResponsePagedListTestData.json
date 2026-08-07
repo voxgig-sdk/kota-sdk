@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "associated_person_eligibility_response_paged_list": {
+      "ASSOCIATED_PERSON_ELIGIBILITY_RESPONSE_PAGED_LIST00": {
+        "associated_person_id": "ASSOCIATED_PERSON01",
+        "date_of_birth": "s5b",
+        "eligibility_status": "s5c",
+        "first_name": "s5d",
+        "ineligibility_reason": "s5e",
+        "last_name": "s5f",
+        "object": "s60",
+        "relationship": "s61",
+        "sex_at_birth": "s62",
+        "dependents_management_intent_id": "DEPENDENTS_MANAGEMENT_INTENT01"
+      },
+      "ASSOCIATED_PERSON_ELIGIBILITY_RESPONSE_PAGED_LIST01": {
+        "associated_person_id": "ASSOCIATED_PERSON01",
+        "date_of_birth": "sb5",
+        "eligibility_status": "sb6",
+        "first_name": "sb7",
+        "ineligibility_reason": "sb8",
+        "last_name": "sb9",
+        "object": "sba",
+        "relationship": "sbb",
+        "sex_at_birth": "sbc",
+        "dependents_management_intent_id": "DEPENDENTS_MANAGEMENT_INTENT01"
+      },
+      "ASSOCIATED_PERSON_ELIGIBILITY_RESPONSE_PAGED_LIST02": {
+        "associated_person_id": "ASSOCIATED_PERSON01",
+        "date_of_birth": "s10f",
+        "eligibility_status": "s110",
+        "first_name": "s111",
+        "ineligibility_reason": "s112",
+        "last_name": "s113",
+        "object": "s114",
+        "relationship": "s115",
+        "sex_at_birth": "s116",
+        "dependents_management_intent_id": "DEPENDENTS_MANAGEMENT_INTENT01"
+      }
+    }
+  },
+  "new": {
+    "associated_person_eligibility_response_paged_list": {
+      "associated_person_eligibility_response_paged_list_ref01": {
+        "associated_person_id": "ASSOCIATED_PERSON01",
+        "date_of_birth": "s169",
+        "eligibility_status": "s16a",
+        "first_name": "s16b",
+        "ineligibility_reason": "s16c",
+        "last_name": "s16d",
+        "object": "s16e",
+        "relationship": "s16f",
+        "sex_at_birth": "s170"
+      }
+    }
+  }
+}

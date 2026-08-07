@@ -1,0 +1,66 @@
+{
+  "existing": {
+    "contribution_report_employee_breakdown_response_paged_list": {
+      "CONTRIBUTION_REPORT_EMPLOYEE_BREAKDOWN_RESPONSE_PAGED_LIST00": {
+        "contribution_report_id": "CONTRIBUTION_REPORT01",
+        "created_at": "s79",
+        "currency": "s7a",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "s7e",
+        "health_insurance": "s7f",
+        "last_updated_at": "s80",
+        "object": "s81",
+        "period": "s82",
+        "status": "s83"
+      },
+      "CONTRIBUTION_REPORT_EMPLOYEE_BREAKDOWN_RESPONSE_PAGED_LIST01": {
+        "contribution_report_id": "CONTRIBUTION_REPORT01",
+        "created_at": "sf1",
+        "currency": "sf2",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "sf6",
+        "health_insurance": "sf7",
+        "last_updated_at": "sf8",
+        "object": "sf9",
+        "period": "sfa",
+        "status": "sfb"
+      },
+      "CONTRIBUTION_REPORT_EMPLOYEE_BREAKDOWN_RESPONSE_PAGED_LIST02": {
+        "contribution_report_id": "CONTRIBUTION_REPORT01",
+        "created_at": "s169",
+        "currency": "s16a",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "s16e",
+        "health_insurance": "s16f",
+        "last_updated_at": "s170",
+        "object": "s171",
+        "period": "s172",
+        "status": "s173"
+      }
+    }
+  },
+  "new": {
+    "contribution_report_employee_breakdown_response_paged_list": {
+      "contribution_report_employee_breakdown_response_paged_list_ref01": {
+        "contribution_report_id": "CONTRIBUTION_REPORT01",
+        "created_at": "s1e1",
+        "currency": "s1e2",
+        "employee_id": "EMPLOYEE01",
+        "employer_id": "EMPLOYER01",
+        "external_customer_id": "EXTERNAL_CUSTOMER01",
+        "finalized_at": "s1e6",
+        "health_insurance": "s1e7",
+        "last_updated_at": "s1e8",
+        "object": "s1e9",
+        "period": "s1ea",
+        "status": "s1eb"
+      }
+    }
+  }
+}

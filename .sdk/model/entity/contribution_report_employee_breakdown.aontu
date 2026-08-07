@@ -1,0 +1,156 @@
+# Entity: contribution_report_employee_breakdown
+
+main: kit: entity: contribution_report_employee_breakdown: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "contribution_report_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "created_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "currency"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "employee_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "employer_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "external_customer_id"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "finalized_at"
+      req: false
+      type: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    {
+      name: "health_insurance"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "last_updated_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "period"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  name: "contribution_report_employee_breakdown"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "contribution_report_id"
+                orig: "contribution_report_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "employee_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}"
+          parts: [
+            "contribution_reports"
+            "{contribution_report_id}"
+            "employee_breakdowns"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              employee_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "contribution_report_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "contribution_report"
+      ]
+    ]
+  }
+
+
+
+}

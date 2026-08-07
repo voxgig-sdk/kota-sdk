@@ -1,0 +1,433 @@
+# Entity: enrolment_intent
+
+main: kit: entity: enrolment_intent: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "action_required"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "disclosure"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "employee_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "force_confirmation"
+      req: true
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "group_id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "ineligibility_reason"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "object"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "pending_confirmation"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "policy_configuration"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "policy_enrolment"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$ANY`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "enrolment_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "enrolment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/enrolment_intents/{enrolment_intent_id}/confirm"
+          parts: [
+            "enrolment_intents"
+            "{id}"
+            "confirm"
+          ]
+          rename: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "confirm"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "enrolment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/enrolment_intents/{enrolment_intent_id}/coverage-selections"
+          parts: [
+            "enrolment_intents"
+            "{id}"
+            "coverage-selections"
+          ]
+          rename: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "coverage_selection"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "enrolment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/enrolment_intents/{enrolment_intent_id}/reject"
+          parts: [
+            "enrolment_intents"
+            "{id}"
+            "reject"
+          ]
+          rename: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          select: {
+            "$action": "reject"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "idempotency_key"
+                orig: "idempotency_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/enrolment_intents"
+          parts: [
+            "enrolment_intents"
+          ]
+          select: {
+            exist: [
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "employee_id"
+                orig: "employee_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "query"
+                name: "group_id"
+                orig: "group_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "status"
+                orig: "status"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/enrolment_intents"
+          parts: [
+            "enrolment_intents"
+          ]
+          select: {
+            exist: [
+              "employee_id"
+              "group_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "enrolment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/enrolment_intents/{enrolment_intent_id}"
+          parts: [
+            "enrolment_intents"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "x_platform_id"
+                orig: "x_platform_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                example: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                kind: "param"
+                name: "id"
+                orig: "enrolment_intent_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/enrolment_intents/{enrolment_intent_id}"
+          parts: [
+            "enrolment_intents"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

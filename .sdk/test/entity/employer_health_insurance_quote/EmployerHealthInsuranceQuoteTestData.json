@@ -1,0 +1,45 @@
+{
+  "existing": {
+    "employer_health_insurance_quote": {
+      "EMPLOYER_HEALTH_INSURANCE_QUOTE00": {
+        "coverage_level": [],
+        "employer_id": "EMPLOYER01",
+        "id": "EMPLOYER_HEALTH_INSURANCE_QUOTE00",
+        "object": "s49",
+        "quoted_at": "s4a",
+        "required_action": "s4b",
+        "status": "s4c"
+      },
+      "EMPLOYER_HEALTH_INSURANCE_QUOTE01": {
+        "coverage_level": [],
+        "employer_id": "EMPLOYER01",
+        "id": "EMPLOYER_HEALTH_INSURANCE_QUOTE01",
+        "object": "s8f",
+        "quoted_at": "s90",
+        "required_action": "s91",
+        "status": "s92"
+      },
+      "EMPLOYER_HEALTH_INSURANCE_QUOTE02": {
+        "coverage_level": [],
+        "employer_id": "EMPLOYER01",
+        "id": "EMPLOYER_HEALTH_INSURANCE_QUOTE02",
+        "object": "sd5",
+        "quoted_at": "sd6",
+        "required_action": "sd7",
+        "status": "sd8"
+      }
+    }
+  },
+  "new": {
+    "employer_health_insurance_quote": {
+      "employer_health_insurance_quote_ref01": {
+        "coverage_level": [],
+        "employer_id": "EMPLOYER01",
+        "object": "s11b",
+        "quoted_at": "s11c",
+        "required_action": "s11d",
+        "status": "s11e"
+      }
+    }
+  }
+}

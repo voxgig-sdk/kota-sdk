@@ -1,0 +1,77 @@
+{
+  "existing": {
+    "policy": {
+      "POLICY00": {
+        "bundling_type": "s96",
+        "cancellation_date": "s97",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "end_date": "s9a",
+        "group_id": "GROUP01",
+        "group_policy_id": "GROUP_POLICY01",
+        "health_insurance": "s9d",
+        "id": "POLICY00",
+        "object": "s9f",
+        "plan": "sa0",
+        "provider": "sa1",
+        "start_date": "sa2",
+        "status": "sa3",
+        "type": "sa4"
+      },
+      "POLICY01": {
+        "bundling_type": "s12c",
+        "cancellation_date": "s12d",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "end_date": "s130",
+        "group_id": "GROUP01",
+        "group_policy_id": "GROUP_POLICY01",
+        "health_insurance": "s133",
+        "id": "POLICY01",
+        "object": "s135",
+        "plan": "s136",
+        "provider": "s137",
+        "start_date": "s138",
+        "status": "s139",
+        "type": "s13a"
+      },
+      "POLICY02": {
+        "bundling_type": "s1c2",
+        "cancellation_date": "s1c3",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "end_date": "s1c6",
+        "group_id": "GROUP01",
+        "group_policy_id": "GROUP_POLICY01",
+        "health_insurance": "s1c9",
+        "id": "POLICY02",
+        "object": "s1cb",
+        "plan": "s1cc",
+        "provider": "s1cd",
+        "start_date": "s1ce",
+        "status": "s1cf",
+        "type": "s1d0"
+      }
+    }
+  },
+  "new": {
+    "policy": {
+      "policy_ref01": {
+        "bundling_type": "s258",
+        "cancellation_date": "s259",
+        "disclosure": [],
+        "employee_id": "EMPLOYEE01",
+        "end_date": "s25c",
+        "group_id": "GROUP01",
+        "group_policy_id": "GROUP_POLICY01",
+        "health_insurance": "s25f",
+        "object": "s261",
+        "plan": "s262",
+        "provider": "s263",
+        "start_date": "s264",
+        "status": "s265",
+        "type": "s266"
+      }
+    }
+  }
+}

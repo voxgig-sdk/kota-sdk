@@ -1,0 +1,33 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "The Kota API."
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
+      }
+      servers: [
+        {
+          description: "Test Kota API"
+          url: "https://test.api.kota.io"
+          "x-fern-server-name": "test"
+        }
+        {
+          description: "Production Kota API"
+          url: "https://api.kota.io"
+          "x-fern-server-name": "production"
+        }
+      ]
+      title: "Kota API"
+      version: "1.0"
+      website: "https://test.api.kota.io"
+    }
+  }
+}
+

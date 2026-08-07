@@ -1,0 +1,43 @@
+# Entity: create_session_token
+
+main: kit: entity: create_session_token: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "expiry"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "token"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "create_session_token"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/embed/sessions"
+          parts: [
+            "embed"
+            "sessions"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

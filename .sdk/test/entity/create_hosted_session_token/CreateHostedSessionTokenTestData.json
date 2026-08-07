@@ -1,0 +1,29 @@
+{
+  "existing": {
+    "create_hosted_session_token": {
+      "CREATE_HOSTED_SESSION_TOKEN00": {
+        "expiry": "s14",
+        "link": "s15",
+        "id": "CREATE_HOSTED_SESSION_TOKEN00"
+      },
+      "CREATE_HOSTED_SESSION_TOKEN01": {
+        "expiry": "s28",
+        "link": "s29",
+        "id": "CREATE_HOSTED_SESSION_TOKEN01"
+      },
+      "CREATE_HOSTED_SESSION_TOKEN02": {
+        "expiry": "s3c",
+        "link": "s3d",
+        "id": "CREATE_HOSTED_SESSION_TOKEN02"
+      }
+    }
+  },
+  "new": {
+    "create_hosted_session_token": {
+      "create_hosted_session_token_ref01": {
+        "expiry": "s50",
+        "link": "s51"
+      }
+    }
+  }
+}
