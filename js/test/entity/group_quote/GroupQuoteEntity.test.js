@@ -44,7 +44,7 @@ describe('GroupQuoteEntity', async () => {
     // LOAD
     const group_quote_ref01_ent = client.GroupQuote()
     const group_quote_ref01_match_dt0 = {}
-    const group_quote_ref01_data_dt0 = await group_quote_ref01_ent.load(group_quote_ref01_match_dt0)
+    const group_quote_ref01_data_dt0 = (await group_quote_ref01_ent.load(group_quote_ref01_match_dt0)).data()
     assert(null != group_quote_ref01_data_dt0)
 
 

@@ -279,7 +279,7 @@ result = client.AssociatedPerson().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.AssociatedPerson().list()
+results = client.AssociatedPerson().list({"employee_id": "example"})
 for associated_person in results:
     print(associated_person)
 ```
@@ -368,7 +368,7 @@ associated_person_eligibility_response_paged_list = client.AssociatedPersonEligi
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.AssociatedPersonEligibilityResponsePagedList().list()
+results = client.AssociatedPersonEligibilityResponsePagedList().list({"dependents_management_intent_id": "example"})
 for associated_person_eligibility_response_paged_list in results:
     print(associated_person_eligibility_response_paged_list)
 ```
@@ -578,7 +578,7 @@ contribution_report_employee_breakdown_response_paged_list = client.Contribution
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.ContributionReportEmployeeBreakdownResponsePagedList().list()
+results = client.ContributionReportEmployeeBreakdownResponsePagedList().list({"id": "example"})
 for contribution_report_employee_breakdown_response_paged_list in results:
     print(contribution_report_employee_breakdown_response_paged_list)
 ```
@@ -733,9 +733,9 @@ dependent = client.Dependent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `None` | No |  |
-| `coverage_option` | `None | list` | No |  |
-| `dependent` | `list` | Yes |  |
-| `disclosure` | `list` | Yes |  |
+| `coverage_options` | `None | list` | No |  |
+| `dependents` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
 | `parent_intent_id` | `str` | Yes |  |
@@ -752,8 +752,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 ```python
 result = client.Dependent().create({
     "dependents_management_intent_id": "example_dependents_management_intent_id",  # str
-    "dependent": [],  # list
-    "disclosure": [],  # list
+    "dependents": [],  # list
+    "disclosures": [],  # list
     "id": "example_id",  # str
     "parent_intent_id": "example_parent_intent_id",  # str
     "parent_intent_type": "example_parent_intent_type",  # Any
@@ -810,9 +810,9 @@ dependents_management_intent = client.DependentsManagementIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `None` | No |  |
-| `coverage_option` | `None | list` | No |  |
-| `dependent` | `list` | Yes |  |
-| `disclosure` | `list` | Yes |  |
+| `coverage_options` | `None | list` | No |  |
+| `dependents` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
 | `parent_intent_id` | `str` | Yes |  |
@@ -828,8 +828,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.DependentsManagementIntent().create({
-    "dependent": [],  # list
-    "disclosure": [],  # list
+    "dependents": [],  # list
+    "disclosures": [],  # list
     "id": "example_id",  # str
     "parent_intent_id": "example_parent_intent_id",  # str
     "parent_intent_type": "example_parent_intent_type",  # Any
@@ -889,7 +889,7 @@ eligibility_check = client.EligibilityCheck()
 | `object` | `str` | No |  |
 | `plan` | `Any` | Yes |  |
 | `provider` | `Any` | Yes |  |
-| `reason` | `list` | Yes |  |
+| `reasons` | `list` | Yes |  |
 
 ### Operations
 
@@ -903,7 +903,7 @@ result = client.EligibilityCheck().create({
     "eligibility_status": "example_eligibility_status",  # Any
     "plan": "example_plan",  # Any
     "provider": "example_provider",  # Any
-    "reason": [],  # list
+    "reasons": [],  # list
 })
 ```
 
@@ -1127,7 +1127,7 @@ employee_health_insurance_offer_response_paged_list = client.EmployeeHealthInsur
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.EmployeeHealthInsuranceOfferResponsePagedList().list()
+results = client.EmployeeHealthInsuranceOfferResponsePagedList().list({"employee_id": "example"})
 for employee_health_insurance_offer_response_paged_list in results:
     print(employee_health_insurance_offer_response_paged_list)
 ```
@@ -1261,7 +1261,7 @@ employee_health_insurance_policy_response_paged_list = client.EmployeeHealthInsu
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.EmployeeHealthInsurancePolicyResponsePagedList().list()
+results = client.EmployeeHealthInsurancePolicyResponsePagedList().list({"employee_id": "example"})
 for employee_health_insurance_policy_response_paged_list in results:
     print(employee_health_insurance_policy_response_paged_list)
 ```
@@ -1401,7 +1401,7 @@ employer_health_insurance_policy = client.EmployerHealthInsurancePolicy()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `None | str` | No |  |
-| `coverage_level` | `list` | Yes |  |
+| `coverage_levels` | `list` | Yes |  |
 | `employer_cancellation_period_length` | `int` | Yes |  |
 | `employer_id` | `str` | Yes |  |
 | `end_date` | `str` | Yes |  |
@@ -1463,7 +1463,7 @@ employer_health_insurance_policy_response_paged_list = client.EmployerHealthInsu
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `None | str` | No |  |
-| `coverage_level` | `list` | Yes |  |
+| `coverage_levels` | `list` | Yes |  |
 | `employer_cancellation_period_length` | `int` | Yes |  |
 | `employer_id` | `str` | Yes |  |
 | `end_date` | `str` | Yes |  |
@@ -1482,7 +1482,7 @@ employer_health_insurance_policy_response_paged_list = client.EmployerHealthInsu
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.EmployerHealthInsurancePolicyResponsePagedList().list()
+results = client.EmployerHealthInsurancePolicyResponsePagedList().list({"employer_id": "example"})
 for employer_health_insurance_policy_response_paged_list in results:
     print(employer_health_insurance_policy_response_paged_list)
 ```
@@ -1526,7 +1526,7 @@ employer_health_insurance_quote = client.EmployerHealthInsuranceQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `list` | Yes |  |
+| `coverage_levels` | `list` | Yes |  |
 | `employer_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
@@ -1583,7 +1583,7 @@ employer_health_insurance_quote_response_paged_list = client.EmployerHealthInsur
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `list` | Yes |  |
+| `coverage_levels` | `list` | Yes |  |
 | `employer_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
@@ -1598,7 +1598,7 @@ employer_health_insurance_quote_response_paged_list = client.EmployerHealthInsur
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.EmployerHealthInsuranceQuoteResponsePagedList().list()
+results = client.EmployerHealthInsuranceQuoteResponsePagedList().list({"employer_id": "example"})
 for employer_health_insurance_quote_response_paged_list in results:
     print(employer_health_insurance_quote_response_paged_list)
 ```
@@ -1643,7 +1643,7 @@ enrolment_intent = client.EnrolmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `None` | No |  |
-| `disclosure` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `employee_id` | `str` | Yes |  |
 | `force_confirmation` | `bool` | Yes |  |
 | `group_id` | `str` | Yes |  |
@@ -1652,7 +1652,7 @@ enrolment_intent = client.EnrolmentIntent()
 | `object` | `str` | No |  |
 | `pending_confirmation` | `None` | No |  |
 | `policy_configuration` | `None` | No |  |
-| `policy_enrolment` | `list` | Yes |  |
+| `policy_enrolments` | `list` | Yes |  |
 | `status` | `Any` | Yes |  |
 
 ### Operations
@@ -1663,12 +1663,12 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.EnrolmentIntent().create({
-    "disclosure": [],  # list
+    "disclosures": [],  # list
     "employee_id": "example_employee_id",  # str
     "force_confirmation": True,  # bool
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
-    "policy_enrolment": [],  # list
+    "policy_enrolments": [],  # list
     "status": "example_status",  # Any
 })
 ```
@@ -1755,7 +1755,7 @@ enrolment_intent_requirement_response_paged_list = client.EnrolmentIntentRequire
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.EnrolmentIntentRequirementResponsePagedList().list()
+results = client.EnrolmentIntentRequirementResponsePagedList().list({"id": "example"})
 for enrolment_intent_requirement_response_paged_list in results:
     print(enrolment_intent_requirement_response_paged_list)
 ```
@@ -1803,7 +1803,10 @@ event = client.Event()
 | `created` | `str` | Yes |  |
 | `data` | `None` | Yes |  |
 | `id` | `str` | Yes |  |
+| `options` | `None` | No |  |
+| `parent` | `None` | No |  |
 | `platform_id` | `str` | Yes |  |
+| `root` | `Any` | No |  |
 | `type` | `str` | Yes |  |
 
 ### Operations
@@ -1868,9 +1871,9 @@ group = client.Group()
 | `description` | `None | str` | No |  |
 | `employer_id` | `str` | Yes |  |
 | `enrolment_type` | `Any` | Yes |  |
-| `group_policy_id` | `list` | Yes |  |
-| `group_policy_intent_id` | `list` | Yes |  |
-| `group_quote_intent_id` | `list` | Yes |  |
+| `group_policy_ids` | `list` | Yes |  |
+| `group_policy_intent_ids` | `list` | Yes |  |
+| `group_quote_intent_ids` | `list` | Yes |  |
 | `group_type` | `Any` | Yes |  |
 | `id` | `str` | Yes |  |
 | `name` | `str` | Yes |  |
@@ -1887,9 +1890,9 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.Group().create({
     "employer_id": "example_employer_id",  # str
     "enrolment_type": "example_enrolment_type",  # Any
-    "group_policy_id": [],  # list
-    "group_policy_intent_id": [],  # list
-    "group_quote_intent_id": [],  # list
+    "group_policy_ids": [],  # list
+    "group_policy_intent_ids": [],  # list
+    "group_quote_intent_ids": [],  # list
     "group_type": "example_group_type",  # Any
     "id": "example_id",  # str
     "name": "example_name",  # str
@@ -1967,14 +1970,14 @@ group_employee = client.GroupEmployee()
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `None | str` | No |  |
 | `eligibility_status` | `Any` | Yes |  |
-| `enrolment` | `list` | Yes |  |
 | `enrolment_date` | `None | str` | No |  |
 | `enrolment_status` | `Any` | Yes |  |
+| `enrolments` | `list` | Yes |  |
 | `group_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
-| `policy` | `list` | Yes |  |
-| `scheduled_group_transition` | `list` | Yes |  |
+| `policies` | `list` | Yes |  |
+| `scheduled_group_transitions` | `list` | Yes |  |
 
 ### Operations
 
@@ -1986,11 +1989,11 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.GroupEmployee().create({
     "id": "example_id",  # str
     "eligibility_status": "example_eligibility_status",  # Any
-    "enrolment": [],  # list
     "enrolment_status": "example_enrolment_status",  # Any
+    "enrolments": [],  # list
     "group_id": "example_group_id",  # str
-    "policy": [],  # list
-    "scheduled_group_transition": [],  # list
+    "policies": [],  # list
+    "scheduled_group_transitions": [],  # list
 })
 ```
 
@@ -2035,14 +2038,14 @@ group_employee_response_paged_list = client.GroupEmployeeResponsePagedList()
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `None | str` | No |  |
 | `eligibility_status` | `Any` | Yes |  |
-| `enrolment` | `list` | Yes |  |
 | `enrolment_date` | `None | str` | No |  |
 | `enrolment_status` | `Any` | Yes |  |
+| `enrolments` | `list` | Yes |  |
 | `group_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
-| `policy` | `list` | Yes |  |
-| `scheduled_group_transition` | `list` | Yes |  |
+| `policies` | `list` | Yes |  |
+| `scheduled_group_transitions` | `list` | Yes |  |
 
 ### Operations
 
@@ -2051,7 +2054,7 @@ group_employee_response_paged_list = client.GroupEmployeeResponsePagedList()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GroupEmployeeResponsePagedList().list()
+results = client.GroupEmployeeResponsePagedList().list({"id": "example"})
 for group_employee_response_paged_list in results:
     print(group_employee_response_paged_list)
 ```
@@ -2096,7 +2099,7 @@ group_policy = client.GroupPolicy()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `None | str` | No |  |
-| `disclosure` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `employer_id` | `str` | No |  |
 | `end_date` | `None | str` | No |  |
 | `group_id` | `str` | No |  |
@@ -2170,7 +2173,7 @@ group_policy_intent = client.GroupPolicyIntent()
 | --- | --- | --- | --- |
 | `action_required` | `None` | No |  |
 | `cost_sharing` | `None` | No |  |
-| `disclosure` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `due_date` | `None | str` | No |  |
 | `group_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
@@ -2187,7 +2190,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.GroupPolicyIntent().create({
-    "disclosure": [],  # list
+    "disclosures": [],  # list
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
     "plan_id": "example_plan_id",  # str
@@ -2267,7 +2270,7 @@ group_policy_intent_requirement_response_paged_list = client.GroupPolicyIntentRe
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GroupPolicyIntentRequirementResponsePagedList().list()
+results = client.GroupPolicyIntentRequirementResponsePagedList().list({"id": "example"})
 for group_policy_intent_requirement_response_paged_list in results:
     print(group_policy_intent_requirement_response_paged_list)
 ```
@@ -2311,15 +2314,11 @@ group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `Any` | Yes |  |
-| `currency` | `str` | Yes |  |
-| `employee_count` | `int` | Yes |  |
-| `expires_at` | `str` | Yes |  |
-| `generated_at` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `pdf_expires_at` | `None | str` | No |  |
-| `pdf_url` | `None | str` | No |  |
-| `total_monthly_premium` | `float` | Yes |  |
+| `family_type` | `None` | No |  |
+| `member_count` | `None` | No |  |
+| `member_selection` | `None` | No |  |
+| `percentage` | `None` | No |  |
+| `type` | `Any` | Yes |  |
 
 ### Operations
 
@@ -2371,9 +2370,9 @@ group_quote_intent = client.GroupQuoteIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `None` | No |  |
-| `consent_link` | `list` | Yes |  |
+| `consent_links` | `list` | Yes |  |
 | `cost_sharing` | `None` | No |  |
-| `disclosure` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `expected_start_date` | `None | str` | No |  |
 | `group_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
@@ -2389,8 +2388,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.GroupQuoteIntent().create({
-    "consent_link": [],  # list
-    "disclosure": [],  # list
+    "consent_links": [],  # list
+    "disclosures": [],  # list
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
     "plan_id": "example_plan_id",  # str
@@ -2469,7 +2468,7 @@ group_quote_intent_requirement_response_paged_list = client.GroupQuoteIntentRequ
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GroupQuoteIntentRequirementResponsePagedList().list()
+results = client.GroupQuoteIntentRequirementResponsePagedList().list({"id": "example"})
 for group_quote_intent_requirement_response_paged_list in results:
     print(group_quote_intent_requirement_response_paged_list)
 ```
@@ -2516,13 +2515,13 @@ plan = client.Plan()
 | `available_from` | `str` | Yes |  |
 | `available_to` | `None | str` | No |  |
 | `country` | `Any` | Yes |  |
-| `coverage_option` | `None | list` | No |  |
+| `coverage_options` | `None | list` | No |  |
 | `description` | `str` | Yes |  |
-| `disclosure` | `list` | Yes |  |
-| `document` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
+| `documents` | `list` | Yes |  |
 | `eligible_count` | `None | int` | No |  |
-| `employee_eligibility_criterion` | `list` | Yes |  |
-| `employer_eligibility_criterion` | `list` | Yes |  |
+| `employee_eligibility_criteria` | `list` | Yes |  |
+| `employer_eligibility_criteria` | `list` | Yes |  |
 | `health_insurance` | `None` | No |  |
 | `id` | `str` | Yes |  |
 | `ineligible_count` | `None | int` | No |  |
@@ -2593,7 +2592,7 @@ policy = client.Policy()
 | --- | --- | --- | --- |
 | `bundling_type` | `Any` | Yes |  |
 | `cancellation_date` | `None | str` | No |  |
-| `disclosure` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `employee_id` | `str` | Yes |  |
 | `end_date` | `None | str` | No |  |
 | `group_id` | `str` | Yes |  |
@@ -2667,13 +2666,13 @@ policy_amendment_intent = client.PolicyAmendmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `amendment_reason` | `Any` | Yes |  |
-| `disclosure` | `list` | Yes |  |
+| `disclosures` | `list` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
 | `pending_confirmation` | `None` | No |  |
 | `policy_id` | `str` | Yes |  |
 | `processing_error` | `None` | No |  |
-| `requested_change` | `list` | Yes |  |
+| `requested_changes` | `list` | Yes |  |
 | `required_action` | `None` | No |  |
 | `status` | `Any` | Yes |  |
 
@@ -2687,9 +2686,9 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.PolicyAmendmentIntent().create({
     "id": "example_id",  # str
     "amendment_reason": "example_amendment_reason",  # Any
-    "disclosure": [],  # list
+    "disclosures": [],  # list
     "policy_id": "example_policy_id",  # str
-    "requested_change": [],  # list
+    "requested_changes": [],  # list
     "status": "example_status",  # Any
 })
 ```
@@ -2699,7 +2698,7 @@ result = client.PolicyAmendmentIntent().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.PolicyAmendmentIntent().list()
+results = client.PolicyAmendmentIntent().list({"id": "example_id"})
 for policy_amendment_intent in results:
     print(policy_amendment_intent)
 ```
@@ -2751,7 +2750,7 @@ policy_import_intent = client.PolicyImportIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person` | `list` | Yes |  |
+| `associated_persons` | `list` | Yes |  |
 | `employee_id` | `str` | Yes |  |
 | `group_id` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
@@ -2770,7 +2769,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.PolicyImportIntent().create({
-    "associated_person": [],  # list
+    "associated_persons": [],  # list
     "employee_id": "example_employee_id",  # str
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
@@ -2846,7 +2845,7 @@ provider = client.Provider()
 | `name` | `str` | Yes |  |
 | `object` | `str` | No |  |
 | `support_phone` | `str` | Yes |  |
-| `supported_country` | `list` | Yes |  |
+| `supported_countries` | `list` | Yes |  |
 | `website_url` | `str` | Yes |  |
 
 ### Operations
@@ -2908,7 +2907,7 @@ replay = client.Replay()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `delivery` | `list` | Yes |  |
+| `deliveries` | `list` | Yes |  |
 | `event_id` | `str` | Yes |  |
 
 ### Operations
@@ -2920,7 +2919,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 ```python
 result = client.Replay().create({
     "event_id": "example_event_id",  # str
-    "delivery": [],  # list
+    "deliveries": [],  # list
 })
 ```
 
@@ -2967,7 +2966,7 @@ webhook_endpoint = client.WebhookEndpoint()
 | `endpoint_url` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
-| `subscribed_event` | `list` | Yes |  |
+| `subscribed_events` | `list` | Yes |  |
 
 ### Operations
 
@@ -3022,7 +3021,7 @@ webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePagedList()
 | `endpoint_url` | `str` | Yes |  |
 | `id` | `str` | Yes |  |
 | `object` | `str` | No |  |
-| `subscribed_event` | `list` | Yes |  |
+| `subscribed_events` | `list` | Yes |  |
 
 ### Operations
 

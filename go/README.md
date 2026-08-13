@@ -458,9 +458,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `"action_required"` |  |
-| `"coverage_option"` |  |
-| `"dependent"` |  |
-| `"disclosure"` |  |
+| `"coverage_options"` |  |
+| `"dependents"` |  |
+| `"disclosures"` |  |
 | `"id"` |  |
 | `"object"` |  |
 | `"parent_intent_id"` |  |
@@ -477,9 +477,9 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/depe
 | Field | Description |
 | --- | --- |
 | `"action_required"` |  |
-| `"coverage_option"` |  |
-| `"dependent"` |  |
-| `"disclosure"` |  |
+| `"coverage_options"` |  |
+| `"dependents"` |  |
+| `"disclosures"` |  |
 | `"id"` |  |
 | `"object"` |  |
 | `"parent_intent_id"` |  |
@@ -499,7 +499,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | `"object"` |  |
 | `"plan"` |  |
 | `"provider"` |  |
-| `"reason"` |  |
+| `"reasons"` |  |
 
 Operations: Create.
 
@@ -643,7 +643,7 @@ API path: `/employers/{employer_id}/offboard`
 | Field | Description |
 | --- | --- |
 | `"cancellation_date"` |  |
-| `"coverage_level"` |  |
+| `"coverage_levels"` |  |
 | `"employer_cancellation_period_length"` |  |
 | `"employer_id"` |  |
 | `"end_date"` |  |
@@ -664,7 +664,7 @@ API path: `/employers/{employer_id}/health_insurance/policies/{employer_policy_i
 | Field | Description |
 | --- | --- |
 | `"cancellation_date"` |  |
-| `"coverage_level"` |  |
+| `"coverage_levels"` |  |
 | `"employer_cancellation_period_length"` |  |
 | `"employer_id"` |  |
 | `"end_date"` |  |
@@ -684,7 +684,7 @@ API path: `/employers/{employer_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
-| `"coverage_level"` |  |
+| `"coverage_levels"` |  |
 | `"employer_id"` |  |
 | `"id"` |  |
 | `"object"` |  |
@@ -700,7 +700,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}`
 
 | Field | Description |
 | --- | --- |
-| `"coverage_level"` |  |
+| `"coverage_levels"` |  |
 | `"employer_id"` |  |
 | `"id"` |  |
 | `"object"` |  |
@@ -717,7 +717,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `"action_required"` |  |
-| `"disclosure"` |  |
+| `"disclosures"` |  |
 | `"employee_id"` |  |
 | `"force_confirmation"` |  |
 | `"group_id"` |  |
@@ -726,7 +726,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | `"object"` |  |
 | `"pending_confirmation"` |  |
 | `"policy_configuration"` |  |
-| `"policy_enrolment"` |  |
+| `"policy_enrolments"` |  |
 | `"status"` |  |
 
 Operations: Create, List, Load, Update.
@@ -756,7 +756,10 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `"created"` |  |
 | `"data"` |  |
 | `"id"` |  |
+| `"options"` |  |
+| `"parent"` |  |
 | `"platform_id"` |  |
+| `"root"` |  |
 | `"type"` |  |
 
 Operations: List, Load.
@@ -770,9 +773,9 @@ API path: `/events`
 | `"description"` |  |
 | `"employer_id"` |  |
 | `"enrolment_type"` |  |
-| `"group_policy_id"` |  |
-| `"group_policy_intent_id"` |  |
-| `"group_quote_intent_id"` |  |
+| `"group_policy_ids"` |  |
+| `"group_policy_intent_ids"` |  |
+| `"group_quote_intent_ids"` |  |
 | `"group_type"` |  |
 | `"id"` |  |
 | `"name"` |  |
@@ -789,14 +792,14 @@ API path: `/groups`
 | --- | --- |
 | `"desired_policy_start_date"` |  |
 | `"eligibility_status"` |  |
-| `"enrolment"` |  |
 | `"enrolment_date"` |  |
 | `"enrolment_status"` |  |
+| `"enrolments"` |  |
 | `"group_id"` |  |
 | `"id"` |  |
 | `"object"` |  |
-| `"policy"` |  |
-| `"scheduled_group_transition"` |  |
+| `"policies"` |  |
+| `"scheduled_group_transitions"` |  |
 
 Operations: Create.
 
@@ -808,14 +811,14 @@ API path: `/groups/{group_id}/employees`
 | --- | --- |
 | `"desired_policy_start_date"` |  |
 | `"eligibility_status"` |  |
-| `"enrolment"` |  |
 | `"enrolment_date"` |  |
 | `"enrolment_status"` |  |
+| `"enrolments"` |  |
 | `"group_id"` |  |
 | `"id"` |  |
 | `"object"` |  |
-| `"policy"` |  |
-| `"scheduled_group_transition"` |  |
+| `"policies"` |  |
+| `"scheduled_group_transitions"` |  |
 
 Operations: List.
 
@@ -826,7 +829,7 @@ API path: `/groups/{group_id}/employees`
 | Field | Description |
 | --- | --- |
 | `"cancellation_date"` |  |
-| `"disclosure"` |  |
+| `"disclosures"` |  |
 | `"employer_id"` |  |
 | `"end_date"` |  |
 | `"group_id"` |  |
@@ -849,7 +852,7 @@ API path: `/group_policies`
 | --- | --- |
 | `"action_required"` |  |
 | `"cost_sharing"` |  |
-| `"disclosure"` |  |
+| `"disclosures"` |  |
 | `"due_date"` |  |
 | `"group_id"` |  |
 | `"id"` |  |
@@ -881,15 +884,11 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `"cost_sharing"` |  |
-| `"currency"` |  |
-| `"employee_count"` |  |
-| `"expires_at"` |  |
-| `"generated_at"` |  |
-| `"object"` |  |
-| `"pdf_expires_at"` |  |
-| `"pdf_url"` |  |
-| `"total_monthly_premium"` |  |
+| `"family_type"` |  |
+| `"member_count"` |  |
+| `"member_selection"` |  |
+| `"percentage"` |  |
+| `"type"` |  |
 
 Operations: Load.
 
@@ -900,9 +899,9 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | Field | Description |
 | --- | --- |
 | `"action_required"` |  |
-| `"consent_link"` |  |
+| `"consent_links"` |  |
 | `"cost_sharing"` |  |
-| `"disclosure"` |  |
+| `"disclosures"` |  |
 | `"expected_start_date"` |  |
 | `"group_id"` |  |
 | `"id"` |  |
@@ -936,13 +935,13 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 | `"available_from"` |  |
 | `"available_to"` |  |
 | `"country"` |  |
-| `"coverage_option"` |  |
+| `"coverage_options"` |  |
 | `"description"` |  |
-| `"disclosure"` |  |
-| `"document"` |  |
+| `"disclosures"` |  |
+| `"documents"` |  |
 | `"eligible_count"` |  |
-| `"employee_eligibility_criterion"` |  |
-| `"employer_eligibility_criterion"` |  |
+| `"employee_eligibility_criteria"` |  |
+| `"employer_eligibility_criteria"` |  |
 | `"health_insurance"` |  |
 | `"id"` |  |
 | `"ineligible_count"` |  |
@@ -962,7 +961,7 @@ API path: `/plans`
 | --- | --- |
 | `"bundling_type"` |  |
 | `"cancellation_date"` |  |
-| `"disclosure"` |  |
+| `"disclosures"` |  |
 | `"employee_id"` |  |
 | `"end_date"` |  |
 | `"group_id"` |  |
@@ -985,13 +984,13 @@ API path: `/policies`
 | Field | Description |
 | --- | --- |
 | `"amendment_reason"` |  |
-| `"disclosure"` |  |
+| `"disclosures"` |  |
 | `"id"` |  |
 | `"object"` |  |
 | `"pending_confirmation"` |  |
 | `"policy_id"` |  |
 | `"processing_error"` |  |
-| `"requested_change"` |  |
+| `"requested_changes"` |  |
 | `"required_action"` |  |
 | `"status"` |  |
 
@@ -1003,7 +1002,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/cancel`
 
 | Field | Description |
 | --- | --- |
-| `"associated_person"` |  |
+| `"associated_persons"` |  |
 | `"employee_id"` |  |
 | `"group_id"` |  |
 | `"id"` |  |
@@ -1030,7 +1029,7 @@ API path: `/policy_import_intents`
 | `"name"` |  |
 | `"object"` |  |
 | `"support_phone"` |  |
-| `"supported_country"` |  |
+| `"supported_countries"` |  |
 | `"website_url"` |  |
 
 Operations: List, Load.
@@ -1041,7 +1040,7 @@ API path: `/providers`
 
 | Field | Description |
 | --- | --- |
-| `"delivery"` |  |
+| `"deliveries"` |  |
 | `"event_id"` |  |
 
 Operations: Create.
@@ -1056,7 +1055,7 @@ API path: `/events/{event_id}/replay`
 | `"endpoint_url"` |  |
 | `"id"` |  |
 | `"object"` |  |
-| `"subscribed_event"` |  |
+| `"subscribed_events"` |  |
 
 Operations: Load.
 
@@ -1070,7 +1069,7 @@ API path: `/webhooks/endpoints/{webhook_endpoint_id}`
 | `"endpoint_url"` |  |
 | `"id"` |  |
 | `"object"` |  |
-| `"subscribed_event"` |  |
+| `"subscribed_events"` |  |
 
 Operations: List.
 
@@ -1403,9 +1402,9 @@ Create an instance: `dependent := client.Dependent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` |  |
-| `coverage_option` | `any` |  |
-| `dependent` | `[]any` |  |
-| `disclosure` | `[]any` |  |
+| `coverage_options` | `any` |  |
+| `dependents` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1418,8 +1417,8 @@ Create an instance: `dependent := client.Dependent(nil)`
 ```go
 result, err := client.Dependent(nil).Create(map[string]any{
     "dependents_management_intent_id": "example_dependents_management_intent_id",
-    "dependent": []any{},
-    "disclosure": []any{},
+    "dependents": []any{},
+    "disclosures": []any{},
     "id": "example_id",
     "parent_intent_id": "example_parent_intent_id",
     "parent_intent_type": "example_parent_intent_type",
@@ -1449,9 +1448,9 @@ Create an instance: `dependentsManagementIntent := client.DependentsManagementIn
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` |  |
-| `coverage_option` | `any` |  |
-| `dependent` | `[]any` |  |
-| `disclosure` | `[]any` |  |
+| `coverage_options` | `any` |  |
+| `dependents` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1473,8 +1472,8 @@ fmt.Println(dependentsManagementIntent) // the loaded record
 
 ```go
 result, err := client.DependentsManagementIntent(nil).Create(map[string]any{
-    "dependent": []any{},
-    "disclosure": []any{},
+    "dependents": []any{},
+    "disclosures": []any{},
     "id": "example_id",
     "parent_intent_id": "example_parent_intent_id",
     "parent_intent_type": "example_parent_intent_type",
@@ -1506,7 +1505,7 @@ Create an instance: `eligibilityCheck := client.EligibilityCheck(nil)`
 | `object` | `string` |  |
 | `plan` | `any` |  |
 | `provider` | `any` |  |
-| `reason` | `[]any` |  |
+| `reasons` | `[]any` |  |
 
 #### Example: Create
 
@@ -1516,7 +1515,7 @@ result, err := client.EligibilityCheck(nil).Create(map[string]any{
     "eligibility_status": "example_eligibility_status",
     "plan": "example_plan",
     "provider": "example_provider",
-    "reason": []any{},
+    "reasons": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -1834,7 +1833,7 @@ Create an instance: `employerHealthInsurancePolicy := client.EmployerHealthInsur
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `any` |  |
-| `coverage_level` | `[]any` |  |
+| `coverage_levels` | `[]any` |  |
 | `employer_cancellation_period_length` | `int` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1872,7 +1871,7 @@ Create an instance: `employerHealthInsurancePolicyResponsePagedList := client.Em
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `any` |  |
-| `coverage_level` | `[]any` |  |
+| `coverage_levels` | `[]any` |  |
 | `employer_cancellation_period_length` | `int` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1909,7 +1908,7 @@ Create an instance: `employerHealthInsuranceQuote := client.EmployerHealthInsura
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `[]any` |  |
+| `coverage_levels` | `[]any` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1942,7 +1941,7 @@ Create an instance: `employerHealthInsuranceQuoteResponsePagedList := client.Emp
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `[]any` |  |
+| `coverage_levels` | `[]any` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1979,7 +1978,7 @@ Create an instance: `enrolmentIntent := client.EnrolmentIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` |  |
-| `disclosure` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `employee_id` | `string` |  |
 | `force_confirmation` | `bool` |  |
 | `group_id` | `string` |  |
@@ -1988,7 +1987,7 @@ Create an instance: `enrolmentIntent := client.EnrolmentIntent(nil)`
 | `object` | `string` |  |
 | `pending_confirmation` | `any` |  |
 | `policy_configuration` | `any` |  |
-| `policy_enrolment` | `[]any` |  |
+| `policy_enrolments` | `[]any` |  |
 | `status` | `any` |  |
 
 #### Example: Load
@@ -2015,12 +2014,12 @@ fmt.Println(enrolmentIntents) // the array of records
 
 ```go
 result, err := client.EnrolmentIntent(nil).Create(map[string]any{
-    "disclosure": []any{},
+    "disclosures": []any{},
     "employee_id": "example_employee_id",
     "force_confirmation": true,
     "group_id": "example_group_id",
     "id": "example_id",
-    "policy_enrolment": []any{},
+    "policy_enrolments": []any{},
     "status": "example_status",
 }, nil)
 if err != nil {
@@ -2081,7 +2080,10 @@ Create an instance: `event := client.Event(nil)`
 | `created` | `string` |  |
 | `data` | `any` |  |
 | `id` | `string` |  |
+| `options` | `any` |  |
+| `parent` | `any` |  |
 | `platform_id` | `string` |  |
+| `root` | `any` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -2125,9 +2127,9 @@ Create an instance: `group := client.Group(nil)`
 | `description` | `any` |  |
 | `employer_id` | `string` |  |
 | `enrolment_type` | `any` |  |
-| `group_policy_id` | `[]any` |  |
-| `group_policy_intent_id` | `[]any` |  |
-| `group_quote_intent_id` | `[]any` |  |
+| `group_policy_ids` | `[]any` |  |
+| `group_policy_intent_ids` | `[]any` |  |
+| `group_quote_intent_ids` | `[]any` |  |
 | `group_type` | `any` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -2160,9 +2162,9 @@ fmt.Println(groups) // the array of records
 result, err := client.Group(nil).Create(map[string]any{
     "employer_id": "example_employer_id",
     "enrolment_type": "example_enrolment_type",
-    "group_policy_id": []any{},
-    "group_policy_intent_id": []any{},
-    "group_quote_intent_id": []any{},
+    "group_policy_ids": []any{},
+    "group_policy_intent_ids": []any{},
+    "group_quote_intent_ids": []any{},
     "group_type": "example_group_type",
     "id": "example_id",
     "name": "example_name",
@@ -2191,14 +2193,14 @@ Create an instance: `groupEmployee := client.GroupEmployee(nil)`
 | --- | --- | --- |
 | `desired_policy_start_date` | `any` |  |
 | `eligibility_status` | `any` |  |
-| `enrolment` | `[]any` |  |
 | `enrolment_date` | `any` |  |
 | `enrolment_status` | `any` |  |
+| `enrolments` | `[]any` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `[]any` |  |
-| `scheduled_group_transition` | `[]any` |  |
+| `policies` | `[]any` |  |
+| `scheduled_group_transitions` | `[]any` |  |
 
 #### Example: Create
 
@@ -2206,11 +2208,11 @@ Create an instance: `groupEmployee := client.GroupEmployee(nil)`
 result, err := client.GroupEmployee(nil).Create(map[string]any{
     "id": "example_id",
     "eligibility_status": "example_eligibility_status",
-    "enrolment": []any{},
     "enrolment_status": "example_enrolment_status",
+    "enrolments": []any{},
     "group_id": "example_group_id",
-    "policy": []any{},
-    "scheduled_group_transition": []any{},
+    "policies": []any{},
+    "scheduled_group_transitions": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -2235,14 +2237,14 @@ Create an instance: `groupEmployeeResponsePagedList := client.GroupEmployeeRespo
 | --- | --- | --- |
 | `desired_policy_start_date` | `any` |  |
 | `eligibility_status` | `any` |  |
-| `enrolment` | `[]any` |  |
 | `enrolment_date` | `any` |  |
 | `enrolment_status` | `any` |  |
+| `enrolments` | `[]any` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `[]any` |  |
-| `scheduled_group_transition` | `[]any` |  |
+| `policies` | `[]any` |  |
+| `scheduled_group_transitions` | `[]any` |  |
 
 #### Example: List
 
@@ -2271,7 +2273,7 @@ Create an instance: `groupPolicy := client.GroupPolicy(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `any` |  |
-| `disclosure` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `any` |  |
 | `group_id` | `string` |  |
@@ -2323,7 +2325,7 @@ Create an instance: `groupPolicyIntent := client.GroupPolicyIntent(nil)`
 | --- | --- | --- |
 | `action_required` | `any` |  |
 | `cost_sharing` | `any` |  |
-| `disclosure` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `due_date` | `any` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2356,7 +2358,7 @@ fmt.Println(groupPolicyIntents) // the array of records
 
 ```go
 result, err := client.GroupPolicyIntent(nil).Create(map[string]any{
-    "disclosure": []any{},
+    "disclosures": []any{},
     "group_id": "example_group_id",
     "id": "example_id",
     "plan_id": "example_plan_id",
@@ -2416,15 +2418,11 @@ Create an instance: `groupQuote := client.GroupQuote(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost_sharing` | `any` |  |
-| `currency` | `string` |  |
-| `employee_count` | `int` |  |
-| `expires_at` | `string` |  |
-| `generated_at` | `string` |  |
-| `object` | `string` |  |
-| `pdf_expires_at` | `any` |  |
-| `pdf_url` | `any` |  |
-| `total_monthly_premium` | `float64` |  |
+| `family_type` | `any` |  |
+| `member_count` | `any` |  |
+| `member_selection` | `any` |  |
+| `percentage` | `any` |  |
+| `type` | `any` |  |
 
 #### Example: Load
 
@@ -2454,9 +2452,9 @@ Create an instance: `groupQuoteIntent := client.GroupQuoteIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` |  |
-| `consent_link` | `[]any` |  |
+| `consent_links` | `[]any` |  |
 | `cost_sharing` | `any` |  |
-| `disclosure` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `expected_start_date` | `any` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2488,8 +2486,8 @@ fmt.Println(groupQuoteIntents) // the array of records
 
 ```go
 result, err := client.GroupQuoteIntent(nil).Create(map[string]any{
-    "consent_link": []any{},
-    "disclosure": []any{},
+    "consent_links": []any{},
+    "disclosures": []any{},
     "group_id": "example_group_id",
     "id": "example_id",
     "plan_id": "example_plan_id",
@@ -2552,13 +2550,13 @@ Create an instance: `plan := client.Plan(nil)`
 | `available_from` | `string` |  |
 | `available_to` | `any` |  |
 | `country` | `any` |  |
-| `coverage_option` | `any` |  |
+| `coverage_options` | `any` |  |
 | `description` | `string` |  |
-| `disclosure` | `[]any` |  |
-| `document` | `[]any` |  |
+| `disclosures` | `[]any` |  |
+| `documents` | `[]any` |  |
 | `eligible_count` | `any` |  |
-| `employee_eligibility_criterion` | `[]any` |  |
-| `employer_eligibility_criterion` | `[]any` |  |
+| `employee_eligibility_criteria` | `[]any` |  |
+| `employer_eligibility_criteria` | `[]any` |  |
 | `health_insurance` | `any` |  |
 | `id` | `string` |  |
 | `ineligible_count` | `any` |  |
@@ -2606,7 +2604,7 @@ Create an instance: `policy := client.Policy(nil)`
 | --- | --- | --- |
 | `bundling_type` | `any` |  |
 | `cancellation_date` | `any` |  |
-| `disclosure` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `employee_id` | `string` |  |
 | `end_date` | `any` |  |
 | `group_id` | `string` |  |
@@ -2658,13 +2656,13 @@ Create an instance: `policyAmendmentIntent := client.PolicyAmendmentIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `amendment_reason` | `any` |  |
-| `disclosure` | `[]any` |  |
+| `disclosures` | `[]any` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `pending_confirmation` | `any` |  |
 | `policy_id` | `string` |  |
 | `processing_error` | `any` |  |
-| `requested_change` | `[]any` |  |
+| `requested_changes` | `[]any` |  |
 | `required_action` | `any` |  |
 | `status` | `any` |  |
 
@@ -2694,9 +2692,9 @@ fmt.Println(policyAmendmentIntents) // the array of records
 result, err := client.PolicyAmendmentIntent(nil).Create(map[string]any{
     "id": "example_id",
     "amendment_reason": "example_amendment_reason",
-    "disclosure": []any{},
+    "disclosures": []any{},
     "policy_id": "example_policy_id",
-    "requested_change": []any{},
+    "requested_changes": []any{},
     "status": "example_status",
 }, nil)
 if err != nil {
@@ -2722,7 +2720,7 @@ Create an instance: `policyImportIntent := client.PolicyImportIntent(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_person` | `[]any` |  |
+| `associated_persons` | `[]any` |  |
 | `employee_id` | `string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2757,7 +2755,7 @@ fmt.Println(policyImportIntents) // the array of records
 
 ```go
 result, err := client.PolicyImportIntent(nil).Create(map[string]any{
-    "associated_person": []any{},
+    "associated_persons": []any{},
     "employee_id": "example_employee_id",
     "group_id": "example_group_id",
     "id": "example_id",
@@ -2796,7 +2794,7 @@ Create an instance: `provider := client.Provider(nil)`
 | `name` | `string` |  |
 | `object` | `string` |  |
 | `support_phone` | `string` |  |
-| `supported_country` | `[]any` |  |
+| `supported_countries` | `[]any` |  |
 | `website_url` | `string` |  |
 
 #### Example: Load
@@ -2834,7 +2832,7 @@ Create an instance: `replay := client.Replay(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `delivery` | `[]any` |  |
+| `deliveries` | `[]any` |  |
 | `event_id` | `string` |  |
 
 #### Example: Create
@@ -2842,7 +2840,7 @@ Create an instance: `replay := client.Replay(nil)`
 ```go
 result, err := client.Replay(nil).Create(map[string]any{
     "event_id": "example_event_id",
-    "delivery": []any{},
+    "deliveries": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -2869,7 +2867,7 @@ Create an instance: `webhookEndpoint := client.WebhookEndpoint(nil)`
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `[]any` |  |
+| `subscribed_events` | `[]any` |  |
 
 #### Example: Load
 
@@ -2900,7 +2898,7 @@ Create an instance: `webhookEndpointResponsePagedList := client.WebhookEndpointR
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `[]any` |  |
+| `subscribed_events` | `[]any` |  |
 
 #### Example: List
 

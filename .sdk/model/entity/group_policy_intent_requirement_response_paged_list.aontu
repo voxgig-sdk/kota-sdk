@@ -124,7 +124,7 @@ main: kit: entity: group_policy_intent_requirement_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

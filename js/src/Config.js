@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Kota',
   }
 
 
@@ -297,6 +297,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/employees/{employee_id}/associated_persons",
               "parts": [
@@ -367,6 +368,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}/associated_persons",
               "parts": [
@@ -384,7 +386,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -431,6 +433,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
               "parts": [
@@ -500,6 +503,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
               "parts": [
@@ -569,6 +573,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
               "parts": [
@@ -729,6 +734,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility",
               "parts": [
@@ -746,7 +752,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -872,6 +878,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/contribution_reports/{contribution_report_id}/finalize",
               "parts": [
@@ -977,6 +984,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/contribution_reports",
               "parts": [
@@ -996,7 +1004,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -1033,6 +1041,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/contribution_reports/{contribution_report_id}",
               "parts": [
@@ -1205,6 +1214,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}",
               "parts": [
@@ -1392,6 +1402,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/contribution_reports/{contribution_report_id}/employee_breakdowns",
               "parts": [
@@ -1415,7 +1426,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -1453,6 +1464,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/hosted/sessions",
               "parts": [
@@ -1500,6 +1512,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/embed/sessions",
               "parts": [
@@ -1532,7 +1545,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "coverage_option",
+          "name": "coverage_options",
           "req": false,
           "type": [
             "`$ONE`",
@@ -1545,14 +1558,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "dependent",
+          "name": "dependents",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
@@ -1640,6 +1653,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/dependents_management_intents/{dependents_management_intent_id}/dependents",
               "parts": [
@@ -1703,6 +1717,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}",
               "parts": [
@@ -1752,7 +1767,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "coverage_option",
+          "name": "coverage_options",
           "req": false,
           "type": [
             "`$ONE`",
@@ -1765,14 +1780,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "dependent",
+          "name": "dependents",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
@@ -1862,6 +1877,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent",
               "parts": [
@@ -1915,6 +1931,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent",
               "parts": [
@@ -1960,6 +1977,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/dependents_management_intents/{dependents_management_intent_id}/cancel",
               "parts": [
@@ -2011,6 +2029,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/dependents_management_intents/{dependents_management_intent_id}/confirm",
               "parts": [
@@ -2069,6 +2088,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/dependents_management_intents/{dependents_management_intent_id}",
               "parts": [
@@ -2140,7 +2160,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "reason",
+          "name": "reasons",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 4
@@ -2178,6 +2198,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/groups/{group_id}/eligibility_check",
               "parts": [
@@ -2416,6 +2437,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/employees/{employee_id}/offboard",
               "parts": [
@@ -2476,6 +2498,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/employees/{employee_id}/offboard/cancel",
               "parts": [
@@ -2525,6 +2548,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/employees",
               "parts": [
@@ -2614,6 +2638,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees",
               "parts": [
@@ -2632,7 +2657,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -2669,6 +2694,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}",
               "parts": [
@@ -2725,6 +2751,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/employees/{employee_id}",
               "parts": [
@@ -2863,6 +2890,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}",
               "parts": [
@@ -3017,6 +3045,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}/health_insurance/offers",
               "parts": [
@@ -3035,7 +3064,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -3226,6 +3255,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}/health_insurance/policies/{employee_policy_id}",
               "parts": [
@@ -3456,6 +3486,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employees/{employee_id}/health_insurance/policies",
               "parts": [
@@ -3475,7 +3506,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -3635,6 +3666,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/employers/{employer_id}/offboard",
               "parts": [
@@ -3683,6 +3715,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/employers",
               "parts": [
@@ -3747,6 +3780,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employers",
               "parts": [
@@ -3762,7 +3796,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -3799,6 +3833,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employers/{employer_id}",
               "parts": [
@@ -3855,6 +3890,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/employers/{employer_id}",
               "parts": [
@@ -3903,7 +3939,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "coverage_level",
+          "name": "coverage_levels",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -4027,6 +4063,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}",
               "parts": [
@@ -4083,7 +4120,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "coverage_level",
+          "name": "coverage_levels",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -4223,6 +4260,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employers/{employer_id}/health_insurance/policies",
               "parts": [
@@ -4242,7 +4280,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -4262,7 +4300,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "coverage_level",
+          "name": "coverage_levels",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 0
@@ -4352,6 +4390,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}",
               "parts": [
@@ -4395,7 +4434,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "coverage_level",
+          "name": "coverage_levels",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 0
@@ -4501,6 +4540,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/employers/{employer_id}/health_insurance/quotes",
               "parts": [
@@ -4520,7 +4560,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -4547,7 +4587,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -4610,7 +4650,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "policy_enrolment",
+          "name": "policy_enrolments",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 10
@@ -4655,6 +4695,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/enrolment_intents/{enrolment_intent_id}/confirm",
               "parts": [
@@ -4706,6 +4747,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/enrolment_intents/{enrolment_intent_id}/coverage-selections",
               "parts": [
@@ -4757,6 +4799,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/enrolment_intents/{enrolment_intent_id}/reject",
               "parts": [
@@ -4804,6 +4847,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/enrolment_intents",
               "parts": [
@@ -4886,6 +4930,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/enrolment_intents",
               "parts": [
@@ -4903,7 +4948,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -4940,6 +4985,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/enrolment_intents/{enrolment_intent_id}",
               "parts": [
@@ -4996,6 +5042,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/enrolment_intents/{enrolment_intent_id}",
               "parts": [
@@ -5138,6 +5185,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/enrolment_intents/{enrolment_intent_id}/requirements",
               "parts": [
@@ -5163,7 +5211,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -5207,17 +5255,38 @@ class Config {
         },
         {
           "active": true,
+          "name": "options",
+          "req": false,
+          "type": "`$NULL`",
+          "index$": 4
+        },
+        {
+          "active": true,
+          "name": "parent",
+          "req": false,
+          "type": "`$NULL`",
+          "index$": 5
+        },
+        {
+          "active": true,
           "name": "platform_id",
           "req": true,
           "type": "`$STRING`",
-          "index$": 4
+          "index$": 6
+        },
+        {
+          "active": true,
+          "name": "root",
+          "req": false,
+          "type": "`$ANY`",
+          "index$": 7
         },
         {
           "active": true,
           "name": "type",
           "req": true,
           "type": "`$STRING`",
-          "index$": 5
+          "index$": 8
         }
       ],
       "name": "event",
@@ -5282,6 +5351,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/events",
               "parts": [
@@ -5299,7 +5369,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -5336,6 +5406,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/events/{event_id}",
               "parts": [
@@ -5355,7 +5426,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }
@@ -5398,21 +5469,21 @@ class Config {
         },
         {
           "active": true,
-          "name": "group_policy_id",
+          "name": "group_policy_ids",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "group_policy_intent_id",
+          "name": "group_policy_intent_ids",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "group_quote_intent_id",
+          "name": "group_quote_intent_ids",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 5
@@ -5473,6 +5544,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/groups",
               "parts": [
@@ -5545,6 +5617,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/groups",
               "parts": [
@@ -5561,7 +5634,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -5598,6 +5671,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/groups/{group_id}",
               "parts": [
@@ -5654,6 +5728,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/groups/{group_id}",
               "parts": [
@@ -5709,13 +5784,6 @@ class Config {
         },
         {
           "active": true,
-          "name": "enrolment",
-          "req": true,
-          "type": "`$ARRAY`",
-          "index$": 2
-        },
-        {
-          "active": true,
           "name": "enrolment_date",
           "req": false,
           "type": [
@@ -5725,13 +5793,20 @@ class Config {
               "`$STRING`"
             ]
           ],
-          "index$": 3
+          "index$": 2
         },
         {
           "active": true,
           "name": "enrolment_status",
           "req": true,
           "type": "`$ANY`",
+          "index$": 3
+        },
+        {
+          "active": true,
+          "name": "enrolments",
+          "req": true,
+          "type": "`$ARRAY`",
           "index$": 4
         },
         {
@@ -5757,14 +5832,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "policy",
+          "name": "policies",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "scheduled_group_transition",
+          "name": "scheduled_group_transitions",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 9
@@ -5810,6 +5885,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/groups/{group_id}/employees",
               "parts": [
@@ -5867,13 +5943,6 @@ class Config {
         },
         {
           "active": true,
-          "name": "enrolment",
-          "req": true,
-          "type": "`$ARRAY`",
-          "index$": 2
-        },
-        {
-          "active": true,
           "name": "enrolment_date",
           "req": false,
           "type": [
@@ -5883,13 +5952,20 @@ class Config {
               "`$STRING`"
             ]
           ],
-          "index$": 3
+          "index$": 2
         },
         {
           "active": true,
           "name": "enrolment_status",
           "req": true,
           "type": "`$ANY`",
+          "index$": 3
+        },
+        {
+          "active": true,
+          "name": "enrolments",
+          "req": true,
+          "type": "`$ARRAY`",
           "index$": 4
         },
         {
@@ -5915,14 +5991,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "policy",
+          "name": "policies",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "scheduled_group_transition",
+          "name": "scheduled_group_transitions",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 9
@@ -5987,6 +6063,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/groups/{group_id}/employees",
               "parts": [
@@ -6011,7 +6088,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -6040,7 +6117,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -6193,6 +6270,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_policies",
               "parts": [
@@ -6210,7 +6288,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -6247,6 +6325,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_policies/{group_policy_id}",
               "parts": [
@@ -6296,7 +6375,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 2
@@ -6377,6 +6456,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/group_policy_intents",
               "parts": [
@@ -6458,6 +6538,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_policy_intents",
               "parts": [
@@ -6475,7 +6556,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -6512,6 +6593,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_policy_intents/{group_policy_intent_id}",
               "parts": [
@@ -6654,6 +6736,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_policy_intents/{group_policy_intent_id}/requirements",
               "parts": [
@@ -6679,7 +6762,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -6695,78 +6778,38 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "cost_sharing",
-          "req": true,
-          "type": "`$ANY`",
+          "name": "family_type",
+          "req": false,
+          "type": "`$NULL`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "currency",
-          "req": true,
-          "type": "`$STRING`",
+          "name": "member_count",
+          "req": false,
+          "type": "`$NULL`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "employee_count",
-          "req": true,
-          "type": "`$INTEGER`",
+          "name": "member_selection",
+          "req": false,
+          "type": "`$NULL`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "expires_at",
-          "req": true,
-          "type": "`$STRING`",
+          "name": "percentage",
+          "req": false,
+          "type": "`$NULL`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "generated_at",
+          "name": "type",
           "req": true,
-          "type": "`$STRING`",
+          "type": "`$ANY`",
           "index$": 4
-        },
-        {
-          "active": true,
-          "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
-        },
-        {
-          "active": true,
-          "name": "pdf_expires_at",
-          "req": false,
-          "type": [
-            "`$ONE`",
-            [
-              "`$NULL`",
-              "`$STRING`"
-            ]
-          ],
-          "index$": 6
-        },
-        {
-          "active": true,
-          "name": "pdf_url",
-          "req": false,
-          "type": [
-            "`$ONE`",
-            [
-              "`$NULL`",
-              "`$STRING`"
-            ]
-          ],
-          "index$": 7
-        },
-        {
-          "active": true,
-          "name": "total_monthly_premium",
-          "req": true,
-          "type": "`$NUMBER`",
-          "index$": 8
         }
       ],
       "name": "group_quote",
@@ -6801,6 +6844,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_quote_intents/{group_quote_intent_id}/quote",
               "parts": [
@@ -6816,7 +6860,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.cost_sharing`"
               },
               "index$": 0
             }
@@ -6843,7 +6887,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "consent_link",
+          "name": "consent_links",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -6857,7 +6901,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
@@ -6943,6 +6987,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/group_quote_intents/{group_quote_intent_id}/reject",
               "parts": [
@@ -6982,6 +7027,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/group_quote_intents",
               "parts": [
@@ -7063,6 +7109,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_quote_intents",
               "parts": [
@@ -7080,7 +7127,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -7117,6 +7164,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_quote_intents/{group_quote_intent_id}",
               "parts": [
@@ -7259,6 +7307,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/group_quote_intents/{group_quote_intent_id}/requirements",
               "parts": [
@@ -7284,7 +7333,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -7327,7 +7376,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "coverage_option",
+          "name": "coverage_options",
           "req": false,
           "type": [
             "`$ONE`",
@@ -7347,14 +7396,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "document",
+          "name": "documents",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 6
@@ -7374,14 +7423,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "employee_eligibility_criterion",
+          "name": "employee_eligibility_criteria",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "employer_eligibility_criterion",
+          "name": "employer_eligibility_criteria",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 9
@@ -7558,6 +7607,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/plans",
               "parts": [
@@ -7580,7 +7630,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -7636,6 +7686,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/plans/{plan_id}",
               "parts": [
@@ -7693,7 +7744,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 2
@@ -7862,6 +7913,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/policies",
               "parts": [
@@ -7880,7 +7932,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -7917,6 +7969,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/policies/{policy_id}",
               "parts": [
@@ -7959,7 +8012,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "disclosure",
+          "name": "disclosures",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -8001,7 +8054,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "requested_change",
+          "name": "requested_changes",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 7
@@ -8063,6 +8116,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/policies/{policy_id}/policy_amendment_intents/{id}/cancel",
               "parts": [
@@ -8122,6 +8176,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm",
               "parts": [
@@ -8176,6 +8231,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/policies/{policy_id}/policy_amendment_intents",
               "parts": [
@@ -8259,6 +8315,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/policies/{policy_id}/policy_amendment_intents",
               "parts": [
@@ -8282,7 +8339,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -8329,6 +8386,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}",
               "parts": [
@@ -8371,7 +8429,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "associated_person",
+          "name": "associated_persons",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 0
@@ -8466,6 +8524,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/policy_import_intents",
               "parts": [
@@ -8547,6 +8606,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/policy_import_intents",
               "parts": [
@@ -8564,7 +8624,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -8601,6 +8661,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/policy_import_intents/{policy_import_intent_id}",
               "parts": [
@@ -8704,7 +8765,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "supported_country",
+          "name": "supported_countries",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 8
@@ -8763,6 +8824,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/providers",
               "parts": [
@@ -8778,7 +8840,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }
@@ -8815,6 +8877,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/providers/{provider_id}",
               "parts": [
@@ -8850,7 +8913,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "delivery",
+          "name": "deliveries",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 0
@@ -8895,6 +8958,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/events/{event_id}/replay",
               "parts": [
@@ -8958,7 +9022,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "subscribed_event",
+          "name": "subscribed_events",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 4
@@ -8996,6 +9060,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/webhooks/endpoints/{webhook_endpoint_id}",
               "parts": [
@@ -9060,7 +9125,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "subscribed_event",
+          "name": "subscribed_events",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 4
@@ -9104,6 +9169,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/webhooks/endpoints",
               "parts": [
@@ -9119,7 +9185,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             }

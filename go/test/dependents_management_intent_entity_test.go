@@ -59,7 +59,7 @@ func TestDependentsManagementIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		dependentsManagementIntentRef01Data = core.ToMapAny(dependentsManagementIntentRef01DataResult)
+		dependentsManagementIntentRef01Data = core.ToMapAny(entityData(dependentsManagementIntentRef01DataResult))
 		if dependentsManagementIntentRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -75,7 +75,7 @@ func TestDependentsManagementIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		dependentsManagementIntentRef01DataDt0LoadResult := core.ToMapAny(dependentsManagementIntentRef01DataDt0Loaded)
+		dependentsManagementIntentRef01DataDt0LoadResult := core.ToMapAny(entityData(dependentsManagementIntentRef01DataDt0Loaded))
 		if dependentsManagementIntentRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

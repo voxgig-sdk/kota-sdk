@@ -83,7 +83,7 @@ class GroupEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.group"), "group_ref01"));
 
         $group_ref01_data_result = $group_ref01_ent->create($group_ref01_data, null);
-        $group_ref01_data = Helpers::to_map($group_ref01_data_result);
+        $group_ref01_data = Helpers::to_map(is_object($group_ref01_data_result) && method_exists($group_ref01_data_result, 'data_get') ? $group_ref01_data_result->data_get() : $group_ref01_data_result);
         $this->assertNotNull($group_ref01_data);
         $this->assertNotNull($group_ref01_data["id"]);
 
@@ -108,7 +108,7 @@ class GroupEntityTest extends TestCase
         $group_ref01_data_up0_up[$group_ref01_markdef_up0_name] = $group_ref01_markdef_up0_value;
 
         $group_ref01_resdata_up0_result = $group_ref01_ent->update($group_ref01_data_up0_up, null);
-        $group_ref01_resdata_up0 = Helpers::to_map($group_ref01_resdata_up0_result);
+        $group_ref01_resdata_up0 = Helpers::to_map(is_object($group_ref01_resdata_up0_result) && method_exists($group_ref01_resdata_up0_result, 'data_get') ? $group_ref01_resdata_up0_result->data_get() : $group_ref01_resdata_up0_result);
         $this->assertNotNull($group_ref01_resdata_up0);
         $this->assertEquals($group_ref01_resdata_up0["id"], $group_ref01_data_up0_up["id"]);
         $this->assertEquals($group_ref01_resdata_up0[$group_ref01_markdef_up0_name], $group_ref01_markdef_up0_value);
@@ -118,7 +118,7 @@ class GroupEntityTest extends TestCase
             "id" => $group_ref01_data["id"],
         ];
         $group_ref01_data_dt0_loaded = $group_ref01_ent->load($group_ref01_match_dt0, null);
-        $group_ref01_data_dt0_load_result = Helpers::to_map($group_ref01_data_dt0_loaded);
+        $group_ref01_data_dt0_load_result = Helpers::to_map(is_object($group_ref01_data_dt0_loaded) && method_exists($group_ref01_data_dt0_loaded, 'data_get') ? $group_ref01_data_dt0_loaded->data_get() : $group_ref01_data_dt0_loaded);
         $this->assertNotNull($group_ref01_data_dt0_load_result);
         $this->assertEquals($group_ref01_data_dt0_load_result["id"], $group_ref01_data["id"]);
 

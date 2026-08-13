@@ -2,39 +2,51 @@
   "existing": {
     "event": {
       "EVENT00": {
-        "api_version": "s3c",
-        "created": "s3d",
-        "data": "s3e",
+        "api_version": "s5a",
+        "created": "s5b",
+        "data": "s5c",
         "id": "EVENT00",
+        "options": "s5e",
+        "parent": "s5f",
         "platform_id": "PLATFORM01",
-        "type": "s41"
+        "root": "s61",
+        "type": "s62"
       },
       "EVENT01": {
-        "api_version": "s78",
-        "created": "s79",
-        "data": "s7a",
-        "id": "EVENT01",
-        "platform_id": "PLATFORM01",
-        "type": "s7d"
-      },
-      "EVENT02": {
         "api_version": "sb4",
         "created": "sb5",
         "data": "sb6",
-        "id": "EVENT02",
+        "id": "EVENT01",
+        "options": "sb8",
+        "parent": "sb9",
         "platform_id": "PLATFORM01",
-        "type": "sb9"
+        "root": "sbb",
+        "type": "sbc"
+      },
+      "EVENT02": {
+        "api_version": "s10e",
+        "created": "s10f",
+        "data": "s110",
+        "id": "EVENT02",
+        "options": "s112",
+        "parent": "s113",
+        "platform_id": "PLATFORM01",
+        "root": "s115",
+        "type": "s116"
       }
     }
   },
   "new": {
     "event": {
       "event_ref01": {
-        "api_version": "sf0",
-        "created": "sf1",
-        "data": "sf2",
+        "api_version": "s168",
+        "created": "s169",
+        "data": "s16a",
+        "options": "s16c",
+        "parent": "s16d",
         "platform_id": "PLATFORM01",
-        "type": "sf5"
+        "root": "s16f",
+        "type": "s170"
       }
     }
   }

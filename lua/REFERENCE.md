@@ -735,9 +735,9 @@ local dependent = client:Dependent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No |  |
-| `coverage_option` | `nil|table` | No |  |
-| `dependent` | `table` | Yes |  |
-| `disclosure` | `table` | Yes |  |
+| `coverage_options` | `nil|table` | No |  |
+| `dependents` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -754,8 +754,8 @@ Create a new entity with the given data.
 ```lua
 local result, err = client:Dependent():create({
   dependents_management_intent_id = --[[ string ]],
-  dependent = --[[ table ]],
-  disclosure = --[[ table ]],
+  dependents = --[[ table ]],
+  disclosures = --[[ table ]],
   id = --[[ string ]],
   parent_intent_id = --[[ string ]],
   parent_intent_type = --[[ any ]],
@@ -813,9 +813,9 @@ local dependents_management_intent = client:DependentsManagementIntent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No |  |
-| `coverage_option` | `nil|table` | No |  |
-| `dependent` | `table` | Yes |  |
-| `disclosure` | `table` | Yes |  |
+| `coverage_options` | `nil|table` | No |  |
+| `dependents` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -831,8 +831,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:DependentsManagementIntent():create({
-  dependent = --[[ table ]],
-  disclosure = --[[ table ]],
+  dependents = --[[ table ]],
+  disclosures = --[[ table ]],
   id = --[[ string ]],
   parent_intent_id = --[[ string ]],
   parent_intent_type = --[[ any ]],
@@ -893,7 +893,7 @@ local eligibility_check = client:EligibilityCheck(nil)
 | `object` | `string` | No |  |
 | `plan` | `any` | Yes |  |
 | `provider` | `any` | Yes |  |
-| `reason` | `table` | Yes |  |
+| `reasons` | `table` | Yes |  |
 
 ### Operations
 
@@ -907,7 +907,7 @@ local result, err = client:EligibilityCheck():create({
   eligibility_status = --[[ any ]],
   plan = --[[ any ]],
   provider = --[[ any ]],
-  reason = --[[ table ]],
+  reasons = --[[ table ]],
 })
 ```
 
@@ -1404,7 +1404,7 @@ local employer_health_insurance_policy = client:EmployerHealthInsurancePolicy(ni
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `nil|string` | No |  |
-| `coverage_level` | `table` | Yes |  |
+| `coverage_levels` | `table` | Yes |  |
 | `employer_cancellation_period_length` | `number` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1467,7 +1467,7 @@ local employer_health_insurance_policy_response_paged_list = client:EmployerHeal
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `nil|string` | No |  |
-| `coverage_level` | `table` | Yes |  |
+| `coverage_levels` | `table` | Yes |  |
 | `employer_cancellation_period_length` | `number` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1529,7 +1529,7 @@ local employer_health_insurance_quote = client:EmployerHealthInsuranceQuote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `table` | Yes |  |
+| `coverage_levels` | `table` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1587,7 +1587,7 @@ local employer_health_insurance_quote_response_paged_list = client:EmployerHealt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `table` | Yes |  |
+| `coverage_levels` | `table` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1646,7 +1646,7 @@ local enrolment_intent = client:EnrolmentIntent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No |  |
-| `disclosure` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `force_confirmation` | `boolean` | Yes |  |
 | `group_id` | `string` | Yes |  |
@@ -1655,7 +1655,7 @@ local enrolment_intent = client:EnrolmentIntent(nil)
 | `object` | `string` | No |  |
 | `pending_confirmation` | `nil` | No |  |
 | `policy_configuration` | `nil` | No |  |
-| `policy_enrolment` | `table` | Yes |  |
+| `policy_enrolments` | `table` | Yes |  |
 | `status` | `any` | Yes |  |
 
 ### Operations
@@ -1666,12 +1666,12 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:EnrolmentIntent():create({
-  disclosure = --[[ table ]],
+  disclosures = --[[ table ]],
   employee_id = --[[ string ]],
   force_confirmation = --[[ boolean ]],
   group_id = --[[ string ]],
   id = --[[ string ]],
-  policy_enrolment = --[[ table ]],
+  policy_enrolments = --[[ table ]],
   status = --[[ any ]],
 })
 ```
@@ -1804,7 +1804,10 @@ local event = client:Event(nil)
 | `created` | `string` | Yes |  |
 | `data` | `nil` | Yes |  |
 | `id` | `string` | Yes |  |
+| `options` | `nil` | No |  |
+| `parent` | `nil` | No |  |
 | `platform_id` | `string` | Yes |  |
+| `root` | `any` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -1868,9 +1871,9 @@ local group = client:Group(nil)
 | `description` | `nil|string` | No |  |
 | `employer_id` | `string` | Yes |  |
 | `enrolment_type` | `any` | Yes |  |
-| `group_policy_id` | `table` | Yes |  |
-| `group_policy_intent_id` | `table` | Yes |  |
-| `group_quote_intent_id` | `table` | Yes |  |
+| `group_policy_ids` | `table` | Yes |  |
+| `group_policy_intent_ids` | `table` | Yes |  |
+| `group_quote_intent_ids` | `table` | Yes |  |
 | `group_type` | `any` | Yes |  |
 | `id` | `string` | Yes |  |
 | `name` | `string` | Yes |  |
@@ -1887,9 +1890,9 @@ Create a new entity with the given data.
 local result, err = client:Group():create({
   employer_id = --[[ string ]],
   enrolment_type = --[[ any ]],
-  group_policy_id = --[[ table ]],
-  group_policy_intent_id = --[[ table ]],
-  group_quote_intent_id = --[[ table ]],
+  group_policy_ids = --[[ table ]],
+  group_policy_intent_ids = --[[ table ]],
+  group_quote_intent_ids = --[[ table ]],
   group_type = --[[ any ]],
   id = --[[ string ]],
   name = --[[ string ]],
@@ -1966,14 +1969,14 @@ local group_employee = client:GroupEmployee(nil)
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `nil|string` | No |  |
 | `eligibility_status` | `any` | Yes |  |
-| `enrolment` | `table` | Yes |  |
 | `enrolment_date` | `nil|string` | No |  |
 | `enrolment_status` | `any` | Yes |  |
+| `enrolments` | `table` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `table` | Yes |  |
-| `scheduled_group_transition` | `table` | Yes |  |
+| `policies` | `table` | Yes |  |
+| `scheduled_group_transitions` | `table` | Yes |  |
 
 ### Operations
 
@@ -1985,11 +1988,11 @@ Create a new entity with the given data.
 local result, err = client:GroupEmployee():create({
   id = --[[ string ]],
   eligibility_status = --[[ any ]],
-  enrolment = --[[ table ]],
   enrolment_status = --[[ any ]],
+  enrolments = --[[ table ]],
   group_id = --[[ string ]],
-  policy = --[[ table ]],
-  scheduled_group_transition = --[[ table ]],
+  policies = --[[ table ]],
+  scheduled_group_transitions = --[[ table ]],
 })
 ```
 
@@ -2035,14 +2038,14 @@ local group_employee_response_paged_list = client:GroupEmployeeResponsePagedList
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `nil|string` | No |  |
 | `eligibility_status` | `any` | Yes |  |
-| `enrolment` | `table` | Yes |  |
 | `enrolment_date` | `nil|string` | No |  |
 | `enrolment_status` | `any` | Yes |  |
+| `enrolments` | `table` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `table` | Yes |  |
-| `scheduled_group_transition` | `table` | Yes |  |
+| `policies` | `table` | Yes |  |
+| `scheduled_group_transitions` | `table` | Yes |  |
 
 ### Operations
 
@@ -2095,7 +2098,7 @@ local group_policy = client:GroupPolicy(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `nil|string` | No |  |
-| `disclosure` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `employer_id` | `string` | No |  |
 | `end_date` | `nil|string` | No |  |
 | `group_id` | `string` | No |  |
@@ -2168,7 +2171,7 @@ local group_policy_intent = client:GroupPolicyIntent(nil)
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No |  |
 | `cost_sharing` | `nil` | No |  |
-| `disclosure` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `due_date` | `nil|string` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2185,7 +2188,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:GroupPolicyIntent():create({
-  disclosure = --[[ table ]],
+  disclosures = --[[ table ]],
   group_id = --[[ string ]],
   id = --[[ string ]],
   plan_id = --[[ string ]],
@@ -2307,15 +2310,11 @@ local group_quote = client:GroupQuote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `any` | Yes |  |
-| `currency` | `string` | Yes |  |
-| `employee_count` | `number` | Yes |  |
-| `expires_at` | `string` | Yes |  |
-| `generated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pdf_expires_at` | `nil|string` | No |  |
-| `pdf_url` | `nil|string` | No |  |
-| `total_monthly_premium` | `number` | Yes |  |
+| `family_type` | `nil` | No |  |
+| `member_count` | `nil` | No |  |
+| `member_selection` | `nil` | No |  |
+| `percentage` | `nil` | No |  |
+| `type` | `any` | Yes |  |
 
 ### Operations
 
@@ -2368,9 +2367,9 @@ local group_quote_intent = client:GroupQuoteIntent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No |  |
-| `consent_link` | `table` | Yes |  |
+| `consent_links` | `table` | Yes |  |
 | `cost_sharing` | `nil` | No |  |
-| `disclosure` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `expected_start_date` | `nil|string` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2386,8 +2385,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:GroupQuoteIntent():create({
-  consent_link = --[[ table ]],
-  disclosure = --[[ table ]],
+  consent_links = --[[ table ]],
+  disclosures = --[[ table ]],
   group_id = --[[ string ]],
   id = --[[ string ]],
   plan_id = --[[ string ]],
@@ -2511,13 +2510,13 @@ local plan = client:Plan(nil)
 | `available_from` | `string` | Yes |  |
 | `available_to` | `nil|string` | No |  |
 | `country` | `any` | Yes |  |
-| `coverage_option` | `nil|table` | No |  |
+| `coverage_options` | `nil|table` | No |  |
 | `description` | `string` | Yes |  |
-| `disclosure` | `table` | Yes |  |
-| `document` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
+| `documents` | `table` | Yes |  |
 | `eligible_count` | `nil|number` | No |  |
-| `employee_eligibility_criterion` | `table` | Yes |  |
-| `employer_eligibility_criterion` | `table` | Yes |  |
+| `employee_eligibility_criteria` | `table` | Yes |  |
+| `employer_eligibility_criteria` | `table` | Yes |  |
 | `health_insurance` | `nil` | No |  |
 | `id` | `string` | Yes |  |
 | `ineligible_count` | `nil|number` | No |  |
@@ -2587,7 +2586,7 @@ local policy = client:Policy(nil)
 | --- | --- | --- | --- |
 | `bundling_type` | `any` | Yes |  |
 | `cancellation_date` | `nil|string` | No |  |
-| `disclosure` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `end_date` | `nil|string` | No |  |
 | `group_id` | `string` | Yes |  |
@@ -2660,13 +2659,13 @@ local policy_amendment_intent = client:PolicyAmendmentIntent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `amendment_reason` | `any` | Yes |  |
-| `disclosure` | `table` | Yes |  |
+| `disclosures` | `table` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `pending_confirmation` | `nil` | No |  |
 | `policy_id` | `string` | Yes |  |
 | `processing_error` | `nil` | No |  |
-| `requested_change` | `table` | Yes |  |
+| `requested_changes` | `table` | Yes |  |
 | `required_action` | `nil` | No |  |
 | `status` | `any` | Yes |  |
 
@@ -2680,9 +2679,9 @@ Create a new entity with the given data.
 local result, err = client:PolicyAmendmentIntent():create({
   id = --[[ string ]],
   amendment_reason = --[[ any ]],
-  disclosure = --[[ table ]],
+  disclosures = --[[ table ]],
   policy_id = --[[ string ]],
-  requested_change = --[[ table ]],
+  requested_changes = --[[ table ]],
   status = --[[ any ]],
 })
 ```
@@ -2743,7 +2742,7 @@ local policy_import_intent = client:PolicyImportIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person` | `table` | Yes |  |
+| `associated_persons` | `table` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2762,7 +2761,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:PolicyImportIntent():create({
-  associated_person = --[[ table ]],
+  associated_persons = --[[ table ]],
   employee_id = --[[ string ]],
   group_id = --[[ string ]],
   id = --[[ string ]],
@@ -2837,7 +2836,7 @@ local provider = client:Provider(nil)
 | `name` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `support_phone` | `string` | Yes |  |
-| `supported_country` | `table` | Yes |  |
+| `supported_countries` | `table` | Yes |  |
 | `website_url` | `string` | Yes |  |
 
 ### Operations
@@ -2898,7 +2897,7 @@ local replay = client:Replay(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `delivery` | `table` | Yes |  |
+| `deliveries` | `table` | Yes |  |
 | `event_id` | `string` | Yes |  |
 
 ### Operations
@@ -2910,7 +2909,7 @@ Create a new entity with the given data.
 ```lua
 local result, err = client:Replay():create({
   event_id = --[[ string ]],
-  delivery = --[[ table ]],
+  deliveries = --[[ table ]],
 })
 ```
 
@@ -2958,7 +2957,7 @@ local webhook_endpoint = client:WebhookEndpoint(nil)
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `table` | Yes |  |
+| `subscribed_events` | `table` | Yes |  |
 
 ### Operations
 
@@ -3014,7 +3013,7 @@ local webhook_endpoint_response_paged_list = client:WebhookEndpointResponsePaged
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `table` | Yes |  |
+| `subscribed_events` | `table` | Yes |  |
 
 ### Operations
 

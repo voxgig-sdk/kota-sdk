@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import KotaControl
-from core.error import KotaError
-from core.result import KotaResult
-from core.spec import KotaSpec
+from kota_sdk.config import make_config
+from kota_sdk.features import _make_feature
+from kota_sdk.core.control import KotaControl
+from kota_sdk.core.error import KotaError
+from kota_sdk.core.result import KotaResult
+from kota_sdk.core.spec import KotaSpec
 
 
 # True when this SDK was generated with the named feature.

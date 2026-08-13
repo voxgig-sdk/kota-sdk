@@ -45,7 +45,7 @@ class GroupEmployeeEntityTest extends TestCase
         $group_employee_ref01_data["group_id"] = $setup["idmap"]["group01"];
 
         $group_employee_ref01_data_result = $group_employee_ref01_ent->create($group_employee_ref01_data, null);
-        $group_employee_ref01_data = Helpers::to_map($group_employee_ref01_data_result);
+        $group_employee_ref01_data = Helpers::to_map(is_object($group_employee_ref01_data_result) && method_exists($group_employee_ref01_data_result, 'data_get') ? $group_employee_ref01_data_result->data_get() : $group_employee_ref01_data_result);
         $this->assertNotNull($group_employee_ref01_data);
         $this->assertNotNull($group_employee_ref01_data["id"]);
 

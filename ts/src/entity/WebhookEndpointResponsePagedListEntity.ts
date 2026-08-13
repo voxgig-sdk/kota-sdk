@@ -37,7 +37,7 @@ class WebhookEndpointResponsePagedListEntity extends KotaEntityBase<WebhookEndpo
 
 
 
-  async list(this: any, reqmatch?: WebhookEndpointResponsePagedListListMatch, ctrl?: Control): Promise<WebhookEndpointResponsePagedList[]> {
+  async list(this: any, reqmatch?: WebhookEndpointResponsePagedListListMatch, ctrl?: Control): Promise<WebhookEndpointResponsePagedListEntity[]> {
 
     const utility = this._utility
 

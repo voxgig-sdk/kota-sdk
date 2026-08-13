@@ -159,9 +159,9 @@
 
 ---@class Dependent
 ---@field action_required? nil
----@field coverage_option? nil|table
----@field dependent table
----@field disclosure table
+---@field coverage_options? nil|table
+---@field dependents table
+---@field disclosures table
 ---@field id string
 ---@field object? string
 ---@field parent_intent_id string
@@ -172,9 +172,9 @@
 ---@class DependentCreateData
 ---@field dependents_management_intent_id string
 ---@field action_required? nil
----@field coverage_option? nil|table
----@field dependent table
----@field disclosure table
+---@field coverage_options? nil|table
+---@field dependents table
+---@field disclosures table
 ---@field id string
 ---@field object? string
 ---@field parent_intent_id string
@@ -188,9 +188,9 @@
 
 ---@class DependentsManagementIntent
 ---@field action_required? nil
----@field coverage_option? nil|table
----@field dependent table
----@field disclosure table
+---@field coverage_options? nil|table
+---@field dependents table
+---@field disclosures table
 ---@field id string
 ---@field object? string
 ---@field parent_intent_id string
@@ -206,9 +206,9 @@
 ---@field policy_id? string
 ---@field enrolment_intent_id? string
 ---@field action_required? nil
----@field coverage_option? nil|table
----@field dependent table
----@field disclosure table
+---@field coverage_options? nil|table
+---@field dependents table
+---@field disclosures table
 ---@field id string
 ---@field object? string
 ---@field parent_intent_id string
@@ -221,7 +221,7 @@
 ---@field object? string
 ---@field plan any
 ---@field provider any
----@field reason table
+---@field reasons table
 
 ---@class EligibilityCheckCreateData
 ---@field group_id string
@@ -229,7 +229,7 @@
 ---@field object? string
 ---@field plan any
 ---@field provider any
----@field reason table
+---@field reasons table
 
 ---@class Employee
 ---@field bank_account? nil
@@ -449,7 +449,7 @@
 
 ---@class EmployerHealthInsurancePolicy
 ---@field cancellation_date? nil|string
----@field coverage_level table
+---@field coverage_levels table
 ---@field employer_cancellation_period_length number
 ---@field employer_id string
 ---@field end_date string
@@ -467,7 +467,7 @@
 
 ---@class EmployerHealthInsurancePolicyResponsePagedList
 ---@field cancellation_date? nil|string
----@field coverage_level table
+---@field coverage_levels table
 ---@field employer_cancellation_period_length number
 ---@field employer_id string
 ---@field end_date string
@@ -483,7 +483,7 @@
 ---@field employer_id string
 
 ---@class EmployerHealthInsuranceQuote
----@field coverage_level table
+---@field coverage_levels table
 ---@field employer_id string
 ---@field id string
 ---@field object? string
@@ -496,7 +496,7 @@
 ---@field id string
 
 ---@class EmployerHealthInsuranceQuoteResponsePagedList
----@field coverage_level table
+---@field coverage_levels table
 ---@field employer_id string
 ---@field id string
 ---@field object? string
@@ -509,7 +509,7 @@
 
 ---@class EnrolmentIntent
 ---@field action_required? nil
----@field disclosure table
+---@field disclosures table
 ---@field employee_id string
 ---@field force_confirmation boolean
 ---@field group_id string
@@ -518,7 +518,7 @@
 ---@field object? string
 ---@field pending_confirmation? nil
 ---@field policy_configuration? nil
----@field policy_enrolment table
+---@field policy_enrolments table
 ---@field status any
 
 ---@class EnrolmentIntentLoadMatch
@@ -526,7 +526,7 @@
 
 ---@class EnrolmentIntentListMatch
 ---@field action_required? nil
----@field disclosure? table
+---@field disclosures? table
 ---@field employee_id? string
 ---@field force_confirmation? boolean
 ---@field group_id? string
@@ -535,12 +535,12 @@
 ---@field object? string
 ---@field pending_confirmation? nil
 ---@field policy_configuration? nil
----@field policy_enrolment? table
+---@field policy_enrolments? table
 ---@field status? any
 
 ---@class EnrolmentIntentCreateData
 ---@field action_required? nil
----@field disclosure table
+---@field disclosures table
 ---@field employee_id string
 ---@field force_confirmation boolean
 ---@field group_id string
@@ -549,13 +549,13 @@
 ---@field object? string
 ---@field pending_confirmation? nil
 ---@field policy_configuration? nil
----@field policy_enrolment table
+---@field policy_enrolments table
 ---@field status any
 
 ---@class EnrolmentIntentUpdateData
 ---@field id string
 ---@field action_required? nil
----@field disclosure? table
+---@field disclosures? table
 ---@field employee_id? string
 ---@field force_confirmation? boolean
 ---@field group_id? string
@@ -563,7 +563,7 @@
 ---@field object? string
 ---@field pending_confirmation? nil
 ---@field policy_configuration? nil
----@field policy_enrolment? table
+---@field policy_enrolments? table
 ---@field status? any
 
 ---@class EnrolmentIntentRequirementResponsePagedList
@@ -582,7 +582,10 @@
 ---@field created string
 ---@field data nil
 ---@field id string
+---@field options? nil
+---@field parent? nil
 ---@field platform_id string
+---@field root? any
 ---@field type string
 
 ---@class EventLoadMatch
@@ -593,16 +596,19 @@
 ---@field created? string
 ---@field data? nil
 ---@field id? string
+---@field options? nil
+---@field parent? nil
 ---@field platform_id? string
+---@field root? any
 ---@field type? string
 
 ---@class Group
 ---@field description? nil|string
 ---@field employer_id string
 ---@field enrolment_type any
----@field group_policy_id table
----@field group_policy_intent_id table
----@field group_quote_intent_id table
+---@field group_policy_ids table
+---@field group_policy_intent_ids table
+---@field group_quote_intent_ids table
 ---@field group_type any
 ---@field id string
 ---@field name string
@@ -616,9 +622,9 @@
 ---@field description? nil|string
 ---@field employer_id? string
 ---@field enrolment_type? any
----@field group_policy_id? table
----@field group_policy_intent_id? table
----@field group_quote_intent_id? table
+---@field group_policy_ids? table
+---@field group_policy_intent_ids? table
+---@field group_quote_intent_ids? table
 ---@field group_type? any
 ---@field id? string
 ---@field name? string
@@ -629,9 +635,9 @@
 ---@field description? nil|string
 ---@field employer_id string
 ---@field enrolment_type any
----@field group_policy_id table
----@field group_policy_intent_id table
----@field group_quote_intent_id table
+---@field group_policy_ids table
+---@field group_policy_intent_ids table
+---@field group_quote_intent_ids table
 ---@field group_type any
 ---@field id string
 ---@field name string
@@ -643,9 +649,9 @@
 ---@field description? nil|string
 ---@field employer_id? string
 ---@field enrolment_type? any
----@field group_policy_id? table
----@field group_policy_intent_id? table
----@field group_quote_intent_id? table
+---@field group_policy_ids? table
+---@field group_policy_intent_ids? table
+---@field group_quote_intent_ids? table
 ---@field group_type? any
 ---@field name? string
 ---@field object? string
@@ -654,45 +660,45 @@
 ---@class GroupEmployee
 ---@field desired_policy_start_date? nil|string
 ---@field eligibility_status any
----@field enrolment table
 ---@field enrolment_date? nil|string
 ---@field enrolment_status any
+---@field enrolments table
 ---@field group_id string
 ---@field id string
 ---@field object? string
----@field policy table
----@field scheduled_group_transition table
+---@field policies table
+---@field scheduled_group_transitions table
 
 ---@class GroupEmployeeCreateData
 ---@field id string
 ---@field desired_policy_start_date? nil|string
 ---@field eligibility_status any
----@field enrolment table
 ---@field enrolment_date? nil|string
 ---@field enrolment_status any
+---@field enrolments table
 ---@field group_id string
 ---@field object? string
----@field policy table
----@field scheduled_group_transition table
+---@field policies table
+---@field scheduled_group_transitions table
 
 ---@class GroupEmployeeResponsePagedList
 ---@field desired_policy_start_date? nil|string
 ---@field eligibility_status any
----@field enrolment table
 ---@field enrolment_date? nil|string
 ---@field enrolment_status any
+---@field enrolments table
 ---@field group_id string
 ---@field id string
 ---@field object? string
----@field policy table
----@field scheduled_group_transition table
+---@field policies table
+---@field scheduled_group_transitions table
 
 ---@class GroupEmployeeResponsePagedListListMatch
 ---@field id string
 
 ---@class GroupPolicy
 ---@field cancellation_date? nil|string
----@field disclosure table
+---@field disclosures table
 ---@field employer_id? string
 ---@field end_date? nil|string
 ---@field group_id? string
@@ -710,7 +716,7 @@
 
 ---@class GroupPolicyListMatch
 ---@field cancellation_date? nil|string
----@field disclosure? table
+---@field disclosures? table
 ---@field employer_id? string
 ---@field end_date? nil|string
 ---@field group_id? string
@@ -726,7 +732,7 @@
 ---@class GroupPolicyIntent
 ---@field action_required? nil
 ---@field cost_sharing? nil
----@field disclosure table
+---@field disclosures table
 ---@field due_date? nil|string
 ---@field group_id string
 ---@field id string
@@ -741,7 +747,7 @@
 ---@class GroupPolicyIntentListMatch
 ---@field action_required? nil
 ---@field cost_sharing? nil
----@field disclosure? table
+---@field disclosures? table
 ---@field due_date? nil|string
 ---@field group_id? string
 ---@field id? string
@@ -753,7 +759,7 @@
 ---@class GroupPolicyIntentCreateData
 ---@field action_required? nil
 ---@field cost_sharing? nil
----@field disclosure table
+---@field disclosures table
 ---@field due_date? nil|string
 ---@field group_id string
 ---@field id string
@@ -774,24 +780,20 @@
 ---@field id string
 
 ---@class GroupQuote
----@field cost_sharing any
----@field currency string
----@field employee_count number
----@field expires_at string
----@field generated_at string
----@field object? string
----@field pdf_expires_at? nil|string
----@field pdf_url? nil|string
----@field total_monthly_premium number
+---@field family_type? nil
+---@field member_count? nil
+---@field member_selection? nil
+---@field percentage? nil
+---@field type any
 
 ---@class GroupQuoteLoadMatch
 ---@field group_quote_intent_id string
 
 ---@class GroupQuoteIntent
 ---@field action_required? nil
----@field consent_link table
+---@field consent_links table
 ---@field cost_sharing? nil
----@field disclosure table
+---@field disclosures table
 ---@field expected_start_date? nil|string
 ---@field group_id string
 ---@field id string
@@ -804,9 +806,9 @@
 
 ---@class GroupQuoteIntentListMatch
 ---@field action_required? nil
----@field consent_link? table
+---@field consent_links? table
 ---@field cost_sharing? nil
----@field disclosure? table
+---@field disclosures? table
 ---@field expected_start_date? nil|string
 ---@field group_id? string
 ---@field id? string
@@ -816,9 +818,9 @@
 
 ---@class GroupQuoteIntentCreateData
 ---@field action_required? nil
----@field consent_link table
+---@field consent_links table
 ---@field cost_sharing? nil
----@field disclosure table
+---@field disclosures table
 ---@field expected_start_date? nil|string
 ---@field group_id string
 ---@field id string
@@ -841,13 +843,13 @@
 ---@field available_from string
 ---@field available_to? nil|string
 ---@field country any
----@field coverage_option? nil|table
+---@field coverage_options? nil|table
 ---@field description string
----@field disclosure table
----@field document table
+---@field disclosures table
+---@field documents table
 ---@field eligible_count? nil|number
----@field employee_eligibility_criterion table
----@field employer_eligibility_criterion table
+---@field employee_eligibility_criteria table
+---@field employer_eligibility_criteria table
 ---@field health_insurance? nil
 ---@field id string
 ---@field ineligible_count? nil|number
@@ -864,13 +866,13 @@
 ---@field available_from? string
 ---@field available_to? nil|string
 ---@field country? any
----@field coverage_option? nil|table
+---@field coverage_options? nil|table
 ---@field description? string
----@field disclosure? table
----@field document? table
+---@field disclosures? table
+---@field documents? table
 ---@field eligible_count? nil|number
----@field employee_eligibility_criterion? table
----@field employer_eligibility_criterion? table
+---@field employee_eligibility_criteria? table
+---@field employer_eligibility_criteria? table
 ---@field health_insurance? nil
 ---@field id? string
 ---@field ineligible_count? nil|number
@@ -883,7 +885,7 @@
 ---@class Policy
 ---@field bundling_type any
 ---@field cancellation_date? nil|string
----@field disclosure table
+---@field disclosures table
 ---@field employee_id string
 ---@field end_date? nil|string
 ---@field group_id string
@@ -903,7 +905,7 @@
 ---@class PolicyListMatch
 ---@field bundling_type? any
 ---@field cancellation_date? nil|string
----@field disclosure? table
+---@field disclosures? table
 ---@field employee_id? string
 ---@field end_date? nil|string
 ---@field group_id? string
@@ -919,13 +921,13 @@
 
 ---@class PolicyAmendmentIntent
 ---@field amendment_reason any
----@field disclosure table
+---@field disclosures table
 ---@field id string
 ---@field object? string
 ---@field pending_confirmation? nil
 ---@field policy_id string
 ---@field processing_error? nil
----@field requested_change table
+---@field requested_changes table
 ---@field required_action? nil
 ---@field status any
 
@@ -939,17 +941,17 @@
 ---@class PolicyAmendmentIntentCreateData
 ---@field id string
 ---@field amendment_reason any
----@field disclosure table
+---@field disclosures table
 ---@field object? string
 ---@field pending_confirmation? nil
 ---@field policy_id string
 ---@field processing_error? nil
----@field requested_change table
+---@field requested_changes table
 ---@field required_action? nil
 ---@field status any
 
 ---@class PolicyImportIntent
----@field associated_person table
+---@field associated_persons table
 ---@field employee_id string
 ---@field group_id string
 ---@field id string
@@ -964,7 +966,7 @@
 ---@field id string
 
 ---@class PolicyImportIntentListMatch
----@field associated_person? table
+---@field associated_persons? table
 ---@field employee_id? string
 ---@field group_id? string
 ---@field id? string
@@ -976,7 +978,7 @@
 ---@field status? any
 
 ---@class PolicyImportIntentCreateData
----@field associated_person table
+---@field associated_persons table
 ---@field employee_id string
 ---@field group_id string
 ---@field id string
@@ -996,7 +998,7 @@
 ---@field name string
 ---@field object? string
 ---@field support_phone string
----@field supported_country table
+---@field supported_countries table
 ---@field website_url string
 
 ---@class ProviderLoadMatch
@@ -1011,23 +1013,23 @@
 ---@field name? string
 ---@field object? string
 ---@field support_phone? string
----@field supported_country? table
+---@field supported_countries? table
 ---@field website_url? string
 
 ---@class Replay
----@field delivery table
+---@field deliveries table
 ---@field event_id string
 
 ---@class ReplayCreateData
 ---@field event_id string
----@field delivery table
+---@field deliveries table
 
 ---@class WebhookEndpoint
 ---@field created_at string
 ---@field endpoint_url string
 ---@field id string
 ---@field object? string
----@field subscribed_event table
+---@field subscribed_events table
 
 ---@class WebhookEndpointLoadMatch
 ---@field id string
@@ -1037,14 +1039,14 @@
 ---@field endpoint_url string
 ---@field id string
 ---@field object? string
----@field subscribed_event table
+---@field subscribed_events table
 
 ---@class WebhookEndpointResponsePagedListListMatch
 ---@field created_at? string
 ---@field endpoint_url? string
 ---@field id? string
 ---@field object? string
----@field subscribed_event? table
+---@field subscribed_events? table
 
 local M = {}
 

@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -44,7 +44,7 @@ class TestCreateSessionTokenEntity:
         create_session_token_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.create_session_token"), "create_session_token_ref01"))
 
-        create_session_token_ref01_data = helpers.to_map(create_session_token_ref01_ent.create(create_session_token_ref01_data, None))
+        create_session_token_ref01_data = helpers.to_map(runner.entity_data(create_session_token_ref01_ent.create(create_session_token_ref01_data, None)))
         assert create_session_token_ref01_data is not None
 
 

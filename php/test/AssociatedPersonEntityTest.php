@@ -84,7 +84,7 @@ class AssociatedPersonEntityTest extends TestCase
         $associated_person_ref01_data["employee_id"] = $setup["idmap"]["employee01"];
 
         $associated_person_ref01_data_result = $associated_person_ref01_ent->create($associated_person_ref01_data, null);
-        $associated_person_ref01_data = Helpers::to_map($associated_person_ref01_data_result);
+        $associated_person_ref01_data = Helpers::to_map(is_object($associated_person_ref01_data_result) && method_exists($associated_person_ref01_data_result, 'data_get') ? $associated_person_ref01_data_result->data_get() : $associated_person_ref01_data_result);
         $this->assertNotNull($associated_person_ref01_data);
         $this->assertNotNull($associated_person_ref01_data["id"]);
 
@@ -112,7 +112,7 @@ class AssociatedPersonEntityTest extends TestCase
         $associated_person_ref01_data_up0_up[$associated_person_ref01_markdef_up0_name] = $associated_person_ref01_markdef_up0_value;
 
         $associated_person_ref01_resdata_up0_result = $associated_person_ref01_ent->update($associated_person_ref01_data_up0_up, null);
-        $associated_person_ref01_resdata_up0 = Helpers::to_map($associated_person_ref01_resdata_up0_result);
+        $associated_person_ref01_resdata_up0 = Helpers::to_map(is_object($associated_person_ref01_resdata_up0_result) && method_exists($associated_person_ref01_resdata_up0_result, 'data_get') ? $associated_person_ref01_resdata_up0_result->data_get() : $associated_person_ref01_resdata_up0_result);
         $this->assertNotNull($associated_person_ref01_resdata_up0);
         $this->assertEquals($associated_person_ref01_resdata_up0["id"], $associated_person_ref01_data_up0_up["id"]);
         $this->assertEquals($associated_person_ref01_resdata_up0[$associated_person_ref01_markdef_up0_name], $associated_person_ref01_markdef_up0_value);
@@ -122,7 +122,7 @@ class AssociatedPersonEntityTest extends TestCase
             "id" => $associated_person_ref01_data["id"],
         ];
         $associated_person_ref01_data_dt0_loaded = $associated_person_ref01_ent->load($associated_person_ref01_match_dt0, null);
-        $associated_person_ref01_data_dt0_load_result = Helpers::to_map($associated_person_ref01_data_dt0_loaded);
+        $associated_person_ref01_data_dt0_load_result = Helpers::to_map(is_object($associated_person_ref01_data_dt0_loaded) && method_exists($associated_person_ref01_data_dt0_loaded, 'data_get') ? $associated_person_ref01_data_dt0_loaded->data_get() : $associated_person_ref01_data_dt0_loaded);
         $this->assertNotNull($associated_person_ref01_data_dt0_load_result);
         $this->assertEquals($associated_person_ref01_data_dt0_load_result["id"], $associated_person_ref01_data["id"]);
 

@@ -38,7 +38,7 @@ class PolicyImportIntentEntity extends KotaEntityBase<PolicyImportIntent> {
 
 
 
-  async load(this: any, reqmatch?: PolicyImportIntentLoadMatch, ctrl?: Control): Promise<PolicyImportIntent> {
+  async load(this: any, reqmatch?: PolicyImportIntentLoadMatch, ctrl?: Control): Promise<PolicyImportIntentEntity> {
 
     const utility = this._utility
 
@@ -129,7 +129,15 @@ class PolicyImportIntentEntity extends KotaEntityBase<PolicyImportIntent> {
         }
       }
 
-      return done(ctx)
+      const out = done(ctx)
+
+      // An operation resolves to the ENTITY, not the raw data — the record
+      // has just been absorbed into this instance and is reached through
+      // data(). `done` still runs: it completes the pipeline and raises on
+      // failure, and when throwing is disabled it hands back the error
+      // payload, which passes through unchanged. See AGENTS.md "Entity
+      // operations return ENTITIES".
+      return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err: any) {
 
@@ -151,7 +159,7 @@ class PolicyImportIntentEntity extends KotaEntityBase<PolicyImportIntent> {
 
 
 
-  async list(this: any, reqmatch?: PolicyImportIntentListMatch, ctrl?: Control): Promise<PolicyImportIntent[]> {
+  async list(this: any, reqmatch?: PolicyImportIntentListMatch, ctrl?: Control): Promise<PolicyImportIntentEntity[]> {
 
     const utility = this._utility
 
@@ -260,7 +268,7 @@ class PolicyImportIntentEntity extends KotaEntityBase<PolicyImportIntent> {
 
 
 
-  async create(this: any, reqdata?: PolicyImportIntentCreateData, ctrl?: Control): Promise<PolicyImportIntent> {
+  async create(this: any, reqdata?: PolicyImportIntentCreateData, ctrl?: Control): Promise<PolicyImportIntentEntity> {
 
     const utility = this._utility
     const {
@@ -346,7 +354,15 @@ class PolicyImportIntentEntity extends KotaEntityBase<PolicyImportIntent> {
         }
       }
 
-      return done(ctx)
+      const out = done(ctx)
+
+      // An operation resolves to the ENTITY, not the raw data — the record
+      // has just been absorbed into this instance and is reached through
+      // data(). `done` still runs: it completes the pipeline and raises on
+      // failure, and when throwing is disabled it hands back the error
+      // payload, which passes through unchanged. See AGENTS.md "Entity
+      // operations return ENTITIES".
+      return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err: any) {
 

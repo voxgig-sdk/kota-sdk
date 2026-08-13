@@ -44,14 +44,14 @@ describe('GroupEntity', async () => {
     const group_ref01_ent = client.Group()
     let group_ref01_data = setup.data.new.group['group_ref01']
 
-    group_ref01_data = await group_ref01_ent.create(group_ref01_data)
+    group_ref01_data = (await group_ref01_ent.create(group_ref01_data)).data()
     assert(null != group_ref01_data.id)
 
 
     // LIST
     const group_ref01_match = {}
 
-    const group_ref01_list = await group_ref01_ent.list(group_ref01_match)
+    const group_ref01_list = (await group_ref01_ent.list(group_ref01_match)).map((e) => e.data())
 
     assert(!isempty(select(group_ref01_list, { id: group_ref01_data.id })))
 
@@ -63,7 +63,7 @@ describe('GroupEntity', async () => {
     const group_ref01_markdef_up0 = { name: 'employer_id', value: 'Mark01-group_ref01_' + setup.now }
     group_ref01_data_up0 [group_ref01_markdef_up0.name] = group_ref01_markdef_up0.value
 
-    const group_ref01_resdata_up0 = await group_ref01_ent.update(group_ref01_data_up0)
+    const group_ref01_resdata_up0 = (await group_ref01_ent.update(group_ref01_data_up0)).data()
     assert(group_ref01_resdata_up0.id === group_ref01_data_up0.id)
 
     assert(group_ref01_resdata_up0[group_ref01_markdef_up0.name] === group_ref01_markdef_up0.value)
@@ -72,7 +72,7 @@ describe('GroupEntity', async () => {
     // LOAD
     const group_ref01_match_dt0 = {}
     group_ref01_match_dt0.id = group_ref01_data.id
-    const group_ref01_data_dt0 = await group_ref01_ent.load(group_ref01_match_dt0)
+    const group_ref01_data_dt0 = (await group_ref01_ent.load(group_ref01_match_dt0)).data()
     assert(group_ref01_data_dt0.id === group_ref01_data.id)
 
 

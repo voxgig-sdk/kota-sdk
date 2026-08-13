@@ -97,7 +97,7 @@ class GroupPolicyEntityTest extends TestCase
             "id" => $group_policy_ref01_data["id"],
         ];
         $group_policy_ref01_data_dt0_loaded = $group_policy_ref01_ent->load($group_policy_ref01_match_dt0, null);
-        $group_policy_ref01_data_dt0_load_result = Helpers::to_map($group_policy_ref01_data_dt0_loaded);
+        $group_policy_ref01_data_dt0_load_result = Helpers::to_map(is_object($group_policy_ref01_data_dt0_loaded) && method_exists($group_policy_ref01_data_dt0_loaded, 'data_get') ? $group_policy_ref01_data_dt0_loaded->data_get() : $group_policy_ref01_data_dt0_loaded);
         $this->assertNotNull($group_policy_ref01_data_dt0_load_result);
         $this->assertEquals($group_policy_ref01_data_dt0_load_result["id"], $group_policy_ref01_data["id"]);
 

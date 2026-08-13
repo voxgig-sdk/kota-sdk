@@ -42,7 +42,7 @@ describe("DependentsManagementIntentEntity", function()
 
     local dependents_management_intent_ref01_data_result, err = dependents_management_intent_ref01_ent:create(dependents_management_intent_ref01_data, nil)
     assert.is_nil(err)
-    dependents_management_intent_ref01_data = helpers.to_map(dependents_management_intent_ref01_data_result)
+    dependents_management_intent_ref01_data = helpers.to_map(type(dependents_management_intent_ref01_data_result) == 'table' and dependents_management_intent_ref01_data_result.data_get and dependents_management_intent_ref01_data_result:data_get() or dependents_management_intent_ref01_data_result)
     assert.is_not_nil(dependents_management_intent_ref01_data)
     assert.is_not_nil(dependents_management_intent_ref01_data["id"])
 
@@ -52,7 +52,7 @@ describe("DependentsManagementIntentEntity", function()
     }
     local dependents_management_intent_ref01_data_dt0_loaded, err = dependents_management_intent_ref01_ent:load(dependents_management_intent_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local dependents_management_intent_ref01_data_dt0_load_result = helpers.to_map(dependents_management_intent_ref01_data_dt0_loaded)
+    local dependents_management_intent_ref01_data_dt0_load_result = helpers.to_map(type(dependents_management_intent_ref01_data_dt0_loaded) == 'table' and dependents_management_intent_ref01_data_dt0_loaded.data_get and dependents_management_intent_ref01_data_dt0_loaded:data_get() or dependents_management_intent_ref01_data_dt0_loaded)
     assert.is_not_nil(dependents_management_intent_ref01_data_dt0_load_result)
     assert.are.equal(dependents_management_intent_ref01_data_dt0_load_result["id"], dependents_management_intent_ref01_data["id"])
 

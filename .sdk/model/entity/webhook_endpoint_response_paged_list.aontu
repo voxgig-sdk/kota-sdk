@@ -26,7 +26,7 @@ main: kit: entity: webhook_endpoint_response_paged_list: {
       type: "`$STRING`"
     }
     {
-      name: "subscribed_event"
+      name: "subscribed_events"
       req: true
       type: "`$ARRAY`"
     }
@@ -85,7 +85,7 @@ main: kit: entity: webhook_endpoint_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

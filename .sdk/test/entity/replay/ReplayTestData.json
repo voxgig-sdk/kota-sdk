@@ -2,17 +2,17 @@
   "existing": {
     "replay": {
       "REPLAY00": {
-        "delivery": [],
+        "deliveries": [],
         "event_id": "EVENT01",
         "id": "REPLAY00"
       },
       "REPLAY01": {
-        "delivery": [],
+        "deliveries": [],
         "event_id": "EVENT01",
         "id": "REPLAY01"
       },
       "REPLAY02": {
-        "delivery": [],
+        "deliveries": [],
         "event_id": "EVENT01",
         "id": "REPLAY02"
       }
@@ -21,7 +21,7 @@
   "new": {
     "replay": {
       "replay_ref01": {
-        "delivery": [],
+        "deliveries": [],
         "event_id": "EVENT01"
       }
     }

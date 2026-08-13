@@ -52,7 +52,7 @@ class WebhookEndpointEntityTest extends TestCase
             "id" => $webhook_endpoint_ref01_data["id"],
         ];
         $webhook_endpoint_ref01_data_dt0_loaded = $webhook_endpoint_ref01_ent->load($webhook_endpoint_ref01_match_dt0, null);
-        $webhook_endpoint_ref01_data_dt0_load_result = Helpers::to_map($webhook_endpoint_ref01_data_dt0_loaded);
+        $webhook_endpoint_ref01_data_dt0_load_result = Helpers::to_map(is_object($webhook_endpoint_ref01_data_dt0_loaded) && method_exists($webhook_endpoint_ref01_data_dt0_loaded, 'data_get') ? $webhook_endpoint_ref01_data_dt0_loaded->data_get() : $webhook_endpoint_ref01_data_dt0_loaded);
         $this->assertNotNull($webhook_endpoint_ref01_data_dt0_load_result);
         $this->assertEquals($webhook_endpoint_ref01_data_dt0_load_result["id"], $webhook_endpoint_ref01_data["id"]);
 

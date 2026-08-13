@@ -63,13 +63,13 @@ describe('PolicyEntity', async () => {
     const policy_ref01_ent = client.Policy()
     const policy_ref01_match: any = {}
 
-    const policy_ref01_list = await policy_ref01_ent.list(policy_ref01_match)
+    const policy_ref01_list = (await policy_ref01_ent.list(policy_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const policy_ref01_match_dt0: any = {}
     policy_ref01_match_dt0.id = policy_ref01_data.id
-    const policy_ref01_data_dt0 = await policy_ref01_ent.load(policy_ref01_match_dt0)
+    const policy_ref01_data_dt0 = (await policy_ref01_ent.load(policy_ref01_match_dt0)).data()
     assert(policy_ref01_data_dt0.id === policy_ref01_data.id)
 
 

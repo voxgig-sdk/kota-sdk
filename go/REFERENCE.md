@@ -760,9 +760,9 @@ fmt.Println(dependent.GetName()) // "dependent"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `any` | No |  |
-| `coverage_option` | `any` | No |  |
-| `dependent` | `[]any` | Yes |  |
-| `disclosure` | `[]any` | Yes |  |
+| `coverage_options` | `any` | No |  |
+| `dependents` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -779,8 +779,8 @@ Create a new entity with the given data.
 ```go
 result, err := client.Dependent(nil).Create(map[string]any{
     "dependents_management_intent_id": "example_dependents_management_intent_id",
-    "dependent": []any{},
-    "disclosure": []any{},
+    "dependents": []any{},
+    "disclosures": []any{},
     "id": "example_id",
     "parent_intent_id": "example_parent_intent_id",
     "parent_intent_type": "example_parent_intent_type",
@@ -841,9 +841,9 @@ fmt.Println(dependentsManagementIntent.GetName()) // "dependents_management_inte
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `any` | No |  |
-| `coverage_option` | `any` | No |  |
-| `dependent` | `[]any` | Yes |  |
-| `disclosure` | `[]any` | Yes |  |
+| `coverage_options` | `any` | No |  |
+| `dependents` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -871,8 +871,8 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.DependentsManagementIntent(nil).Create(map[string]any{
-    "dependent": []any{},
-    "disclosure": []any{},
+    "dependents": []any{},
+    "disclosures": []any{},
     "id": "example_id",
     "parent_intent_id": "example_parent_intent_id",
     "parent_intent_type": "example_parent_intent_type",
@@ -924,7 +924,7 @@ fmt.Println(eligibilityCheck.GetName()) // "eligibility_check"
 | `object` | `string` | No |  |
 | `plan` | `any` | Yes |  |
 | `provider` | `any` | Yes |  |
-| `reason` | `[]any` | Yes |  |
+| `reasons` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -938,7 +938,7 @@ result, err := client.EligibilityCheck(nil).Create(map[string]any{
     "eligibility_status": "example_eligibility_status",
     "plan": "example_plan",
     "provider": "example_provider",
-    "reason": []any{},
+    "reasons": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -1452,7 +1452,7 @@ fmt.Println(employerHealthInsurancePolicy.GetName()) // "employer_health_insuran
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `any` | No |  |
-| `coverage_level` | `[]any` | Yes |  |
+| `coverage_levels` | `[]any` | Yes |  |
 | `employer_cancellation_period_length` | `int` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1514,7 +1514,7 @@ fmt.Println(employerHealthInsurancePolicyResponsePagedList.GetName()) // "employ
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `any` | No |  |
-| `coverage_level` | `[]any` | Yes |  |
+| `coverage_levels` | `[]any` | Yes |  |
 | `employer_cancellation_period_length` | `int` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1575,7 +1575,7 @@ fmt.Println(employerHealthInsuranceQuote.GetName()) // "employer_health_insuranc
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `[]any` | Yes |  |
+| `coverage_levels` | `[]any` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1632,7 +1632,7 @@ fmt.Println(employerHealthInsuranceQuoteResponsePagedList.GetName()) // "employe
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `[]any` | Yes |  |
+| `coverage_levels` | `[]any` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1690,7 +1690,7 @@ fmt.Println(enrolmentIntent.GetName()) // "enrolment_intent"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `any` | No |  |
-| `disclosure` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `force_confirmation` | `bool` | Yes |  |
 | `group_id` | `string` | Yes |  |
@@ -1699,7 +1699,7 @@ fmt.Println(enrolmentIntent.GetName()) // "enrolment_intent"
 | `object` | `string` | No |  |
 | `pending_confirmation` | `any` | No |  |
 | `policy_configuration` | `any` | No |  |
-| `policy_enrolment` | `[]any` | Yes |  |
+| `policy_enrolments` | `[]any` | Yes |  |
 | `status` | `any` | Yes |  |
 
 ### Operations
@@ -1734,12 +1734,12 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.EnrolmentIntent(nil).Create(map[string]any{
-    "disclosure": []any{},
+    "disclosures": []any{},
     "employee_id": "example_employee_id",
     "force_confirmation": true,
     "group_id": "example_group_id",
     "id": "example_id",
-    "policy_enrolment": []any{},
+    "policy_enrolments": []any{},
     "status": "example_status",
 }, nil)
 if err != nil {
@@ -1858,7 +1858,10 @@ fmt.Println(event.GetName()) // "event"
 | `created` | `string` | Yes |  |
 | `data` | `any` | Yes |  |
 | `id` | `string` | Yes |  |
+| `options` | `any` | No |  |
+| `parent` | `any` | No |  |
 | `platform_id` | `string` | Yes |  |
+| `root` | `any` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -1925,9 +1928,9 @@ fmt.Println(group.GetName()) // "group"
 | `description` | `any` | No |  |
 | `employer_id` | `string` | Yes |  |
 | `enrolment_type` | `any` | Yes |  |
-| `group_policy_id` | `[]any` | Yes |  |
-| `group_policy_intent_id` | `[]any` | Yes |  |
-| `group_quote_intent_id` | `[]any` | Yes |  |
+| `group_policy_ids` | `[]any` | Yes |  |
+| `group_policy_intent_ids` | `[]any` | Yes |  |
+| `group_quote_intent_ids` | `[]any` | Yes |  |
 | `group_type` | `any` | Yes |  |
 | `id` | `string` | Yes |  |
 | `name` | `string` | Yes |  |
@@ -1968,9 +1971,9 @@ Create a new entity with the given data.
 result, err := client.Group(nil).Create(map[string]any{
     "employer_id": "example_employer_id",
     "enrolment_type": "example_enrolment_type",
-    "group_policy_id": []any{},
-    "group_policy_intent_id": []any{},
-    "group_quote_intent_id": []any{},
+    "group_policy_ids": []any{},
+    "group_policy_intent_ids": []any{},
+    "group_quote_intent_ids": []any{},
     "group_type": "example_group_type",
     "id": "example_id",
     "name": "example_name",
@@ -2034,14 +2037,14 @@ fmt.Println(groupEmployee.GetName()) // "group_employee"
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `any` | No |  |
 | `eligibility_status` | `any` | Yes |  |
-| `enrolment` | `[]any` | Yes |  |
 | `enrolment_date` | `any` | No |  |
 | `enrolment_status` | `any` | Yes |  |
+| `enrolments` | `[]any` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `[]any` | Yes |  |
-| `scheduled_group_transition` | `[]any` | Yes |  |
+| `policies` | `[]any` | Yes |  |
+| `scheduled_group_transitions` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -2053,11 +2056,11 @@ Create a new entity with the given data.
 result, err := client.GroupEmployee(nil).Create(map[string]any{
     "id": "example_id",
     "eligibility_status": "example_eligibility_status",
-    "enrolment": []any{},
     "enrolment_status": "example_enrolment_status",
+    "enrolments": []any{},
     "group_id": "example_group_id",
-    "policy": []any{},
-    "scheduled_group_transition": []any{},
+    "policies": []any{},
+    "scheduled_group_transitions": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -2102,14 +2105,14 @@ fmt.Println(groupEmployeeResponsePagedList.GetName()) // "group_employee_respons
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `any` | No |  |
 | `eligibility_status` | `any` | Yes |  |
-| `enrolment` | `[]any` | Yes |  |
 | `enrolment_date` | `any` | No |  |
 | `enrolment_status` | `any` | Yes |  |
+| `enrolments` | `[]any` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `[]any` | Yes |  |
-| `scheduled_group_transition` | `[]any` | Yes |  |
+| `policies` | `[]any` | Yes |  |
+| `scheduled_group_transitions` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -2161,7 +2164,7 @@ fmt.Println(groupPolicy.GetName()) // "group_policy"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `any` | No |  |
-| `disclosure` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `employer_id` | `string` | No |  |
 | `end_date` | `any` | No |  |
 | `group_id` | `string` | No |  |
@@ -2237,7 +2240,7 @@ fmt.Println(groupPolicyIntent.GetName()) // "group_policy_intent"
 | --- | --- | --- | --- |
 | `action_required` | `any` | No |  |
 | `cost_sharing` | `any` | No |  |
-| `disclosure` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `due_date` | `any` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2278,7 +2281,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.GroupPolicyIntent(nil).Create(map[string]any{
-    "disclosure": []any{},
+    "disclosures": []any{},
     "group_id": "example_group_id",
     "id": "example_id",
     "plan_id": "example_plan_id",
@@ -2382,15 +2385,11 @@ fmt.Println(groupQuote.GetName()) // "group_quote"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `any` | Yes |  |
-| `currency` | `string` | Yes |  |
-| `employee_count` | `int` | Yes |  |
-| `expires_at` | `string` | Yes |  |
-| `generated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pdf_expires_at` | `any` | No |  |
-| `pdf_url` | `any` | No |  |
-| `total_monthly_premium` | `float64` | Yes |  |
+| `family_type` | `any` | No |  |
+| `member_count` | `any` | No |  |
+| `member_selection` | `any` | No |  |
+| `percentage` | `any` | No |  |
+| `type` | `any` | Yes |  |
 
 ### Operations
 
@@ -2442,9 +2441,9 @@ fmt.Println(groupQuoteIntent.GetName()) // "group_quote_intent"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `any` | No |  |
-| `consent_link` | `[]any` | Yes |  |
+| `consent_links` | `[]any` | Yes |  |
 | `cost_sharing` | `any` | No |  |
-| `disclosure` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `expected_start_date` | `any` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2484,8 +2483,8 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.GroupQuoteIntent(nil).Create(map[string]any{
-    "consent_link": []any{},
-    "disclosure": []any{},
+    "consent_links": []any{},
+    "disclosures": []any{},
     "group_id": "example_group_id",
     "id": "example_id",
     "plan_id": "example_plan_id",
@@ -2591,13 +2590,13 @@ fmt.Println(plan.GetName()) // "plan"
 | `available_from` | `string` | Yes |  |
 | `available_to` | `any` | No |  |
 | `country` | `any` | Yes |  |
-| `coverage_option` | `any` | No |  |
+| `coverage_options` | `any` | No |  |
 | `description` | `string` | Yes |  |
-| `disclosure` | `[]any` | Yes |  |
-| `document` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
+| `documents` | `[]any` | Yes |  |
 | `eligible_count` | `any` | No |  |
-| `employee_eligibility_criterion` | `[]any` | Yes |  |
-| `employer_eligibility_criterion` | `[]any` | Yes |  |
+| `employee_eligibility_criteria` | `[]any` | Yes |  |
+| `employer_eligibility_criteria` | `[]any` | Yes |  |
 | `health_insurance` | `any` | No |  |
 | `id` | `string` | Yes |  |
 | `ineligible_count` | `any` | No |  |
@@ -2670,7 +2669,7 @@ fmt.Println(policy.GetName()) // "policy"
 | --- | --- | --- | --- |
 | `bundling_type` | `any` | Yes |  |
 | `cancellation_date` | `any` | No |  |
-| `disclosure` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `end_date` | `any` | No |  |
 | `group_id` | `string` | Yes |  |
@@ -2746,13 +2745,13 @@ fmt.Println(policyAmendmentIntent.GetName()) // "policy_amendment_intent"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `amendment_reason` | `any` | Yes |  |
-| `disclosure` | `[]any` | Yes |  |
+| `disclosures` | `[]any` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `pending_confirmation` | `any` | No |  |
 | `policy_id` | `string` | Yes |  |
 | `processing_error` | `any` | No |  |
-| `requested_change` | `[]any` | Yes |  |
+| `requested_changes` | `[]any` | Yes |  |
 | `required_action` | `any` | No |  |
 | `status` | `any` | Yes |  |
 
@@ -2790,9 +2789,9 @@ Create a new entity with the given data.
 result, err := client.PolicyAmendmentIntent(nil).Create(map[string]any{
     "id": "example_id",
     "amendment_reason": "example_amendment_reason",
-    "disclosure": []any{},
+    "disclosures": []any{},
     "policy_id": "example_policy_id",
-    "requested_change": []any{},
+    "requested_changes": []any{},
     "status": "example_status",
 }, nil)
 if err != nil {
@@ -2836,7 +2835,7 @@ fmt.Println(policyImportIntent.GetName()) // "policy_import_intent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person` | `[]any` | Yes |  |
+| `associated_persons` | `[]any` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2879,7 +2878,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.PolicyImportIntent(nil).Create(map[string]any{
-    "associated_person": []any{},
+    "associated_persons": []any{},
     "employee_id": "example_employee_id",
     "group_id": "example_group_id",
     "id": "example_id",
@@ -2937,7 +2936,7 @@ fmt.Println(provider.GetName()) // "provider"
 | `name` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `support_phone` | `string` | Yes |  |
-| `supported_country` | `[]any` | Yes |  |
+| `supported_countries` | `[]any` | Yes |  |
 | `website_url` | `string` | Yes |  |
 
 ### Operations
@@ -3001,7 +3000,7 @@ fmt.Println(replay.GetName()) // "replay"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `delivery` | `[]any` | Yes |  |
+| `deliveries` | `[]any` | Yes |  |
 | `event_id` | `string` | Yes |  |
 
 ### Operations
@@ -3013,7 +3012,7 @@ Create a new entity with the given data.
 ```go
 result, err := client.Replay(nil).Create(map[string]any{
     "event_id": "example_event_id",
-    "delivery": []any{},
+    "deliveries": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -3060,7 +3059,7 @@ fmt.Println(webhookEndpoint.GetName()) // "webhook_endpoint"
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `[]any` | Yes |  |
+| `subscribed_events` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -3115,7 +3114,7 @@ fmt.Println(webhookEndpointResponsePagedList.GetName()) // "webhook_endpoint_res
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `[]any` | Yes |  |
+| `subscribed_events` | `[]any` | Yes |  |
 
 ### Operations
 

@@ -200,9 +200,9 @@
 /**
  * @typedef {Object} Dependent
  * @property {null} [action_required]
- * @property {null|Array} [coverage_option]
- * @property {Array} dependent
- * @property {Array} disclosure
+ * @property {null|Array} [coverage_options]
+ * @property {Array} dependents
+ * @property {Array} disclosures
  * @property {string} id
  * @property {string} [object]
  * @property {string} parent_intent_id
@@ -215,9 +215,9 @@
  * @typedef {Object} DependentCreateData
  * @property {string} dependents_management_intent_id
  * @property {null} [action_required]
- * @property {null|Array} [coverage_option]
- * @property {Array} dependent
- * @property {Array} disclosure
+ * @property {null|Array} [coverage_options]
+ * @property {Array} dependents
+ * @property {Array} disclosures
  * @property {string} id
  * @property {string} [object]
  * @property {string} parent_intent_id
@@ -235,9 +235,9 @@
 /**
  * @typedef {Object} DependentsManagementIntent
  * @property {null} [action_required]
- * @property {null|Array} [coverage_option]
- * @property {Array} dependent
- * @property {Array} disclosure
+ * @property {null|Array} [coverage_options]
+ * @property {Array} dependents
+ * @property {Array} disclosures
  * @property {string} id
  * @property {string} [object]
  * @property {string} parent_intent_id
@@ -257,9 +257,9 @@
  * @property {string} [policy_id]
  * @property {string} [enrolment_intent_id]
  * @property {null} [action_required]
- * @property {null|Array} [coverage_option]
- * @property {Array} dependent
- * @property {Array} disclosure
+ * @property {null|Array} [coverage_options]
+ * @property {Array} dependents
+ * @property {Array} disclosures
  * @property {string} id
  * @property {string} [object]
  * @property {string} parent_intent_id
@@ -274,7 +274,7 @@
  * @property {string} [object]
  * @property {*} plan
  * @property {*} provider
- * @property {Array} reason
+ * @property {Array} reasons
  */
 
 /**
@@ -284,7 +284,7 @@
  * @property {string} [object]
  * @property {*} plan
  * @property {*} provider
- * @property {Array} reason
+ * @property {Array} reasons
  */
 
 /**
@@ -542,7 +542,7 @@
 /**
  * @typedef {Object} EmployerHealthInsurancePolicy
  * @property {null|string} [cancellation_date]
- * @property {Array} coverage_level
+ * @property {Array} coverage_levels
  * @property {number} employer_cancellation_period_length
  * @property {string} employer_id
  * @property {string} end_date
@@ -564,7 +564,7 @@
 /**
  * @typedef {Object} EmployerHealthInsurancePolicyResponsePagedList
  * @property {null|string} [cancellation_date]
- * @property {Array} coverage_level
+ * @property {Array} coverage_levels
  * @property {number} employer_cancellation_period_length
  * @property {string} employer_id
  * @property {string} end_date
@@ -584,7 +584,7 @@
 
 /**
  * @typedef {Object} EmployerHealthInsuranceQuote
- * @property {Array} coverage_level
+ * @property {Array} coverage_levels
  * @property {string} employer_id
  * @property {string} id
  * @property {string} [object]
@@ -601,7 +601,7 @@
 
 /**
  * @typedef {Object} EmployerHealthInsuranceQuoteResponsePagedList
- * @property {Array} coverage_level
+ * @property {Array} coverage_levels
  * @property {string} employer_id
  * @property {string} id
  * @property {string} [object]
@@ -618,7 +618,7 @@
 /**
  * @typedef {Object} EnrolmentIntent
  * @property {null} [action_required]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {string} employee_id
  * @property {boolean} force_confirmation
  * @property {string} group_id
@@ -627,7 +627,7 @@
  * @property {string} [object]
  * @property {null} [pending_confirmation]
  * @property {null} [policy_configuration]
- * @property {Array} policy_enrolment
+ * @property {Array} policy_enrolments
  * @property {*} status
  */
 
@@ -639,7 +639,7 @@
 /**
  * @typedef {Object} EnrolmentIntentListMatch
  * @property {null} [action_required]
- * @property {Array} [disclosure]
+ * @property {Array} [disclosures]
  * @property {string} [employee_id]
  * @property {boolean} [force_confirmation]
  * @property {string} [group_id]
@@ -648,14 +648,14 @@
  * @property {string} [object]
  * @property {null} [pending_confirmation]
  * @property {null} [policy_configuration]
- * @property {Array} [policy_enrolment]
+ * @property {Array} [policy_enrolments]
  * @property {*} [status]
  */
 
 /**
  * @typedef {Object} EnrolmentIntentCreateData
  * @property {null} [action_required]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {string} employee_id
  * @property {boolean} force_confirmation
  * @property {string} group_id
@@ -664,7 +664,7 @@
  * @property {string} [object]
  * @property {null} [pending_confirmation]
  * @property {null} [policy_configuration]
- * @property {Array} policy_enrolment
+ * @property {Array} policy_enrolments
  * @property {*} status
  */
 
@@ -672,7 +672,7 @@
  * @typedef {Object} EnrolmentIntentUpdateData
  * @property {string} id
  * @property {null} [action_required]
- * @property {Array} [disclosure]
+ * @property {Array} [disclosures]
  * @property {string} [employee_id]
  * @property {boolean} [force_confirmation]
  * @property {string} [group_id]
@@ -680,7 +680,7 @@
  * @property {string} [object]
  * @property {null} [pending_confirmation]
  * @property {null} [policy_configuration]
- * @property {Array} [policy_enrolment]
+ * @property {Array} [policy_enrolments]
  * @property {*} [status]
  */
 
@@ -705,7 +705,10 @@
  * @property {string} created
  * @property {null} data
  * @property {string} id
+ * @property {null} [options]
+ * @property {null} [parent]
  * @property {string} platform_id
+ * @property {*} [root]
  * @property {string} type
  */
 
@@ -720,7 +723,10 @@
  * @property {string} [created]
  * @property {null} [data]
  * @property {string} [id]
+ * @property {null} [options]
+ * @property {null} [parent]
  * @property {string} [platform_id]
+ * @property {*} [root]
  * @property {string} [type]
  */
 
@@ -729,9 +735,9 @@
  * @property {null|string} [description]
  * @property {string} employer_id
  * @property {*} enrolment_type
- * @property {Array} group_policy_id
- * @property {Array} group_policy_intent_id
- * @property {Array} group_quote_intent_id
+ * @property {Array} group_policy_ids
+ * @property {Array} group_policy_intent_ids
+ * @property {Array} group_quote_intent_ids
  * @property {*} group_type
  * @property {string} id
  * @property {string} name
@@ -749,9 +755,9 @@
  * @property {null|string} [description]
  * @property {string} [employer_id]
  * @property {*} [enrolment_type]
- * @property {Array} [group_policy_id]
- * @property {Array} [group_policy_intent_id]
- * @property {Array} [group_quote_intent_id]
+ * @property {Array} [group_policy_ids]
+ * @property {Array} [group_policy_intent_ids]
+ * @property {Array} [group_quote_intent_ids]
  * @property {*} [group_type]
  * @property {string} [id]
  * @property {string} [name]
@@ -764,9 +770,9 @@
  * @property {null|string} [description]
  * @property {string} employer_id
  * @property {*} enrolment_type
- * @property {Array} group_policy_id
- * @property {Array} group_policy_intent_id
- * @property {Array} group_quote_intent_id
+ * @property {Array} group_policy_ids
+ * @property {Array} group_policy_intent_ids
+ * @property {Array} group_quote_intent_ids
  * @property {*} group_type
  * @property {string} id
  * @property {string} name
@@ -780,9 +786,9 @@
  * @property {null|string} [description]
  * @property {string} [employer_id]
  * @property {*} [enrolment_type]
- * @property {Array} [group_policy_id]
- * @property {Array} [group_policy_intent_id]
- * @property {Array} [group_quote_intent_id]
+ * @property {Array} [group_policy_ids]
+ * @property {Array} [group_policy_intent_ids]
+ * @property {Array} [group_quote_intent_ids]
  * @property {*} [group_type]
  * @property {string} [name]
  * @property {string} [object]
@@ -793,14 +799,14 @@
  * @typedef {Object} GroupEmployee
  * @property {null|string} [desired_policy_start_date]
  * @property {*} eligibility_status
- * @property {Array} enrolment
  * @property {null|string} [enrolment_date]
  * @property {*} enrolment_status
+ * @property {Array} enrolments
  * @property {string} group_id
  * @property {string} id
  * @property {string} [object]
- * @property {Array} policy
- * @property {Array} scheduled_group_transition
+ * @property {Array} policies
+ * @property {Array} scheduled_group_transitions
  */
 
 /**
@@ -808,27 +814,27 @@
  * @property {string} id
  * @property {null|string} [desired_policy_start_date]
  * @property {*} eligibility_status
- * @property {Array} enrolment
  * @property {null|string} [enrolment_date]
  * @property {*} enrolment_status
+ * @property {Array} enrolments
  * @property {string} group_id
  * @property {string} [object]
- * @property {Array} policy
- * @property {Array} scheduled_group_transition
+ * @property {Array} policies
+ * @property {Array} scheduled_group_transitions
  */
 
 /**
  * @typedef {Object} GroupEmployeeResponsePagedList
  * @property {null|string} [desired_policy_start_date]
  * @property {*} eligibility_status
- * @property {Array} enrolment
  * @property {null|string} [enrolment_date]
  * @property {*} enrolment_status
+ * @property {Array} enrolments
  * @property {string} group_id
  * @property {string} id
  * @property {string} [object]
- * @property {Array} policy
- * @property {Array} scheduled_group_transition
+ * @property {Array} policies
+ * @property {Array} scheduled_group_transitions
  */
 
 /**
@@ -839,7 +845,7 @@
 /**
  * @typedef {Object} GroupPolicy
  * @property {null|string} [cancellation_date]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {string} [employer_id]
  * @property {null|string} [end_date]
  * @property {string} [group_id]
@@ -861,7 +867,7 @@
 /**
  * @typedef {Object} GroupPolicyListMatch
  * @property {null|string} [cancellation_date]
- * @property {Array} [disclosure]
+ * @property {Array} [disclosures]
  * @property {string} [employer_id]
  * @property {null|string} [end_date]
  * @property {string} [group_id]
@@ -879,7 +885,7 @@
  * @typedef {Object} GroupPolicyIntent
  * @property {null} [action_required]
  * @property {null} [cost_sharing]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {null|string} [due_date]
  * @property {string} group_id
  * @property {string} id
@@ -898,7 +904,7 @@
  * @typedef {Object} GroupPolicyIntentListMatch
  * @property {null} [action_required]
  * @property {null} [cost_sharing]
- * @property {Array} [disclosure]
+ * @property {Array} [disclosures]
  * @property {null|string} [due_date]
  * @property {string} [group_id]
  * @property {string} [id]
@@ -912,7 +918,7 @@
  * @typedef {Object} GroupPolicyIntentCreateData
  * @property {null} [action_required]
  * @property {null} [cost_sharing]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {null|string} [due_date]
  * @property {string} group_id
  * @property {string} id
@@ -939,15 +945,11 @@
 
 /**
  * @typedef {Object} GroupQuote
- * @property {*} cost_sharing
- * @property {string} currency
- * @property {number} employee_count
- * @property {string} expires_at
- * @property {string} generated_at
- * @property {string} [object]
- * @property {null|string} [pdf_expires_at]
- * @property {null|string} [pdf_url]
- * @property {number} total_monthly_premium
+ * @property {null} [family_type]
+ * @property {null} [member_count]
+ * @property {null} [member_selection]
+ * @property {null} [percentage]
+ * @property {*} type
  */
 
 /**
@@ -958,9 +960,9 @@
 /**
  * @typedef {Object} GroupQuoteIntent
  * @property {null} [action_required]
- * @property {Array} consent_link
+ * @property {Array} consent_links
  * @property {null} [cost_sharing]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {null|string} [expected_start_date]
  * @property {string} group_id
  * @property {string} id
@@ -977,9 +979,9 @@
 /**
  * @typedef {Object} GroupQuoteIntentListMatch
  * @property {null} [action_required]
- * @property {Array} [consent_link]
+ * @property {Array} [consent_links]
  * @property {null} [cost_sharing]
- * @property {Array} [disclosure]
+ * @property {Array} [disclosures]
  * @property {null|string} [expected_start_date]
  * @property {string} [group_id]
  * @property {string} [id]
@@ -991,9 +993,9 @@
 /**
  * @typedef {Object} GroupQuoteIntentCreateData
  * @property {null} [action_required]
- * @property {Array} consent_link
+ * @property {Array} consent_links
  * @property {null} [cost_sharing]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {null|string} [expected_start_date]
  * @property {string} group_id
  * @property {string} id
@@ -1022,13 +1024,13 @@
  * @property {string} available_from
  * @property {null|string} [available_to]
  * @property {*} country
- * @property {null|Array} [coverage_option]
+ * @property {null|Array} [coverage_options]
  * @property {string} description
- * @property {Array} disclosure
- * @property {Array} document
+ * @property {Array} disclosures
+ * @property {Array} documents
  * @property {null|number} [eligible_count]
- * @property {Array} employee_eligibility_criterion
- * @property {Array} employer_eligibility_criterion
+ * @property {Array} employee_eligibility_criteria
+ * @property {Array} employer_eligibility_criteria
  * @property {null} [health_insurance]
  * @property {string} id
  * @property {null|number} [ineligible_count]
@@ -1049,13 +1051,13 @@
  * @property {string} [available_from]
  * @property {null|string} [available_to]
  * @property {*} [country]
- * @property {null|Array} [coverage_option]
+ * @property {null|Array} [coverage_options]
  * @property {string} [description]
- * @property {Array} [disclosure]
- * @property {Array} [document]
+ * @property {Array} [disclosures]
+ * @property {Array} [documents]
  * @property {null|number} [eligible_count]
- * @property {Array} [employee_eligibility_criterion]
- * @property {Array} [employer_eligibility_criterion]
+ * @property {Array} [employee_eligibility_criteria]
+ * @property {Array} [employer_eligibility_criteria]
  * @property {null} [health_insurance]
  * @property {string} [id]
  * @property {null|number} [ineligible_count]
@@ -1070,7 +1072,7 @@
  * @typedef {Object} Policy
  * @property {*} bundling_type
  * @property {null|string} [cancellation_date]
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {string} employee_id
  * @property {null|string} [end_date]
  * @property {string} group_id
@@ -1094,7 +1096,7 @@
  * @typedef {Object} PolicyListMatch
  * @property {*} [bundling_type]
  * @property {null|string} [cancellation_date]
- * @property {Array} [disclosure]
+ * @property {Array} [disclosures]
  * @property {string} [employee_id]
  * @property {null|string} [end_date]
  * @property {string} [group_id]
@@ -1112,13 +1114,13 @@
 /**
  * @typedef {Object} PolicyAmendmentIntent
  * @property {*} amendment_reason
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {string} id
  * @property {string} [object]
  * @property {null} [pending_confirmation]
  * @property {string} policy_id
  * @property {null} [processing_error]
- * @property {Array} requested_change
+ * @property {Array} requested_changes
  * @property {null} [required_action]
  * @property {*} status
  */
@@ -1138,19 +1140,19 @@
  * @typedef {Object} PolicyAmendmentIntentCreateData
  * @property {string} id
  * @property {*} amendment_reason
- * @property {Array} disclosure
+ * @property {Array} disclosures
  * @property {string} [object]
  * @property {null} [pending_confirmation]
  * @property {string} policy_id
  * @property {null} [processing_error]
- * @property {Array} requested_change
+ * @property {Array} requested_changes
  * @property {null} [required_action]
  * @property {*} status
  */
 
 /**
  * @typedef {Object} PolicyImportIntent
- * @property {Array} associated_person
+ * @property {Array} associated_persons
  * @property {string} employee_id
  * @property {string} group_id
  * @property {string} id
@@ -1169,7 +1171,7 @@
 
 /**
  * @typedef {Object} PolicyImportIntentListMatch
- * @property {Array} [associated_person]
+ * @property {Array} [associated_persons]
  * @property {string} [employee_id]
  * @property {string} [group_id]
  * @property {string} [id]
@@ -1183,7 +1185,7 @@
 
 /**
  * @typedef {Object} PolicyImportIntentCreateData
- * @property {Array} associated_person
+ * @property {Array} associated_persons
  * @property {string} employee_id
  * @property {string} group_id
  * @property {string} id
@@ -1205,7 +1207,7 @@
  * @property {string} name
  * @property {string} [object]
  * @property {string} support_phone
- * @property {Array} supported_country
+ * @property {Array} supported_countries
  * @property {string} website_url
  */
 
@@ -1224,20 +1226,20 @@
  * @property {string} [name]
  * @property {string} [object]
  * @property {string} [support_phone]
- * @property {Array} [supported_country]
+ * @property {Array} [supported_countries]
  * @property {string} [website_url]
  */
 
 /**
  * @typedef {Object} Replay
- * @property {Array} delivery
+ * @property {Array} deliveries
  * @property {string} event_id
  */
 
 /**
  * @typedef {Object} ReplayCreateData
  * @property {string} event_id
- * @property {Array} delivery
+ * @property {Array} deliveries
  */
 
 /**
@@ -1246,7 +1248,7 @@
  * @property {string} endpoint_url
  * @property {string} id
  * @property {string} [object]
- * @property {Array} subscribed_event
+ * @property {Array} subscribed_events
  */
 
 /**
@@ -1260,7 +1262,7 @@
  * @property {string} endpoint_url
  * @property {string} id
  * @property {string} [object]
- * @property {Array} subscribed_event
+ * @property {Array} subscribed_events
  */
 
 /**
@@ -1269,6 +1271,6 @@
  * @property {string} [endpoint_url]
  * @property {string} [id]
  * @property {string} [object]
- * @property {Array} [subscribed_event]
+ * @property {Array} [subscribed_events]
  */
 

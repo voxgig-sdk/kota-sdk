@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    associatedpersons = client.AssociatedPerson().list()
+    associatedpersons = client.AssociatedPerson().list({"employee_id": "example"})
     for associatedperson in associatedpersons:
         print(associatedperson)
 except Exception as err:
@@ -56,7 +56,7 @@ except Exception as err:
 ### 3. Load an associatedperson
 
 AssociatedPerson is nested under employee, so provide the `employee_id`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -69,14 +69,14 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
+# Create — returns the ENTITY (call data_get() for the record)
 created = client.AssociatedPerson().create({"employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth", "first_name": "example_first_name", "id": "example_id", "last_name": "example_last_name", "relationship_type": "example_relationship_type", "sex_at_birth": "example_sex_at_birth"})
 
 # Update — the created record's id is a plain dict key
-client.AssociatedPerson().update({"id": created["id"], "employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth"})
+client.AssociatedPerson().update({"id": created.data_get()["id"], "employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth"})
 
 # Remove
-client.AssociatedPerson().remove({"id": created["id"], "employee_id": "example_employee_id"})
+client.AssociatedPerson().remove({"id": created.data_get()["id"], "employee_id": "example_employee_id"})
 ```
 
 
@@ -153,7 +153,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = KotaSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 dependentsmanagementintent = client.DependentsManagementIntent().load({"id": "test01"})
 # dependentsmanagementintent contains the mock response record
 ```
@@ -294,7 +295,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -437,9 +438,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -456,9 +457,9 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/depe
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -478,7 +479,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | `object` |  |
 | `plan` |  |
 | `provider` |  |
-| `reason` |  |
+| `reasons` |  |
 
 Operations: Create.
 
@@ -622,7 +623,7 @@ API path: `/employers/{employer_id}/offboard`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -643,7 +644,7 @@ API path: `/employers/{employer_id}/health_insurance/policies/{employer_policy_i
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -663,7 +664,7 @@ API path: `/employers/{employer_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -679,7 +680,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -696,7 +697,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `force_confirmation` |  |
 | `group_id` |  |
@@ -705,7 +706,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_configuration` |  |
-| `policy_enrolment` |  |
+| `policy_enrolments` |  |
 | `status` |  |
 
 Operations: Create, List, Load, Update.
@@ -735,7 +736,10 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
+| `options` |  |
+| `parent` |  |
 | `platform_id` |  |
+| `root` |  |
 | `type` |  |
 
 Operations: List, Load.
@@ -749,9 +753,9 @@ API path: `/events`
 | `description` |  |
 | `employer_id` |  |
 | `enrolment_type` |  |
-| `group_policy_id` |  |
-| `group_policy_intent_id` |  |
-| `group_quote_intent_id` |  |
+| `group_policy_ids` |  |
+| `group_policy_intent_ids` |  |
+| `group_quote_intent_ids` |  |
 | `group_type` |  |
 | `id` |  |
 | `name` |  |
@@ -768,14 +772,14 @@ API path: `/groups`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: Create.
 
@@ -787,14 +791,14 @@ API path: `/groups/{group_id}/employees`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: List.
 
@@ -805,7 +809,7 @@ API path: `/groups/{group_id}/employees`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employer_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -828,7 +832,7 @@ API path: `/group_policies`
 | --- | --- |
 | `action_required` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `due_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -860,15 +864,11 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `cost_sharing` |  |
-| `currency` |  |
-| `employee_count` |  |
-| `expires_at` |  |
-| `generated_at` |  |
-| `object` |  |
-| `pdf_expires_at` |  |
-| `pdf_url` |  |
-| `total_monthly_premium` |  |
+| `family_type` |  |
+| `member_count` |  |
+| `member_selection` |  |
+| `percentage` |  |
+| `type` |  |
 
 Operations: Load.
 
@@ -879,9 +879,9 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `consent_link` |  |
+| `consent_links` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `expected_start_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -915,13 +915,13 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 | `available_from` |  |
 | `available_to` |  |
 | `country` |  |
-| `coverage_option` |  |
+| `coverage_options` |  |
 | `description` |  |
-| `disclosure` |  |
-| `document` |  |
+| `disclosures` |  |
+| `documents` |  |
 | `eligible_count` |  |
-| `employee_eligibility_criterion` |  |
-| `employer_eligibility_criterion` |  |
+| `employee_eligibility_criteria` |  |
+| `employer_eligibility_criteria` |  |
 | `health_insurance` |  |
 | `id` |  |
 | `ineligible_count` |  |
@@ -941,7 +941,7 @@ API path: `/plans`
 | --- | --- |
 | `bundling_type` |  |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -964,13 +964,13 @@ API path: `/policies`
 | Field | Description |
 | --- | --- |
 | `amendment_reason` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_id` |  |
 | `processing_error` |  |
-| `requested_change` |  |
+| `requested_changes` |  |
 | `required_action` |  |
 | `status` |  |
 
@@ -982,7 +982,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/cancel`
 
 | Field | Description |
 | --- | --- |
-| `associated_person` |  |
+| `associated_persons` |  |
 | `employee_id` |  |
 | `group_id` |  |
 | `id` |  |
@@ -1009,7 +1009,7 @@ API path: `/policy_import_intents`
 | `name` |  |
 | `object` |  |
 | `support_phone` |  |
-| `supported_country` |  |
+| `supported_countries` |  |
 | `website_url` |  |
 
 Operations: List, Load.
@@ -1020,7 +1020,7 @@ API path: `/providers`
 
 | Field | Description |
 | --- | --- |
-| `delivery` |  |
+| `deliveries` |  |
 | `event_id` |  |
 
 Operations: Create.
@@ -1035,7 +1035,7 @@ API path: `/events/{event_id}/replay`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: Load.
 
@@ -1049,7 +1049,7 @@ API path: `/webhooks/endpoints/{webhook_endpoint_id}`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: List.
 
@@ -1099,7 +1099,7 @@ associated_person = client.AssociatedPerson().load({"id": "associated_person_id"
 #### Example: List
 
 ```python
-associated_persons = client.AssociatedPerson().list()
+associated_persons = client.AssociatedPerson().list({"employee_id": "example"})
 ```
 
 #### Example: Create
@@ -1144,7 +1144,7 @@ Create an instance: `associated_person_eligibility_response_paged_list = client.
 #### Example: List
 
 ```python
-associated_person_eligibility_response_paged_lists = client.AssociatedPersonEligibilityResponsePagedList().list()
+associated_person_eligibility_response_paged_lists = client.AssociatedPersonEligibilityResponsePagedList().list({"dependents_management_intent_id": "example"})
 ```
 
 
@@ -1264,7 +1264,7 @@ Create an instance: `contribution_report_employee_breakdown_response_paged_list 
 #### Example: List
 
 ```python
-contribution_report_employee_breakdown_response_paged_lists = client.ContributionReportEmployeeBreakdownResponsePagedList().list()
+contribution_report_employee_breakdown_response_paged_lists = client.ContributionReportEmployeeBreakdownResponsePagedList().list({"id": "example"})
 ```
 
 
@@ -1338,9 +1338,9 @@ Create an instance: `dependent = client.Dependent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` |  |
-| `coverage_option` | `None | list` |  |
-| `dependent` | `list` |  |
-| `disclosure` | `list` |  |
+| `coverage_options` | `None | list` |  |
+| `dependents` | `list` |  |
+| `disclosures` | `list` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
 | `parent_intent_id` | `str` |  |
@@ -1353,8 +1353,8 @@ Create an instance: `dependent = client.Dependent()`
 ```python
 dependent = client.Dependent().create({
     "dependents_management_intent_id": "example_dependents_management_intent_id",  # str
-    "dependent": [],  # list
-    "disclosure": [],  # list
+    "dependents": [],  # list
+    "disclosures": [],  # list
     "id": "example_id",  # str
     "parent_intent_id": "example_parent_intent_id",  # str
     "parent_intent_type": "example_parent_intent_type",  # Any
@@ -1380,9 +1380,9 @@ Create an instance: `dependents_management_intent = client.DependentsManagementI
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` |  |
-| `coverage_option` | `None | list` |  |
-| `dependent` | `list` |  |
-| `disclosure` | `list` |  |
+| `coverage_options` | `None | list` |  |
+| `dependents` | `list` |  |
+| `disclosures` | `list` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
 | `parent_intent_id` | `str` |  |
@@ -1400,8 +1400,8 @@ dependents_management_intent = client.DependentsManagementIntent().load({"id": "
 
 ```python
 dependents_management_intent = client.DependentsManagementIntent().create({
-    "dependent": [],  # list
-    "disclosure": [],  # list
+    "dependents": [],  # list
+    "disclosures": [],  # list
     "id": "example_id",  # str
     "parent_intent_id": "example_parent_intent_id",  # str
     "parent_intent_type": "example_parent_intent_type",  # Any
@@ -1429,7 +1429,7 @@ Create an instance: `eligibility_check = client.EligibilityCheck()`
 | `object` | `str` |  |
 | `plan` | `Any` |  |
 | `provider` | `Any` |  |
-| `reason` | `list` |  |
+| `reasons` | `list` |  |
 
 #### Example: Create
 
@@ -1439,7 +1439,7 @@ eligibility_check = client.EligibilityCheck().create({
     "eligibility_status": "example_eligibility_status",  # Any
     "plan": "example_plan",  # Any
     "provider": "example_provider",  # Any
-    "reason": [],  # list
+    "reasons": [],  # list
 })
 ```
 
@@ -1565,7 +1565,7 @@ Create an instance: `employee_health_insurance_offer_response_paged_list = clien
 #### Example: List
 
 ```python
-employee_health_insurance_offer_response_paged_lists = client.EmployeeHealthInsuranceOfferResponsePagedList().list()
+employee_health_insurance_offer_response_paged_lists = client.EmployeeHealthInsuranceOfferResponsePagedList().list({"employee_id": "example"})
 ```
 
 
@@ -1641,7 +1641,7 @@ Create an instance: `employee_health_insurance_policy_response_paged_list = clie
 #### Example: List
 
 ```python
-employee_health_insurance_policy_response_paged_lists = client.EmployeeHealthInsurancePolicyResponsePagedList().list()
+employee_health_insurance_policy_response_paged_lists = client.EmployeeHealthInsurancePolicyResponsePagedList().list({"employee_id": "example"})
 ```
 
 
@@ -1713,7 +1713,7 @@ Create an instance: `employer_health_insurance_policy = client.EmployerHealthIns
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `None | str` |  |
-| `coverage_level` | `list` |  |
+| `coverage_levels` | `list` |  |
 | `employer_cancellation_period_length` | `int` |  |
 | `employer_id` | `str` |  |
 | `end_date` | `str` |  |
@@ -1747,7 +1747,7 @@ Create an instance: `employer_health_insurance_policy_response_paged_list = clie
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `None | str` |  |
-| `coverage_level` | `list` |  |
+| `coverage_levels` | `list` |  |
 | `employer_cancellation_period_length` | `int` |  |
 | `employer_id` | `str` |  |
 | `end_date` | `str` |  |
@@ -1762,7 +1762,7 @@ Create an instance: `employer_health_insurance_policy_response_paged_list = clie
 #### Example: List
 
 ```python
-employer_health_insurance_policy_response_paged_lists = client.EmployerHealthInsurancePolicyResponsePagedList().list()
+employer_health_insurance_policy_response_paged_lists = client.EmployerHealthInsurancePolicyResponsePagedList().list({"employer_id": "example"})
 ```
 
 
@@ -1780,7 +1780,7 @@ Create an instance: `employer_health_insurance_quote = client.EmployerHealthInsu
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `list` |  |
+| `coverage_levels` | `list` |  |
 | `employer_id` | `str` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
@@ -1809,7 +1809,7 @@ Create an instance: `employer_health_insurance_quote_response_paged_list = clien
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `list` |  |
+| `coverage_levels` | `list` |  |
 | `employer_id` | `str` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
@@ -1820,7 +1820,7 @@ Create an instance: `employer_health_insurance_quote_response_paged_list = clien
 #### Example: List
 
 ```python
-employer_health_insurance_quote_response_paged_lists = client.EmployerHealthInsuranceQuoteResponsePagedList().list()
+employer_health_insurance_quote_response_paged_lists = client.EmployerHealthInsuranceQuoteResponsePagedList().list({"employer_id": "example"})
 ```
 
 
@@ -1842,7 +1842,7 @@ Create an instance: `enrolment_intent = client.EnrolmentIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` |  |
-| `disclosure` | `list` |  |
+| `disclosures` | `list` |  |
 | `employee_id` | `str` |  |
 | `force_confirmation` | `bool` |  |
 | `group_id` | `str` |  |
@@ -1851,7 +1851,7 @@ Create an instance: `enrolment_intent = client.EnrolmentIntent()`
 | `object` | `str` |  |
 | `pending_confirmation` | `None` |  |
 | `policy_configuration` | `None` |  |
-| `policy_enrolment` | `list` |  |
+| `policy_enrolments` | `list` |  |
 | `status` | `Any` |  |
 
 #### Example: Load
@@ -1870,12 +1870,12 @@ enrolment_intents = client.EnrolmentIntent().list()
 
 ```python
 enrolment_intent = client.EnrolmentIntent().create({
-    "disclosure": [],  # list
+    "disclosures": [],  # list
     "employee_id": "example_employee_id",  # str
     "force_confirmation": True,  # bool
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
-    "policy_enrolment": [],  # list
+    "policy_enrolments": [],  # list
     "status": "example_status",  # Any
 })
 ```
@@ -1905,7 +1905,7 @@ Create an instance: `enrolment_intent_requirement_response_paged_list = client.E
 #### Example: List
 
 ```python
-enrolment_intent_requirement_response_paged_lists = client.EnrolmentIntentRequirementResponsePagedList().list()
+enrolment_intent_requirement_response_paged_lists = client.EnrolmentIntentRequirementResponsePagedList().list({"id": "example"})
 ```
 
 
@@ -1928,7 +1928,10 @@ Create an instance: `event = client.Event()`
 | `created` | `str` |  |
 | `data` | `None` |  |
 | `id` | `str` |  |
+| `options` | `None` |  |
+| `parent` | `None` |  |
 | `platform_id` | `str` |  |
+| `root` | `Any` |  |
 | `type` | `str` |  |
 
 #### Example: Load
@@ -1964,9 +1967,9 @@ Create an instance: `group = client.Group()`
 | `description` | `None | str` |  |
 | `employer_id` | `str` |  |
 | `enrolment_type` | `Any` |  |
-| `group_policy_id` | `list` |  |
-| `group_policy_intent_id` | `list` |  |
-| `group_quote_intent_id` | `list` |  |
+| `group_policy_ids` | `list` |  |
+| `group_policy_intent_ids` | `list` |  |
+| `group_quote_intent_ids` | `list` |  |
 | `group_type` | `Any` |  |
 | `id` | `str` |  |
 | `name` | `str` |  |
@@ -1991,9 +1994,9 @@ groups = client.Group().list()
 group = client.Group().create({
     "employer_id": "example_employer_id",  # str
     "enrolment_type": "example_enrolment_type",  # Any
-    "group_policy_id": [],  # list
-    "group_policy_intent_id": [],  # list
-    "group_quote_intent_id": [],  # list
+    "group_policy_ids": [],  # list
+    "group_policy_intent_ids": [],  # list
+    "group_quote_intent_ids": [],  # list
     "group_type": "example_group_type",  # Any
     "id": "example_id",  # str
     "name": "example_name",  # str
@@ -2018,14 +2021,14 @@ Create an instance: `group_employee = client.GroupEmployee()`
 | --- | --- | --- |
 | `desired_policy_start_date` | `None | str` |  |
 | `eligibility_status` | `Any` |  |
-| `enrolment` | `list` |  |
 | `enrolment_date` | `None | str` |  |
 | `enrolment_status` | `Any` |  |
+| `enrolments` | `list` |  |
 | `group_id` | `str` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
-| `policy` | `list` |  |
-| `scheduled_group_transition` | `list` |  |
+| `policies` | `list` |  |
+| `scheduled_group_transitions` | `list` |  |
 
 #### Example: Create
 
@@ -2033,11 +2036,11 @@ Create an instance: `group_employee = client.GroupEmployee()`
 group_employee = client.GroupEmployee().create({
     "id": "example_id",  # str
     "eligibility_status": "example_eligibility_status",  # Any
-    "enrolment": [],  # list
     "enrolment_status": "example_enrolment_status",  # Any
+    "enrolments": [],  # list
     "group_id": "example_group_id",  # str
-    "policy": [],  # list
-    "scheduled_group_transition": [],  # list
+    "policies": [],  # list
+    "scheduled_group_transitions": [],  # list
 })
 ```
 
@@ -2058,19 +2061,19 @@ Create an instance: `group_employee_response_paged_list = client.GroupEmployeeRe
 | --- | --- | --- |
 | `desired_policy_start_date` | `None | str` |  |
 | `eligibility_status` | `Any` |  |
-| `enrolment` | `list` |  |
 | `enrolment_date` | `None | str` |  |
 | `enrolment_status` | `Any` |  |
+| `enrolments` | `list` |  |
 | `group_id` | `str` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
-| `policy` | `list` |  |
-| `scheduled_group_transition` | `list` |  |
+| `policies` | `list` |  |
+| `scheduled_group_transitions` | `list` |  |
 
 #### Example: List
 
 ```python
-group_employee_response_paged_lists = client.GroupEmployeeResponsePagedList().list()
+group_employee_response_paged_lists = client.GroupEmployeeResponsePagedList().list({"id": "example"})
 ```
 
 
@@ -2090,7 +2093,7 @@ Create an instance: `group_policy = client.GroupPolicy()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `None | str` |  |
-| `disclosure` | `list` |  |
+| `disclosures` | `list` |  |
 | `employer_id` | `str` |  |
 | `end_date` | `None | str` |  |
 | `group_id` | `str` |  |
@@ -2134,7 +2137,7 @@ Create an instance: `group_policy_intent = client.GroupPolicyIntent()`
 | --- | --- | --- |
 | `action_required` | `None` |  |
 | `cost_sharing` | `None` |  |
-| `disclosure` | `list` |  |
+| `disclosures` | `list` |  |
 | `due_date` | `None | str` |  |
 | `group_id` | `str` |  |
 | `id` | `str` |  |
@@ -2159,7 +2162,7 @@ group_policy_intents = client.GroupPolicyIntent().list()
 
 ```python
 group_policy_intent = client.GroupPolicyIntent().create({
-    "disclosure": [],  # list
+    "disclosures": [],  # list
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
     "plan_id": "example_plan_id",  # str
@@ -2193,7 +2196,7 @@ Create an instance: `group_policy_intent_requirement_response_paged_list = clien
 #### Example: List
 
 ```python
-group_policy_intent_requirement_response_paged_lists = client.GroupPolicyIntentRequirementResponsePagedList().list()
+group_policy_intent_requirement_response_paged_lists = client.GroupPolicyIntentRequirementResponsePagedList().list({"id": "example"})
 ```
 
 
@@ -2211,15 +2214,11 @@ Create an instance: `group_quote = client.GroupQuote()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost_sharing` | `Any` |  |
-| `currency` | `str` |  |
-| `employee_count` | `int` |  |
-| `expires_at` | `str` |  |
-| `generated_at` | `str` |  |
-| `object` | `str` |  |
-| `pdf_expires_at` | `None | str` |  |
-| `pdf_url` | `None | str` |  |
-| `total_monthly_premium` | `float` |  |
+| `family_type` | `None` |  |
+| `member_count` | `None` |  |
+| `member_selection` | `None` |  |
+| `percentage` | `None` |  |
+| `type` | `Any` |  |
 
 #### Example: Load
 
@@ -2245,9 +2244,9 @@ Create an instance: `group_quote_intent = client.GroupQuoteIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` |  |
-| `consent_link` | `list` |  |
+| `consent_links` | `list` |  |
 | `cost_sharing` | `None` |  |
-| `disclosure` | `list` |  |
+| `disclosures` | `list` |  |
 | `expected_start_date` | `None | str` |  |
 | `group_id` | `str` |  |
 | `id` | `str` |  |
@@ -2271,8 +2270,8 @@ group_quote_intents = client.GroupQuoteIntent().list()
 
 ```python
 group_quote_intent = client.GroupQuoteIntent().create({
-    "consent_link": [],  # list
-    "disclosure": [],  # list
+    "consent_links": [],  # list
+    "disclosures": [],  # list
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
     "plan_id": "example_plan_id",  # str
@@ -2305,7 +2304,7 @@ Create an instance: `group_quote_intent_requirement_response_paged_list = client
 #### Example: List
 
 ```python
-group_quote_intent_requirement_response_paged_lists = client.GroupQuoteIntentRequirementResponsePagedList().list()
+group_quote_intent_requirement_response_paged_lists = client.GroupQuoteIntentRequirementResponsePagedList().list({"id": "example"})
 ```
 
 
@@ -2327,13 +2326,13 @@ Create an instance: `plan = client.Plan()`
 | `available_from` | `str` |  |
 | `available_to` | `None | str` |  |
 | `country` | `Any` |  |
-| `coverage_option` | `None | list` |  |
+| `coverage_options` | `None | list` |  |
 | `description` | `str` |  |
-| `disclosure` | `list` |  |
-| `document` | `list` |  |
+| `disclosures` | `list` |  |
+| `documents` | `list` |  |
 | `eligible_count` | `None | int` |  |
-| `employee_eligibility_criterion` | `list` |  |
-| `employer_eligibility_criterion` | `list` |  |
+| `employee_eligibility_criteria` | `list` |  |
+| `employer_eligibility_criteria` | `list` |  |
 | `health_insurance` | `None` |  |
 | `id` | `str` |  |
 | `ineligible_count` | `None | int` |  |
@@ -2373,7 +2372,7 @@ Create an instance: `policy = client.Policy()`
 | --- | --- | --- |
 | `bundling_type` | `Any` |  |
 | `cancellation_date` | `None | str` |  |
-| `disclosure` | `list` |  |
+| `disclosures` | `list` |  |
 | `employee_id` | `str` |  |
 | `end_date` | `None | str` |  |
 | `group_id` | `str` |  |
@@ -2417,13 +2416,13 @@ Create an instance: `policy_amendment_intent = client.PolicyAmendmentIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `amendment_reason` | `Any` |  |
-| `disclosure` | `list` |  |
+| `disclosures` | `list` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
 | `pending_confirmation` | `None` |  |
 | `policy_id` | `str` |  |
 | `processing_error` | `None` |  |
-| `requested_change` | `list` |  |
+| `requested_changes` | `list` |  |
 | `required_action` | `None` |  |
 | `status` | `Any` |  |
 
@@ -2436,7 +2435,7 @@ policy_amendment_intent = client.PolicyAmendmentIntent().load({"id": "policy_ame
 #### Example: List
 
 ```python
-policy_amendment_intents = client.PolicyAmendmentIntent().list()
+policy_amendment_intents = client.PolicyAmendmentIntent().list({"id": "example_id"})
 ```
 
 #### Example: Create
@@ -2445,9 +2444,9 @@ policy_amendment_intents = client.PolicyAmendmentIntent().list()
 policy_amendment_intent = client.PolicyAmendmentIntent().create({
     "id": "example_id",  # str
     "amendment_reason": "example_amendment_reason",  # Any
-    "disclosure": [],  # list
+    "disclosures": [],  # list
     "policy_id": "example_policy_id",  # str
-    "requested_change": [],  # list
+    "requested_changes": [],  # list
     "status": "example_status",  # Any
 })
 ```
@@ -2469,7 +2468,7 @@ Create an instance: `policy_import_intent = client.PolicyImportIntent()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_person` | `list` |  |
+| `associated_persons` | `list` |  |
 | `employee_id` | `str` |  |
 | `group_id` | `str` |  |
 | `id` | `str` |  |
@@ -2496,7 +2495,7 @@ policy_import_intents = client.PolicyImportIntent().list()
 
 ```python
 policy_import_intent = client.PolicyImportIntent().create({
-    "associated_person": [],  # list
+    "associated_persons": [],  # list
     "employee_id": "example_employee_id",  # str
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
@@ -2531,7 +2530,7 @@ Create an instance: `provider = client.Provider()`
 | `name` | `str` |  |
 | `object` | `str` |  |
 | `support_phone` | `str` |  |
-| `supported_country` | `list` |  |
+| `supported_countries` | `list` |  |
 | `website_url` | `str` |  |
 
 #### Example: Load
@@ -2561,7 +2560,7 @@ Create an instance: `replay = client.Replay()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `delivery` | `list` |  |
+| `deliveries` | `list` |  |
 | `event_id` | `str` |  |
 
 #### Example: Create
@@ -2569,7 +2568,7 @@ Create an instance: `replay = client.Replay()`
 ```python
 replay = client.Replay().create({
     "event_id": "example_event_id",  # str
-    "delivery": [],  # list
+    "deliveries": [],  # list
 })
 ```
 
@@ -2592,7 +2591,7 @@ Create an instance: `webhook_endpoint = client.WebhookEndpoint()`
 | `endpoint_url` | `str` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
-| `subscribed_event` | `list` |  |
+| `subscribed_events` | `list` |  |
 
 #### Example: Load
 
@@ -2619,7 +2618,7 @@ Create an instance: `webhook_endpoint_response_paged_list = client.WebhookEndpoi
 | `endpoint_url` | `str` |  |
 | `id` | `str` |  |
 | `object` | `str` |  |
-| `subscribed_event` | `list` |  |
+| `subscribed_events` | `list` |  |
 
 #### Example: List
 

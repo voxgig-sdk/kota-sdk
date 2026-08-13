@@ -45,7 +45,7 @@ describe('PolicyAmendmentIntentEntity', async () => {
     let policy_amendment_intent_ref01_data = setup.data.new.policy_amendment_intent['policy_amendment_intent_ref01']
     policy_amendment_intent_ref01_data['policy_id'] = setup.idmap['policy01']
 
-    policy_amendment_intent_ref01_data = await policy_amendment_intent_ref01_ent.create(policy_amendment_intent_ref01_data)
+    policy_amendment_intent_ref01_data = (await policy_amendment_intent_ref01_ent.create(policy_amendment_intent_ref01_data)).data()
     assert(null != policy_amendment_intent_ref01_data.id)
 
 
@@ -53,7 +53,7 @@ describe('PolicyAmendmentIntentEntity', async () => {
     const policy_amendment_intent_ref01_match = {}
     policy_amendment_intent_ref01_match['policy_id'] = setup.idmap['policy01']
 
-    const policy_amendment_intent_ref01_list = await policy_amendment_intent_ref01_ent.list(policy_amendment_intent_ref01_match)
+    const policy_amendment_intent_ref01_list = (await policy_amendment_intent_ref01_ent.list(policy_amendment_intent_ref01_match)).map((e) => e.data())
 
     assert(!isempty(select(policy_amendment_intent_ref01_list, { id: policy_amendment_intent_ref01_data.id })))
 
@@ -61,7 +61,7 @@ describe('PolicyAmendmentIntentEntity', async () => {
     // LOAD
     const policy_amendment_intent_ref01_match_dt0 = {}
     policy_amendment_intent_ref01_match_dt0.id = policy_amendment_intent_ref01_data.id
-    const policy_amendment_intent_ref01_data_dt0 = await policy_amendment_intent_ref01_ent.load(policy_amendment_intent_ref01_match_dt0)
+    const policy_amendment_intent_ref01_data_dt0 = (await policy_amendment_intent_ref01_ent.load(policy_amendment_intent_ref01_match_dt0)).data()
     assert(policy_amendment_intent_ref01_data_dt0.id === policy_amendment_intent_ref01_data.id)
 
 

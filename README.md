@@ -19,7 +19,7 @@ support (`list`, `load`, `create`, `update`, `remove`):
 
 ```ts
 const client = new KotaSDK()
-const items = await client.AssociatedPerson().list()
+const items = await client.AssociatedPerson().list({ employee_id: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -34,9 +34,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = KotaSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = KotaSDK.test({
+  entity: {
+    dependents_management_intent: {
+      test01: { id: 'test01', dependents: [], disclosures: [] },
+    },
+  },
+})
 const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: 'test01' })
-// dependentsmanagementintent is a bare DependentsManagementIntent populated with mock data
+// dependentsmanagementintent is the DependentsManagementIntent entity, populated with mock data
+// — call dependentsmanagementintent.data() for the record itself
 console.log(dependentsmanagementintent)
 ```
 
@@ -79,7 +88,8 @@ local result, err = client:DependentsManagementIntent():load({ id = "test01" })
 ```js
 const client = KotaSDK.test()
 const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: 'test01' })
-// dependentsmanagementintent is a bare entity populated with mock data
+// dependentsmanagementintent is the entity, populated with mock data
+// — call dependentsmanagementintent.data() for the record itself
 console.log(dependentsmanagementintent)
 ```
 
@@ -107,8 +117,8 @@ const client = new KotaSDK({
   apikey: process.env.KOTA_APIKEY,
 })
 
-// List all associatedpersons (returns AssociatedPerson[])
-const associatedpersons = await client.AssociatedPerson().list()
+// List all associatedpersons (returns AssociatedPersonEntity[] — .data() for the record)
+const associatedpersons = await client.AssociatedPerson().list({ employee_id: "example" })
 for (const associatedperson of associatedpersons) {
   console.log(associatedperson)
 }
@@ -161,25 +171,25 @@ The API exposes 40 entities:
 | --- | --- | --- |
 | **AssociatedPerson** | The AssociatedPerson entity (create, list, load, remove, update). | `/employees/{employee_id}/associated_persons` |
 | **AssociatedPersonEligibilityResponsePagedList** | The AssociatedPersonEligibilityResponsePagedList entity (list). | `/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility` |
-| **ContributionReport** | The ContributionReport entity (create, list, load). | `/contribution_reports/{contribution_report_id}/finalize` |
+| **ContributionReport** | The ContributionReport entity (create, list, load). | `/contribution_reports` |
 | **ContributionReportEmployeeBreakdown** | The ContributionReportEmployeeBreakdown entity (load). | `/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}` |
 | **ContributionReportEmployeeBreakdownResponsePagedList** | The ContributionReportEmployeeBreakdownResponsePagedList entity (list). | `/contribution_reports/{contribution_report_id}/employee_breakdowns` |
 | **CreateHostedSessionToken** | The CreateHostedSessionToken entity (create). | `/hosted/sessions` |
 | **CreateSessionToken** | The CreateSessionToken entity (create). | `/embed/sessions` |
 | **Dependent** | The Dependent entity (create, remove). | `/dependents_management_intents/{dependents_management_intent_id}/dependents` |
-| **DependentsManagementIntent** | The DependentsManagementIntent entity (create, load). | `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent` |
+| **DependentsManagementIntent** | The DependentsManagementIntent entity (create, load). | `/dependents_management_intents/{dependents_management_intent_id}` |
 | **EligibilityCheck** | The EligibilityCheck entity (create). | `/groups/{group_id}/eligibility_check` |
-| **Employee** | The Employee entity (create, list, load, update). | `/employees/{employee_id}/offboard` |
+| **Employee** | The Employee entity (create, list, load, update). | `/employees` |
 | **EmployeeHealthInsuranceOffer** | The EmployeeHealthInsuranceOffer entity (load). | `/employees/{employee_id}/health_insurance/offers/{employee_offer_id}` |
 | **EmployeeHealthInsuranceOfferResponsePagedList** | The EmployeeHealthInsuranceOfferResponsePagedList entity (list). | `/employees/{employee_id}/health_insurance/offers` |
 | **EmployeeHealthInsurancePolicy** | The EmployeeHealthInsurancePolicy entity (load). | `/employees/{employee_id}/health_insurance/policies/{employee_policy_id}` |
 | **EmployeeHealthInsurancePolicyResponsePagedList** | The EmployeeHealthInsurancePolicyResponsePagedList entity (list). | `/employees/{employee_id}/health_insurance/policies` |
-| **Employer** | The Employer entity (create, list, load, update). | `/employers/{employer_id}/offboard` |
+| **Employer** | The Employer entity (create, list, load, update). | `/employers` |
 | **EmployerHealthInsurancePolicy** | The EmployerHealthInsurancePolicy entity (load). | `/employers/{employer_id}/health_insurance/policies/{employer_policy_id}` |
 | **EmployerHealthInsurancePolicyResponsePagedList** | The EmployerHealthInsurancePolicyResponsePagedList entity (list). | `/employers/{employer_id}/health_insurance/policies` |
 | **EmployerHealthInsuranceQuote** | The EmployerHealthInsuranceQuote entity (load). | `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}` |
 | **EmployerHealthInsuranceQuoteResponsePagedList** | The EmployerHealthInsuranceQuoteResponsePagedList entity (list). | `/employers/{employer_id}/health_insurance/quotes` |
-| **EnrolmentIntent** | The EnrolmentIntent entity (create, list, load, update). | `/enrolment_intents/{enrolment_intent_id}/confirm` |
+| **EnrolmentIntent** | The EnrolmentIntent entity (create, list, load, update). | `/enrolment_intents` |
 | **EnrolmentIntentRequirementResponsePagedList** | The EnrolmentIntentRequirementResponsePagedList entity (list). | `/enrolment_intents/{enrolment_intent_id}/requirements` |
 | **Event** | The Event entity (list, load). | `/events` |
 | **Group** | The Group entity (create, list, load, update). | `/groups` |
@@ -189,11 +199,11 @@ The API exposes 40 entities:
 | **GroupPolicyIntent** | The GroupPolicyIntent entity (create, list, load). | `/group_policy_intents` |
 | **GroupPolicyIntentRequirementResponsePagedList** | The GroupPolicyIntentRequirementResponsePagedList entity (list). | `/group_policy_intents/{group_policy_intent_id}/requirements` |
 | **GroupQuote** | The GroupQuote entity (load). | `/group_quote_intents/{group_quote_intent_id}/quote` |
-| **GroupQuoteIntent** | The GroupQuoteIntent entity (create, list, load). | `/group_quote_intents/{group_quote_intent_id}/reject` |
+| **GroupQuoteIntent** | The GroupQuoteIntent entity (create, list, load). | `/group_quote_intents` |
 | **GroupQuoteIntentRequirementResponsePagedList** | The GroupQuoteIntentRequirementResponsePagedList entity (list). | `/group_quote_intents/{group_quote_intent_id}/requirements` |
 | **Plan** | The Plan entity (list, load). | `/plans` |
 | **Policy** | The Policy entity (list, load). | `/policies` |
-| **PolicyAmendmentIntent** | The PolicyAmendmentIntent entity (create, list, load). | `/policies/{policy_id}/policy_amendment_intents/{id}/cancel` |
+| **PolicyAmendmentIntent** | The PolicyAmendmentIntent entity (create, list, load). | `/policies/{policy_id}/policy_amendment_intents` |
 | **PolicyImportIntent** | The PolicyImportIntent entity (create, list, load). | `/policy_import_intents` |
 | **Provider** | The Provider entity (list, load). | `/providers` |
 | **Replay** | The Replay entity (create). | `/events/{event_id}/replay` |
@@ -216,7 +226,7 @@ client = KotaSDK({
 })
 
 # List all associatedpersons (returns a list, raises on error)
-associatedpersons = client.AssociatedPerson().list()
+associatedpersons = client.AssociatedPerson().list({"employee_id": "example"})
 for associatedperson in associatedpersons:
     print(associatedperson)
 
@@ -239,7 +249,7 @@ $client = new KotaSDK([
 $associatedpersons = $client->AssociatedPerson()->list();
 print_r($associatedpersons);
 
-// Load a specific associatedperson (returns the bare record; throws on error)
+// Load a specific associatedperson (returns the ENTITY; call data_get() for the record; throws on error)
 $associatedperson = $client->AssociatedPerson()->load(["id" => "example_id", "employee_id" => "example_employee_id"]);
 print_r($associatedperson);
 ```
@@ -298,7 +308,7 @@ const client = new KotaSDK({
 })
 
 // List all associatedpersons (returns an array)
-const associatedpersons = await client.AssociatedPerson().list()
+const associatedpersons = await client.AssociatedPerson().list({ employee_id: "example" })
 for (const associatedperson of associatedpersons) {
   console.log(associatedperson)
 }
@@ -431,6 +441,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://test.api.kota.io](https://test.api.kota.io)
 

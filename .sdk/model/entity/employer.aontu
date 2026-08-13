@@ -240,7 +240,7 @@ main: kit: entity: employer: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

@@ -10,7 +10,7 @@
         "name": "s69",
         "object": "s6a",
         "support_phone": "s6b",
-        "supported_country": [],
+        "supported_countries": [],
         "website_url": "s6d"
       },
       "PROVIDER01": {
@@ -22,7 +22,7 @@
         "name": "scd",
         "object": "sce",
         "support_phone": "scf",
-        "supported_country": [],
+        "supported_countries": [],
         "website_url": "sd1"
       },
       "PROVIDER02": {
@@ -34,7 +34,7 @@
         "name": "s131",
         "object": "s132",
         "support_phone": "s133",
-        "supported_country": [],
+        "supported_countries": [],
         "website_url": "s135"
       }
     }
@@ -49,7 +49,7 @@
         "name": "s195",
         "object": "s196",
         "support_phone": "s197",
-        "supported_country": [],
+        "supported_countries": [],
         "website_url": "s199"
       }
     }

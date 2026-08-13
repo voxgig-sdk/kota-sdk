@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestProviderEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from kota_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = KotaSDK.test(
@@ -92,7 +92,7 @@ class TestProviderEntity:
             "id": provider_ref01_data["id"],
         }
         provider_ref01_data_dt0_loaded = provider_ref01_ent.load(provider_ref01_match_dt0, None)
-        provider_ref01_data_dt0_load_result = helpers.to_map(provider_ref01_data_dt0_loaded)
+        provider_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(provider_ref01_data_dt0_loaded))
         assert provider_ref01_data_dt0_load_result is not None
         assert provider_ref01_data_dt0_load_result["id"] == provider_ref01_data["id"]
 

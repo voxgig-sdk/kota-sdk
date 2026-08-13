@@ -45,7 +45,7 @@ class ReplayEntityTest extends TestCase
         $replay_ref01_data["event_id"] = $setup["idmap"]["event01"];
 
         $replay_ref01_data_result = $replay_ref01_ent->create($replay_ref01_data, null);
-        $replay_ref01_data = Helpers::to_map($replay_ref01_data_result);
+        $replay_ref01_data = Helpers::to_map(is_object($replay_ref01_data_result) && method_exists($replay_ref01_data_result, 'data_get') ? $replay_ref01_data_result->data_get() : $replay_ref01_data_result);
         $this->assertNotNull($replay_ref01_data);
 
     }

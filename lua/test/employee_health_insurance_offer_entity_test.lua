@@ -49,7 +49,7 @@ describe("EmployeeHealthInsuranceOfferEntity", function()
     }
     local employee_health_insurance_offer_ref01_data_dt0_loaded, err = employee_health_insurance_offer_ref01_ent:load(employee_health_insurance_offer_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local employee_health_insurance_offer_ref01_data_dt0_load_result = helpers.to_map(employee_health_insurance_offer_ref01_data_dt0_loaded)
+    local employee_health_insurance_offer_ref01_data_dt0_load_result = helpers.to_map(type(employee_health_insurance_offer_ref01_data_dt0_loaded) == 'table' and employee_health_insurance_offer_ref01_data_dt0_loaded.data_get and employee_health_insurance_offer_ref01_data_dt0_loaded:data_get() or employee_health_insurance_offer_ref01_data_dt0_loaded)
     assert.is_not_nil(employee_health_insurance_offer_ref01_data_dt0_load_result)
     assert.are.equal(employee_health_insurance_offer_ref01_data_dt0_load_result["id"], employee_health_insurance_offer_ref01_data["id"])
 

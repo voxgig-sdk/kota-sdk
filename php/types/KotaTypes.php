@@ -227,9 +227,9 @@ class CreateSessionTokenCreateData
 class Dependent
 {
     public mixed $action_required = null;
-    public mixed $coverage_option = null;
-    public array $dependent;
-    public array $disclosure;
+    public mixed $coverage_options = null;
+    public array $dependents;
+    public array $disclosures;
     public string $id;
     public ?string $object = null;
     public string $parent_intent_id;
@@ -243,9 +243,9 @@ class DependentCreateData
 {
     public string $dependents_management_intent_id;
     public mixed $action_required = null;
-    public mixed $coverage_option = null;
-    public array $dependent;
-    public array $disclosure;
+    public mixed $coverage_options = null;
+    public array $dependents;
+    public array $disclosures;
     public string $id;
     public ?string $object = null;
     public string $parent_intent_id;
@@ -265,9 +265,9 @@ class DependentRemoveMatch
 class DependentsManagementIntent
 {
     public mixed $action_required = null;
-    public mixed $coverage_option = null;
-    public array $dependent;
-    public array $disclosure;
+    public mixed $coverage_options = null;
+    public array $dependents;
+    public array $disclosures;
     public string $id;
     public ?string $object = null;
     public string $parent_intent_id;
@@ -289,9 +289,9 @@ class DependentsManagementIntentCreateData
     public ?string $policy_id = null;
     public ?string $enrolment_intent_id = null;
     public mixed $action_required = null;
-    public mixed $coverage_option = null;
-    public array $dependent;
-    public array $disclosure;
+    public mixed $coverage_options = null;
+    public array $dependents;
+    public array $disclosures;
     public string $id;
     public ?string $object = null;
     public string $parent_intent_id;
@@ -307,7 +307,7 @@ class EligibilityCheck
     public ?string $object = null;
     public mixed $plan;
     public mixed $provider;
-    public array $reason;
+    public array $reasons;
 }
 
 /** Request payload for EligibilityCheck#create. */
@@ -318,7 +318,7 @@ class EligibilityCheckCreateData
     public ?string $object = null;
     public mixed $plan;
     public mixed $provider;
-    public array $reason;
+    public array $reasons;
 }
 
 /** Employee entity data model. */
@@ -595,7 +595,7 @@ class EmployerUpdateData
 class EmployerHealthInsurancePolicy
 {
     public mixed $cancellation_date = null;
-    public array $coverage_level;
+    public array $coverage_levels;
     public int $employer_cancellation_period_length;
     public string $employer_id;
     public string $end_date;
@@ -619,7 +619,7 @@ class EmployerHealthInsurancePolicyLoadMatch
 class EmployerHealthInsurancePolicyResponsePagedList
 {
     public mixed $cancellation_date = null;
-    public array $coverage_level;
+    public array $coverage_levels;
     public int $employer_cancellation_period_length;
     public string $employer_id;
     public string $end_date;
@@ -641,7 +641,7 @@ class EmployerHealthInsurancePolicyResponsePagedListListMatch
 /** EmployerHealthInsuranceQuote entity data model. */
 class EmployerHealthInsuranceQuote
 {
-    public array $coverage_level;
+    public array $coverage_levels;
     public string $employer_id;
     public string $id;
     public ?string $object = null;
@@ -660,7 +660,7 @@ class EmployerHealthInsuranceQuoteLoadMatch
 /** EmployerHealthInsuranceQuoteResponsePagedList entity data model. */
 class EmployerHealthInsuranceQuoteResponsePagedList
 {
-    public array $coverage_level;
+    public array $coverage_levels;
     public string $employer_id;
     public string $id;
     public ?string $object = null;
@@ -679,7 +679,7 @@ class EmployerHealthInsuranceQuoteResponsePagedListListMatch
 class EnrolmentIntent
 {
     public mixed $action_required = null;
-    public array $disclosure;
+    public array $disclosures;
     public string $employee_id;
     public bool $force_confirmation;
     public string $group_id;
@@ -688,7 +688,7 @@ class EnrolmentIntent
     public ?string $object = null;
     public mixed $pending_confirmation = null;
     public mixed $policy_configuration = null;
-    public array $policy_enrolment;
+    public array $policy_enrolments;
     public mixed $status;
 }
 
@@ -702,7 +702,7 @@ class EnrolmentIntentLoadMatch
 class EnrolmentIntentListMatch
 {
     public mixed $action_required = null;
-    public ?array $disclosure = null;
+    public ?array $disclosures = null;
     public ?string $employee_id = null;
     public ?bool $force_confirmation = null;
     public ?string $group_id = null;
@@ -711,7 +711,7 @@ class EnrolmentIntentListMatch
     public ?string $object = null;
     public mixed $pending_confirmation = null;
     public mixed $policy_configuration = null;
-    public ?array $policy_enrolment = null;
+    public ?array $policy_enrolments = null;
     public mixed $status = null;
 }
 
@@ -719,7 +719,7 @@ class EnrolmentIntentListMatch
 class EnrolmentIntentCreateData
 {
     public mixed $action_required = null;
-    public array $disclosure;
+    public array $disclosures;
     public string $employee_id;
     public bool $force_confirmation;
     public string $group_id;
@@ -728,7 +728,7 @@ class EnrolmentIntentCreateData
     public ?string $object = null;
     public mixed $pending_confirmation = null;
     public mixed $policy_configuration = null;
-    public array $policy_enrolment;
+    public array $policy_enrolments;
     public mixed $status;
 }
 
@@ -737,7 +737,7 @@ class EnrolmentIntentUpdateData
 {
     public string $id;
     public mixed $action_required = null;
-    public ?array $disclosure = null;
+    public ?array $disclosures = null;
     public ?string $employee_id = null;
     public ?bool $force_confirmation = null;
     public ?string $group_id = null;
@@ -745,7 +745,7 @@ class EnrolmentIntentUpdateData
     public ?string $object = null;
     public mixed $pending_confirmation = null;
     public mixed $policy_configuration = null;
-    public ?array $policy_enrolment = null;
+    public ?array $policy_enrolments = null;
     public mixed $status = null;
 }
 
@@ -773,7 +773,10 @@ class Event
     public string $created;
     public mixed $data;
     public string $id;
+    public mixed $options = null;
+    public mixed $parent = null;
     public string $platform_id;
+    public mixed $root = null;
     public string $type;
 }
 
@@ -790,7 +793,10 @@ class EventListMatch
     public ?string $created = null;
     public mixed $data = null;
     public ?string $id = null;
+    public mixed $options = null;
+    public mixed $parent = null;
     public ?string $platform_id = null;
+    public mixed $root = null;
     public ?string $type = null;
 }
 
@@ -800,9 +806,9 @@ class Group
     public mixed $description = null;
     public string $employer_id;
     public mixed $enrolment_type;
-    public array $group_policy_id;
-    public array $group_policy_intent_id;
-    public array $group_quote_intent_id;
+    public array $group_policy_ids;
+    public array $group_policy_intent_ids;
+    public array $group_quote_intent_ids;
     public mixed $group_type;
     public string $id;
     public string $name;
@@ -822,9 +828,9 @@ class GroupListMatch
     public mixed $description = null;
     public ?string $employer_id = null;
     public mixed $enrolment_type = null;
-    public ?array $group_policy_id = null;
-    public ?array $group_policy_intent_id = null;
-    public ?array $group_quote_intent_id = null;
+    public ?array $group_policy_ids = null;
+    public ?array $group_policy_intent_ids = null;
+    public ?array $group_quote_intent_ids = null;
     public mixed $group_type = null;
     public ?string $id = null;
     public ?string $name = null;
@@ -838,9 +844,9 @@ class GroupCreateData
     public mixed $description = null;
     public string $employer_id;
     public mixed $enrolment_type;
-    public array $group_policy_id;
-    public array $group_policy_intent_id;
-    public array $group_quote_intent_id;
+    public array $group_policy_ids;
+    public array $group_policy_intent_ids;
+    public array $group_quote_intent_ids;
     public mixed $group_type;
     public string $id;
     public string $name;
@@ -855,9 +861,9 @@ class GroupUpdateData
     public mixed $description = null;
     public ?string $employer_id = null;
     public mixed $enrolment_type = null;
-    public ?array $group_policy_id = null;
-    public ?array $group_policy_intent_id = null;
-    public ?array $group_quote_intent_id = null;
+    public ?array $group_policy_ids = null;
+    public ?array $group_policy_intent_ids = null;
+    public ?array $group_quote_intent_ids = null;
     public mixed $group_type = null;
     public ?string $name = null;
     public ?string $object = null;
@@ -869,14 +875,14 @@ class GroupEmployee
 {
     public mixed $desired_policy_start_date = null;
     public mixed $eligibility_status;
-    public array $enrolment;
     public mixed $enrolment_date = null;
     public mixed $enrolment_status;
+    public array $enrolments;
     public string $group_id;
     public string $id;
     public ?string $object = null;
-    public array $policy;
-    public array $scheduled_group_transition;
+    public array $policies;
+    public array $scheduled_group_transitions;
 }
 
 /** Request payload for GroupEmployee#create. */
@@ -885,13 +891,13 @@ class GroupEmployeeCreateData
     public string $id;
     public mixed $desired_policy_start_date = null;
     public mixed $eligibility_status;
-    public array $enrolment;
     public mixed $enrolment_date = null;
     public mixed $enrolment_status;
+    public array $enrolments;
     public string $group_id;
     public ?string $object = null;
-    public array $policy;
-    public array $scheduled_group_transition;
+    public array $policies;
+    public array $scheduled_group_transitions;
 }
 
 /** GroupEmployeeResponsePagedList entity data model. */
@@ -899,14 +905,14 @@ class GroupEmployeeResponsePagedList
 {
     public mixed $desired_policy_start_date = null;
     public mixed $eligibility_status;
-    public array $enrolment;
     public mixed $enrolment_date = null;
     public mixed $enrolment_status;
+    public array $enrolments;
     public string $group_id;
     public string $id;
     public ?string $object = null;
-    public array $policy;
-    public array $scheduled_group_transition;
+    public array $policies;
+    public array $scheduled_group_transitions;
 }
 
 /** Request payload for GroupEmployeeResponsePagedList#list. */
@@ -919,7 +925,7 @@ class GroupEmployeeResponsePagedListListMatch
 class GroupPolicy
 {
     public mixed $cancellation_date = null;
-    public array $disclosure;
+    public array $disclosures;
     public ?string $employer_id = null;
     public mixed $end_date = null;
     public ?string $group_id = null;
@@ -943,7 +949,7 @@ class GroupPolicyLoadMatch
 class GroupPolicyListMatch
 {
     public mixed $cancellation_date = null;
-    public ?array $disclosure = null;
+    public ?array $disclosures = null;
     public ?string $employer_id = null;
     public mixed $end_date = null;
     public ?string $group_id = null;
@@ -962,7 +968,7 @@ class GroupPolicyIntent
 {
     public mixed $action_required = null;
     public mixed $cost_sharing = null;
-    public array $disclosure;
+    public array $disclosures;
     public mixed $due_date = null;
     public string $group_id;
     public string $id;
@@ -983,7 +989,7 @@ class GroupPolicyIntentListMatch
 {
     public mixed $action_required = null;
     public mixed $cost_sharing = null;
-    public ?array $disclosure = null;
+    public ?array $disclosures = null;
     public mixed $due_date = null;
     public ?string $group_id = null;
     public ?string $id = null;
@@ -998,7 +1004,7 @@ class GroupPolicyIntentCreateData
 {
     public mixed $action_required = null;
     public mixed $cost_sharing = null;
-    public array $disclosure;
+    public array $disclosures;
     public mixed $due_date = null;
     public string $group_id;
     public string $id;
@@ -1028,15 +1034,11 @@ class GroupPolicyIntentRequirementResponsePagedListListMatch
 /** GroupQuote entity data model. */
 class GroupQuote
 {
-    public mixed $cost_sharing;
-    public string $currency;
-    public int $employee_count;
-    public string $expires_at;
-    public string $generated_at;
-    public ?string $object = null;
-    public mixed $pdf_expires_at = null;
-    public mixed $pdf_url = null;
-    public float $total_monthly_premium;
+    public mixed $family_type = null;
+    public mixed $member_count = null;
+    public mixed $member_selection = null;
+    public mixed $percentage = null;
+    public mixed $type;
 }
 
 /** Request payload for GroupQuote#load. */
@@ -1049,9 +1051,9 @@ class GroupQuoteLoadMatch
 class GroupQuoteIntent
 {
     public mixed $action_required = null;
-    public array $consent_link;
+    public array $consent_links;
     public mixed $cost_sharing = null;
-    public array $disclosure;
+    public array $disclosures;
     public mixed $expected_start_date = null;
     public string $group_id;
     public string $id;
@@ -1070,9 +1072,9 @@ class GroupQuoteIntentLoadMatch
 class GroupQuoteIntentListMatch
 {
     public mixed $action_required = null;
-    public ?array $consent_link = null;
+    public ?array $consent_links = null;
     public mixed $cost_sharing = null;
-    public ?array $disclosure = null;
+    public ?array $disclosures = null;
     public mixed $expected_start_date = null;
     public ?string $group_id = null;
     public ?string $id = null;
@@ -1085,9 +1087,9 @@ class GroupQuoteIntentListMatch
 class GroupQuoteIntentCreateData
 {
     public mixed $action_required = null;
-    public array $consent_link;
+    public array $consent_links;
     public mixed $cost_sharing = null;
-    public array $disclosure;
+    public array $disclosures;
     public mixed $expected_start_date = null;
     public string $group_id;
     public string $id;
@@ -1119,13 +1121,13 @@ class Plan
     public string $available_from;
     public mixed $available_to = null;
     public mixed $country;
-    public mixed $coverage_option = null;
+    public mixed $coverage_options = null;
     public string $description;
-    public array $disclosure;
-    public array $document;
+    public array $disclosures;
+    public array $documents;
     public mixed $eligible_count = null;
-    public array $employee_eligibility_criterion;
-    public array $employer_eligibility_criterion;
+    public array $employee_eligibility_criteria;
+    public array $employer_eligibility_criteria;
     public mixed $health_insurance = null;
     public string $id;
     public mixed $ineligible_count = null;
@@ -1148,13 +1150,13 @@ class PlanListMatch
     public ?string $available_from = null;
     public mixed $available_to = null;
     public mixed $country = null;
-    public mixed $coverage_option = null;
+    public mixed $coverage_options = null;
     public ?string $description = null;
-    public ?array $disclosure = null;
-    public ?array $document = null;
+    public ?array $disclosures = null;
+    public ?array $documents = null;
     public mixed $eligible_count = null;
-    public ?array $employee_eligibility_criterion = null;
-    public ?array $employer_eligibility_criterion = null;
+    public ?array $employee_eligibility_criteria = null;
+    public ?array $employer_eligibility_criteria = null;
     public mixed $health_insurance = null;
     public ?string $id = null;
     public mixed $ineligible_count = null;
@@ -1170,7 +1172,7 @@ class Policy
 {
     public mixed $bundling_type;
     public mixed $cancellation_date = null;
-    public array $disclosure;
+    public array $disclosures;
     public string $employee_id;
     public mixed $end_date = null;
     public string $group_id;
@@ -1196,7 +1198,7 @@ class PolicyListMatch
 {
     public mixed $bundling_type = null;
     public mixed $cancellation_date = null;
-    public ?array $disclosure = null;
+    public ?array $disclosures = null;
     public ?string $employee_id = null;
     public mixed $end_date = null;
     public ?string $group_id = null;
@@ -1215,13 +1217,13 @@ class PolicyListMatch
 class PolicyAmendmentIntent
 {
     public mixed $amendment_reason;
-    public array $disclosure;
+    public array $disclosures;
     public string $id;
     public ?string $object = null;
     public mixed $pending_confirmation = null;
     public string $policy_id;
     public mixed $processing_error = null;
-    public array $requested_change;
+    public array $requested_changes;
     public mixed $required_action = null;
     public mixed $status;
 }
@@ -1244,12 +1246,12 @@ class PolicyAmendmentIntentCreateData
 {
     public string $id;
     public mixed $amendment_reason;
-    public array $disclosure;
+    public array $disclosures;
     public ?string $object = null;
     public mixed $pending_confirmation = null;
     public string $policy_id;
     public mixed $processing_error = null;
-    public array $requested_change;
+    public array $requested_changes;
     public mixed $required_action = null;
     public mixed $status;
 }
@@ -1257,7 +1259,7 @@ class PolicyAmendmentIntentCreateData
 /** PolicyImportIntent entity data model. */
 class PolicyImportIntent
 {
-    public array $associated_person;
+    public array $associated_persons;
     public string $employee_id;
     public string $group_id;
     public string $id;
@@ -1278,7 +1280,7 @@ class PolicyImportIntentLoadMatch
 /** Request payload for PolicyImportIntent#list. */
 class PolicyImportIntentListMatch
 {
-    public ?array $associated_person = null;
+    public ?array $associated_persons = null;
     public ?string $employee_id = null;
     public ?string $group_id = null;
     public ?string $id = null;
@@ -1293,7 +1295,7 @@ class PolicyImportIntentListMatch
 /** Request payload for PolicyImportIntent#create. */
 class PolicyImportIntentCreateData
 {
-    public array $associated_person;
+    public array $associated_persons;
     public string $employee_id;
     public string $group_id;
     public string $id;
@@ -1316,7 +1318,7 @@ class Provider
     public string $name;
     public ?string $object = null;
     public string $support_phone;
-    public array $supported_country;
+    public array $supported_countries;
     public string $website_url;
 }
 
@@ -1337,14 +1339,14 @@ class ProviderListMatch
     public ?string $name = null;
     public ?string $object = null;
     public ?string $support_phone = null;
-    public ?array $supported_country = null;
+    public ?array $supported_countries = null;
     public ?string $website_url = null;
 }
 
 /** Replay entity data model. */
 class Replay
 {
-    public array $delivery;
+    public array $deliveries;
     public string $event_id;
 }
 
@@ -1352,7 +1354,7 @@ class Replay
 class ReplayCreateData
 {
     public string $event_id;
-    public array $delivery;
+    public array $deliveries;
 }
 
 /** WebhookEndpoint entity data model. */
@@ -1362,7 +1364,7 @@ class WebhookEndpoint
     public string $endpoint_url;
     public string $id;
     public ?string $object = null;
-    public array $subscribed_event;
+    public array $subscribed_events;
 }
 
 /** Request payload for WebhookEndpoint#load. */
@@ -1378,7 +1380,7 @@ class WebhookEndpointResponsePagedList
     public string $endpoint_url;
     public string $id;
     public ?string $object = null;
-    public array $subscribed_event;
+    public array $subscribed_events;
 }
 
 /** Request payload for WebhookEndpointResponsePagedList#list. */
@@ -1388,6 +1390,6 @@ class WebhookEndpointResponsePagedListListMatch
     public ?string $endpoint_url = null;
     public ?string $id = null;
     public ?string $object = null;
-    public ?array $subscribed_event = null;
+    public ?array $subscribed_events = null;
 }
 

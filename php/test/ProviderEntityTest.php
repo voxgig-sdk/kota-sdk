@@ -97,7 +97,7 @@ class ProviderEntityTest extends TestCase
             "id" => $provider_ref01_data["id"],
         ];
         $provider_ref01_data_dt0_loaded = $provider_ref01_ent->load($provider_ref01_match_dt0, null);
-        $provider_ref01_data_dt0_load_result = Helpers::to_map($provider_ref01_data_dt0_loaded);
+        $provider_ref01_data_dt0_load_result = Helpers::to_map(is_object($provider_ref01_data_dt0_loaded) && method_exists($provider_ref01_data_dt0_loaded, 'data_get') ? $provider_ref01_data_dt0_loaded->data_get() : $provider_ref01_data_dt0_loaded);
         $this->assertNotNull($provider_ref01_data_dt0_load_result);
         $this->assertEquals($provider_ref01_data_dt0_load_result["id"], $provider_ref01_data["id"]);
 

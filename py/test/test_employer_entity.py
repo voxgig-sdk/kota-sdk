@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestEmployerEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from kota_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = KotaSDK.test(
@@ -78,7 +78,7 @@ class TestEmployerEntity:
         employer_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.employer"), "employer_ref01"))
 
-        employer_ref01_data = helpers.to_map(employer_ref01_ent.create(employer_ref01_data, None))
+        employer_ref01_data = helpers.to_map(runner.entity_data(employer_ref01_ent.create(employer_ref01_data, None)))
         assert employer_ref01_data is not None
         assert employer_ref01_data["id"] is not None
 
@@ -102,7 +102,7 @@ class TestEmployerEntity:
         employer_ref01_markdef_up0_value = "Mark01-employer_ref01_" + str(setup["now"])
         employer_ref01_data_up0_up[employer_ref01_markdef_up0_name] = employer_ref01_markdef_up0_value
 
-        employer_ref01_resdata_up0 = helpers.to_map(employer_ref01_ent.update(employer_ref01_data_up0_up, None))
+        employer_ref01_resdata_up0 = helpers.to_map(runner.entity_data(employer_ref01_ent.update(employer_ref01_data_up0_up, None)))
         assert employer_ref01_resdata_up0 is not None
         assert employer_ref01_resdata_up0["id"] == employer_ref01_data_up0_up["id"]
         assert employer_ref01_resdata_up0[employer_ref01_markdef_up0_name] == employer_ref01_markdef_up0_value
@@ -112,7 +112,7 @@ class TestEmployerEntity:
             "id": employer_ref01_data["id"],
         }
         employer_ref01_data_dt0_loaded = employer_ref01_ent.load(employer_ref01_match_dt0, None)
-        employer_ref01_data_dt0_load_result = helpers.to_map(employer_ref01_data_dt0_loaded)
+        employer_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(employer_ref01_data_dt0_loaded))
         assert employer_ref01_data_dt0_load_result is not None
         assert employer_ref01_data_dt0_load_result["id"] == employer_ref01_data["id"]
 

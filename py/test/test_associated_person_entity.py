@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestAssociatedPersonEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from kota_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = KotaSDK.test(
@@ -79,7 +79,7 @@ class TestAssociatedPersonEntity:
             vs.getpath(setup["data"], "new.associated_person"), "associated_person_ref01"))
         associated_person_ref01_data["employee_id"] = setup["idmap"]["employee01"]
 
-        associated_person_ref01_data = helpers.to_map(associated_person_ref01_ent.create(associated_person_ref01_data, None))
+        associated_person_ref01_data = helpers.to_map(runner.entity_data(associated_person_ref01_ent.create(associated_person_ref01_data, None)))
         assert associated_person_ref01_data is not None
         assert associated_person_ref01_data["id"] is not None
 
@@ -106,7 +106,7 @@ class TestAssociatedPersonEntity:
         associated_person_ref01_markdef_up0_value = "Mark01-associated_person_ref01_" + str(setup["now"])
         associated_person_ref01_data_up0_up[associated_person_ref01_markdef_up0_name] = associated_person_ref01_markdef_up0_value
 
-        associated_person_ref01_resdata_up0 = helpers.to_map(associated_person_ref01_ent.update(associated_person_ref01_data_up0_up, None))
+        associated_person_ref01_resdata_up0 = helpers.to_map(runner.entity_data(associated_person_ref01_ent.update(associated_person_ref01_data_up0_up, None)))
         assert associated_person_ref01_resdata_up0 is not None
         assert associated_person_ref01_resdata_up0["id"] == associated_person_ref01_data_up0_up["id"]
         assert associated_person_ref01_resdata_up0[associated_person_ref01_markdef_up0_name] == associated_person_ref01_markdef_up0_value
@@ -116,7 +116,7 @@ class TestAssociatedPersonEntity:
             "id": associated_person_ref01_data["id"],
         }
         associated_person_ref01_data_dt0_loaded = associated_person_ref01_ent.load(associated_person_ref01_match_dt0, None)
-        associated_person_ref01_data_dt0_load_result = helpers.to_map(associated_person_ref01_data_dt0_loaded)
+        associated_person_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(associated_person_ref01_data_dt0_loaded))
         assert associated_person_ref01_data_dt0_load_result is not None
         assert associated_person_ref01_data_dt0_load_result["id"] == associated_person_ref01_data["id"]
 

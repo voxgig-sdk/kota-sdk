@@ -97,7 +97,7 @@ describe("PlanEntity", function()
     }
     local plan_ref01_data_dt0_loaded, err = plan_ref01_ent:load(plan_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local plan_ref01_data_dt0_load_result = helpers.to_map(plan_ref01_data_dt0_loaded)
+    local plan_ref01_data_dt0_load_result = helpers.to_map(type(plan_ref01_data_dt0_loaded) == 'table' and plan_ref01_data_dt0_loaded.data_get and plan_ref01_data_dt0_loaded:data_get() or plan_ref01_data_dt0_loaded)
     assert.is_not_nil(plan_ref01_data_dt0_load_result)
     assert.are.equal(plan_ref01_data_dt0_load_result["id"], plan_ref01_data["id"])
 

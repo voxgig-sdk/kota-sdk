@@ -83,7 +83,7 @@ class EnrolmentIntentEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.enrolment_intent"), "enrolment_intent_ref01"));
 
         $enrolment_intent_ref01_data_result = $enrolment_intent_ref01_ent->create($enrolment_intent_ref01_data, null);
-        $enrolment_intent_ref01_data = Helpers::to_map($enrolment_intent_ref01_data_result);
+        $enrolment_intent_ref01_data = Helpers::to_map(is_object($enrolment_intent_ref01_data_result) && method_exists($enrolment_intent_ref01_data_result, 'data_get') ? $enrolment_intent_ref01_data_result->data_get() : $enrolment_intent_ref01_data_result);
         $this->assertNotNull($enrolment_intent_ref01_data);
         $this->assertNotNull($enrolment_intent_ref01_data["id"]);
 
@@ -108,7 +108,7 @@ class EnrolmentIntentEntityTest extends TestCase
         $enrolment_intent_ref01_data_up0_up[$enrolment_intent_ref01_markdef_up0_name] = $enrolment_intent_ref01_markdef_up0_value;
 
         $enrolment_intent_ref01_resdata_up0_result = $enrolment_intent_ref01_ent->update($enrolment_intent_ref01_data_up0_up, null);
-        $enrolment_intent_ref01_resdata_up0 = Helpers::to_map($enrolment_intent_ref01_resdata_up0_result);
+        $enrolment_intent_ref01_resdata_up0 = Helpers::to_map(is_object($enrolment_intent_ref01_resdata_up0_result) && method_exists($enrolment_intent_ref01_resdata_up0_result, 'data_get') ? $enrolment_intent_ref01_resdata_up0_result->data_get() : $enrolment_intent_ref01_resdata_up0_result);
         $this->assertNotNull($enrolment_intent_ref01_resdata_up0);
         $this->assertEquals($enrolment_intent_ref01_resdata_up0["id"], $enrolment_intent_ref01_data_up0_up["id"]);
         $this->assertEquals($enrolment_intent_ref01_resdata_up0[$enrolment_intent_ref01_markdef_up0_name], $enrolment_intent_ref01_markdef_up0_value);
@@ -118,7 +118,7 @@ class EnrolmentIntentEntityTest extends TestCase
             "id" => $enrolment_intent_ref01_data["id"],
         ];
         $enrolment_intent_ref01_data_dt0_loaded = $enrolment_intent_ref01_ent->load($enrolment_intent_ref01_match_dt0, null);
-        $enrolment_intent_ref01_data_dt0_load_result = Helpers::to_map($enrolment_intent_ref01_data_dt0_loaded);
+        $enrolment_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($enrolment_intent_ref01_data_dt0_loaded) && method_exists($enrolment_intent_ref01_data_dt0_loaded, 'data_get') ? $enrolment_intent_ref01_data_dt0_loaded->data_get() : $enrolment_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($enrolment_intent_ref01_data_dt0_load_result);
         $this->assertEquals($enrolment_intent_ref01_data_dt0_load_result["id"], $enrolment_intent_ref01_data["id"]);
 

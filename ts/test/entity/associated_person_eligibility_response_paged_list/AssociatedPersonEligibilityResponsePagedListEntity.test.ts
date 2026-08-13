@@ -64,7 +64,7 @@ describe('AssociatedPersonEligibilityResponsePagedListEntity', async () => {
     const associated_person_eligibility_response_paged_list_ref01_match: any = {}
     associated_person_eligibility_response_paged_list_ref01_match['dependents_management_intent_id'] = setup.idmap['dependents_management_intent01']
 
-    const associated_person_eligibility_response_paged_list_ref01_list = await associated_person_eligibility_response_paged_list_ref01_ent.list(associated_person_eligibility_response_paged_list_ref01_match)
+    const associated_person_eligibility_response_paged_list_ref01_list = (await associated_person_eligibility_response_paged_list_ref01_ent.list(associated_person_eligibility_response_paged_list_ref01_match)).map((e: any) => e.data())
 
 
   })

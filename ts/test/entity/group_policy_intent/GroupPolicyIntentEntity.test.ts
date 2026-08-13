@@ -62,14 +62,14 @@ describe('GroupPolicyIntentEntity', async () => {
     const group_policy_intent_ref01_ent = client.GroupPolicyIntent()
     let group_policy_intent_ref01_data = setup.data.new.group_policy_intent['group_policy_intent_ref01']
 
-    group_policy_intent_ref01_data = await group_policy_intent_ref01_ent.create(group_policy_intent_ref01_data)
+    group_policy_intent_ref01_data = (await group_policy_intent_ref01_ent.create(group_policy_intent_ref01_data)).data()
     assert(null != group_policy_intent_ref01_data.id)
 
 
     // LIST
     const group_policy_intent_ref01_match: any = {}
 
-    const group_policy_intent_ref01_list = await group_policy_intent_ref01_ent.list(group_policy_intent_ref01_match)
+    const group_policy_intent_ref01_list = (await group_policy_intent_ref01_ent.list(group_policy_intent_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(group_policy_intent_ref01_list, { id: group_policy_intent_ref01_data.id })))
 
@@ -77,7 +77,7 @@ describe('GroupPolicyIntentEntity', async () => {
     // LOAD
     const group_policy_intent_ref01_match_dt0: any = {}
     group_policy_intent_ref01_match_dt0.id = group_policy_intent_ref01_data.id
-    const group_policy_intent_ref01_data_dt0 = await group_policy_intent_ref01_ent.load(group_policy_intent_ref01_match_dt0)
+    const group_policy_intent_ref01_data_dt0 = (await group_policy_intent_ref01_ent.load(group_policy_intent_ref01_match_dt0)).data()
     assert(group_policy_intent_ref01_data_dt0.id === group_policy_intent_ref01_data.id)
 
 

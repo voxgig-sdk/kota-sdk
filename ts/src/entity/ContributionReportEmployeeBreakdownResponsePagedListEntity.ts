@@ -37,7 +37,7 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntity extends KotaEnt
 
 
 
-  async list(this: any, reqmatch?: ContributionReportEmployeeBreakdownResponsePagedListListMatch, ctrl?: Control): Promise<ContributionReportEmployeeBreakdownResponsePagedList[]> {
+  async list(this: any, reqmatch?: ContributionReportEmployeeBreakdownResponsePagedListListMatch, ctrl?: Control): Promise<ContributionReportEmployeeBreakdownResponsePagedListEntity[]> {
 
     const utility = this._utility
 

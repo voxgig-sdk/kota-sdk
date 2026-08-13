@@ -37,7 +37,7 @@ class AssociatedPersonEligibilityResponsePagedListEntity extends KotaEntityBase<
 
 
 
-  async list(this: any, reqmatch?: AssociatedPersonEligibilityResponsePagedListListMatch, ctrl?: Control): Promise<AssociatedPersonEligibilityResponsePagedList[]> {
+  async list(this: any, reqmatch?: AssociatedPersonEligibilityResponsePagedListListMatch, ctrl?: Control): Promise<AssociatedPersonEligibilityResponsePagedListEntity[]> {
 
     const utility = this._utility
 

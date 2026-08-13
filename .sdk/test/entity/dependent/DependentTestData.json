@@ -3,9 +3,9 @@
     "dependent": {
       "DEPENDENT00": {
         "action_required": "s64",
-        "coverage_option": "s65",
-        "dependent": [],
-        "disclosure": [],
+        "coverage_options": "s65",
+        "dependents": [],
+        "disclosures": [],
         "id": "DEPENDENT00",
         "object": "s69",
         "parent_intent_id": "PARENT_INTENT01",
@@ -16,9 +16,9 @@
       },
       "DEPENDENT01": {
         "action_required": "sc8",
-        "coverage_option": "sc9",
-        "dependent": [],
-        "disclosure": [],
+        "coverage_options": "sc9",
+        "dependents": [],
+        "disclosures": [],
         "id": "DEPENDENT01",
         "object": "scd",
         "parent_intent_id": "PARENT_INTENT01",
@@ -29,9 +29,9 @@
       },
       "DEPENDENT02": {
         "action_required": "s12c",
-        "coverage_option": "s12d",
-        "dependent": [],
-        "disclosure": [],
+        "coverage_options": "s12d",
+        "dependents": [],
+        "disclosures": [],
         "id": "DEPENDENT02",
         "object": "s131",
         "parent_intent_id": "PARENT_INTENT01",
@@ -46,9 +46,9 @@
     "dependent": {
       "dependent_ref01": {
         "action_required": "s190",
-        "coverage_option": "s191",
-        "dependent": [],
-        "disclosure": [],
+        "coverage_options": "s191",
+        "dependents": [],
+        "disclosures": [],
         "object": "s195",
         "parent_intent_id": "PARENT_INTENT01",
         "parent_intent_type": "s197",

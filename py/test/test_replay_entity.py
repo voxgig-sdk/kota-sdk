@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -45,7 +45,7 @@ class TestReplayEntity:
             vs.getpath(setup["data"], "new.replay"), "replay_ref01"))
         replay_ref01_data["event_id"] = setup["idmap"]["event01"]
 
-        replay_ref01_data = helpers.to_map(replay_ref01_ent.create(replay_ref01_data, None))
+        replay_ref01_data = helpers.to_map(runner.entity_data(replay_ref01_ent.create(replay_ref01_data, None)))
         assert replay_ref01_data is not None
 
 

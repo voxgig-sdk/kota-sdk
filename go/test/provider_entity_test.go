@@ -128,7 +128,7 @@ func TestProviderEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		providerRef01DataDt0LoadResult := core.ToMapAny(providerRef01DataDt0Loaded)
+		providerRef01DataDt0LoadResult := core.ToMapAny(entityData(providerRef01DataDt0Loaded))
 		if providerRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

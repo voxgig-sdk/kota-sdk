@@ -59,7 +59,7 @@ func TestEligibilityCheckEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		eligibilityCheckRef01Data = core.ToMapAny(eligibilityCheckRef01DataResult)
+		eligibilityCheckRef01Data = core.ToMapAny(entityData(eligibilityCheckRef01DataResult))
 		if eligibilityCheckRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}

@@ -44,14 +44,14 @@ describe('EmployeeEntity', async () => {
     const employee_ref01_ent = client.Employee()
     let employee_ref01_data = setup.data.new.employee['employee_ref01']
 
-    employee_ref01_data = await employee_ref01_ent.create(employee_ref01_data)
+    employee_ref01_data = (await employee_ref01_ent.create(employee_ref01_data)).data()
     assert(null != employee_ref01_data.id)
 
 
     // LIST
     const employee_ref01_match = {}
 
-    const employee_ref01_list = await employee_ref01_ent.list(employee_ref01_match)
+    const employee_ref01_list = (await employee_ref01_ent.list(employee_ref01_match)).map((e) => e.data())
 
     assert(!isempty(select(employee_ref01_list, { id: employee_ref01_data.id })))
 
@@ -63,7 +63,7 @@ describe('EmployeeEntity', async () => {
     const employee_ref01_markdef_up0 = { name: 'date_of_birth', value: 'Mark01-employee_ref01_' + setup.now }
     employee_ref01_data_up0 [employee_ref01_markdef_up0.name] = employee_ref01_markdef_up0.value
 
-    const employee_ref01_resdata_up0 = await employee_ref01_ent.update(employee_ref01_data_up0)
+    const employee_ref01_resdata_up0 = (await employee_ref01_ent.update(employee_ref01_data_up0)).data()
     assert(employee_ref01_resdata_up0.id === employee_ref01_data_up0.id)
 
     assert(employee_ref01_resdata_up0[employee_ref01_markdef_up0.name] === employee_ref01_markdef_up0.value)
@@ -72,7 +72,7 @@ describe('EmployeeEntity', async () => {
     // LOAD
     const employee_ref01_match_dt0 = {}
     employee_ref01_match_dt0.id = employee_ref01_data.id
-    const employee_ref01_data_dt0 = await employee_ref01_ent.load(employee_ref01_match_dt0)
+    const employee_ref01_data_dt0 = (await employee_ref01_ent.load(employee_ref01_match_dt0)).data()
     assert(employee_ref01_data_dt0.id === employee_ref01_data.id)
 
 

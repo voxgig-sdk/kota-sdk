@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -45,7 +45,7 @@ class TestDependentsManagementIntentEntity:
             vs.getpath(setup["data"], "new.dependents_management_intent"), "dependents_management_intent_ref01"))
         dependents_management_intent_ref01_data["dependents_management_intent_id"] = setup["idmap"]["dependents_management_intent01"]
 
-        dependents_management_intent_ref01_data = helpers.to_map(dependents_management_intent_ref01_ent.create(dependents_management_intent_ref01_data, None))
+        dependents_management_intent_ref01_data = helpers.to_map(runner.entity_data(dependents_management_intent_ref01_ent.create(dependents_management_intent_ref01_data, None)))
         assert dependents_management_intent_ref01_data is not None
         assert dependents_management_intent_ref01_data["id"] is not None
 
@@ -54,7 +54,7 @@ class TestDependentsManagementIntentEntity:
             "id": dependents_management_intent_ref01_data["id"],
         }
         dependents_management_intent_ref01_data_dt0_loaded = dependents_management_intent_ref01_ent.load(dependents_management_intent_ref01_match_dt0, None)
-        dependents_management_intent_ref01_data_dt0_load_result = helpers.to_map(dependents_management_intent_ref01_data_dt0_loaded)
+        dependents_management_intent_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(dependents_management_intent_ref01_data_dt0_loaded))
         assert dependents_management_intent_ref01_data_dt0_load_result is not None
         assert dependents_management_intent_ref01_data_dt0_load_result["id"] == dependents_management_intent_ref01_data["id"]
 

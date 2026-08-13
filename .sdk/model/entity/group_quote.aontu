@@ -6,61 +6,29 @@ main: kit: entity: group_quote: {
 
   fields: [
     {
-      name: "cost_sharing"
+      name: "family_type"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "member_count"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "member_selection"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "percentage"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "type"
       req: true
       type: "`$ANY`"
-    }
-    {
-      name: "currency"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "employee_count"
-      req: true
-      type: "`$INTEGER`"
-    }
-    {
-      name: "expires_at"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "generated_at"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "object"
-      req: false
-      type: "`$STRING`"
-    }
-    {
-      name: "pdf_expires_at"
-      req: false
-      type: [
-        "`$ONE`"
-        [
-          "`$NULL`"
-          "`$STRING`"
-        ]
-      ]
-    }
-    {
-      name: "pdf_url"
-      req: false
-      type: [
-        "`$ONE`"
-        [
-          "`$NULL`"
-          "`$STRING`"
-        ]
-      ]
-    }
-    {
-      name: "total_monthly_premium"
-      req: true
-      type: "`$NUMBER`"
     }
   ]
 
@@ -106,7 +74,7 @@ main: kit: entity: group_quote: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.cost_sharing`"
           }
         }
       ]

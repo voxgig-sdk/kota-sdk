@@ -2,7 +2,7 @@
   "existing": {
     "policy_import_intent": {
       "POLICY_IMPORT_INTENT00": {
-        "associated_person": [],
+        "associated_persons": [],
         "employee_id": "EMPLOYEE01",
         "group_id": "GROUP01",
         "id": "POLICY_IMPORT_INTENT00",
@@ -14,7 +14,7 @@
         "status": "s6d"
       },
       "POLICY_IMPORT_INTENT01": {
-        "associated_person": [],
+        "associated_persons": [],
         "employee_id": "EMPLOYEE01",
         "group_id": "GROUP01",
         "id": "POLICY_IMPORT_INTENT01",
@@ -26,7 +26,7 @@
         "status": "sd1"
       },
       "POLICY_IMPORT_INTENT02": {
-        "associated_person": [],
+        "associated_persons": [],
         "employee_id": "EMPLOYEE01",
         "group_id": "GROUP01",
         "id": "POLICY_IMPORT_INTENT02",
@@ -42,7 +42,7 @@
   "new": {
     "policy_import_intent": {
       "policy_import_intent_ref01": {
-        "associated_person": [],
+        "associated_persons": [],
         "employee_id": "EMPLOYEE01",
         "group_id": "GROUP01",
         "member_number": "s194",

@@ -184,7 +184,7 @@ main: kit: entity: associated_person: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

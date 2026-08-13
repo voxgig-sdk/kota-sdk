@@ -22,11 +22,6 @@ main: kit: entity: group_employee_response_paged_list: {
       type: "`$ANY`"
     }
     {
-      name: "enrolment"
-      req: true
-      type: "`$ARRAY`"
-    }
-    {
       name: "enrolment_date"
       req: false
       type: [
@@ -41,6 +36,11 @@ main: kit: entity: group_employee_response_paged_list: {
       name: "enrolment_status"
       req: true
       type: "`$ANY`"
+    }
+    {
+      name: "enrolments"
+      req: true
+      type: "`$ARRAY`"
     }
     {
       name: "group_id"
@@ -58,12 +58,12 @@ main: kit: entity: group_employee_response_paged_list: {
       type: "`$STRING`"
     }
     {
-      name: "policy"
+      name: "policies"
       req: true
       type: "`$ARRAY`"
     }
     {
-      name: "scheduled_group_transition"
+      name: "scheduled_group_transitions"
       req: true
       type: "`$ARRAY`"
     }
@@ -149,7 +149,7 @@ main: kit: entity: group_employee_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

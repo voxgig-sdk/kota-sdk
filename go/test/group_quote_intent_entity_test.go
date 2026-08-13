@@ -106,7 +106,7 @@ func TestGroupQuoteIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		groupQuoteIntentRef01Data = core.ToMapAny(groupQuoteIntentRef01DataResult)
+		groupQuoteIntentRef01Data = core.ToMapAny(entityData(groupQuoteIntentRef01DataResult))
 		if groupQuoteIntentRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -139,7 +139,7 @@ func TestGroupQuoteIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		groupQuoteIntentRef01DataDt0LoadResult := core.ToMapAny(groupQuoteIntentRef01DataDt0Loaded)
+		groupQuoteIntentRef01DataDt0LoadResult := core.ToMapAny(entityData(groupQuoteIntentRef01DataDt0Loaded))
 		if groupQuoteIntentRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

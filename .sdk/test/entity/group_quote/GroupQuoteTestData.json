@@ -2,41 +2,29 @@
   "existing": {
     "group_quote": {
       "GROUP_QUOTE00": {
-        "cost_sharing": "s5a",
-        "currency": "s5b",
-        "employee_count": "s5c",
-        "expires_at": "s5d",
-        "generated_at": "s5e",
-        "object": "s5f",
-        "pdf_expires_at": "s60",
-        "pdf_url": "s61",
-        "total_monthly_premium": 98,
+        "family_type": "s32",
+        "member_count": "s33",
+        "member_selection": "s34",
+        "percentage": "s35",
+        "type": "s36",
         "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
         "id": "GROUP_QUOTE00"
       },
       "GROUP_QUOTE01": {
-        "cost_sharing": "sb4",
-        "currency": "sb5",
-        "employee_count": "sb6",
-        "expires_at": "sb7",
-        "generated_at": "sb8",
-        "object": "sb9",
-        "pdf_expires_at": "sba",
-        "pdf_url": "sbb",
-        "total_monthly_premium": 188,
+        "family_type": "s64",
+        "member_count": "s65",
+        "member_selection": "s66",
+        "percentage": "s67",
+        "type": "s68",
         "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
         "id": "GROUP_QUOTE01"
       },
       "GROUP_QUOTE02": {
-        "cost_sharing": "s10e",
-        "currency": "s10f",
-        "employee_count": "s110",
-        "expires_at": "s111",
-        "generated_at": "s112",
-        "object": "s113",
-        "pdf_expires_at": "s114",
-        "pdf_url": "s115",
-        "total_monthly_premium": 278,
+        "family_type": "s96",
+        "member_count": "s97",
+        "member_selection": "s98",
+        "percentage": "s99",
+        "type": "s9a",
         "group_quote_intent_id": "GROUP_QUOTE_INTENT01",
         "id": "GROUP_QUOTE02"
       }
@@ -45,15 +33,11 @@
   "new": {
     "group_quote": {
       "group_quote_ref01": {
-        "cost_sharing": "s168",
-        "currency": "s169",
-        "employee_count": "s16a",
-        "expires_at": "s16b",
-        "generated_at": "s16c",
-        "object": "s16d",
-        "pdf_expires_at": "s16e",
-        "pdf_url": "s16f",
-        "total_monthly_premium": 368
+        "family_type": "sc8",
+        "member_count": "sc9",
+        "member_selection": "sca",
+        "percentage": "scb",
+        "type": "scc"
       }
     }
   }

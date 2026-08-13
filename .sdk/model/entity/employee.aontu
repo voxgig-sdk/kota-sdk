@@ -365,7 +365,7 @@ main: kit: entity: employee: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

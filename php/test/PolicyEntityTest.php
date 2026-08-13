@@ -97,7 +97,7 @@ class PolicyEntityTest extends TestCase
             "id" => $policy_ref01_data["id"],
         ];
         $policy_ref01_data_dt0_loaded = $policy_ref01_ent->load($policy_ref01_match_dt0, null);
-        $policy_ref01_data_dt0_load_result = Helpers::to_map($policy_ref01_data_dt0_loaded);
+        $policy_ref01_data_dt0_load_result = Helpers::to_map(is_object($policy_ref01_data_dt0_loaded) && method_exists($policy_ref01_data_dt0_loaded, 'data_get') ? $policy_ref01_data_dt0_loaded->data_get() : $policy_ref01_data_dt0_loaded);
         $this->assertNotNull($policy_ref01_data_dt0_load_result);
         $this->assertEquals($policy_ref01_data_dt0_load_result["id"], $policy_ref01_data["id"]);
 

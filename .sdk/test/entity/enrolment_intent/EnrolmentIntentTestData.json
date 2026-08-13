@@ -3,7 +3,7 @@
     "enrolment_intent": {
       "ENROLMENT_INTENT00": {
         "action_required": "s78",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "force_confirmation": false,
         "group_id": "GROUP01",
@@ -12,12 +12,12 @@
         "object": "s7f",
         "pending_confirmation": "s80",
         "policy_configuration": "s81",
-        "policy_enrolment": [],
+        "policy_enrolments": [],
         "status": "s83"
       },
       "ENROLMENT_INTENT01": {
         "action_required": "sf0",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "force_confirmation": false,
         "group_id": "GROUP01",
@@ -26,12 +26,12 @@
         "object": "sf7",
         "pending_confirmation": "sf8",
         "policy_configuration": "sf9",
-        "policy_enrolment": [],
+        "policy_enrolments": [],
         "status": "sfb"
       },
       "ENROLMENT_INTENT02": {
         "action_required": "s168",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "force_confirmation": false,
         "group_id": "GROUP01",
@@ -40,7 +40,7 @@
         "object": "s16f",
         "pending_confirmation": "s170",
         "policy_configuration": "s171",
-        "policy_enrolment": [],
+        "policy_enrolments": [],
         "status": "s173"
       }
     }
@@ -49,7 +49,7 @@
     "enrolment_intent": {
       "enrolment_intent_ref01": {
         "action_required": "s1e0",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "force_confirmation": false,
         "group_id": "GROUP01",
@@ -57,7 +57,7 @@
         "object": "s1e7",
         "pending_confirmation": "s1e8",
         "policy_configuration": "s1e9",
-        "policy_enrolment": [],
+        "policy_enrolments": [],
         "status": "s1eb"
       }
     }

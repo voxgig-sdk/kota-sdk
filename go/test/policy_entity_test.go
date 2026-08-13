@@ -128,7 +128,7 @@ func TestPolicyEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		policyRef01DataDt0LoadResult := core.ToMapAny(policyRef01DataDt0Loaded)
+		policyRef01DataDt0LoadResult := core.ToMapAny(entityData(policyRef01DataDt0Loaded))
 		if policyRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

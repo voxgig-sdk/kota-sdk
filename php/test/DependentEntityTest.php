@@ -45,7 +45,7 @@ class DependentEntityTest extends TestCase
         $dependent_ref01_data["dependents_management_intent_id"] = $setup["idmap"]["dependents_management_intent01"];
 
         $dependent_ref01_data_result = $dependent_ref01_ent->create($dependent_ref01_data, null);
-        $dependent_ref01_data = Helpers::to_map($dependent_ref01_data_result);
+        $dependent_ref01_data = Helpers::to_map(is_object($dependent_ref01_data_result) && method_exists($dependent_ref01_data_result, 'data_get') ? $dependent_ref01_data_result->data_get() : $dependent_ref01_data_result);
         $this->assertNotNull($dependent_ref01_data);
         $this->assertNotNull($dependent_ref01_data["id"]);
 

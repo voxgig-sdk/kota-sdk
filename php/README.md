@@ -53,7 +53,7 @@ AssociatedPerson is nested under employee, so provide the `employee_id`.
 
 ```php
 try {
-    // load() returns the bare AssociatedPerson record (throws on error).
+    // load() returns the ENTITY — call data_get() for the AssociatedPerson record (throws on error).
     $associatedperson = $client->AssociatedPerson()->load(["employee_id" => "example_employee_id", "id" => "example_id"]);
     print_r($associatedperson);
 } catch (\Throwable $err) {
@@ -64,14 +64,14 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created AssociatedPerson record.
+// create() returns the ENTITY — call data_get() for the created AssociatedPerson record.
 $created = $client->AssociatedPerson()->create(["employee_id" => "example_employee_id", "date_of_birth" => "example_date_of_birth", "first_name" => "example_first_name", "id" => "example_id", "last_name" => "example_last_name", "relationship_type" => "example_relationship_type", "sex_at_birth" => "example_sex_at_birth"]);
 
-// Update — index the bare record directly ($created["id"]).
-$client->AssociatedPerson()->update(["id" => $created["id"], "employee_id" => "example_employee_id", "date_of_birth" => "example_date_of_birth"]);
+// Update — index the record via data_get() ($created->data_get()["id"]).
+$client->AssociatedPerson()->update(["id" => $created->data_get()["id"], "employee_id" => "example_employee_id", "date_of_birth" => "example_date_of_birth"]);
 
 // Remove
-$client->AssociatedPerson()->remove(["id" => $created["id"], "employee_id" => "example_employee_id"]);
+$client->AssociatedPerson()->remove(["id" => $created->data_get()["id"], "employee_id" => "example_employee_id"]);
 ```
 
 
@@ -157,7 +157,8 @@ $client = KotaSDK::test([
     "entity" => ["dependentsmanagementintent" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $dependentsmanagementintent = $client->DependentsManagementIntent()->load(["id" => "test01"]);
 print_r($dependentsmanagementintent);
 ```
@@ -301,7 +302,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -444,9 +445,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -463,9 +464,9 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/depe
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -485,7 +486,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | `object` |  |
 | `plan` |  |
 | `provider` |  |
-| `reason` |  |
+| `reasons` |  |
 
 Operations: Create.
 
@@ -629,7 +630,7 @@ API path: `/employers/{employer_id}/offboard`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -650,7 +651,7 @@ API path: `/employers/{employer_id}/health_insurance/policies/{employer_policy_i
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -670,7 +671,7 @@ API path: `/employers/{employer_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -686,7 +687,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -703,7 +704,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `force_confirmation` |  |
 | `group_id` |  |
@@ -712,7 +713,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_configuration` |  |
-| `policy_enrolment` |  |
+| `policy_enrolments` |  |
 | `status` |  |
 
 Operations: Create, List, Load, Update.
@@ -742,7 +743,10 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
+| `options` |  |
+| `parent` |  |
 | `platform_id` |  |
+| `root` |  |
 | `type` |  |
 
 Operations: List, Load.
@@ -756,9 +760,9 @@ API path: `/events`
 | `description` |  |
 | `employer_id` |  |
 | `enrolment_type` |  |
-| `group_policy_id` |  |
-| `group_policy_intent_id` |  |
-| `group_quote_intent_id` |  |
+| `group_policy_ids` |  |
+| `group_policy_intent_ids` |  |
+| `group_quote_intent_ids` |  |
 | `group_type` |  |
 | `id` |  |
 | `name` |  |
@@ -775,14 +779,14 @@ API path: `/groups`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: Create.
 
@@ -794,14 +798,14 @@ API path: `/groups/{group_id}/employees`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: List.
 
@@ -812,7 +816,7 @@ API path: `/groups/{group_id}/employees`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employer_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -835,7 +839,7 @@ API path: `/group_policies`
 | --- | --- |
 | `action_required` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `due_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -867,15 +871,11 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `cost_sharing` |  |
-| `currency` |  |
-| `employee_count` |  |
-| `expires_at` |  |
-| `generated_at` |  |
-| `object` |  |
-| `pdf_expires_at` |  |
-| `pdf_url` |  |
-| `total_monthly_premium` |  |
+| `family_type` |  |
+| `member_count` |  |
+| `member_selection` |  |
+| `percentage` |  |
+| `type` |  |
 
 Operations: Load.
 
@@ -886,9 +886,9 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `consent_link` |  |
+| `consent_links` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `expected_start_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -922,13 +922,13 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 | `available_from` |  |
 | `available_to` |  |
 | `country` |  |
-| `coverage_option` |  |
+| `coverage_options` |  |
 | `description` |  |
-| `disclosure` |  |
-| `document` |  |
+| `disclosures` |  |
+| `documents` |  |
 | `eligible_count` |  |
-| `employee_eligibility_criterion` |  |
-| `employer_eligibility_criterion` |  |
+| `employee_eligibility_criteria` |  |
+| `employer_eligibility_criteria` |  |
 | `health_insurance` |  |
 | `id` |  |
 | `ineligible_count` |  |
@@ -948,7 +948,7 @@ API path: `/plans`
 | --- | --- |
 | `bundling_type` |  |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -971,13 +971,13 @@ API path: `/policies`
 | Field | Description |
 | --- | --- |
 | `amendment_reason` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_id` |  |
 | `processing_error` |  |
-| `requested_change` |  |
+| `requested_changes` |  |
 | `required_action` |  |
 | `status` |  |
 
@@ -989,7 +989,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/cancel`
 
 | Field | Description |
 | --- | --- |
-| `associated_person` |  |
+| `associated_persons` |  |
 | `employee_id` |  |
 | `group_id` |  |
 | `id` |  |
@@ -1016,7 +1016,7 @@ API path: `/policy_import_intents`
 | `name` |  |
 | `object` |  |
 | `support_phone` |  |
-| `supported_country` |  |
+| `supported_countries` |  |
 | `website_url` |  |
 
 Operations: List, Load.
@@ -1027,7 +1027,7 @@ API path: `/providers`
 
 | Field | Description |
 | --- | --- |
-| `delivery` |  |
+| `deliveries` |  |
 | `event_id` |  |
 
 Operations: Create.
@@ -1042,7 +1042,7 @@ API path: `/events/{event_id}/replay`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: Load.
 
@@ -1056,7 +1056,7 @@ API path: `/webhooks/endpoints/{webhook_endpoint_id}`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: List.
 
@@ -1100,7 +1100,7 @@ Create an instance: `$associated_person = $client->AssociatedPerson();`
 #### Example: Load
 
 ```php
-// load() returns the bare AssociatedPerson record (throws on error).
+// load() returns the ENTITY — call data_get() for the AssociatedPerson record (throws on error).
 $associated_person = $client->AssociatedPerson()->load(["id" => "associated_person_id", "employee_id" => "employee_id"]);
 ```
 
@@ -1187,7 +1187,7 @@ Create an instance: `$contribution_report = $client->ContributionReport();`
 #### Example: Load
 
 ```php
-// load() returns the bare ContributionReport record (throws on error).
+// load() returns the ENTITY — call data_get() for the ContributionReport record (throws on error).
 $contribution_report = $client->ContributionReport()->load(["id" => "contribution_report_id"]);
 ```
 
@@ -1242,7 +1242,7 @@ Create an instance: `$contribution_report_employee_breakdown = $client->Contribu
 #### Example: Load
 
 ```php
-// load() returns the bare ContributionReportEmployeeBreakdown record (throws on error).
+// load() returns the ENTITY — call data_get() for the ContributionReportEmployeeBreakdown record (throws on error).
 $contribution_report_employee_breakdown = $client->ContributionReportEmployeeBreakdown()->load(["id" => "contribution_report_employee_breakdown_id", "contribution_report_id" => "contribution_report_id"]);
 ```
 
@@ -1352,9 +1352,9 @@ Create an instance: `$dependent = $client->Dependent();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `coverage_option` | `mixed` |  |
-| `dependent` | `array` |  |
-| `disclosure` | `array` |  |
+| `coverage_options` | `mixed` |  |
+| `dependents` | `array` |  |
+| `disclosures` | `array` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1367,8 +1367,8 @@ Create an instance: `$dependent = $client->Dependent();`
 ```php
 $dependent = $client->Dependent()->create([
     "dependents_management_intent_id" => null, // string
-    "dependent" => null, // array
-    "disclosure" => null, // array
+    "dependents" => null, // array
+    "disclosures" => null, // array
     "id" => null, // string
     "parent_intent_id" => null, // string
     "parent_intent_type" => null, // mixed
@@ -1394,9 +1394,9 @@ Create an instance: `$dependents_management_intent = $client->DependentsManageme
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `coverage_option` | `mixed` |  |
-| `dependent` | `array` |  |
-| `disclosure` | `array` |  |
+| `coverage_options` | `mixed` |  |
+| `dependents` | `array` |  |
+| `disclosures` | `array` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1407,7 +1407,7 @@ Create an instance: `$dependents_management_intent = $client->DependentsManageme
 #### Example: Load
 
 ```php
-// load() returns the bare DependentsManagementIntent record (throws on error).
+// load() returns the ENTITY — call data_get() for the DependentsManagementIntent record (throws on error).
 $dependents_management_intent = $client->DependentsManagementIntent()->load(["id" => "dependents_management_intent_id"]);
 ```
 
@@ -1415,8 +1415,8 @@ $dependents_management_intent = $client->DependentsManagementIntent()->load(["id
 
 ```php
 $dependents_management_intent = $client->DependentsManagementIntent()->create([
-    "dependent" => null, // array
-    "disclosure" => null, // array
+    "dependents" => null, // array
+    "disclosures" => null, // array
     "id" => null, // string
     "parent_intent_id" => null, // string
     "parent_intent_type" => null, // mixed
@@ -1444,7 +1444,7 @@ Create an instance: `$eligibility_check = $client->EligibilityCheck();`
 | `object` | `string` |  |
 | `plan` | `mixed` |  |
 | `provider` | `mixed` |  |
-| `reason` | `array` |  |
+| `reasons` | `array` |  |
 
 #### Example: Create
 
@@ -1454,7 +1454,7 @@ $eligibility_check = $client->EligibilityCheck()->create([
     "eligibility_status" => null, // mixed
     "plan" => null, // mixed
     "provider" => null, // mixed
-    "reason" => null, // array
+    "reasons" => null, // array
 ]);
 ```
 
@@ -1500,7 +1500,7 @@ Create an instance: `$employee = $client->Employee();`
 #### Example: Load
 
 ```php
-// load() returns the bare Employee record (throws on error).
+// load() returns the ENTITY — call data_get() for the Employee record (throws on error).
 $employee = $client->Employee()->load(["id" => "employee_id"]);
 ```
 
@@ -1552,7 +1552,7 @@ Create an instance: `$employee_health_insurance_offer = $client->EmployeeHealthI
 #### Example: Load
 
 ```php
-// load() returns the bare EmployeeHealthInsuranceOffer record (throws on error).
+// load() returns the ENTITY — call data_get() for the EmployeeHealthInsuranceOffer record (throws on error).
 $employee_health_insurance_offer = $client->EmployeeHealthInsuranceOffer()->load(["id" => "employee_health_insurance_offer_id", "employee_id" => "employee_id"]);
 ```
 
@@ -1622,7 +1622,7 @@ Create an instance: `$employee_health_insurance_policy = $client->EmployeeHealth
 #### Example: Load
 
 ```php
-// load() returns the bare EmployeeHealthInsurancePolicy record (throws on error).
+// load() returns the ENTITY — call data_get() for the EmployeeHealthInsurancePolicy record (throws on error).
 $employee_health_insurance_policy = $client->EmployeeHealthInsurancePolicy()->load(["id" => "employee_health_insurance_policy_id", "employee_id" => "employee_id"]);
 ```
 
@@ -1698,7 +1698,7 @@ Create an instance: `$employer = $client->Employer();`
 #### Example: Load
 
 ```php
-// load() returns the bare Employer record (throws on error).
+// load() returns the ENTITY — call data_get() for the Employer record (throws on error).
 $employer = $client->Employer()->load(["id" => "employer_id"]);
 ```
 
@@ -1736,7 +1736,7 @@ Create an instance: `$employer_health_insurance_policy = $client->EmployerHealth
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `mixed` |  |
-| `coverage_level` | `array` |  |
+| `coverage_levels` | `array` |  |
 | `employer_cancellation_period_length` | `int` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1751,7 +1751,7 @@ Create an instance: `$employer_health_insurance_policy = $client->EmployerHealth
 #### Example: Load
 
 ```php
-// load() returns the bare EmployerHealthInsurancePolicy record (throws on error).
+// load() returns the ENTITY — call data_get() for the EmployerHealthInsurancePolicy record (throws on error).
 $employer_health_insurance_policy = $client->EmployerHealthInsurancePolicy()->load(["id" => "employer_health_insurance_policy_id", "employer_id" => "employer_id"]);
 ```
 
@@ -1771,7 +1771,7 @@ Create an instance: `$employer_health_insurance_policy_response_paged_list = $cl
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `mixed` |  |
-| `coverage_level` | `array` |  |
+| `coverage_levels` | `array` |  |
 | `employer_cancellation_period_length` | `int` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1805,7 +1805,7 @@ Create an instance: `$employer_health_insurance_quote = $client->EmployerHealthI
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `array` |  |
+| `coverage_levels` | `array` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1816,7 +1816,7 @@ Create an instance: `$employer_health_insurance_quote = $client->EmployerHealthI
 #### Example: Load
 
 ```php
-// load() returns the bare EmployerHealthInsuranceQuote record (throws on error).
+// load() returns the ENTITY — call data_get() for the EmployerHealthInsuranceQuote record (throws on error).
 $employer_health_insurance_quote = $client->EmployerHealthInsuranceQuote()->load(["id" => "employer_health_insurance_quote_id", "employer_id" => "employer_id"]);
 ```
 
@@ -1835,7 +1835,7 @@ Create an instance: `$employer_health_insurance_quote_response_paged_list = $cli
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `array` |  |
+| `coverage_levels` | `array` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1869,7 +1869,7 @@ Create an instance: `$enrolment_intent = $client->EnrolmentIntent();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `disclosure` | `array` |  |
+| `disclosures` | `array` |  |
 | `employee_id` | `string` |  |
 | `force_confirmation` | `bool` |  |
 | `group_id` | `string` |  |
@@ -1878,13 +1878,13 @@ Create an instance: `$enrolment_intent = $client->EnrolmentIntent();`
 | `object` | `string` |  |
 | `pending_confirmation` | `null` |  |
 | `policy_configuration` | `null` |  |
-| `policy_enrolment` | `array` |  |
+| `policy_enrolments` | `array` |  |
 | `status` | `mixed` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare EnrolmentIntent record (throws on error).
+// load() returns the ENTITY — call data_get() for the EnrolmentIntent record (throws on error).
 $enrolment_intent = $client->EnrolmentIntent()->load(["id" => "enrolment_intent_id"]);
 ```
 
@@ -1899,12 +1899,12 @@ $enrolment_intents = $client->EnrolmentIntent()->list();
 
 ```php
 $enrolment_intent = $client->EnrolmentIntent()->create([
-    "disclosure" => null, // array
+    "disclosures" => null, // array
     "employee_id" => null, // string
     "force_confirmation" => null, // bool
     "group_id" => null, // string
     "id" => null, // string
-    "policy_enrolment" => null, // array
+    "policy_enrolments" => null, // array
     "status" => null, // mixed
 ]);
 ```
@@ -1958,13 +1958,16 @@ Create an instance: `$event = $client->Event();`
 | `created` | `string` |  |
 | `data` | `null` |  |
 | `id` | `string` |  |
+| `options` | `null` |  |
+| `parent` | `null` |  |
 | `platform_id` | `string` |  |
+| `root` | `mixed` |  |
 | `type` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Event record (throws on error).
+// load() returns the ENTITY — call data_get() for the Event record (throws on error).
 $event = $client->Event()->load(["id" => "event_id"]);
 ```
 
@@ -1996,9 +1999,9 @@ Create an instance: `$group = $client->Group();`
 | `description` | `mixed` |  |
 | `employer_id` | `string` |  |
 | `enrolment_type` | `mixed` |  |
-| `group_policy_id` | `array` |  |
-| `group_policy_intent_id` | `array` |  |
-| `group_quote_intent_id` | `array` |  |
+| `group_policy_ids` | `array` |  |
+| `group_policy_intent_ids` | `array` |  |
+| `group_quote_intent_ids` | `array` |  |
 | `group_type` | `mixed` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -2008,7 +2011,7 @@ Create an instance: `$group = $client->Group();`
 #### Example: Load
 
 ```php
-// load() returns the bare Group record (throws on error).
+// load() returns the ENTITY — call data_get() for the Group record (throws on error).
 $group = $client->Group()->load(["id" => "group_id"]);
 ```
 
@@ -2025,9 +2028,9 @@ $groups = $client->Group()->list();
 $group = $client->Group()->create([
     "employer_id" => null, // string
     "enrolment_type" => null, // mixed
-    "group_policy_id" => null, // array
-    "group_policy_intent_id" => null, // array
-    "group_quote_intent_id" => null, // array
+    "group_policy_ids" => null, // array
+    "group_policy_intent_ids" => null, // array
+    "group_quote_intent_ids" => null, // array
     "group_type" => null, // mixed
     "id" => null, // string
     "name" => null, // string
@@ -2052,14 +2055,14 @@ Create an instance: `$group_employee = $client->GroupEmployee();`
 | --- | --- | --- |
 | `desired_policy_start_date` | `mixed` |  |
 | `eligibility_status` | `mixed` |  |
-| `enrolment` | `array` |  |
 | `enrolment_date` | `mixed` |  |
 | `enrolment_status` | `mixed` |  |
+| `enrolments` | `array` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `array` |  |
-| `scheduled_group_transition` | `array` |  |
+| `policies` | `array` |  |
+| `scheduled_group_transitions` | `array` |  |
 
 #### Example: Create
 
@@ -2067,11 +2070,11 @@ Create an instance: `$group_employee = $client->GroupEmployee();`
 $group_employee = $client->GroupEmployee()->create([
     "id" => null, // string
     "eligibility_status" => null, // mixed
-    "enrolment" => null, // array
     "enrolment_status" => null, // mixed
+    "enrolments" => null, // array
     "group_id" => null, // string
-    "policy" => null, // array
-    "scheduled_group_transition" => null, // array
+    "policies" => null, // array
+    "scheduled_group_transitions" => null, // array
 ]);
 ```
 
@@ -2092,14 +2095,14 @@ Create an instance: `$group_employee_response_paged_list = $client->GroupEmploye
 | --- | --- | --- |
 | `desired_policy_start_date` | `mixed` |  |
 | `eligibility_status` | `mixed` |  |
-| `enrolment` | `array` |  |
 | `enrolment_date` | `mixed` |  |
 | `enrolment_status` | `mixed` |  |
+| `enrolments` | `array` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `array` |  |
-| `scheduled_group_transition` | `array` |  |
+| `policies` | `array` |  |
+| `scheduled_group_transitions` | `array` |  |
 
 #### Example: List
 
@@ -2125,7 +2128,7 @@ Create an instance: `$group_policy = $client->GroupPolicy();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `mixed` |  |
-| `disclosure` | `array` |  |
+| `disclosures` | `array` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `mixed` |  |
 | `group_id` | `string` |  |
@@ -2141,7 +2144,7 @@ Create an instance: `$group_policy = $client->GroupPolicy();`
 #### Example: Load
 
 ```php
-// load() returns the bare GroupPolicy record (throws on error).
+// load() returns the ENTITY — call data_get() for the GroupPolicy record (throws on error).
 $group_policy = $client->GroupPolicy()->load(["id" => "group_policy_id"]);
 ```
 
@@ -2171,7 +2174,7 @@ Create an instance: `$group_policy_intent = $client->GroupPolicyIntent();`
 | --- | --- | --- |
 | `action_required` | `null` |  |
 | `cost_sharing` | `null` |  |
-| `disclosure` | `array` |  |
+| `disclosures` | `array` |  |
 | `due_date` | `mixed` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2183,7 +2186,7 @@ Create an instance: `$group_policy_intent = $client->GroupPolicyIntent();`
 #### Example: Load
 
 ```php
-// load() returns the bare GroupPolicyIntent record (throws on error).
+// load() returns the ENTITY — call data_get() for the GroupPolicyIntent record (throws on error).
 $group_policy_intent = $client->GroupPolicyIntent()->load(["id" => "group_policy_intent_id"]);
 ```
 
@@ -2198,7 +2201,7 @@ $group_policy_intents = $client->GroupPolicyIntent()->list();
 
 ```php
 $group_policy_intent = $client->GroupPolicyIntent()->create([
-    "disclosure" => null, // array
+    "disclosures" => null, // array
     "group_id" => null, // string
     "id" => null, // string
     "plan_id" => null, // string
@@ -2251,20 +2254,16 @@ Create an instance: `$group_quote = $client->GroupQuote();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost_sharing` | `mixed` |  |
-| `currency` | `string` |  |
-| `employee_count` | `int` |  |
-| `expires_at` | `string` |  |
-| `generated_at` | `string` |  |
-| `object` | `string` |  |
-| `pdf_expires_at` | `mixed` |  |
-| `pdf_url` | `mixed` |  |
-| `total_monthly_premium` | `float` |  |
+| `family_type` | `null` |  |
+| `member_count` | `null` |  |
+| `member_selection` | `null` |  |
+| `percentage` | `null` |  |
+| `type` | `mixed` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare GroupQuote record (throws on error).
+// load() returns the ENTITY — call data_get() for the GroupQuote record (throws on error).
 $group_quote = $client->GroupQuote()->load(["group_quote_intent_id" => "group_quote_intent_id"]);
 ```
 
@@ -2286,9 +2285,9 @@ Create an instance: `$group_quote_intent = $client->GroupQuoteIntent();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `consent_link` | `array` |  |
+| `consent_links` | `array` |  |
 | `cost_sharing` | `null` |  |
-| `disclosure` | `array` |  |
+| `disclosures` | `array` |  |
 | `expected_start_date` | `mixed` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2299,7 +2298,7 @@ Create an instance: `$group_quote_intent = $client->GroupQuoteIntent();`
 #### Example: Load
 
 ```php
-// load() returns the bare GroupQuoteIntent record (throws on error).
+// load() returns the ENTITY — call data_get() for the GroupQuoteIntent record (throws on error).
 $group_quote_intent = $client->GroupQuoteIntent()->load(["id" => "group_quote_intent_id"]);
 ```
 
@@ -2314,8 +2313,8 @@ $group_quote_intents = $client->GroupQuoteIntent()->list();
 
 ```php
 $group_quote_intent = $client->GroupQuoteIntent()->create([
-    "consent_link" => null, // array
-    "disclosure" => null, // array
+    "consent_links" => null, // array
+    "disclosures" => null, // array
     "group_id" => null, // string
     "id" => null, // string
     "plan_id" => null, // string
@@ -2371,13 +2370,13 @@ Create an instance: `$plan = $client->Plan();`
 | `available_from` | `string` |  |
 | `available_to` | `mixed` |  |
 | `country` | `mixed` |  |
-| `coverage_option` | `mixed` |  |
+| `coverage_options` | `mixed` |  |
 | `description` | `string` |  |
-| `disclosure` | `array` |  |
-| `document` | `array` |  |
+| `disclosures` | `array` |  |
+| `documents` | `array` |  |
 | `eligible_count` | `mixed` |  |
-| `employee_eligibility_criterion` | `array` |  |
-| `employer_eligibility_criterion` | `array` |  |
+| `employee_eligibility_criteria` | `array` |  |
+| `employer_eligibility_criteria` | `array` |  |
 | `health_insurance` | `null` |  |
 | `id` | `string` |  |
 | `ineligible_count` | `mixed` |  |
@@ -2390,7 +2389,7 @@ Create an instance: `$plan = $client->Plan();`
 #### Example: Load
 
 ```php
-// load() returns the bare Plan record (throws on error).
+// load() returns the ENTITY — call data_get() for the Plan record (throws on error).
 $plan = $client->Plan()->load(["id" => "plan_id"]);
 ```
 
@@ -2419,7 +2418,7 @@ Create an instance: `$policy = $client->Policy();`
 | --- | --- | --- |
 | `bundling_type` | `mixed` |  |
 | `cancellation_date` | `mixed` |  |
-| `disclosure` | `array` |  |
+| `disclosures` | `array` |  |
 | `employee_id` | `string` |  |
 | `end_date` | `mixed` |  |
 | `group_id` | `string` |  |
@@ -2436,7 +2435,7 @@ Create an instance: `$policy = $client->Policy();`
 #### Example: Load
 
 ```php
-// load() returns the bare Policy record (throws on error).
+// load() returns the ENTITY — call data_get() for the Policy record (throws on error).
 $policy = $client->Policy()->load(["id" => "policy_id"]);
 ```
 
@@ -2465,20 +2464,20 @@ Create an instance: `$policy_amendment_intent = $client->PolicyAmendmentIntent()
 | Field | Type | Description |
 | --- | --- | --- |
 | `amendment_reason` | `mixed` |  |
-| `disclosure` | `array` |  |
+| `disclosures` | `array` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `pending_confirmation` | `null` |  |
 | `policy_id` | `string` |  |
 | `processing_error` | `null` |  |
-| `requested_change` | `array` |  |
+| `requested_changes` | `array` |  |
 | `required_action` | `null` |  |
 | `status` | `mixed` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare PolicyAmendmentIntent record (throws on error).
+// load() returns the ENTITY — call data_get() for the PolicyAmendmentIntent record (throws on error).
 $policy_amendment_intent = $client->PolicyAmendmentIntent()->load(["id" => "policy_amendment_intent_id", "policy_id" => "policy_id"]);
 ```
 
@@ -2495,9 +2494,9 @@ $policy_amendment_intents = $client->PolicyAmendmentIntent()->list();
 $policy_amendment_intent = $client->PolicyAmendmentIntent()->create([
     "id" => null, // string
     "amendment_reason" => null, // mixed
-    "disclosure" => null, // array
+    "disclosures" => null, // array
     "policy_id" => null, // string
-    "requested_change" => null, // array
+    "requested_changes" => null, // array
     "status" => null, // mixed
 ]);
 ```
@@ -2519,7 +2518,7 @@ Create an instance: `$policy_import_intent = $client->PolicyImportIntent();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_person` | `array` |  |
+| `associated_persons` | `array` |  |
 | `employee_id` | `string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2533,7 +2532,7 @@ Create an instance: `$policy_import_intent = $client->PolicyImportIntent();`
 #### Example: Load
 
 ```php
-// load() returns the bare PolicyImportIntent record (throws on error).
+// load() returns the ENTITY — call data_get() for the PolicyImportIntent record (throws on error).
 $policy_import_intent = $client->PolicyImportIntent()->load(["id" => "policy_import_intent_id"]);
 ```
 
@@ -2548,7 +2547,7 @@ $policy_import_intents = $client->PolicyImportIntent()->list();
 
 ```php
 $policy_import_intent = $client->PolicyImportIntent()->create([
-    "associated_person" => null, // array
+    "associated_persons" => null, // array
     "employee_id" => null, // string
     "group_id" => null, // string
     "id" => null, // string
@@ -2583,13 +2582,13 @@ Create an instance: `$provider = $client->Provider();`
 | `name` | `string` |  |
 | `object` | `string` |  |
 | `support_phone` | `string` |  |
-| `supported_country` | `array` |  |
+| `supported_countries` | `array` |  |
 | `website_url` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Provider record (throws on error).
+// load() returns the ENTITY — call data_get() for the Provider record (throws on error).
 $provider = $client->Provider()->load(["id" => "provider_id"]);
 ```
 
@@ -2615,7 +2614,7 @@ Create an instance: `$replay = $client->Replay();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `delivery` | `array` |  |
+| `deliveries` | `array` |  |
 | `event_id` | `string` |  |
 
 #### Example: Create
@@ -2623,7 +2622,7 @@ Create an instance: `$replay = $client->Replay();`
 ```php
 $replay = $client->Replay()->create([
     "event_id" => null, // string
-    "delivery" => null, // array
+    "deliveries" => null, // array
 ]);
 ```
 
@@ -2646,12 +2645,12 @@ Create an instance: `$webhook_endpoint = $client->WebhookEndpoint();`
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `array` |  |
+| `subscribed_events` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare WebhookEndpoint record (throws on error).
+// load() returns the ENTITY — call data_get() for the WebhookEndpoint record (throws on error).
 $webhook_endpoint = $client->WebhookEndpoint()->load(["id" => "webhook_endpoint_id"]);
 ```
 
@@ -2674,7 +2673,7 @@ Create an instance: `$webhook_endpoint_response_paged_list = $client->WebhookEnd
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `array` |  |
+| `subscribed_events` | `array` |  |
 
 #### Example: List
 

@@ -3,9 +3,9 @@
     "group_quote_intent": {
       "GROUP_QUOTE_INTENT00": {
         "action_required": "s64",
-        "consent_link": [],
+        "consent_links": [],
         "cost_sharing": "s66",
-        "disclosure": [],
+        "disclosures": [],
         "expected_start_date": "s68",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT00",
@@ -15,9 +15,9 @@
       },
       "GROUP_QUOTE_INTENT01": {
         "action_required": "sc8",
-        "consent_link": [],
+        "consent_links": [],
         "cost_sharing": "sca",
-        "disclosure": [],
+        "disclosures": [],
         "expected_start_date": "scc",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT01",
@@ -27,9 +27,9 @@
       },
       "GROUP_QUOTE_INTENT02": {
         "action_required": "s12c",
-        "consent_link": [],
+        "consent_links": [],
         "cost_sharing": "s12e",
-        "disclosure": [],
+        "disclosures": [],
         "expected_start_date": "s130",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT02",
@@ -43,9 +43,9 @@
     "group_quote_intent": {
       "group_quote_intent_ref01": {
         "action_required": "s190",
-        "consent_link": [],
+        "consent_links": [],
         "cost_sharing": "s192",
-        "disclosure": [],
+        "disclosures": [],
         "expected_start_date": "s194",
         "group_id": "GROUP01",
         "object": "s197",

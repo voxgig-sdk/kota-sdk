@@ -1059,9 +1059,9 @@ const dependent = client.Dependent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `coverage_option` | `null|Array` | No |  |
-| `dependent` | `Array` | Yes |  |
-| `disclosure` | `Array` | Yes |  |
+| `coverage_options` | `null|Array` | No |  |
+| `dependents` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -1078,8 +1078,8 @@ Create a new entity with the given data.
 ```ts
 const result = await client.Dependent().create({
   dependents_management_intent_id: 'example_dependents_management_intent_id',
-  dependent: [],
-  disclosure: [],
+  dependents: [],
+  disclosures: [],
   id: 'example_id',
   parent_intent_id: 'example_parent_intent_id',
   parent_intent_type: 'example_parent_intent_type',
@@ -1135,9 +1135,9 @@ const dependents_management_intent = client.DependentsManagementIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `coverage_option` | `null|Array` | No |  |
-| `dependent` | `Array` | Yes |  |
-| `disclosure` | `Array` | Yes |  |
+| `coverage_options` | `null|Array` | No |  |
+| `dependents` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -1153,8 +1153,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.DependentsManagementIntent().create({
-  dependent: [],
-  disclosure: [],
+  dependents: [],
+  disclosures: [],
   id: 'example_id',
   parent_intent_id: 'example_parent_intent_id',
   parent_intent_type: 'example_parent_intent_type',
@@ -1213,7 +1213,7 @@ const eligibility_check = client.EligibilityCheck()
 | `object` | `string` | No |  |
 | `plan` | `*` | Yes |  |
 | `provider` | `*` | Yes |  |
-| `reason` | `Array` | Yes |  |
+| `reasons` | `Array` | Yes |  |
 
 ### Operations
 
@@ -1227,7 +1227,7 @@ const result = await client.EligibilityCheck().create({
   eligibility_status: 'example_eligibility_status',
   plan: 'example_plan',
   provider: 'example_provider',
-  reason: [],
+  reasons: [],
 })
 ```
 
@@ -1710,7 +1710,7 @@ const employer_health_insurance_policy = client.EmployerHealthInsurancePolicy()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `null|string` | No |  |
-| `coverage_level` | `Array` | Yes |  |
+| `coverage_levels` | `Array` | Yes |  |
 | `employer_cancellation_period_length` | `number` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1771,7 +1771,7 @@ const employer_health_insurance_policy_response_paged_list = client.EmployerHeal
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `null|string` | No |  |
-| `coverage_level` | `Array` | Yes |  |
+| `coverage_levels` | `Array` | Yes |  |
 | `employer_cancellation_period_length` | `number` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1831,7 +1831,7 @@ const employer_health_insurance_quote = client.EmployerHealthInsuranceQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `Array` | Yes |  |
+| `coverage_levels` | `Array` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1887,7 +1887,7 @@ const employer_health_insurance_quote_response_paged_list = client.EmployerHealt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `Array` | Yes |  |
+| `coverage_levels` | `Array` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1944,7 +1944,7 @@ const enrolment_intent = client.EnrolmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `disclosure` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `force_confirmation` | `boolean` | Yes |  |
 | `group_id` | `string` | Yes |  |
@@ -1953,7 +1953,7 @@ const enrolment_intent = client.EnrolmentIntent()
 | `object` | `string` | No |  |
 | `pending_confirmation` | `null` | No |  |
 | `policy_configuration` | `null` | No |  |
-| `policy_enrolment` | `Array` | Yes |  |
+| `policy_enrolments` | `Array` | Yes |  |
 | `status` | `*` | Yes |  |
 
 ### Operations
@@ -1964,12 +1964,12 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.EnrolmentIntent().create({
-  disclosure: [],
+  disclosures: [],
   employee_id: 'example_employee_id',
   force_confirmation: true,
   group_id: 'example_group_id',
   id: 'example_id',
-  policy_enrolment: [],
+  policy_enrolments: [],
   status: 'example_status',
 })
 ```
@@ -2098,7 +2098,10 @@ const event = client.Event()
 | `created` | `string` | Yes |  |
 | `data` | `null` | Yes |  |
 | `id` | `string` | Yes |  |
+| `options` | `null` | No |  |
+| `parent` | `null` | No |  |
 | `platform_id` | `string` | Yes |  |
+| `root` | `*` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -2160,9 +2163,9 @@ const group = client.Group()
 | `description` | `null|string` | No |  |
 | `employer_id` | `string` | Yes |  |
 | `enrolment_type` | `*` | Yes |  |
-| `group_policy_id` | `Array` | Yes |  |
-| `group_policy_intent_id` | `Array` | Yes |  |
-| `group_quote_intent_id` | `Array` | Yes |  |
+| `group_policy_ids` | `Array` | Yes |  |
+| `group_policy_intent_ids` | `Array` | Yes |  |
+| `group_quote_intent_ids` | `Array` | Yes |  |
 | `group_type` | `*` | Yes |  |
 | `id` | `string` | Yes |  |
 | `name` | `string` | Yes |  |
@@ -2179,9 +2182,9 @@ Create a new entity with the given data.
 const result = await client.Group().create({
   employer_id: 'example_employer_id',
   enrolment_type: 'example_enrolment_type',
-  group_policy_id: [],
-  group_policy_intent_id: [],
-  group_quote_intent_id: [],
+  group_policy_ids: [],
+  group_policy_intent_ids: [],
+  group_quote_intent_ids: [],
   group_type: 'example_group_type',
   id: 'example_id',
   name: 'example_name',
@@ -2256,14 +2259,14 @@ const group_employee = client.GroupEmployee()
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `null|string` | No |  |
 | `eligibility_status` | `*` | Yes |  |
-| `enrolment` | `Array` | Yes |  |
 | `enrolment_date` | `null|string` | No |  |
 | `enrolment_status` | `*` | Yes |  |
+| `enrolments` | `Array` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `Array` | Yes |  |
-| `scheduled_group_transition` | `Array` | Yes |  |
+| `policies` | `Array` | Yes |  |
+| `scheduled_group_transitions` | `Array` | Yes |  |
 
 ### Operations
 
@@ -2275,11 +2278,11 @@ Create a new entity with the given data.
 const result = await client.GroupEmployee().create({
   id: 'example_id',
   eligibility_status: 'example_eligibility_status',
-  enrolment: [],
   enrolment_status: 'example_enrolment_status',
+  enrolments: [],
   group_id: 'example_group_id',
-  policy: [],
-  scheduled_group_transition: [],
+  policies: [],
+  scheduled_group_transitions: [],
 })
 ```
 
@@ -2323,14 +2326,14 @@ const group_employee_response_paged_list = client.GroupEmployeeResponsePagedList
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `null|string` | No |  |
 | `eligibility_status` | `*` | Yes |  |
-| `enrolment` | `Array` | Yes |  |
 | `enrolment_date` | `null|string` | No |  |
 | `enrolment_status` | `*` | Yes |  |
+| `enrolments` | `Array` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `Array` | Yes |  |
-| `scheduled_group_transition` | `Array` | Yes |  |
+| `policies` | `Array` | Yes |  |
+| `scheduled_group_transitions` | `Array` | Yes |  |
 
 ### Operations
 
@@ -2381,7 +2384,7 @@ const group_policy = client.GroupPolicy()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `null|string` | No |  |
-| `disclosure` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `employer_id` | `string` | No |  |
 | `end_date` | `null|string` | No |  |
 | `group_id` | `string` | No |  |
@@ -2452,7 +2455,7 @@ const group_policy_intent = client.GroupPolicyIntent()
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
 | `cost_sharing` | `null` | No |  |
-| `disclosure` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `due_date` | `null|string` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2469,7 +2472,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GroupPolicyIntent().create({
-  disclosure: [],
+  disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
   plan_id: 'example_plan_id',
@@ -2587,15 +2590,11 @@ const group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `*` | Yes |  |
-| `currency` | `string` | Yes |  |
-| `employee_count` | `number` | Yes |  |
-| `expires_at` | `string` | Yes |  |
-| `generated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pdf_expires_at` | `null|string` | No |  |
-| `pdf_url` | `null|string` | No |  |
-| `total_monthly_premium` | `number` | Yes |  |
+| `family_type` | `null` | No |  |
+| `member_count` | `null` | No |  |
+| `member_selection` | `null` | No |  |
+| `percentage` | `null` | No |  |
+| `type` | `*` | Yes |  |
 
 ### Operations
 
@@ -2646,9 +2645,9 @@ const group_quote_intent = client.GroupQuoteIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `consent_link` | `Array` | Yes |  |
+| `consent_links` | `Array` | Yes |  |
 | `cost_sharing` | `null` | No |  |
-| `disclosure` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `expected_start_date` | `null|string` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2664,8 +2663,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GroupQuoteIntent().create({
-  consent_link: [],
-  disclosure: [],
+  consent_links: [],
+  disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
   plan_id: 'example_plan_id',
@@ -2785,13 +2784,13 @@ const plan = client.Plan()
 | `available_from` | `string` | Yes |  |
 | `available_to` | `null|string` | No |  |
 | `country` | `*` | Yes |  |
-| `coverage_option` | `null|Array` | No |  |
+| `coverage_options` | `null|Array` | No |  |
 | `description` | `string` | Yes |  |
-| `disclosure` | `Array` | Yes |  |
-| `document` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
+| `documents` | `Array` | Yes |  |
 | `eligible_count` | `null|number` | No |  |
-| `employee_eligibility_criterion` | `Array` | Yes |  |
-| `employer_eligibility_criterion` | `Array` | Yes |  |
+| `employee_eligibility_criteria` | `Array` | Yes |  |
+| `employer_eligibility_criteria` | `Array` | Yes |  |
 | `health_insurance` | `null` | No |  |
 | `id` | `string` | Yes |  |
 | `ineligible_count` | `null|number` | No |  |
@@ -2859,7 +2858,7 @@ const policy = client.Policy()
 | --- | --- | --- | --- |
 | `bundling_type` | `*` | Yes |  |
 | `cancellation_date` | `null|string` | No |  |
-| `disclosure` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `end_date` | `null|string` | No |  |
 | `group_id` | `string` | Yes |  |
@@ -2930,13 +2929,13 @@ const policy_amendment_intent = client.PolicyAmendmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `amendment_reason` | `*` | Yes |  |
-| `disclosure` | `Array` | Yes |  |
+| `disclosures` | `Array` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `pending_confirmation` | `null` | No |  |
 | `policy_id` | `string` | Yes |  |
 | `processing_error` | `null` | No |  |
-| `requested_change` | `Array` | Yes |  |
+| `requested_changes` | `Array` | Yes |  |
 | `required_action` | `null` | No |  |
 | `status` | `*` | Yes |  |
 
@@ -2950,9 +2949,9 @@ Create a new entity with the given data.
 const result = await client.PolicyAmendmentIntent().create({
   id: 'example_id',
   amendment_reason: 'example_amendment_reason',
-  disclosure: [],
+  disclosures: [],
   policy_id: 'example_policy_id',
-  requested_change: [],
+  requested_changes: [],
   status: 'example_status',
 })
 ```
@@ -3011,7 +3010,7 @@ const policy_import_intent = client.PolicyImportIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person` | `Array` | Yes |  |
+| `associated_persons` | `Array` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -3030,7 +3029,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.PolicyImportIntent().create({
-  associated_person: [],
+  associated_persons: [],
   employee_id: 'example_employee_id',
   group_id: 'example_group_id',
   id: 'example_id',
@@ -3103,7 +3102,7 @@ const provider = client.Provider()
 | `name` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `support_phone` | `string` | Yes |  |
-| `supported_country` | `Array` | Yes |  |
+| `supported_countries` | `Array` | Yes |  |
 | `website_url` | `string` | Yes |  |
 
 ### Operations
@@ -3162,7 +3161,7 @@ const replay = client.Replay()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `delivery` | `Array` | Yes |  |
+| `deliveries` | `Array` | Yes |  |
 | `event_id` | `string` | Yes |  |
 
 ### Operations
@@ -3174,7 +3173,7 @@ Create a new entity with the given data.
 ```ts
 const result = await client.Replay().create({
   event_id: 'example_event_id',
-  delivery: [],
+  deliveries: [],
 })
 ```
 
@@ -3220,7 +3219,7 @@ const webhook_endpoint = client.WebhookEndpoint()
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `Array` | Yes |  |
+| `subscribed_events` | `Array` | Yes |  |
 
 ### Operations
 
@@ -3274,7 +3273,7 @@ const webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePaged
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `Array` | Yes |  |
+| `subscribed_events` | `Array` | Yes |  |
 
 ### Operations
 

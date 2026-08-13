@@ -42,7 +42,7 @@ describe("EligibilityCheckEntity", function()
 
     local eligibility_check_ref01_data_result, err = eligibility_check_ref01_ent:create(eligibility_check_ref01_data, nil)
     assert.is_nil(err)
-    eligibility_check_ref01_data = helpers.to_map(eligibility_check_ref01_data_result)
+    eligibility_check_ref01_data = helpers.to_map(type(eligibility_check_ref01_data_result) == 'table' and eligibility_check_ref01_data_result.data_get and eligibility_check_ref01_data_result:data_get() or eligibility_check_ref01_data_result)
     assert.is_not_nil(eligibility_check_ref01_data)
 
   end)

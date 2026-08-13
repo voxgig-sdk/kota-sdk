@@ -45,7 +45,7 @@ describe('EmployerHealthInsurancePolicyEntity', async () => {
     const employer_health_insurance_policy_ref01_ent = client.EmployerHealthInsurancePolicy()
     const employer_health_insurance_policy_ref01_match_dt0 = {}
     employer_health_insurance_policy_ref01_match_dt0.id = employer_health_insurance_policy_ref01_data.id
-    const employer_health_insurance_policy_ref01_data_dt0 = await employer_health_insurance_policy_ref01_ent.load(employer_health_insurance_policy_ref01_match_dt0)
+    const employer_health_insurance_policy_ref01_data_dt0 = (await employer_health_insurance_policy_ref01_ent.load(employer_health_insurance_policy_ref01_match_dt0)).data()
     assert(employer_health_insurance_policy_ref01_data_dt0.id === employer_health_insurance_policy_ref01_data.id)
 
 

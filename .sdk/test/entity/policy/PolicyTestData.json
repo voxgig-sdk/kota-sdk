@@ -4,7 +4,7 @@
       "POLICY00": {
         "bundling_type": "s96",
         "cancellation_date": "s97",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "end_date": "s9a",
         "group_id": "GROUP01",
@@ -21,7 +21,7 @@
       "POLICY01": {
         "bundling_type": "s12c",
         "cancellation_date": "s12d",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "end_date": "s130",
         "group_id": "GROUP01",
@@ -38,7 +38,7 @@
       "POLICY02": {
         "bundling_type": "s1c2",
         "cancellation_date": "s1c3",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "end_date": "s1c6",
         "group_id": "GROUP01",
@@ -59,7 +59,7 @@
       "policy_ref01": {
         "bundling_type": "s258",
         "cancellation_date": "s259",
-        "disclosure": [],
+        "disclosures": [],
         "employee_id": "EMPLOYEE01",
         "end_date": "s25c",
         "group_id": "GROUP01",

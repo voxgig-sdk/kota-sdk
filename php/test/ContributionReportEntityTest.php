@@ -84,7 +84,7 @@ class ContributionReportEntityTest extends TestCase
         $contribution_report_ref01_data["contribution_report_id"] = $setup["idmap"]["contribution_report01"];
 
         $contribution_report_ref01_data_result = $contribution_report_ref01_ent->create($contribution_report_ref01_data, null);
-        $contribution_report_ref01_data = Helpers::to_map($contribution_report_ref01_data_result);
+        $contribution_report_ref01_data = Helpers::to_map(is_object($contribution_report_ref01_data_result) && method_exists($contribution_report_ref01_data_result, 'data_get') ? $contribution_report_ref01_data_result->data_get() : $contribution_report_ref01_data_result);
         $this->assertNotNull($contribution_report_ref01_data);
         $this->assertNotNull($contribution_report_ref01_data["id"]);
 
@@ -104,7 +104,7 @@ class ContributionReportEntityTest extends TestCase
             "id" => $contribution_report_ref01_data["id"],
         ];
         $contribution_report_ref01_data_dt0_loaded = $contribution_report_ref01_ent->load($contribution_report_ref01_match_dt0, null);
-        $contribution_report_ref01_data_dt0_load_result = Helpers::to_map($contribution_report_ref01_data_dt0_loaded);
+        $contribution_report_ref01_data_dt0_load_result = Helpers::to_map(is_object($contribution_report_ref01_data_dt0_loaded) && method_exists($contribution_report_ref01_data_dt0_loaded, 'data_get') ? $contribution_report_ref01_data_dt0_loaded->data_get() : $contribution_report_ref01_data_dt0_loaded);
         $this->assertNotNull($contribution_report_ref01_data_dt0_load_result);
         $this->assertEquals($contribution_report_ref01_data_dt0_load_result["id"], $contribution_report_ref01_data["id"]);
 

@@ -6,15 +6,15 @@ import re
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core.spec import KotaSpec
-from core.result import KotaResult
-from core.response import KotaResponse
-from core.operation import KotaOperation
-from core.error import KotaError
-from core import helpers
-from feature.base_feature import KotaBaseFeature
+from kota_sdk.core.spec import KotaSpec
+from kota_sdk.core.result import KotaResult
+from kota_sdk.core.response import KotaResponse
+from kota_sdk.core.operation import KotaOperation
+from kota_sdk.core.error import KotaError
+from kota_sdk.core import helpers
+from kota_sdk.feature.base_feature import KotaBaseFeature
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -468,6 +468,10 @@ class TestPrimaryUtility:
             return {"status": 200, "statusText": "OK"}, None
 
         live_client = KotaSDK({
+            # Concrete base: a live construction must satisfy any server
+            # variables a templated base URL declares; a literal base
+            # sidesteps the requirement.
+            "base": "http://localhost:8080",
             "system": {
                 "fetch": mock_fetch,
             },
@@ -490,6 +494,7 @@ class TestPrimaryUtility:
             return {}, None
 
         blocked_client = KotaSDK({
+            "base": "http://localhost:8080",
             "system": {
                 "fetch": mock_fetch,
             },

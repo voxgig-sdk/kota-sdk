@@ -46,7 +46,7 @@ describe('GroupEmployeeResponsePagedListEntity', async () => {
     const group_employee_response_paged_list_ref01_match = {}
     group_employee_response_paged_list_ref01_match['group_id'] = setup.idmap['group01']
 
-    const group_employee_response_paged_list_ref01_list = await group_employee_response_paged_list_ref01_ent.list(group_employee_response_paged_list_ref01_match)
+    const group_employee_response_paged_list_ref01_list = (await group_employee_response_paged_list_ref01_ent.list(group_employee_response_paged_list_ref01_match)).map((e) => e.data())
 
 
   })

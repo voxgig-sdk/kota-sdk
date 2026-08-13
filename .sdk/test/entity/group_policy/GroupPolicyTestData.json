@@ -3,7 +3,7 @@
     "group_policy": {
       "GROUP_POLICY00": {
         "cancellation_date": "s82",
-        "disclosure": [],
+        "disclosures": [],
         "employer_id": "EMPLOYER01",
         "end_date": "s85",
         "group_id": "GROUP01",
@@ -18,7 +18,7 @@
       },
       "GROUP_POLICY01": {
         "cancellation_date": "s104",
-        "disclosure": [],
+        "disclosures": [],
         "employer_id": "EMPLOYER01",
         "end_date": "s107",
         "group_id": "GROUP01",
@@ -33,7 +33,7 @@
       },
       "GROUP_POLICY02": {
         "cancellation_date": "s186",
-        "disclosure": [],
+        "disclosures": [],
         "employer_id": "EMPLOYER01",
         "end_date": "s189",
         "group_id": "GROUP01",
@@ -52,7 +52,7 @@
     "group_policy": {
       "group_policy_ref01": {
         "cancellation_date": "s208",
-        "disclosure": [],
+        "disclosures": [],
         "employer_id": "EMPLOYER01",
         "end_date": "s20b",
         "group_id": "GROUP01",

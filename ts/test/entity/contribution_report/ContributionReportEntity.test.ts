@@ -63,14 +63,14 @@ describe('ContributionReportEntity', async () => {
     let contribution_report_ref01_data = setup.data.new.contribution_report['contribution_report_ref01']
     contribution_report_ref01_data['contribution_report_id'] = setup.idmap['contribution_report01']
 
-    contribution_report_ref01_data = await contribution_report_ref01_ent.create(contribution_report_ref01_data)
+    contribution_report_ref01_data = (await contribution_report_ref01_ent.create(contribution_report_ref01_data)).data()
     assert(null != contribution_report_ref01_data.id)
 
 
     // LIST
     const contribution_report_ref01_match: any = {}
 
-    const contribution_report_ref01_list = await contribution_report_ref01_ent.list(contribution_report_ref01_match)
+    const contribution_report_ref01_list = (await contribution_report_ref01_ent.list(contribution_report_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(contribution_report_ref01_list, { id: contribution_report_ref01_data.id })))
 
@@ -78,7 +78,7 @@ describe('ContributionReportEntity', async () => {
     // LOAD
     const contribution_report_ref01_match_dt0: any = {}
     contribution_report_ref01_match_dt0.id = contribution_report_ref01_data.id
-    const contribution_report_ref01_data_dt0 = await contribution_report_ref01_ent.load(contribution_report_ref01_match_dt0)
+    const contribution_report_ref01_data_dt0 = (await contribution_report_ref01_ent.load(contribution_report_ref01_match_dt0)).data()
     assert(contribution_report_ref01_data_dt0.id === contribution_report_ref01_data.id)
 
 

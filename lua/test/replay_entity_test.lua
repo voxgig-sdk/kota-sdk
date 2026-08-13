@@ -42,7 +42,7 @@ describe("ReplayEntity", function()
 
     local replay_ref01_data_result, err = replay_ref01_ent:create(replay_ref01_data, nil)
     assert.is_nil(err)
-    replay_ref01_data = helpers.to_map(replay_ref01_data_result)
+    replay_ref01_data = helpers.to_map(type(replay_ref01_data_result) == 'table' and replay_ref01_data_result.data_get and replay_ref01_data_result:data_get() or replay_ref01_data_result)
     assert.is_not_nil(replay_ref01_data)
 
   end)

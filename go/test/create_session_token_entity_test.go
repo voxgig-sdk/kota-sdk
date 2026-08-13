@@ -58,7 +58,7 @@ func TestCreateSessionTokenEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		createSessionTokenRef01Data = core.ToMapAny(createSessionTokenRef01DataResult)
+		createSessionTokenRef01Data = core.ToMapAny(entityData(createSessionTokenRef01DataResult))
 		if createSessionTokenRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}

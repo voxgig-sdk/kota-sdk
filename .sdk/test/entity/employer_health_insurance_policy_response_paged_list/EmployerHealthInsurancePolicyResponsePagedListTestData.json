@@ -3,7 +3,7 @@
     "employer_health_insurance_policy_response_paged_list": {
       "EMPLOYER_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST00": {
         "cancellation_date": "s78",
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_cancellation_period_length": "s7a",
         "employer_id": "EMPLOYER01",
         "end_date": "s7c",
@@ -17,7 +17,7 @@
       },
       "EMPLOYER_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST01": {
         "cancellation_date": "sf0",
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_cancellation_period_length": "sf2",
         "employer_id": "EMPLOYER01",
         "end_date": "sf4",
@@ -31,7 +31,7 @@
       },
       "EMPLOYER_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST02": {
         "cancellation_date": "s168",
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_cancellation_period_length": "s16a",
         "employer_id": "EMPLOYER01",
         "end_date": "s16c",
@@ -49,7 +49,7 @@
     "employer_health_insurance_policy_response_paged_list": {
       "employer_health_insurance_policy_response_paged_list_ref01": {
         "cancellation_date": "s1e0",
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_cancellation_period_length": "s1e2",
         "employer_id": "EMPLOYER01",
         "end_date": "s1e4",

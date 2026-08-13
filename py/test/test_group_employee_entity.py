@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -45,7 +45,7 @@ class TestGroupEmployeeEntity:
             vs.getpath(setup["data"], "new.group_employee"), "group_employee_ref01"))
         group_employee_ref01_data["group_id"] = setup["idmap"]["group01"]
 
-        group_employee_ref01_data = helpers.to_map(group_employee_ref01_ent.create(group_employee_ref01_data, None))
+        group_employee_ref01_data = helpers.to_map(runner.entity_data(group_employee_ref01_ent.create(group_employee_ref01_data, None)))
         assert group_employee_ref01_data is not None
         assert group_employee_ref01_data["id"] is not None
 

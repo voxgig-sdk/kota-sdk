@@ -62,7 +62,7 @@ describe('CreateSessionTokenEntity', async () => {
     const create_session_token_ref01_ent = client.CreateSessionToken()
     let create_session_token_ref01_data = setup.data.new.create_session_token['create_session_token_ref01']
 
-    create_session_token_ref01_data = await create_session_token_ref01_ent.create(create_session_token_ref01_data)
+    create_session_token_ref01_data = (await create_session_token_ref01_ent.create(create_session_token_ref01_data)).data()
     assert(null != create_session_token_ref01_data)
 
 

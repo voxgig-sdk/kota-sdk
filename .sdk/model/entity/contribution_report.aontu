@@ -208,7 +208,7 @@ main: kit: entity: contribution_report: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

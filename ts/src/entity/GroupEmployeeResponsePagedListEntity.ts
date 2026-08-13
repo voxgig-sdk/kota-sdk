@@ -37,7 +37,7 @@ class GroupEmployeeResponsePagedListEntity extends KotaEntityBase<GroupEmployeeR
 
 
 
-  async list(this: any, reqmatch?: GroupEmployeeResponsePagedListListMatch, ctrl?: Control): Promise<GroupEmployeeResponsePagedList[]> {
+  async list(this: any, reqmatch?: GroupEmployeeResponsePagedListListMatch, ctrl?: Control): Promise<GroupEmployeeResponsePagedListEntity[]> {
 
     const utility = this._utility
 

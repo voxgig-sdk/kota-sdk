@@ -107,7 +107,7 @@ func TestEnrolmentIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		enrolmentIntentRef01Data = core.ToMapAny(enrolmentIntentRef01DataResult)
+		enrolmentIntentRef01Data = core.ToMapAny(entityData(enrolmentIntentRef01DataResult))
 		if enrolmentIntentRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -145,7 +145,7 @@ func TestEnrolmentIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("update failed: %v", err)
 		}
-		enrolmentIntentRef01ResdataUp0 := core.ToMapAny(enrolmentIntentRef01ResdataUp0Result)
+		enrolmentIntentRef01ResdataUp0 := core.ToMapAny(entityData(enrolmentIntentRef01ResdataUp0Result))
 		if enrolmentIntentRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
@@ -164,7 +164,7 @@ func TestEnrolmentIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		enrolmentIntentRef01DataDt0LoadResult := core.ToMapAny(enrolmentIntentRef01DataDt0Loaded)
+		enrolmentIntentRef01DataDt0LoadResult := core.ToMapAny(entityData(enrolmentIntentRef01DataDt0Loaded))
 		if enrolmentIntentRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

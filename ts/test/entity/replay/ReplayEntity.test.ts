@@ -63,7 +63,7 @@ describe('ReplayEntity', async () => {
     let replay_ref01_data = setup.data.new.replay['replay_ref01']
     replay_ref01_data['event_id'] = setup.idmap['event01']
 
-    replay_ref01_data = await replay_ref01_ent.create(replay_ref01_data)
+    replay_ref01_data = (await replay_ref01_ent.create(replay_ref01_data)).data()
     assert(null != replay_ref01_data)
 
 

@@ -11,7 +11,7 @@ main: kit: entity: policy_amendment_intent: {
       type: "`$ANY`"
     }
     {
-      name: "disclosure"
+      name: "disclosures"
       req: true
       type: "`$ARRAY`"
     }
@@ -41,7 +41,7 @@ main: kit: entity: policy_amendment_intent: {
       type: "`$NULL`"
     }
     {
-      name: "requested_change"
+      name: "requested_changes"
       req: true
       type: "`$ARRAY`"
     }
@@ -294,7 +294,7 @@ main: kit: entity: policy_amendment_intent: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

@@ -6,7 +6,7 @@ main: kit: entity: policy_import_intent: {
 
   fields: [
     {
-      name: "associated_person"
+      name: "associated_persons"
       req: true
       type: "`$ARRAY`"
     }
@@ -173,7 +173,7 @@ main: kit: entity: policy_import_intent: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

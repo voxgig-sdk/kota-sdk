@@ -6,21 +6,21 @@
         "endpoint_url": "s33",
         "id": "WEBHOOK_ENDPOINT00",
         "object": "s35",
-        "subscribed_event": []
+        "subscribed_events": []
       },
       "WEBHOOK_ENDPOINT01": {
         "created_at": "s64",
         "endpoint_url": "s65",
         "id": "WEBHOOK_ENDPOINT01",
         "object": "s67",
-        "subscribed_event": []
+        "subscribed_events": []
       },
       "WEBHOOK_ENDPOINT02": {
         "created_at": "s96",
         "endpoint_url": "s97",
         "id": "WEBHOOK_ENDPOINT02",
         "object": "s99",
-        "subscribed_event": []
+        "subscribed_events": []
       }
     }
   },
@@ -30,7 +30,7 @@
         "created_at": "sc8",
         "endpoint_url": "sc9",
         "object": "scb",
-        "subscribed_event": []
+        "subscribed_events": []
       }
     }
   }

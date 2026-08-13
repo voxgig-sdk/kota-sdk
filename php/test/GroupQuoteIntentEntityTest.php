@@ -83,7 +83,7 @@ class GroupQuoteIntentEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.group_quote_intent"), "group_quote_intent_ref01"));
 
         $group_quote_intent_ref01_data_result = $group_quote_intent_ref01_ent->create($group_quote_intent_ref01_data, null);
-        $group_quote_intent_ref01_data = Helpers::to_map($group_quote_intent_ref01_data_result);
+        $group_quote_intent_ref01_data = Helpers::to_map(is_object($group_quote_intent_ref01_data_result) && method_exists($group_quote_intent_ref01_data_result, 'data_get') ? $group_quote_intent_ref01_data_result->data_get() : $group_quote_intent_ref01_data_result);
         $this->assertNotNull($group_quote_intent_ref01_data);
         $this->assertNotNull($group_quote_intent_ref01_data["id"]);
 
@@ -103,7 +103,7 @@ class GroupQuoteIntentEntityTest extends TestCase
             "id" => $group_quote_intent_ref01_data["id"],
         ];
         $group_quote_intent_ref01_data_dt0_loaded = $group_quote_intent_ref01_ent->load($group_quote_intent_ref01_match_dt0, null);
-        $group_quote_intent_ref01_data_dt0_load_result = Helpers::to_map($group_quote_intent_ref01_data_dt0_loaded);
+        $group_quote_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($group_quote_intent_ref01_data_dt0_loaded) && method_exists($group_quote_intent_ref01_data_dt0_loaded, 'data_get') ? $group_quote_intent_ref01_data_dt0_loaded->data_get() : $group_quote_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($group_quote_intent_ref01_data_dt0_load_result);
         $this->assertEquals($group_quote_intent_ref01_data_dt0_load_result["id"], $group_quote_intent_ref01_data["id"]);
 

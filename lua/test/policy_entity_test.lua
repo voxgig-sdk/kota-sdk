@@ -97,7 +97,7 @@ describe("PolicyEntity", function()
     }
     local policy_ref01_data_dt0_loaded, err = policy_ref01_ent:load(policy_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local policy_ref01_data_dt0_load_result = helpers.to_map(policy_ref01_data_dt0_loaded)
+    local policy_ref01_data_dt0_load_result = helpers.to_map(type(policy_ref01_data_dt0_loaded) == 'table' and policy_ref01_data_dt0_loaded.data_get and policy_ref01_data_dt0_loaded:data_get() or policy_ref01_data_dt0_loaded)
     assert.is_not_nil(policy_ref01_data_dt0_load_result)
     assert.are.equal(policy_ref01_data_dt0_load_result["id"], policy_ref01_data["id"])
 

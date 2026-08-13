@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -45,7 +45,7 @@ class TestEligibilityCheckEntity:
             vs.getpath(setup["data"], "new.eligibility_check"), "eligibility_check_ref01"))
         eligibility_check_ref01_data["group_id"] = setup["idmap"]["group01"]
 
-        eligibility_check_ref01_data = helpers.to_map(eligibility_check_ref01_ent.create(eligibility_check_ref01_data, None))
+        eligibility_check_ref01_data = helpers.to_map(runner.entity_data(eligibility_check_ref01_ent.create(eligibility_check_ref01_data, None)))
         assert eligibility_check_ref01_data is not None
 
 

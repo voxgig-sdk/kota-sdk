@@ -42,7 +42,7 @@ describe("DependentEntity", function()
 
     local dependent_ref01_data_result, err = dependent_ref01_ent:create(dependent_ref01_data, nil)
     assert.is_nil(err)
-    dependent_ref01_data = helpers.to_map(dependent_ref01_data_result)
+    dependent_ref01_data = helpers.to_map(type(dependent_ref01_data_result) == 'table' and dependent_ref01_data_result.data_get and dependent_ref01_data_result:data_get() or dependent_ref01_data_result)
     assert.is_not_nil(dependent_ref01_data)
     assert.is_not_nil(dependent_ref01_data["id"])
 

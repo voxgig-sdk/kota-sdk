@@ -63,7 +63,7 @@ describe('GroupEmployeeEntity', async () => {
     let group_employee_ref01_data = setup.data.new.group_employee['group_employee_ref01']
     group_employee_ref01_data['group_id'] = setup.idmap['group01']
 
-    group_employee_ref01_data = await group_employee_ref01_ent.create(group_employee_ref01_data)
+    group_employee_ref01_data = (await group_employee_ref01_ent.create(group_employee_ref01_data)).data()
     assert(null != group_employee_ref01_data.id)
 
 

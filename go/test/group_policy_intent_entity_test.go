@@ -106,7 +106,7 @@ func TestGroupPolicyIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		groupPolicyIntentRef01Data = core.ToMapAny(groupPolicyIntentRef01DataResult)
+		groupPolicyIntentRef01Data = core.ToMapAny(entityData(groupPolicyIntentRef01DataResult))
 		if groupPolicyIntentRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -139,7 +139,7 @@ func TestGroupPolicyIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		groupPolicyIntentRef01DataDt0LoadResult := core.ToMapAny(groupPolicyIntentRef01DataDt0Loaded)
+		groupPolicyIntentRef01DataDt0LoadResult := core.ToMapAny(entityData(groupPolicyIntentRef01DataDt0Loaded))
 		if groupPolicyIntentRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

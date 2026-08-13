@@ -107,7 +107,7 @@ func TestEmployeeEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		employeeRef01Data = core.ToMapAny(employeeRef01DataResult)
+		employeeRef01Data = core.ToMapAny(entityData(employeeRef01DataResult))
 		if employeeRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -145,7 +145,7 @@ func TestEmployeeEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("update failed: %v", err)
 		}
-		employeeRef01ResdataUp0 := core.ToMapAny(employeeRef01ResdataUp0Result)
+		employeeRef01ResdataUp0 := core.ToMapAny(entityData(employeeRef01ResdataUp0Result))
 		if employeeRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
@@ -164,7 +164,7 @@ func TestEmployeeEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		employeeRef01DataDt0LoadResult := core.ToMapAny(employeeRef01DataDt0Loaded)
+		employeeRef01DataDt0LoadResult := core.ToMapAny(entityData(employeeRef01DataDt0Loaded))
 		if employeeRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

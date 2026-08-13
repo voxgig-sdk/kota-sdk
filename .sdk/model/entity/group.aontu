@@ -27,17 +27,17 @@ main: kit: entity: group: {
       type: "`$ANY`"
     }
     {
-      name: "group_policy_id"
+      name: "group_policy_ids"
       req: true
       type: "`$ARRAY`"
     }
     {
-      name: "group_policy_intent_id"
+      name: "group_policy_intent_ids"
       req: true
       type: "`$ARRAY`"
     }
     {
-      name: "group_quote_intent_id"
+      name: "group_quote_intent_ids"
       req: true
       type: "`$ARRAY`"
     }
@@ -169,7 +169,7 @@ main: kit: entity: group: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

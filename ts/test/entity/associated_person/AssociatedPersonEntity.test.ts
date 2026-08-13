@@ -63,7 +63,7 @@ describe('AssociatedPersonEntity', async () => {
     let associated_person_ref01_data = setup.data.new.associated_person['associated_person_ref01']
     associated_person_ref01_data['employee_id'] = setup.idmap['employee01']
 
-    associated_person_ref01_data = await associated_person_ref01_ent.create(associated_person_ref01_data)
+    associated_person_ref01_data = (await associated_person_ref01_ent.create(associated_person_ref01_data)).data()
     assert(null != associated_person_ref01_data.id)
 
 
@@ -71,7 +71,7 @@ describe('AssociatedPersonEntity', async () => {
     const associated_person_ref01_match: any = {}
     associated_person_ref01_match['employee_id'] = setup.idmap['employee01']
 
-    const associated_person_ref01_list = await associated_person_ref01_ent.list(associated_person_ref01_match)
+    const associated_person_ref01_list = (await associated_person_ref01_ent.list(associated_person_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(associated_person_ref01_list, { id: associated_person_ref01_data.id })))
 
@@ -84,7 +84,7 @@ describe('AssociatedPersonEntity', async () => {
     const associated_person_ref01_markdef_up0 = { name: 'date_of_birth', value: 'Mark01-associated_person_ref01_' + setup.now }
     ;(associated_person_ref01_data_up0 as any)[associated_person_ref01_markdef_up0.name] = associated_person_ref01_markdef_up0.value
 
-    const associated_person_ref01_resdata_up0 = await associated_person_ref01_ent.update(associated_person_ref01_data_up0)
+    const associated_person_ref01_resdata_up0 = (await associated_person_ref01_ent.update(associated_person_ref01_data_up0)).data()
     assert(associated_person_ref01_resdata_up0.id === associated_person_ref01_data_up0.id)
 
     assert((associated_person_ref01_resdata_up0 as any)[associated_person_ref01_markdef_up0.name] === associated_person_ref01_markdef_up0.value)
@@ -93,7 +93,7 @@ describe('AssociatedPersonEntity', async () => {
     // LOAD
     const associated_person_ref01_match_dt0: any = {}
     associated_person_ref01_match_dt0.id = associated_person_ref01_data.id
-    const associated_person_ref01_data_dt0 = await associated_person_ref01_ent.load(associated_person_ref01_match_dt0)
+    const associated_person_ref01_data_dt0 = (await associated_person_ref01_ent.load(associated_person_ref01_match_dt0)).data()
     assert(associated_person_ref01_data_dt0.id === associated_person_ref01_data.id)
 
 
@@ -106,7 +106,7 @@ describe('AssociatedPersonEntity', async () => {
     const associated_person_ref01_match_rt0: any = {}
     associated_person_ref01_match_rt0['employee_id'] = setup.idmap['employee01']
 
-    const associated_person_ref01_list_rt0 = await associated_person_ref01_ent.list(associated_person_ref01_match_rt0)
+    const associated_person_ref01_list_rt0 = (await associated_person_ref01_ent.list(associated_person_ref01_match_rt0)).map((e: any) => e.data())
 
     assert(isempty(select(associated_person_ref01_list_rt0, { id: associated_person_ref01_data.id })))
 

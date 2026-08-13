@@ -37,7 +37,7 @@ class EmployeeHealthInsurancePolicyResponsePagedListEntity extends KotaEntityBas
 
 
 
-  async list(this: any, reqmatch?: EmployeeHealthInsurancePolicyResponsePagedListListMatch, ctrl?: Control): Promise<EmployeeHealthInsurancePolicyResponsePagedList[]> {
+  async list(this: any, reqmatch?: EmployeeHealthInsurancePolicyResponsePagedListListMatch, ctrl?: Control): Promise<EmployeeHealthInsurancePolicyResponsePagedListEntity[]> {
 
     const utility = this._utility
 

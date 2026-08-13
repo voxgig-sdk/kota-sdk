@@ -6,7 +6,7 @@ main: kit: entity: employer_health_insurance_quote_response_paged_list: {
 
   fields: [
     {
-      name: "coverage_level"
+      name: "coverage_levels"
       req: true
       type: "`$ARRAY`"
     }
@@ -116,7 +116,7 @@ main: kit: entity: employer_health_insurance_quote_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

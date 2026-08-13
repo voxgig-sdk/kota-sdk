@@ -37,10 +37,12 @@ const client = new KotaSDK({
 
 ### 2. List associatedperson records
 
-`list()` resolves to an array of AssociatedPerson objects — iterate it directly:
+`list()` resolves to an array of AssociatedPerson ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const associatedpersons = await client.AssociatedPerson().list()
+const associatedpersons = await client.AssociatedPerson().list({ employee_id: "example" })
 
 for (const associatedperson of associatedpersons) {
   console.log(associatedperson)
@@ -67,7 +69,7 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created AssociatedPerson
+// Create — returns the created AssociatedPerson ENTITY (.data() for the record)
 const created = await client.AssociatedPerson().create({
   employee_id: 'example_employee_id',
   date_of_birth: 'example_date_of_birth',
@@ -78,16 +80,16 @@ const created = await client.AssociatedPerson().create({
   sex_at_birth: 'example_sex_at_birth',
 })
 
-// Update — the id comes straight off the returned entity
+// Update — the id comes off the returned entity's data()
 const updated = await client.AssociatedPerson().update({
-  id: created.id!,
+  id: created.data().id!,
   employee_id: 'example_employee_id',
   date_of_birth: 'example_date_of_birth',
 })
 
 // Remove
 await client.AssociatedPerson().remove({
-  id: created.id!,
+  id: created.data().id!,
   employee_id: 'example_employee_id',
 })
 ```
@@ -167,7 +169,8 @@ Create a mock client for unit testing — no server required:
 const client = KotaSDK.test()
 
 const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: 'test01' })
-// dependentsmanagementintent is a bare entity populated with mock response data
+// dependentsmanagementintent is the entity, populated with mock response data
+// — call dependentsmanagementintent.data() for the record itself
 console.log(dependentsmanagementintent)
 ```
 
@@ -501,9 +504,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -520,9 +523,9 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/depe
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -542,7 +545,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | `object` |  |
 | `plan` |  |
 | `provider` |  |
-| `reason` |  |
+| `reasons` |  |
 
 Operations: create.
 
@@ -686,7 +689,7 @@ API path: `/employers/{employer_id}/offboard`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -707,7 +710,7 @@ API path: `/employers/{employer_id}/health_insurance/policies/{employer_policy_i
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -727,7 +730,7 @@ API path: `/employers/{employer_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -743,7 +746,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -760,7 +763,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `force_confirmation` |  |
 | `group_id` |  |
@@ -769,7 +772,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_configuration` |  |
-| `policy_enrolment` |  |
+| `policy_enrolments` |  |
 | `status` |  |
 
 Operations: create, list, load, update.
@@ -799,7 +802,10 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
+| `options` |  |
+| `parent` |  |
 | `platform_id` |  |
+| `root` |  |
 | `type` |  |
 
 Operations: list, load.
@@ -813,9 +819,9 @@ API path: `/events`
 | `description` |  |
 | `employer_id` |  |
 | `enrolment_type` |  |
-| `group_policy_id` |  |
-| `group_policy_intent_id` |  |
-| `group_quote_intent_id` |  |
+| `group_policy_ids` |  |
+| `group_policy_intent_ids` |  |
+| `group_quote_intent_ids` |  |
 | `group_type` |  |
 | `id` |  |
 | `name` |  |
@@ -832,14 +838,14 @@ API path: `/groups`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: create.
 
@@ -851,14 +857,14 @@ API path: `/groups/{group_id}/employees`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: list.
 
@@ -869,7 +875,7 @@ API path: `/groups/{group_id}/employees`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employer_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -892,7 +898,7 @@ API path: `/group_policies`
 | --- | --- |
 | `action_required` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `due_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -924,15 +930,11 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `cost_sharing` |  |
-| `currency` |  |
-| `employee_count` |  |
-| `expires_at` |  |
-| `generated_at` |  |
-| `object` |  |
-| `pdf_expires_at` |  |
-| `pdf_url` |  |
-| `total_monthly_premium` |  |
+| `family_type` |  |
+| `member_count` |  |
+| `member_selection` |  |
+| `percentage` |  |
+| `type` |  |
 
 Operations: load.
 
@@ -943,9 +945,9 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `consent_link` |  |
+| `consent_links` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `expected_start_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -979,13 +981,13 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 | `available_from` |  |
 | `available_to` |  |
 | `country` |  |
-| `coverage_option` |  |
+| `coverage_options` |  |
 | `description` |  |
-| `disclosure` |  |
-| `document` |  |
+| `disclosures` |  |
+| `documents` |  |
 | `eligible_count` |  |
-| `employee_eligibility_criterion` |  |
-| `employer_eligibility_criterion` |  |
+| `employee_eligibility_criteria` |  |
+| `employer_eligibility_criteria` |  |
 | `health_insurance` |  |
 | `id` |  |
 | `ineligible_count` |  |
@@ -1005,7 +1007,7 @@ API path: `/plans`
 | --- | --- |
 | `bundling_type` |  |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -1028,13 +1030,13 @@ API path: `/policies`
 | Field | Description |
 | --- | --- |
 | `amendment_reason` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_id` |  |
 | `processing_error` |  |
-| `requested_change` |  |
+| `requested_changes` |  |
 | `required_action` |  |
 | `status` |  |
 
@@ -1046,7 +1048,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/cancel`
 
 | Field | Description |
 | --- | --- |
-| `associated_person` |  |
+| `associated_persons` |  |
 | `employee_id` |  |
 | `group_id` |  |
 | `id` |  |
@@ -1073,7 +1075,7 @@ API path: `/policy_import_intents`
 | `name` |  |
 | `object` |  |
 | `support_phone` |  |
-| `supported_country` |  |
+| `supported_countries` |  |
 | `website_url` |  |
 
 Operations: list, load.
@@ -1084,7 +1086,7 @@ API path: `/providers`
 
 | Field | Description |
 | --- | --- |
-| `delivery` |  |
+| `deliveries` |  |
 | `event_id` |  |
 
 Operations: create.
@@ -1099,7 +1101,7 @@ API path: `/events/{event_id}/replay`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: load.
 
@@ -1113,7 +1115,7 @@ API path: `/webhooks/endpoints/{webhook_endpoint_id}`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: list.
 
@@ -1163,7 +1165,7 @@ const associated_person = await client.AssociatedPerson().load({ id: 'associated
 #### Example: List
 
 ```ts
-const associated_persons = await client.AssociatedPerson().list()
+const associated_persons = await client.AssociatedPerson().list({ employee_id: "example" })
 ```
 
 #### Example: Create
@@ -1208,7 +1210,7 @@ Create an instance: `const associated_person_eligibility_response_paged_list = c
 #### Example: List
 
 ```ts
-const associated_person_eligibility_response_paged_lists = await client.AssociatedPersonEligibilityResponsePagedList().list()
+const associated_person_eligibility_response_paged_lists = await client.AssociatedPersonEligibilityResponsePagedList().list({ dependents_management_intent_id: "example" })
 ```
 
 
@@ -1328,7 +1330,7 @@ Create an instance: `const contribution_report_employee_breakdown_response_paged
 #### Example: List
 
 ```ts
-const contribution_report_employee_breakdown_response_paged_lists = await client.ContributionReportEmployeeBreakdownResponsePagedList().list()
+const contribution_report_employee_breakdown_response_paged_lists = await client.ContributionReportEmployeeBreakdownResponsePagedList().list({ id: "example" })
 ```
 
 
@@ -1402,9 +1404,9 @@ Create an instance: `const dependent = client.Dependent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `coverage_option` | `null | any[]` |  |
-| `dependent` | `any[]` |  |
-| `disclosure` | `any[]` |  |
+| `coverage_options` | `null | any[]` |  |
+| `dependents` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1417,8 +1419,8 @@ Create an instance: `const dependent = client.Dependent()`
 ```ts
 const dependent = await client.Dependent().create({
   dependents_management_intent_id: 'example_dependents_management_intent_id',
-  dependent: [],
-  disclosure: [],
+  dependents: [],
+  disclosures: [],
   id: 'example_id',
   parent_intent_id: 'example_parent_intent_id',
   parent_intent_type: 'example_parent_intent_type',
@@ -1444,9 +1446,9 @@ Create an instance: `const dependents_management_intent = client.DependentsManag
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `coverage_option` | `null | any[]` |  |
-| `dependent` | `any[]` |  |
-| `disclosure` | `any[]` |  |
+| `coverage_options` | `null | any[]` |  |
+| `dependents` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1464,8 +1466,8 @@ const dependents_management_intent = await client.DependentsManagementIntent().l
 
 ```ts
 const dependents_management_intent = await client.DependentsManagementIntent().create({
-  dependent: [],
-  disclosure: [],
+  dependents: [],
+  disclosures: [],
   id: 'example_id',
   parent_intent_id: 'example_parent_intent_id',
   parent_intent_type: 'example_parent_intent_type',
@@ -1493,7 +1495,7 @@ Create an instance: `const eligibility_check = client.EligibilityCheck()`
 | `object` | `string` |  |
 | `plan` | `any` |  |
 | `provider` | `any` |  |
-| `reason` | `any[]` |  |
+| `reasons` | `any[]` |  |
 
 #### Example: Create
 
@@ -1503,7 +1505,7 @@ const eligibility_check = await client.EligibilityCheck().create({
   eligibility_status: 'example_eligibility_status',
   plan: 'example_plan',
   provider: 'example_provider',
-  reason: [],
+  reasons: [],
 })
 ```
 
@@ -1629,7 +1631,7 @@ Create an instance: `const employee_health_insurance_offer_response_paged_list =
 #### Example: List
 
 ```ts
-const employee_health_insurance_offer_response_paged_lists = await client.EmployeeHealthInsuranceOfferResponsePagedList().list()
+const employee_health_insurance_offer_response_paged_lists = await client.EmployeeHealthInsuranceOfferResponsePagedList().list({ employee_id: "example" })
 ```
 
 
@@ -1705,7 +1707,7 @@ Create an instance: `const employee_health_insurance_policy_response_paged_list 
 #### Example: List
 
 ```ts
-const employee_health_insurance_policy_response_paged_lists = await client.EmployeeHealthInsurancePolicyResponsePagedList().list()
+const employee_health_insurance_policy_response_paged_lists = await client.EmployeeHealthInsurancePolicyResponsePagedList().list({ employee_id: "example" })
 ```
 
 
@@ -1777,7 +1779,7 @@ Create an instance: `const employer_health_insurance_policy = client.EmployerHea
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `null | string` |  |
-| `coverage_level` | `any[]` |  |
+| `coverage_levels` | `any[]` |  |
 | `employer_cancellation_period_length` | `number` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1811,7 +1813,7 @@ Create an instance: `const employer_health_insurance_policy_response_paged_list 
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `null | string` |  |
-| `coverage_level` | `any[]` |  |
+| `coverage_levels` | `any[]` |  |
 | `employer_cancellation_period_length` | `number` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1826,7 +1828,7 @@ Create an instance: `const employer_health_insurance_policy_response_paged_list 
 #### Example: List
 
 ```ts
-const employer_health_insurance_policy_response_paged_lists = await client.EmployerHealthInsurancePolicyResponsePagedList().list()
+const employer_health_insurance_policy_response_paged_lists = await client.EmployerHealthInsurancePolicyResponsePagedList().list({ employer_id: "example" })
 ```
 
 
@@ -1844,7 +1846,7 @@ Create an instance: `const employer_health_insurance_quote = client.EmployerHeal
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `any[]` |  |
+| `coverage_levels` | `any[]` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1873,7 +1875,7 @@ Create an instance: `const employer_health_insurance_quote_response_paged_list =
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `any[]` |  |
+| `coverage_levels` | `any[]` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1884,7 +1886,7 @@ Create an instance: `const employer_health_insurance_quote_response_paged_list =
 #### Example: List
 
 ```ts
-const employer_health_insurance_quote_response_paged_lists = await client.EmployerHealthInsuranceQuoteResponsePagedList().list()
+const employer_health_insurance_quote_response_paged_lists = await client.EmployerHealthInsuranceQuoteResponsePagedList().list({ employer_id: "example" })
 ```
 
 
@@ -1906,7 +1908,7 @@ Create an instance: `const enrolment_intent = client.EnrolmentIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `disclosure` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `employee_id` | `string` |  |
 | `force_confirmation` | `boolean` |  |
 | `group_id` | `string` |  |
@@ -1915,7 +1917,7 @@ Create an instance: `const enrolment_intent = client.EnrolmentIntent()`
 | `object` | `string` |  |
 | `pending_confirmation` | `null` |  |
 | `policy_configuration` | `null` |  |
-| `policy_enrolment` | `any[]` |  |
+| `policy_enrolments` | `any[]` |  |
 | `status` | `any` |  |
 
 #### Example: Load
@@ -1934,12 +1936,12 @@ const enrolment_intents = await client.EnrolmentIntent().list()
 
 ```ts
 const enrolment_intent = await client.EnrolmentIntent().create({
-  disclosure: [],
+  disclosures: [],
   employee_id: 'example_employee_id',
   force_confirmation: true,
   group_id: 'example_group_id',
   id: 'example_id',
-  policy_enrolment: [],
+  policy_enrolments: [],
   status: 'example_status',
 })
 ```
@@ -1969,7 +1971,7 @@ Create an instance: `const enrolment_intent_requirement_response_paged_list = cl
 #### Example: List
 
 ```ts
-const enrolment_intent_requirement_response_paged_lists = await client.EnrolmentIntentRequirementResponsePagedList().list()
+const enrolment_intent_requirement_response_paged_lists = await client.EnrolmentIntentRequirementResponsePagedList().list({ id: "example" })
 ```
 
 
@@ -1992,7 +1994,10 @@ Create an instance: `const event = client.Event()`
 | `created` | `string` |  |
 | `data` | `null` |  |
 | `id` | `string` |  |
+| `options` | `null` |  |
+| `parent` | `null` |  |
 | `platform_id` | `string` |  |
+| `root` | `any` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -2028,9 +2033,9 @@ Create an instance: `const group = client.Group()`
 | `description` | `null | string` |  |
 | `employer_id` | `string` |  |
 | `enrolment_type` | `any` |  |
-| `group_policy_id` | `any[]` |  |
-| `group_policy_intent_id` | `any[]` |  |
-| `group_quote_intent_id` | `any[]` |  |
+| `group_policy_ids` | `any[]` |  |
+| `group_policy_intent_ids` | `any[]` |  |
+| `group_quote_intent_ids` | `any[]` |  |
 | `group_type` | `any` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -2055,9 +2060,9 @@ const groups = await client.Group().list()
 const group = await client.Group().create({
   employer_id: 'example_employer_id',
   enrolment_type: 'example_enrolment_type',
-  group_policy_id: [],
-  group_policy_intent_id: [],
-  group_quote_intent_id: [],
+  group_policy_ids: [],
+  group_policy_intent_ids: [],
+  group_quote_intent_ids: [],
   group_type: 'example_group_type',
   id: 'example_id',
   name: 'example_name',
@@ -2082,14 +2087,14 @@ Create an instance: `const group_employee = client.GroupEmployee()`
 | --- | --- | --- |
 | `desired_policy_start_date` | `null | string` |  |
 | `eligibility_status` | `any` |  |
-| `enrolment` | `any[]` |  |
 | `enrolment_date` | `null | string` |  |
 | `enrolment_status` | `any` |  |
+| `enrolments` | `any[]` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `any[]` |  |
-| `scheduled_group_transition` | `any[]` |  |
+| `policies` | `any[]` |  |
+| `scheduled_group_transitions` | `any[]` |  |
 
 #### Example: Create
 
@@ -2097,11 +2102,11 @@ Create an instance: `const group_employee = client.GroupEmployee()`
 const group_employee = await client.GroupEmployee().create({
   id: 'example_id',
   eligibility_status: 'example_eligibility_status',
-  enrolment: [],
   enrolment_status: 'example_enrolment_status',
+  enrolments: [],
   group_id: 'example_group_id',
-  policy: [],
-  scheduled_group_transition: [],
+  policies: [],
+  scheduled_group_transitions: [],
 })
 ```
 
@@ -2122,19 +2127,19 @@ Create an instance: `const group_employee_response_paged_list = client.GroupEmpl
 | --- | --- | --- |
 | `desired_policy_start_date` | `null | string` |  |
 | `eligibility_status` | `any` |  |
-| `enrolment` | `any[]` |  |
 | `enrolment_date` | `null | string` |  |
 | `enrolment_status` | `any` |  |
+| `enrolments` | `any[]` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `any[]` |  |
-| `scheduled_group_transition` | `any[]` |  |
+| `policies` | `any[]` |  |
+| `scheduled_group_transitions` | `any[]` |  |
 
 #### Example: List
 
 ```ts
-const group_employee_response_paged_lists = await client.GroupEmployeeResponsePagedList().list()
+const group_employee_response_paged_lists = await client.GroupEmployeeResponsePagedList().list({ id: "example" })
 ```
 
 
@@ -2154,7 +2159,7 @@ Create an instance: `const group_policy = client.GroupPolicy()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `null | string` |  |
-| `disclosure` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `null | string` |  |
 | `group_id` | `string` |  |
@@ -2198,7 +2203,7 @@ Create an instance: `const group_policy_intent = client.GroupPolicyIntent()`
 | --- | --- | --- |
 | `action_required` | `null` |  |
 | `cost_sharing` | `null` |  |
-| `disclosure` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `due_date` | `null | string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2223,7 +2228,7 @@ const group_policy_intents = await client.GroupPolicyIntent().list()
 
 ```ts
 const group_policy_intent = await client.GroupPolicyIntent().create({
-  disclosure: [],
+  disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
   plan_id: 'example_plan_id',
@@ -2257,7 +2262,7 @@ Create an instance: `const group_policy_intent_requirement_response_paged_list =
 #### Example: List
 
 ```ts
-const group_policy_intent_requirement_response_paged_lists = await client.GroupPolicyIntentRequirementResponsePagedList().list()
+const group_policy_intent_requirement_response_paged_lists = await client.GroupPolicyIntentRequirementResponsePagedList().list({ id: "example" })
 ```
 
 
@@ -2275,15 +2280,11 @@ Create an instance: `const group_quote = client.GroupQuote()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost_sharing` | `any` |  |
-| `currency` | `string` |  |
-| `employee_count` | `number` |  |
-| `expires_at` | `string` |  |
-| `generated_at` | `string` |  |
-| `object` | `string` |  |
-| `pdf_expires_at` | `null | string` |  |
-| `pdf_url` | `null | string` |  |
-| `total_monthly_premium` | `number` |  |
+| `family_type` | `null` |  |
+| `member_count` | `null` |  |
+| `member_selection` | `null` |  |
+| `percentage` | `null` |  |
+| `type` | `any` |  |
 
 #### Example: Load
 
@@ -2309,9 +2310,9 @@ Create an instance: `const group_quote_intent = client.GroupQuoteIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` |  |
-| `consent_link` | `any[]` |  |
+| `consent_links` | `any[]` |  |
 | `cost_sharing` | `null` |  |
-| `disclosure` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `expected_start_date` | `null | string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2335,8 +2336,8 @@ const group_quote_intents = await client.GroupQuoteIntent().list()
 
 ```ts
 const group_quote_intent = await client.GroupQuoteIntent().create({
-  consent_link: [],
-  disclosure: [],
+  consent_links: [],
+  disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
   plan_id: 'example_plan_id',
@@ -2369,7 +2370,7 @@ Create an instance: `const group_quote_intent_requirement_response_paged_list = 
 #### Example: List
 
 ```ts
-const group_quote_intent_requirement_response_paged_lists = await client.GroupQuoteIntentRequirementResponsePagedList().list()
+const group_quote_intent_requirement_response_paged_lists = await client.GroupQuoteIntentRequirementResponsePagedList().list({ id: "example" })
 ```
 
 
@@ -2391,13 +2392,13 @@ Create an instance: `const plan = client.Plan()`
 | `available_from` | `string` |  |
 | `available_to` | `null | string` |  |
 | `country` | `any` |  |
-| `coverage_option` | `null | any[]` |  |
+| `coverage_options` | `null | any[]` |  |
 | `description` | `string` |  |
-| `disclosure` | `any[]` |  |
-| `document` | `any[]` |  |
+| `disclosures` | `any[]` |  |
+| `documents` | `any[]` |  |
 | `eligible_count` | `null | number` |  |
-| `employee_eligibility_criterion` | `any[]` |  |
-| `employer_eligibility_criterion` | `any[]` |  |
+| `employee_eligibility_criteria` | `any[]` |  |
+| `employer_eligibility_criteria` | `any[]` |  |
 | `health_insurance` | `null` |  |
 | `id` | `string` |  |
 | `ineligible_count` | `null | number` |  |
@@ -2437,7 +2438,7 @@ Create an instance: `const policy = client.Policy()`
 | --- | --- | --- |
 | `bundling_type` | `any` |  |
 | `cancellation_date` | `null | string` |  |
-| `disclosure` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `employee_id` | `string` |  |
 | `end_date` | `null | string` |  |
 | `group_id` | `string` |  |
@@ -2481,13 +2482,13 @@ Create an instance: `const policy_amendment_intent = client.PolicyAmendmentInten
 | Field | Type | Description |
 | --- | --- | --- |
 | `amendment_reason` | `any` |  |
-| `disclosure` | `any[]` |  |
+| `disclosures` | `any[]` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `pending_confirmation` | `null` |  |
 | `policy_id` | `string` |  |
 | `processing_error` | `null` |  |
-| `requested_change` | `any[]` |  |
+| `requested_changes` | `any[]` |  |
 | `required_action` | `null` |  |
 | `status` | `any` |  |
 
@@ -2500,7 +2501,7 @@ const policy_amendment_intent = await client.PolicyAmendmentIntent().load({ id: 
 #### Example: List
 
 ```ts
-const policy_amendment_intents = await client.PolicyAmendmentIntent().list()
+const policy_amendment_intents = await client.PolicyAmendmentIntent().list({ id: "example_id" })
 ```
 
 #### Example: Create
@@ -2509,9 +2510,9 @@ const policy_amendment_intents = await client.PolicyAmendmentIntent().list()
 const policy_amendment_intent = await client.PolicyAmendmentIntent().create({
   id: 'example_id',
   amendment_reason: 'example_amendment_reason',
-  disclosure: [],
+  disclosures: [],
   policy_id: 'example_policy_id',
-  requested_change: [],
+  requested_changes: [],
   status: 'example_status',
 })
 ```
@@ -2533,7 +2534,7 @@ Create an instance: `const policy_import_intent = client.PolicyImportIntent()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_person` | `any[]` |  |
+| `associated_persons` | `any[]` |  |
 | `employee_id` | `string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2560,7 +2561,7 @@ const policy_import_intents = await client.PolicyImportIntent().list()
 
 ```ts
 const policy_import_intent = await client.PolicyImportIntent().create({
-  associated_person: [],
+  associated_persons: [],
   employee_id: 'example_employee_id',
   group_id: 'example_group_id',
   id: 'example_id',
@@ -2595,7 +2596,7 @@ Create an instance: `const provider = client.Provider()`
 | `name` | `string` |  |
 | `object` | `string` |  |
 | `support_phone` | `string` |  |
-| `supported_country` | `any[]` |  |
+| `supported_countries` | `any[]` |  |
 | `website_url` | `string` |  |
 
 #### Example: Load
@@ -2625,7 +2626,7 @@ Create an instance: `const replay = client.Replay()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `delivery` | `any[]` |  |
+| `deliveries` | `any[]` |  |
 | `event_id` | `string` |  |
 
 #### Example: Create
@@ -2633,7 +2634,7 @@ Create an instance: `const replay = client.Replay()`
 ```ts
 const replay = await client.Replay().create({
   event_id: 'example_event_id',
-  delivery: [],
+  deliveries: [],
 })
 ```
 
@@ -2656,7 +2657,7 @@ Create an instance: `const webhook_endpoint = client.WebhookEndpoint()`
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `any[]` |  |
+| `subscribed_events` | `any[]` |  |
 
 #### Example: Load
 
@@ -2683,7 +2684,7 @@ Create an instance: `const webhook_endpoint_response_paged_list = client.Webhook
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `any[]` |  |
+| `subscribed_events` | `any[]` |  |
 
 #### Example: List
 

@@ -41,7 +41,7 @@ describe("CreateSessionTokenEntity", function()
 
     local create_session_token_ref01_data_result, err = create_session_token_ref01_ent:create(create_session_token_ref01_data, nil)
     assert.is_nil(err)
-    create_session_token_ref01_data = helpers.to_map(create_session_token_ref01_data_result)
+    create_session_token_ref01_data = helpers.to_map(type(create_session_token_ref01_data_result) == 'table' and create_session_token_ref01_data_result.data_get and create_session_token_ref01_data_result:data_get() or create_session_token_ref01_data_result)
     assert.is_not_nil(create_session_token_ref01_data)
 
   end)

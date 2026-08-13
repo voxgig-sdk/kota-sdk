@@ -37,7 +37,7 @@ class GroupPolicyIntentRequirementResponsePagedListEntity extends KotaEntityBase
 
 
 
-  async list(this: any, reqmatch?: GroupPolicyIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<GroupPolicyIntentRequirementResponsePagedList[]> {
+  async list(this: any, reqmatch?: GroupPolicyIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<GroupPolicyIntentRequirementResponsePagedListEntity[]> {
 
     const utility = this._utility
 

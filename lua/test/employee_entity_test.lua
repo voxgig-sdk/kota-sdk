@@ -82,7 +82,7 @@ describe("EmployeeEntity", function()
 
     local employee_ref01_data_result, err = employee_ref01_ent:create(employee_ref01_data, nil)
     assert.is_nil(err)
-    employee_ref01_data = helpers.to_map(employee_ref01_data_result)
+    employee_ref01_data = helpers.to_map(type(employee_ref01_data_result) == 'table' and employee_ref01_data_result.data_get and employee_ref01_data_result:data_get() or employee_ref01_data_result)
     assert.is_not_nil(employee_ref01_data)
     assert.is_not_nil(employee_ref01_data["id"])
 
@@ -109,7 +109,7 @@ describe("EmployeeEntity", function()
 
     local employee_ref01_resdata_up0_result, err = employee_ref01_ent:update(employee_ref01_data_up0_up, nil)
     assert.is_nil(err)
-    local employee_ref01_resdata_up0 = helpers.to_map(employee_ref01_resdata_up0_result)
+    local employee_ref01_resdata_up0 = helpers.to_map(type(employee_ref01_resdata_up0_result) == 'table' and employee_ref01_resdata_up0_result.data_get and employee_ref01_resdata_up0_result:data_get() or employee_ref01_resdata_up0_result)
     assert.is_not_nil(employee_ref01_resdata_up0)
     assert.are.equal(employee_ref01_resdata_up0["id"], employee_ref01_data_up0_up["id"])
     assert.are.equal(employee_ref01_resdata_up0[employee_ref01_markdef_up0_name], employee_ref01_markdef_up0_value)
@@ -120,7 +120,7 @@ describe("EmployeeEntity", function()
     }
     local employee_ref01_data_dt0_loaded, err = employee_ref01_ent:load(employee_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local employee_ref01_data_dt0_load_result = helpers.to_map(employee_ref01_data_dt0_loaded)
+    local employee_ref01_data_dt0_load_result = helpers.to_map(type(employee_ref01_data_dt0_loaded) == 'table' and employee_ref01_data_dt0_loaded.data_get and employee_ref01_data_dt0_loaded:data_get() or employee_ref01_data_dt0_loaded)
     assert.is_not_nil(employee_ref01_data_dt0_load_result)
     assert.are.equal(employee_ref01_data_dt0_load_result["id"], employee_ref01_data["id"])
 

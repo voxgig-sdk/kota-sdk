@@ -16,7 +16,7 @@ main: kit: entity: group_policy_intent: {
       type: "`$NULL`"
     }
     {
-      name: "disclosure"
+      name: "disclosures"
       req: true
       type: "`$ARRAY`"
     }
@@ -173,7 +173,7 @@ main: kit: entity: group_policy_intent: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

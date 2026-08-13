@@ -58,7 +58,7 @@ main: kit: entity: provider: {
       type: "`$STRING`"
     }
     {
-      name: "supported_country"
+      name: "supported_countries"
       req: true
       type: "`$ARRAY`"
     }
@@ -129,7 +129,7 @@ main: kit: entity: provider: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

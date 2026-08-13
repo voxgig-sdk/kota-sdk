@@ -179,7 +179,7 @@ main: kit: entity: employee_health_insurance_policy_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

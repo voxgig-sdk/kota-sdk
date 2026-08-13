@@ -6,7 +6,7 @@
         "object": "s33",
         "plan": "s34",
         "provider": "s35",
-        "reason": [],
+        "reasons": [],
         "group_id": "GROUP01",
         "id": "ELIGIBILITY_CHECK00"
       },
@@ -15,7 +15,7 @@
         "object": "s65",
         "plan": "s66",
         "provider": "s67",
-        "reason": [],
+        "reasons": [],
         "group_id": "GROUP01",
         "id": "ELIGIBILITY_CHECK01"
       },
@@ -24,7 +24,7 @@
         "object": "s97",
         "plan": "s98",
         "provider": "s99",
-        "reason": [],
+        "reasons": [],
         "group_id": "GROUP01",
         "id": "ELIGIBILITY_CHECK02"
       }
@@ -37,7 +37,7 @@
         "object": "sc9",
         "plan": "sca",
         "provider": "scb",
-        "reason": []
+        "reasons": []
       }
     }
   }

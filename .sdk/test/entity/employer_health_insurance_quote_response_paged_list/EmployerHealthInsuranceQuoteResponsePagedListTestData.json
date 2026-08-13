@@ -2,7 +2,7 @@
   "existing": {
     "employer_health_insurance_quote_response_paged_list": {
       "EMPLOYER_HEALTH_INSURANCE_QUOTE_RESPONSE_PAGED_LIST00": {
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_id": "EMPLOYER01",
         "id": "EMPLOYER_HEALTH_INSURANCE_QUOTE_RESPONSE_PAGED_LIST00",
         "object": "s49",
@@ -11,7 +11,7 @@
         "status": "s4c"
       },
       "EMPLOYER_HEALTH_INSURANCE_QUOTE_RESPONSE_PAGED_LIST01": {
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_id": "EMPLOYER01",
         "id": "EMPLOYER_HEALTH_INSURANCE_QUOTE_RESPONSE_PAGED_LIST01",
         "object": "s8f",
@@ -20,7 +20,7 @@
         "status": "s92"
       },
       "EMPLOYER_HEALTH_INSURANCE_QUOTE_RESPONSE_PAGED_LIST02": {
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_id": "EMPLOYER01",
         "id": "EMPLOYER_HEALTH_INSURANCE_QUOTE_RESPONSE_PAGED_LIST02",
         "object": "sd5",
@@ -33,7 +33,7 @@
   "new": {
     "employer_health_insurance_quote_response_paged_list": {
       "employer_health_insurance_quote_response_paged_list_ref01": {
-        "coverage_level": [],
+        "coverage_levels": [],
         "employer_id": "EMPLOYER01",
         "object": "s11b",
         "quoted_at": "s11c",

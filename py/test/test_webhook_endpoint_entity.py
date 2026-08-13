@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -52,7 +52,7 @@ class TestWebhookEndpointEntity:
             "id": webhook_endpoint_ref01_data["id"],
         }
         webhook_endpoint_ref01_data_dt0_loaded = webhook_endpoint_ref01_ent.load(webhook_endpoint_ref01_match_dt0, None)
-        webhook_endpoint_ref01_data_dt0_load_result = helpers.to_map(webhook_endpoint_ref01_data_dt0_loaded)
+        webhook_endpoint_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(webhook_endpoint_ref01_data_dt0_loaded))
         assert webhook_endpoint_ref01_data_dt0_load_result is not None
         assert webhook_endpoint_ref01_data_dt0_load_result["id"] == webhook_endpoint_ref01_data["id"]
 

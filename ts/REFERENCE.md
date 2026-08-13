@@ -620,7 +620,7 @@ const result = await client.AssociatedPerson().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.AssociatedPerson().list()
+const results = await client.AssociatedPerson().list({ employee_id: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -706,7 +706,7 @@ const associated_person_eligibility_response_paged_list = client.AssociatedPerso
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.AssociatedPersonEligibilityResponsePagedList().list()
+const results = await client.AssociatedPersonEligibilityResponsePagedList().list({ dependents_management_intent_id: "example" })
 ```
 
 ### Common Methods
@@ -756,6 +756,26 @@ const contribution_report = client.ContributionReport()
 | `object` | `string` | No |  |
 | `period` | `any` | Yes |  |
 | `status` | `any` | Yes |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `finalize` | `/contribution_reports/{contribution_report_id}/finalize` | `client.ContributionReport().create({ $action: 'finalize', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+ContributionReport record — check the API definition for its shape.
+
+```ts
+const result = await client.ContributionReport().create({
+  $action: 'finalize',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -902,6 +922,26 @@ const contribution_report_employee_breakdown_response_paged_list = client.Contri
 | `period` | `any` | Yes |  |
 | `status` | `any` | Yes |  |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `employee_breakdowns` | `/contribution_reports/{contribution_report_id}/employee_breakdowns` | `client.ContributionReportEmployeeBreakdownResponsePagedList().list({ $action: 'employee_breakdowns', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+ContributionReportEmployeeBreakdownResponsePagedList record — check the API definition for its shape.
+
+```ts
+const result = await client.ContributionReportEmployeeBreakdownResponsePagedList().list({
+  $action: 'employee_breakdowns',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
@@ -909,7 +949,7 @@ const contribution_report_employee_breakdown_response_paged_list = client.Contri
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.ContributionReportEmployeeBreakdownResponsePagedList().list()
+const results = await client.ContributionReportEmployeeBreakdownResponsePagedList().list({ id: "example" })
 ```
 
 ### Common Methods
@@ -1059,9 +1099,9 @@ const dependent = client.Dependent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `coverage_option` | `null | any[]` | No |  |
-| `dependent` | `any[]` | Yes |  |
-| `disclosure` | `any[]` | Yes |  |
+| `coverage_options` | `null | any[]` | No |  |
+| `dependents` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -1078,8 +1118,8 @@ Create a new entity with the given data.
 ```ts
 const result = await client.Dependent().create({
   dependents_management_intent_id: 'example_dependents_management_intent_id',
-  dependent: [],
-  disclosure: [],
+  dependents: [],
+  disclosures: [],
   id: 'example_id',
   parent_intent_id: 'example_parent_intent_id',
   parent_intent_type: 'example_parent_intent_type',
@@ -1135,15 +1175,36 @@ const dependents_management_intent = client.DependentsManagementIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `coverage_option` | `null | any[]` | No |  |
-| `dependent` | `any[]` | Yes |  |
-| `disclosure` | `any[]` | Yes |  |
+| `coverage_options` | `null | any[]` | No |  |
+| `dependents` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
 | `parent_intent_type` | `any` | Yes |  |
 | `plan` | `any` | Yes |  |
 | `status` | `any` | Yes |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `cancel` | `/dependents_management_intents/{dependents_management_intent_id}/cancel` | `client.DependentsManagementIntent().create({ $action: 'cancel', ... })` |
+| `confirm` | `/dependents_management_intents/{dependents_management_intent_id}/confirm` | `client.DependentsManagementIntent().create({ $action: 'confirm', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+DependentsManagementIntent record — check the API definition for its shape.
+
+```ts
+const result = await client.DependentsManagementIntent().create({
+  $action: 'cancel',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -1153,8 +1214,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.DependentsManagementIntent().create({
-  dependent: [],
-  disclosure: [],
+  dependents: [],
+  disclosures: [],
   id: 'example_id',
   parent_intent_id: 'example_parent_intent_id',
   parent_intent_type: 'example_parent_intent_type',
@@ -1213,7 +1274,7 @@ const eligibility_check = client.EligibilityCheck()
 | `object` | `string` | No |  |
 | `plan` | `any` | Yes |  |
 | `provider` | `any` | Yes |  |
-| `reason` | `any[]` | Yes |  |
+| `reasons` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -1227,7 +1288,7 @@ const result = await client.EligibilityCheck().create({
   eligibility_status: 'example_eligibility_status',
   plan: 'example_plan',
   provider: 'example_provider',
-  reason: [],
+  reasons: [],
 })
 ```
 
@@ -1289,6 +1350,27 @@ const employee = client.Employee()
 | `sex_at_birth` | `any` | Yes |  |
 | `start_on` | `string` | No |  |
 | `status` | `any` | No |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `offboard` | `/employees/{employee_id}/offboard` | `client.Employee().create({ $action: 'offboard', ... })` |
+| `offboard_cancel` | `/employees/{employee_id}/offboard/cancel` | `client.Employee().create({ $action: 'offboard_cancel', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Employee record — check the API definition for its shape.
+
+```ts
+const result = await client.Employee().create({
+  $action: 'offboard',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -1446,7 +1528,7 @@ const employee_health_insurance_offer_response_paged_list = client.EmployeeHealt
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.EmployeeHealthInsuranceOfferResponsePagedList().list()
+const results = await client.EmployeeHealthInsuranceOfferResponsePagedList().list({ employee_id: "example" })
 ```
 
 ### Common Methods
@@ -1576,7 +1658,7 @@ const employee_health_insurance_policy_response_paged_list = client.EmployeeHeal
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.EmployeeHealthInsurancePolicyResponsePagedList().list()
+const results = await client.EmployeeHealthInsurancePolicyResponsePagedList().list({ employee_id: "example" })
 ```
 
 ### Common Methods
@@ -1628,6 +1710,26 @@ const employer = client.Employer()
 | `platform_id` | `string` | No |  |
 | `registration_number` | `null | string` | No |  |
 | `status` | `any` | No |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `offboard` | `/employers/{employer_id}/offboard` | `client.Employer().create({ $action: 'offboard', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Employer record — check the API definition for its shape.
+
+```ts
+const result = await client.Employer().create({
+  $action: 'offboard',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -1710,7 +1812,7 @@ const employer_health_insurance_policy = client.EmployerHealthInsurancePolicy()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `null | string` | No |  |
-| `coverage_level` | `any[]` | Yes |  |
+| `coverage_levels` | `any[]` | Yes |  |
 | `employer_cancellation_period_length` | `number` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1771,7 +1873,7 @@ const employer_health_insurance_policy_response_paged_list = client.EmployerHeal
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `null | string` | No |  |
-| `coverage_level` | `any[]` | Yes |  |
+| `coverage_levels` | `any[]` | Yes |  |
 | `employer_cancellation_period_length` | `number` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1790,7 +1892,7 @@ const employer_health_insurance_policy_response_paged_list = client.EmployerHeal
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.EmployerHealthInsurancePolicyResponsePagedList().list()
+const results = await client.EmployerHealthInsurancePolicyResponsePagedList().list({ employer_id: "example" })
 ```
 
 ### Common Methods
@@ -1831,7 +1933,7 @@ const employer_health_insurance_quote = client.EmployerHealthInsuranceQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `any[]` | Yes |  |
+| `coverage_levels` | `any[]` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1887,7 +1989,7 @@ const employer_health_insurance_quote_response_paged_list = client.EmployerHealt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `any[]` | Yes |  |
+| `coverage_levels` | `any[]` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1902,7 +2004,7 @@ const employer_health_insurance_quote_response_paged_list = client.EmployerHealt
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.EmployerHealthInsuranceQuoteResponsePagedList().list()
+const results = await client.EmployerHealthInsuranceQuoteResponsePagedList().list({ employer_id: "example" })
 ```
 
 ### Common Methods
@@ -1944,7 +2046,7 @@ const enrolment_intent = client.EnrolmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `disclosure` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `force_confirmation` | `boolean` | Yes |  |
 | `group_id` | `string` | Yes |  |
@@ -1953,8 +2055,30 @@ const enrolment_intent = client.EnrolmentIntent()
 | `object` | `string` | No |  |
 | `pending_confirmation` | `null` | No |  |
 | `policy_configuration` | `null` | No |  |
-| `policy_enrolment` | `any[]` | Yes |  |
+| `policy_enrolments` | `any[]` | Yes |  |
 | `status` | `any` | Yes |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `confirm` | `/enrolment_intents/{enrolment_intent_id}/confirm` | `client.EnrolmentIntent().create({ $action: 'confirm', ... })` |
+| `coverage_selection` | `/enrolment_intents/{enrolment_intent_id}/coverage-selections` | `client.EnrolmentIntent().create({ $action: 'coverage_selection', ... })` |
+| `reject` | `/enrolment_intents/{enrolment_intent_id}/reject` | `client.EnrolmentIntent().create({ $action: 'reject', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+EnrolmentIntent record — check the API definition for its shape.
+
+```ts
+const result = await client.EnrolmentIntent().create({
+  $action: 'confirm',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -1964,12 +2088,12 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.EnrolmentIntent().create({
-  disclosure: [],
+  disclosures: [],
   employee_id: 'example_employee_id',
   force_confirmation: true,
   group_id: 'example_group_id',
   id: 'example_id',
-  policy_enrolment: [],
+  policy_enrolments: [],
   status: 'example_status',
 })
 ```
@@ -2046,6 +2170,26 @@ const enrolment_intent_requirement_response_paged_list = client.EnrolmentIntentR
 | `object_type` | `any` | Yes |  |
 | `requirement_type` | `any` | Yes |  |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `requirements` | `/enrolment_intents/{enrolment_intent_id}/requirements` | `client.EnrolmentIntentRequirementResponsePagedList().list({ $action: 'requirements', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+EnrolmentIntentRequirementResponsePagedList record — check the API definition for its shape.
+
+```ts
+const result = await client.EnrolmentIntentRequirementResponsePagedList().list({
+  $action: 'requirements',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
@@ -2053,7 +2197,7 @@ const enrolment_intent_requirement_response_paged_list = client.EnrolmentIntentR
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.EnrolmentIntentRequirementResponsePagedList().list()
+const results = await client.EnrolmentIntentRequirementResponsePagedList().list({ id: "example" })
 ```
 
 ### Common Methods
@@ -2098,7 +2242,10 @@ const event = client.Event()
 | `created` | `string` | Yes |  |
 | `data` | `null` | Yes |  |
 | `id` | `string` | Yes |  |
+| `options` | `null` | No |  |
+| `parent` | `null` | No |  |
 | `platform_id` | `string` | Yes |  |
+| `root` | `any` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -2160,9 +2307,9 @@ const group = client.Group()
 | `description` | `null | string` | No |  |
 | `employer_id` | `string` | Yes |  |
 | `enrolment_type` | `any` | Yes |  |
-| `group_policy_id` | `any[]` | Yes |  |
-| `group_policy_intent_id` | `any[]` | Yes |  |
-| `group_quote_intent_id` | `any[]` | Yes |  |
+| `group_policy_ids` | `any[]` | Yes |  |
+| `group_policy_intent_ids` | `any[]` | Yes |  |
+| `group_quote_intent_ids` | `any[]` | Yes |  |
 | `group_type` | `any` | Yes |  |
 | `id` | `string` | Yes |  |
 | `name` | `string` | Yes |  |
@@ -2179,9 +2326,9 @@ Create a new entity with the given data.
 const result = await client.Group().create({
   employer_id: 'example_employer_id',
   enrolment_type: 'example_enrolment_type',
-  group_policy_id: [],
-  group_policy_intent_id: [],
-  group_quote_intent_id: [],
+  group_policy_ids: [],
+  group_policy_intent_ids: [],
+  group_quote_intent_ids: [],
   group_type: 'example_group_type',
   id: 'example_id',
   name: 'example_name',
@@ -2256,14 +2403,14 @@ const group_employee = client.GroupEmployee()
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `null | string` | No |  |
 | `eligibility_status` | `any` | Yes |  |
-| `enrolment` | `any[]` | Yes |  |
 | `enrolment_date` | `null | string` | No |  |
 | `enrolment_status` | `any` | Yes |  |
+| `enrolments` | `any[]` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `any[]` | Yes |  |
-| `scheduled_group_transition` | `any[]` | Yes |  |
+| `policies` | `any[]` | Yes |  |
+| `scheduled_group_transitions` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -2275,11 +2422,11 @@ Create a new entity with the given data.
 const result = await client.GroupEmployee().create({
   id: 'example_id',
   eligibility_status: 'example_eligibility_status',
-  enrolment: [],
   enrolment_status: 'example_enrolment_status',
+  enrolments: [],
   group_id: 'example_group_id',
-  policy: [],
-  scheduled_group_transition: [],
+  policies: [],
+  scheduled_group_transitions: [],
 })
 ```
 
@@ -2323,14 +2470,34 @@ const group_employee_response_paged_list = client.GroupEmployeeResponsePagedList
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `null | string` | No |  |
 | `eligibility_status` | `any` | Yes |  |
-| `enrolment` | `any[]` | Yes |  |
 | `enrolment_date` | `null | string` | No |  |
 | `enrolment_status` | `any` | Yes |  |
+| `enrolments` | `any[]` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `any[]` | Yes |  |
-| `scheduled_group_transition` | `any[]` | Yes |  |
+| `policies` | `any[]` | Yes |  |
+| `scheduled_group_transitions` | `any[]` | Yes |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `employees` | `/groups/{group_id}/employees` | `client.GroupEmployeeResponsePagedList().list({ $action: 'employees', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+GroupEmployeeResponsePagedList record — check the API definition for its shape.
+
+```ts
+const result = await client.GroupEmployeeResponsePagedList().list({
+  $action: 'employees',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -2339,7 +2506,7 @@ const group_employee_response_paged_list = client.GroupEmployeeResponsePagedList
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GroupEmployeeResponsePagedList().list()
+const results = await client.GroupEmployeeResponsePagedList().list({ id: "example" })
 ```
 
 ### Common Methods
@@ -2381,7 +2548,7 @@ const group_policy = client.GroupPolicy()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `null | string` | No |  |
-| `disclosure` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `employer_id` | `string` | No |  |
 | `end_date` | `null | string` | No |  |
 | `group_id` | `string` | No |  |
@@ -2452,7 +2619,7 @@ const group_policy_intent = client.GroupPolicyIntent()
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
 | `cost_sharing` | `null` | No |  |
-| `disclosure` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `due_date` | `null | string` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2469,7 +2636,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GroupPolicyIntent().create({
-  disclosure: [],
+  disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
   plan_id: 'example_plan_id',
@@ -2539,6 +2706,26 @@ const group_policy_intent_requirement_response_paged_list = client.GroupPolicyIn
 | `object_type` | `any` | Yes |  |
 | `requirement_type` | `any` | Yes |  |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `requirements` | `/group_policy_intents/{group_policy_intent_id}/requirements` | `client.GroupPolicyIntentRequirementResponsePagedList().list({ $action: 'requirements', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+GroupPolicyIntentRequirementResponsePagedList record — check the API definition for its shape.
+
+```ts
+const result = await client.GroupPolicyIntentRequirementResponsePagedList().list({
+  $action: 'requirements',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
@@ -2546,7 +2733,7 @@ const group_policy_intent_requirement_response_paged_list = client.GroupPolicyIn
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GroupPolicyIntentRequirementResponsePagedList().list()
+const results = await client.GroupPolicyIntentRequirementResponsePagedList().list({ id: "example" })
 ```
 
 ### Common Methods
@@ -2587,15 +2774,11 @@ const group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `any` | Yes |  |
-| `currency` | `string` | Yes |  |
-| `employee_count` | `number` | Yes |  |
-| `expires_at` | `string` | Yes |  |
-| `generated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pdf_expires_at` | `null | string` | No |  |
-| `pdf_url` | `null | string` | No |  |
-| `total_monthly_premium` | `number` | Yes |  |
+| `family_type` | `null` | No |  |
+| `member_count` | `null` | No |  |
+| `member_selection` | `null` | No |  |
+| `percentage` | `null` | No |  |
+| `type` | `any` | Yes |  |
 
 ### Operations
 
@@ -2646,15 +2829,35 @@ const group_quote_intent = client.GroupQuoteIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `consent_link` | `any[]` | Yes |  |
+| `consent_links` | `any[]` | Yes |  |
 | `cost_sharing` | `null` | No |  |
-| `disclosure` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `expected_start_date` | `null | string` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `plan_id` | `string` | Yes |  |
 | `status` | `any` | Yes |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `reject` | `/group_quote_intents/{group_quote_intent_id}/reject` | `client.GroupQuoteIntent().create({ $action: 'reject', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+GroupQuoteIntent record — check the API definition for its shape.
+
+```ts
+const result = await client.GroupQuoteIntent().create({
+  $action: 'reject',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -2664,8 +2867,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GroupQuoteIntent().create({
-  consent_link: [],
-  disclosure: [],
+  consent_links: [],
+  disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
   plan_id: 'example_plan_id',
@@ -2734,6 +2937,26 @@ const group_quote_intent_requirement_response_paged_list = client.GroupQuoteInte
 | `object_type` | `any` | Yes |  |
 | `requirement_type` | `any` | Yes |  |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `requirements` | `/group_quote_intents/{group_quote_intent_id}/requirements` | `client.GroupQuoteIntentRequirementResponsePagedList().list({ $action: 'requirements', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+GroupQuoteIntentRequirementResponsePagedList record — check the API definition for its shape.
+
+```ts
+const result = await client.GroupQuoteIntentRequirementResponsePagedList().list({
+  $action: 'requirements',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
@@ -2741,7 +2964,7 @@ const group_quote_intent_requirement_response_paged_list = client.GroupQuoteInte
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GroupQuoteIntentRequirementResponsePagedList().list()
+const results = await client.GroupQuoteIntentRequirementResponsePagedList().list({ id: "example" })
 ```
 
 ### Common Methods
@@ -2785,13 +3008,13 @@ const plan = client.Plan()
 | `available_from` | `string` | Yes |  |
 | `available_to` | `null | string` | No |  |
 | `country` | `any` | Yes |  |
-| `coverage_option` | `null | any[]` | No |  |
+| `coverage_options` | `null | any[]` | No |  |
 | `description` | `string` | Yes |  |
-| `disclosure` | `any[]` | Yes |  |
-| `document` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
+| `documents` | `any[]` | Yes |  |
 | `eligible_count` | `null | number` | No |  |
-| `employee_eligibility_criterion` | `any[]` | Yes |  |
-| `employer_eligibility_criterion` | `any[]` | Yes |  |
+| `employee_eligibility_criteria` | `any[]` | Yes |  |
+| `employer_eligibility_criteria` | `any[]` | Yes |  |
 | `health_insurance` | `null` | No |  |
 | `id` | `string` | Yes |  |
 | `ineligible_count` | `null | number` | No |  |
@@ -2859,7 +3082,7 @@ const policy = client.Policy()
 | --- | --- | --- | --- |
 | `bundling_type` | `any` | Yes |  |
 | `cancellation_date` | `null | string` | No |  |
-| `disclosure` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `end_date` | `null | string` | No |  |
 | `group_id` | `string` | Yes |  |
@@ -2930,15 +3153,36 @@ const policy_amendment_intent = client.PolicyAmendmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `amendment_reason` | `any` | Yes |  |
-| `disclosure` | `any[]` | Yes |  |
+| `disclosures` | `any[]` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `pending_confirmation` | `null` | No |  |
 | `policy_id` | `string` | Yes |  |
 | `processing_error` | `null` | No |  |
-| `requested_change` | `any[]` | Yes |  |
+| `requested_changes` | `any[]` | Yes |  |
 | `required_action` | `null` | No |  |
 | `status` | `any` | Yes |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `cancel` | `/policies/{policy_id}/policy_amendment_intents/{id}/cancel` | `client.PolicyAmendmentIntent().create({ $action: 'cancel', ... })` |
+| `confirm` | `/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm` | `client.PolicyAmendmentIntent().create({ $action: 'confirm', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+PolicyAmendmentIntent record — check the API definition for its shape.
+
+```ts
+const result = await client.PolicyAmendmentIntent().create({
+  $action: 'cancel',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -2950,9 +3194,9 @@ Create a new entity with the given data.
 const result = await client.PolicyAmendmentIntent().create({
   id: 'example_id',
   amendment_reason: 'example_amendment_reason',
-  disclosure: [],
+  disclosures: [],
   policy_id: 'example_policy_id',
-  requested_change: [],
+  requested_changes: [],
   status: 'example_status',
 })
 ```
@@ -2962,7 +3206,7 @@ const result = await client.PolicyAmendmentIntent().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.PolicyAmendmentIntent().list()
+const results = await client.PolicyAmendmentIntent().list({ id: "example_id" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -3011,7 +3255,7 @@ const policy_import_intent = client.PolicyImportIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person` | `any[]` | Yes |  |
+| `associated_persons` | `any[]` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -3030,7 +3274,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.PolicyImportIntent().create({
-  associated_person: [],
+  associated_persons: [],
   employee_id: 'example_employee_id',
   group_id: 'example_group_id',
   id: 'example_id',
@@ -3103,7 +3347,7 @@ const provider = client.Provider()
 | `name` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `support_phone` | `string` | Yes |  |
-| `supported_country` | `any[]` | Yes |  |
+| `supported_countries` | `any[]` | Yes |  |
 | `website_url` | `string` | Yes |  |
 
 ### Operations
@@ -3162,7 +3406,7 @@ const replay = client.Replay()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `delivery` | `any[]` | Yes |  |
+| `deliveries` | `any[]` | Yes |  |
 | `event_id` | `string` | Yes |  |
 
 ### Operations
@@ -3174,7 +3418,7 @@ Create a new entity with the given data.
 ```ts
 const result = await client.Replay().create({
   event_id: 'example_event_id',
-  delivery: [],
+  deliveries: [],
 })
 ```
 
@@ -3220,7 +3464,7 @@ const webhook_endpoint = client.WebhookEndpoint()
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `any[]` | Yes |  |
+| `subscribed_events` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -3274,7 +3518,7 @@ const webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePaged
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `any[]` | Yes |  |
+| `subscribed_events` | `any[]` | Yes |  |
 
 ### Operations
 

@@ -44,7 +44,7 @@ describe('ContributionReportEmployeeBreakdownEntity', async () => {
     // LOAD
     const contribution_report_employee_breakdown_ref01_ent = client.ContributionReportEmployeeBreakdown()
     const contribution_report_employee_breakdown_ref01_match_dt0 = {}
-    const contribution_report_employee_breakdown_ref01_data_dt0 = await contribution_report_employee_breakdown_ref01_ent.load(contribution_report_employee_breakdown_ref01_match_dt0)
+    const contribution_report_employee_breakdown_ref01_data_dt0 = (await contribution_report_employee_breakdown_ref01_ent.load(contribution_report_employee_breakdown_ref01_match_dt0)).data()
     assert(null != contribution_report_employee_breakdown_ref01_data_dt0)
 
 

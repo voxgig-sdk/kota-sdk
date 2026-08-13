@@ -83,7 +83,7 @@ describe("PolicyAmendmentIntentEntity", function()
 
     local policy_amendment_intent_ref01_data_result, err = policy_amendment_intent_ref01_ent:create(policy_amendment_intent_ref01_data, nil)
     assert.is_nil(err)
-    policy_amendment_intent_ref01_data = helpers.to_map(policy_amendment_intent_ref01_data_result)
+    policy_amendment_intent_ref01_data = helpers.to_map(type(policy_amendment_intent_ref01_data_result) == 'table' and policy_amendment_intent_ref01_data_result.data_get and policy_amendment_intent_ref01_data_result:data_get() or policy_amendment_intent_ref01_data_result)
     assert.is_not_nil(policy_amendment_intent_ref01_data)
     assert.is_not_nil(policy_amendment_intent_ref01_data["id"])
 
@@ -107,7 +107,7 @@ describe("PolicyAmendmentIntentEntity", function()
     }
     local policy_amendment_intent_ref01_data_dt0_loaded, err = policy_amendment_intent_ref01_ent:load(policy_amendment_intent_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local policy_amendment_intent_ref01_data_dt0_load_result = helpers.to_map(policy_amendment_intent_ref01_data_dt0_loaded)
+    local policy_amendment_intent_ref01_data_dt0_load_result = helpers.to_map(type(policy_amendment_intent_ref01_data_dt0_loaded) == 'table' and policy_amendment_intent_ref01_data_dt0_loaded.data_get and policy_amendment_intent_ref01_data_dt0_loaded:data_get() or policy_amendment_intent_ref01_data_dt0_loaded)
     assert.is_not_nil(policy_amendment_intent_ref01_data_dt0_load_result)
     assert.are.equal(policy_amendment_intent_ref01_data_dt0_load_result["id"], policy_amendment_intent_ref01_data["id"])
 

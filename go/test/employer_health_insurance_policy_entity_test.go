@@ -68,7 +68,7 @@ func TestEmployerHealthInsurancePolicyEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		employerHealthInsurancePolicyRef01DataDt0LoadResult := core.ToMapAny(employerHealthInsurancePolicyRef01DataDt0Loaded)
+		employerHealthInsurancePolicyRef01DataDt0LoadResult := core.ToMapAny(entityData(employerHealthInsurancePolicyRef01DataDt0Loaded))
 		if employerHealthInsurancePolicyRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

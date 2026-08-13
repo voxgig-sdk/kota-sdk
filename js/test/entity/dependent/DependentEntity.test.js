@@ -45,7 +45,7 @@ describe('DependentEntity', async () => {
     let dependent_ref01_data = setup.data.new.dependent['dependent_ref01']
     dependent_ref01_data['dependents_management_intent_id'] = setup.idmap['dependents_management_intent01']
 
-    dependent_ref01_data = await dependent_ref01_ent.create(dependent_ref01_data)
+    dependent_ref01_data = (await dependent_ref01_ent.create(dependent_ref01_data)).data()
     assert(null != dependent_ref01_data.id)
 
 

@@ -62,14 +62,14 @@ describe('PolicyImportIntentEntity', async () => {
     const policy_import_intent_ref01_ent = client.PolicyImportIntent()
     let policy_import_intent_ref01_data = setup.data.new.policy_import_intent['policy_import_intent_ref01']
 
-    policy_import_intent_ref01_data = await policy_import_intent_ref01_ent.create(policy_import_intent_ref01_data)
+    policy_import_intent_ref01_data = (await policy_import_intent_ref01_ent.create(policy_import_intent_ref01_data)).data()
     assert(null != policy_import_intent_ref01_data.id)
 
 
     // LIST
     const policy_import_intent_ref01_match: any = {}
 
-    const policy_import_intent_ref01_list = await policy_import_intent_ref01_ent.list(policy_import_intent_ref01_match)
+    const policy_import_intent_ref01_list = (await policy_import_intent_ref01_ent.list(policy_import_intent_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(policy_import_intent_ref01_list, { id: policy_import_intent_ref01_data.id })))
 
@@ -77,7 +77,7 @@ describe('PolicyImportIntentEntity', async () => {
     // LOAD
     const policy_import_intent_ref01_match_dt0: any = {}
     policy_import_intent_ref01_match_dt0.id = policy_import_intent_ref01_data.id
-    const policy_import_intent_ref01_data_dt0 = await policy_import_intent_ref01_ent.load(policy_import_intent_ref01_match_dt0)
+    const policy_import_intent_ref01_data_dt0 = (await policy_import_intent_ref01_ent.load(policy_import_intent_ref01_match_dt0)).data()
     assert(policy_import_intent_ref01_data_dt0.id === policy_import_intent_ref01_data.id)
 
 

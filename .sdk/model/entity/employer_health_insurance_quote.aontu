@@ -6,7 +6,7 @@ main: kit: entity: employer_health_insurance_quote: {
 
   fields: [
     {
-      name: "coverage_level"
+      name: "coverage_levels"
       req: true
       type: "`$ARRAY`"
     }

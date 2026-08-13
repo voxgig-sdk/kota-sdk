@@ -17,7 +17,7 @@ main: kit: entity: group_policy: {
       ]
     }
     {
-      name: "disclosure"
+      name: "disclosures"
       req: true
       type: "`$ARRAY`"
     }
@@ -162,7 +162,7 @@ main: kit: entity: group_policy: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

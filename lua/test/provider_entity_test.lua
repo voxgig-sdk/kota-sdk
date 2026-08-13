@@ -97,7 +97,7 @@ describe("ProviderEntity", function()
     }
     local provider_ref01_data_dt0_loaded, err = provider_ref01_ent:load(provider_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local provider_ref01_data_dt0_load_result = helpers.to_map(provider_ref01_data_dt0_loaded)
+    local provider_ref01_data_dt0_load_result = helpers.to_map(type(provider_ref01_data_dt0_loaded) == 'table' and provider_ref01_data_dt0_loaded.data_get and provider_ref01_data_dt0_loaded:data_get() or provider_ref01_data_dt0_loaded)
     assert.is_not_nil(provider_ref01_data_dt0_load_result)
     assert.are.equal(provider_ref01_data_dt0_load_result["id"], provider_ref01_data["id"])
 

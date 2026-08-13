@@ -82,7 +82,7 @@ describe("GroupPolicyIntentEntity", function()
 
     local group_policy_intent_ref01_data_result, err = group_policy_intent_ref01_ent:create(group_policy_intent_ref01_data, nil)
     assert.is_nil(err)
-    group_policy_intent_ref01_data = helpers.to_map(group_policy_intent_ref01_data_result)
+    group_policy_intent_ref01_data = helpers.to_map(type(group_policy_intent_ref01_data_result) == 'table' and group_policy_intent_ref01_data_result.data_get and group_policy_intent_ref01_data_result:data_get() or group_policy_intent_ref01_data_result)
     assert.is_not_nil(group_policy_intent_ref01_data)
     assert.is_not_nil(group_policy_intent_ref01_data["id"])
 
@@ -104,7 +104,7 @@ describe("GroupPolicyIntentEntity", function()
     }
     local group_policy_intent_ref01_data_dt0_loaded, err = group_policy_intent_ref01_ent:load(group_policy_intent_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local group_policy_intent_ref01_data_dt0_load_result = helpers.to_map(group_policy_intent_ref01_data_dt0_loaded)
+    local group_policy_intent_ref01_data_dt0_load_result = helpers.to_map(type(group_policy_intent_ref01_data_dt0_loaded) == 'table' and group_policy_intent_ref01_data_dt0_loaded.data_get and group_policy_intent_ref01_data_dt0_loaded:data_get() or group_policy_intent_ref01_data_dt0_loaded)
     assert.is_not_nil(group_policy_intent_ref01_data_dt0_load_result)
     assert.are.equal(group_policy_intent_ref01_data_dt0_load_result["id"], group_policy_intent_ref01_data["id"])
 

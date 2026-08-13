@@ -107,7 +107,7 @@ func TestContributionReportEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		contributionReportRef01Data = core.ToMapAny(contributionReportRef01DataResult)
+		contributionReportRef01Data = core.ToMapAny(entityData(contributionReportRef01DataResult))
 		if contributionReportRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -140,7 +140,7 @@ func TestContributionReportEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		contributionReportRef01DataDt0LoadResult := core.ToMapAny(contributionReportRef01DataDt0Loaded)
+		contributionReportRef01DataDt0LoadResult := core.ToMapAny(entityData(contributionReportRef01DataDt0Loaded))
 		if contributionReportRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

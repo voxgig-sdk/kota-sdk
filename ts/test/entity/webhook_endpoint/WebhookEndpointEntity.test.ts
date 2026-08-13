@@ -63,7 +63,7 @@ describe('WebhookEndpointEntity', async () => {
     const webhook_endpoint_ref01_ent = client.WebhookEndpoint()
     const webhook_endpoint_ref01_match_dt0: any = {}
     webhook_endpoint_ref01_match_dt0.id = webhook_endpoint_ref01_data.id
-    const webhook_endpoint_ref01_data_dt0 = await webhook_endpoint_ref01_ent.load(webhook_endpoint_ref01_match_dt0)
+    const webhook_endpoint_ref01_data_dt0 = (await webhook_endpoint_ref01_ent.load(webhook_endpoint_ref01_match_dt0)).data()
     assert(webhook_endpoint_ref01_data_dt0.id === webhook_endpoint_ref01_data.id)
 
 

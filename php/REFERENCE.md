@@ -737,9 +737,9 @@ $dependent = $client->Dependent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `coverage_option` | `mixed` | No |  |
-| `dependent` | `array` | Yes |  |
-| `disclosure` | `array` | Yes |  |
+| `coverage_options` | `mixed` | No |  |
+| `dependents` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -756,8 +756,8 @@ Create a new entity with the given data. Throws on error.
 ```php
 $result = $client->Dependent()->create([
   "dependents_management_intent_id" => null, // string
-  "dependent" => null, // array
-  "disclosure" => null, // array
+  "dependents" => null, // array
+  "disclosures" => null, // array
   "id" => null, // string
   "parent_intent_id" => null, // string
   "parent_intent_type" => null, // mixed
@@ -815,9 +815,9 @@ $dependents_management_intent = $client->DependentsManagementIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `coverage_option` | `mixed` | No |  |
-| `dependent` | `array` | Yes |  |
-| `disclosure` | `array` | Yes |  |
+| `coverage_options` | `mixed` | No |  |
+| `dependents` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `parent_intent_id` | `string` | Yes |  |
@@ -833,8 +833,8 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->DependentsManagementIntent()->create([
-  "dependent" => null, // array
-  "disclosure" => null, // array
+  "dependents" => null, // array
+  "disclosures" => null, // array
   "id" => null, // string
   "parent_intent_id" => null, // string
   "parent_intent_type" => null, // mixed
@@ -895,7 +895,7 @@ $eligibility_check = $client->EligibilityCheck();
 | `object` | `string` | No |  |
 | `plan` | `mixed` | Yes |  |
 | `provider` | `mixed` | Yes |  |
-| `reason` | `array` | Yes |  |
+| `reasons` | `array` | Yes |  |
 
 ### Operations
 
@@ -909,7 +909,7 @@ $result = $client->EligibilityCheck()->create([
   "eligibility_status" => null, // mixed
   "plan" => null, // mixed
   "provider" => null, // mixed
-  "reason" => null, // array
+  "reasons" => null, // array
 ]);
 ```
 
@@ -1406,7 +1406,7 @@ $employer_health_insurance_policy = $client->EmployerHealthInsurancePolicy();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `mixed` | No |  |
-| `coverage_level` | `array` | Yes |  |
+| `coverage_levels` | `array` | Yes |  |
 | `employer_cancellation_period_length` | `int` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1469,7 +1469,7 @@ $employer_health_insurance_policy_response_paged_list = $client->EmployerHealthI
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `mixed` | No |  |
-| `coverage_level` | `array` | Yes |  |
+| `coverage_levels` | `array` | Yes |  |
 | `employer_cancellation_period_length` | `int` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `end_date` | `string` | Yes |  |
@@ -1531,7 +1531,7 @@ $employer_health_insurance_quote = $client->EmployerHealthInsuranceQuote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `array` | Yes |  |
+| `coverage_levels` | `array` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1589,7 +1589,7 @@ $employer_health_insurance_quote_response_paged_list = $client->EmployerHealthIn
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `array` | Yes |  |
+| `coverage_levels` | `array` | Yes |  |
 | `employer_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
@@ -1648,7 +1648,7 @@ $enrolment_intent = $client->EnrolmentIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `disclosure` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `force_confirmation` | `bool` | Yes |  |
 | `group_id` | `string` | Yes |  |
@@ -1657,7 +1657,7 @@ $enrolment_intent = $client->EnrolmentIntent();
 | `object` | `string` | No |  |
 | `pending_confirmation` | `null` | No |  |
 | `policy_configuration` | `null` | No |  |
-| `policy_enrolment` | `array` | Yes |  |
+| `policy_enrolments` | `array` | Yes |  |
 | `status` | `mixed` | Yes |  |
 
 ### Operations
@@ -1668,12 +1668,12 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->EnrolmentIntent()->create([
-  "disclosure" => null, // array
+  "disclosures" => null, // array
   "employee_id" => null, // string
   "force_confirmation" => null, // bool
   "group_id" => null, // string
   "id" => null, // string
-  "policy_enrolment" => null, // array
+  "policy_enrolments" => null, // array
   "status" => null, // mixed
 ]);
 ```
@@ -1806,7 +1806,10 @@ $event = $client->Event();
 | `created` | `string` | Yes |  |
 | `data` | `null` | Yes |  |
 | `id` | `string` | Yes |  |
+| `options` | `null` | No |  |
+| `parent` | `null` | No |  |
 | `platform_id` | `string` | Yes |  |
+| `root` | `mixed` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -1870,9 +1873,9 @@ $group = $client->Group();
 | `description` | `mixed` | No |  |
 | `employer_id` | `string` | Yes |  |
 | `enrolment_type` | `mixed` | Yes |  |
-| `group_policy_id` | `array` | Yes |  |
-| `group_policy_intent_id` | `array` | Yes |  |
-| `group_quote_intent_id` | `array` | Yes |  |
+| `group_policy_ids` | `array` | Yes |  |
+| `group_policy_intent_ids` | `array` | Yes |  |
+| `group_quote_intent_ids` | `array` | Yes |  |
 | `group_type` | `mixed` | Yes |  |
 | `id` | `string` | Yes |  |
 | `name` | `string` | Yes |  |
@@ -1889,9 +1892,9 @@ Create a new entity with the given data. Throws on error.
 $result = $client->Group()->create([
   "employer_id" => null, // string
   "enrolment_type" => null, // mixed
-  "group_policy_id" => null, // array
-  "group_policy_intent_id" => null, // array
-  "group_quote_intent_id" => null, // array
+  "group_policy_ids" => null, // array
+  "group_policy_intent_ids" => null, // array
+  "group_quote_intent_ids" => null, // array
   "group_type" => null, // mixed
   "id" => null, // string
   "name" => null, // string
@@ -1968,14 +1971,14 @@ $group_employee = $client->GroupEmployee();
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `mixed` | No |  |
 | `eligibility_status` | `mixed` | Yes |  |
-| `enrolment` | `array` | Yes |  |
 | `enrolment_date` | `mixed` | No |  |
 | `enrolment_status` | `mixed` | Yes |  |
+| `enrolments` | `array` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `array` | Yes |  |
-| `scheduled_group_transition` | `array` | Yes |  |
+| `policies` | `array` | Yes |  |
+| `scheduled_group_transitions` | `array` | Yes |  |
 
 ### Operations
 
@@ -1987,11 +1990,11 @@ Create a new entity with the given data. Throws on error.
 $result = $client->GroupEmployee()->create([
   "id" => null, // string
   "eligibility_status" => null, // mixed
-  "enrolment" => null, // array
   "enrolment_status" => null, // mixed
+  "enrolments" => null, // array
   "group_id" => null, // string
-  "policy" => null, // array
-  "scheduled_group_transition" => null, // array
+  "policies" => null, // array
+  "scheduled_group_transitions" => null, // array
 ]);
 ```
 
@@ -2037,14 +2040,14 @@ $group_employee_response_paged_list = $client->GroupEmployeeResponsePagedList();
 | --- | --- | --- | --- |
 | `desired_policy_start_date` | `mixed` | No |  |
 | `eligibility_status` | `mixed` | Yes |  |
-| `enrolment` | `array` | Yes |  |
 | `enrolment_date` | `mixed` | No |  |
 | `enrolment_status` | `mixed` | Yes |  |
+| `enrolments` | `array` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `policy` | `array` | Yes |  |
-| `scheduled_group_transition` | `array` | Yes |  |
+| `policies` | `array` | Yes |  |
+| `scheduled_group_transitions` | `array` | Yes |  |
 
 ### Operations
 
@@ -2097,7 +2100,7 @@ $group_policy = $client->GroupPolicy();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cancellation_date` | `mixed` | No |  |
-| `disclosure` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `employer_id` | `string` | No |  |
 | `end_date` | `mixed` | No |  |
 | `group_id` | `string` | No |  |
@@ -2170,7 +2173,7 @@ $group_policy_intent = $client->GroupPolicyIntent();
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
 | `cost_sharing` | `null` | No |  |
-| `disclosure` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `due_date` | `mixed` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2187,7 +2190,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->GroupPolicyIntent()->create([
-  "disclosure" => null, // array
+  "disclosures" => null, // array
   "group_id" => null, // string
   "id" => null, // string
   "plan_id" => null, // string
@@ -2309,15 +2312,11 @@ $group_quote = $client->GroupQuote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `mixed` | Yes |  |
-| `currency` | `string` | Yes |  |
-| `employee_count` | `int` | Yes |  |
-| `expires_at` | `string` | Yes |  |
-| `generated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pdf_expires_at` | `mixed` | No |  |
-| `pdf_url` | `mixed` | No |  |
-| `total_monthly_premium` | `float` | Yes |  |
+| `family_type` | `null` | No |  |
+| `member_count` | `null` | No |  |
+| `member_selection` | `null` | No |  |
+| `percentage` | `null` | No |  |
+| `type` | `mixed` | Yes |  |
 
 ### Operations
 
@@ -2370,9 +2369,9 @@ $group_quote_intent = $client->GroupQuoteIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No |  |
-| `consent_link` | `array` | Yes |  |
+| `consent_links` | `array` | Yes |  |
 | `cost_sharing` | `null` | No |  |
-| `disclosure` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `expected_start_date` | `mixed` | No |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2388,8 +2387,8 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->GroupQuoteIntent()->create([
-  "consent_link" => null, // array
-  "disclosure" => null, // array
+  "consent_links" => null, // array
+  "disclosures" => null, // array
   "group_id" => null, // string
   "id" => null, // string
   "plan_id" => null, // string
@@ -2513,13 +2512,13 @@ $plan = $client->Plan();
 | `available_from` | `string` | Yes |  |
 | `available_to` | `mixed` | No |  |
 | `country` | `mixed` | Yes |  |
-| `coverage_option` | `mixed` | No |  |
+| `coverage_options` | `mixed` | No |  |
 | `description` | `string` | Yes |  |
-| `disclosure` | `array` | Yes |  |
-| `document` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
+| `documents` | `array` | Yes |  |
 | `eligible_count` | `mixed` | No |  |
-| `employee_eligibility_criterion` | `array` | Yes |  |
-| `employer_eligibility_criterion` | `array` | Yes |  |
+| `employee_eligibility_criteria` | `array` | Yes |  |
+| `employer_eligibility_criteria` | `array` | Yes |  |
 | `health_insurance` | `null` | No |  |
 | `id` | `string` | Yes |  |
 | `ineligible_count` | `mixed` | No |  |
@@ -2589,7 +2588,7 @@ $policy = $client->Policy();
 | --- | --- | --- | --- |
 | `bundling_type` | `mixed` | Yes |  |
 | `cancellation_date` | `mixed` | No |  |
-| `disclosure` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `end_date` | `mixed` | No |  |
 | `group_id` | `string` | Yes |  |
@@ -2662,13 +2661,13 @@ $policy_amendment_intent = $client->PolicyAmendmentIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `amendment_reason` | `mixed` | Yes |  |
-| `disclosure` | `array` | Yes |  |
+| `disclosures` | `array` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `pending_confirmation` | `null` | No |  |
 | `policy_id` | `string` | Yes |  |
 | `processing_error` | `null` | No |  |
-| `requested_change` | `array` | Yes |  |
+| `requested_changes` | `array` | Yes |  |
 | `required_action` | `null` | No |  |
 | `status` | `mixed` | Yes |  |
 
@@ -2682,9 +2681,9 @@ Create a new entity with the given data. Throws on error.
 $result = $client->PolicyAmendmentIntent()->create([
   "id" => null, // string
   "amendment_reason" => null, // mixed
-  "disclosure" => null, // array
+  "disclosures" => null, // array
   "policy_id" => null, // string
-  "requested_change" => null, // array
+  "requested_changes" => null, // array
   "status" => null, // mixed
 ]);
 ```
@@ -2745,7 +2744,7 @@ $policy_import_intent = $client->PolicyImportIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person` | `array` | Yes |  |
+| `associated_persons` | `array` | Yes |  |
 | `employee_id` | `string` | Yes |  |
 | `group_id` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
@@ -2764,7 +2763,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->PolicyImportIntent()->create([
-  "associated_person" => null, // array
+  "associated_persons" => null, // array
   "employee_id" => null, // string
   "group_id" => null, // string
   "id" => null, // string
@@ -2839,7 +2838,7 @@ $provider = $client->Provider();
 | `name` | `string` | Yes |  |
 | `object` | `string` | No |  |
 | `support_phone` | `string` | Yes |  |
-| `supported_country` | `array` | Yes |  |
+| `supported_countries` | `array` | Yes |  |
 | `website_url` | `string` | Yes |  |
 
 ### Operations
@@ -2900,7 +2899,7 @@ $replay = $client->Replay();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `delivery` | `array` | Yes |  |
+| `deliveries` | `array` | Yes |  |
 | `event_id` | `string` | Yes |  |
 
 ### Operations
@@ -2912,7 +2911,7 @@ Create a new entity with the given data. Throws on error.
 ```php
 $result = $client->Replay()->create([
   "event_id" => null, // string
-  "delivery" => null, // array
+  "deliveries" => null, // array
 ]);
 ```
 
@@ -2960,7 +2959,7 @@ $webhook_endpoint = $client->WebhookEndpoint();
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `array` | Yes |  |
+| `subscribed_events` | `array` | Yes |  |
 
 ### Operations
 
@@ -3016,7 +3015,7 @@ $webhook_endpoint_response_paged_list = $client->WebhookEndpointResponsePagedLis
 | `endpoint_url` | `string` | Yes |  |
 | `id` | `string` | Yes |  |
 | `object` | `string` | No |  |
-| `subscribed_event` | `array` | Yes |  |
+| `subscribed_events` | `array` | Yes |  |
 
 ### Operations
 

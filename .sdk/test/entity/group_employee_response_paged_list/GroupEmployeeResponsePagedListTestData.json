@@ -4,38 +4,38 @@
       "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST00": {
         "desired_policy_start_date": "s64",
         "eligibility_status": "s65",
-        "enrolment": [],
-        "enrolment_date": "s67",
-        "enrolment_status": "s68",
+        "enrolment_date": "s66",
+        "enrolment_status": "s67",
+        "enrolments": [],
         "group_id": "GROUP01",
         "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST00",
         "object": "s6b",
-        "policy": [],
-        "scheduled_group_transition": []
+        "policies": [],
+        "scheduled_group_transitions": []
       },
       "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST01": {
         "desired_policy_start_date": "sc8",
         "eligibility_status": "sc9",
-        "enrolment": [],
-        "enrolment_date": "scb",
-        "enrolment_status": "scc",
+        "enrolment_date": "sca",
+        "enrolment_status": "scb",
+        "enrolments": [],
         "group_id": "GROUP01",
         "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST01",
         "object": "scf",
-        "policy": [],
-        "scheduled_group_transition": []
+        "policies": [],
+        "scheduled_group_transitions": []
       },
       "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST02": {
         "desired_policy_start_date": "s12c",
         "eligibility_status": "s12d",
-        "enrolment": [],
-        "enrolment_date": "s12f",
-        "enrolment_status": "s130",
+        "enrolment_date": "s12e",
+        "enrolment_status": "s12f",
+        "enrolments": [],
         "group_id": "GROUP01",
         "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST02",
         "object": "s133",
-        "policy": [],
-        "scheduled_group_transition": []
+        "policies": [],
+        "scheduled_group_transitions": []
       }
     }
   },
@@ -44,13 +44,13 @@
       "group_employee_response_paged_list_ref01": {
         "desired_policy_start_date": "s190",
         "eligibility_status": "s191",
-        "enrolment": [],
-        "enrolment_date": "s193",
-        "enrolment_status": "s194",
+        "enrolment_date": "s192",
+        "enrolment_status": "s193",
+        "enrolments": [],
         "group_id": "GROUP01",
         "object": "s197",
-        "policy": [],
-        "scheduled_group_transition": []
+        "policies": [],
+        "scheduled_group_transitions": []
       }
     }
   }

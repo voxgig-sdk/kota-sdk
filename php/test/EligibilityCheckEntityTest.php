@@ -45,7 +45,7 @@ class EligibilityCheckEntityTest extends TestCase
         $eligibility_check_ref01_data["group_id"] = $setup["idmap"]["group01"];
 
         $eligibility_check_ref01_data_result = $eligibility_check_ref01_ent->create($eligibility_check_ref01_data, null);
-        $eligibility_check_ref01_data = Helpers::to_map($eligibility_check_ref01_data_result);
+        $eligibility_check_ref01_data = Helpers::to_map(is_object($eligibility_check_ref01_data_result) && method_exists($eligibility_check_ref01_data_result, 'data_get') ? $eligibility_check_ref01_data_result->data_get() : $eligibility_check_ref01_data_result);
         $this->assertNotNull($eligibility_check_ref01_data);
 
     }

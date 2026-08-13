@@ -45,7 +45,7 @@ class DependentsManagementIntentEntityTest extends TestCase
         $dependents_management_intent_ref01_data["dependents_management_intent_id"] = $setup["idmap"]["dependents_management_intent01"];
 
         $dependents_management_intent_ref01_data_result = $dependents_management_intent_ref01_ent->create($dependents_management_intent_ref01_data, null);
-        $dependents_management_intent_ref01_data = Helpers::to_map($dependents_management_intent_ref01_data_result);
+        $dependents_management_intent_ref01_data = Helpers::to_map(is_object($dependents_management_intent_ref01_data_result) && method_exists($dependents_management_intent_ref01_data_result, 'data_get') ? $dependents_management_intent_ref01_data_result->data_get() : $dependents_management_intent_ref01_data_result);
         $this->assertNotNull($dependents_management_intent_ref01_data);
         $this->assertNotNull($dependents_management_intent_ref01_data["id"]);
 
@@ -54,7 +54,7 @@ class DependentsManagementIntentEntityTest extends TestCase
             "id" => $dependents_management_intent_ref01_data["id"],
         ];
         $dependents_management_intent_ref01_data_dt0_loaded = $dependents_management_intent_ref01_ent->load($dependents_management_intent_ref01_match_dt0, null);
-        $dependents_management_intent_ref01_data_dt0_load_result = Helpers::to_map($dependents_management_intent_ref01_data_dt0_loaded);
+        $dependents_management_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($dependents_management_intent_ref01_data_dt0_loaded) && method_exists($dependents_management_intent_ref01_data_dt0_loaded, 'data_get') ? $dependents_management_intent_ref01_data_dt0_loaded->data_get() : $dependents_management_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($dependents_management_intent_ref01_data_dt0_load_result);
         $this->assertEquals($dependents_management_intent_ref01_data_dt0_load_result["id"], $dependents_management_intent_ref01_data["id"]);
 

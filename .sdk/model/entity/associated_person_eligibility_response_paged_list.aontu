@@ -118,7 +118,7 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

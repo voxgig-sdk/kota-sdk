@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Kota SDK exists test
 
 import pytest
 from kota_sdk import KotaSDK

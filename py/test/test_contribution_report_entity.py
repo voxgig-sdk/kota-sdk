@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestContributionReportEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from kota_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = KotaSDK.test(
@@ -79,7 +79,7 @@ class TestContributionReportEntity:
             vs.getpath(setup["data"], "new.contribution_report"), "contribution_report_ref01"))
         contribution_report_ref01_data["contribution_report_id"] = setup["idmap"]["contribution_report01"]
 
-        contribution_report_ref01_data = helpers.to_map(contribution_report_ref01_ent.create(contribution_report_ref01_data, None))
+        contribution_report_ref01_data = helpers.to_map(runner.entity_data(contribution_report_ref01_ent.create(contribution_report_ref01_data, None)))
         assert contribution_report_ref01_data is not None
         assert contribution_report_ref01_data["id"] is not None
 
@@ -99,7 +99,7 @@ class TestContributionReportEntity:
             "id": contribution_report_ref01_data["id"],
         }
         contribution_report_ref01_data_dt0_loaded = contribution_report_ref01_ent.load(contribution_report_ref01_match_dt0, None)
-        contribution_report_ref01_data_dt0_load_result = helpers.to_map(contribution_report_ref01_data_dt0_loaded)
+        contribution_report_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(contribution_report_ref01_data_dt0_loaded))
         assert contribution_report_ref01_data_dt0_load_result is not None
         assert contribution_report_ref01_data_dt0_load_result["id"] == contribution_report_ref01_data["id"]
 

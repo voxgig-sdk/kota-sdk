@@ -83,7 +83,7 @@ class EmployerEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.employer"), "employer_ref01"));
 
         $employer_ref01_data_result = $employer_ref01_ent->create($employer_ref01_data, null);
-        $employer_ref01_data = Helpers::to_map($employer_ref01_data_result);
+        $employer_ref01_data = Helpers::to_map(is_object($employer_ref01_data_result) && method_exists($employer_ref01_data_result, 'data_get') ? $employer_ref01_data_result->data_get() : $employer_ref01_data_result);
         $this->assertNotNull($employer_ref01_data);
         $this->assertNotNull($employer_ref01_data["id"]);
 
@@ -108,7 +108,7 @@ class EmployerEntityTest extends TestCase
         $employer_ref01_data_up0_up[$employer_ref01_markdef_up0_name] = $employer_ref01_markdef_up0_value;
 
         $employer_ref01_resdata_up0_result = $employer_ref01_ent->update($employer_ref01_data_up0_up, null);
-        $employer_ref01_resdata_up0 = Helpers::to_map($employer_ref01_resdata_up0_result);
+        $employer_ref01_resdata_up0 = Helpers::to_map(is_object($employer_ref01_resdata_up0_result) && method_exists($employer_ref01_resdata_up0_result, 'data_get') ? $employer_ref01_resdata_up0_result->data_get() : $employer_ref01_resdata_up0_result);
         $this->assertNotNull($employer_ref01_resdata_up0);
         $this->assertEquals($employer_ref01_resdata_up0["id"], $employer_ref01_data_up0_up["id"]);
         $this->assertEquals($employer_ref01_resdata_up0[$employer_ref01_markdef_up0_name], $employer_ref01_markdef_up0_value);
@@ -118,7 +118,7 @@ class EmployerEntityTest extends TestCase
             "id" => $employer_ref01_data["id"],
         ];
         $employer_ref01_data_dt0_loaded = $employer_ref01_ent->load($employer_ref01_match_dt0, null);
-        $employer_ref01_data_dt0_load_result = Helpers::to_map($employer_ref01_data_dt0_loaded);
+        $employer_ref01_data_dt0_load_result = Helpers::to_map(is_object($employer_ref01_data_dt0_loaded) && method_exists($employer_ref01_data_dt0_loaded, 'data_get') ? $employer_ref01_data_dt0_loaded->data_get() : $employer_ref01_data_dt0_loaded);
         $this->assertNotNull($employer_ref01_data_dt0_load_result);
         $this->assertEquals($employer_ref01_data_dt0_load_result["id"], $employer_ref01_data["id"]);
 

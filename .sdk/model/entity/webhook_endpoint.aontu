@@ -26,7 +26,7 @@ main: kit: entity: webhook_endpoint: {
       type: "`$STRING`"
     }
     {
-      name: "subscribed_event"
+      name: "subscribed_events"
       req: true
       type: "`$ARRAY`"
     }

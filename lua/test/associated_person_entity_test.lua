@@ -83,7 +83,7 @@ describe("AssociatedPersonEntity", function()
 
     local associated_person_ref01_data_result, err = associated_person_ref01_ent:create(associated_person_ref01_data, nil)
     assert.is_nil(err)
-    associated_person_ref01_data = helpers.to_map(associated_person_ref01_data_result)
+    associated_person_ref01_data = helpers.to_map(type(associated_person_ref01_data_result) == 'table' and associated_person_ref01_data_result.data_get and associated_person_ref01_data_result:data_get() or associated_person_ref01_data_result)
     assert.is_not_nil(associated_person_ref01_data)
     assert.is_not_nil(associated_person_ref01_data["id"])
 
@@ -113,7 +113,7 @@ describe("AssociatedPersonEntity", function()
 
     local associated_person_ref01_resdata_up0_result, err = associated_person_ref01_ent:update(associated_person_ref01_data_up0_up, nil)
     assert.is_nil(err)
-    local associated_person_ref01_resdata_up0 = helpers.to_map(associated_person_ref01_resdata_up0_result)
+    local associated_person_ref01_resdata_up0 = helpers.to_map(type(associated_person_ref01_resdata_up0_result) == 'table' and associated_person_ref01_resdata_up0_result.data_get and associated_person_ref01_resdata_up0_result:data_get() or associated_person_ref01_resdata_up0_result)
     assert.is_not_nil(associated_person_ref01_resdata_up0)
     assert.are.equal(associated_person_ref01_resdata_up0["id"], associated_person_ref01_data_up0_up["id"])
     assert.are.equal(associated_person_ref01_resdata_up0[associated_person_ref01_markdef_up0_name], associated_person_ref01_markdef_up0_value)
@@ -124,7 +124,7 @@ describe("AssociatedPersonEntity", function()
     }
     local associated_person_ref01_data_dt0_loaded, err = associated_person_ref01_ent:load(associated_person_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local associated_person_ref01_data_dt0_load_result = helpers.to_map(associated_person_ref01_data_dt0_loaded)
+    local associated_person_ref01_data_dt0_load_result = helpers.to_map(type(associated_person_ref01_data_dt0_loaded) == 'table' and associated_person_ref01_data_dt0_loaded.data_get and associated_person_ref01_data_dt0_loaded:data_get() or associated_person_ref01_data_dt0_loaded)
     assert.is_not_nil(associated_person_ref01_data_dt0_load_result)
     assert.are.equal(associated_person_ref01_data_dt0_load_result["id"], associated_person_ref01_data["id"])
 

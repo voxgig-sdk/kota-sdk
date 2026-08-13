@@ -26,9 +26,24 @@ main: kit: entity: event: {
       type: "`$STRING`"
     }
     {
+      name: "options"
+      req: false
+      type: "`$NULL`"
+    }
+    {
+      name: "parent"
+      req: false
+      type: "`$NULL`"
+    }
+    {
       name: "platform_id"
       req: true
       type: "`$STRING`"
+    }
+    {
+      name: "root"
+      req: false
+      type: "`$ANY`"
     }
     {
       name: "type"
@@ -113,7 +128,7 @@ main: kit: entity: event: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]
@@ -162,7 +177,7 @@ main: kit: entity: event: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
       ]

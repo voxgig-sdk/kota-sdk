@@ -17,7 +17,7 @@ main: kit: entity: employer_health_insurance_policy: {
       ]
     }
     {
-      name: "coverage_level"
+      name: "coverage_levels"
       req: true
       type: "`$ARRAY`"
     }

@@ -45,7 +45,7 @@ describe('EligibilityCheckEntity', async () => {
     let eligibility_check_ref01_data = setup.data.new.eligibility_check['eligibility_check_ref01']
     eligibility_check_ref01_data['group_id'] = setup.idmap['group01']
 
-    eligibility_check_ref01_data = await eligibility_check_ref01_ent.create(eligibility_check_ref01_data)
+    eligibility_check_ref01_data = (await eligibility_check_ref01_ent.create(eligibility_check_ref01_data)).data()
     assert(null != eligibility_check_ref01_data)
 
 

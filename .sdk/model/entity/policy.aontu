@@ -22,7 +22,7 @@ main: kit: entity: policy: {
       ]
     }
     {
-      name: "disclosure"
+      name: "disclosures"
       req: true
       type: "`$ARRAY`"
     }
@@ -181,7 +181,7 @@ main: kit: entity: policy: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

@@ -42,7 +42,7 @@ describe("GroupEmployeeEntity", function()
 
     local group_employee_ref01_data_result, err = group_employee_ref01_ent:create(group_employee_ref01_data, nil)
     assert.is_nil(err)
-    group_employee_ref01_data = helpers.to_map(group_employee_ref01_data_result)
+    group_employee_ref01_data = helpers.to_map(type(group_employee_ref01_data_result) == 'table' and group_employee_ref01_data_result.data_get and group_employee_ref01_data_result:data_get() or group_employee_ref01_data_result)
     assert.is_not_nil(group_employee_ref01_data)
     assert.is_not_nil(group_employee_ref01_data["id"])
 

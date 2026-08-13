@@ -59,7 +59,7 @@ func TestReplayEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		replayRef01Data = core.ToMapAny(replayRef01DataResult)
+		replayRef01Data = core.ToMapAny(entityData(replayRef01DataResult))
 		if replayRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}

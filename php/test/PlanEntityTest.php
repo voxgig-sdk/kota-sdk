@@ -97,7 +97,7 @@ class PlanEntityTest extends TestCase
             "id" => $plan_ref01_data["id"],
         ];
         $plan_ref01_data_dt0_loaded = $plan_ref01_ent->load($plan_ref01_match_dt0, null);
-        $plan_ref01_data_dt0_load_result = Helpers::to_map($plan_ref01_data_dt0_loaded);
+        $plan_ref01_data_dt0_load_result = Helpers::to_map(is_object($plan_ref01_data_dt0_loaded) && method_exists($plan_ref01_data_dt0_loaded, 'data_get') ? $plan_ref01_data_dt0_loaded->data_get() : $plan_ref01_data_dt0_loaded);
         $this->assertNotNull($plan_ref01_data_dt0_load_result);
         $this->assertEquals($plan_ref01_data_dt0_load_result["id"], $plan_ref01_data["id"]);
 

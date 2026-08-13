@@ -11,7 +11,7 @@ main: kit: entity: group_quote_intent: {
       type: "`$NULL`"
     }
     {
-      name: "consent_link"
+      name: "consent_links"
       req: true
       type: "`$ARRAY`"
     }
@@ -21,7 +21,7 @@ main: kit: entity: group_quote_intent: {
       type: "`$NULL`"
     }
     {
-      name: "disclosure"
+      name: "disclosures"
       req: true
       type: "`$ARRAY`"
     }
@@ -219,7 +219,7 @@ main: kit: entity: group_quote_intent: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

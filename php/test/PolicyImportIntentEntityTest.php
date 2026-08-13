@@ -83,7 +83,7 @@ class PolicyImportIntentEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.policy_import_intent"), "policy_import_intent_ref01"));
 
         $policy_import_intent_ref01_data_result = $policy_import_intent_ref01_ent->create($policy_import_intent_ref01_data, null);
-        $policy_import_intent_ref01_data = Helpers::to_map($policy_import_intent_ref01_data_result);
+        $policy_import_intent_ref01_data = Helpers::to_map(is_object($policy_import_intent_ref01_data_result) && method_exists($policy_import_intent_ref01_data_result, 'data_get') ? $policy_import_intent_ref01_data_result->data_get() : $policy_import_intent_ref01_data_result);
         $this->assertNotNull($policy_import_intent_ref01_data);
         $this->assertNotNull($policy_import_intent_ref01_data["id"]);
 
@@ -103,7 +103,7 @@ class PolicyImportIntentEntityTest extends TestCase
             "id" => $policy_import_intent_ref01_data["id"],
         ];
         $policy_import_intent_ref01_data_dt0_loaded = $policy_import_intent_ref01_ent->load($policy_import_intent_ref01_match_dt0, null);
-        $policy_import_intent_ref01_data_dt0_load_result = Helpers::to_map($policy_import_intent_ref01_data_dt0_loaded);
+        $policy_import_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($policy_import_intent_ref01_data_dt0_loaded) && method_exists($policy_import_intent_ref01_data_dt0_loaded, 'data_get') ? $policy_import_intent_ref01_data_dt0_loaded->data_get() : $policy_import_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($policy_import_intent_ref01_data_dt0_load_result);
         $this->assertEquals($policy_import_intent_ref01_data_dt0_load_result["id"], $policy_import_intent_ref01_data["id"]);
 

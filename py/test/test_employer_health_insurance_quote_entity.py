@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -52,7 +52,7 @@ class TestEmployerHealthInsuranceQuoteEntity:
             "id": employer_health_insurance_quote_ref01_data["id"],
         }
         employer_health_insurance_quote_ref01_data_dt0_loaded = employer_health_insurance_quote_ref01_ent.load(employer_health_insurance_quote_ref01_match_dt0, None)
-        employer_health_insurance_quote_ref01_data_dt0_load_result = helpers.to_map(employer_health_insurance_quote_ref01_data_dt0_loaded)
+        employer_health_insurance_quote_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(employer_health_insurance_quote_ref01_data_dt0_loaded))
         assert employer_health_insurance_quote_ref01_data_dt0_load_result is not None
         assert employer_health_insurance_quote_ref01_data_dt0_load_result["id"] == employer_health_insurance_quote_ref01_data["id"]
 

@@ -45,13 +45,13 @@ describe('GroupPolicyEntity', async () => {
     const group_policy_ref01_ent = client.GroupPolicy()
     const group_policy_ref01_match = {}
 
-    const group_policy_ref01_list = await group_policy_ref01_ent.list(group_policy_ref01_match)
+    const group_policy_ref01_list = (await group_policy_ref01_ent.list(group_policy_ref01_match)).map((e) => e.data())
 
 
     // LOAD
     const group_policy_ref01_match_dt0 = {}
     group_policy_ref01_match_dt0.id = group_policy_ref01_data.id
-    const group_policy_ref01_data_dt0 = await group_policy_ref01_ent.load(group_policy_ref01_match_dt0)
+    const group_policy_ref01_data_dt0 = (await group_policy_ref01_ent.load(group_policy_ref01_match_dt0)).data()
     assert(group_policy_ref01_data_dt0.id === group_policy_ref01_data.id)
 
 

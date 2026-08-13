@@ -107,7 +107,7 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		policyAmendmentIntentRef01Data = core.ToMapAny(policyAmendmentIntentRef01DataResult)
+		policyAmendmentIntentRef01Data = core.ToMapAny(entityData(policyAmendmentIntentRef01DataResult))
 		if policyAmendmentIntentRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -142,7 +142,7 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		policyAmendmentIntentRef01DataDt0LoadResult := core.ToMapAny(policyAmendmentIntentRef01DataDt0Loaded)
+		policyAmendmentIntentRef01DataDt0LoadResult := core.ToMapAny(entityData(policyAmendmentIntentRef01DataDt0Loaded))
 		if policyAmendmentIntentRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

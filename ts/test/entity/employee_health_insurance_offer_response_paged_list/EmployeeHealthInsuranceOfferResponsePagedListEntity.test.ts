@@ -64,7 +64,7 @@ describe('EmployeeHealthInsuranceOfferResponsePagedListEntity', async () => {
     const employee_health_insurance_offer_response_paged_list_ref01_match: any = {}
     employee_health_insurance_offer_response_paged_list_ref01_match['employee_id'] = setup.idmap['employee01']
 
-    const employee_health_insurance_offer_response_paged_list_ref01_list = await employee_health_insurance_offer_response_paged_list_ref01_ent.list(employee_health_insurance_offer_response_paged_list_ref01_match)
+    const employee_health_insurance_offer_response_paged_list_ref01_list = (await employee_health_insurance_offer_response_paged_list_ref01_ent.list(employee_health_insurance_offer_response_paged_list_ref01_match)).map((e: any) => e.data())
 
 
   })

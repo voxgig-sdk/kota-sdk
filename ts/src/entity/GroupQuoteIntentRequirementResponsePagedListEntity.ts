@@ -37,7 +37,7 @@ class GroupQuoteIntentRequirementResponsePagedListEntity extends KotaEntityBase<
 
 
 
-  async list(this: any, reqmatch?: GroupQuoteIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<GroupQuoteIntentRequirementResponsePagedList[]> {
+  async list(this: any, reqmatch?: GroupQuoteIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<GroupQuoteIntentRequirementResponsePagedListEntity[]> {
 
     const utility = this._utility
 

@@ -145,7 +145,7 @@ main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

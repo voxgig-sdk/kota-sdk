@@ -59,7 +59,7 @@ func TestGroupEmployeeEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		groupEmployeeRef01Data = core.ToMapAny(groupEmployeeRef01DataResult)
+		groupEmployeeRef01Data = core.ToMapAny(entityData(groupEmployeeRef01DataResult))
 		if groupEmployeeRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}

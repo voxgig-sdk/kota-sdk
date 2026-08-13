@@ -64,7 +64,7 @@ describe('EnrolmentIntentRequirementResponsePagedListEntity', async () => {
     const enrolment_intent_requirement_response_paged_list_ref01_match: any = {}
     enrolment_intent_requirement_response_paged_list_ref01_match['enrolment_intent_id'] = setup.idmap['enrolment_intent01']
 
-    const enrolment_intent_requirement_response_paged_list_ref01_list = await enrolment_intent_requirement_response_paged_list_ref01_ent.list(enrolment_intent_requirement_response_paged_list_ref01_match)
+    const enrolment_intent_requirement_response_paged_list_ref01_list = (await enrolment_intent_requirement_response_paged_list_ref01_ent.list(enrolment_intent_requirement_response_paged_list_ref01_match)).map((e: any) => e.data())
 
 
   })

@@ -16,11 +16,11 @@
 import pytest
 
 from kota_sdk import KotaSDK
-from core.error import KotaError
-from core.result import KotaResult
-from core.response import KotaResponse
-from core.spec import KotaSpec
-from feature.base_feature import KotaBaseFeature
+from kota_sdk.core.error import KotaError
+from kota_sdk.core.result import KotaResult
+from kota_sdk.core.response import KotaResponse
+from kota_sdk.core.spec import KotaSpec
+from kota_sdk.feature.base_feature import KotaBaseFeature
 
 
 def _client():

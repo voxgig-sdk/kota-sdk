@@ -83,7 +83,7 @@ class GroupPolicyIntentEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.group_policy_intent"), "group_policy_intent_ref01"));
 
         $group_policy_intent_ref01_data_result = $group_policy_intent_ref01_ent->create($group_policy_intent_ref01_data, null);
-        $group_policy_intent_ref01_data = Helpers::to_map($group_policy_intent_ref01_data_result);
+        $group_policy_intent_ref01_data = Helpers::to_map(is_object($group_policy_intent_ref01_data_result) && method_exists($group_policy_intent_ref01_data_result, 'data_get') ? $group_policy_intent_ref01_data_result->data_get() : $group_policy_intent_ref01_data_result);
         $this->assertNotNull($group_policy_intent_ref01_data);
         $this->assertNotNull($group_policy_intent_ref01_data["id"]);
 
@@ -103,7 +103,7 @@ class GroupPolicyIntentEntityTest extends TestCase
             "id" => $group_policy_intent_ref01_data["id"],
         ];
         $group_policy_intent_ref01_data_dt0_loaded = $group_policy_intent_ref01_ent->load($group_policy_intent_ref01_match_dt0, null);
-        $group_policy_intent_ref01_data_dt0_load_result = Helpers::to_map($group_policy_intent_ref01_data_dt0_loaded);
+        $group_policy_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($group_policy_intent_ref01_data_dt0_loaded) && method_exists($group_policy_intent_ref01_data_dt0_loaded, 'data_get') ? $group_policy_intent_ref01_data_dt0_loaded->data_get() : $group_policy_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($group_policy_intent_ref01_data_dt0_load_result);
         $this->assertEquals($group_policy_intent_ref01_data_dt0_load_result["id"], $group_policy_intent_ref01_data["id"]);
 

@@ -5,6 +5,10 @@
       "desc": ""
     },
     "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
       "config": {
         "docs_order": [
           "ts",
@@ -18,6 +22,7 @@
           "content-type": "application/json"
         }
       },
+      "contributor": {},
       "entity": {
         "associated_person": {
           "active": true,
@@ -139,6 +144,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/employees/{employee_id}/associated_persons",
                   "parts": [
@@ -206,6 +212,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/associated_persons",
                   "parts": [
@@ -223,7 +230,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -266,6 +273,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
                   "parts": [
@@ -331,6 +339,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
                   "parts": [
@@ -396,6 +405,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
                   "parts": [
@@ -548,6 +558,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility",
                   "parts": [
@@ -565,7 +576,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -687,6 +698,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/contribution_reports/{contribution_report_id}/finalize",
                   "parts": [
@@ -790,6 +802,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports",
                   "parts": [
@@ -809,7 +822,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -843,6 +856,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports/{contribution_report_id}",
                   "parts": [
@@ -1003,6 +1017,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}",
                   "parts": [
@@ -1179,6 +1194,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports/{contribution_report_id}/employee_breakdowns",
                   "parts": [
@@ -1202,7 +1218,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -1240,6 +1256,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/hosted/sessions",
                   "parts": [
@@ -1287,6 +1304,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/embed/sessions",
                   "parts": [
@@ -1320,7 +1338,7 @@
             },
             {
               "active": true,
-              "name": "coverage_option",
+              "name": "coverage_options",
               "req": false,
               "type": [
                 "`$ONE`",
@@ -1332,13 +1350,13 @@
             },
             {
               "active": true,
-              "name": "dependent",
+              "name": "dependents",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -1422,6 +1440,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/dependents",
                   "parts": [
@@ -1481,6 +1500,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}",
                   "parts": [
@@ -1531,7 +1551,7 @@
             },
             {
               "active": true,
-              "name": "coverage_option",
+              "name": "coverage_options",
               "req": false,
               "type": [
                 "`$ONE`",
@@ -1543,13 +1563,13 @@
             },
             {
               "active": true,
-              "name": "dependent",
+              "name": "dependents",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -1634,6 +1654,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent",
                   "parts": [
@@ -1685,6 +1706,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent",
                   "parts": [
@@ -1728,6 +1750,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/cancel",
                   "parts": [
@@ -1777,6 +1800,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/confirm",
                   "parts": [
@@ -1832,6 +1856,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}",
                   "parts": [
@@ -1901,7 +1926,7 @@
             },
             {
               "active": true,
-              "name": "reason",
+              "name": "reasons",
               "req": true,
               "type": "`$ARRAY`"
             }
@@ -1937,6 +1962,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/groups/{group_id}/eligibility_check",
                   "parts": [
@@ -2160,6 +2186,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/employees/{employee_id}/offboard",
                   "parts": [
@@ -2218,6 +2245,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/employees/{employee_id}/offboard/cancel",
                   "parts": [
@@ -2266,6 +2294,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/employees",
                   "parts": [
@@ -2353,6 +2382,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees",
                   "parts": [
@@ -2371,7 +2401,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -2405,6 +2435,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}",
                   "parts": [
@@ -2458,6 +2489,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/employees/{employee_id}",
                   "parts": [
@@ -2592,6 +2624,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}",
                   "parts": [
@@ -2743,6 +2776,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/offers",
                   "parts": [
@@ -2761,7 +2795,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -2940,6 +2974,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/policies/{employee_policy_id}",
                   "parts": [
@@ -3159,6 +3194,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/policies",
                   "parts": [
@@ -3178,7 +3214,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -3332,6 +3368,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/employers/{employer_id}/offboard",
                   "parts": [
@@ -3379,6 +3416,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/employers",
                   "parts": [
@@ -3441,6 +3479,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employers",
                   "parts": [
@@ -3456,7 +3495,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -3490,6 +3529,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}",
                   "parts": [
@@ -3543,6 +3583,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/employers/{employer_id}",
                   "parts": [
@@ -3592,7 +3633,7 @@
             },
             {
               "active": true,
-              "name": "coverage_level",
+              "name": "coverage_levels",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -3707,6 +3748,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}",
                   "parts": [
@@ -3764,7 +3806,7 @@
             },
             {
               "active": true,
-              "name": "coverage_level",
+              "name": "coverage_levels",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -3896,6 +3938,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/policies",
                   "parts": [
@@ -3915,7 +3958,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -3937,7 +3980,7 @@
           "fields": [
             {
               "active": true,
-              "name": "coverage_level",
+              "name": "coverage_levels",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -4022,6 +4065,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}",
                   "parts": [
@@ -4067,7 +4111,7 @@
           "fields": [
             {
               "active": true,
-              "name": "coverage_level",
+              "name": "coverage_levels",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -4169,6 +4213,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/quotes",
                   "parts": [
@@ -4188,7 +4233,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -4216,7 +4261,7 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -4270,7 +4315,7 @@
             },
             {
               "active": true,
-              "name": "policy_enrolment",
+              "name": "policy_enrolments",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -4316,6 +4361,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/confirm",
                   "parts": [
@@ -4365,6 +4411,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/coverage-selections",
                   "parts": [
@@ -4414,6 +4461,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/reject",
                   "parts": [
@@ -4460,6 +4508,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents",
                   "parts": [
@@ -4540,6 +4589,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/enrolment_intents",
                   "parts": [
@@ -4557,7 +4607,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -4591,6 +4641,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/enrolment_intents/{enrolment_intent_id}",
                   "parts": [
@@ -4644,6 +4695,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/enrolment_intents/{enrolment_intent_id}",
                   "parts": [
@@ -4785,6 +4837,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/requirements",
                   "parts": [
@@ -4810,7 +4863,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -4852,9 +4905,27 @@
             },
             {
               "active": true,
+              "name": "options",
+              "req": false,
+              "type": "`$NULL`"
+            },
+            {
+              "active": true,
+              "name": "parent",
+              "req": false,
+              "type": "`$NULL`"
+            },
+            {
+              "active": true,
               "name": "platform_id",
               "req": true,
               "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "root",
+              "req": false,
+              "type": "`$ANY`"
             },
             {
               "active": true,
@@ -4929,6 +5000,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/events",
                   "parts": [
@@ -4946,7 +5018,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -4980,6 +5052,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/events/{event_id}",
                   "parts": [
@@ -4999,7 +5072,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.data`"
                   }
                 }
               ]
@@ -5041,19 +5114,19 @@
             },
             {
               "active": true,
-              "name": "group_policy_id",
+              "name": "group_policy_ids",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "group_policy_intent_id",
+              "name": "group_policy_intent_ids",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "group_quote_intent_id",
+              "name": "group_quote_intent_ids",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -5112,6 +5185,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/groups",
                   "parts": [
@@ -5182,6 +5256,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/groups",
                   "parts": [
@@ -5198,7 +5273,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -5232,6 +5307,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/groups/{group_id}",
                   "parts": [
@@ -5285,6 +5361,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/groups/{group_id}",
                   "parts": [
@@ -5340,12 +5417,6 @@
             },
             {
               "active": true,
-              "name": "enrolment",
-              "req": true,
-              "type": "`$ARRAY`"
-            },
-            {
-              "active": true,
               "name": "enrolment_date",
               "req": false,
               "type": [
@@ -5361,6 +5432,12 @@
               "name": "enrolment_status",
               "req": true,
               "type": "`$ANY`"
+            },
+            {
+              "active": true,
+              "name": "enrolments",
+              "req": true,
+              "type": "`$ARRAY`"
             },
             {
               "active": true,
@@ -5382,13 +5459,13 @@
             },
             {
               "active": true,
-              "name": "policy",
+              "name": "policies",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "scheduled_group_transition",
+              "name": "scheduled_group_transitions",
               "req": true,
               "type": "`$ARRAY`"
             }
@@ -5436,6 +5513,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/groups/{group_id}/employees",
                   "parts": [
@@ -5493,12 +5571,6 @@
             },
             {
               "active": true,
-              "name": "enrolment",
-              "req": true,
-              "type": "`$ARRAY`"
-            },
-            {
-              "active": true,
               "name": "enrolment_date",
               "req": false,
               "type": [
@@ -5514,6 +5586,12 @@
               "name": "enrolment_status",
               "req": true,
               "type": "`$ANY`"
+            },
+            {
+              "active": true,
+              "name": "enrolments",
+              "req": true,
+              "type": "`$ARRAY`"
             },
             {
               "active": true,
@@ -5535,13 +5613,13 @@
             },
             {
               "active": true,
-              "name": "policy",
+              "name": "policies",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "scheduled_group_transition",
+              "name": "scheduled_group_transitions",
               "req": true,
               "type": "`$ARRAY`"
             }
@@ -5608,6 +5686,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/groups/{group_id}/employees",
                   "parts": [
@@ -5632,7 +5711,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -5662,7 +5741,7 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -5807,6 +5886,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_policies",
                   "parts": [
@@ -5824,7 +5904,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -5858,6 +5938,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_policies/{group_policy_id}",
                   "parts": [
@@ -5907,7 +5988,7 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -5984,6 +6065,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/group_policy_intents",
                   "parts": [
@@ -6063,6 +6145,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_policy_intents",
                   "parts": [
@@ -6080,7 +6163,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -6114,6 +6197,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_policy_intents/{group_policy_intent_id}",
                   "parts": [
@@ -6255,6 +6339,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_policy_intents/{group_policy_intent_id}/requirements",
                   "parts": [
@@ -6280,7 +6365,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -6298,69 +6383,33 @@
           "fields": [
             {
               "active": true,
-              "name": "cost_sharing",
+              "name": "family_type",
+              "req": false,
+              "type": "`$NULL`"
+            },
+            {
+              "active": true,
+              "name": "member_count",
+              "req": false,
+              "type": "`$NULL`"
+            },
+            {
+              "active": true,
+              "name": "member_selection",
+              "req": false,
+              "type": "`$NULL`"
+            },
+            {
+              "active": true,
+              "name": "percentage",
+              "req": false,
+              "type": "`$NULL`"
+            },
+            {
+              "active": true,
+              "name": "type",
               "req": true,
               "type": "`$ANY`"
-            },
-            {
-              "active": true,
-              "name": "currency",
-              "req": true,
-              "type": "`$STRING`"
-            },
-            {
-              "active": true,
-              "name": "employee_count",
-              "req": true,
-              "type": "`$INTEGER`"
-            },
-            {
-              "active": true,
-              "name": "expires_at",
-              "req": true,
-              "type": "`$STRING`"
-            },
-            {
-              "active": true,
-              "name": "generated_at",
-              "req": true,
-              "type": "`$STRING`"
-            },
-            {
-              "active": true,
-              "name": "object",
-              "req": false,
-              "type": "`$STRING`"
-            },
-            {
-              "active": true,
-              "name": "pdf_expires_at",
-              "req": false,
-              "type": [
-                "`$ONE`",
-                [
-                  "`$NULL`",
-                  "`$STRING`"
-                ]
-              ]
-            },
-            {
-              "active": true,
-              "name": "pdf_url",
-              "req": false,
-              "type": [
-                "`$ONE`",
-                [
-                  "`$NULL`",
-                  "`$STRING`"
-                ]
-              ]
-            },
-            {
-              "active": true,
-              "name": "total_monthly_premium",
-              "req": true,
-              "type": "`$NUMBER`"
             }
           ],
           "name": "group_quote",
@@ -6394,6 +6443,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents/{group_quote_intent_id}/quote",
                   "parts": [
@@ -6409,7 +6459,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.cost_sharing`"
                   }
                 }
               ]
@@ -6437,7 +6487,7 @@
             },
             {
               "active": true,
-              "name": "consent_link",
+              "name": "consent_links",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -6449,7 +6499,7 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -6531,6 +6581,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/group_quote_intents/{group_quote_intent_id}/reject",
                   "parts": [
@@ -6569,6 +6620,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/group_quote_intents",
                   "parts": [
@@ -6648,6 +6700,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents",
                   "parts": [
@@ -6665,7 +6718,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -6699,6 +6752,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents/{group_quote_intent_id}",
                   "parts": [
@@ -6840,6 +6894,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents/{group_quote_intent_id}/requirements",
                   "parts": [
@@ -6865,7 +6920,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -6907,7 +6962,7 @@
             },
             {
               "active": true,
-              "name": "coverage_option",
+              "name": "coverage_options",
               "req": false,
               "type": [
                 "`$ONE`",
@@ -6925,13 +6980,13 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "document",
+              "name": "documents",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -6949,13 +7004,13 @@
             },
             {
               "active": true,
-              "name": "employee_eligibility_criterion",
+              "name": "employee_eligibility_criteria",
               "req": true,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "employer_eligibility_criterion",
+              "name": "employer_eligibility_criteria",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -7127,6 +7182,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/plans",
                   "parts": [
@@ -7149,7 +7205,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -7202,6 +7258,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/plans/{plan_id}",
                   "parts": [
@@ -7259,7 +7316,7 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -7419,6 +7476,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/policies",
                   "parts": [
@@ -7437,7 +7495,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -7471,6 +7529,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/policies/{policy_id}",
                   "parts": [
@@ -7514,7 +7573,7 @@
             },
             {
               "active": true,
-              "name": "disclosure",
+              "name": "disclosures",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -7550,7 +7609,7 @@
             },
             {
               "active": true,
-              "name": "requested_change",
+              "name": "requested_changes",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -7611,6 +7670,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{id}/cancel",
                   "parts": [
@@ -7667,6 +7727,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm",
                   "parts": [
@@ -7719,6 +7780,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents",
                   "parts": [
@@ -7799,6 +7861,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/policies/{policy_id}/policy_amendment_intents",
                   "parts": [
@@ -7822,7 +7885,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -7865,6 +7928,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}",
                   "parts": [
@@ -7909,7 +7973,7 @@
           "fields": [
             {
               "active": true,
-              "name": "associated_person",
+              "name": "associated_persons",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -7998,6 +8062,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/policy_import_intents",
                   "parts": [
@@ -8077,6 +8142,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/policy_import_intents",
                   "parts": [
@@ -8094,7 +8160,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -8128,6 +8194,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/policy_import_intents/{policy_import_intent_id}",
                   "parts": [
@@ -8225,7 +8292,7 @@
             },
             {
               "active": true,
-              "name": "supported_country",
+              "name": "supported_countries",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -8286,6 +8353,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/providers",
                   "parts": [
@@ -8301,7 +8369,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -8335,6 +8403,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/providers/{provider_id}",
                   "parts": [
@@ -8372,7 +8441,7 @@
           "fields": [
             {
               "active": true,
-              "name": "delivery",
+              "name": "deliveries",
               "req": true,
               "type": "`$ARRAY`"
             },
@@ -8414,6 +8483,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/events/{event_id}/replay",
                   "parts": [
@@ -8475,7 +8545,7 @@
             },
             {
               "active": true,
-              "name": "subscribed_event",
+              "name": "subscribed_events",
               "req": true,
               "type": "`$ARRAY`"
             }
@@ -8515,6 +8585,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/endpoints/{webhook_endpoint_id}",
                   "parts": [
@@ -8577,7 +8648,7 @@
             },
             {
               "active": true,
-              "name": "subscribed_event",
+              "name": "subscribed_events",
               "req": true,
               "type": "`$ARRAY`"
             }
@@ -8624,6 +8695,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/endpoints",
                   "parts": [
@@ -8639,7 +8711,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -10484,18 +10556,41 @@
         "website": "https://test.api.kota.io"
       },
       "option": {},
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
       "target": {
         "go": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "go",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -10517,22 +10612,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Golang"
         },
         "go-cli": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "go-cli",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -10571,21 +10684,39 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go CLI"
         },
         "go-mcp": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "go-mcp",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -10624,12 +10755,17 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go MCP server"
         },
         "js": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
@@ -10641,10 +10777,23 @@
             }
           },
           "ext": "js",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "js",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -10666,12 +10815,17 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "JavaScript"
         },
         "lua": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "--"
           },
@@ -10683,10 +10837,23 @@
             }
           },
           "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "lua",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -10708,22 +10875,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Lua"
         },
         "php": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "php",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -10745,13 +10930,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "PHP"
         },
         "py": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -10763,10 +10953,23 @@
             }
           },
           "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "py",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -10788,13 +10991,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Python"
         },
         "ts": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
@@ -10817,10 +11025,23 @@
             }
           },
           "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "kota"
+            "goversion": "",
+            "name": "kota",
+            "package": "",
+            "path": ""
           },
           "name": "ts",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -10842,9 +11063,17 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": false
         }
       }
     }

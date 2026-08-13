@@ -84,7 +84,7 @@ class PolicyAmendmentIntentEntityTest extends TestCase
         $policy_amendment_intent_ref01_data["policy_id"] = $setup["idmap"]["policy01"];
 
         $policy_amendment_intent_ref01_data_result = $policy_amendment_intent_ref01_ent->create($policy_amendment_intent_ref01_data, null);
-        $policy_amendment_intent_ref01_data = Helpers::to_map($policy_amendment_intent_ref01_data_result);
+        $policy_amendment_intent_ref01_data = Helpers::to_map(is_object($policy_amendment_intent_ref01_data_result) && method_exists($policy_amendment_intent_ref01_data_result, 'data_get') ? $policy_amendment_intent_ref01_data_result->data_get() : $policy_amendment_intent_ref01_data_result);
         $this->assertNotNull($policy_amendment_intent_ref01_data);
         $this->assertNotNull($policy_amendment_intent_ref01_data["id"]);
 
@@ -106,7 +106,7 @@ class PolicyAmendmentIntentEntityTest extends TestCase
             "id" => $policy_amendment_intent_ref01_data["id"],
         ];
         $policy_amendment_intent_ref01_data_dt0_loaded = $policy_amendment_intent_ref01_ent->load($policy_amendment_intent_ref01_match_dt0, null);
-        $policy_amendment_intent_ref01_data_dt0_load_result = Helpers::to_map($policy_amendment_intent_ref01_data_dt0_loaded);
+        $policy_amendment_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($policy_amendment_intent_ref01_data_dt0_loaded) && method_exists($policy_amendment_intent_ref01_data_dt0_loaded, 'data_get') ? $policy_amendment_intent_ref01_data_dt0_loaded->data_get() : $policy_amendment_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($policy_amendment_intent_ref01_data_dt0_load_result);
         $this->assertEquals($policy_amendment_intent_ref01_data_dt0_load_result["id"], $policy_amendment_intent_ref01_data["id"]);
 

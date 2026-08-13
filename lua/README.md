@@ -67,10 +67,10 @@ local created, err = client:AssociatedPerson():create({ employee_id = "example_e
 if err then error(err) end
 
 -- Update
-client:AssociatedPerson():update({ id = created["id"], employee_id = "example_employee_id", date_of_birth = "example_date_of_birth" })
+client:AssociatedPerson():update({ id = created:data_get()["id"], employee_id = "example_employee_id", date_of_birth = "example_date_of_birth" })
 
 -- Remove
-client:AssociatedPerson():remove({ id = created["id"], employee_id = "example_employee_id" })
+client:AssociatedPerson():remove({ id = created:data_get()["id"], employee_id = "example_employee_id" })
 ```
 
 
@@ -424,9 +424,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -443,9 +443,9 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/depe
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `coverage_option` |  |
-| `dependent` |  |
-| `disclosure` |  |
+| `coverage_options` |  |
+| `dependents` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `parent_intent_id` |  |
@@ -465,7 +465,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | `object` |  |
 | `plan` |  |
 | `provider` |  |
-| `reason` |  |
+| `reasons` |  |
 
 Operations: Create.
 
@@ -609,7 +609,7 @@ API path: `/employers/{employer_id}/offboard`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -630,7 +630,7 @@ API path: `/employers/{employer_id}/health_insurance/policies/{employer_policy_i
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_cancellation_period_length` |  |
 | `employer_id` |  |
 | `end_date` |  |
@@ -650,7 +650,7 @@ API path: `/employers/{employer_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -666,7 +666,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
+| `coverage_levels` |  |
 | `employer_id` |  |
 | `id` |  |
 | `object` |  |
@@ -683,7 +683,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `force_confirmation` |  |
 | `group_id` |  |
@@ -692,7 +692,7 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_configuration` |  |
-| `policy_enrolment` |  |
+| `policy_enrolments` |  |
 | `status` |  |
 
 Operations: Create, List, Load, Update.
@@ -722,7 +722,10 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
+| `options` |  |
+| `parent` |  |
 | `platform_id` |  |
+| `root` |  |
 | `type` |  |
 
 Operations: List, Load.
@@ -736,9 +739,9 @@ API path: `/events`
 | `description` |  |
 | `employer_id` |  |
 | `enrolment_type` |  |
-| `group_policy_id` |  |
-| `group_policy_intent_id` |  |
-| `group_quote_intent_id` |  |
+| `group_policy_ids` |  |
+| `group_policy_intent_ids` |  |
+| `group_quote_intent_ids` |  |
 | `group_type` |  |
 | `id` |  |
 | `name` |  |
@@ -755,14 +758,14 @@ API path: `/groups`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: Create.
 
@@ -774,14 +777,14 @@ API path: `/groups/{group_id}/employees`
 | --- | --- |
 | `desired_policy_start_date` |  |
 | `eligibility_status` |  |
-| `enrolment` |  |
 | `enrolment_date` |  |
 | `enrolment_status` |  |
+| `enrolments` |  |
 | `group_id` |  |
 | `id` |  |
 | `object` |  |
-| `policy` |  |
-| `scheduled_group_transition` |  |
+| `policies` |  |
+| `scheduled_group_transitions` |  |
 
 Operations: List.
 
@@ -792,7 +795,7 @@ API path: `/groups/{group_id}/employees`
 | Field | Description |
 | --- | --- |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employer_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -815,7 +818,7 @@ API path: `/group_policies`
 | --- | --- |
 | `action_required` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `due_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -847,15 +850,11 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `cost_sharing` |  |
-| `currency` |  |
-| `employee_count` |  |
-| `expires_at` |  |
-| `generated_at` |  |
-| `object` |  |
-| `pdf_expires_at` |  |
-| `pdf_url` |  |
-| `total_monthly_premium` |  |
+| `family_type` |  |
+| `member_count` |  |
+| `member_selection` |  |
+| `percentage` |  |
+| `type` |  |
 
 Operations: Load.
 
@@ -866,9 +865,9 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | Field | Description |
 | --- | --- |
 | `action_required` |  |
-| `consent_link` |  |
+| `consent_links` |  |
 | `cost_sharing` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `expected_start_date` |  |
 | `group_id` |  |
 | `id` |  |
@@ -902,13 +901,13 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 | `available_from` |  |
 | `available_to` |  |
 | `country` |  |
-| `coverage_option` |  |
+| `coverage_options` |  |
 | `description` |  |
-| `disclosure` |  |
-| `document` |  |
+| `disclosures` |  |
+| `documents` |  |
 | `eligible_count` |  |
-| `employee_eligibility_criterion` |  |
-| `employer_eligibility_criterion` |  |
+| `employee_eligibility_criteria` |  |
+| `employer_eligibility_criteria` |  |
 | `health_insurance` |  |
 | `id` |  |
 | `ineligible_count` |  |
@@ -928,7 +927,7 @@ API path: `/plans`
 | --- | --- |
 | `bundling_type` |  |
 | `cancellation_date` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `employee_id` |  |
 | `end_date` |  |
 | `group_id` |  |
@@ -951,13 +950,13 @@ API path: `/policies`
 | Field | Description |
 | --- | --- |
 | `amendment_reason` |  |
-| `disclosure` |  |
+| `disclosures` |  |
 | `id` |  |
 | `object` |  |
 | `pending_confirmation` |  |
 | `policy_id` |  |
 | `processing_error` |  |
-| `requested_change` |  |
+| `requested_changes` |  |
 | `required_action` |  |
 | `status` |  |
 
@@ -969,7 +968,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/cancel`
 
 | Field | Description |
 | --- | --- |
-| `associated_person` |  |
+| `associated_persons` |  |
 | `employee_id` |  |
 | `group_id` |  |
 | `id` |  |
@@ -996,7 +995,7 @@ API path: `/policy_import_intents`
 | `name` |  |
 | `object` |  |
 | `support_phone` |  |
-| `supported_country` |  |
+| `supported_countries` |  |
 | `website_url` |  |
 
 Operations: List, Load.
@@ -1007,7 +1006,7 @@ API path: `/providers`
 
 | Field | Description |
 | --- | --- |
-| `delivery` |  |
+| `deliveries` |  |
 | `event_id` |  |
 
 Operations: Create.
@@ -1022,7 +1021,7 @@ API path: `/events/{event_id}/replay`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: Load.
 
@@ -1036,7 +1035,7 @@ API path: `/webhooks/endpoints/{webhook_endpoint_id}`
 | `endpoint_url` |  |
 | `id` |  |
 | `object` |  |
-| `subscribed_event` |  |
+| `subscribed_events` |  |
 
 Operations: List.
 
@@ -1325,9 +1324,9 @@ Create an instance: `local dependent = client:Dependent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` |  |
-| `coverage_option` | `nil|table` |  |
-| `dependent` | `table` |  |
-| `disclosure` | `table` |  |
+| `coverage_options` | `nil|table` |  |
+| `dependents` | `table` |  |
+| `disclosures` | `table` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1340,8 +1339,8 @@ Create an instance: `local dependent = client:Dependent(nil)`
 ```lua
 local dependent, err = client:Dependent():create({
   dependents_management_intent_id = "example_dependents_management_intent_id", -- string
-  dependent = {}, -- table
-  disclosure = {}, -- table
+  dependents = {}, -- table
+  disclosures = {}, -- table
   id = "example_id", -- string
   parent_intent_id = "example_parent_intent_id", -- string
   parent_intent_type = "example_parent_intent_type", -- any
@@ -1367,9 +1366,9 @@ Create an instance: `local dependents_management_intent = client:DependentsManag
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` |  |
-| `coverage_option` | `nil|table` |  |
-| `dependent` | `table` |  |
-| `disclosure` | `table` |  |
+| `coverage_options` | `nil|table` |  |
+| `dependents` | `table` |  |
+| `disclosures` | `table` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `parent_intent_id` | `string` |  |
@@ -1387,8 +1386,8 @@ local dependents_management_intent, err = client:DependentsManagementIntent():lo
 
 ```lua
 local dependents_management_intent, err = client:DependentsManagementIntent():create({
-  dependent = {}, -- table
-  disclosure = {}, -- table
+  dependents = {}, -- table
+  disclosures = {}, -- table
   id = "example_id", -- string
   parent_intent_id = "example_parent_intent_id", -- string
   parent_intent_type = "example_parent_intent_type", -- any
@@ -1416,7 +1415,7 @@ Create an instance: `local eligibility_check = client:EligibilityCheck(nil)`
 | `object` | `string` |  |
 | `plan` | `any` |  |
 | `provider` | `any` |  |
-| `reason` | `table` |  |
+| `reasons` | `table` |  |
 
 #### Example: Create
 
@@ -1426,7 +1425,7 @@ local eligibility_check, err = client:EligibilityCheck():create({
   eligibility_status = "example_eligibility_status", -- any
   plan = "example_plan", -- any
   provider = "example_provider", -- any
-  reason = {}, -- table
+  reasons = {}, -- table
 })
 ```
 
@@ -1700,7 +1699,7 @@ Create an instance: `local employer_health_insurance_policy = client:EmployerHea
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `nil|string` |  |
-| `coverage_level` | `table` |  |
+| `coverage_levels` | `table` |  |
 | `employer_cancellation_period_length` | `number` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1734,7 +1733,7 @@ Create an instance: `local employer_health_insurance_policy_response_paged_list 
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `nil|string` |  |
-| `coverage_level` | `table` |  |
+| `coverage_levels` | `table` |  |
 | `employer_cancellation_period_length` | `number` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `string` |  |
@@ -1767,7 +1766,7 @@ Create an instance: `local employer_health_insurance_quote = client:EmployerHeal
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `table` |  |
+| `coverage_levels` | `table` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1796,7 +1795,7 @@ Create an instance: `local employer_health_insurance_quote_response_paged_list =
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `table` |  |
+| `coverage_levels` | `table` |  |
 | `employer_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
@@ -1829,7 +1828,7 @@ Create an instance: `local enrolment_intent = client:EnrolmentIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` |  |
-| `disclosure` | `table` |  |
+| `disclosures` | `table` |  |
 | `employee_id` | `string` |  |
 | `force_confirmation` | `boolean` |  |
 | `group_id` | `string` |  |
@@ -1838,7 +1837,7 @@ Create an instance: `local enrolment_intent = client:EnrolmentIntent(nil)`
 | `object` | `string` |  |
 | `pending_confirmation` | `nil` |  |
 | `policy_configuration` | `nil` |  |
-| `policy_enrolment` | `table` |  |
+| `policy_enrolments` | `table` |  |
 | `status` | `any` |  |
 
 #### Example: Load
@@ -1857,12 +1856,12 @@ local enrolment_intents, err = client:EnrolmentIntent():list()
 
 ```lua
 local enrolment_intent, err = client:EnrolmentIntent():create({
-  disclosure = {}, -- table
+  disclosures = {}, -- table
   employee_id = "example_employee_id", -- string
   force_confirmation = true, -- boolean
   group_id = "example_group_id", -- string
   id = "example_id", -- string
-  policy_enrolment = {}, -- table
+  policy_enrolments = {}, -- table
   status = "example_status", -- any
 })
 ```
@@ -1915,7 +1914,10 @@ Create an instance: `local event = client:Event(nil)`
 | `created` | `string` |  |
 | `data` | `nil` |  |
 | `id` | `string` |  |
+| `options` | `nil` |  |
+| `parent` | `nil` |  |
 | `platform_id` | `string` |  |
+| `root` | `any` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -1951,9 +1953,9 @@ Create an instance: `local group = client:Group(nil)`
 | `description` | `nil|string` |  |
 | `employer_id` | `string` |  |
 | `enrolment_type` | `any` |  |
-| `group_policy_id` | `table` |  |
-| `group_policy_intent_id` | `table` |  |
-| `group_quote_intent_id` | `table` |  |
+| `group_policy_ids` | `table` |  |
+| `group_policy_intent_ids` | `table` |  |
+| `group_quote_intent_ids` | `table` |  |
 | `group_type` | `any` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -1978,9 +1980,9 @@ local groups, err = client:Group():list()
 local group, err = client:Group():create({
   employer_id = "example_employer_id", -- string
   enrolment_type = "example_enrolment_type", -- any
-  group_policy_id = {}, -- table
-  group_policy_intent_id = {}, -- table
-  group_quote_intent_id = {}, -- table
+  group_policy_ids = {}, -- table
+  group_policy_intent_ids = {}, -- table
+  group_quote_intent_ids = {}, -- table
   group_type = "example_group_type", -- any
   id = "example_id", -- string
   name = "example_name", -- string
@@ -2005,14 +2007,14 @@ Create an instance: `local group_employee = client:GroupEmployee(nil)`
 | --- | --- | --- |
 | `desired_policy_start_date` | `nil|string` |  |
 | `eligibility_status` | `any` |  |
-| `enrolment` | `table` |  |
 | `enrolment_date` | `nil|string` |  |
 | `enrolment_status` | `any` |  |
+| `enrolments` | `table` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `table` |  |
-| `scheduled_group_transition` | `table` |  |
+| `policies` | `table` |  |
+| `scheduled_group_transitions` | `table` |  |
 
 #### Example: Create
 
@@ -2020,11 +2022,11 @@ Create an instance: `local group_employee = client:GroupEmployee(nil)`
 local group_employee, err = client:GroupEmployee():create({
   id = "example_id", -- string
   eligibility_status = "example_eligibility_status", -- any
-  enrolment = {}, -- table
   enrolment_status = "example_enrolment_status", -- any
+  enrolments = {}, -- table
   group_id = "example_group_id", -- string
-  policy = {}, -- table
-  scheduled_group_transition = {}, -- table
+  policies = {}, -- table
+  scheduled_group_transitions = {}, -- table
 })
 ```
 
@@ -2045,14 +2047,14 @@ Create an instance: `local group_employee_response_paged_list = client:GroupEmpl
 | --- | --- | --- |
 | `desired_policy_start_date` | `nil|string` |  |
 | `eligibility_status` | `any` |  |
-| `enrolment` | `table` |  |
 | `enrolment_date` | `nil|string` |  |
 | `enrolment_status` | `any` |  |
+| `enrolments` | `table` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `policy` | `table` |  |
-| `scheduled_group_transition` | `table` |  |
+| `policies` | `table` |  |
+| `scheduled_group_transitions` | `table` |  |
 
 #### Example: List
 
@@ -2077,7 +2079,7 @@ Create an instance: `local group_policy = client:GroupPolicy(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cancellation_date` | `nil|string` |  |
-| `disclosure` | `table` |  |
+| `disclosures` | `table` |  |
 | `employer_id` | `string` |  |
 | `end_date` | `nil|string` |  |
 | `group_id` | `string` |  |
@@ -2121,7 +2123,7 @@ Create an instance: `local group_policy_intent = client:GroupPolicyIntent(nil)`
 | --- | --- | --- |
 | `action_required` | `nil` |  |
 | `cost_sharing` | `nil` |  |
-| `disclosure` | `table` |  |
+| `disclosures` | `table` |  |
 | `due_date` | `nil|string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2146,7 +2148,7 @@ local group_policy_intents, err = client:GroupPolicyIntent():list()
 
 ```lua
 local group_policy_intent, err = client:GroupPolicyIntent():create({
-  disclosure = {}, -- table
+  disclosures = {}, -- table
   group_id = "example_group_id", -- string
   id = "example_id", -- string
   plan_id = "example_plan_id", -- string
@@ -2198,15 +2200,11 @@ Create an instance: `local group_quote = client:GroupQuote(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost_sharing` | `any` |  |
-| `currency` | `string` |  |
-| `employee_count` | `number` |  |
-| `expires_at` | `string` |  |
-| `generated_at` | `string` |  |
-| `object` | `string` |  |
-| `pdf_expires_at` | `nil|string` |  |
-| `pdf_url` | `nil|string` |  |
-| `total_monthly_premium` | `number` |  |
+| `family_type` | `nil` |  |
+| `member_count` | `nil` |  |
+| `member_selection` | `nil` |  |
+| `percentage` | `nil` |  |
+| `type` | `any` |  |
 
 #### Example: Load
 
@@ -2232,9 +2230,9 @@ Create an instance: `local group_quote_intent = client:GroupQuoteIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` |  |
-| `consent_link` | `table` |  |
+| `consent_links` | `table` |  |
 | `cost_sharing` | `nil` |  |
-| `disclosure` | `table` |  |
+| `disclosures` | `table` |  |
 | `expected_start_date` | `nil|string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2258,8 +2256,8 @@ local group_quote_intents, err = client:GroupQuoteIntent():list()
 
 ```lua
 local group_quote_intent, err = client:GroupQuoteIntent():create({
-  consent_link = {}, -- table
-  disclosure = {}, -- table
+  consent_links = {}, -- table
+  disclosures = {}, -- table
   group_id = "example_group_id", -- string
   id = "example_id", -- string
   plan_id = "example_plan_id", -- string
@@ -2314,13 +2312,13 @@ Create an instance: `local plan = client:Plan(nil)`
 | `available_from` | `string` |  |
 | `available_to` | `nil|string` |  |
 | `country` | `any` |  |
-| `coverage_option` | `nil|table` |  |
+| `coverage_options` | `nil|table` |  |
 | `description` | `string` |  |
-| `disclosure` | `table` |  |
-| `document` | `table` |  |
+| `disclosures` | `table` |  |
+| `documents` | `table` |  |
 | `eligible_count` | `nil|number` |  |
-| `employee_eligibility_criterion` | `table` |  |
-| `employer_eligibility_criterion` | `table` |  |
+| `employee_eligibility_criteria` | `table` |  |
+| `employer_eligibility_criteria` | `table` |  |
 | `health_insurance` | `nil` |  |
 | `id` | `string` |  |
 | `ineligible_count` | `nil|number` |  |
@@ -2360,7 +2358,7 @@ Create an instance: `local policy = client:Policy(nil)`
 | --- | --- | --- |
 | `bundling_type` | `any` |  |
 | `cancellation_date` | `nil|string` |  |
-| `disclosure` | `table` |  |
+| `disclosures` | `table` |  |
 | `employee_id` | `string` |  |
 | `end_date` | `nil|string` |  |
 | `group_id` | `string` |  |
@@ -2404,13 +2402,13 @@ Create an instance: `local policy_amendment_intent = client:PolicyAmendmentInten
 | Field | Type | Description |
 | --- | --- | --- |
 | `amendment_reason` | `any` |  |
-| `disclosure` | `table` |  |
+| `disclosures` | `table` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
 | `pending_confirmation` | `nil` |  |
 | `policy_id` | `string` |  |
 | `processing_error` | `nil` |  |
-| `requested_change` | `table` |  |
+| `requested_changes` | `table` |  |
 | `required_action` | `nil` |  |
 | `status` | `any` |  |
 
@@ -2432,9 +2430,9 @@ local policy_amendment_intents, err = client:PolicyAmendmentIntent():list()
 local policy_amendment_intent, err = client:PolicyAmendmentIntent():create({
   id = "example_id", -- string
   amendment_reason = "example_amendment_reason", -- any
-  disclosure = {}, -- table
+  disclosures = {}, -- table
   policy_id = "example_policy_id", -- string
-  requested_change = {}, -- table
+  requested_changes = {}, -- table
   status = "example_status", -- any
 })
 ```
@@ -2456,7 +2454,7 @@ Create an instance: `local policy_import_intent = client:PolicyImportIntent(nil)
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_person` | `table` |  |
+| `associated_persons` | `table` |  |
 | `employee_id` | `string` |  |
 | `group_id` | `string` |  |
 | `id` | `string` |  |
@@ -2483,7 +2481,7 @@ local policy_import_intents, err = client:PolicyImportIntent():list()
 
 ```lua
 local policy_import_intent, err = client:PolicyImportIntent():create({
-  associated_person = {}, -- table
+  associated_persons = {}, -- table
   employee_id = "example_employee_id", -- string
   group_id = "example_group_id", -- string
   id = "example_id", -- string
@@ -2518,7 +2516,7 @@ Create an instance: `local provider = client:Provider(nil)`
 | `name` | `string` |  |
 | `object` | `string` |  |
 | `support_phone` | `string` |  |
-| `supported_country` | `table` |  |
+| `supported_countries` | `table` |  |
 | `website_url` | `string` |  |
 
 #### Example: Load
@@ -2548,7 +2546,7 @@ Create an instance: `local replay = client:Replay(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `delivery` | `table` |  |
+| `deliveries` | `table` |  |
 | `event_id` | `string` |  |
 
 #### Example: Create
@@ -2556,7 +2554,7 @@ Create an instance: `local replay = client:Replay(nil)`
 ```lua
 local replay, err = client:Replay():create({
   event_id = "example_event_id", -- string
-  delivery = {}, -- table
+  deliveries = {}, -- table
 })
 ```
 
@@ -2579,7 +2577,7 @@ Create an instance: `local webhook_endpoint = client:WebhookEndpoint(nil)`
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `table` |  |
+| `subscribed_events` | `table` |  |
 
 #### Example: Load
 
@@ -2606,7 +2604,7 @@ Create an instance: `local webhook_endpoint_response_paged_list = client:Webhook
 | `endpoint_url` | `string` |  |
 | `id` | `string` |  |
 | `object` | `string` |  |
-| `subscribed_event` | `table` |  |
+| `subscribed_events` | `table` |  |
 
 #### Example: List
 

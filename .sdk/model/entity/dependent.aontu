@@ -11,7 +11,7 @@ main: kit: entity: dependent: {
       type: "`$NULL`"
     }
     {
-      name: "coverage_option"
+      name: "coverage_options"
       req: false
       type: [
         "`$ONE`"
@@ -22,12 +22,12 @@ main: kit: entity: dependent: {
       ]
     }
     {
-      name: "dependent"
+      name: "dependents"
       req: true
       type: "`$ARRAY`"
     }
     {
-      name: "disclosure"
+      name: "disclosures"
       req: true
       type: "`$ARRAY`"
     }

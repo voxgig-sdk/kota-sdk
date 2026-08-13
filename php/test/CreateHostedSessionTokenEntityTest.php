@@ -44,7 +44,7 @@ class CreateHostedSessionTokenEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.create_hosted_session_token"), "create_hosted_session_token_ref01"));
 
         $create_hosted_session_token_ref01_data_result = $create_hosted_session_token_ref01_ent->create($create_hosted_session_token_ref01_data, null);
-        $create_hosted_session_token_ref01_data = Helpers::to_map($create_hosted_session_token_ref01_data_result);
+        $create_hosted_session_token_ref01_data = Helpers::to_map(is_object($create_hosted_session_token_ref01_data_result) && method_exists($create_hosted_session_token_ref01_data_result, 'data_get') ? $create_hosted_session_token_ref01_data_result->data_get() : $create_hosted_session_token_ref01_data_result);
         $this->assertNotNull($create_hosted_session_token_ref01_data);
 
     }

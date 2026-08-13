@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
-from core import helpers
+from kota_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestPolicyAmendmentIntentEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from kota_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = KotaSDK.test(
@@ -79,7 +79,7 @@ class TestPolicyAmendmentIntentEntity:
             vs.getpath(setup["data"], "new.policy_amendment_intent"), "policy_amendment_intent_ref01"))
         policy_amendment_intent_ref01_data["policy_id"] = setup["idmap"]["policy01"]
 
-        policy_amendment_intent_ref01_data = helpers.to_map(policy_amendment_intent_ref01_ent.create(policy_amendment_intent_ref01_data, None))
+        policy_amendment_intent_ref01_data = helpers.to_map(runner.entity_data(policy_amendment_intent_ref01_ent.create(policy_amendment_intent_ref01_data, None)))
         assert policy_amendment_intent_ref01_data is not None
         assert policy_amendment_intent_ref01_data["id"] is not None
 
@@ -101,7 +101,7 @@ class TestPolicyAmendmentIntentEntity:
             "id": policy_amendment_intent_ref01_data["id"],
         }
         policy_amendment_intent_ref01_data_dt0_loaded = policy_amendment_intent_ref01_ent.load(policy_amendment_intent_ref01_match_dt0, None)
-        policy_amendment_intent_ref01_data_dt0_load_result = helpers.to_map(policy_amendment_intent_ref01_data_dt0_loaded)
+        policy_amendment_intent_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(policy_amendment_intent_ref01_data_dt0_loaded))
         assert policy_amendment_intent_ref01_data_dt0_load_result is not None
         assert policy_amendment_intent_ref01_data_dt0_load_result["id"] == policy_amendment_intent_ref01_data["id"]
 

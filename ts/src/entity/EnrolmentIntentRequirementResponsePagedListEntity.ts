@@ -37,7 +37,7 @@ class EnrolmentIntentRequirementResponsePagedListEntity extends KotaEntityBase<E
 
 
 
-  async list(this: any, reqmatch?: EnrolmentIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<EnrolmentIntentRequirementResponsePagedList[]> {
+  async list(this: any, reqmatch?: EnrolmentIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<EnrolmentIntentRequirementResponsePagedListEntity[]> {
 
     const utility = this._utility
 
