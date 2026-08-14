@@ -176,93 +176,67 @@ class Config {
     "associated_person": {
       "fields": [
         {
-          "active": true,
           "name": "date_of_birth",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "email",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "first_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "last_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "phone_number",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 7
+          ]
         },
         {
-          "active": true,
           "name": "platform_id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "relationship_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "sex_at_birth",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 10
+          "type": "`$ANY`"
         }
       ],
       "name": "associated_person",
@@ -272,28 +246,23 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -314,56 +283,45 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -387,49 +345,40 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "associated_person_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -457,49 +406,40 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         },
         "remove": {
           "input": "data",
           "name": "remove",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "associated_person_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -527,49 +467,40 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "remove"
+          ]
         },
         "update": {
           "input": "data",
           "name": "update",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "associated_person_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -597,11 +528,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "update"
+          ]
         }
       },
       "relations": {
@@ -615,73 +544,53 @@ class Config {
     "associated_person_eligibility_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "associated_person_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "date_of_birth",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "eligibility_status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 2
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "first_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "ineligibility_reason",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 4
+          ]
         },
         {
-          "active": true,
           "name": "last_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "relationship",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "sex_at_birth",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 8
+          "type": "`$ANY`"
         }
       ],
       "name": "associated_person_eligibility_response_paged_list",
@@ -691,45 +600,36 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "dependents_management_intent_id",
                     "orig": "dependents_management_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -753,11 +653,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -771,79 +669,58 @@ class Config {
     "contribution_report": {
       "fields": [
         {
-          "active": true,
           "name": "created_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 2
+          ]
         },
         {
-          "active": true,
           "name": "finalized_at",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "last_updated_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "period",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 8
+          "type": "`$ANY`"
         }
       ],
       "name": "contribution_report",
@@ -853,28 +730,23 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "contribution_report_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -901,85 +773,66 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employer_id",
                     "orig": "employer_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "external_customer_id",
                     "orig": "external_customer_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "month",
                     "orig": "month",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "year",
                     "orig": "year",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -1005,39 +858,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "contribution_report_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -1062,11 +908,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -1076,100 +920,73 @@ class Config {
     "contribution_report_employee_breakdown": {
       "fields": [
         {
-          "active": true,
           "name": "contribution_report_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "created_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "currency",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 2
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 5
+          ]
         },
         {
-          "active": true,
           "name": "finalized_at",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 6
+          ]
         },
         {
-          "active": true,
           "name": "health_insurance",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "last_updated_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "period",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 10
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         }
       ],
       "name": "contribution_report_employee_breakdown",
@@ -1179,38 +996,31 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "contribution_report_id",
                     "orig": "contribution_report_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -1238,11 +1048,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -1256,100 +1064,73 @@ class Config {
     "contribution_report_employee_breakdown_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "contribution_report_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "created_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "currency",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 2
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 5
+          ]
         },
         {
-          "active": true,
           "name": "finalized_at",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 6
+          ]
         },
         {
-          "active": true,
           "name": "health_insurance",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "last_updated_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "period",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 10
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         }
       ],
       "name": "contribution_report_employee_breakdown_response_paged_list",
@@ -1359,45 +1140,36 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "contribution_report_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -1427,11 +1199,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -1441,18 +1211,14 @@ class Config {
     "create_hosted_session_token": {
       "fields": [
         {
-          "active": true,
           "name": "expiry",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "link",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         }
       ],
       "name": "create_hosted_session_token",
@@ -1462,7 +1228,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "POST",
@@ -1475,11 +1240,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
@@ -1489,18 +1252,14 @@ class Config {
     "create_session_token": {
       "fields": [
         {
-          "active": true,
           "name": "expiry",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "token",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         }
       ],
       "name": "create_session_token",
@@ -1510,7 +1269,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "POST",
@@ -1523,11 +1281,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
@@ -1537,80 +1293,57 @@ class Config {
     "dependent": {
       "fields": [
         {
-          "active": true,
           "name": "action_required",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "coverage_options",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$ARRAY`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "dependents",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 2
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 3
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "parent_intent_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "parent_intent_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "plan",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 8
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         }
       ],
       "name": "dependent",
@@ -1620,36 +1353,29 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "dependents_management_intent_id",
                     "orig": "dependents_management_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -1671,49 +1397,40 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "remove": {
           "input": "data",
           "name": "remove",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "dependents_management_intent_id",
                     "orig": "dependents_management_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "associated_person_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -1741,11 +1458,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "remove"
+          ]
         }
       },
       "relations": {
@@ -1759,80 +1474,57 @@ class Config {
     "dependents_management_intent": {
       "fields": [
         {
-          "active": true,
           "name": "action_required",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "coverage_options",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$ARRAY`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "dependents",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 2
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 3
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "parent_intent_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "parent_intent_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "plan",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 8
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         }
       ],
       "name": "dependents_management_intent",
@@ -1842,38 +1534,31 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "policy_amendment_intent_id",
                     "orig": "id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "policy_id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -1902,32 +1587,26 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "enrolment_intent_id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -1948,32 +1627,26 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "dependents_management_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2000,32 +1673,26 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 2
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "dependents_management_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2052,39 +1719,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 3
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "dependents_management_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2109,11 +1769,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -2131,39 +1789,28 @@ class Config {
     "eligibility_check": {
       "fields": [
         {
-          "active": true,
           "name": "eligibility_status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 0
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "plan",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 2
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "provider",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 3
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "reasons",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         }
       ],
       "name": "eligibility_check",
@@ -2173,28 +1820,23 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "group_id",
                     "orig": "group_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2215,11 +1857,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
@@ -2233,168 +1873,115 @@ class Config {
     "employee": {
       "fields": [
         {
-          "active": true,
           "name": "bank_account",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "date_of_birth",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "earliest_benefits_start_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 2
+          ]
         },
         {
-          "active": true,
           "name": "email",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 5
+          ]
         },
         {
-          "active": true,
           "name": "first_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "home_address",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 7
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "last_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "metadata",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$OBJECT`"
             ]
-          ],
-          "index$": 10
+          ]
         },
         {
-          "active": true,
           "name": "national_tax_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 11
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "nationality",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 12
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 13
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "offboard_on",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 14
+          ]
         },
         {
-          "active": true,
           "name": "phone_number",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 15
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "platform_id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 16
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "sex_at_birth",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 17
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_on",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 18
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
-          "req": false,
-          "type": "`$ANY`",
-          "index$": 19
+          "type": "`$ANY`"
         }
       ],
       "name": "employee",
@@ -2404,36 +1991,29 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2461,40 +2041,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2523,27 +2095,21 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -2563,77 +2129,60 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 2
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employer_id",
                     "orig": "employer_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "external_customer_id",
                     "orig": "external_customer_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "filter",
                     "orig": "filter",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "metadata_id",
                     "orig": "metadata_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -2658,39 +2207,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2715,39 +2257,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         },
         "update": {
           "input": "data",
           "name": "update",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2772,11 +2307,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "update"
+          ]
         }
       },
       "relations": {
@@ -2786,66 +2319,47 @@ class Config {
     "employee_health_insurance_offer": {
       "fields": [
         {
-          "active": true,
           "name": "coverage_level",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 0
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "required_action",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 6
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         }
       ],
       "name": "employee_health_insurance_offer",
@@ -2855,38 +2369,31 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "eeho_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_offer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -2915,11 +2422,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -2933,66 +2438,47 @@ class Config {
     "employee_health_insurance_offer_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "coverage_level",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 0
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "required_action",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 6
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         }
       ],
       "name": "employee_health_insurance_offer_response_paged_list",
@@ -3002,45 +2488,36 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -3065,11 +2542,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -3083,134 +2558,98 @@ class Config {
     "employee_health_insurance_policy": {
       "fields": [
         {
-          "active": true,
           "name": "cancellation_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "coverage_level",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 1
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "end_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "enrolled_dependants_count",
           "req": true,
-          "type": "`$INTEGER`",
-          "index$": 5
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "enrolment_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 6
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "estimated_gross_premium",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 8
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 10
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "opt_out_deadline_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 11
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "policy_number",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 12
+          ]
         },
         {
-          "active": true,
           "name": "renewal",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 13
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 14
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 15
+          "type": "`$ANY`"
         }
       ],
       "name": "employee_health_insurance_policy",
@@ -3220,38 +2659,31 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "eehp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employee_policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -3280,11 +2712,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -3298,134 +2728,98 @@ class Config {
     "employee_health_insurance_policy_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "cancellation_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "coverage_level",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 1
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "end_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "enrolled_dependants_count",
           "req": true,
-          "type": "`$INTEGER`",
-          "index$": 5
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "enrolment_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 6
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "estimated_gross_premium",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "external_customer_id",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 8
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 10
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "opt_out_deadline_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 11
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "policy_number",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 12
+          ]
         },
         {
-          "active": true,
           "name": "renewal",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 13
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 14
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 15
+          "type": "`$ANY`"
         }
       ],
       "name": "employee_health_insurance_policy_response_paged_list",
@@ -3435,53 +2829,42 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employee_id",
                     "orig": "employee_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -3507,11 +2890,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -3525,105 +2906,76 @@ class Config {
     "employer": {
       "fields": [
         {
-          "active": true,
           "name": "contact",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 0
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "earliest_benefits_start_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "legal_address",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 3
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "legal_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "metadata",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$OBJECT`"
             ]
-          ],
-          "index$": 5
+          ]
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "offboard_on",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 7
+          ]
         },
         {
-          "active": true,
           "name": "platform_id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "registration_number",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 9
+          ]
         },
         {
-          "active": true,
           "name": "status",
-          "req": false,
-          "type": "`$ANY`",
-          "index$": 10
+          "type": "`$ANY`"
         }
       ],
       "name": "employer",
@@ -3633,36 +2985,29 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -3690,27 +3035,21 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -3730,52 +3069,41 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "filter",
                     "orig": "filter",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -3797,39 +3125,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -3854,39 +3175,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         },
         "update": {
           "input": "data",
           "name": "update",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -3911,11 +3225,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "update"
+          ]
         }
       },
       "relations": {
@@ -3925,100 +3237,73 @@ class Config {
     "employer_health_insurance_policy": {
       "fields": [
         {
-          "active": true,
           "name": "cancellation_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "coverage_levels",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employer_cancellation_period_length",
           "req": true,
-          "type": "`$INTEGER`",
-          "index$": 2
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "end_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "enrolment_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 5
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "group_policy_number",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 6
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "renewal",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 10
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         }
       ],
       "name": "employer_health_insurance_policy",
@@ -4028,38 +3313,31 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employer_id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employer_policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -4088,11 +3366,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -4106,100 +3382,73 @@ class Config {
     "employer_health_insurance_policy_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "cancellation_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "coverage_levels",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employer_cancellation_period_length",
           "req": true,
-          "type": "`$INTEGER`",
-          "index$": 2
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "end_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "enrolment_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 5
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "group_policy_number",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 6
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "renewal",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 10
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         }
       ],
       "name": "employer_health_insurance_policy_response_paged_list",
@@ -4209,53 +3458,42 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employer_id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -4281,11 +3519,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -4299,53 +3535,37 @@ class Config {
     "employer_health_insurance_quote": {
       "fields": [
         {
-          "active": true,
           "name": "coverage_levels",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "quoted_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "required_action",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 5
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 6
+          "type": "`$ANY`"
         }
       ],
       "name": "employer_health_insurance_quote",
@@ -4355,38 +3575,31 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employer_id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "employer_quote_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -4415,11 +3628,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -4433,53 +3644,37 @@ class Config {
     "employer_health_insurance_quote_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "coverage_levels",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "quoted_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "required_action",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 5
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 6
+          "type": "`$ANY`"
         }
       ],
       "name": "employer_health_insurance_quote_response_paged_list",
@@ -4489,53 +3684,42 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "employer_id",
                     "orig": "employer_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -4561,11 +3745,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -4579,88 +3761,59 @@ class Config {
     "enrolment_intent": {
       "fields": [
         {
-          "active": true,
           "name": "action_required",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "force_confirmation",
           "req": true,
-          "type": "`$BOOLEAN`",
-          "index$": 3
+          "type": "`$BOOLEAN`"
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "ineligibility_reason",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 6
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "pending_confirmation",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 8
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "policy_configuration",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 9
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "policy_enrolments",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 10
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         }
       ],
       "name": "enrolment_intent",
@@ -4670,28 +3823,23 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -4718,32 +3866,26 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -4770,32 +3912,26 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -4822,27 +3958,21 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 2
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -4862,70 +3992,55 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 3
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employee_id",
                     "orig": "employee_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -4949,39 +4064,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -5006,39 +4114,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         },
         "update": {
           "input": "data",
           "name": "update",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -5063,11 +4164,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "update"
+          ]
         }
       },
       "relations": {
@@ -5077,46 +4176,33 @@ class Config {
     "enrolment_intent_requirement_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "is_fulfilled",
           "req": true,
-          "type": "`$BOOLEAN`",
-          "index$": 1
+          "type": "`$BOOLEAN`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 4
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "requirement_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 5
+          "type": "`$ANY`"
         }
       ],
       "name": "enrolment_intent_requirement_response_paged_list",
@@ -5126,61 +4212,48 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "enrolment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "object_id",
                     "orig": "object_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "object_type",
                     "orig": "object_type",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -5212,11 +4285,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -5226,67 +4297,45 @@ class Config {
     "event": {
       "fields": [
         {
-          "active": true,
           "name": "api_version",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "created",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "data",
           "req": true,
-          "type": "`$NULL`",
-          "index$": 2
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "options",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 4
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "parent",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 5
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "platform_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "root",
-          "req": false,
-          "type": "`$ANY`",
-          "index$": 7
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "type",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         }
       ],
       "name": "event",
@@ -5296,57 +4345,44 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "created_after",
                     "orig": "created_after",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "order_direction",
                     "orig": "order_direction",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "version",
                     "orig": "version",
-                    "reqd": false,
                     "type": "`$ANY`"
                   }
                 ]
@@ -5370,39 +4406,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "evt_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "event_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -5427,11 +4456,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.data`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -5441,87 +4468,63 @@ class Config {
     "group": {
       "fields": [
         {
-          "active": true,
           "name": "description",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "employer_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "enrolment_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 2
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "group_policy_ids",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 3
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "group_policy_intent_ids",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "group_quote_intent_ids",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 5
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "group_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 6
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 10
+          "type": "`$ANY`"
         }
       ],
       "name": "group",
@@ -5531,15 +4534,12 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -5558,61 +4558,48 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employer_id",
                     "orig": "employer_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -5635,39 +4622,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -5692,39 +4672,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         },
         "update": {
           "input": "data",
           "name": "update",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -5749,11 +4722,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "update"
+          ]
         }
       },
       "relations": {
@@ -5763,86 +4734,63 @@ class Config {
     "group_employee": {
       "fields": [
         {
-          "active": true,
           "name": "desired_policy_start_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "eligibility_status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 1
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "enrolment_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 2
+          ]
         },
         {
-          "active": true,
           "name": "enrolment_status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 3
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "enrolments",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "policies",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 8
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "scheduled_group_transitions",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 9
+          "type": "`$ARRAY`"
         }
       ],
       "name": "group_employee",
@@ -5852,36 +4800,29 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "idempotency_key",
                     "orig": "idempotency_key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -5908,11 +4849,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
@@ -5922,86 +4861,63 @@ class Config {
     "group_employee_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "desired_policy_start_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "eligibility_status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 1
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "enrolment_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 2
+          ]
         },
         {
-          "active": true,
           "name": "enrolment_status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 3
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "enrolments",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "policies",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 8
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "scheduled_group_transitions",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 9
+          "type": "`$ARRAY`"
         }
       ],
       "name": "group_employee_response_paged_list",
@@ -6011,54 +4927,43 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employee_id",
                     "orig": "employee_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -6089,11 +4994,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -6103,107 +5006,75 @@ class Config {
     "group_policy": {
       "fields": [
         {
-          "active": true,
           "name": "cancellation_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 0
+          ]
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employer_id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "end_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "group_id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "health_insurance",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 5
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "plan",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 8
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "provider",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 10
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 12
+          "type": "`$ANY`"
         }
       ],
       "name": "group_policy",
@@ -6213,59 +5084,46 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employer_id",
                     "orig": "employer_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -6289,39 +5147,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -6346,11 +5197,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -6360,80 +5209,56 @@ class Config {
     "group_policy_intent": {
       "fields": [
         {
-          "active": true,
           "name": "action_required",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "cost_sharing",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 1
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 2
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "due_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "plan_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "quote_intent_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         }
       ],
       "name": "group_policy_intent",
@@ -6443,15 +5268,12 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -6470,70 +5292,55 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "plan_id",
                     "orig": "plan_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -6557,39 +5364,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gpi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_policy_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -6614,11 +5414,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -6628,46 +5426,33 @@ class Config {
     "group_policy_intent_requirement_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "is_fulfilled",
           "req": true,
-          "type": "`$BOOLEAN`",
-          "index$": 1
+          "type": "`$BOOLEAN`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 4
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "requirement_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 5
+          "type": "`$ANY`"
         }
       ],
       "name": "group_policy_intent_requirement_response_paged_list",
@@ -6677,61 +5462,48 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gpi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_policy_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "object_id",
                     "orig": "object_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "object_type",
                     "orig": "object_type",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -6763,11 +5535,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -6777,39 +5547,25 @@ class Config {
     "group_quote": {
       "fields": [
         {
-          "active": true,
           "name": "family_type",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "member_count",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 1
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "member_selection",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 2
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "percentage",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 3
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 4
+          "type": "`$ANY`"
         }
       ],
       "name": "group_quote",
@@ -6819,28 +5575,23 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "group_quote_intent_id",
                     "orig": "group_quote_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -6861,11 +5612,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.cost_sharing`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -6879,80 +5628,56 @@ class Config {
     "group_quote_intent": {
       "fields": [
         {
-          "active": true,
           "name": "action_required",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 0
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "consent_links",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "cost_sharing",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 2
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 3
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "expected_start_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 4
+          ]
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "plan_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         }
       ],
       "name": "group_quote_intent",
@@ -6962,28 +5687,23 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_quote_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -7010,19 +5730,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -7041,70 +5757,55 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "plan_id",
                     "orig": "plan_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -7128,39 +5829,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_quote_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -7185,11 +5879,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -7199,46 +5891,33 @@ class Config {
     "group_quote_intent_requirement_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "is_fulfilled",
           "req": true,
-          "type": "`$BOOLEAN`",
-          "index$": 1
+          "type": "`$BOOLEAN`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 4
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "requirement_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 5
+          "type": "`$ANY`"
         }
       ],
       "name": "group_quote_intent_requirement_response_paged_list",
@@ -7248,61 +5927,48 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "group_quote_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "object_id",
                     "orig": "object_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "object_type",
                     "orig": "object_type",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -7334,11 +6000,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -7348,160 +6012,117 @@ class Config {
     "plan": {
       "fields": [
         {
-          "active": true,
           "name": "available_from",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "available_to",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "country",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 2
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "coverage_options",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$ARRAY`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "description",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 5
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "documents",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 6
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "eligible_count",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$INTEGER`"
             ]
-          ],
-          "index$": 7
+          ]
         },
         {
-          "active": true,
           "name": "employee_eligibility_criteria",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 8
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employer_eligibility_criteria",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 9
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "health_insurance",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 10
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 11
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "ineligible_count",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$INTEGER`"
             ]
-          ],
-          "index$": 12
+          ]
         },
         {
-          "active": true,
           "name": "name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 13
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 14
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "provider",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 15
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "total_count",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$INTEGER`"
             ]
-          ],
-          "index$": 16
+          ]
         },
         {
-          "active": true,
           "name": "type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 17
+          "type": "`$ANY`"
         }
       ],
       "name": "plan",
@@ -7511,98 +6132,75 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "available_on",
                     "orig": "available_on",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "country",
                     "orig": "country",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "provider_id",
                     "orig": "provider_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "sort_by",
                     "orig": "sort_by",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "sort_dir",
                     "orig": "sort_dir",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "start_date",
                     "orig": "start_date",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "type",
                     "orig": "type",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -7631,57 +6229,46 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "plan_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "start_date",
                     "orig": "start_date",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -7709,11 +6296,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -7723,121 +6308,87 @@ class Config {
     "policy": {
       "fields": [
         {
-          "active": true,
           "name": "bundling_type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 0
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "cancellation_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 2
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "end_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 4
+          ]
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "group_policy_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "health_insurance",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 7
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "plan",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 10
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "provider",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 11
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 12
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 13
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "type",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 14
+          "type": "`$ANY`"
         }
       ],
       "name": "policy",
@@ -7847,68 +6398,53 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employee_id",
                     "orig": "employee_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_policy_id",
                     "orig": "group_policy_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -7933,39 +6469,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -7990,11 +6519,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -8004,74 +6531,50 @@ class Config {
     "policy_amendment_intent": {
       "fields": [
         {
-          "active": true,
           "name": "amendment_reason",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 0
+          "type": "`$ANY`"
         },
         {
-          "active": true,
           "name": "disclosures",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "pending_confirmation",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 4
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "policy_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "processing_error",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 6
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "requested_changes",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 7
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "required_action",
-          "req": false,
-          "type": "`$NULL`",
-          "index$": 8
+          "type": "`$NULL`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         }
       ],
       "name": "policy_amendment_intent",
@@ -8081,38 +6584,31 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "policy_id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8137,42 +6633,34 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "policy_amendment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "policy_id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8202,32 +6690,26 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             },
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8253,64 +6735,51 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 2
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -8340,49 +6809,40 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "policy_amendment_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "policy_id",
                     "orig": "policy_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8410,11 +6870,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -8428,80 +6886,58 @@ class Config {
     "policy_import_intent": {
       "fields": [
         {
-          "active": true,
           "name": "associated_persons",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "employee_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "group_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "member_number",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "policy_end_date",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 6
+          ]
         },
         {
-          "active": true,
           "name": "policy_start_date",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "provider_policy_number",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
           "req": true,
-          "type": "`$ANY`",
-          "index$": 9
+          "type": "`$ANY`"
         }
       ],
       "name": "policy_import_intent",
@@ -8511,15 +6947,12 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -8538,70 +6971,55 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "list": {
           "input": "data",
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "employee_id",
                     "orig": "employee_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "query",
                     "name": "group_id",
                     "orig": "group_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "status",
                     "orig": "status",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -8625,39 +7043,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pii_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "policy_import_intent_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8682,11 +7093,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -8696,86 +7105,63 @@ class Config {
     "provider": {
       "fields": [
         {
-          "active": true,
           "name": "description",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "employer_platform_url",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 1
+          ]
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "kota_hub_url",
-          "req": false,
           "type": [
             "`$ONE`",
             [
               "`$NULL`",
               "`$STRING`"
             ]
-          ],
-          "index$": 3
+          ]
         },
         {
-          "active": true,
           "name": "logo_url",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "support_phone",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 7
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "supported_countries",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 8
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "website_url",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 9
+          "type": "`$STRING`"
         }
       ],
       "name": "provider",
@@ -8785,41 +7171,32 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "country",
                     "orig": "country",
-                    "reqd": false,
                     "type": "`$ANY`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -8841,39 +7218,32 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "pr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "provider_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8898,11 +7268,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -8912,18 +7280,14 @@ class Config {
     "replay": {
       "fields": [
         {
-          "active": true,
           "name": "deliveries",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "event_id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         }
       ],
       "name": "replay",
@@ -8933,28 +7297,23 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "evt_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "event_id",
                     "orig": "event_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -8975,11 +7334,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
@@ -8993,39 +7350,28 @@ class Config {
     "webhook_endpoint": {
       "fields": [
         {
-          "active": true,
           "name": "created_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "endpoint_url",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "subscribed_events",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         }
       ],
       "name": "webhook_endpoint",
@@ -9035,28 +7381,23 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "params": [
                   {
-                    "active": true,
                     "example": "whe_3b1333d87d9d4fd6ad83ba7f6b0e951a",
                     "kind": "param",
                     "name": "id",
                     "orig": "webhook_endpoint_id",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -9082,11 +7423,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -9096,39 +7435,28 @@ class Config {
     "webhook_endpoint_response_paged_list": {
       "fields": [
         {
-          "active": true,
           "name": "created_at",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "endpoint_url",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "subscribed_events",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         }
       ],
       "name": "webhook_endpoint_response_paged_list",
@@ -9138,33 +7466,26 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "header": [
                   {
-                    "active": true,
                     "kind": "header",
                     "name": "x_platform_id",
                     "orig": "x_platform_id",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "page_size",
                     "orig": "page_size",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -9186,11 +7507,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {

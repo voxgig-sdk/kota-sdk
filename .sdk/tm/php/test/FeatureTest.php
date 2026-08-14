@@ -149,7 +149,7 @@ class FtHarness
     public static function hasFeature(string $name): bool
     {
         if (self::$feature_config === null) {
-            $config = KotaConfig::make_config();
+            $config = KotaConfig::shared_config();
             $f = $config['feature'] ?? [];
             self::$feature_config = is_array($f) ? $f : [];
         }

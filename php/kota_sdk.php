@@ -40,7 +40,7 @@ class KotaSDK
         $utility = new KotaUtility();
         $this->_utility = $utility;
 
-        $config = KotaConfig::make_config();
+        $config = KotaConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
