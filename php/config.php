@@ -34,7 +34,7 @@ class KotaConfig
             "main" => [
                 "name" => "Kota",
                 "slug" => "kota",
-                "version" => "0.0.1",
+                "version" => "0.1.1",
                 "target" => "php",
             ],
             "feature" => [
