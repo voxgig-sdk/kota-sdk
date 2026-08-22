@@ -39,6 +39,7 @@ main: kit: entity: employer: {
     {
       name: "metadata"
       req: false
+      short: "Set of key-value pairs that you can attach to an object."
       type: [
         "`$ONE`"
         [
@@ -50,6 +51,7 @@ main: kit: entity: employer: {
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {

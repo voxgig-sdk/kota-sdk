@@ -5,7 +5,7 @@ import type { GroupPolicy, GroupPolicyLoadMatch, GroupPolicyListMatch } from '..
 declare class GroupPolicyEntity extends KotaEntityBase<GroupPolicy> {
     constructor(client: KotaSDK, entopts: any);
     make(this: GroupPolicyEntity): GroupPolicyEntity;
-    load(this: any, reqmatch?: GroupPolicyLoadMatch, ctrl?: Control): Promise<GroupPolicy>;
-    list(this: any, reqmatch?: GroupPolicyListMatch, ctrl?: Control): Promise<GroupPolicy[]>;
+    load(this: any, reqmatch?: GroupPolicyLoadMatch, ctrl?: Control): Promise<GroupPolicyEntity>;
+    list(this: any, reqmatch?: GroupPolicyListMatch, ctrl?: Control): Promise<GroupPolicyEntity[]>;
 }
 export { GroupPolicyEntity };

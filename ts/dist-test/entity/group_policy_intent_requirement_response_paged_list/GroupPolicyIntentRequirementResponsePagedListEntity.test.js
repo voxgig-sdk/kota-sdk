@@ -76,7 +76,7 @@ const utility_1 = require("../../utility");
         const group_policy_intent_requirement_response_paged_list_ref01_ent = client.GroupPolicyIntentRequirementResponsePagedList();
         const group_policy_intent_requirement_response_paged_list_ref01_match = {};
         group_policy_intent_requirement_response_paged_list_ref01_match['group_policy_intent_id'] = setup.idmap['group_policy_intent01'];
-        const group_policy_intent_requirement_response_paged_list_ref01_list = await group_policy_intent_requirement_response_paged_list_ref01_ent.list(group_policy_intent_requirement_response_paged_list_ref01_match);
+        const group_policy_intent_requirement_response_paged_list_ref01_list = (await group_policy_intent_requirement_response_paged_list_ref01_ent.list(group_policy_intent_requirement_response_paged_list_ref01_match)).map((e) => e.data());
     });
 });
 function basicSetup(extra) {

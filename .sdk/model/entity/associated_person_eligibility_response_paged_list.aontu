@@ -8,26 +8,31 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
     {
       name: "associated_person_id"
       req: true
+      short: "The associated person ID."
       type: "`$STRING`"
     }
     {
       name: "date_of_birth"
       req: true
+      short: "Date of birth of the associated person."
       type: "`$STRING`"
     }
     {
       name: "eligibility_status"
       req: true
+      short: "Eligibility status for the policy/plan."
       type: "`$ANY`"
     }
     {
       name: "first_name"
       req: true
+      short: "First name of the associated person."
       type: "`$STRING`"
     }
     {
       name: "ineligibility_reason"
       req: false
+      short: "Reason for ineligibility if status is ineligible."
       type: [
         "`$ONE`"
         [
@@ -39,21 +44,25 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
     {
       name: "last_name"
       req: true
+      short: "Last name of the associated person."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "relationship"
       req: true
+      short: "Relationship type to the employee."
       type: "`$ANY`"
     }
     {
       name: "sex_at_birth"
       req: true
+      short: "Sex at birth of the associated person."
       type: "`$ANY`"
     }
   ]

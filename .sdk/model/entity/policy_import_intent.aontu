@@ -8,36 +8,43 @@ main: kit: entity: policy_import_intent: {
     {
       name: "associated_persons"
       req: true
+      short: "List of associated persons linked to this policy import."
       type: "`$ARRAY`"
     }
     {
       name: "employee_id"
       req: true
+      short: "The employee ID for the policy import."
       type: "`$STRING`"
     }
     {
       name: "group_id"
       req: true
+      short: "The group ID for the policy import."
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the policy import intent."
       type: "`$STRING`"
     }
     {
       name: "member_number"
       req: true
+      short: "The member number assigned by the provider."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type identifier."
       type: "`$STRING`"
     }
     {
       name: "policy_end_date"
       req: false
+      short: "The end date of the policy."
       type: [
         "`$ONE`"
         [
@@ -49,16 +56,19 @@ main: kit: entity: policy_import_intent: {
     {
       name: "policy_start_date"
       req: true
+      short: "The start date of the policy."
       type: "`$STRING`"
     }
     {
       name: "provider_policy_number"
       req: true
+      short: "The provider's policy number."
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the policy import intent."
       type: "`$ANY`"
     }
   ]

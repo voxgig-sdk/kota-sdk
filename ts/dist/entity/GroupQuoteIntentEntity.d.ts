@@ -5,8 +5,8 @@ import type { GroupQuoteIntent, GroupQuoteIntentLoadMatch, GroupQuoteIntentListM
 declare class GroupQuoteIntentEntity extends KotaEntityBase<GroupQuoteIntent> {
     constructor(client: KotaSDK, entopts: any);
     make(this: GroupQuoteIntentEntity): GroupQuoteIntentEntity;
-    load(this: any, reqmatch?: GroupQuoteIntentLoadMatch, ctrl?: Control): Promise<GroupQuoteIntent>;
-    list(this: any, reqmatch?: GroupQuoteIntentListMatch, ctrl?: Control): Promise<GroupQuoteIntent[]>;
-    create(this: any, reqdata?: GroupQuoteIntentCreateData, ctrl?: Control): Promise<GroupQuoteIntent>;
+    load(this: any, reqmatch?: GroupQuoteIntentLoadMatch, ctrl?: Control): Promise<GroupQuoteIntentEntity>;
+    list(this: any, reqmatch?: GroupQuoteIntentListMatch, ctrl?: Control): Promise<GroupQuoteIntentEntity[]>;
+    create(this: any, reqdata?: GroupQuoteIntentCreateData, ctrl?: Control): Promise<GroupQuoteIntentEntity>;
 }
 export { GroupQuoteIntentEntity };

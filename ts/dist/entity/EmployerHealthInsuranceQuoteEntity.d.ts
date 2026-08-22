@@ -5,6 +5,6 @@ import type { EmployerHealthInsuranceQuote, EmployerHealthInsuranceQuoteLoadMatc
 declare class EmployerHealthInsuranceQuoteEntity extends KotaEntityBase<EmployerHealthInsuranceQuote> {
     constructor(client: KotaSDK, entopts: any);
     make(this: EmployerHealthInsuranceQuoteEntity): EmployerHealthInsuranceQuoteEntity;
-    load(this: any, reqmatch?: EmployerHealthInsuranceQuoteLoadMatch, ctrl?: Control): Promise<EmployerHealthInsuranceQuote>;
+    load(this: any, reqmatch?: EmployerHealthInsuranceQuoteLoadMatch, ctrl?: Control): Promise<EmployerHealthInsuranceQuoteEntity>;
 }
 export { EmployerHealthInsuranceQuoteEntity };

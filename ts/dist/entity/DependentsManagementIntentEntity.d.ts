@@ -5,7 +5,7 @@ import type { DependentsManagementIntent, DependentsManagementIntentLoadMatch, D
 declare class DependentsManagementIntentEntity extends KotaEntityBase<DependentsManagementIntent> {
     constructor(client: KotaSDK, entopts: any);
     make(this: DependentsManagementIntentEntity): DependentsManagementIntentEntity;
-    load(this: any, reqmatch?: DependentsManagementIntentLoadMatch, ctrl?: Control): Promise<DependentsManagementIntent>;
-    create(this: any, reqdata?: DependentsManagementIntentCreateData, ctrl?: Control): Promise<DependentsManagementIntent>;
+    load(this: any, reqmatch?: DependentsManagementIntentLoadMatch, ctrl?: Control): Promise<DependentsManagementIntentEntity>;
+    create(this: any, reqdata?: DependentsManagementIntentCreateData, ctrl?: Control): Promise<DependentsManagementIntentEntity>;
 }
 export { DependentsManagementIntentEntity };

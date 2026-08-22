@@ -76,7 +76,7 @@ const utility_1 = require("../../utility");
         const employer_health_insurance_policy_response_paged_list_ref01_ent = client.EmployerHealthInsurancePolicyResponsePagedList();
         const employer_health_insurance_policy_response_paged_list_ref01_match = {};
         employer_health_insurance_policy_response_paged_list_ref01_match['employer_id'] = setup.idmap['employer01'];
-        const employer_health_insurance_policy_response_paged_list_ref01_list = await employer_health_insurance_policy_response_paged_list_ref01_ent.list(employer_health_insurance_policy_response_paged_list_ref01_match);
+        const employer_health_insurance_policy_response_paged_list_ref01_list = (await employer_health_insurance_policy_response_paged_list_ref01_ent.list(employer_health_insurance_policy_response_paged_list_ref01_match)).map((e) => e.data());
     });
 });
 function basicSetup(extra) {

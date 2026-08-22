@@ -75,12 +75,12 @@ const utility_1 = require("../../utility");
         const dependents_management_intent_ref01_ent = client.DependentsManagementIntent();
         let dependents_management_intent_ref01_data = setup.data.new.dependents_management_intent['dependents_management_intent_ref01'];
         dependents_management_intent_ref01_data['dependents_management_intent_id'] = setup.idmap['dependents_management_intent01'];
-        dependents_management_intent_ref01_data = await dependents_management_intent_ref01_ent.create(dependents_management_intent_ref01_data);
+        dependents_management_intent_ref01_data = (await dependents_management_intent_ref01_ent.create(dependents_management_intent_ref01_data)).data();
         (0, node_assert_1.default)(null != dependents_management_intent_ref01_data.id);
         // LOAD
         const dependents_management_intent_ref01_match_dt0 = {};
         dependents_management_intent_ref01_match_dt0.id = dependents_management_intent_ref01_data.id;
-        const dependents_management_intent_ref01_data_dt0 = await dependents_management_intent_ref01_ent.load(dependents_management_intent_ref01_match_dt0);
+        const dependents_management_intent_ref01_data_dt0 = (await dependents_management_intent_ref01_ent.load(dependents_management_intent_ref01_match_dt0)).data();
         (0, node_assert_1.default)(dependents_management_intent_ref01_data_dt0.id === dependents_management_intent_ref01_data.id);
     });
 });

@@ -8,11 +8,13 @@ main: kit: entity: provider: {
     {
       name: "description"
       req: true
+      short: "Description of the provider."
       type: "`$STRING`"
     }
     {
       name: "employer_platform_url"
       req: false
+      short: "URL to the employer portal/platform for this provider, if available."
       type: [
         "`$ONE`"
         [
@@ -24,11 +26,13 @@ main: kit: entity: provider: {
     {
       name: "id"
       req: true
+      short: "Unique identifier for the provider."
       type: "`$STRING`"
     }
     {
       name: "kota_hub_url"
       req: false
+      short: "URL to the Kota Hub page for this platform, if configured."
       type: [
         "`$ONE`"
         [
@@ -40,31 +44,37 @@ main: kit: entity: provider: {
     {
       name: "logo_url"
       req: true
+      short: "URL to the provider's logo image."
       type: "`$STRING`"
     }
     {
       name: "name"
       req: true
+      short: "The name of the provider."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type."
       type: "`$STRING`"
     }
     {
       name: "support_phone"
       req: true
+      short: "Customer support phone number."
       type: "`$STRING`"
     }
     {
       name: "supported_countries"
       req: true
+      short: "List of countries supported by this provider."
       type: "`$ARRAY`"
     }
     {
       name: "website_url"
       req: true
+      short: "The provider's main website URL."
       type: "`$STRING`"
     }
   ]

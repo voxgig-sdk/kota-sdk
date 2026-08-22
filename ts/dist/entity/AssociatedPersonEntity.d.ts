@@ -5,10 +5,10 @@ import type { AssociatedPerson, AssociatedPersonLoadMatch, AssociatedPersonListM
 declare class AssociatedPersonEntity extends KotaEntityBase<AssociatedPerson> {
     constructor(client: KotaSDK, entopts: any);
     make(this: AssociatedPersonEntity): AssociatedPersonEntity;
-    load(this: any, reqmatch?: AssociatedPersonLoadMatch, ctrl?: Control): Promise<AssociatedPerson>;
-    list(this: any, reqmatch?: AssociatedPersonListMatch, ctrl?: Control): Promise<AssociatedPerson[]>;
-    create(this: any, reqdata?: AssociatedPersonCreateData, ctrl?: Control): Promise<AssociatedPerson>;
-    update(this: any, reqdata?: AssociatedPersonUpdateData, ctrl?: Control): Promise<AssociatedPerson>;
-    remove(this: any, reqmatch?: AssociatedPersonRemoveMatch, ctrl?: Control): Promise<AssociatedPerson>;
+    load(this: any, reqmatch?: AssociatedPersonLoadMatch, ctrl?: Control): Promise<AssociatedPersonEntity>;
+    list(this: any, reqmatch?: AssociatedPersonListMatch, ctrl?: Control): Promise<AssociatedPersonEntity[]>;
+    create(this: any, reqdata?: AssociatedPersonCreateData, ctrl?: Control): Promise<AssociatedPersonEntity>;
+    update(this: any, reqdata?: AssociatedPersonUpdateData, ctrl?: Control): Promise<AssociatedPersonEntity>;
+    remove(this: any, reqmatch?: AssociatedPersonRemoveMatch, ctrl?: Control): Promise<AssociatedPersonEntity>;
 }
 export { AssociatedPersonEntity };

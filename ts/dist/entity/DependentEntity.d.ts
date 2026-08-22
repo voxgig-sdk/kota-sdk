@@ -5,7 +5,7 @@ import type { Dependent, DependentCreateData, DependentRemoveMatch } from '../Ko
 declare class DependentEntity extends KotaEntityBase<Dependent> {
     constructor(client: KotaSDK, entopts: any);
     make(this: DependentEntity): DependentEntity;
-    create(this: any, reqdata?: DependentCreateData, ctrl?: Control): Promise<Dependent>;
-    remove(this: any, reqmatch?: DependentRemoveMatch, ctrl?: Control): Promise<Dependent>;
+    create(this: any, reqdata?: DependentCreateData, ctrl?: Control): Promise<DependentEntity>;
+    remove(this: any, reqmatch?: DependentRemoveMatch, ctrl?: Control): Promise<DependentEntity>;
 }
 export { DependentEntity };

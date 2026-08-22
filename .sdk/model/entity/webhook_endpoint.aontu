@@ -8,26 +8,31 @@ main: kit: entity: webhook_endpoint: {
     {
       name: "created_at"
       req: true
+      short: "The date and time the endpoint was created"
       type: "`$STRING`"
     }
     {
       name: "endpoint_url"
       req: true
+      short: "The registered URL of the endpoint"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "The unique identifier of the endpoint"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "subscribed_events"
       req: true
+      short: "The events the endpoint is subscribed to"
       type: "`$ARRAY`"
     }
   ]

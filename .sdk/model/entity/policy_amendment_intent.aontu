@@ -8,51 +8,61 @@ main: kit: entity: policy_amendment_intent: {
     {
       name: "amendment_reason"
       req: true
+      short: "The reason for the policy amendment."
       type: "`$ANY`"
     }
     {
       name: "disclosures"
       req: true
+      short: "Disclosures associated with this intent."
       type: "`$ARRAY`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the policy amendment intent."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type identifier."
       type: "`$STRING`"
     }
     {
       name: "pending_confirmation"
       req: false
+      short: "Information about the pending confirmation if the intent status is `pending_confirmation`."
       type: "`$NULL`"
     }
     {
       name: "policy_id"
       req: true
+      short: "The policy ID for which the amendment is requested."
       type: "`$STRING`"
     }
     {
       name: "processing_error"
       req: false
+      short: "Information about the processing error if the intent status is `processing_error`."
       type: "`$NULL`"
     }
     {
       name: "requested_changes"
       req: true
+      short: "List of requested changes to the policy."
       type: "`$ARRAY`"
     }
     {
       name: "required_action"
       req: false
+      short: "Information about the required action if the intent status is `action_required`."
       type: "`$NULL`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the policy amendment intent."
       type: "`$ANY`"
     }
   ]

@@ -75,11 +75,11 @@ const utility_1 = require("../../utility");
         // LIST
         const policy_ref01_ent = client.Policy();
         const policy_ref01_match = {};
-        const policy_ref01_list = await policy_ref01_ent.list(policy_ref01_match);
+        const policy_ref01_list = (await policy_ref01_ent.list(policy_ref01_match)).map((e) => e.data());
         // LOAD
         const policy_ref01_match_dt0 = {};
         policy_ref01_match_dt0.id = policy_ref01_data.id;
-        const policy_ref01_data_dt0 = await policy_ref01_ent.load(policy_ref01_match_dt0);
+        const policy_ref01_data_dt0 = (await policy_ref01_ent.load(policy_ref01_match_dt0)).data();
         (0, node_assert_1.default)(policy_ref01_data_dt0.id === policy_ref01_data.id);
     });
 });

@@ -249,17 +249,17 @@ $associated_person = $client->AssociatedPerson();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `date_of_birth` | `string` | Yes |  |
-| `email` | `mixed` | No |  |
-| `employee_id` | `string` | Yes |  |
-| `first_name` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `last_name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `phone_number` | `mixed` | No |  |
-| `platform_id` | `string` | No |  |
-| `relationship_type` | `mixed` | Yes |  |
-| `sex_at_birth` | `mixed` | Yes |  |
+| `date_of_birth` | `string` | Yes | Date of birth of the associated person |
+| `email` | `mixed` | No | Email address of the associated person |
+| `employee_id` | `string` | Yes | Unique identifier for the employee this person is associated with |
+| `first_name` | `string` | Yes | First name of the associated person |
+| `id` | `string` | Yes | Unique identifier for the associated person |
+| `last_name` | `string` | Yes | Last name of the associated person |
+| `object` | `string` | No | The object type |
+| `phone_number` | `mixed` | No | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | No | Unique identifier for the platform |
+| `relationship_type` | `mixed` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `mixed` | Yes | The sex assigned to the associated person at birth |
 
 ### Operations
 
@@ -355,15 +355,15 @@ $associated_person_eligibility_response_paged_list = $client->AssociatedPersonEl
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person_id` | `string` | Yes |  |
-| `date_of_birth` | `string` | Yes |  |
-| `eligibility_status` | `mixed` | Yes |  |
-| `first_name` | `string` | Yes |  |
-| `ineligibility_reason` | `mixed` | No |  |
-| `last_name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `relationship` | `mixed` | Yes |  |
-| `sex_at_birth` | `mixed` | Yes |  |
+| `associated_person_id` | `string` | Yes | The associated person ID. |
+| `date_of_birth` | `string` | Yes | Date of birth of the associated person. |
+| `eligibility_status` | `mixed` | Yes | Eligibility status for the policy/plan. |
+| `first_name` | `string` | Yes | First name of the associated person. |
+| `ineligibility_reason` | `mixed` | No | Reason for ineligibility if status is ineligible. |
+| `last_name` | `string` | Yes | Last name of the associated person. |
+| `object` | `string` | No | The object type |
+| `relationship` | `mixed` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `mixed` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
@@ -415,15 +415,15 @@ $contribution_report = $client->ContributionReport();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `finalized_at` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `mixed` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `created_at` | `string` | Yes | Date and time the report was created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the report is created |
+| `external_customer_id` | `mixed` | No | Unique identifier of the customer for which the report is created. |
+| `finalized_at` | `mixed` | No | Date and time the report was finalized, if applicable |
+| `id` | `string` | Yes | Unique identifier for the contribution report |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
+| `object` | `string` | No | The object type |
+| `period` | `mixed` | Yes | Period covered by the contribution report |
+| `status` | `mixed` | Yes | Current status of the contribution report |
 
 ### Operations
 
@@ -498,18 +498,18 @@ $contribution_report_employee_breakdown = $client->ContributionReportEmployeeBre
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `string` | Yes |  |
-| `created_at` | `string` | Yes |  |
-| `currency` | `mixed` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `finalized_at` | `mixed` | No |  |
-| `health_insurance` | `mixed` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `mixed` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `string` | Yes | Date and time the breakdown was created |
+| `currency` | `mixed` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `mixed` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `mixed` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `mixed` | Yes | Health insurance contribution details |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
+| `object` | `string` | No | The object type |
+| `period` | `mixed` | Yes | Period covered by the employee breakdown |
+| `status` | `mixed` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -561,18 +561,18 @@ $contribution_report_employee_breakdown_response_paged_list = $client->Contribut
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `string` | Yes |  |
-| `created_at` | `string` | Yes |  |
-| `currency` | `mixed` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `finalized_at` | `mixed` | No |  |
-| `health_insurance` | `mixed` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `mixed` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `string` | Yes | Date and time the breakdown was created |
+| `currency` | `mixed` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `mixed` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `mixed` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `mixed` | Yes | Health insurance contribution details |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
+| `object` | `string` | No | The object type |
+| `period` | `mixed` | Yes | Period covered by the employee breakdown |
+| `status` | `mixed` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -736,16 +736,16 @@ $dependent = $client->Dependent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `null` | No |  |
-| `coverage_options` | `mixed` | No |  |
-| `dependents` | `array` | Yes |  |
-| `disclosures` | `array` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `parent_intent_id` | `string` | Yes |  |
-| `parent_intent_type` | `mixed` | Yes |  |
-| `plan` | `mixed` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `action_required` | `null` | No | Details of the action required from the caller. |
+| `coverage_options` | `mixed` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `array` | Yes | List of dependents being managed. |
+| `disclosures` | `array` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `string` | No | Object type identifier. |
+| `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `mixed` | Yes | The type of parent intent. |
+| `plan` | `mixed` | Yes | Plan information including pricing details. |
+| `status` | `mixed` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -814,16 +814,16 @@ $dependents_management_intent = $client->DependentsManagementIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `null` | No |  |
-| `coverage_options` | `mixed` | No |  |
-| `dependents` | `array` | Yes |  |
-| `disclosures` | `array` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `parent_intent_id` | `string` | Yes |  |
-| `parent_intent_type` | `mixed` | Yes |  |
-| `plan` | `mixed` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `action_required` | `null` | No | Details of the action required from the caller. |
+| `coverage_options` | `mixed` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `array` | Yes | List of dependents being managed. |
+| `disclosures` | `array` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `string` | No | Object type identifier. |
+| `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `mixed` | Yes | The type of parent intent. |
+| `plan` | `mixed` | Yes | Plan information including pricing details. |
+| `status` | `mixed` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -833,6 +833,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->DependentsManagementIntent()->create([
+  "enrolment_intent_id" => null, // string
   "dependents" => null, // array
   "disclosures" => null, // array
   "id" => null, // string
@@ -891,11 +892,11 @@ $eligibility_check = $client->EligibilityCheck();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `mixed` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `mixed` | Yes |  |
-| `provider` | `mixed` | Yes |  |
-| `reasons` | `array` | Yes |  |
+| `eligibility_status` | `mixed` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `object` | `string` | No | The object type. |
+| `plan` | `mixed` | Yes | The insurance plan associated with the group. |
+| `provider` | `mixed` | Yes | The insurance provider associated with the group. |
+| `reasons` | `array` | Yes | List of reasons why the employee is ineligible. |
 
 ### Operations
 
@@ -953,26 +954,26 @@ $employee = $client->Employee();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bank_account` | `null` | No |  |
-| `date_of_birth` | `string` | Yes |  |
-| `earliest_benefits_start_date` | `mixed` | No |  |
-| `email` | `string` | Yes |  |
-| `employer_id` | `string` | No |  |
-| `external_customer_id` | `mixed` | No |  |
-| `first_name` | `string` | Yes |  |
-| `home_address` | `null` | No |  |
-| `id` | `string` | No |  |
-| `last_name` | `string` | Yes |  |
-| `metadata` | `mixed` | No |  |
-| `national_tax_id` | `string` | Yes |  |
-| `nationality` | `null` | No |  |
-| `object` | `string` | No |  |
-| `offboard_on` | `mixed` | No |  |
-| `phone_number` | `string` | Yes |  |
-| `platform_id` | `string` | No |  |
-| `sex_at_birth` | `mixed` | Yes |  |
-| `start_on` | `string` | No |  |
-| `status` | `mixed` | No |  |
+| `bank_account` | `null` | No | Bank account details |
+| `date_of_birth` | `string` | Yes | Date of birth of the employee |
+| `earliest_benefits_start_date` | `mixed` | No | The earliest date this employee can be enrolled in any benefits. |
+| `email` | `string` | Yes | Email address of the employee |
+| `employer_id` | `string` | No | Unique identifier for the employer |
+| `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `first_name` | `string` | Yes | First name of the employee. |
+| `home_address` | `null` | No | Location where the employee is legally registered to live |
+| `id` | `string` | No | Unique identifier for the employee |
+| `last_name` | `string` | Yes | Last name of the employee |
+| `metadata` | `mixed` | No | Set of key-value pairs that you can attach to an object. |
+| `national_tax_id` | `string` | Yes | PPSN in Ireland, NINo in the UK, DNI/NIE in Spain |
+| `nationality` | `null` | No | Nationality of the employee (e.g. |
+| `object` | `string` | No | The object type |
+| `offboard_on` | `mixed` | No | Date when the employee was or will be offboarded |
+| `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | No | Unique identifier for the platform |
+| `sex_at_birth` | `mixed` | Yes | The sex assigned to the employee at birth |
+| `start_on` | `string` | No | Employment start date |
+| `status` | `mixed` | No | Current status of the employee |
 
 ### Operations
 
@@ -1059,14 +1060,14 @@ $employee_health_insurance_offer = $client->EmployeeHealthInsuranceOffer();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `mixed` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `required_action` | `null` | No |  |
-| `status` | `mixed` | Yes |  |
+| `coverage_level` | `mixed` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `string` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for offer |
+| `object` | `string` | No | The object type |
+| `required_action` | `null` | No | Required action to progress the offer, if any. |
+| `status` | `mixed` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1118,14 +1119,14 @@ $employee_health_insurance_offer_response_paged_list = $client->EmployeeHealthIn
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `mixed` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `required_action` | `null` | No |  |
-| `status` | `mixed` | Yes |  |
+| `coverage_level` | `mixed` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `string` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for offer |
+| `object` | `string` | No | The object type |
+| `required_action` | `null` | No | Required action to progress the offer, if any. |
+| `status` | `mixed` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1177,22 +1178,22 @@ $employee_health_insurance_policy = $client->EmployeeHealthInsurancePolicy();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `mixed` | No |  |
-| `coverage_level` | `mixed` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolled_dependants_count` | `int` | Yes |  |
-| `enrolment_type` | `mixed` | Yes |  |
-| `estimated_gross_premium` | `mixed` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `opt_out_deadline_date` | `string` | Yes |  |
-| `policy_number` | `mixed` | No |  |
-| `renewal` | `mixed` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `cancellation_date` | `mixed` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `mixed` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `string` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `mixed` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `opt_out_deadline_date` | `string` | Yes | Last day to opt out from the policy |
+| `policy_number` | `mixed` | No | Health insurance policy number, if available |
+| `renewal` | `mixed` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `mixed` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1244,22 +1245,22 @@ $employee_health_insurance_policy_response_paged_list = $client->EmployeeHealthI
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `mixed` | No |  |
-| `coverage_level` | `mixed` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolled_dependants_count` | `int` | Yes |  |
-| `enrolment_type` | `mixed` | Yes |  |
-| `estimated_gross_premium` | `mixed` | Yes |  |
-| `external_customer_id` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `opt_out_deadline_date` | `string` | Yes |  |
-| `policy_number` | `mixed` | No |  |
-| `renewal` | `mixed` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `cancellation_date` | `mixed` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `mixed` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `string` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `mixed` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `opt_out_deadline_date` | `string` | Yes | Last day to opt out from the policy |
+| `policy_number` | `mixed` | No | Health insurance policy number, if available |
+| `renewal` | `mixed` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `mixed` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1316,8 +1317,8 @@ $employer = $client->Employer();
 | `id` | `string` | Yes |  |
 | `legal_address` | `mixed` | Yes |  |
 | `legal_name` | `string` | Yes |  |
-| `metadata` | `mixed` | No |  |
-| `object` | `string` | No |  |
+| `metadata` | `mixed` | No | Set of key-value pairs that you can attach to an object. |
+| `object` | `string` | No | The object type |
 | `offboard_on` | `mixed` | No |  |
 | `platform_id` | `string` | No |  |
 | `registration_number` | `mixed` | No |  |
@@ -1405,18 +1406,18 @@ $employer_health_insurance_policy = $client->EmployerHealthInsurancePolicy();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `mixed` | No |  |
-| `coverage_levels` | `array` | Yes |  |
-| `employer_cancellation_period_length` | `int` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolment_type` | `mixed` | Yes |  |
-| `group_policy_number` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `renewal` | `mixed` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `cancellation_date` | `mixed` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `array` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `mixed` | No | Group’s health insurance policy number, if available |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `renewal` | `mixed` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `mixed` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1468,18 +1469,18 @@ $employer_health_insurance_policy_response_paged_list = $client->EmployerHealthI
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `mixed` | No |  |
-| `coverage_levels` | `array` | Yes |  |
-| `employer_cancellation_period_length` | `int` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolment_type` | `mixed` | Yes |  |
-| `group_policy_number` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `renewal` | `mixed` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `cancellation_date` | `mixed` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `array` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `mixed` | No | Group’s health insurance policy number, if available |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `renewal` | `mixed` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `mixed` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1531,13 +1532,13 @@ $employer_health_insurance_quote = $client->EmployerHealthInsuranceQuote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `array` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `quoted_at` | `string` | Yes |  |
-| `required_action` | `null` | No |  |
-| `status` | `mixed` | Yes |  |
+| `coverage_levels` | `array` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | Yes | The Id of the employer for which the is created |
+| `id` | `string` | Yes | Unique identifier for the quote |
+| `object` | `string` | No | The object type |
+| `quoted_at` | `string` | Yes | Date and time the quote was created at |
+| `required_action` | `null` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `mixed` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1589,13 +1590,13 @@ $employer_health_insurance_quote_response_paged_list = $client->EmployerHealthIn
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `array` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `quoted_at` | `string` | Yes |  |
-| `required_action` | `null` | No |  |
-| `status` | `mixed` | Yes |  |
+| `coverage_levels` | `array` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | Yes | The Id of the employer for which the is created |
+| `id` | `string` | Yes | Unique identifier for the quote |
+| `object` | `string` | No | The object type |
+| `quoted_at` | `string` | Yes | Date and time the quote was created at |
+| `required_action` | `null` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `mixed` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1647,18 +1648,18 @@ $enrolment_intent = $client->EnrolmentIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `null` | No |  |
-| `disclosures` | `array` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `force_confirmation` | `bool` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `ineligibility_reason` | `null` | No |  |
-| `object` | `string` | No |  |
-| `pending_confirmation` | `null` | No |  |
-| `policy_configuration` | `null` | No |  |
-| `policy_enrolments` | `array` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `action_required` | `null` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `disclosures` | `array` | Yes | Disclosures associated with this intent. |
+| `employee_id` | `string` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `force_confirmation` | `bool` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
+| `group_id` | `string` | Yes | Identifier for the group associated with this enrolment intent. |
+| `id` | `string` | Yes | Unique identifier for the enrolment intent. |
+| `ineligibility_reason` | `null` | No | If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility. |
+| `object` | `string` | No | Object type identifier. |
+| `pending_confirmation` | `null` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
+| `policy_configuration` | `null` | No | Policy configuration associated with this enrolment intent. |
+| `policy_enrolments` | `array` | Yes | Policy enrolment information |
+| `status` | `mixed` | Yes | Current status of the enrolment intent. |
 
 ### Operations
 
@@ -1745,12 +1746,12 @@ $enrolment_intent_requirement_response_paged_list = $client->EnrolmentIntentRequ
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `mixed` | Yes |  |
-| `requirement_type` | `mixed` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `mixed` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `mixed` | Yes | Type of requirement |
 
 ### Operations
 
@@ -1870,17 +1871,17 @@ $group = $client->Group();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `mixed` | No |  |
-| `employer_id` | `string` | Yes |  |
-| `enrolment_type` | `mixed` | Yes |  |
-| `group_policy_ids` | `array` | Yes |  |
-| `group_policy_intent_ids` | `array` | Yes |  |
-| `group_quote_intent_ids` | `array` | Yes |  |
-| `group_type` | `mixed` | Yes |  |
-| `id` | `string` | Yes |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `status` | `mixed` | Yes |  |
+| `description` | `mixed` | No | Short description of the purpose or scope of the `group`. |
+| `employer_id` | `string` | Yes | Identifier for the `employer` that owns this `group`. |
+| `enrolment_type` | `mixed` | Yes | Indicates how employees are enrolled into the group. |
+| `group_policy_ids` | `array` | Yes | Group policy unique identifiers associated with this group. |
+| `group_policy_intent_ids` | `array` | Yes | Group policy intent unique identifiers associated with this group. |
+| `group_quote_intent_ids` | `array` | Yes | Group quote intent unique identifiers associated with this group. |
+| `group_type` | `mixed` | Yes | Indicates how policies are organized for this group. |
+| `id` | `string` | Yes | Unique identifier for the `group`. |
+| `name` | `string` | Yes | Human-readable name of the `group`. |
+| `object` | `string` | No | The object type |
+| `status` | `mixed` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
 
 ### Operations
 
@@ -1969,16 +1970,16 @@ $group_employee = $client->GroupEmployee();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `mixed` | No |  |
-| `eligibility_status` | `mixed` | Yes |  |
-| `enrolment_date` | `mixed` | No |  |
-| `enrolment_status` | `mixed` | Yes |  |
-| `enrolments` | `array` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policies` | `array` | Yes |  |
-| `scheduled_group_transitions` | `array` | Yes |  |
+| `desired_policy_start_date` | `mixed` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `mixed` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `mixed` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `mixed` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `array` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Yes | Unique identifier for the group. |
+| `id` | `string` | Yes | Unique identifier for the employee. |
+| `object` | `string` | No | The object type |
+| `policies` | `array` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `array` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2038,16 +2039,16 @@ $group_employee_response_paged_list = $client->GroupEmployeeResponsePagedList();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `mixed` | No |  |
-| `eligibility_status` | `mixed` | Yes |  |
-| `enrolment_date` | `mixed` | No |  |
-| `enrolment_status` | `mixed` | Yes |  |
-| `enrolments` | `array` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policies` | `array` | Yes |  |
-| `scheduled_group_transitions` | `array` | Yes |  |
+| `desired_policy_start_date` | `mixed` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `mixed` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `mixed` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `mixed` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `array` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Yes | Unique identifier for the group. |
+| `id` | `string` | Yes | Unique identifier for the employee. |
+| `object` | `string` | No | The object type |
+| `policies` | `array` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `array` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2099,19 +2100,19 @@ $group_policy = $client->GroupPolicy();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `mixed` | No |  |
-| `disclosures` | `array` | Yes |  |
-| `employer_id` | `string` | No |  |
-| `end_date` | `mixed` | No |  |
-| `group_id` | `string` | No |  |
-| `health_insurance` | `null` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `mixed` | Yes |  |
-| `provider` | `mixed` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
-| `type` | `mixed` | Yes |  |
+| `cancellation_date` | `mixed` | No | Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable. |
+| `disclosures` | `array` | Yes | Disclosures associated with this group policy. |
+| `employer_id` | `string` | No | Identifier for the employer associated with this group policy. |
+| `end_date` | `mixed` | No | Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended. |
+| `group_id` | `string` | No | Identifier for the group associated with this group policy. |
+| `health_insurance` | `null` | No | Health insurance–specific fields (present when `type=health_insurance`). |
+| `id` | `string` | Yes | Unique identifier for the group policy. |
+| `object` | `string` | No | The object type |
+| `plan` | `mixed` | Yes | Plan information for this policy |
+| `provider` | `mixed` | Yes | Provider information for this policy. |
+| `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
+| `status` | `mixed` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `mixed` | Yes | Policy type. |
 
 ### Operations
 
@@ -2171,16 +2172,16 @@ $group_policy_intent = $client->GroupPolicyIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `null` | No |  |
-| `cost_sharing` | `null` | No |  |
-| `disclosures` | `array` | Yes |  |
-| `due_date` | `mixed` | No |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan_id` | `string` | Yes |  |
-| `quote_intent_id` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `action_required` | `null` | No | Details of the required action when the intent is in ActionRequired status. |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent |
+| `disclosures` | `array` | Yes | Disclosures associated with this intent. |
+| `due_date` | `mixed` | No | Due date for the policy intent |
+| `group_id` | `string` | Yes | Unique identifier for the group |
+| `id` | `string` | Yes | Unique identifier for the group policy intent |
+| `object` | `string` | No | Object type identifier |
+| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
+| `status` | `mixed` | Yes | Current status of the group policy intent |
 
 ### Operations
 
@@ -2255,12 +2256,12 @@ $group_policy_intent_requirement_response_paged_list = $client->GroupPolicyInten
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `mixed` | Yes |  |
-| `requirement_type` | `mixed` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `mixed` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `mixed` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2312,11 +2313,11 @@ $group_quote = $client->GroupQuote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `null` | No |  |
-| `member_count` | `null` | No |  |
-| `member_selection` | `null` | No |  |
-| `percentage` | `null` | No |  |
-| `type` | `mixed` | Yes |  |
+| `family_type` | `null` | No | Type of the family covered by the employer. |
+| `member_count` | `null` | No | Numbers of additional members covered by the employer. |
+| `member_selection` | `null` | No | Whether specific member types are covered by the employer. |
+| `percentage` | `null` | No | Percentage of the premium the employer covers. |
+| `type` | `mixed` | Yes | Cost sharing type. |
 
 ### Operations
 
@@ -2368,16 +2369,16 @@ $group_quote_intent = $client->GroupQuoteIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `null` | No |  |
-| `consent_links` | `array` | Yes |  |
-| `cost_sharing` | `null` | No |  |
-| `disclosures` | `array` | Yes |  |
-| `expected_start_date` | `mixed` | No |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan_id` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `action_required` | `null` | No | Details of the action required from the caller, if the intent is in action_required status. |
+| `consent_links` | `array` | Yes | Consent links that need to be acknowledged |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the quote |
+| `disclosures` | `array` | Yes | Disclosures associated with this intent. |
+| `expected_start_date` | `mixed` | No | Expected start date for the insurance coverage |
+| `group_id` | `string` | Yes | Unique identifier for the group |
+| `id` | `string` | Yes | Unique identifier for the group quote intent |
+| `object` | `string` | No | Object type identifier |
+| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `status` | `mixed` | Yes | Current status of the group quote intent |
 
 ### Operations
 
@@ -2452,12 +2453,12 @@ $group_quote_intent_requirement_response_paged_list = $client->GroupQuoteIntentR
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `mixed` | Yes |  |
-| `requirement_type` | `mixed` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `mixed` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `mixed` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2509,24 +2510,24 @@ $plan = $client->Plan();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `available_from` | `string` | Yes |  |
-| `available_to` | `mixed` | No |  |
-| `country` | `mixed` | Yes |  |
-| `coverage_options` | `mixed` | No |  |
-| `description` | `string` | Yes |  |
-| `disclosures` | `array` | Yes |  |
-| `documents` | `array` | Yes |  |
-| `eligible_count` | `mixed` | No |  |
-| `employee_eligibility_criteria` | `array` | Yes |  |
-| `employer_eligibility_criteria` | `array` | Yes |  |
-| `health_insurance` | `null` | No |  |
-| `id` | `string` | Yes |  |
-| `ineligible_count` | `mixed` | No |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `provider` | `mixed` | Yes |  |
-| `total_count` | `mixed` | No |  |
-| `type` | `mixed` | Yes |  |
+| `available_from` | `string` | Yes | The date from which this plan is available (inclusive). |
+| `available_to` | `mixed` | No | The date until which this plan is available (inclusive). |
+| `country` | `mixed` | Yes | The country this plan is available in. |
+| `coverage_options` | `mixed` | No | Coverage options available for this plan, organized by scope and input type. |
+| `description` | `string` | Yes | Description of the plan. |
+| `disclosures` | `array` | Yes | Disclosures associated with this plan. |
+| `documents` | `array` | Yes | List of plan documents (e.g., IPIDs, T&Cs). |
+| `eligible_count` | `mixed` | No | Number of employees in the queried group eligible for this plan as-of `start_date`. |
+| `employee_eligibility_criteria` | `array` | Yes | Eligibility criteria that employees must meet. |
+| `employer_eligibility_criteria` | `array` | Yes | Eligibility criteria that employers must meet. |
+| `health_insurance` | `null` | No | Health insurance-specific details. |
+| `id` | `string` | Yes | Unique identifier for the plan. |
+| `ineligible_count` | `mixed` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `name` | `string` | Yes | The name of the plan. |
+| `object` | `string` | No | Object type. |
+| `provider` | `mixed` | Yes | The provider offering this plan. |
+| `total_count` | `mixed` | No | Total employees in the queried group. |
+| `type` | `mixed` | Yes | The benefit type of the plan. |
 
 ### Operations
 
@@ -2586,21 +2587,21 @@ $policy = $client->Policy();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `mixed` | Yes |  |
-| `cancellation_date` | `mixed` | No |  |
-| `disclosures` | `array` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `end_date` | `mixed` | No |  |
-| `group_id` | `string` | Yes |  |
-| `group_policy_id` | `string` | Yes |  |
-| `health_insurance` | `null` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `mixed` | Yes |  |
-| `provider` | `mixed` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
-| `type` | `mixed` | Yes |  |
+| `bundling_type` | `mixed` | Yes | Indicates how this policy is bundled within a group |
+| `cancellation_date` | `mixed` | No | Date the policy was cancelled (if applicable) |
+| `disclosures` | `array` | Yes | Disclosures associated with this policy. |
+| `employee_id` | `string` | Yes | Identifier of the employee associated with this policy. |
+| `end_date` | `mixed` | No | Policy end date (inclusive) in ISO 8601, or null if open-ended |
+| `group_id` | `string` | Yes | Identifier of the group associated with this policy. |
+| `group_policy_id` | `string` | Yes | Identifier of the group policy id associated with this policy. |
+| `health_insurance` | `null` | No | Health insurance–specific fields (present when `type=health_insurance`) |
+| `id` | `string` | Yes | Unique identifier for the policy. |
+| `object` | `string` | No | Object type |
+| `plan` | `mixed` | Yes | Plan information for this policy |
+| `provider` | `mixed` | Yes | Provider information for this policy |
+| `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
+| `status` | `mixed` | Yes | Current lifecycle state of the policy |
+| `type` | `mixed` | Yes | Policy type. |
 
 ### Operations
 
@@ -2660,16 +2661,16 @@ $policy_amendment_intent = $client->PolicyAmendmentIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amendment_reason` | `mixed` | Yes |  |
-| `disclosures` | `array` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pending_confirmation` | `null` | No |  |
-| `policy_id` | `string` | Yes |  |
-| `processing_error` | `null` | No |  |
-| `requested_changes` | `array` | Yes |  |
-| `required_action` | `null` | No |  |
-| `status` | `mixed` | Yes |  |
+| `amendment_reason` | `mixed` | Yes | The reason for the policy amendment. |
+| `disclosures` | `array` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the policy amendment intent. |
+| `object` | `string` | No | Object type identifier. |
+| `pending_confirmation` | `null` | No | Information about the pending confirmation if the intent status is `pending_confirmation`. |
+| `policy_id` | `string` | Yes | The policy ID for which the amendment is requested. |
+| `processing_error` | `null` | No | Information about the processing error if the intent status is `processing_error`. |
+| `requested_changes` | `array` | Yes | List of requested changes to the policy. |
+| `required_action` | `null` | No | Information about the required action if the intent status is `action_required`. |
+| `status` | `mixed` | Yes | Current status of the policy amendment intent. |
 
 ### Operations
 
@@ -2744,16 +2745,16 @@ $policy_import_intent = $client->PolicyImportIntent();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_persons` | `array` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `member_number` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policy_end_date` | `mixed` | No |  |
-| `policy_start_date` | `string` | Yes |  |
-| `provider_policy_number` | `string` | Yes |  |
-| `status` | `mixed` | Yes |  |
+| `associated_persons` | `array` | Yes | List of associated persons linked to this policy import. |
+| `employee_id` | `string` | Yes | The employee ID for the policy import. |
+| `group_id` | `string` | Yes | The group ID for the policy import. |
+| `id` | `string` | Yes | Unique identifier for the policy import intent. |
+| `member_number` | `string` | Yes | The member number assigned by the provider. |
+| `object` | `string` | No | Object type identifier. |
+| `policy_end_date` | `mixed` | No | The end date of the policy. |
+| `policy_start_date` | `string` | Yes | The start date of the policy. |
+| `provider_policy_number` | `string` | Yes | The provider's policy number. |
+| `status` | `mixed` | Yes | Current status of the policy import intent. |
 
 ### Operations
 
@@ -2830,16 +2831,16 @@ $provider = $client->Provider();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | Yes |  |
-| `employer_platform_url` | `mixed` | No |  |
-| `id` | `string` | Yes |  |
-| `kota_hub_url` | `mixed` | No |  |
-| `logo_url` | `string` | Yes |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `support_phone` | `string` | Yes |  |
-| `supported_countries` | `array` | Yes |  |
-| `website_url` | `string` | Yes |  |
+| `description` | `string` | Yes | Description of the provider. |
+| `employer_platform_url` | `mixed` | No | URL to the employer portal/platform for this provider, if available. |
+| `id` | `string` | Yes | Unique identifier for the provider. |
+| `kota_hub_url` | `mixed` | No | URL to the Kota Hub page for this platform, if configured. |
+| `logo_url` | `string` | Yes | URL to the provider's logo image. |
+| `name` | `string` | Yes | The name of the provider. |
+| `object` | `string` | No | Object type. |
+| `support_phone` | `string` | Yes | Customer support phone number. |
+| `supported_countries` | `array` | Yes | List of countries supported by this provider. |
+| `website_url` | `string` | Yes | The provider's main website URL. |
 
 ### Operations
 
@@ -2955,11 +2956,11 @@ $webhook_endpoint = $client->WebhookEndpoint();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `endpoint_url` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `subscribed_events` | `array` | Yes |  |
+| `created_at` | `string` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
+| `id` | `string` | Yes | The unique identifier of the endpoint |
+| `object` | `string` | No | The object type |
+| `subscribed_events` | `array` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 
@@ -3011,11 +3012,11 @@ $webhook_endpoint_response_paged_list = $client->WebhookEndpointResponsePagedLis
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `endpoint_url` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `subscribed_events` | `array` | Yes |  |
+| `created_at` | `string` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
+| `id` | `string` | Yes | The unique identifier of the endpoint |
+| `object` | `string` | No | The object type |
+| `subscribed_events` | `array` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 

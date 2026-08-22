@@ -244,17 +244,17 @@ associated_person = client.AssociatedPerson()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `date_of_birth` | `str` | Yes |  |
-| `email` | `None | str` | No |  |
-| `employee_id` | `str` | Yes |  |
-| `first_name` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `last_name` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `phone_number` | `None | str` | No |  |
-| `platform_id` | `str` | No |  |
-| `relationship_type` | `Any` | Yes |  |
-| `sex_at_birth` | `Any` | Yes |  |
+| `date_of_birth` | `str` | Yes | Date of birth of the associated person |
+| `email` | `None | str` | No | Email address of the associated person |
+| `employee_id` | `str` | Yes | Unique identifier for the employee this person is associated with |
+| `first_name` | `str` | Yes | First name of the associated person |
+| `id` | `str` | Yes | Unique identifier for the associated person |
+| `last_name` | `str` | Yes | Last name of the associated person |
+| `object` | `str` | No | The object type |
+| `phone_number` | `None | str` | No | Phone number in E.164 international format (e.g. |
+| `platform_id` | `str` | No | Unique identifier for the platform |
+| `relationship_type` | `Any` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `Any` | Yes | The sex assigned to the associated person at birth |
 
 ### Operations
 
@@ -351,15 +351,15 @@ associated_person_eligibility_response_paged_list = client.AssociatedPersonEligi
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person_id` | `str` | Yes |  |
-| `date_of_birth` | `str` | Yes |  |
-| `eligibility_status` | `Any` | Yes |  |
-| `first_name` | `str` | Yes |  |
-| `ineligibility_reason` | `None | str` | No |  |
-| `last_name` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `relationship` | `Any` | Yes |  |
-| `sex_at_birth` | `Any` | Yes |  |
+| `associated_person_id` | `str` | Yes | The associated person ID. |
+| `date_of_birth` | `str` | Yes | Date of birth of the associated person. |
+| `eligibility_status` | `Any` | Yes | Eligibility status for the policy/plan. |
+| `first_name` | `str` | Yes | First name of the associated person. |
+| `ineligibility_reason` | `None | str` | No | Reason for ineligibility if status is ineligible. |
+| `last_name` | `str` | Yes | Last name of the associated person. |
+| `object` | `str` | No | The object type |
+| `relationship` | `Any` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `Any` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
@@ -412,15 +412,15 @@ contribution_report = client.ContributionReport()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `finalized_at` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `last_updated_at` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `period` | `Any` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `created_at` | `str` | Yes | Date and time the report was created |
+| `employer_id` | `str` | Yes | Unique identifier of the employer for which the report is created |
+| `external_customer_id` | `None | str` | No | Unique identifier of the customer for which the report is created. |
+| `finalized_at` | `None | str` | No | Date and time the report was finalized, if applicable |
+| `id` | `str` | Yes | Unique identifier for the contribution report |
+| `last_updated_at` | `str` | Yes | Date and time of the last update to the report |
+| `object` | `str` | No | The object type |
+| `period` | `Any` | Yes | Period covered by the contribution report |
+| `status` | `Any` | Yes | Current status of the contribution report |
 
 ### Operations
 
@@ -496,18 +496,18 @@ contribution_report_employee_breakdown = client.ContributionReportEmployeeBreakd
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `str` | Yes |  |
-| `created_at` | `str` | Yes |  |
-| `currency` | `Any` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `finalized_at` | `None | str` | No |  |
-| `health_insurance` | `Any` | Yes |  |
-| `last_updated_at` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `period` | `Any` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `contribution_report_id` | `str` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `str` | Yes | Date and time the breakdown was created |
+| `currency` | `Any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `str` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `str` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `None | str` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `None | str` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `Any` | Yes | Health insurance contribution details |
+| `last_updated_at` | `str` | Yes | Date and time of the last update to the breakdown |
+| `object` | `str` | No | The object type |
+| `period` | `Any` | Yes | Period covered by the employee breakdown |
+| `status` | `Any` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -558,18 +558,18 @@ contribution_report_employee_breakdown_response_paged_list = client.Contribution
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `str` | Yes |  |
-| `created_at` | `str` | Yes |  |
-| `currency` | `Any` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `finalized_at` | `None | str` | No |  |
-| `health_insurance` | `Any` | Yes |  |
-| `last_updated_at` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `period` | `Any` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `contribution_report_id` | `str` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `str` | Yes | Date and time the breakdown was created |
+| `currency` | `Any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `str` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `str` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `None | str` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `None | str` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `Any` | Yes | Health insurance contribution details |
+| `last_updated_at` | `str` | Yes | Date and time of the last update to the breakdown |
+| `object` | `str` | No | The object type |
+| `period` | `Any` | Yes | Period covered by the employee breakdown |
+| `status` | `Any` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -732,16 +732,16 @@ dependent = client.Dependent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `None` | No |  |
-| `coverage_options` | `None | list` | No |  |
-| `dependents` | `list` | Yes |  |
-| `disclosures` | `list` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `parent_intent_id` | `str` | Yes |  |
-| `parent_intent_type` | `Any` | Yes |  |
-| `plan` | `Any` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `action_required` | `None` | No | Details of the action required from the caller. |
+| `coverage_options` | `None | list` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `list` | Yes | List of dependents being managed. |
+| `disclosures` | `list` | Yes | Disclosures associated with this intent. |
+| `id` | `str` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `str` | No | Object type identifier. |
+| `parent_intent_id` | `str` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `Any` | Yes | The type of parent intent. |
+| `plan` | `Any` | Yes | Plan information including pricing details. |
+| `status` | `Any` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -809,16 +809,16 @@ dependents_management_intent = client.DependentsManagementIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `None` | No |  |
-| `coverage_options` | `None | list` | No |  |
-| `dependents` | `list` | Yes |  |
-| `disclosures` | `list` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `parent_intent_id` | `str` | Yes |  |
-| `parent_intent_type` | `Any` | Yes |  |
-| `plan` | `Any` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `action_required` | `None` | No | Details of the action required from the caller. |
+| `coverage_options` | `None | list` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `list` | Yes | List of dependents being managed. |
+| `disclosures` | `list` | Yes | Disclosures associated with this intent. |
+| `id` | `str` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `str` | No | Object type identifier. |
+| `parent_intent_id` | `str` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `Any` | Yes | The type of parent intent. |
+| `plan` | `Any` | Yes | Plan information including pricing details. |
+| `status` | `Any` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -828,6 +828,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.DependentsManagementIntent().create({
+    "enrolment_intent_id": "example_enrolment_intent_id",  # str
     "dependents": [],  # list
     "disclosures": [],  # list
     "id": "example_id",  # str
@@ -885,11 +886,11 @@ eligibility_check = client.EligibilityCheck()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `Any` | Yes |  |
-| `object` | `str` | No |  |
-| `plan` | `Any` | Yes |  |
-| `provider` | `Any` | Yes |  |
-| `reasons` | `list` | Yes |  |
+| `eligibility_status` | `Any` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `object` | `str` | No | The object type. |
+| `plan` | `Any` | Yes | The insurance plan associated with the group. |
+| `provider` | `Any` | Yes | The insurance provider associated with the group. |
+| `reasons` | `list` | Yes | List of reasons why the employee is ineligible. |
 
 ### Operations
 
@@ -946,26 +947,26 @@ employee = client.Employee()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bank_account` | `None` | No |  |
-| `date_of_birth` | `str` | Yes |  |
-| `earliest_benefits_start_date` | `None | str` | No |  |
-| `email` | `str` | Yes |  |
-| `employer_id` | `str` | No |  |
-| `external_customer_id` | `None | str` | No |  |
-| `first_name` | `str` | Yes |  |
-| `home_address` | `None` | No |  |
-| `id` | `str` | No |  |
-| `last_name` | `str` | Yes |  |
-| `metadata` | `None | dict` | No |  |
-| `national_tax_id` | `str` | Yes |  |
-| `nationality` | `None` | No |  |
-| `object` | `str` | No |  |
-| `offboard_on` | `None | str` | No |  |
-| `phone_number` | `str` | Yes |  |
-| `platform_id` | `str` | No |  |
-| `sex_at_birth` | `Any` | Yes |  |
-| `start_on` | `str` | No |  |
-| `status` | `Any` | No |  |
+| `bank_account` | `None` | No | Bank account details |
+| `date_of_birth` | `str` | Yes | Date of birth of the employee |
+| `earliest_benefits_start_date` | `None | str` | No | The earliest date this employee can be enrolled in any benefits. |
+| `email` | `str` | Yes | Email address of the employee |
+| `employer_id` | `str` | No | Unique identifier for the employer |
+| `external_customer_id` | `None | str` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `first_name` | `str` | Yes | First name of the employee. |
+| `home_address` | `None` | No | Location where the employee is legally registered to live |
+| `id` | `str` | No | Unique identifier for the employee |
+| `last_name` | `str` | Yes | Last name of the employee |
+| `metadata` | `None | dict` | No | Set of key-value pairs that you can attach to an object. |
+| `national_tax_id` | `str` | Yes | PPSN in Ireland, NINo in the UK, DNI/NIE in Spain |
+| `nationality` | `None` | No | Nationality of the employee (e.g. |
+| `object` | `str` | No | The object type |
+| `offboard_on` | `None | str` | No | Date when the employee was or will be offboarded |
+| `phone_number` | `str` | Yes | Phone number in E.164 international format (e.g. |
+| `platform_id` | `str` | No | Unique identifier for the platform |
+| `sex_at_birth` | `Any` | Yes | The sex assigned to the employee at birth |
+| `start_on` | `str` | No | Employment start date |
+| `status` | `Any` | No | Current status of the employee |
 
 ### Operations
 
@@ -1053,14 +1054,14 @@ employee_health_insurance_offer = client.EmployeeHealthInsuranceOffer()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `Any` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `required_action` | `None` | No |  |
-| `status` | `Any` | Yes |  |
+| `coverage_level` | `Any` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `str` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `str` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `None | str` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `str` | Yes | Unique identifier for offer |
+| `object` | `str` | No | The object type |
+| `required_action` | `None` | No | Required action to progress the offer, if any. |
+| `status` | `Any` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1111,14 +1112,14 @@ employee_health_insurance_offer_response_paged_list = client.EmployeeHealthInsur
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `Any` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `required_action` | `None` | No |  |
-| `status` | `Any` | Yes |  |
+| `coverage_level` | `Any` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `str` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `str` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `None | str` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `str` | Yes | Unique identifier for offer |
+| `object` | `str` | No | The object type |
+| `required_action` | `None` | No | Required action to progress the offer, if any. |
+| `status` | `Any` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1171,22 +1172,22 @@ employee_health_insurance_policy = client.EmployeeHealthInsurancePolicy()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `None | str` | No |  |
-| `coverage_level` | `Any` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `end_date` | `str` | Yes |  |
-| `enrolled_dependants_count` | `int` | Yes |  |
-| `enrolment_type` | `Any` | Yes |  |
-| `estimated_gross_premium` | `Any` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `opt_out_deadline_date` | `str` | Yes |  |
-| `policy_number` | `None | str` | No |  |
-| `renewal` | `Any` | Yes |  |
-| `start_date` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `cancellation_date` | `None | str` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `Any` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `str` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `str` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `str` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `Any` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `Any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `None | str` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `str` | Yes | Unique identifier for policy |
+| `object` | `str` | No | The object type |
+| `opt_out_deadline_date` | `str` | Yes | Last day to opt out from the policy |
+| `policy_number` | `None | str` | No | Health insurance policy number, if available |
+| `renewal` | `Any` | Yes | Renewal information for the policy |
+| `start_date` | `str` | Yes | Policy starts on this date |
+| `status` | `Any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1237,22 +1238,22 @@ employee_health_insurance_policy_response_paged_list = client.EmployeeHealthInsu
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `None | str` | No |  |
-| `coverage_level` | `Any` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `end_date` | `str` | Yes |  |
-| `enrolled_dependants_count` | `int` | Yes |  |
-| `enrolment_type` | `Any` | Yes |  |
-| `estimated_gross_premium` | `Any` | Yes |  |
-| `external_customer_id` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `opt_out_deadline_date` | `str` | Yes |  |
-| `policy_number` | `None | str` | No |  |
-| `renewal` | `Any` | Yes |  |
-| `start_date` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `cancellation_date` | `None | str` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `Any` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `str` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `str` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `str` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `Any` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `Any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `None | str` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `str` | Yes | Unique identifier for policy |
+| `object` | `str` | No | The object type |
+| `opt_out_deadline_date` | `str` | Yes | Last day to opt out from the policy |
+| `policy_number` | `None | str` | No | Health insurance policy number, if available |
+| `renewal` | `Any` | Yes | Renewal information for the policy |
+| `start_date` | `str` | Yes | Policy starts on this date |
+| `status` | `Any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1310,8 +1311,8 @@ employer = client.Employer()
 | `id` | `str` | Yes |  |
 | `legal_address` | `Any` | Yes |  |
 | `legal_name` | `str` | Yes |  |
-| `metadata` | `None | dict` | No |  |
-| `object` | `str` | No |  |
+| `metadata` | `None | dict` | No | Set of key-value pairs that you can attach to an object. |
+| `object` | `str` | No | The object type |
 | `offboard_on` | `None | str` | No |  |
 | `platform_id` | `str` | No |  |
 | `registration_number` | `None | str` | No |  |
@@ -1400,18 +1401,18 @@ employer_health_insurance_policy = client.EmployerHealthInsurancePolicy()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `None | str` | No |  |
-| `coverage_levels` | `list` | Yes |  |
-| `employer_cancellation_period_length` | `int` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `end_date` | `str` | Yes |  |
-| `enrolment_type` | `Any` | Yes |  |
-| `group_policy_number` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `renewal` | `Any` | Yes |  |
-| `start_date` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `cancellation_date` | `None | str` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `list` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `str` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `str` | Yes | Policy ends on this date |
+| `enrolment_type` | `Any` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `None | str` | No | Group’s health insurance policy number, if available |
+| `id` | `str` | Yes | Unique identifier for policy |
+| `object` | `str` | No | The object type |
+| `renewal` | `Any` | Yes | Renewal information for the policy |
+| `start_date` | `str` | Yes | Policy starts on this date |
+| `status` | `Any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1462,18 +1463,18 @@ employer_health_insurance_policy_response_paged_list = client.EmployerHealthInsu
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `None | str` | No |  |
-| `coverage_levels` | `list` | Yes |  |
-| `employer_cancellation_period_length` | `int` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `end_date` | `str` | Yes |  |
-| `enrolment_type` | `Any` | Yes |  |
-| `group_policy_number` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `renewal` | `Any` | Yes |  |
-| `start_date` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `cancellation_date` | `None | str` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `list` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `str` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `str` | Yes | Policy ends on this date |
+| `enrolment_type` | `Any` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `None | str` | No | Group’s health insurance policy number, if available |
+| `id` | `str` | Yes | Unique identifier for policy |
+| `object` | `str` | No | The object type |
+| `renewal` | `Any` | Yes | Renewal information for the policy |
+| `start_date` | `str` | Yes | Policy starts on this date |
+| `status` | `Any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1526,13 +1527,13 @@ employer_health_insurance_quote = client.EmployerHealthInsuranceQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `list` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `quoted_at` | `str` | Yes |  |
-| `required_action` | `None` | No |  |
-| `status` | `Any` | Yes |  |
+| `coverage_levels` | `list` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `str` | Yes | The Id of the employer for which the is created |
+| `id` | `str` | Yes | Unique identifier for the quote |
+| `object` | `str` | No | The object type |
+| `quoted_at` | `str` | Yes | Date and time the quote was created at |
+| `required_action` | `None` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `Any` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1583,13 +1584,13 @@ employer_health_insurance_quote_response_paged_list = client.EmployerHealthInsur
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `list` | Yes |  |
-| `employer_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `quoted_at` | `str` | Yes |  |
-| `required_action` | `None` | No |  |
-| `status` | `Any` | Yes |  |
+| `coverage_levels` | `list` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `str` | Yes | The Id of the employer for which the is created |
+| `id` | `str` | Yes | Unique identifier for the quote |
+| `object` | `str` | No | The object type |
+| `quoted_at` | `str` | Yes | Date and time the quote was created at |
+| `required_action` | `None` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `Any` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1642,18 +1643,18 @@ enrolment_intent = client.EnrolmentIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `None` | No |  |
-| `disclosures` | `list` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `force_confirmation` | `bool` | Yes |  |
-| `group_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `ineligibility_reason` | `None` | No |  |
-| `object` | `str` | No |  |
-| `pending_confirmation` | `None` | No |  |
-| `policy_configuration` | `None` | No |  |
-| `policy_enrolments` | `list` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `action_required` | `None` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `disclosures` | `list` | Yes | Disclosures associated with this intent. |
+| `employee_id` | `str` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `force_confirmation` | `bool` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
+| `group_id` | `str` | Yes | Identifier for the group associated with this enrolment intent. |
+| `id` | `str` | Yes | Unique identifier for the enrolment intent. |
+| `ineligibility_reason` | `None` | No | If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility. |
+| `object` | `str` | No | Object type identifier. |
+| `pending_confirmation` | `None` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
+| `policy_configuration` | `None` | No | Policy configuration associated with this enrolment intent. |
+| `policy_enrolments` | `list` | Yes | Policy enrolment information |
+| `status` | `Any` | Yes | Current status of the enrolment intent. |
 
 ### Operations
 
@@ -1741,12 +1742,12 @@ enrolment_intent_requirement_response_paged_list = client.EnrolmentIntentRequire
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `str` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `str` | No |  |
-| `object_id` | `str` | Yes |  |
-| `object_type` | `Any` | Yes |  |
-| `requirement_type` | `Any` | Yes |  |
+| `id` | `str` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `str` | No | Object type identifier |
+| `object_id` | `str` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `Any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `Any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -1868,17 +1869,17 @@ group = client.Group()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `None | str` | No |  |
-| `employer_id` | `str` | Yes |  |
-| `enrolment_type` | `Any` | Yes |  |
-| `group_policy_ids` | `list` | Yes |  |
-| `group_policy_intent_ids` | `list` | Yes |  |
-| `group_quote_intent_ids` | `list` | Yes |  |
-| `group_type` | `Any` | Yes |  |
-| `id` | `str` | Yes |  |
-| `name` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `status` | `Any` | Yes |  |
+| `description` | `None | str` | No | Short description of the purpose or scope of the `group`. |
+| `employer_id` | `str` | Yes | Identifier for the `employer` that owns this `group`. |
+| `enrolment_type` | `Any` | Yes | Indicates how employees are enrolled into the group. |
+| `group_policy_ids` | `list` | Yes | Group policy unique identifiers associated with this group. |
+| `group_policy_intent_ids` | `list` | Yes | Group policy intent unique identifiers associated with this group. |
+| `group_quote_intent_ids` | `list` | Yes | Group quote intent unique identifiers associated with this group. |
+| `group_type` | `Any` | Yes | Indicates how policies are organized for this group. |
+| `id` | `str` | Yes | Unique identifier for the `group`. |
+| `name` | `str` | Yes | Human-readable name of the `group`. |
+| `object` | `str` | No | The object type |
+| `status` | `Any` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
 
 ### Operations
 
@@ -1968,16 +1969,16 @@ group_employee = client.GroupEmployee()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `None | str` | No |  |
-| `eligibility_status` | `Any` | Yes |  |
-| `enrolment_date` | `None | str` | No |  |
-| `enrolment_status` | `Any` | Yes |  |
-| `enrolments` | `list` | Yes |  |
-| `group_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `policies` | `list` | Yes |  |
-| `scheduled_group_transitions` | `list` | Yes |  |
+| `desired_policy_start_date` | `None | str` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `Any` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `None | str` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `Any` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `list` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `str` | Yes | Unique identifier for the group. |
+| `id` | `str` | Yes | Unique identifier for the employee. |
+| `object` | `str` | No | The object type |
+| `policies` | `list` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `list` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2036,16 +2037,16 @@ group_employee_response_paged_list = client.GroupEmployeeResponsePagedList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `None | str` | No |  |
-| `eligibility_status` | `Any` | Yes |  |
-| `enrolment_date` | `None | str` | No |  |
-| `enrolment_status` | `Any` | Yes |  |
-| `enrolments` | `list` | Yes |  |
-| `group_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `policies` | `list` | Yes |  |
-| `scheduled_group_transitions` | `list` | Yes |  |
+| `desired_policy_start_date` | `None | str` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `Any` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `None | str` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `Any` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `list` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `str` | Yes | Unique identifier for the group. |
+| `id` | `str` | Yes | Unique identifier for the employee. |
+| `object` | `str` | No | The object type |
+| `policies` | `list` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `list` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2098,19 +2099,19 @@ group_policy = client.GroupPolicy()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `None | str` | No |  |
-| `disclosures` | `list` | Yes |  |
-| `employer_id` | `str` | No |  |
-| `end_date` | `None | str` | No |  |
-| `group_id` | `str` | No |  |
-| `health_insurance` | `None` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `plan` | `Any` | Yes |  |
-| `provider` | `Any` | Yes |  |
-| `start_date` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
-| `type` | `Any` | Yes |  |
+| `cancellation_date` | `None | str` | No | Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable. |
+| `disclosures` | `list` | Yes | Disclosures associated with this group policy. |
+| `employer_id` | `str` | No | Identifier for the employer associated with this group policy. |
+| `end_date` | `None | str` | No | Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended. |
+| `group_id` | `str` | No | Identifier for the group associated with this group policy. |
+| `health_insurance` | `None` | No | Health insurance–specific fields (present when `type=health_insurance`). |
+| `id` | `str` | Yes | Unique identifier for the group policy. |
+| `object` | `str` | No | The object type |
+| `plan` | `Any` | Yes | Plan information for this policy |
+| `provider` | `Any` | Yes | Provider information for this policy. |
+| `start_date` | `str` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
+| `status` | `Any` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `Any` | Yes | Policy type. |
 
 ### Operations
 
@@ -2171,16 +2172,16 @@ group_policy_intent = client.GroupPolicyIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `None` | No |  |
-| `cost_sharing` | `None` | No |  |
-| `disclosures` | `list` | Yes |  |
-| `due_date` | `None | str` | No |  |
-| `group_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `plan_id` | `str` | Yes |  |
-| `quote_intent_id` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `action_required` | `None` | No | Details of the required action when the intent is in ActionRequired status. |
+| `cost_sharing` | `None` | No | Cost sharing configuration for the policy intent |
+| `disclosures` | `list` | Yes | Disclosures associated with this intent. |
+| `due_date` | `None | str` | No | Due date for the policy intent |
+| `group_id` | `str` | Yes | Unique identifier for the group |
+| `id` | `str` | Yes | Unique identifier for the group policy intent |
+| `object` | `str` | No | Object type identifier |
+| `plan_id` | `str` | Yes | Unique identifier for the plan |
+| `quote_intent_id` | `str` | Yes | Unique identifier for the group quote intent this policy intent was created from |
+| `status` | `Any` | Yes | Current status of the group policy intent |
 
 ### Operations
 
@@ -2256,12 +2257,12 @@ group_policy_intent_requirement_response_paged_list = client.GroupPolicyIntentRe
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `str` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `str` | No |  |
-| `object_id` | `str` | Yes |  |
-| `object_type` | `Any` | Yes |  |
-| `requirement_type` | `Any` | Yes |  |
+| `id` | `str` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `str` | No | Object type identifier |
+| `object_id` | `str` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `Any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `Any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2314,11 +2315,11 @@ group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `None` | No |  |
-| `member_count` | `None` | No |  |
-| `member_selection` | `None` | No |  |
-| `percentage` | `None` | No |  |
-| `type` | `Any` | Yes |  |
+| `family_type` | `None` | No | Type of the family covered by the employer. |
+| `member_count` | `None` | No | Numbers of additional members covered by the employer. |
+| `member_selection` | `None` | No | Whether specific member types are covered by the employer. |
+| `percentage` | `None` | No | Percentage of the premium the employer covers. |
+| `type` | `Any` | Yes | Cost sharing type. |
 
 ### Operations
 
@@ -2369,16 +2370,16 @@ group_quote_intent = client.GroupQuoteIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `None` | No |  |
-| `consent_links` | `list` | Yes |  |
-| `cost_sharing` | `None` | No |  |
-| `disclosures` | `list` | Yes |  |
-| `expected_start_date` | `None | str` | No |  |
-| `group_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `plan_id` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `action_required` | `None` | No | Details of the action required from the caller, if the intent is in action_required status. |
+| `consent_links` | `list` | Yes | Consent links that need to be acknowledged |
+| `cost_sharing` | `None` | No | Cost sharing configuration for the quote |
+| `disclosures` | `list` | Yes | Disclosures associated with this intent. |
+| `expected_start_date` | `None | str` | No | Expected start date for the insurance coverage |
+| `group_id` | `str` | Yes | Unique identifier for the group |
+| `id` | `str` | Yes | Unique identifier for the group quote intent |
+| `object` | `str` | No | Object type identifier |
+| `plan_id` | `str` | Yes | Unique identifier for the plan |
+| `status` | `Any` | Yes | Current status of the group quote intent |
 
 ### Operations
 
@@ -2454,12 +2455,12 @@ group_quote_intent_requirement_response_paged_list = client.GroupQuoteIntentRequ
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `str` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `str` | No |  |
-| `object_id` | `str` | Yes |  |
-| `object_type` | `Any` | Yes |  |
-| `requirement_type` | `Any` | Yes |  |
+| `id` | `str` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `str` | No | Object type identifier |
+| `object_id` | `str` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `Any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `Any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2512,24 +2513,24 @@ plan = client.Plan()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `available_from` | `str` | Yes |  |
-| `available_to` | `None | str` | No |  |
-| `country` | `Any` | Yes |  |
-| `coverage_options` | `None | list` | No |  |
-| `description` | `str` | Yes |  |
-| `disclosures` | `list` | Yes |  |
-| `documents` | `list` | Yes |  |
-| `eligible_count` | `None | int` | No |  |
-| `employee_eligibility_criteria` | `list` | Yes |  |
-| `employer_eligibility_criteria` | `list` | Yes |  |
-| `health_insurance` | `None` | No |  |
-| `id` | `str` | Yes |  |
-| `ineligible_count` | `None | int` | No |  |
-| `name` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `provider` | `Any` | Yes |  |
-| `total_count` | `None | int` | No |  |
-| `type` | `Any` | Yes |  |
+| `available_from` | `str` | Yes | The date from which this plan is available (inclusive). |
+| `available_to` | `None | str` | No | The date until which this plan is available (inclusive). |
+| `country` | `Any` | Yes | The country this plan is available in. |
+| `coverage_options` | `None | list` | No | Coverage options available for this plan, organized by scope and input type. |
+| `description` | `str` | Yes | Description of the plan. |
+| `disclosures` | `list` | Yes | Disclosures associated with this plan. |
+| `documents` | `list` | Yes | List of plan documents (e.g., IPIDs, T&Cs). |
+| `eligible_count` | `None | int` | No | Number of employees in the queried group eligible for this plan as-of `start_date`. |
+| `employee_eligibility_criteria` | `list` | Yes | Eligibility criteria that employees must meet. |
+| `employer_eligibility_criteria` | `list` | Yes | Eligibility criteria that employers must meet. |
+| `health_insurance` | `None` | No | Health insurance-specific details. |
+| `id` | `str` | Yes | Unique identifier for the plan. |
+| `ineligible_count` | `None | int` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `name` | `str` | Yes | The name of the plan. |
+| `object` | `str` | No | Object type. |
+| `provider` | `Any` | Yes | The provider offering this plan. |
+| `total_count` | `None | int` | No | Total employees in the queried group. |
+| `type` | `Any` | Yes | The benefit type of the plan. |
 
 ### Operations
 
@@ -2590,21 +2591,21 @@ policy = client.Policy()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `Any` | Yes |  |
-| `cancellation_date` | `None | str` | No |  |
-| `disclosures` | `list` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `end_date` | `None | str` | No |  |
-| `group_id` | `str` | Yes |  |
-| `group_policy_id` | `str` | Yes |  |
-| `health_insurance` | `None` | No |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `plan` | `Any` | Yes |  |
-| `provider` | `Any` | Yes |  |
-| `start_date` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
-| `type` | `Any` | Yes |  |
+| `bundling_type` | `Any` | Yes | Indicates how this policy is bundled within a group |
+| `cancellation_date` | `None | str` | No | Date the policy was cancelled (if applicable) |
+| `disclosures` | `list` | Yes | Disclosures associated with this policy. |
+| `employee_id` | `str` | Yes | Identifier of the employee associated with this policy. |
+| `end_date` | `None | str` | No | Policy end date (inclusive) in ISO 8601, or null if open-ended |
+| `group_id` | `str` | Yes | Identifier of the group associated with this policy. |
+| `group_policy_id` | `str` | Yes | Identifier of the group policy id associated with this policy. |
+| `health_insurance` | `None` | No | Health insurance–specific fields (present when `type=health_insurance`) |
+| `id` | `str` | Yes | Unique identifier for the policy. |
+| `object` | `str` | No | Object type |
+| `plan` | `Any` | Yes | Plan information for this policy |
+| `provider` | `Any` | Yes | Provider information for this policy |
+| `start_date` | `str` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
+| `status` | `Any` | Yes | Current lifecycle state of the policy |
+| `type` | `Any` | Yes | Policy type. |
 
 ### Operations
 
@@ -2665,16 +2666,16 @@ policy_amendment_intent = client.PolicyAmendmentIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amendment_reason` | `Any` | Yes |  |
-| `disclosures` | `list` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `pending_confirmation` | `None` | No |  |
-| `policy_id` | `str` | Yes |  |
-| `processing_error` | `None` | No |  |
-| `requested_changes` | `list` | Yes |  |
-| `required_action` | `None` | No |  |
-| `status` | `Any` | Yes |  |
+| `amendment_reason` | `Any` | Yes | The reason for the policy amendment. |
+| `disclosures` | `list` | Yes | Disclosures associated with this intent. |
+| `id` | `str` | Yes | Unique identifier for the policy amendment intent. |
+| `object` | `str` | No | Object type identifier. |
+| `pending_confirmation` | `None` | No | Information about the pending confirmation if the intent status is `pending_confirmation`. |
+| `policy_id` | `str` | Yes | The policy ID for which the amendment is requested. |
+| `processing_error` | `None` | No | Information about the processing error if the intent status is `processing_error`. |
+| `requested_changes` | `list` | Yes | List of requested changes to the policy. |
+| `required_action` | `None` | No | Information about the required action if the intent status is `action_required`. |
+| `status` | `Any` | Yes | Current status of the policy amendment intent. |
 
 ### Operations
 
@@ -2750,16 +2751,16 @@ policy_import_intent = client.PolicyImportIntent()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_persons` | `list` | Yes |  |
-| `employee_id` | `str` | Yes |  |
-| `group_id` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `member_number` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `policy_end_date` | `None | str` | No |  |
-| `policy_start_date` | `str` | Yes |  |
-| `provider_policy_number` | `str` | Yes |  |
-| `status` | `Any` | Yes |  |
+| `associated_persons` | `list` | Yes | List of associated persons linked to this policy import. |
+| `employee_id` | `str` | Yes | The employee ID for the policy import. |
+| `group_id` | `str` | Yes | The group ID for the policy import. |
+| `id` | `str` | Yes | Unique identifier for the policy import intent. |
+| `member_number` | `str` | Yes | The member number assigned by the provider. |
+| `object` | `str` | No | Object type identifier. |
+| `policy_end_date` | `None | str` | No | The end date of the policy. |
+| `policy_start_date` | `str` | Yes | The start date of the policy. |
+| `provider_policy_number` | `str` | Yes | The provider's policy number. |
+| `status` | `Any` | Yes | Current status of the policy import intent. |
 
 ### Operations
 
@@ -2837,16 +2838,16 @@ provider = client.Provider()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `str` | Yes |  |
-| `employer_platform_url` | `None | str` | No |  |
-| `id` | `str` | Yes |  |
-| `kota_hub_url` | `None | str` | No |  |
-| `logo_url` | `str` | Yes |  |
-| `name` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `support_phone` | `str` | Yes |  |
-| `supported_countries` | `list` | Yes |  |
-| `website_url` | `str` | Yes |  |
+| `description` | `str` | Yes | Description of the provider. |
+| `employer_platform_url` | `None | str` | No | URL to the employer portal/platform for this provider, if available. |
+| `id` | `str` | Yes | Unique identifier for the provider. |
+| `kota_hub_url` | `None | str` | No | URL to the Kota Hub page for this platform, if configured. |
+| `logo_url` | `str` | Yes | URL to the provider's logo image. |
+| `name` | `str` | Yes | The name of the provider. |
+| `object` | `str` | No | Object type. |
+| `support_phone` | `str` | Yes | Customer support phone number. |
+| `supported_countries` | `list` | Yes | List of countries supported by this provider. |
+| `website_url` | `str` | Yes | The provider's main website URL. |
 
 ### Operations
 
@@ -2962,11 +2963,11 @@ webhook_endpoint = client.WebhookEndpoint()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | Yes |  |
-| `endpoint_url` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `subscribed_events` | `list` | Yes |  |
+| `created_at` | `str` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `str` | Yes | The registered URL of the endpoint |
+| `id` | `str` | Yes | The unique identifier of the endpoint |
+| `object` | `str` | No | The object type |
+| `subscribed_events` | `list` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 
@@ -3017,11 +3018,11 @@ webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePagedList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | Yes |  |
-| `endpoint_url` | `str` | Yes |  |
-| `id` | `str` | Yes |  |
-| `object` | `str` | No |  |
-| `subscribed_events` | `list` | Yes |  |
+| `created_at` | `str` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `str` | Yes | The registered URL of the endpoint |
+| `id` | `str` | Yes | The unique identifier of the endpoint |
+| `object` | `str` | No | The object type |
+| `subscribed_events` | `list` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 

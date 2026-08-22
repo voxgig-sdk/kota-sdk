@@ -255,17 +255,17 @@ fmt.Println(associatedPerson.GetName()) // "associated_person"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `date_of_birth` | `string` | Yes |  |
-| `email` | `any` | No |  |
-| `employee_id` | `string` | Yes |  |
-| `first_name` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `last_name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `phone_number` | `any` | No |  |
-| `platform_id` | `string` | No |  |
-| `relationship_type` | `any` | Yes |  |
-| `sex_at_birth` | `any` | Yes |  |
+| `date_of_birth` | `string` | Yes | Date of birth of the associated person |
+| `email` | `any` | No | Email address of the associated person |
+| `employee_id` | `string` | Yes | Unique identifier for the employee this person is associated with |
+| `first_name` | `string` | Yes | First name of the associated person |
+| `id` | `string` | Yes | Unique identifier for the associated person |
+| `last_name` | `string` | Yes | Last name of the associated person |
+| `object` | `string` | No | The object type |
+| `phone_number` | `any` | No | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | No | Unique identifier for the platform |
+| `relationship_type` | `any` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `any` | Yes | The sex assigned to the associated person at birth |
 
 ### Operations
 
@@ -376,15 +376,15 @@ fmt.Println(associatedPersonEligibilityResponsePagedList.GetName()) // "associat
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person_id` | `string` | Yes |  |
-| `date_of_birth` | `string` | Yes |  |
-| `eligibility_status` | `any` | Yes |  |
-| `first_name` | `string` | Yes |  |
-| `ineligibility_reason` | `any` | No |  |
-| `last_name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `relationship` | `any` | Yes |  |
-| `sex_at_birth` | `any` | Yes |  |
+| `associated_person_id` | `string` | Yes | The associated person ID. |
+| `date_of_birth` | `string` | Yes | Date of birth of the associated person. |
+| `eligibility_status` | `any` | Yes | Eligibility status for the policy/plan. |
+| `first_name` | `string` | Yes | First name of the associated person. |
+| `ineligibility_reason` | `any` | No | Reason for ineligibility if status is ineligible. |
+| `last_name` | `string` | Yes | Last name of the associated person. |
+| `object` | `string` | No | The object type |
+| `relationship` | `any` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `any` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
@@ -435,15 +435,15 @@ fmt.Println(contributionReport.GetName()) // "contribution_report"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `finalized_at` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `created_at` | `string` | Yes | Date and time the report was created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the report is created |
+| `external_customer_id` | `any` | No | Unique identifier of the customer for which the report is created. |
+| `finalized_at` | `any` | No | Date and time the report was finalized, if applicable |
+| `id` | `string` | Yes | Unique identifier for the contribution report |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
+| `object` | `string` | No | The object type |
+| `period` | `any` | Yes | Period covered by the contribution report |
+| `status` | `any` | Yes | Current status of the contribution report |
 
 ### Operations
 
@@ -525,18 +525,18 @@ fmt.Println(contributionReportEmployeeBreakdown.GetName()) // "contribution_repo
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `string` | Yes |  |
-| `created_at` | `string` | Yes |  |
-| `currency` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `finalized_at` | `any` | No |  |
-| `health_insurance` | `any` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `string` | Yes | Date and time the breakdown was created |
+| `currency` | `any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `any` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `any` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
+| `object` | `string` | No | The object type |
+| `period` | `any` | Yes | Period covered by the employee breakdown |
+| `status` | `any` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -587,18 +587,18 @@ fmt.Println(contributionReportEmployeeBreakdownResponsePagedList.GetName()) // "
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `string` | Yes |  |
-| `created_at` | `string` | Yes |  |
-| `currency` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `finalized_at` | `any` | No |  |
-| `health_insurance` | `any` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `string` | Yes | Date and time the breakdown was created |
+| `currency` | `any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `any` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `any` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
+| `object` | `string` | No | The object type |
+| `period` | `any` | Yes | Period covered by the employee breakdown |
+| `status` | `any` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -759,16 +759,16 @@ fmt.Println(dependent.GetName()) // "dependent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `any` | No |  |
-| `coverage_options` | `any` | No |  |
-| `dependents` | `[]any` | Yes |  |
-| `disclosures` | `[]any` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `parent_intent_id` | `string` | Yes |  |
-| `parent_intent_type` | `any` | Yes |  |
-| `plan` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `any` | No | Details of the action required from the caller. |
+| `coverage_options` | `any` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `[]any` | Yes | List of dependents being managed. |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `string` | No | Object type identifier. |
+| `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `plan` | `any` | Yes | Plan information including pricing details. |
+| `status` | `any` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -840,16 +840,16 @@ fmt.Println(dependentsManagementIntent.GetName()) // "dependents_management_inte
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `any` | No |  |
-| `coverage_options` | `any` | No |  |
-| `dependents` | `[]any` | Yes |  |
-| `disclosures` | `[]any` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `parent_intent_id` | `string` | Yes |  |
-| `parent_intent_type` | `any` | Yes |  |
-| `plan` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `any` | No | Details of the action required from the caller. |
+| `coverage_options` | `any` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `[]any` | Yes | List of dependents being managed. |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `string` | No | Object type identifier. |
+| `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `plan` | `any` | Yes | Plan information including pricing details. |
+| `status` | `any` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -871,6 +871,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.DependentsManagementIntent(nil).Create(map[string]any{
+    "enrolment_intent_id": "example_enrolment_intent_id",
     "dependents": []any{},
     "disclosures": []any{},
     "id": "example_id",
@@ -920,11 +921,11 @@ fmt.Println(eligibilityCheck.GetName()) // "eligibility_check"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `any` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `any` | Yes |  |
-| `provider` | `any` | Yes |  |
-| `reasons` | `[]any` | Yes |  |
+| `eligibility_status` | `any` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `object` | `string` | No | The object type. |
+| `plan` | `any` | Yes | The insurance plan associated with the group. |
+| `provider` | `any` | Yes | The insurance provider associated with the group. |
+| `reasons` | `[]any` | Yes | List of reasons why the employee is ineligible. |
 
 ### Operations
 
@@ -981,26 +982,26 @@ fmt.Println(employee.GetName()) // "employee"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bank_account` | `any` | No |  |
-| `date_of_birth` | `string` | Yes |  |
-| `earliest_benefits_start_date` | `any` | No |  |
-| `email` | `string` | Yes |  |
-| `employer_id` | `string` | No |  |
-| `external_customer_id` | `any` | No |  |
-| `first_name` | `string` | Yes |  |
-| `home_address` | `any` | No |  |
-| `id` | `string` | No |  |
-| `last_name` | `string` | Yes |  |
-| `metadata` | `any` | No |  |
-| `national_tax_id` | `string` | Yes |  |
-| `nationality` | `any` | No |  |
-| `object` | `string` | No |  |
-| `offboard_on` | `any` | No |  |
-| `phone_number` | `string` | Yes |  |
-| `platform_id` | `string` | No |  |
-| `sex_at_birth` | `any` | Yes |  |
-| `start_on` | `string` | No |  |
-| `status` | `any` | No |  |
+| `bank_account` | `any` | No | Bank account details |
+| `date_of_birth` | `string` | Yes | Date of birth of the employee |
+| `earliest_benefits_start_date` | `any` | No | The earliest date this employee can be enrolled in any benefits. |
+| `email` | `string` | Yes | Email address of the employee |
+| `employer_id` | `string` | No | Unique identifier for the employer |
+| `external_customer_id` | `any` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `first_name` | `string` | Yes | First name of the employee. |
+| `home_address` | `any` | No | Location where the employee is legally registered to live |
+| `id` | `string` | No | Unique identifier for the employee |
+| `last_name` | `string` | Yes | Last name of the employee |
+| `metadata` | `any` | No | Set of key-value pairs that you can attach to an object. |
+| `national_tax_id` | `string` | Yes | PPSN in Ireland, NINo in the UK, DNI/NIE in Spain |
+| `nationality` | `any` | No | Nationality of the employee (e.g. |
+| `object` | `string` | No | The object type |
+| `offboard_on` | `any` | No | Date when the employee was or will be offboarded |
+| `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | No | Unique identifier for the platform |
+| `sex_at_birth` | `any` | Yes | The sex assigned to the employee at birth |
+| `start_on` | `string` | No | Employment start date |
+| `status` | `any` | No | Current status of the employee |
 
 ### Operations
 
@@ -1098,14 +1099,14 @@ fmt.Println(employeeHealthInsuranceOffer.GetName()) // "employee_health_insuranc
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `required_action` | `any` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_level` | `any` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `string` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `any` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for offer |
+| `object` | `string` | No | The object type |
+| `required_action` | `any` | No | Required action to progress the offer, if any. |
+| `status` | `any` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1156,14 +1157,14 @@ fmt.Println(employeeHealthInsuranceOfferResponsePagedList.GetName()) // "employe
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `required_action` | `any` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_level` | `any` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `string` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `any` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for offer |
+| `object` | `string` | No | The object type |
+| `required_action` | `any` | No | Required action to progress the offer, if any. |
+| `status` | `any` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1214,22 +1215,22 @@ fmt.Println(employeeHealthInsurancePolicy.GetName()) // "employee_health_insuran
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `any` | No |  |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolled_dependants_count` | `int` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `estimated_gross_premium` | `any` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `opt_out_deadline_date` | `string` | Yes |  |
-| `policy_number` | `any` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `any` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `any` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `string` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `any` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `opt_out_deadline_date` | `string` | Yes | Last day to opt out from the policy |
+| `policy_number` | `any` | No | Health insurance policy number, if available |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1280,22 +1281,22 @@ fmt.Println(employeeHealthInsurancePolicyResponsePagedList.GetName()) // "employ
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `any` | No |  |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolled_dependants_count` | `int` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `estimated_gross_premium` | `any` | Yes |  |
-| `external_customer_id` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `opt_out_deadline_date` | `string` | Yes |  |
-| `policy_number` | `any` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `any` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `any` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `string` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `any` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `opt_out_deadline_date` | `string` | Yes | Last day to opt out from the policy |
+| `policy_number` | `any` | No | Health insurance policy number, if available |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1351,8 +1352,8 @@ fmt.Println(employer.GetName()) // "employer"
 | `id` | `string` | Yes |  |
 | `legal_address` | `any` | Yes |  |
 | `legal_name` | `string` | Yes |  |
-| `metadata` | `any` | No |  |
-| `object` | `string` | No |  |
+| `metadata` | `any` | No | Set of key-value pairs that you can attach to an object. |
+| `object` | `string` | No | The object type |
 | `offboard_on` | `any` | No |  |
 | `platform_id` | `string` | No |  |
 | `registration_number` | `any` | No |  |
@@ -1451,18 +1452,18 @@ fmt.Println(employerHealthInsurancePolicy.GetName()) // "employer_health_insuran
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `any` | No |  |
-| `coverage_levels` | `[]any` | Yes |  |
-| `employer_cancellation_period_length` | `int` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `group_policy_number` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `any` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `[]any` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `any` | No | Group’s health insurance policy number, if available |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1513,18 +1514,18 @@ fmt.Println(employerHealthInsurancePolicyResponsePagedList.GetName()) // "employ
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `any` | No |  |
-| `coverage_levels` | `[]any` | Yes |  |
-| `employer_cancellation_period_length` | `int` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `group_policy_number` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `any` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `[]any` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `any` | No | Group’s health insurance policy number, if available |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1575,13 +1576,13 @@ fmt.Println(employerHealthInsuranceQuote.GetName()) // "employer_health_insuranc
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `[]any` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `quoted_at` | `string` | Yes |  |
-| `required_action` | `any` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_levels` | `[]any` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | Yes | The Id of the employer for which the is created |
+| `id` | `string` | Yes | Unique identifier for the quote |
+| `object` | `string` | No | The object type |
+| `quoted_at` | `string` | Yes | Date and time the quote was created at |
+| `required_action` | `any` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `any` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1632,13 +1633,13 @@ fmt.Println(employerHealthInsuranceQuoteResponsePagedList.GetName()) // "employe
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `[]any` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `quoted_at` | `string` | Yes |  |
-| `required_action` | `any` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_levels` | `[]any` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | Yes | The Id of the employer for which the is created |
+| `id` | `string` | Yes | Unique identifier for the quote |
+| `object` | `string` | No | The object type |
+| `quoted_at` | `string` | Yes | Date and time the quote was created at |
+| `required_action` | `any` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `any` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1689,18 +1690,18 @@ fmt.Println(enrolmentIntent.GetName()) // "enrolment_intent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `any` | No |  |
-| `disclosures` | `[]any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `force_confirmation` | `bool` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `ineligibility_reason` | `any` | No |  |
-| `object` | `string` | No |  |
-| `pending_confirmation` | `any` | No |  |
-| `policy_configuration` | `any` | No |  |
-| `policy_enrolments` | `[]any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `any` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
+| `employee_id` | `string` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `force_confirmation` | `bool` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
+| `group_id` | `string` | Yes | Identifier for the group associated with this enrolment intent. |
+| `id` | `string` | Yes | Unique identifier for the enrolment intent. |
+| `ineligibility_reason` | `any` | No | If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility. |
+| `object` | `string` | No | Object type identifier. |
+| `pending_confirmation` | `any` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
+| `policy_configuration` | `any` | No | Policy configuration associated with this enrolment intent. |
+| `policy_enrolments` | `[]any` | Yes | Policy enrolment information |
+| `status` | `any` | Yes | Current status of the enrolment intent. |
 
 ### Operations
 
@@ -1798,12 +1799,12 @@ fmt.Println(enrolmentIntentRequirementResponsePagedList.GetName()) // "enrolment
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `any` | Yes |  |
-| `requirement_type` | `any` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -1925,17 +1926,17 @@ fmt.Println(group.GetName()) // "group"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `any` | No |  |
-| `employer_id` | `string` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `group_policy_ids` | `[]any` | Yes |  |
-| `group_policy_intent_ids` | `[]any` | Yes |  |
-| `group_quote_intent_ids` | `[]any` | Yes |  |
-| `group_type` | `any` | Yes |  |
-| `id` | `string` | Yes |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `status` | `any` | Yes |  |
+| `description` | `any` | No | Short description of the purpose or scope of the `group`. |
+| `employer_id` | `string` | Yes | Identifier for the `employer` that owns this `group`. |
+| `enrolment_type` | `any` | Yes | Indicates how employees are enrolled into the group. |
+| `group_policy_ids` | `[]any` | Yes | Group policy unique identifiers associated with this group. |
+| `group_policy_intent_ids` | `[]any` | Yes | Group policy intent unique identifiers associated with this group. |
+| `group_quote_intent_ids` | `[]any` | Yes | Group quote intent unique identifiers associated with this group. |
+| `group_type` | `any` | Yes | Indicates how policies are organized for this group. |
+| `id` | `string` | Yes | Unique identifier for the `group`. |
+| `name` | `string` | Yes | Human-readable name of the `group`. |
+| `object` | `string` | No | The object type |
+| `status` | `any` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
 
 ### Operations
 
@@ -2035,16 +2036,16 @@ fmt.Println(groupEmployee.GetName()) // "group_employee"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `any` | No |  |
-| `eligibility_status` | `any` | Yes |  |
-| `enrolment_date` | `any` | No |  |
-| `enrolment_status` | `any` | Yes |  |
-| `enrolments` | `[]any` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policies` | `[]any` | Yes |  |
-| `scheduled_group_transitions` | `[]any` | Yes |  |
+| `desired_policy_start_date` | `any` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `any` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `any` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `any` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `[]any` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Yes | Unique identifier for the group. |
+| `id` | `string` | Yes | Unique identifier for the employee. |
+| `object` | `string` | No | The object type |
+| `policies` | `[]any` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `[]any` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2103,16 +2104,16 @@ fmt.Println(groupEmployeeResponsePagedList.GetName()) // "group_employee_respons
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `any` | No |  |
-| `eligibility_status` | `any` | Yes |  |
-| `enrolment_date` | `any` | No |  |
-| `enrolment_status` | `any` | Yes |  |
-| `enrolments` | `[]any` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policies` | `[]any` | Yes |  |
-| `scheduled_group_transitions` | `[]any` | Yes |  |
+| `desired_policy_start_date` | `any` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `any` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `any` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `any` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `[]any` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Yes | Unique identifier for the group. |
+| `id` | `string` | Yes | Unique identifier for the employee. |
+| `object` | `string` | No | The object type |
+| `policies` | `[]any` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `[]any` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2163,19 +2164,19 @@ fmt.Println(groupPolicy.GetName()) // "group_policy"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `any` | No |  |
-| `disclosures` | `[]any` | Yes |  |
-| `employer_id` | `string` | No |  |
-| `end_date` | `any` | No |  |
-| `group_id` | `string` | No |  |
-| `health_insurance` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `any` | Yes |  |
-| `provider` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
-| `type` | `any` | Yes |  |
+| `cancellation_date` | `any` | No | Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable. |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this group policy. |
+| `employer_id` | `string` | No | Identifier for the employer associated with this group policy. |
+| `end_date` | `any` | No | Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended. |
+| `group_id` | `string` | No | Identifier for the group associated with this group policy. |
+| `health_insurance` | `any` | No | Health insurance–specific fields (present when `type=health_insurance`). |
+| `id` | `string` | Yes | Unique identifier for the group policy. |
+| `object` | `string` | No | The object type |
+| `plan` | `any` | Yes | Plan information for this policy |
+| `provider` | `any` | Yes | Provider information for this policy. |
+| `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
+| `status` | `any` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `any` | Yes | Policy type. |
 
 ### Operations
 
@@ -2238,16 +2239,16 @@ fmt.Println(groupPolicyIntent.GetName()) // "group_policy_intent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `any` | No |  |
-| `cost_sharing` | `any` | No |  |
-| `disclosures` | `[]any` | Yes |  |
-| `due_date` | `any` | No |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan_id` | `string` | Yes |  |
-| `quote_intent_id` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `any` | No | Details of the required action when the intent is in ActionRequired status. |
+| `cost_sharing` | `any` | No | Cost sharing configuration for the policy intent |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
+| `due_date` | `any` | No | Due date for the policy intent |
+| `group_id` | `string` | Yes | Unique identifier for the group |
+| `id` | `string` | Yes | Unique identifier for the group policy intent |
+| `object` | `string` | No | Object type identifier |
+| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
+| `status` | `any` | Yes | Current status of the group policy intent |
 
 ### Operations
 
@@ -2329,12 +2330,12 @@ fmt.Println(groupPolicyIntentRequirementResponsePagedList.GetName()) // "group_p
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `any` | Yes |  |
-| `requirement_type` | `any` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2385,11 +2386,11 @@ fmt.Println(groupQuote.GetName()) // "group_quote"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `any` | No |  |
-| `member_count` | `any` | No |  |
-| `member_selection` | `any` | No |  |
-| `percentage` | `any` | No |  |
-| `type` | `any` | Yes |  |
+| `family_type` | `any` | No | Type of the family covered by the employer. |
+| `member_count` | `any` | No | Numbers of additional members covered by the employer. |
+| `member_selection` | `any` | No | Whether specific member types are covered by the employer. |
+| `percentage` | `any` | No | Percentage of the premium the employer covers. |
+| `type` | `any` | Yes | Cost sharing type. |
 
 ### Operations
 
@@ -2440,16 +2441,16 @@ fmt.Println(groupQuoteIntent.GetName()) // "group_quote_intent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `any` | No |  |
-| `consent_links` | `[]any` | Yes |  |
-| `cost_sharing` | `any` | No |  |
-| `disclosures` | `[]any` | Yes |  |
-| `expected_start_date` | `any` | No |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan_id` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `any` | No | Details of the action required from the caller, if the intent is in action_required status. |
+| `consent_links` | `[]any` | Yes | Consent links that need to be acknowledged |
+| `cost_sharing` | `any` | No | Cost sharing configuration for the quote |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
+| `expected_start_date` | `any` | No | Expected start date for the insurance coverage |
+| `group_id` | `string` | Yes | Unique identifier for the group |
+| `id` | `string` | Yes | Unique identifier for the group quote intent |
+| `object` | `string` | No | Object type identifier |
+| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `status` | `any` | Yes | Current status of the group quote intent |
 
 ### Operations
 
@@ -2531,12 +2532,12 @@ fmt.Println(groupQuoteIntentRequirementResponsePagedList.GetName()) // "group_qu
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `bool` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `any` | Yes |  |
-| `requirement_type` | `any` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2587,24 +2588,24 @@ fmt.Println(plan.GetName()) // "plan"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `available_from` | `string` | Yes |  |
-| `available_to` | `any` | No |  |
-| `country` | `any` | Yes |  |
-| `coverage_options` | `any` | No |  |
-| `description` | `string` | Yes |  |
-| `disclosures` | `[]any` | Yes |  |
-| `documents` | `[]any` | Yes |  |
-| `eligible_count` | `any` | No |  |
-| `employee_eligibility_criteria` | `[]any` | Yes |  |
-| `employer_eligibility_criteria` | `[]any` | Yes |  |
-| `health_insurance` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `ineligible_count` | `any` | No |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `provider` | `any` | Yes |  |
-| `total_count` | `any` | No |  |
-| `type` | `any` | Yes |  |
+| `available_from` | `string` | Yes | The date from which this plan is available (inclusive). |
+| `available_to` | `any` | No | The date until which this plan is available (inclusive). |
+| `country` | `any` | Yes | The country this plan is available in. |
+| `coverage_options` | `any` | No | Coverage options available for this plan, organized by scope and input type. |
+| `description` | `string` | Yes | Description of the plan. |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this plan. |
+| `documents` | `[]any` | Yes | List of plan documents (e.g., IPIDs, T&Cs). |
+| `eligible_count` | `any` | No | Number of employees in the queried group eligible for this plan as-of `start_date`. |
+| `employee_eligibility_criteria` | `[]any` | Yes | Eligibility criteria that employees must meet. |
+| `employer_eligibility_criteria` | `[]any` | Yes | Eligibility criteria that employers must meet. |
+| `health_insurance` | `any` | No | Health insurance-specific details. |
+| `id` | `string` | Yes | Unique identifier for the plan. |
+| `ineligible_count` | `any` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `name` | `string` | Yes | The name of the plan. |
+| `object` | `string` | No | Object type. |
+| `provider` | `any` | Yes | The provider offering this plan. |
+| `total_count` | `any` | No | Total employees in the queried group. |
+| `type` | `any` | Yes | The benefit type of the plan. |
 
 ### Operations
 
@@ -2667,21 +2668,21 @@ fmt.Println(policy.GetName()) // "policy"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `any` | Yes |  |
-| `cancellation_date` | `any` | No |  |
-| `disclosures` | `[]any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `end_date` | `any` | No |  |
-| `group_id` | `string` | Yes |  |
-| `group_policy_id` | `string` | Yes |  |
-| `health_insurance` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `any` | Yes |  |
-| `provider` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
-| `type` | `any` | Yes |  |
+| `bundling_type` | `any` | Yes | Indicates how this policy is bundled within a group |
+| `cancellation_date` | `any` | No | Date the policy was cancelled (if applicable) |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this policy. |
+| `employee_id` | `string` | Yes | Identifier of the employee associated with this policy. |
+| `end_date` | `any` | No | Policy end date (inclusive) in ISO 8601, or null if open-ended |
+| `group_id` | `string` | Yes | Identifier of the group associated with this policy. |
+| `group_policy_id` | `string` | Yes | Identifier of the group policy id associated with this policy. |
+| `health_insurance` | `any` | No | Health insurance–specific fields (present when `type=health_insurance`) |
+| `id` | `string` | Yes | Unique identifier for the policy. |
+| `object` | `string` | No | Object type |
+| `plan` | `any` | Yes | Plan information for this policy |
+| `provider` | `any` | Yes | Provider information for this policy |
+| `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
+| `status` | `any` | Yes | Current lifecycle state of the policy |
+| `type` | `any` | Yes | Policy type. |
 
 ### Operations
 
@@ -2744,16 +2745,16 @@ fmt.Println(policyAmendmentIntent.GetName()) // "policy_amendment_intent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amendment_reason` | `any` | Yes |  |
-| `disclosures` | `[]any` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pending_confirmation` | `any` | No |  |
-| `policy_id` | `string` | Yes |  |
-| `processing_error` | `any` | No |  |
-| `requested_changes` | `[]any` | Yes |  |
-| `required_action` | `any` | No |  |
-| `status` | `any` | Yes |  |
+| `amendment_reason` | `any` | Yes | The reason for the policy amendment. |
+| `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the policy amendment intent. |
+| `object` | `string` | No | Object type identifier. |
+| `pending_confirmation` | `any` | No | Information about the pending confirmation if the intent status is `pending_confirmation`. |
+| `policy_id` | `string` | Yes | The policy ID for which the amendment is requested. |
+| `processing_error` | `any` | No | Information about the processing error if the intent status is `processing_error`. |
+| `requested_changes` | `[]any` | Yes | List of requested changes to the policy. |
+| `required_action` | `any` | No | Information about the required action if the intent status is `action_required`. |
+| `status` | `any` | Yes | Current status of the policy amendment intent. |
 
 ### Operations
 
@@ -2835,16 +2836,16 @@ fmt.Println(policyImportIntent.GetName()) // "policy_import_intent"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_persons` | `[]any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `member_number` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policy_end_date` | `any` | No |  |
-| `policy_start_date` | `string` | Yes |  |
-| `provider_policy_number` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `associated_persons` | `[]any` | Yes | List of associated persons linked to this policy import. |
+| `employee_id` | `string` | Yes | The employee ID for the policy import. |
+| `group_id` | `string` | Yes | The group ID for the policy import. |
+| `id` | `string` | Yes | Unique identifier for the policy import intent. |
+| `member_number` | `string` | Yes | The member number assigned by the provider. |
+| `object` | `string` | No | Object type identifier. |
+| `policy_end_date` | `any` | No | The end date of the policy. |
+| `policy_start_date` | `string` | Yes | The start date of the policy. |
+| `provider_policy_number` | `string` | Yes | The provider's policy number. |
+| `status` | `any` | Yes | Current status of the policy import intent. |
 
 ### Operations
 
@@ -2928,16 +2929,16 @@ fmt.Println(provider.GetName()) // "provider"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | Yes |  |
-| `employer_platform_url` | `any` | No |  |
-| `id` | `string` | Yes |  |
-| `kota_hub_url` | `any` | No |  |
-| `logo_url` | `string` | Yes |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `support_phone` | `string` | Yes |  |
-| `supported_countries` | `[]any` | Yes |  |
-| `website_url` | `string` | Yes |  |
+| `description` | `string` | Yes | Description of the provider. |
+| `employer_platform_url` | `any` | No | URL to the employer portal/platform for this provider, if available. |
+| `id` | `string` | Yes | Unique identifier for the provider. |
+| `kota_hub_url` | `any` | No | URL to the Kota Hub page for this platform, if configured. |
+| `logo_url` | `string` | Yes | URL to the provider's logo image. |
+| `name` | `string` | Yes | The name of the provider. |
+| `object` | `string` | No | Object type. |
+| `support_phone` | `string` | Yes | Customer support phone number. |
+| `supported_countries` | `[]any` | Yes | List of countries supported by this provider. |
+| `website_url` | `string` | Yes | The provider's main website URL. |
 
 ### Operations
 
@@ -3055,11 +3056,11 @@ fmt.Println(webhookEndpoint.GetName()) // "webhook_endpoint"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `endpoint_url` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `subscribed_events` | `[]any` | Yes |  |
+| `created_at` | `string` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
+| `id` | `string` | Yes | The unique identifier of the endpoint |
+| `object` | `string` | No | The object type |
+| `subscribed_events` | `[]any` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 
@@ -3110,11 +3111,11 @@ fmt.Println(webhookEndpointResponsePagedList.GetName()) // "webhook_endpoint_res
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `endpoint_url` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `subscribed_events` | `[]any` | Yes |  |
+| `created_at` | `string` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
+| `id` | `string` | Yes | The unique identifier of the endpoint |
+| `object` | `string` | No | The object type |
+| `subscribed_events` | `[]any` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 

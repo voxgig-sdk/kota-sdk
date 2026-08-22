@@ -75,7 +75,7 @@ const utility_1 = require("../../utility");
         const eligibility_check_ref01_ent = client.EligibilityCheck();
         let eligibility_check_ref01_data = setup.data.new.eligibility_check['eligibility_check_ref01'];
         eligibility_check_ref01_data['group_id'] = setup.idmap['group01'];
-        eligibility_check_ref01_data = await eligibility_check_ref01_ent.create(eligibility_check_ref01_data);
+        eligibility_check_ref01_data = (await eligibility_check_ref01_ent.create(eligibility_check_ref01_data)).data();
         (0, node_assert_1.default)(null != eligibility_check_ref01_data);
     });
 });

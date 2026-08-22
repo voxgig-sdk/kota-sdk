@@ -253,9 +253,7 @@
 
 /**
  * @typedef {Object} DependentsManagementIntentCreateData
- * @property {string} [policy_amendment_intent_id]
- * @property {string} [policy_id]
- * @property {string} [enrolment_intent_id]
+ * @property {string} enrolment_intent_id
  * @property {null} [action_required]
  * @property {null|Array} [coverage_options]
  * @property {Array} dependents

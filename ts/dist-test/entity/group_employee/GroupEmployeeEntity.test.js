@@ -75,7 +75,7 @@ const utility_1 = require("../../utility");
         const group_employee_ref01_ent = client.GroupEmployee();
         let group_employee_ref01_data = setup.data.new.group_employee['group_employee_ref01'];
         group_employee_ref01_data['group_id'] = setup.idmap['group01'];
-        group_employee_ref01_data = await group_employee_ref01_ent.create(group_employee_ref01_data);
+        group_employee_ref01_data = (await group_employee_ref01_ent.create(group_employee_ref01_data)).data();
         (0, node_assert_1.default)(null != group_employee_ref01_data.id);
     });
 });

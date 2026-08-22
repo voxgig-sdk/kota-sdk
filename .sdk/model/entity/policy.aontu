@@ -8,11 +8,13 @@ main: kit: entity: policy: {
     {
       name: "bundling_type"
       req: true
+      short: "Indicates how this policy is bundled within a group"
       type: "`$ANY`"
     }
     {
       name: "cancellation_date"
       req: false
+      short: "Date the policy was cancelled (if applicable)"
       type: [
         "`$ONE`"
         [
@@ -24,16 +26,19 @@ main: kit: entity: policy: {
     {
       name: "disclosures"
       req: true
+      short: "Disclosures associated with this policy."
       type: "`$ARRAY`"
     }
     {
       name: "employee_id"
       req: true
+      short: "Identifier of the employee associated with this policy."
       type: "`$STRING`"
     }
     {
       name: "end_date"
       req: false
+      short: "Policy end date (inclusive) in ISO 8601, or null if open-ended"
       type: [
         "`$ONE`"
         [
@@ -45,51 +50,61 @@ main: kit: entity: policy: {
     {
       name: "group_id"
       req: true
+      short: "Identifier of the group associated with this policy."
       type: "`$STRING`"
     }
     {
       name: "group_policy_id"
       req: true
+      short: "Identifier of the group policy id associated with this policy."
       type: "`$STRING`"
     }
     {
       name: "health_insurance"
       req: false
+      short: "Health insurance–specific fields (present when `type=health_insurance`)"
       type: "`$NULL`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the policy."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type"
       type: "`$STRING`"
     }
     {
       name: "plan"
       req: true
+      short: "Plan information for this policy"
       type: "`$ANY`"
     }
     {
       name: "provider"
       req: true
+      short: "Provider information for this policy"
       type: "`$ANY`"
     }
     {
       name: "start_date"
       req: true
+      short: "Policy start (effective) date in ISO 8601 (YYYY-MM-DD)"
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Current lifecycle state of the policy"
       type: "`$ANY`"
     }
     {
       name: "type"
       req: true
+      short: "Policy type."
       type: "`$ANY`"
     }
   ]

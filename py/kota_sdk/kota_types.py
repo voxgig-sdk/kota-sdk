@@ -270,6 +270,7 @@ class DependentsManagementIntentLoadMatch(TypedDict):
 
 
 class DependentsManagementIntentCreateDataRequired(TypedDict):
+    enrolment_intent_id: str
     dependents: list
     disclosures: list
     id: str
@@ -280,9 +281,6 @@ class DependentsManagementIntentCreateDataRequired(TypedDict):
 
 
 class DependentsManagementIntentCreateData(DependentsManagementIntentCreateDataRequired, total=False):
-    policy_amendment_intent_id: str
-    policy_id: str
-    enrolment_intent_id: str
     action_required: None
     coverage_options: None | list
     object: str

@@ -8,61 +8,73 @@ main: kit: entity: enrolment_intent: {
     {
       name: "action_required"
       req: false
+      short: "If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment."
       type: "`$NULL`"
     }
     {
       name: "disclosures"
       req: true
+      short: "Disclosures associated with this intent."
       type: "`$ARRAY`"
     }
     {
       name: "employee_id"
       req: true
+      short: "Identifier for the employee associated with this enrolment intent."
       type: "`$STRING`"
     }
     {
       name: "force_confirmation"
       req: true
+      short: "If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required."
       type: "`$BOOLEAN`"
     }
     {
       name: "group_id"
       req: true
+      short: "Identifier for the group associated with this enrolment intent."
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the enrolment intent."
       type: "`$STRING`"
     }
     {
       name: "ineligibility_reason"
       req: false
+      short: "If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility."
       type: "`$NULL`"
     }
     {
       name: "object"
       req: false
+      short: "Object type identifier."
       type: "`$STRING`"
     }
     {
       name: "pending_confirmation"
       req: false
+      short: "If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state."
       type: "`$NULL`"
     }
     {
       name: "policy_configuration"
       req: false
+      short: "Policy configuration associated with this enrolment intent."
       type: "`$NULL`"
     }
     {
       name: "policy_enrolments"
       req: true
+      short: "Policy enrolment information"
       type: "`$ARRAY`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the enrolment intent."
       type: "`$ANY`"
     }
   ]

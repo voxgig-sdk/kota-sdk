@@ -74,16 +74,16 @@ const utility_1 = require("../../utility");
         // CREATE
         const group_quote_intent_ref01_ent = client.GroupQuoteIntent();
         let group_quote_intent_ref01_data = setup.data.new.group_quote_intent['group_quote_intent_ref01'];
-        group_quote_intent_ref01_data = await group_quote_intent_ref01_ent.create(group_quote_intent_ref01_data);
+        group_quote_intent_ref01_data = (await group_quote_intent_ref01_ent.create(group_quote_intent_ref01_data)).data();
         (0, node_assert_1.default)(null != group_quote_intent_ref01_data.id);
         // LIST
         const group_quote_intent_ref01_match = {};
-        const group_quote_intent_ref01_list = await group_quote_intent_ref01_ent.list(group_quote_intent_ref01_match);
+        const group_quote_intent_ref01_list = (await group_quote_intent_ref01_ent.list(group_quote_intent_ref01_match)).map((e) => e.data());
         (0, node_assert_1.default)(!isempty(select(group_quote_intent_ref01_list, { id: group_quote_intent_ref01_data.id })));
         // LOAD
         const group_quote_intent_ref01_match_dt0 = {};
         group_quote_intent_ref01_match_dt0.id = group_quote_intent_ref01_data.id;
-        const group_quote_intent_ref01_data_dt0 = await group_quote_intent_ref01_ent.load(group_quote_intent_ref01_match_dt0);
+        const group_quote_intent_ref01_data_dt0 = (await group_quote_intent_ref01_ent.load(group_quote_intent_ref01_match_dt0)).data();
         (0, node_assert_1.default)(group_quote_intent_ref01_data_dt0.id === group_quote_intent_ref01_data.id);
     });
 });

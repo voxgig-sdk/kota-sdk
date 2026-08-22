@@ -8,11 +8,13 @@ main: kit: entity: plan: {
     {
       name: "available_from"
       req: true
+      short: "The date from which this plan is available (inclusive)."
       type: "`$STRING`"
     }
     {
       name: "available_to"
       req: false
+      short: "The date until which this plan is available (inclusive)."
       type: [
         "`$ONE`"
         [
@@ -24,11 +26,13 @@ main: kit: entity: plan: {
     {
       name: "country"
       req: true
+      short: "The country this plan is available in."
       type: "`$ANY`"
     }
     {
       name: "coverage_options"
       req: false
+      short: "Coverage options available for this plan, organized by scope and input type."
       type: [
         "`$ONE`"
         [
@@ -40,21 +44,25 @@ main: kit: entity: plan: {
     {
       name: "description"
       req: true
+      short: "Description of the plan."
       type: "`$STRING`"
     }
     {
       name: "disclosures"
       req: true
+      short: "Disclosures associated with this plan."
       type: "`$ARRAY`"
     }
     {
       name: "documents"
       req: true
+      short: "List of plan documents (e.g., IPIDs, T&Cs)."
       type: "`$ARRAY`"
     }
     {
       name: "eligible_count"
       req: false
+      short: "Number of employees in the queried group eligible for this plan as-of `start_date`."
       type: [
         "`$ONE`"
         [
@@ -66,26 +74,31 @@ main: kit: entity: plan: {
     {
       name: "employee_eligibility_criteria"
       req: true
+      short: "Eligibility criteria that employees must meet."
       type: "`$ARRAY`"
     }
     {
       name: "employer_eligibility_criteria"
       req: true
+      short: "Eligibility criteria that employers must meet."
       type: "`$ARRAY`"
     }
     {
       name: "health_insurance"
       req: false
+      short: "Health insurance-specific details."
       type: "`$NULL`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the plan."
       type: "`$STRING`"
     }
     {
       name: "ineligible_count"
       req: false
+      short: "Number of employees in the queried group ineligible for this plan as-of `start_date`."
       type: [
         "`$ONE`"
         [
@@ -97,21 +110,25 @@ main: kit: entity: plan: {
     {
       name: "name"
       req: true
+      short: "The name of the plan."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type."
       type: "`$STRING`"
     }
     {
       name: "provider"
       req: true
+      short: "The provider offering this plan."
       type: "`$ANY`"
     }
     {
       name: "total_count"
       req: false
+      short: "Total employees in the queried group."
       type: [
         "`$ONE`"
         [
@@ -123,6 +140,7 @@ main: kit: entity: plan: {
     {
       name: "type"
       req: true
+      short: "The benefit type of the plan."
       type: "`$ANY`"
     }
   ]

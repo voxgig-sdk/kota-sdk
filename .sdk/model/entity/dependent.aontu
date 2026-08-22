@@ -8,11 +8,13 @@ main: kit: entity: dependent: {
     {
       name: "action_required"
       req: false
+      short: "Details of the action required from the caller."
       type: "`$NULL`"
     }
     {
       name: "coverage_options"
       req: false
+      short: "Available member-scoped coverage options for the plan."
       type: [
         "`$ONE`"
         [
@@ -24,41 +26,49 @@ main: kit: entity: dependent: {
     {
       name: "dependents"
       req: true
+      short: "List of dependents being managed."
       type: "`$ARRAY`"
     }
     {
       name: "disclosures"
       req: true
+      short: "Disclosures associated with this intent."
       type: "`$ARRAY`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the dependents management intent."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type identifier."
       type: "`$STRING`"
     }
     {
       name: "parent_intent_id"
       req: true
+      short: "The parent intent ID (e.g."
       type: "`$STRING`"
     }
     {
       name: "parent_intent_type"
       req: true
+      short: "The type of parent intent."
       type: "`$ANY`"
     }
     {
       name: "plan"
       req: true
+      short: "Plan information including pricing details."
       type: "`$ANY`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the dependents management intent."
       type: "`$ANY`"
     }
   ]

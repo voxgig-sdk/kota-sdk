@@ -5,6 +5,6 @@ import type { EmployeeHealthInsuranceOfferResponsePagedList, EmployeeHealthInsur
 declare class EmployeeHealthInsuranceOfferResponsePagedListEntity extends KotaEntityBase<EmployeeHealthInsuranceOfferResponsePagedList> {
     constructor(client: KotaSDK, entopts: any);
     make(this: EmployeeHealthInsuranceOfferResponsePagedListEntity): EmployeeHealthInsuranceOfferResponsePagedListEntity;
-    list(this: any, reqmatch?: EmployeeHealthInsuranceOfferResponsePagedListListMatch, ctrl?: Control): Promise<EmployeeHealthInsuranceOfferResponsePagedList[]>;
+    list(this: any, reqmatch?: EmployeeHealthInsuranceOfferResponsePagedListListMatch, ctrl?: Control): Promise<EmployeeHealthInsuranceOfferResponsePagedListEntity[]>;
 }
 export { EmployeeHealthInsuranceOfferResponsePagedListEntity };

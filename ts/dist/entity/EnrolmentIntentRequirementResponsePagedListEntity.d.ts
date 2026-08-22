@@ -5,6 +5,6 @@ import type { EnrolmentIntentRequirementResponsePagedList, EnrolmentIntentRequir
 declare class EnrolmentIntentRequirementResponsePagedListEntity extends KotaEntityBase<EnrolmentIntentRequirementResponsePagedList> {
     constructor(client: KotaSDK, entopts: any);
     make(this: EnrolmentIntentRequirementResponsePagedListEntity): EnrolmentIntentRequirementResponsePagedListEntity;
-    list(this: any, reqmatch?: EnrolmentIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<EnrolmentIntentRequirementResponsePagedList[]>;
+    list(this: any, reqmatch?: EnrolmentIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<EnrolmentIntentRequirementResponsePagedListEntity[]>;
 }
 export { EnrolmentIntentRequirementResponsePagedListEntity };

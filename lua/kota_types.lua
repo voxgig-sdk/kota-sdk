@@ -202,9 +202,7 @@
 ---@field id string
 
 ---@class DependentsManagementIntentCreateData
----@field policy_amendment_intent_id? string
----@field policy_id? string
----@field enrolment_intent_id? string
+---@field enrolment_intent_id string
 ---@field action_required? nil
 ---@field coverage_options? nil|table
 ---@field dependents table

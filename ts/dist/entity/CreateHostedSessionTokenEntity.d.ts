@@ -5,6 +5,6 @@ import type { CreateHostedSessionToken, CreateHostedSessionTokenCreateData } fro
 declare class CreateHostedSessionTokenEntity extends KotaEntityBase<CreateHostedSessionToken> {
     constructor(client: KotaSDK, entopts: any);
     make(this: CreateHostedSessionTokenEntity): CreateHostedSessionTokenEntity;
-    create(this: any, reqdata?: CreateHostedSessionTokenCreateData, ctrl?: Control): Promise<CreateHostedSessionToken>;
+    create(this: any, reqdata?: CreateHostedSessionTokenCreateData, ctrl?: Control): Promise<CreateHostedSessionTokenEntity>;
 }
 export { CreateHostedSessionTokenEntity };

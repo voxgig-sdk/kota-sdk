@@ -8,26 +8,31 @@ main: kit: entity: eligibility_check: {
     {
       name: "eligibility_status"
       req: true
+      short: "Eligibility status: `eligible` or `ineligible`."
       type: "`$ANY`"
     }
     {
       name: "object"
       req: false
+      short: "The object type."
       type: "`$STRING`"
     }
     {
       name: "plan"
       req: true
+      short: "The insurance plan associated with the group."
       type: "`$ANY`"
     }
     {
       name: "provider"
       req: true
+      short: "The insurance provider associated with the group."
       type: "`$ANY`"
     }
     {
       name: "reasons"
       req: true
+      short: "List of reasons why the employee is ineligible."
       type: "`$ARRAY`"
     }
   ]

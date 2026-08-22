@@ -5,8 +5,8 @@ import type { PolicyAmendmentIntent, PolicyAmendmentIntentLoadMatch, PolicyAmend
 declare class PolicyAmendmentIntentEntity extends KotaEntityBase<PolicyAmendmentIntent> {
     constructor(client: KotaSDK, entopts: any);
     make(this: PolicyAmendmentIntentEntity): PolicyAmendmentIntentEntity;
-    load(this: any, reqmatch?: PolicyAmendmentIntentLoadMatch, ctrl?: Control): Promise<PolicyAmendmentIntent>;
-    list(this: any, reqmatch?: PolicyAmendmentIntentListMatch, ctrl?: Control): Promise<PolicyAmendmentIntent[]>;
-    create(this: any, reqdata?: PolicyAmendmentIntentCreateData, ctrl?: Control): Promise<PolicyAmendmentIntent>;
+    load(this: any, reqmatch?: PolicyAmendmentIntentLoadMatch, ctrl?: Control): Promise<PolicyAmendmentIntentEntity>;
+    list(this: any, reqmatch?: PolicyAmendmentIntentListMatch, ctrl?: Control): Promise<PolicyAmendmentIntentEntity[]>;
+    create(this: any, reqdata?: PolicyAmendmentIntentCreateData, ctrl?: Control): Promise<PolicyAmendmentIntentEntity>;
 }
 export { PolicyAmendmentIntentEntity };

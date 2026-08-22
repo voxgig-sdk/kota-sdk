@@ -8,31 +8,37 @@ main: kit: entity: group_quote_intent_requirement_response_paged_list: {
     {
       name: "id"
       req: true
+      short: "Unique identifier for the requirement"
       type: "`$STRING`"
     }
     {
       name: "is_fulfilled"
       req: true
+      short: "Whether the requirement has been fulfilled"
       type: "`$BOOLEAN`"
     }
     {
       name: "object"
       req: false
+      short: "Object type identifier"
       type: "`$STRING`"
     }
     {
       name: "object_id"
       req: true
+      short: "Identifier of the object (employee ID or employer ID)"
       type: "`$STRING`"
     }
     {
       name: "object_type"
       req: true
+      short: "Type of object this requirement is for (employee or employer)"
       type: "`$ANY`"
     }
     {
       name: "requirement_type"
       req: true
+      short: "Type of requirement"
       type: "`$ANY`"
     }
   ]

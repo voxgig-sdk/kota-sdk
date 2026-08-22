@@ -8,16 +8,19 @@ main: kit: entity: employee: {
     {
       name: "bank_account"
       req: false
+      short: "Bank account details"
       type: "`$NULL`"
     }
     {
       name: "date_of_birth"
       req: true
+      short: "Date of birth of the employee"
       type: "`$STRING`"
     }
     {
       name: "earliest_benefits_start_date"
       req: false
+      short: "The earliest date this employee can be enrolled in any benefits."
       type: [
         "`$ONE`"
         [
@@ -29,16 +32,19 @@ main: kit: entity: employee: {
     {
       name: "email"
       req: true
+      short: "Email address of the employee"
       type: "`$STRING`"
     }
     {
       name: "employer_id"
       req: false
+      short: "Unique identifier for the employer"
       type: "`$STRING`"
     }
     {
       name: "external_customer_id"
       req: false
+      short: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
       type: [
         "`$ONE`"
         [
@@ -50,26 +56,31 @@ main: kit: entity: employee: {
     {
       name: "first_name"
       req: true
+      short: "First name of the employee."
       type: "`$STRING`"
     }
     {
       name: "home_address"
       req: false
+      short: "Location where the employee is legally registered to live"
       type: "`$NULL`"
     }
     {
       name: "id"
       req: false
+      short: "Unique identifier for the employee"
       type: "`$STRING`"
     }
     {
       name: "last_name"
       req: true
+      short: "Last name of the employee"
       type: "`$STRING`"
     }
     {
       name: "metadata"
       req: false
+      short: "Set of key-value pairs that you can attach to an object."
       type: [
         "`$ONE`"
         [
@@ -81,21 +92,25 @@ main: kit: entity: employee: {
     {
       name: "national_tax_id"
       req: true
+      short: "PPSN in Ireland, NINo in the UK, DNI/NIE in Spain"
       type: "`$STRING`"
     }
     {
       name: "nationality"
       req: false
+      short: "Nationality of the employee (e.g."
       type: "`$NULL`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "offboard_on"
       req: false
+      short: "Date when the employee was or will be offboarded"
       type: [
         "`$ONE`"
         [
@@ -107,26 +122,31 @@ main: kit: entity: employee: {
     {
       name: "phone_number"
       req: true
+      short: "Phone number in E.164 international format (e.g."
       type: "`$STRING`"
     }
     {
       name: "platform_id"
       req: false
+      short: "Unique identifier for the platform"
       type: "`$STRING`"
     }
     {
       name: "sex_at_birth"
       req: true
+      short: "The sex assigned to the employee at birth"
       type: "`$ANY`"
     }
     {
       name: "start_on"
       req: false
+      short: "Employment start date"
       type: "`$STRING`"
     }
     {
       name: "status"
       req: false
+      short: "Current status of the employee"
       type: "`$ANY`"
     }
   ]

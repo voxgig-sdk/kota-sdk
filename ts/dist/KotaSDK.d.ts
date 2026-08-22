@@ -69,6 +69,20 @@ declare class KotaSDK {
         headers?: undefined;
         data?: undefined;
     }>;
+    _rawRequest(fetchargs?: any): Promise<Error | {
+        ok: boolean;
+        status: number;
+        headers: any;
+        data: any;
+        err?: undefined;
+    } | {
+        ok: boolean;
+        err: any;
+        status?: undefined;
+        headers?: undefined;
+        data?: undefined;
+    }>;
+    graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     AssociatedPerson(entopts?: Record<string, any>): AssociatedPersonEntity;
     AssociatedPersonEligibilityResponsePagedList(entopts?: Record<string, any>): AssociatedPersonEligibilityResponsePagedListEntity;
     ContributionReport(entopts?: Record<string, any>): ContributionReportEntity;

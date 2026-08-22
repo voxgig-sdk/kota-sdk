@@ -76,7 +76,7 @@ const utility_1 = require("../../utility");
         const webhook_endpoint_ref01_ent = client.WebhookEndpoint();
         const webhook_endpoint_ref01_match_dt0 = {};
         webhook_endpoint_ref01_match_dt0.id = webhook_endpoint_ref01_data.id;
-        const webhook_endpoint_ref01_data_dt0 = await webhook_endpoint_ref01_ent.load(webhook_endpoint_ref01_match_dt0);
+        const webhook_endpoint_ref01_data_dt0 = (await webhook_endpoint_ref01_ent.load(webhook_endpoint_ref01_match_dt0)).data();
         (0, node_assert_1.default)(webhook_endpoint_ref01_data_dt0.id === webhook_endpoint_ref01_data.id);
     });
 });

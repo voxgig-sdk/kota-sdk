@@ -76,7 +76,7 @@ const utility_1 = require("../../utility");
         const employer_health_insurance_quote_ref01_ent = client.EmployerHealthInsuranceQuote();
         const employer_health_insurance_quote_ref01_match_dt0 = {};
         employer_health_insurance_quote_ref01_match_dt0.id = employer_health_insurance_quote_ref01_data.id;
-        const employer_health_insurance_quote_ref01_data_dt0 = await employer_health_insurance_quote_ref01_ent.load(employer_health_insurance_quote_ref01_match_dt0);
+        const employer_health_insurance_quote_ref01_data_dt0 = (await employer_health_insurance_quote_ref01_ent.load(employer_health_insurance_quote_ref01_match_dt0)).data();
         (0, node_assert_1.default)(employer_health_insurance_quote_ref01_data_dt0.id === employer_health_insurance_quote_ref01_data.id);
     });
 });

@@ -75,7 +75,7 @@ const utility_1 = require("../../utility");
         const dependent_ref01_ent = client.Dependent();
         let dependent_ref01_data = setup.data.new.dependent['dependent_ref01'];
         dependent_ref01_data['dependents_management_intent_id'] = setup.idmap['dependents_management_intent01'];
-        dependent_ref01_data = await dependent_ref01_ent.create(dependent_ref01_data);
+        dependent_ref01_data = (await dependent_ref01_ent.create(dependent_ref01_data)).data();
         (0, node_assert_1.default)(null != dependent_ref01_data.id);
         // REMOVE
         const dependent_ref01_match_rm0 = { id: dependent_ref01_data.id };

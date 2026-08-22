@@ -5,9 +5,9 @@ import type { Employee, EmployeeLoadMatch, EmployeeListMatch, EmployeeCreateData
 declare class EmployeeEntity extends KotaEntityBase<Employee> {
     constructor(client: KotaSDK, entopts: any);
     make(this: EmployeeEntity): EmployeeEntity;
-    load(this: any, reqmatch?: EmployeeLoadMatch, ctrl?: Control): Promise<Employee>;
-    list(this: any, reqmatch?: EmployeeListMatch, ctrl?: Control): Promise<Employee[]>;
-    create(this: any, reqdata?: EmployeeCreateData, ctrl?: Control): Promise<Employee>;
-    update(this: any, reqdata?: EmployeeUpdateData, ctrl?: Control): Promise<Employee>;
+    load(this: any, reqmatch?: EmployeeLoadMatch, ctrl?: Control): Promise<EmployeeEntity>;
+    list(this: any, reqmatch?: EmployeeListMatch, ctrl?: Control): Promise<EmployeeEntity[]>;
+    create(this: any, reqdata?: EmployeeCreateData, ctrl?: Control): Promise<EmployeeEntity>;
+    update(this: any, reqdata?: EmployeeUpdateData, ctrl?: Control): Promise<EmployeeEntity>;
 }
 export { EmployeeEntity };

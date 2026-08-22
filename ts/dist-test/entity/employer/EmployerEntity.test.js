@@ -74,24 +74,24 @@ const utility_1 = require("../../utility");
         // CREATE
         const employer_ref01_ent = client.Employer();
         let employer_ref01_data = setup.data.new.employer['employer_ref01'];
-        employer_ref01_data = await employer_ref01_ent.create(employer_ref01_data);
+        employer_ref01_data = (await employer_ref01_ent.create(employer_ref01_data)).data();
         (0, node_assert_1.default)(null != employer_ref01_data.id);
         // LIST
         const employer_ref01_match = {};
-        const employer_ref01_list = await employer_ref01_ent.list(employer_ref01_match);
+        const employer_ref01_list = (await employer_ref01_ent.list(employer_ref01_match)).map((e) => e.data());
         (0, node_assert_1.default)(!isempty(select(employer_ref01_list, { id: employer_ref01_data.id })));
         // UPDATE
         const employer_ref01_data_up0 = {};
         employer_ref01_data_up0.id = employer_ref01_data.id;
         const employer_ref01_markdef_up0 = { name: 'legal_name', value: 'Mark01-employer_ref01_' + setup.now };
         employer_ref01_data_up0[employer_ref01_markdef_up0.name] = employer_ref01_markdef_up0.value;
-        const employer_ref01_resdata_up0 = await employer_ref01_ent.update(employer_ref01_data_up0);
+        const employer_ref01_resdata_up0 = (await employer_ref01_ent.update(employer_ref01_data_up0)).data();
         (0, node_assert_1.default)(employer_ref01_resdata_up0.id === employer_ref01_data_up0.id);
         (0, node_assert_1.default)(employer_ref01_resdata_up0[employer_ref01_markdef_up0.name] === employer_ref01_markdef_up0.value);
         // LOAD
         const employer_ref01_match_dt0 = {};
         employer_ref01_match_dt0.id = employer_ref01_data.id;
-        const employer_ref01_data_dt0 = await employer_ref01_ent.load(employer_ref01_match_dt0);
+        const employer_ref01_data_dt0 = (await employer_ref01_ent.load(employer_ref01_match_dt0)).data();
         (0, node_assert_1.default)(employer_ref01_data_dt0.id === employer_ref01_data.id);
     });
 });

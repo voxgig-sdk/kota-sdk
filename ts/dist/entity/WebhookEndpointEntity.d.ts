@@ -5,6 +5,6 @@ import type { WebhookEndpoint, WebhookEndpointLoadMatch } from '../KotaTypes';
 declare class WebhookEndpointEntity extends KotaEntityBase<WebhookEndpoint> {
     constructor(client: KotaSDK, entopts: any);
     make(this: WebhookEndpointEntity): WebhookEndpointEntity;
-    load(this: any, reqmatch?: WebhookEndpointLoadMatch, ctrl?: Control): Promise<WebhookEndpoint>;
+    load(this: any, reqmatch?: WebhookEndpointLoadMatch, ctrl?: Control): Promise<WebhookEndpointEntity>;
 }
 export { WebhookEndpointEntity };

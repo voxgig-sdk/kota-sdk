@@ -247,17 +247,17 @@ local associated_person = client:AssociatedPerson(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `date_of_birth` | `string` | Yes |  |
-| `email` | `nil|string` | No |  |
-| `employee_id` | `string` | Yes |  |
-| `first_name` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `last_name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `phone_number` | `nil|string` | No |  |
-| `platform_id` | `string` | No |  |
-| `relationship_type` | `any` | Yes |  |
-| `sex_at_birth` | `any` | Yes |  |
+| `date_of_birth` | `string` | Yes | Date of birth of the associated person |
+| `email` | `nil|string` | No | Email address of the associated person |
+| `employee_id` | `string` | Yes | Unique identifier for the employee this person is associated with |
+| `first_name` | `string` | Yes | First name of the associated person |
+| `id` | `string` | Yes | Unique identifier for the associated person |
+| `last_name` | `string` | Yes | Last name of the associated person |
+| `object` | `string` | No | The object type |
+| `phone_number` | `nil|string` | No | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | No | Unique identifier for the platform |
+| `relationship_type` | `any` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `any` | Yes | The sex assigned to the associated person at birth |
 
 ### Operations
 
@@ -353,15 +353,15 @@ local associated_person_eligibility_response_paged_list = client:AssociatedPerso
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_person_id` | `string` | Yes |  |
-| `date_of_birth` | `string` | Yes |  |
-| `eligibility_status` | `any` | Yes |  |
-| `first_name` | `string` | Yes |  |
-| `ineligibility_reason` | `nil|string` | No |  |
-| `last_name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `relationship` | `any` | Yes |  |
-| `sex_at_birth` | `any` | Yes |  |
+| `associated_person_id` | `string` | Yes | The associated person ID. |
+| `date_of_birth` | `string` | Yes | Date of birth of the associated person. |
+| `eligibility_status` | `any` | Yes | Eligibility status for the policy/plan. |
+| `first_name` | `string` | Yes | First name of the associated person. |
+| `ineligibility_reason` | `nil|string` | No | Reason for ineligibility if status is ineligible. |
+| `last_name` | `string` | Yes | Last name of the associated person. |
+| `object` | `string` | No | The object type |
+| `relationship` | `any` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `any` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
@@ -413,15 +413,15 @@ local contribution_report = client:ContributionReport(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `finalized_at` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `created_at` | `string` | Yes | Date and time the report was created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the report is created |
+| `external_customer_id` | `nil|string` | No | Unique identifier of the customer for which the report is created. |
+| `finalized_at` | `nil|string` | No | Date and time the report was finalized, if applicable |
+| `id` | `string` | Yes | Unique identifier for the contribution report |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
+| `object` | `string` | No | The object type |
+| `period` | `any` | Yes | Period covered by the contribution report |
+| `status` | `any` | Yes | Current status of the contribution report |
 
 ### Operations
 
@@ -496,18 +496,18 @@ local contribution_report_employee_breakdown = client:ContributionReportEmployee
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `string` | Yes |  |
-| `created_at` | `string` | Yes |  |
-| `currency` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `finalized_at` | `nil|string` | No |  |
-| `health_insurance` | `any` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `string` | Yes | Date and time the breakdown was created |
+| `currency` | `any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `nil|string` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `nil|string` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
+| `object` | `string` | No | The object type |
+| `period` | `any` | Yes | Period covered by the employee breakdown |
+| `status` | `any` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -559,18 +559,18 @@ local contribution_report_employee_breakdown_response_paged_list = client:Contri
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contribution_report_id` | `string` | Yes |  |
-| `created_at` | `string` | Yes |  |
-| `currency` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `finalized_at` | `nil|string` | No |  |
-| `health_insurance` | `any` | Yes |  |
-| `last_updated_at` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `period` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
+| `created_at` | `string` | Yes | Date and time the breakdown was created |
+| `currency` | `any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `nil|string` | No | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `nil|string` | No | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
+| `object` | `string` | No | The object type |
+| `period` | `any` | Yes | Period covered by the employee breakdown |
+| `status` | `any` | Yes | Current status of the breakdown |
 
 ### Operations
 
@@ -734,16 +734,16 @@ local dependent = client:Dependent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `nil` | No |  |
-| `coverage_options` | `nil|table` | No |  |
-| `dependents` | `table` | Yes |  |
-| `disclosures` | `table` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `parent_intent_id` | `string` | Yes |  |
-| `parent_intent_type` | `any` | Yes |  |
-| `plan` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `nil` | No | Details of the action required from the caller. |
+| `coverage_options` | `nil|table` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `table` | Yes | List of dependents being managed. |
+| `disclosures` | `table` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `string` | No | Object type identifier. |
+| `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `plan` | `any` | Yes | Plan information including pricing details. |
+| `status` | `any` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -812,16 +812,16 @@ local dependents_management_intent = client:DependentsManagementIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `nil` | No |  |
-| `coverage_options` | `nil|table` | No |  |
-| `dependents` | `table` | Yes |  |
-| `disclosures` | `table` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `parent_intent_id` | `string` | Yes |  |
-| `parent_intent_type` | `any` | Yes |  |
-| `plan` | `any` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `nil` | No | Details of the action required from the caller. |
+| `coverage_options` | `nil|table` | No | Available member-scoped coverage options for the plan. |
+| `dependents` | `table` | Yes | List of dependents being managed. |
+| `disclosures` | `table` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the dependents management intent. |
+| `object` | `string` | No | Object type identifier. |
+| `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
+| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `plan` | `any` | Yes | Plan information including pricing details. |
+| `status` | `any` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
@@ -831,6 +831,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:DependentsManagementIntent():create({
+  enrolment_intent_id = --[[ string ]],
   dependents = --[[ table ]],
   disclosures = --[[ table ]],
   id = --[[ string ]],
@@ -889,11 +890,11 @@ local eligibility_check = client:EligibilityCheck(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `any` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `any` | Yes |  |
-| `provider` | `any` | Yes |  |
-| `reasons` | `table` | Yes |  |
+| `eligibility_status` | `any` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `object` | `string` | No | The object type. |
+| `plan` | `any` | Yes | The insurance plan associated with the group. |
+| `provider` | `any` | Yes | The insurance provider associated with the group. |
+| `reasons` | `table` | Yes | List of reasons why the employee is ineligible. |
 
 ### Operations
 
@@ -951,26 +952,26 @@ local employee = client:Employee(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bank_account` | `nil` | No |  |
-| `date_of_birth` | `string` | Yes |  |
-| `earliest_benefits_start_date` | `nil|string` | No |  |
-| `email` | `string` | Yes |  |
-| `employer_id` | `string` | No |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `first_name` | `string` | Yes |  |
-| `home_address` | `nil` | No |  |
-| `id` | `string` | No |  |
-| `last_name` | `string` | Yes |  |
-| `metadata` | `nil|table` | No |  |
-| `national_tax_id` | `string` | Yes |  |
-| `nationality` | `nil` | No |  |
-| `object` | `string` | No |  |
-| `offboard_on` | `nil|string` | No |  |
-| `phone_number` | `string` | Yes |  |
-| `platform_id` | `string` | No |  |
-| `sex_at_birth` | `any` | Yes |  |
-| `start_on` | `string` | No |  |
-| `status` | `any` | No |  |
+| `bank_account` | `nil` | No | Bank account details |
+| `date_of_birth` | `string` | Yes | Date of birth of the employee |
+| `earliest_benefits_start_date` | `nil|string` | No | The earliest date this employee can be enrolled in any benefits. |
+| `email` | `string` | Yes | Email address of the employee |
+| `employer_id` | `string` | No | Unique identifier for the employer |
+| `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `first_name` | `string` | Yes | First name of the employee. |
+| `home_address` | `nil` | No | Location where the employee is legally registered to live |
+| `id` | `string` | No | Unique identifier for the employee |
+| `last_name` | `string` | Yes | Last name of the employee |
+| `metadata` | `nil|table` | No | Set of key-value pairs that you can attach to an object. |
+| `national_tax_id` | `string` | Yes | PPSN in Ireland, NINo in the UK, DNI/NIE in Spain |
+| `nationality` | `nil` | No | Nationality of the employee (e.g. |
+| `object` | `string` | No | The object type |
+| `offboard_on` | `nil|string` | No | Date when the employee was or will be offboarded |
+| `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | No | Unique identifier for the platform |
+| `sex_at_birth` | `any` | Yes | The sex assigned to the employee at birth |
+| `start_on` | `string` | No | Employment start date |
+| `status` | `any` | No | Current status of the employee |
 
 ### Operations
 
@@ -1057,14 +1058,14 @@ local employee_health_insurance_offer = client:EmployeeHealthInsuranceOffer(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `required_action` | `nil` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_level` | `any` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `string` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for offer |
+| `object` | `string` | No | The object type |
+| `required_action` | `nil` | No | Required action to progress the offer, if any. |
+| `status` | `any` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1116,14 +1117,14 @@ local employee_health_insurance_offer_response_paged_list = client:EmployeeHealt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `required_action` | `nil` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_level` | `any` | Yes | Details about the coverage level for the offer. |
+| `employee_id` | `string` | Yes | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | Yes | The Id of the employer for which the offer is available |
+| `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for offer |
+| `object` | `string` | No | The object type |
+| `required_action` | `nil` | No | Required action to progress the offer, if any. |
+| `status` | `any` | Yes | Current status of offer |
 
 ### Operations
 
@@ -1175,22 +1176,22 @@ local employee_health_insurance_policy = client:EmployeeHealthInsurancePolicy(ni
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `nil|string` | No |  |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolled_dependants_count` | `number` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `estimated_gross_premium` | `any` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `opt_out_deadline_date` | `string` | Yes |  |
-| `policy_number` | `nil|string` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `nil|string` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `any` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `string` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `number` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `opt_out_deadline_date` | `string` | Yes | Last day to opt out from the policy |
+| `policy_number` | `nil|string` | No | Health insurance policy number, if available |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1242,22 +1243,22 @@ local employee_health_insurance_policy_response_paged_list = client:EmployeeHeal
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `nil|string` | No |  |
-| `coverage_level` | `any` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolled_dependants_count` | `number` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `estimated_gross_premium` | `any` | Yes |  |
-| `external_customer_id` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `opt_out_deadline_date` | `string` | Yes |  |
-| `policy_number` | `nil|string` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `nil|string` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `any` | Yes | Represents the current coverage level for the policy |
+| `employee_id` | `string` | Yes | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolled_dependants_count` | `number` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `opt_out_deadline_date` | `string` | Yes | Last day to opt out from the policy |
+| `policy_number` | `nil|string` | No | Health insurance policy number, if available |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1314,8 +1315,8 @@ local employer = client:Employer(nil)
 | `id` | `string` | Yes |  |
 | `legal_address` | `any` | Yes |  |
 | `legal_name` | `string` | Yes |  |
-| `metadata` | `nil|table` | No |  |
-| `object` | `string` | No |  |
+| `metadata` | `nil|table` | No | Set of key-value pairs that you can attach to an object. |
+| `object` | `string` | No | The object type |
 | `offboard_on` | `nil|string` | No |  |
 | `platform_id` | `string` | No |  |
 | `registration_number` | `nil|string` | No |  |
@@ -1403,18 +1404,18 @@ local employer_health_insurance_policy = client:EmployerHealthInsurancePolicy(ni
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `nil|string` | No |  |
-| `coverage_levels` | `table` | Yes |  |
-| `employer_cancellation_period_length` | `number` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `group_policy_number` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `nil|string` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `table` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `number` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `nil|string` | No | Group’s health insurance policy number, if available |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1466,18 +1467,18 @@ local employer_health_insurance_policy_response_paged_list = client:EmployerHeal
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `nil|string` | No |  |
-| `coverage_levels` | `table` | Yes |  |
-| `employer_cancellation_period_length` | `number` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `end_date` | `string` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `group_policy_number` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `renewal` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `cancellation_date` | `nil|string` | No | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `table` | Yes | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `number` | Yes | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Yes | Policy ends on this date |
+| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `group_policy_number` | `nil|string` | No | Group’s health insurance policy number, if available |
+| `id` | `string` | Yes | Unique identifier for policy |
+| `object` | `string` | No | The object type |
+| `renewal` | `any` | Yes | Renewal information for the policy |
+| `start_date` | `string` | Yes | Policy starts on this date |
+| `status` | `any` | Yes | Current status of policy |
 
 ### Operations
 
@@ -1529,13 +1530,13 @@ local employer_health_insurance_quote = client:EmployerHealthInsuranceQuote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `table` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `quoted_at` | `string` | Yes |  |
-| `required_action` | `nil` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_levels` | `table` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | Yes | The Id of the employer for which the is created |
+| `id` | `string` | Yes | Unique identifier for the quote |
+| `object` | `string` | No | The object type |
+| `quoted_at` | `string` | Yes | Date and time the quote was created at |
+| `required_action` | `nil` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `any` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1587,13 +1588,13 @@ local employer_health_insurance_quote_response_paged_list = client:EmployerHealt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `coverage_levels` | `table` | Yes |  |
-| `employer_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `quoted_at` | `string` | Yes |  |
-| `required_action` | `nil` | No |  |
-| `status` | `any` | Yes |  |
+| `coverage_levels` | `table` | Yes | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | Yes | The Id of the employer for which the is created |
+| `id` | `string` | Yes | Unique identifier for the quote |
+| `object` | `string` | No | The object type |
+| `quoted_at` | `string` | Yes | Date and time the quote was created at |
+| `required_action` | `nil` | No | Actions required by the employer to proceed with the quote. |
+| `status` | `any` | Yes | Current status of the quote |
 
 ### Operations
 
@@ -1645,18 +1646,18 @@ local enrolment_intent = client:EnrolmentIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `nil` | No |  |
-| `disclosures` | `table` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `force_confirmation` | `boolean` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `ineligibility_reason` | `nil` | No |  |
-| `object` | `string` | No |  |
-| `pending_confirmation` | `nil` | No |  |
-| `policy_configuration` | `nil` | No |  |
-| `policy_enrolments` | `table` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `nil` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `disclosures` | `table` | Yes | Disclosures associated with this intent. |
+| `employee_id` | `string` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `force_confirmation` | `boolean` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
+| `group_id` | `string` | Yes | Identifier for the group associated with this enrolment intent. |
+| `id` | `string` | Yes | Unique identifier for the enrolment intent. |
+| `ineligibility_reason` | `nil` | No | If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility. |
+| `object` | `string` | No | Object type identifier. |
+| `pending_confirmation` | `nil` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
+| `policy_configuration` | `nil` | No | Policy configuration associated with this enrolment intent. |
+| `policy_enrolments` | `table` | Yes | Policy enrolment information |
+| `status` | `any` | Yes | Current status of the enrolment intent. |
 
 ### Operations
 
@@ -1743,12 +1744,12 @@ local enrolment_intent_requirement_response_paged_list = client:EnrolmentIntentR
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `boolean` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `any` | Yes |  |
-| `requirement_type` | `any` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `boolean` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -1868,17 +1869,17 @@ local group = client:Group(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `nil|string` | No |  |
-| `employer_id` | `string` | Yes |  |
-| `enrolment_type` | `any` | Yes |  |
-| `group_policy_ids` | `table` | Yes |  |
-| `group_policy_intent_ids` | `table` | Yes |  |
-| `group_quote_intent_ids` | `table` | Yes |  |
-| `group_type` | `any` | Yes |  |
-| `id` | `string` | Yes |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `status` | `any` | Yes |  |
+| `description` | `nil|string` | No | Short description of the purpose or scope of the `group`. |
+| `employer_id` | `string` | Yes | Identifier for the `employer` that owns this `group`. |
+| `enrolment_type` | `any` | Yes | Indicates how employees are enrolled into the group. |
+| `group_policy_ids` | `table` | Yes | Group policy unique identifiers associated with this group. |
+| `group_policy_intent_ids` | `table` | Yes | Group policy intent unique identifiers associated with this group. |
+| `group_quote_intent_ids` | `table` | Yes | Group quote intent unique identifiers associated with this group. |
+| `group_type` | `any` | Yes | Indicates how policies are organized for this group. |
+| `id` | `string` | Yes | Unique identifier for the `group`. |
+| `name` | `string` | Yes | Human-readable name of the `group`. |
+| `object` | `string` | No | The object type |
+| `status` | `any` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
 
 ### Operations
 
@@ -1967,16 +1968,16 @@ local group_employee = client:GroupEmployee(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `nil|string` | No |  |
-| `eligibility_status` | `any` | Yes |  |
-| `enrolment_date` | `nil|string` | No |  |
-| `enrolment_status` | `any` | Yes |  |
-| `enrolments` | `table` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policies` | `table` | Yes |  |
-| `scheduled_group_transitions` | `table` | Yes |  |
+| `desired_policy_start_date` | `nil|string` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `any` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `nil|string` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `any` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `table` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Yes | Unique identifier for the group. |
+| `id` | `string` | Yes | Unique identifier for the employee. |
+| `object` | `string` | No | The object type |
+| `policies` | `table` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `table` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2036,16 +2037,16 @@ local group_employee_response_paged_list = client:GroupEmployeeResponsePagedList
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `desired_policy_start_date` | `nil|string` | No |  |
-| `eligibility_status` | `any` | Yes |  |
-| `enrolment_date` | `nil|string` | No |  |
-| `enrolment_status` | `any` | Yes |  |
-| `enrolments` | `table` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policies` | `table` | Yes |  |
-| `scheduled_group_transitions` | `table` | Yes |  |
+| `desired_policy_start_date` | `nil|string` | No | The desired date for the employee's policy to start. |
+| `eligibility_status` | `any` | Yes | Eligibility status for the employee in this group. |
+| `enrolment_date` | `nil|string` | No | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `any` | Yes | Enrolment status for the employee in this group. |
+| `enrolments` | `table` | Yes | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Yes | Unique identifier for the group. |
+| `id` | `string` | Yes | Unique identifier for the employee. |
+| `object` | `string` | No | The object type |
+| `policies` | `table` | Yes | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `table` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
@@ -2097,19 +2098,19 @@ local group_policy = client:GroupPolicy(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cancellation_date` | `nil|string` | No |  |
-| `disclosures` | `table` | Yes |  |
-| `employer_id` | `string` | No |  |
-| `end_date` | `nil|string` | No |  |
-| `group_id` | `string` | No |  |
-| `health_insurance` | `nil` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `any` | Yes |  |
-| `provider` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
-| `type` | `any` | Yes |  |
+| `cancellation_date` | `nil|string` | No | Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable. |
+| `disclosures` | `table` | Yes | Disclosures associated with this group policy. |
+| `employer_id` | `string` | No | Identifier for the employer associated with this group policy. |
+| `end_date` | `nil|string` | No | Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended. |
+| `group_id` | `string` | No | Identifier for the group associated with this group policy. |
+| `health_insurance` | `nil` | No | Health insurance–specific fields (present when `type=health_insurance`). |
+| `id` | `string` | Yes | Unique identifier for the group policy. |
+| `object` | `string` | No | The object type |
+| `plan` | `any` | Yes | Plan information for this policy |
+| `provider` | `any` | Yes | Provider information for this policy. |
+| `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
+| `status` | `any` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `any` | Yes | Policy type. |
 
 ### Operations
 
@@ -2169,16 +2170,16 @@ local group_policy_intent = client:GroupPolicyIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `nil` | No |  |
-| `cost_sharing` | `nil` | No |  |
-| `disclosures` | `table` | Yes |  |
-| `due_date` | `nil|string` | No |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan_id` | `string` | Yes |  |
-| `quote_intent_id` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `nil` | No | Details of the required action when the intent is in ActionRequired status. |
+| `cost_sharing` | `nil` | No | Cost sharing configuration for the policy intent |
+| `disclosures` | `table` | Yes | Disclosures associated with this intent. |
+| `due_date` | `nil|string` | No | Due date for the policy intent |
+| `group_id` | `string` | Yes | Unique identifier for the group |
+| `id` | `string` | Yes | Unique identifier for the group policy intent |
+| `object` | `string` | No | Object type identifier |
+| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
+| `status` | `any` | Yes | Current status of the group policy intent |
 
 ### Operations
 
@@ -2253,12 +2254,12 @@ local group_policy_intent_requirement_response_paged_list = client:GroupPolicyIn
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `boolean` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `any` | Yes |  |
-| `requirement_type` | `any` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `boolean` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2310,11 +2311,11 @@ local group_quote = client:GroupQuote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `nil` | No |  |
-| `member_count` | `nil` | No |  |
-| `member_selection` | `nil` | No |  |
-| `percentage` | `nil` | No |  |
-| `type` | `any` | Yes |  |
+| `family_type` | `nil` | No | Type of the family covered by the employer. |
+| `member_count` | `nil` | No | Numbers of additional members covered by the employer. |
+| `member_selection` | `nil` | No | Whether specific member types are covered by the employer. |
+| `percentage` | `nil` | No | Percentage of the premium the employer covers. |
+| `type` | `any` | Yes | Cost sharing type. |
 
 ### Operations
 
@@ -2366,16 +2367,16 @@ local group_quote_intent = client:GroupQuoteIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `action_required` | `nil` | No |  |
-| `consent_links` | `table` | Yes |  |
-| `cost_sharing` | `nil` | No |  |
-| `disclosures` | `table` | Yes |  |
-| `expected_start_date` | `nil|string` | No |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan_id` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `action_required` | `nil` | No | Details of the action required from the caller, if the intent is in action_required status. |
+| `consent_links` | `table` | Yes | Consent links that need to be acknowledged |
+| `cost_sharing` | `nil` | No | Cost sharing configuration for the quote |
+| `disclosures` | `table` | Yes | Disclosures associated with this intent. |
+| `expected_start_date` | `nil|string` | No | Expected start date for the insurance coverage |
+| `group_id` | `string` | Yes | Unique identifier for the group |
+| `id` | `string` | Yes | Unique identifier for the group quote intent |
+| `object` | `string` | No | Object type identifier |
+| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `status` | `any` | Yes | Current status of the group quote intent |
 
 ### Operations
 
@@ -2450,12 +2451,12 @@ local group_quote_intent_requirement_response_paged_list = client:GroupQuoteInte
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `is_fulfilled` | `boolean` | Yes |  |
-| `object` | `string` | No |  |
-| `object_id` | `string` | Yes |  |
-| `object_type` | `any` | Yes |  |
-| `requirement_type` | `any` | Yes |  |
+| `id` | `string` | Yes | Unique identifier for the requirement |
+| `is_fulfilled` | `boolean` | Yes | Whether the requirement has been fulfilled |
+| `object` | `string` | No | Object type identifier |
+| `object_id` | `string` | Yes | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `any` | Yes | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `any` | Yes | Type of requirement |
 
 ### Operations
 
@@ -2507,24 +2508,24 @@ local plan = client:Plan(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `available_from` | `string` | Yes |  |
-| `available_to` | `nil|string` | No |  |
-| `country` | `any` | Yes |  |
-| `coverage_options` | `nil|table` | No |  |
-| `description` | `string` | Yes |  |
-| `disclosures` | `table` | Yes |  |
-| `documents` | `table` | Yes |  |
-| `eligible_count` | `nil|number` | No |  |
-| `employee_eligibility_criteria` | `table` | Yes |  |
-| `employer_eligibility_criteria` | `table` | Yes |  |
-| `health_insurance` | `nil` | No |  |
-| `id` | `string` | Yes |  |
-| `ineligible_count` | `nil|number` | No |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `provider` | `any` | Yes |  |
-| `total_count` | `nil|number` | No |  |
-| `type` | `any` | Yes |  |
+| `available_from` | `string` | Yes | The date from which this plan is available (inclusive). |
+| `available_to` | `nil|string` | No | The date until which this plan is available (inclusive). |
+| `country` | `any` | Yes | The country this plan is available in. |
+| `coverage_options` | `nil|table` | No | Coverage options available for this plan, organized by scope and input type. |
+| `description` | `string` | Yes | Description of the plan. |
+| `disclosures` | `table` | Yes | Disclosures associated with this plan. |
+| `documents` | `table` | Yes | List of plan documents (e.g., IPIDs, T&Cs). |
+| `eligible_count` | `nil|number` | No | Number of employees in the queried group eligible for this plan as-of `start_date`. |
+| `employee_eligibility_criteria` | `table` | Yes | Eligibility criteria that employees must meet. |
+| `employer_eligibility_criteria` | `table` | Yes | Eligibility criteria that employers must meet. |
+| `health_insurance` | `nil` | No | Health insurance-specific details. |
+| `id` | `string` | Yes | Unique identifier for the plan. |
+| `ineligible_count` | `nil|number` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `name` | `string` | Yes | The name of the plan. |
+| `object` | `string` | No | Object type. |
+| `provider` | `any` | Yes | The provider offering this plan. |
+| `total_count` | `nil|number` | No | Total employees in the queried group. |
+| `type` | `any` | Yes | The benefit type of the plan. |
 
 ### Operations
 
@@ -2584,21 +2585,21 @@ local policy = client:Policy(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `any` | Yes |  |
-| `cancellation_date` | `nil|string` | No |  |
-| `disclosures` | `table` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `end_date` | `nil|string` | No |  |
-| `group_id` | `string` | Yes |  |
-| `group_policy_id` | `string` | Yes |  |
-| `health_insurance` | `nil` | No |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `plan` | `any` | Yes |  |
-| `provider` | `any` | Yes |  |
-| `start_date` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
-| `type` | `any` | Yes |  |
+| `bundling_type` | `any` | Yes | Indicates how this policy is bundled within a group |
+| `cancellation_date` | `nil|string` | No | Date the policy was cancelled (if applicable) |
+| `disclosures` | `table` | Yes | Disclosures associated with this policy. |
+| `employee_id` | `string` | Yes | Identifier of the employee associated with this policy. |
+| `end_date` | `nil|string` | No | Policy end date (inclusive) in ISO 8601, or null if open-ended |
+| `group_id` | `string` | Yes | Identifier of the group associated with this policy. |
+| `group_policy_id` | `string` | Yes | Identifier of the group policy id associated with this policy. |
+| `health_insurance` | `nil` | No | Health insurance–specific fields (present when `type=health_insurance`) |
+| `id` | `string` | Yes | Unique identifier for the policy. |
+| `object` | `string` | No | Object type |
+| `plan` | `any` | Yes | Plan information for this policy |
+| `provider` | `any` | Yes | Provider information for this policy |
+| `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
+| `status` | `any` | Yes | Current lifecycle state of the policy |
+| `type` | `any` | Yes | Policy type. |
 
 ### Operations
 
@@ -2658,16 +2659,16 @@ local policy_amendment_intent = client:PolicyAmendmentIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amendment_reason` | `any` | Yes |  |
-| `disclosures` | `table` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `pending_confirmation` | `nil` | No |  |
-| `policy_id` | `string` | Yes |  |
-| `processing_error` | `nil` | No |  |
-| `requested_changes` | `table` | Yes |  |
-| `required_action` | `nil` | No |  |
-| `status` | `any` | Yes |  |
+| `amendment_reason` | `any` | Yes | The reason for the policy amendment. |
+| `disclosures` | `table` | Yes | Disclosures associated with this intent. |
+| `id` | `string` | Yes | Unique identifier for the policy amendment intent. |
+| `object` | `string` | No | Object type identifier. |
+| `pending_confirmation` | `nil` | No | Information about the pending confirmation if the intent status is `pending_confirmation`. |
+| `policy_id` | `string` | Yes | The policy ID for which the amendment is requested. |
+| `processing_error` | `nil` | No | Information about the processing error if the intent status is `processing_error`. |
+| `requested_changes` | `table` | Yes | List of requested changes to the policy. |
+| `required_action` | `nil` | No | Information about the required action if the intent status is `action_required`. |
+| `status` | `any` | Yes | Current status of the policy amendment intent. |
 
 ### Operations
 
@@ -2742,16 +2743,16 @@ local policy_import_intent = client:PolicyImportIntent(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `associated_persons` | `table` | Yes |  |
-| `employee_id` | `string` | Yes |  |
-| `group_id` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `member_number` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `policy_end_date` | `nil|string` | No |  |
-| `policy_start_date` | `string` | Yes |  |
-| `provider_policy_number` | `string` | Yes |  |
-| `status` | `any` | Yes |  |
+| `associated_persons` | `table` | Yes | List of associated persons linked to this policy import. |
+| `employee_id` | `string` | Yes | The employee ID for the policy import. |
+| `group_id` | `string` | Yes | The group ID for the policy import. |
+| `id` | `string` | Yes | Unique identifier for the policy import intent. |
+| `member_number` | `string` | Yes | The member number assigned by the provider. |
+| `object` | `string` | No | Object type identifier. |
+| `policy_end_date` | `nil|string` | No | The end date of the policy. |
+| `policy_start_date` | `string` | Yes | The start date of the policy. |
+| `provider_policy_number` | `string` | Yes | The provider's policy number. |
+| `status` | `any` | Yes | Current status of the policy import intent. |
 
 ### Operations
 
@@ -2828,16 +2829,16 @@ local provider = client:Provider(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | Yes |  |
-| `employer_platform_url` | `nil|string` | No |  |
-| `id` | `string` | Yes |  |
-| `kota_hub_url` | `nil|string` | No |  |
-| `logo_url` | `string` | Yes |  |
-| `name` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `support_phone` | `string` | Yes |  |
-| `supported_countries` | `table` | Yes |  |
-| `website_url` | `string` | Yes |  |
+| `description` | `string` | Yes | Description of the provider. |
+| `employer_platform_url` | `nil|string` | No | URL to the employer portal/platform for this provider, if available. |
+| `id` | `string` | Yes | Unique identifier for the provider. |
+| `kota_hub_url` | `nil|string` | No | URL to the Kota Hub page for this platform, if configured. |
+| `logo_url` | `string` | Yes | URL to the provider's logo image. |
+| `name` | `string` | Yes | The name of the provider. |
+| `object` | `string` | No | Object type. |
+| `support_phone` | `string` | Yes | Customer support phone number. |
+| `supported_countries` | `table` | Yes | List of countries supported by this provider. |
+| `website_url` | `string` | Yes | The provider's main website URL. |
 
 ### Operations
 
@@ -2953,11 +2954,11 @@ local webhook_endpoint = client:WebhookEndpoint(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `endpoint_url` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `subscribed_events` | `table` | Yes |  |
+| `created_at` | `string` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
+| `id` | `string` | Yes | The unique identifier of the endpoint |
+| `object` | `string` | No | The object type |
+| `subscribed_events` | `table` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 
@@ -3009,11 +3010,11 @@ local webhook_endpoint_response_paged_list = client:WebhookEndpointResponsePaged
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | Yes |  |
-| `endpoint_url` | `string` | Yes |  |
-| `id` | `string` | Yes |  |
-| `object` | `string` | No |  |
-| `subscribed_events` | `table` | Yes |  |
+| `created_at` | `string` | Yes | The date and time the endpoint was created |
+| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
+| `id` | `string` | Yes | The unique identifier of the endpoint |
+| `object` | `string` | No | The object type |
+| `subscribed_events` | `table` | Yes | The events the endpoint is subscribed to |
 
 ### Operations
 

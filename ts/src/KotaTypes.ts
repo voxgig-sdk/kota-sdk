@@ -238,9 +238,7 @@ export interface DependentsManagementIntentLoadMatch {
 }
 
 export interface DependentsManagementIntentCreateData {
-  policy_amendment_intent_id?: string
-  policy_id?: string
-  enrolment_intent_id?: string
+  enrolment_intent_id: string
   action_required?: null
   coverage_options?: null | any[]
   dependents: any[]

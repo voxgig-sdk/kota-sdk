@@ -5,6 +5,6 @@ import type { WebhookEndpointResponsePagedList, WebhookEndpointResponsePagedList
 declare class WebhookEndpointResponsePagedListEntity extends KotaEntityBase<WebhookEndpointResponsePagedList> {
     constructor(client: KotaSDK, entopts: any);
     make(this: WebhookEndpointResponsePagedListEntity): WebhookEndpointResponsePagedListEntity;
-    list(this: any, reqmatch?: WebhookEndpointResponsePagedListListMatch, ctrl?: Control): Promise<WebhookEndpointResponsePagedList[]>;
+    list(this: any, reqmatch?: WebhookEndpointResponsePagedListListMatch, ctrl?: Control): Promise<WebhookEndpointResponsePagedListEntity[]>;
 }
 export { WebhookEndpointResponsePagedListEntity };

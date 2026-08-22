@@ -76,7 +76,7 @@ const utility_1 = require("../../utility");
         const contribution_report_employee_breakdown_response_paged_list_ref01_ent = client.ContributionReportEmployeeBreakdownResponsePagedList();
         const contribution_report_employee_breakdown_response_paged_list_ref01_match = {};
         contribution_report_employee_breakdown_response_paged_list_ref01_match['contribution_report_id'] = setup.idmap['contribution_report01'];
-        const contribution_report_employee_breakdown_response_paged_list_ref01_list = await contribution_report_employee_breakdown_response_paged_list_ref01_ent.list(contribution_report_employee_breakdown_response_paged_list_ref01_match);
+        const contribution_report_employee_breakdown_response_paged_list_ref01_list = (await contribution_report_employee_breakdown_response_paged_list_ref01_ent.list(contribution_report_employee_breakdown_response_paged_list_ref01_match)).map((e) => e.data());
     });
 });
 function basicSetup(extra) {

@@ -74,7 +74,7 @@ const utility_1 = require("../../utility");
         // CREATE
         const create_hosted_session_token_ref01_ent = client.CreateHostedSessionToken();
         let create_hosted_session_token_ref01_data = setup.data.new.create_hosted_session_token['create_hosted_session_token_ref01'];
-        create_hosted_session_token_ref01_data = await create_hosted_session_token_ref01_ent.create(create_hosted_session_token_ref01_data);
+        create_hosted_session_token_ref01_data = (await create_hosted_session_token_ref01_ent.create(create_hosted_session_token_ref01_data)).data();
         (0, node_assert_1.default)(null != create_hosted_session_token_ref01_data);
     });
 });

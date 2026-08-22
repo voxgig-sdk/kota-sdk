@@ -5,6 +5,6 @@ import type { ContributionReportEmployeeBreakdown, ContributionReportEmployeeBre
 declare class ContributionReportEmployeeBreakdownEntity extends KotaEntityBase<ContributionReportEmployeeBreakdown> {
     constructor(client: KotaSDK, entopts: any);
     make(this: ContributionReportEmployeeBreakdownEntity): ContributionReportEmployeeBreakdownEntity;
-    load(this: any, reqmatch?: ContributionReportEmployeeBreakdownLoadMatch, ctrl?: Control): Promise<ContributionReportEmployeeBreakdown>;
+    load(this: any, reqmatch?: ContributionReportEmployeeBreakdownLoadMatch, ctrl?: Control): Promise<ContributionReportEmployeeBreakdownEntity>;
 }
 export { ContributionReportEmployeeBreakdownEntity };

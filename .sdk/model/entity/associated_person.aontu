@@ -8,11 +8,13 @@ main: kit: entity: associated_person: {
     {
       name: "date_of_birth"
       req: true
+      short: "Date of birth of the associated person"
       type: "`$STRING`"
     }
     {
       name: "email"
       req: false
+      short: "Email address of the associated person"
       type: [
         "`$ONE`"
         [
@@ -24,31 +26,37 @@ main: kit: entity: associated_person: {
     {
       name: "employee_id"
       req: true
+      short: "Unique identifier for the employee this person is associated with"
       type: "`$STRING`"
     }
     {
       name: "first_name"
       req: true
+      short: "First name of the associated person"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the associated person"
       type: "`$STRING`"
     }
     {
       name: "last_name"
       req: true
+      short: "Last name of the associated person"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "phone_number"
       req: false
+      short: "Phone number in E.164 international format (e.g."
       type: [
         "`$ONE`"
         [
@@ -60,16 +68,19 @@ main: kit: entity: associated_person: {
     {
       name: "platform_id"
       req: false
+      short: "Unique identifier for the platform"
       type: "`$STRING`"
     }
     {
       name: "relationship_type"
       req: true
+      short: "The relationship type between the employee and the associated person"
       type: "`$ANY`"
     }
     {
       name: "sex_at_birth"
       req: true
+      short: "The sex assigned to the associated person at birth"
       type: "`$ANY`"
     }
   ]

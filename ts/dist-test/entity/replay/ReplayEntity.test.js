@@ -75,7 +75,7 @@ const utility_1 = require("../../utility");
         const replay_ref01_ent = client.Replay();
         let replay_ref01_data = setup.data.new.replay['replay_ref01'];
         replay_ref01_data['event_id'] = setup.idmap['event01'];
-        replay_ref01_data = await replay_ref01_ent.create(replay_ref01_data);
+        replay_ref01_data = (await replay_ref01_ent.create(replay_ref01_data)).data();
         (0, node_assert_1.default)(null != replay_ref01_data);
     });
 });

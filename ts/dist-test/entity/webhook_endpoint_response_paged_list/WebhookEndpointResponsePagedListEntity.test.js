@@ -75,7 +75,7 @@ const utility_1 = require("../../utility");
         // LIST
         const webhook_endpoint_response_paged_list_ref01_ent = client.WebhookEndpointResponsePagedList();
         const webhook_endpoint_response_paged_list_ref01_match = {};
-        const webhook_endpoint_response_paged_list_ref01_list = await webhook_endpoint_response_paged_list_ref01_ent.list(webhook_endpoint_response_paged_list_ref01_match);
+        const webhook_endpoint_response_paged_list_ref01_list = (await webhook_endpoint_response_paged_list_ref01_ent.list(webhook_endpoint_response_paged_list_ref01_match)).map((e) => e.data());
     });
 });
 function basicSetup(extra) {

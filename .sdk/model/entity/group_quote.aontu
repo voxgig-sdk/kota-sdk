@@ -8,26 +8,31 @@ main: kit: entity: group_quote: {
     {
       name: "family_type"
       req: false
+      short: "Type of the family covered by the employer."
       type: "`$NULL`"
     }
     {
       name: "member_count"
       req: false
+      short: "Numbers of additional members covered by the employer."
       type: "`$NULL`"
     }
     {
       name: "member_selection"
       req: false
+      short: "Whether specific member types are covered by the employer."
       type: "`$NULL`"
     }
     {
       name: "percentage"
       req: false
+      short: "Percentage of the premium the employer covers."
       type: "`$NULL`"
     }
     {
       name: "type"
       req: true
+      short: "Cost sharing type."
       type: "`$ANY`"
     }
   ]

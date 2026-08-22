@@ -8,6 +8,7 @@ main: kit: entity: group_employee_response_paged_list: {
     {
       name: "desired_policy_start_date"
       req: false
+      short: "The desired date for the employee's policy to start."
       type: [
         "`$ONE`"
         [
@@ -19,11 +20,13 @@ main: kit: entity: group_employee_response_paged_list: {
     {
       name: "eligibility_status"
       req: true
+      short: "Eligibility status for the employee in this group."
       type: "`$ANY`"
     }
     {
       name: "enrolment_date"
       req: false
+      short: "The date on which the employee agreed to enrol into the group's policies."
       type: [
         "`$ONE`"
         [
@@ -35,36 +38,43 @@ main: kit: entity: group_employee_response_paged_list: {
     {
       name: "enrolment_status"
       req: true
+      short: "Enrolment status for the employee in this group."
       type: "`$ANY`"
     }
     {
       name: "enrolments"
       req: true
+      short: "List of enrolments associated with the employee in this group."
       type: "`$ARRAY`"
     }
     {
       name: "group_id"
       req: true
+      short: "Unique identifier for the group."
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the employee."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "policies"
       req: true
+      short: "List of policies associated with the employee in this group."
       type: "`$ARRAY`"
     }
     {
       name: "scheduled_group_transitions"
       req: true
+      short: "List of scheduled group transitions for the employee."
       type: "`$ARRAY`"
     }
   ]

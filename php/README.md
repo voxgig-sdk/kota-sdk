@@ -324,17 +324,17 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `date_of_birth` |  |
-| `email` |  |
-| `employee_id` |  |
-| `first_name` |  |
-| `id` |  |
-| `last_name` |  |
-| `object` |  |
-| `phone_number` |  |
-| `platform_id` |  |
-| `relationship_type` |  |
-| `sex_at_birth` |  |
+| `date_of_birth` | Date of birth of the associated person |
+| `email` | Email address of the associated person |
+| `employee_id` | Unique identifier for the employee this person is associated with |
+| `first_name` | First name of the associated person |
+| `id` | Unique identifier for the associated person |
+| `last_name` | Last name of the associated person |
+| `object` | The object type |
+| `phone_number` | Phone number in E.164 international format (e.g. |
+| `platform_id` | Unique identifier for the platform |
+| `relationship_type` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | The sex assigned to the associated person at birth |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -344,15 +344,15 @@ API path: `/employees/{employee_id}/associated_persons`
 
 | Field | Description |
 | --- | --- |
-| `associated_person_id` |  |
-| `date_of_birth` |  |
-| `eligibility_status` |  |
-| `first_name` |  |
-| `ineligibility_reason` |  |
-| `last_name` |  |
-| `object` |  |
-| `relationship` |  |
-| `sex_at_birth` |  |
+| `associated_person_id` | The associated person ID. |
+| `date_of_birth` | Date of birth of the associated person. |
+| `eligibility_status` | Eligibility status for the policy/plan. |
+| `first_name` | First name of the associated person. |
+| `ineligibility_reason` | Reason for ineligibility if status is ineligible. |
+| `last_name` | Last name of the associated person. |
+| `object` | The object type |
+| `relationship` | Relationship type to the employee. |
+| `sex_at_birth` | Sex at birth of the associated person. |
 
 Operations: List.
 
@@ -362,15 +362,15 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/asso
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `employer_id` |  |
-| `external_customer_id` |  |
-| `finalized_at` |  |
-| `id` |  |
-| `last_updated_at` |  |
-| `object` |  |
-| `period` |  |
-| `status` |  |
+| `created_at` | Date and time the report was created |
+| `employer_id` | Unique identifier of the employer for which the report is created |
+| `external_customer_id` | Unique identifier of the customer for which the report is created. |
+| `finalized_at` | Date and time the report was finalized, if applicable |
+| `id` | Unique identifier for the contribution report |
+| `last_updated_at` | Date and time of the last update to the report |
+| `object` | The object type |
+| `period` | Period covered by the contribution report |
+| `status` | Current status of the contribution report |
 
 Operations: Create, List, Load.
 
@@ -380,18 +380,18 @@ API path: `/contribution_reports/{contribution_report_id}/finalize`
 
 | Field | Description |
 | --- | --- |
-| `contribution_report_id` |  |
-| `created_at` |  |
-| `currency` |  |
-| `employee_id` |  |
-| `employer_id` |  |
-| `external_customer_id` |  |
-| `finalized_at` |  |
-| `health_insurance` |  |
-| `last_updated_at` |  |
-| `object` |  |
-| `period` |  |
-| `status` |  |
+| `contribution_report_id` | Unique identifier of the related contribution report |
+| `created_at` | Date and time the breakdown was created |
+| `currency` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | Health insurance contribution details |
+| `last_updated_at` | Date and time of the last update to the breakdown |
+| `object` | The object type |
+| `period` | Period covered by the employee breakdown |
+| `status` | Current status of the breakdown |
 
 Operations: Load.
 
@@ -401,18 +401,18 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns/{e
 
 | Field | Description |
 | --- | --- |
-| `contribution_report_id` |  |
-| `created_at` |  |
-| `currency` |  |
-| `employee_id` |  |
-| `employer_id` |  |
-| `external_customer_id` |  |
-| `finalized_at` |  |
-| `health_insurance` |  |
-| `last_updated_at` |  |
-| `object` |  |
-| `period` |  |
-| `status` |  |
+| `contribution_report_id` | Unique identifier of the related contribution report |
+| `created_at` | Date and time the breakdown was created |
+| `currency` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | Health insurance contribution details |
+| `last_updated_at` | Date and time of the last update to the breakdown |
+| `object` | The object type |
+| `period` | Period covered by the employee breakdown |
+| `status` | Current status of the breakdown |
 
 Operations: List.
 
@@ -444,16 +444,16 @@ API path: `/embed/sessions`
 
 | Field | Description |
 | --- | --- |
-| `action_required` |  |
-| `coverage_options` |  |
-| `dependents` |  |
-| `disclosures` |  |
-| `id` |  |
-| `object` |  |
-| `parent_intent_id` |  |
-| `parent_intent_type` |  |
-| `plan` |  |
-| `status` |  |
+| `action_required` | Details of the action required from the caller. |
+| `coverage_options` | Available member-scoped coverage options for the plan. |
+| `dependents` | List of dependents being managed. |
+| `disclosures` | Disclosures associated with this intent. |
+| `id` | Unique identifier for the dependents management intent. |
+| `object` | Object type identifier. |
+| `parent_intent_id` | The parent intent ID (e.g. |
+| `parent_intent_type` | The type of parent intent. |
+| `plan` | Plan information including pricing details. |
+| `status` | Current status of the dependents management intent. |
 
 Operations: Create, Remove.
 
@@ -463,16 +463,16 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/depe
 
 | Field | Description |
 | --- | --- |
-| `action_required` |  |
-| `coverage_options` |  |
-| `dependents` |  |
-| `disclosures` |  |
-| `id` |  |
-| `object` |  |
-| `parent_intent_id` |  |
-| `parent_intent_type` |  |
-| `plan` |  |
-| `status` |  |
+| `action_required` | Details of the action required from the caller. |
+| `coverage_options` | Available member-scoped coverage options for the plan. |
+| `dependents` | List of dependents being managed. |
+| `disclosures` | Disclosures associated with this intent. |
+| `id` | Unique identifier for the dependents management intent. |
+| `object` | Object type identifier. |
+| `parent_intent_id` | The parent intent ID (e.g. |
+| `parent_intent_type` | The type of parent intent. |
+| `plan` | Plan information including pricing details. |
+| `status` | Current status of the dependents management intent. |
 
 Operations: Create, Load.
 
@@ -482,11 +482,11 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 
 | Field | Description |
 | --- | --- |
-| `eligibility_status` |  |
-| `object` |  |
-| `plan` |  |
-| `provider` |  |
-| `reasons` |  |
+| `eligibility_status` | Eligibility status: `eligible` or `ineligible`. |
+| `object` | The object type. |
+| `plan` | The insurance plan associated with the group. |
+| `provider` | The insurance provider associated with the group. |
+| `reasons` | List of reasons why the employee is ineligible. |
 
 Operations: Create.
 
@@ -496,26 +496,26 @@ API path: `/groups/{group_id}/eligibility_check`
 
 | Field | Description |
 | --- | --- |
-| `bank_account` |  |
-| `date_of_birth` |  |
-| `earliest_benefits_start_date` |  |
-| `email` |  |
-| `employer_id` |  |
-| `external_customer_id` |  |
-| `first_name` |  |
-| `home_address` |  |
-| `id` |  |
-| `last_name` |  |
-| `metadata` |  |
-| `national_tax_id` |  |
-| `nationality` |  |
-| `object` |  |
-| `offboard_on` |  |
-| `phone_number` |  |
-| `platform_id` |  |
-| `sex_at_birth` |  |
-| `start_on` |  |
-| `status` |  |
+| `bank_account` | Bank account details |
+| `date_of_birth` | Date of birth of the employee |
+| `earliest_benefits_start_date` | The earliest date this employee can be enrolled in any benefits. |
+| `email` | Email address of the employee |
+| `employer_id` | Unique identifier for the employer |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `first_name` | First name of the employee. |
+| `home_address` | Location where the employee is legally registered to live |
+| `id` | Unique identifier for the employee |
+| `last_name` | Last name of the employee |
+| `metadata` | Set of key-value pairs that you can attach to an object. |
+| `national_tax_id` | PPSN in Ireland, NINo in the UK, DNI/NIE in Spain |
+| `nationality` | Nationality of the employee (e.g. |
+| `object` | The object type |
+| `offboard_on` | Date when the employee was or will be offboarded |
+| `phone_number` | Phone number in E.164 international format (e.g. |
+| `platform_id` | Unique identifier for the platform |
+| `sex_at_birth` | The sex assigned to the employee at birth |
+| `start_on` | Employment start date |
+| `status` | Current status of the employee |
 
 Operations: Create, List, Load, Update.
 
@@ -525,14 +525,14 @@ API path: `/employees/{employee_id}/offboard`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
-| `employee_id` |  |
-| `employer_id` |  |
-| `external_customer_id` |  |
-| `id` |  |
-| `object` |  |
-| `required_action` |  |
-| `status` |  |
+| `coverage_level` | Details about the coverage level for the offer. |
+| `employee_id` | The Id of the employee for which the offer is available |
+| `employer_id` | The Id of the employer for which the offer is available |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | Unique identifier for offer |
+| `object` | The object type |
+| `required_action` | Required action to progress the offer, if any. |
+| `status` | Current status of offer |
 
 Operations: Load.
 
@@ -542,14 +542,14 @@ API path: `/employees/{employee_id}/health_insurance/offers/{employee_offer_id}`
 
 | Field | Description |
 | --- | --- |
-| `coverage_level` |  |
-| `employee_id` |  |
-| `employer_id` |  |
-| `external_customer_id` |  |
-| `id` |  |
-| `object` |  |
-| `required_action` |  |
-| `status` |  |
+| `coverage_level` | Details about the coverage level for the offer. |
+| `employee_id` | The Id of the employee for which the offer is available |
+| `employer_id` | The Id of the employer for which the offer is available |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | Unique identifier for offer |
+| `object` | The object type |
+| `required_action` | Required action to progress the offer, if any. |
+| `status` | Current status of offer |
 
 Operations: List.
 
@@ -559,22 +559,22 @@ API path: `/employees/{employee_id}/health_insurance/offers`
 
 | Field | Description |
 | --- | --- |
-| `cancellation_date` |  |
-| `coverage_level` |  |
-| `employee_id` |  |
-| `employer_id` |  |
-| `end_date` |  |
-| `enrolled_dependants_count` |  |
-| `enrolment_type` |  |
-| `estimated_gross_premium` |  |
-| `external_customer_id` |  |
-| `id` |  |
-| `object` |  |
-| `opt_out_deadline_date` |  |
-| `policy_number` |  |
-| `renewal` |  |
-| `start_date` |  |
-| `status` |  |
+| `cancellation_date` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | Represents the current coverage level for the policy |
+| `employee_id` | The Id of the employee for which the policy is created |
+| `employer_id` | The Id of the employer for which the policy is created |
+| `end_date` | Policy ends on this date |
+| `enrolled_dependants_count` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | Enrolment type of the policy |
+| `estimated_gross_premium` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | Unique identifier for policy |
+| `object` | The object type |
+| `opt_out_deadline_date` | Last day to opt out from the policy |
+| `policy_number` | Health insurance policy number, if available |
+| `renewal` | Renewal information for the policy |
+| `start_date` | Policy starts on this date |
+| `status` | Current status of policy |
 
 Operations: Load.
 
@@ -584,22 +584,22 @@ API path: `/employees/{employee_id}/health_insurance/policies/{employee_policy_i
 
 | Field | Description |
 | --- | --- |
-| `cancellation_date` |  |
-| `coverage_level` |  |
-| `employee_id` |  |
-| `employer_id` |  |
-| `end_date` |  |
-| `enrolled_dependants_count` |  |
-| `enrolment_type` |  |
-| `estimated_gross_premium` |  |
-| `external_customer_id` |  |
-| `id` |  |
-| `object` |  |
-| `opt_out_deadline_date` |  |
-| `policy_number` |  |
-| `renewal` |  |
-| `start_date` |  |
-| `status` |  |
+| `cancellation_date` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | Represents the current coverage level for the policy |
+| `employee_id` | The Id of the employee for which the policy is created |
+| `employer_id` | The Id of the employer for which the policy is created |
+| `end_date` | Policy ends on this date |
+| `enrolled_dependants_count` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | Enrolment type of the policy |
+| `estimated_gross_premium` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | Unique identifier for policy |
+| `object` | The object type |
+| `opt_out_deadline_date` | Last day to opt out from the policy |
+| `policy_number` | Health insurance policy number, if available |
+| `renewal` | Renewal information for the policy |
+| `start_date` | Policy starts on this date |
+| `status` | Current status of policy |
 
 Operations: List.
 
@@ -614,8 +614,8 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 | `id` |  |
 | `legal_address` |  |
 | `legal_name` |  |
-| `metadata` |  |
-| `object` |  |
+| `metadata` | Set of key-value pairs that you can attach to an object. |
+| `object` | The object type |
 | `offboard_on` |  |
 | `platform_id` |  |
 | `registration_number` |  |
@@ -629,18 +629,18 @@ API path: `/employers/{employer_id}/offboard`
 
 | Field | Description |
 | --- | --- |
-| `cancellation_date` |  |
-| `coverage_levels` |  |
-| `employer_cancellation_period_length` |  |
-| `employer_id` |  |
-| `end_date` |  |
-| `enrolment_type` |  |
-| `group_policy_number` |  |
-| `id` |  |
-| `object` |  |
-| `renewal` |  |
-| `start_date` |  |
-| `status` |  |
+| `cancellation_date` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | The Id of the employer for which the policy is created |
+| `end_date` | Policy ends on this date |
+| `enrolment_type` | Enrolment type of the policy |
+| `group_policy_number` | Group’s health insurance policy number, if available |
+| `id` | Unique identifier for policy |
+| `object` | The object type |
+| `renewal` | Renewal information for the policy |
+| `start_date` | Policy starts on this date |
+| `status` | Current status of policy |
 
 Operations: Load.
 
@@ -650,18 +650,18 @@ API path: `/employers/{employer_id}/health_insurance/policies/{employer_policy_i
 
 | Field | Description |
 | --- | --- |
-| `cancellation_date` |  |
-| `coverage_levels` |  |
-| `employer_cancellation_period_length` |  |
-| `employer_id` |  |
-| `end_date` |  |
-| `enrolment_type` |  |
-| `group_policy_number` |  |
-| `id` |  |
-| `object` |  |
-| `renewal` |  |
-| `start_date` |  |
-| `status` |  |
+| `cancellation_date` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | The Id of the employer for which the policy is created |
+| `end_date` | Policy ends on this date |
+| `enrolment_type` | Enrolment type of the policy |
+| `group_policy_number` | Group’s health insurance policy number, if available |
+| `id` | Unique identifier for policy |
+| `object` | The object type |
+| `renewal` | Renewal information for the policy |
+| `start_date` | Policy starts on this date |
+| `status` | Current status of policy |
 
 Operations: List.
 
@@ -671,13 +671,13 @@ API path: `/employers/{employer_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
-| `coverage_levels` |  |
-| `employer_id` |  |
-| `id` |  |
-| `object` |  |
-| `quoted_at` |  |
-| `required_action` |  |
-| `status` |  |
+| `coverage_levels` | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | The Id of the employer for which the is created |
+| `id` | Unique identifier for the quote |
+| `object` | The object type |
+| `quoted_at` | Date and time the quote was created at |
+| `required_action` | Actions required by the employer to proceed with the quote. |
+| `status` | Current status of the quote |
 
 Operations: Load.
 
@@ -687,13 +687,13 @@ API path: `/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}`
 
 | Field | Description |
 | --- | --- |
-| `coverage_levels` |  |
-| `employer_id` |  |
-| `id` |  |
-| `object` |  |
-| `quoted_at` |  |
-| `required_action` |  |
-| `status` |  |
+| `coverage_levels` | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | The Id of the employer for which the is created |
+| `id` | Unique identifier for the quote |
+| `object` | The object type |
+| `quoted_at` | Date and time the quote was created at |
+| `required_action` | Actions required by the employer to proceed with the quote. |
+| `status` | Current status of the quote |
 
 Operations: List.
 
@@ -703,18 +703,18 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 
 | Field | Description |
 | --- | --- |
-| `action_required` |  |
-| `disclosures` |  |
-| `employee_id` |  |
-| `force_confirmation` |  |
-| `group_id` |  |
-| `id` |  |
-| `ineligibility_reason` |  |
-| `object` |  |
-| `pending_confirmation` |  |
-| `policy_configuration` |  |
-| `policy_enrolments` |  |
-| `status` |  |
+| `action_required` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `disclosures` | Disclosures associated with this intent. |
+| `employee_id` | Identifier for the employee associated with this enrolment intent. |
+| `force_confirmation` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
+| `group_id` | Identifier for the group associated with this enrolment intent. |
+| `id` | Unique identifier for the enrolment intent. |
+| `ineligibility_reason` | If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility. |
+| `object` | Object type identifier. |
+| `pending_confirmation` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
+| `policy_configuration` | Policy configuration associated with this enrolment intent. |
+| `policy_enrolments` | Policy enrolment information |
+| `status` | Current status of the enrolment intent. |
 
 Operations: Create, List, Load, Update.
 
@@ -724,12 +724,12 @@ API path: `/enrolment_intents/{enrolment_intent_id}/confirm`
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `is_fulfilled` |  |
-| `object` |  |
-| `object_id` |  |
-| `object_type` |  |
-| `requirement_type` |  |
+| `id` | Unique identifier for the requirement |
+| `is_fulfilled` | Whether the requirement has been fulfilled |
+| `object` | Object type identifier |
+| `object_id` | Identifier of the object (employee ID or employer ID) |
+| `object_type` | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | Type of requirement |
 
 Operations: List.
 
@@ -757,17 +757,17 @@ API path: `/events`
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `employer_id` |  |
-| `enrolment_type` |  |
-| `group_policy_ids` |  |
-| `group_policy_intent_ids` |  |
-| `group_quote_intent_ids` |  |
-| `group_type` |  |
-| `id` |  |
-| `name` |  |
-| `object` |  |
-| `status` |  |
+| `description` | Short description of the purpose or scope of the `group`. |
+| `employer_id` | Identifier for the `employer` that owns this `group`. |
+| `enrolment_type` | Indicates how employees are enrolled into the group. |
+| `group_policy_ids` | Group policy unique identifiers associated with this group. |
+| `group_policy_intent_ids` | Group policy intent unique identifiers associated with this group. |
+| `group_quote_intent_ids` | Group quote intent unique identifiers associated with this group. |
+| `group_type` | Indicates how policies are organized for this group. |
+| `id` | Unique identifier for the `group`. |
+| `name` | Human-readable name of the `group`. |
+| `object` | The object type |
+| `status` | Current lifecycle state of the `group`, indicating its current progress. |
 
 Operations: Create, List, Load, Update.
 
@@ -777,16 +777,16 @@ API path: `/groups`
 
 | Field | Description |
 | --- | --- |
-| `desired_policy_start_date` |  |
-| `eligibility_status` |  |
-| `enrolment_date` |  |
-| `enrolment_status` |  |
-| `enrolments` |  |
-| `group_id` |  |
-| `id` |  |
-| `object` |  |
-| `policies` |  |
-| `scheduled_group_transitions` |  |
+| `desired_policy_start_date` | The desired date for the employee's policy to start. |
+| `eligibility_status` | Eligibility status for the employee in this group. |
+| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | Enrolment status for the employee in this group. |
+| `enrolments` | List of enrolments associated with the employee in this group. |
+| `group_id` | Unique identifier for the group. |
+| `id` | Unique identifier for the employee. |
+| `object` | The object type |
+| `policies` | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
 
 Operations: Create.
 
@@ -796,16 +796,16 @@ API path: `/groups/{group_id}/employees`
 
 | Field | Description |
 | --- | --- |
-| `desired_policy_start_date` |  |
-| `eligibility_status` |  |
-| `enrolment_date` |  |
-| `enrolment_status` |  |
-| `enrolments` |  |
-| `group_id` |  |
-| `id` |  |
-| `object` |  |
-| `policies` |  |
-| `scheduled_group_transitions` |  |
+| `desired_policy_start_date` | The desired date for the employee's policy to start. |
+| `eligibility_status` | Eligibility status for the employee in this group. |
+| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | Enrolment status for the employee in this group. |
+| `enrolments` | List of enrolments associated with the employee in this group. |
+| `group_id` | Unique identifier for the group. |
+| `id` | Unique identifier for the employee. |
+| `object` | The object type |
+| `policies` | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
 
 Operations: List.
 
@@ -815,19 +815,19 @@ API path: `/groups/{group_id}/employees`
 
 | Field | Description |
 | --- | --- |
-| `cancellation_date` |  |
-| `disclosures` |  |
-| `employer_id` |  |
-| `end_date` |  |
-| `group_id` |  |
-| `health_insurance` |  |
-| `id` |  |
-| `object` |  |
-| `plan` |  |
-| `provider` |  |
-| `start_date` |  |
-| `status` |  |
-| `type` |  |
+| `cancellation_date` | Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable. |
+| `disclosures` | Disclosures associated with this group policy. |
+| `employer_id` | Identifier for the employer associated with this group policy. |
+| `end_date` | Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended. |
+| `group_id` | Identifier for the group associated with this group policy. |
+| `health_insurance` | Health insurance–specific fields (present when `type=health_insurance`). |
+| `id` | Unique identifier for the group policy. |
+| `object` | The object type |
+| `plan` | Plan information for this policy |
+| `provider` | Provider information for this policy. |
+| `start_date` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
+| `status` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | Policy type. |
 
 Operations: List, Load.
 
@@ -837,16 +837,16 @@ API path: `/group_policies`
 
 | Field | Description |
 | --- | --- |
-| `action_required` |  |
-| `cost_sharing` |  |
-| `disclosures` |  |
-| `due_date` |  |
-| `group_id` |  |
-| `id` |  |
-| `object` |  |
-| `plan_id` |  |
-| `quote_intent_id` |  |
-| `status` |  |
+| `action_required` | Details of the required action when the intent is in ActionRequired status. |
+| `cost_sharing` | Cost sharing configuration for the policy intent |
+| `disclosures` | Disclosures associated with this intent. |
+| `due_date` | Due date for the policy intent |
+| `group_id` | Unique identifier for the group |
+| `id` | Unique identifier for the group policy intent |
+| `object` | Object type identifier |
+| `plan_id` | Unique identifier for the plan |
+| `quote_intent_id` | Unique identifier for the group quote intent this policy intent was created from |
+| `status` | Current status of the group policy intent |
 
 Operations: Create, List, Load.
 
@@ -856,12 +856,12 @@ API path: `/group_policy_intents`
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `is_fulfilled` |  |
-| `object` |  |
-| `object_id` |  |
-| `object_type` |  |
-| `requirement_type` |  |
+| `id` | Unique identifier for the requirement |
+| `is_fulfilled` | Whether the requirement has been fulfilled |
+| `object` | Object type identifier |
+| `object_id` | Identifier of the object (employee ID or employer ID) |
+| `object_type` | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | Type of requirement |
 
 Operations: List.
 
@@ -871,11 +871,11 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `family_type` |  |
-| `member_count` |  |
-| `member_selection` |  |
-| `percentage` |  |
-| `type` |  |
+| `family_type` | Type of the family covered by the employer. |
+| `member_count` | Numbers of additional members covered by the employer. |
+| `member_selection` | Whether specific member types are covered by the employer. |
+| `percentage` | Percentage of the premium the employer covers. |
+| `type` | Cost sharing type. |
 
 Operations: Load.
 
@@ -885,16 +885,16 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 
 | Field | Description |
 | --- | --- |
-| `action_required` |  |
-| `consent_links` |  |
-| `cost_sharing` |  |
-| `disclosures` |  |
-| `expected_start_date` |  |
-| `group_id` |  |
-| `id` |  |
-| `object` |  |
-| `plan_id` |  |
-| `status` |  |
+| `action_required` | Details of the action required from the caller, if the intent is in action_required status. |
+| `consent_links` | Consent links that need to be acknowledged |
+| `cost_sharing` | Cost sharing configuration for the quote |
+| `disclosures` | Disclosures associated with this intent. |
+| `expected_start_date` | Expected start date for the insurance coverage |
+| `group_id` | Unique identifier for the group |
+| `id` | Unique identifier for the group quote intent |
+| `object` | Object type identifier |
+| `plan_id` | Unique identifier for the plan |
+| `status` | Current status of the group quote intent |
 
 Operations: Create, List, Load.
 
@@ -904,12 +904,12 @@ API path: `/group_quote_intents/{group_quote_intent_id}/reject`
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `is_fulfilled` |  |
-| `object` |  |
-| `object_id` |  |
-| `object_type` |  |
-| `requirement_type` |  |
+| `id` | Unique identifier for the requirement |
+| `is_fulfilled` | Whether the requirement has been fulfilled |
+| `object` | Object type identifier |
+| `object_id` | Identifier of the object (employee ID or employer ID) |
+| `object_type` | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | Type of requirement |
 
 Operations: List.
 
@@ -919,24 +919,24 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `available_from` |  |
-| `available_to` |  |
-| `country` |  |
-| `coverage_options` |  |
-| `description` |  |
-| `disclosures` |  |
-| `documents` |  |
-| `eligible_count` |  |
-| `employee_eligibility_criteria` |  |
-| `employer_eligibility_criteria` |  |
-| `health_insurance` |  |
-| `id` |  |
-| `ineligible_count` |  |
-| `name` |  |
-| `object` |  |
-| `provider` |  |
-| `total_count` |  |
-| `type` |  |
+| `available_from` | The date from which this plan is available (inclusive). |
+| `available_to` | The date until which this plan is available (inclusive). |
+| `country` | The country this plan is available in. |
+| `coverage_options` | Coverage options available for this plan, organized by scope and input type. |
+| `description` | Description of the plan. |
+| `disclosures` | Disclosures associated with this plan. |
+| `documents` | List of plan documents (e.g., IPIDs, T&Cs). |
+| `eligible_count` | Number of employees in the queried group eligible for this plan as-of `start_date`. |
+| `employee_eligibility_criteria` | Eligibility criteria that employees must meet. |
+| `employer_eligibility_criteria` | Eligibility criteria that employers must meet. |
+| `health_insurance` | Health insurance-specific details. |
+| `id` | Unique identifier for the plan. |
+| `ineligible_count` | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `name` | The name of the plan. |
+| `object` | Object type. |
+| `provider` | The provider offering this plan. |
+| `total_count` | Total employees in the queried group. |
+| `type` | The benefit type of the plan. |
 
 Operations: List, Load.
 
@@ -946,21 +946,21 @@ API path: `/plans`
 
 | Field | Description |
 | --- | --- |
-| `bundling_type` |  |
-| `cancellation_date` |  |
-| `disclosures` |  |
-| `employee_id` |  |
-| `end_date` |  |
-| `group_id` |  |
-| `group_policy_id` |  |
-| `health_insurance` |  |
-| `id` |  |
-| `object` |  |
-| `plan` |  |
-| `provider` |  |
-| `start_date` |  |
-| `status` |  |
-| `type` |  |
+| `bundling_type` | Indicates how this policy is bundled within a group |
+| `cancellation_date` | Date the policy was cancelled (if applicable) |
+| `disclosures` | Disclosures associated with this policy. |
+| `employee_id` | Identifier of the employee associated with this policy. |
+| `end_date` | Policy end date (inclusive) in ISO 8601, or null if open-ended |
+| `group_id` | Identifier of the group associated with this policy. |
+| `group_policy_id` | Identifier of the group policy id associated with this policy. |
+| `health_insurance` | Health insurance–specific fields (present when `type=health_insurance`) |
+| `id` | Unique identifier for the policy. |
+| `object` | Object type |
+| `plan` | Plan information for this policy |
+| `provider` | Provider information for this policy |
+| `start_date` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
+| `status` | Current lifecycle state of the policy |
+| `type` | Policy type. |
 
 Operations: List, Load.
 
@@ -970,16 +970,16 @@ API path: `/policies`
 
 | Field | Description |
 | --- | --- |
-| `amendment_reason` |  |
-| `disclosures` |  |
-| `id` |  |
-| `object` |  |
-| `pending_confirmation` |  |
-| `policy_id` |  |
-| `processing_error` |  |
-| `requested_changes` |  |
-| `required_action` |  |
-| `status` |  |
+| `amendment_reason` | The reason for the policy amendment. |
+| `disclosures` | Disclosures associated with this intent. |
+| `id` | Unique identifier for the policy amendment intent. |
+| `object` | Object type identifier. |
+| `pending_confirmation` | Information about the pending confirmation if the intent status is `pending_confirmation`. |
+| `policy_id` | The policy ID for which the amendment is requested. |
+| `processing_error` | Information about the processing error if the intent status is `processing_error`. |
+| `requested_changes` | List of requested changes to the policy. |
+| `required_action` | Information about the required action if the intent status is `action_required`. |
+| `status` | Current status of the policy amendment intent. |
 
 Operations: Create, List, Load.
 
@@ -989,16 +989,16 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/cancel`
 
 | Field | Description |
 | --- | --- |
-| `associated_persons` |  |
-| `employee_id` |  |
-| `group_id` |  |
-| `id` |  |
-| `member_number` |  |
-| `object` |  |
-| `policy_end_date` |  |
-| `policy_start_date` |  |
-| `provider_policy_number` |  |
-| `status` |  |
+| `associated_persons` | List of associated persons linked to this policy import. |
+| `employee_id` | The employee ID for the policy import. |
+| `group_id` | The group ID for the policy import. |
+| `id` | Unique identifier for the policy import intent. |
+| `member_number` | The member number assigned by the provider. |
+| `object` | Object type identifier. |
+| `policy_end_date` | The end date of the policy. |
+| `policy_start_date` | The start date of the policy. |
+| `provider_policy_number` | The provider's policy number. |
+| `status` | Current status of the policy import intent. |
 
 Operations: Create, List, Load.
 
@@ -1008,16 +1008,16 @@ API path: `/policy_import_intents`
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `employer_platform_url` |  |
-| `id` |  |
-| `kota_hub_url` |  |
-| `logo_url` |  |
-| `name` |  |
-| `object` |  |
-| `support_phone` |  |
-| `supported_countries` |  |
-| `website_url` |  |
+| `description` | Description of the provider. |
+| `employer_platform_url` | URL to the employer portal/platform for this provider, if available. |
+| `id` | Unique identifier for the provider. |
+| `kota_hub_url` | URL to the Kota Hub page for this platform, if configured. |
+| `logo_url` | URL to the provider's logo image. |
+| `name` | The name of the provider. |
+| `object` | Object type. |
+| `support_phone` | Customer support phone number. |
+| `supported_countries` | List of countries supported by this provider. |
+| `website_url` | The provider's main website URL. |
 
 Operations: List, Load.
 
@@ -1038,11 +1038,11 @@ API path: `/events/{event_id}/replay`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `endpoint_url` |  |
-| `id` |  |
-| `object` |  |
-| `subscribed_events` |  |
+| `created_at` | The date and time the endpoint was created |
+| `endpoint_url` | The registered URL of the endpoint |
+| `id` | The unique identifier of the endpoint |
+| `object` | The object type |
+| `subscribed_events` | The events the endpoint is subscribed to |
 
 Operations: Load.
 
@@ -1052,11 +1052,11 @@ API path: `/webhooks/endpoints/{webhook_endpoint_id}`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `endpoint_url` |  |
-| `id` |  |
-| `object` |  |
-| `subscribed_events` |  |
+| `created_at` | The date and time the endpoint was created |
+| `endpoint_url` | The registered URL of the endpoint |
+| `id` | The unique identifier of the endpoint |
+| `object` | The object type |
+| `subscribed_events` | The events the endpoint is subscribed to |
 
 Operations: List.
 
@@ -1085,17 +1085,17 @@ Create an instance: `$associated_person = $client->AssociatedPerson();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `date_of_birth` | `string` |  |
-| `email` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `first_name` | `string` |  |
-| `id` | `string` |  |
-| `last_name` | `string` |  |
-| `object` | `string` |  |
-| `phone_number` | `mixed` |  |
-| `platform_id` | `string` |  |
-| `relationship_type` | `mixed` |  |
-| `sex_at_birth` | `mixed` |  |
+| `date_of_birth` | `string` | Date of birth of the associated person |
+| `email` | `mixed` | Email address of the associated person |
+| `employee_id` | `string` | Unique identifier for the employee this person is associated with |
+| `first_name` | `string` | First name of the associated person |
+| `id` | `string` | Unique identifier for the associated person |
+| `last_name` | `string` | Last name of the associated person |
+| `object` | `string` | The object type |
+| `phone_number` | `mixed` | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | Unique identifier for the platform |
+| `relationship_type` | `mixed` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `mixed` | The sex assigned to the associated person at birth |
 
 #### Example: Load
 
@@ -1140,15 +1140,15 @@ Create an instance: `$associated_person_eligibility_response_paged_list = $clien
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_person_id` | `string` |  |
-| `date_of_birth` | `string` |  |
-| `eligibility_status` | `mixed` |  |
-| `first_name` | `string` |  |
-| `ineligibility_reason` | `mixed` |  |
-| `last_name` | `string` |  |
-| `object` | `string` |  |
-| `relationship` | `mixed` |  |
-| `sex_at_birth` | `mixed` |  |
+| `associated_person_id` | `string` | The associated person ID. |
+| `date_of_birth` | `string` | Date of birth of the associated person. |
+| `eligibility_status` | `mixed` | Eligibility status for the policy/plan. |
+| `first_name` | `string` | First name of the associated person. |
+| `ineligibility_reason` | `mixed` | Reason for ineligibility if status is ineligible. |
+| `last_name` | `string` | Last name of the associated person. |
+| `object` | `string` | The object type |
+| `relationship` | `mixed` | Relationship type to the employee. |
+| `sex_at_birth` | `mixed` | Sex at birth of the associated person. |
 
 #### Example: List
 
@@ -1174,15 +1174,15 @@ Create an instance: `$contribution_report = $client->ContributionReport();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `employer_id` | `string` |  |
-| `external_customer_id` | `mixed` |  |
-| `finalized_at` | `mixed` |  |
-| `id` | `string` |  |
-| `last_updated_at` | `string` |  |
-| `object` | `string` |  |
-| `period` | `mixed` |  |
-| `status` | `mixed` |  |
+| `created_at` | `string` | Date and time the report was created |
+| `employer_id` | `string` | Unique identifier of the employer for which the report is created |
+| `external_customer_id` | `mixed` | Unique identifier of the customer for which the report is created. |
+| `finalized_at` | `mixed` | Date and time the report was finalized, if applicable |
+| `id` | `string` | Unique identifier for the contribution report |
+| `last_updated_at` | `string` | Date and time of the last update to the report |
+| `object` | `string` | The object type |
+| `period` | `mixed` | Period covered by the contribution report |
+| `status` | `mixed` | Current status of the contribution report |
 
 #### Example: Load
 
@@ -1226,18 +1226,18 @@ Create an instance: `$contribution_report_employee_breakdown = $client->Contribu
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `contribution_report_id` | `string` |  |
-| `created_at` | `string` |  |
-| `currency` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `employer_id` | `string` |  |
-| `external_customer_id` | `mixed` |  |
-| `finalized_at` | `mixed` |  |
-| `health_insurance` | `mixed` |  |
-| `last_updated_at` | `string` |  |
-| `object` | `string` |  |
-| `period` | `mixed` |  |
-| `status` | `mixed` |  |
+| `contribution_report_id` | `string` | Unique identifier of the related contribution report |
+| `created_at` | `string` | Date and time the breakdown was created |
+| `currency` | `mixed` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `mixed` | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `mixed` | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `mixed` | Health insurance contribution details |
+| `last_updated_at` | `string` | Date and time of the last update to the breakdown |
+| `object` | `string` | The object type |
+| `period` | `mixed` | Period covered by the employee breakdown |
+| `status` | `mixed` | Current status of the breakdown |
 
 #### Example: Load
 
@@ -1261,18 +1261,18 @@ Create an instance: `$contribution_report_employee_breakdown_response_paged_list
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `contribution_report_id` | `string` |  |
-| `created_at` | `string` |  |
-| `currency` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `employer_id` | `string` |  |
-| `external_customer_id` | `mixed` |  |
-| `finalized_at` | `mixed` |  |
-| `health_insurance` | `mixed` |  |
-| `last_updated_at` | `string` |  |
-| `object` | `string` |  |
-| `period` | `mixed` |  |
-| `status` | `mixed` |  |
+| `contribution_report_id` | `string` | Unique identifier of the related contribution report |
+| `created_at` | `string` | Date and time the breakdown was created |
+| `currency` | `mixed` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `employee_id` | `string` | Unique identifier of the employee for which the breakdown is created |
+| `employer_id` | `string` | Unique identifier of the employer for which the breakdown is created |
+| `external_customer_id` | `mixed` | Unique identifier of the customer for which the breakdown is created. |
+| `finalized_at` | `mixed` | Date and time the breakdown was finalized, if applicable |
+| `health_insurance` | `mixed` | Health insurance contribution details |
+| `last_updated_at` | `string` | Date and time of the last update to the breakdown |
+| `object` | `string` | The object type |
+| `period` | `mixed` | Period covered by the employee breakdown |
+| `status` | `mixed` | Current status of the breakdown |
 
 #### Example: List
 
@@ -1351,16 +1351,16 @@ Create an instance: `$dependent = $client->Dependent();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `action_required` | `null` |  |
-| `coverage_options` | `mixed` |  |
-| `dependents` | `array` |  |
-| `disclosures` | `array` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `parent_intent_id` | `string` |  |
-| `parent_intent_type` | `mixed` |  |
-| `plan` | `mixed` |  |
-| `status` | `mixed` |  |
+| `action_required` | `null` | Details of the action required from the caller. |
+| `coverage_options` | `mixed` | Available member-scoped coverage options for the plan. |
+| `dependents` | `array` | List of dependents being managed. |
+| `disclosures` | `array` | Disclosures associated with this intent. |
+| `id` | `string` | Unique identifier for the dependents management intent. |
+| `object` | `string` | Object type identifier. |
+| `parent_intent_id` | `string` | The parent intent ID (e.g. |
+| `parent_intent_type` | `mixed` | The type of parent intent. |
+| `plan` | `mixed` | Plan information including pricing details. |
+| `status` | `mixed` | Current status of the dependents management intent. |
 
 #### Example: Create
 
@@ -1393,16 +1393,16 @@ Create an instance: `$dependents_management_intent = $client->DependentsManageme
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `action_required` | `null` |  |
-| `coverage_options` | `mixed` |  |
-| `dependents` | `array` |  |
-| `disclosures` | `array` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `parent_intent_id` | `string` |  |
-| `parent_intent_type` | `mixed` |  |
-| `plan` | `mixed` |  |
-| `status` | `mixed` |  |
+| `action_required` | `null` | Details of the action required from the caller. |
+| `coverage_options` | `mixed` | Available member-scoped coverage options for the plan. |
+| `dependents` | `array` | List of dependents being managed. |
+| `disclosures` | `array` | Disclosures associated with this intent. |
+| `id` | `string` | Unique identifier for the dependents management intent. |
+| `object` | `string` | Object type identifier. |
+| `parent_intent_id` | `string` | The parent intent ID (e.g. |
+| `parent_intent_type` | `mixed` | The type of parent intent. |
+| `plan` | `mixed` | Plan information including pricing details. |
+| `status` | `mixed` | Current status of the dependents management intent. |
 
 #### Example: Load
 
@@ -1415,6 +1415,7 @@ $dependents_management_intent = $client->DependentsManagementIntent()->load(["id
 
 ```php
 $dependents_management_intent = $client->DependentsManagementIntent()->create([
+    "enrolment_intent_id" => null, // string
     "dependents" => null, // array
     "disclosures" => null, // array
     "id" => null, // string
@@ -1440,11 +1441,11 @@ Create an instance: `$eligibility_check = $client->EligibilityCheck();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `eligibility_status` | `mixed` |  |
-| `object` | `string` |  |
-| `plan` | `mixed` |  |
-| `provider` | `mixed` |  |
-| `reasons` | `array` |  |
+| `eligibility_status` | `mixed` | Eligibility status: `eligible` or `ineligible`. |
+| `object` | `string` | The object type. |
+| `plan` | `mixed` | The insurance plan associated with the group. |
+| `provider` | `mixed` | The insurance provider associated with the group. |
+| `reasons` | `array` | List of reasons why the employee is ineligible. |
 
 #### Example: Create
 
@@ -1476,26 +1477,26 @@ Create an instance: `$employee = $client->Employee();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bank_account` | `null` |  |
-| `date_of_birth` | `string` |  |
-| `earliest_benefits_start_date` | `mixed` |  |
-| `email` | `string` |  |
-| `employer_id` | `string` |  |
-| `external_customer_id` | `mixed` |  |
-| `first_name` | `string` |  |
-| `home_address` | `null` |  |
-| `id` | `string` |  |
-| `last_name` | `string` |  |
-| `metadata` | `mixed` |  |
-| `national_tax_id` | `string` |  |
-| `nationality` | `null` |  |
-| `object` | `string` |  |
-| `offboard_on` | `mixed` |  |
-| `phone_number` | `string` |  |
-| `platform_id` | `string` |  |
-| `sex_at_birth` | `mixed` |  |
-| `start_on` | `string` |  |
-| `status` | `mixed` |  |
+| `bank_account` | `null` | Bank account details |
+| `date_of_birth` | `string` | Date of birth of the employee |
+| `earliest_benefits_start_date` | `mixed` | The earliest date this employee can be enrolled in any benefits. |
+| `email` | `string` | Email address of the employee |
+| `employer_id` | `string` | Unique identifier for the employer |
+| `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `first_name` | `string` | First name of the employee. |
+| `home_address` | `null` | Location where the employee is legally registered to live |
+| `id` | `string` | Unique identifier for the employee |
+| `last_name` | `string` | Last name of the employee |
+| `metadata` | `mixed` | Set of key-value pairs that you can attach to an object. |
+| `national_tax_id` | `string` | PPSN in Ireland, NINo in the UK, DNI/NIE in Spain |
+| `nationality` | `null` | Nationality of the employee (e.g. |
+| `object` | `string` | The object type |
+| `offboard_on` | `mixed` | Date when the employee was or will be offboarded |
+| `phone_number` | `string` | Phone number in E.164 international format (e.g. |
+| `platform_id` | `string` | Unique identifier for the platform |
+| `sex_at_birth` | `mixed` | The sex assigned to the employee at birth |
+| `start_on` | `string` | Employment start date |
+| `status` | `mixed` | Current status of the employee |
 
 #### Example: Load
 
@@ -1540,14 +1541,14 @@ Create an instance: `$employee_health_insurance_offer = $client->EmployeeHealthI
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `employer_id` | `string` |  |
-| `external_customer_id` | `mixed` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `required_action` | `null` |  |
-| `status` | `mixed` |  |
+| `coverage_level` | `mixed` | Details about the coverage level for the offer. |
+| `employee_id` | `string` | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | The Id of the employer for which the offer is available |
+| `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Unique identifier for offer |
+| `object` | `string` | The object type |
+| `required_action` | `null` | Required action to progress the offer, if any. |
+| `status` | `mixed` | Current status of offer |
 
 #### Example: Load
 
@@ -1571,14 +1572,14 @@ Create an instance: `$employee_health_insurance_offer_response_paged_list = $cli
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_level` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `employer_id` | `string` |  |
-| `external_customer_id` | `mixed` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `required_action` | `null` |  |
-| `status` | `mixed` |  |
+| `coverage_level` | `mixed` | Details about the coverage level for the offer. |
+| `employee_id` | `string` | The Id of the employee for which the offer is available |
+| `employer_id` | `string` | The Id of the employer for which the offer is available |
+| `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Unique identifier for offer |
+| `object` | `string` | The object type |
+| `required_action` | `null` | Required action to progress the offer, if any. |
+| `status` | `mixed` | Current status of offer |
 
 #### Example: List
 
@@ -1602,22 +1603,22 @@ Create an instance: `$employee_health_insurance_policy = $client->EmployeeHealth
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cancellation_date` | `mixed` |  |
-| `coverage_level` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `employer_id` | `string` |  |
-| `end_date` | `string` |  |
-| `enrolled_dependants_count` | `int` |  |
-| `enrolment_type` | `mixed` |  |
-| `estimated_gross_premium` | `mixed` |  |
-| `external_customer_id` | `mixed` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `opt_out_deadline_date` | `string` |  |
-| `policy_number` | `mixed` |  |
-| `renewal` | `mixed` |  |
-| `start_date` | `string` |  |
-| `status` | `mixed` |  |
+| `cancellation_date` | `mixed` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `mixed` | Represents the current coverage level for the policy |
+| `employee_id` | `string` | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `estimated_gross_premium` | `mixed` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Unique identifier for policy |
+| `object` | `string` | The object type |
+| `opt_out_deadline_date` | `string` | Last day to opt out from the policy |
+| `policy_number` | `mixed` | Health insurance policy number, if available |
+| `renewal` | `mixed` | Renewal information for the policy |
+| `start_date` | `string` | Policy starts on this date |
+| `status` | `mixed` | Current status of policy |
 
 #### Example: Load
 
@@ -1641,22 +1642,22 @@ Create an instance: `$employee_health_insurance_policy_response_paged_list = $cl
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cancellation_date` | `mixed` |  |
-| `coverage_level` | `mixed` |  |
-| `employee_id` | `string` |  |
-| `employer_id` | `string` |  |
-| `end_date` | `string` |  |
-| `enrolled_dependants_count` | `int` |  |
-| `enrolment_type` | `mixed` |  |
-| `estimated_gross_premium` | `mixed` |  |
-| `external_customer_id` | `mixed` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `opt_out_deadline_date` | `string` |  |
-| `policy_number` | `mixed` |  |
-| `renewal` | `mixed` |  |
-| `start_date` | `string` |  |
-| `status` | `mixed` |  |
+| `cancellation_date` | `mixed` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_level` | `mixed` | Represents the current coverage level for the policy |
+| `employee_id` | `string` | The Id of the employee for which the policy is created |
+| `employer_id` | `string` | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Policy ends on this date |
+| `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
+| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `estimated_gross_premium` | `mixed` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
+| `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
+| `id` | `string` | Unique identifier for policy |
+| `object` | `string` | The object type |
+| `opt_out_deadline_date` | `string` | Last day to opt out from the policy |
+| `policy_number` | `mixed` | Health insurance policy number, if available |
+| `renewal` | `mixed` | Renewal information for the policy |
+| `start_date` | `string` | Policy starts on this date |
+| `status` | `mixed` | Current status of policy |
 
 #### Example: List
 
@@ -1688,8 +1689,8 @@ Create an instance: `$employer = $client->Employer();`
 | `id` | `string` |  |
 | `legal_address` | `mixed` |  |
 | `legal_name` | `string` |  |
-| `metadata` | `mixed` |  |
-| `object` | `string` |  |
+| `metadata` | `mixed` | Set of key-value pairs that you can attach to an object. |
+| `object` | `string` | The object type |
 | `offboard_on` | `mixed` |  |
 | `platform_id` | `string` |  |
 | `registration_number` | `mixed` |  |
@@ -1735,18 +1736,18 @@ Create an instance: `$employer_health_insurance_policy = $client->EmployerHealth
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cancellation_date` | `mixed` |  |
-| `coverage_levels` | `array` |  |
-| `employer_cancellation_period_length` | `int` |  |
-| `employer_id` | `string` |  |
-| `end_date` | `string` |  |
-| `enrolment_type` | `mixed` |  |
-| `group_policy_number` | `mixed` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `renewal` | `mixed` |  |
-| `start_date` | `string` |  |
-| `status` | `mixed` |  |
+| `cancellation_date` | `mixed` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `array` | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Policy ends on this date |
+| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `group_policy_number` | `mixed` | Group’s health insurance policy number, if available |
+| `id` | `string` | Unique identifier for policy |
+| `object` | `string` | The object type |
+| `renewal` | `mixed` | Renewal information for the policy |
+| `start_date` | `string` | Policy starts on this date |
+| `status` | `mixed` | Current status of policy |
 
 #### Example: Load
 
@@ -1770,18 +1771,18 @@ Create an instance: `$employer_health_insurance_policy_response_paged_list = $cl
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cancellation_date` | `mixed` |  |
-| `coverage_levels` | `array` |  |
-| `employer_cancellation_period_length` | `int` |  |
-| `employer_id` | `string` |  |
-| `end_date` | `string` |  |
-| `enrolment_type` | `mixed` |  |
-| `group_policy_number` | `mixed` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `renewal` | `mixed` |  |
-| `start_date` | `string` |  |
-| `status` | `mixed` |  |
+| `cancellation_date` | `mixed` | Policy was cancelled on this date, if cancellation occured |
+| `coverage_levels` | `array` | Represents the available coverage levels for this policy |
+| `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
+| `employer_id` | `string` | The Id of the employer for which the policy is created |
+| `end_date` | `string` | Policy ends on this date |
+| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `group_policy_number` | `mixed` | Group’s health insurance policy number, if available |
+| `id` | `string` | Unique identifier for policy |
+| `object` | `string` | The object type |
+| `renewal` | `mixed` | Renewal information for the policy |
+| `start_date` | `string` | Policy starts on this date |
+| `status` | `mixed` | Current status of policy |
 
 #### Example: List
 
@@ -1805,13 +1806,13 @@ Create an instance: `$employer_health_insurance_quote = $client->EmployerHealthI
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_levels` | `array` |  |
-| `employer_id` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `quoted_at` | `string` |  |
-| `required_action` | `null` |  |
-| `status` | `mixed` |  |
+| `coverage_levels` | `array` | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | The Id of the employer for which the is created |
+| `id` | `string` | Unique identifier for the quote |
+| `object` | `string` | The object type |
+| `quoted_at` | `string` | Date and time the quote was created at |
+| `required_action` | `null` | Actions required by the employer to proceed with the quote. |
+| `status` | `mixed` | Current status of the quote |
 
 #### Example: Load
 
@@ -1835,13 +1836,13 @@ Create an instance: `$employer_health_insurance_quote_response_paged_list = $cli
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `coverage_levels` | `array` |  |
-| `employer_id` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `quoted_at` | `string` |  |
-| `required_action` | `null` |  |
-| `status` | `mixed` |  |
+| `coverage_levels` | `array` | List of levels covered under the policy, each item representing details about the plan’s cover. |
+| `employer_id` | `string` | The Id of the employer for which the is created |
+| `id` | `string` | Unique identifier for the quote |
+| `object` | `string` | The object type |
+| `quoted_at` | `string` | Date and time the quote was created at |
+| `required_action` | `null` | Actions required by the employer to proceed with the quote. |
+| `status` | `mixed` | Current status of the quote |
 
 #### Example: List
 
@@ -1868,18 +1869,18 @@ Create an instance: `$enrolment_intent = $client->EnrolmentIntent();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `action_required` | `null` |  |
-| `disclosures` | `array` |  |
-| `employee_id` | `string` |  |
-| `force_confirmation` | `bool` |  |
-| `group_id` | `string` |  |
-| `id` | `string` |  |
-| `ineligibility_reason` | `null` |  |
-| `object` | `string` |  |
-| `pending_confirmation` | `null` |  |
-| `policy_configuration` | `null` |  |
-| `policy_enrolments` | `array` |  |
-| `status` | `mixed` |  |
+| `action_required` | `null` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `disclosures` | `array` | Disclosures associated with this intent. |
+| `employee_id` | `string` | Identifier for the employee associated with this enrolment intent. |
+| `force_confirmation` | `bool` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
+| `group_id` | `string` | Identifier for the group associated with this enrolment intent. |
+| `id` | `string` | Unique identifier for the enrolment intent. |
+| `ineligibility_reason` | `null` | If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility. |
+| `object` | `string` | Object type identifier. |
+| `pending_confirmation` | `null` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
+| `policy_configuration` | `null` | Policy configuration associated with this enrolment intent. |
+| `policy_enrolments` | `array` | Policy enrolment information |
+| `status` | `mixed` | Current status of the enrolment intent. |
 
 #### Example: Load
 
@@ -1924,12 +1925,12 @@ Create an instance: `$enrolment_intent_requirement_response_paged_list = $client
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `string` |  |
-| `is_fulfilled` | `bool` |  |
-| `object` | `string` |  |
-| `object_id` | `string` |  |
-| `object_type` | `mixed` |  |
-| `requirement_type` | `mixed` |  |
+| `id` | `string` | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Whether the requirement has been fulfilled |
+| `object` | `string` | Object type identifier |
+| `object_id` | `string` | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `mixed` | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `mixed` | Type of requirement |
 
 #### Example: List
 
@@ -1996,17 +1997,17 @@ Create an instance: `$group = $client->Group();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `mixed` |  |
-| `employer_id` | `string` |  |
-| `enrolment_type` | `mixed` |  |
-| `group_policy_ids` | `array` |  |
-| `group_policy_intent_ids` | `array` |  |
-| `group_quote_intent_ids` | `array` |  |
-| `group_type` | `mixed` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `object` | `string` |  |
-| `status` | `mixed` |  |
+| `description` | `mixed` | Short description of the purpose or scope of the `group`. |
+| `employer_id` | `string` | Identifier for the `employer` that owns this `group`. |
+| `enrolment_type` | `mixed` | Indicates how employees are enrolled into the group. |
+| `group_policy_ids` | `array` | Group policy unique identifiers associated with this group. |
+| `group_policy_intent_ids` | `array` | Group policy intent unique identifiers associated with this group. |
+| `group_quote_intent_ids` | `array` | Group quote intent unique identifiers associated with this group. |
+| `group_type` | `mixed` | Indicates how policies are organized for this group. |
+| `id` | `string` | Unique identifier for the `group`. |
+| `name` | `string` | Human-readable name of the `group`. |
+| `object` | `string` | The object type |
+| `status` | `mixed` | Current lifecycle state of the `group`, indicating its current progress. |
 
 #### Example: Load
 
@@ -2053,16 +2054,16 @@ Create an instance: `$group_employee = $client->GroupEmployee();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `desired_policy_start_date` | `mixed` |  |
-| `eligibility_status` | `mixed` |  |
-| `enrolment_date` | `mixed` |  |
-| `enrolment_status` | `mixed` |  |
-| `enrolments` | `array` |  |
-| `group_id` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `policies` | `array` |  |
-| `scheduled_group_transitions` | `array` |  |
+| `desired_policy_start_date` | `mixed` | The desired date for the employee's policy to start. |
+| `eligibility_status` | `mixed` | Eligibility status for the employee in this group. |
+| `enrolment_date` | `mixed` | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `mixed` | Enrolment status for the employee in this group. |
+| `enrolments` | `array` | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Unique identifier for the group. |
+| `id` | `string` | Unique identifier for the employee. |
+| `object` | `string` | The object type |
+| `policies` | `array` | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `array` | List of scheduled group transitions for the employee. |
 
 #### Example: Create
 
@@ -2093,16 +2094,16 @@ Create an instance: `$group_employee_response_paged_list = $client->GroupEmploye
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `desired_policy_start_date` | `mixed` |  |
-| `eligibility_status` | `mixed` |  |
-| `enrolment_date` | `mixed` |  |
-| `enrolment_status` | `mixed` |  |
-| `enrolments` | `array` |  |
-| `group_id` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `policies` | `array` |  |
-| `scheduled_group_transitions` | `array` |  |
+| `desired_policy_start_date` | `mixed` | The desired date for the employee's policy to start. |
+| `eligibility_status` | `mixed` | Eligibility status for the employee in this group. |
+| `enrolment_date` | `mixed` | The date on which the employee agreed to enrol into the group's policies. |
+| `enrolment_status` | `mixed` | Enrolment status for the employee in this group. |
+| `enrolments` | `array` | List of enrolments associated with the employee in this group. |
+| `group_id` | `string` | Unique identifier for the group. |
+| `id` | `string` | Unique identifier for the employee. |
+| `object` | `string` | The object type |
+| `policies` | `array` | List of policies associated with the employee in this group. |
+| `scheduled_group_transitions` | `array` | List of scheduled group transitions for the employee. |
 
 #### Example: List
 
@@ -2127,19 +2128,19 @@ Create an instance: `$group_policy = $client->GroupPolicy();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cancellation_date` | `mixed` |  |
-| `disclosures` | `array` |  |
-| `employer_id` | `string` |  |
-| `end_date` | `mixed` |  |
-| `group_id` | `string` |  |
-| `health_insurance` | `null` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `plan` | `mixed` |  |
-| `provider` | `mixed` |  |
-| `start_date` | `string` |  |
-| `status` | `mixed` |  |
-| `type` | `mixed` |  |
+| `cancellation_date` | `mixed` | Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable. |
+| `disclosures` | `array` | Disclosures associated with this group policy. |
+| `employer_id` | `string` | Identifier for the employer associated with this group policy. |
+| `end_date` | `mixed` | Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended. |
+| `group_id` | `string` | Identifier for the group associated with this group policy. |
+| `health_insurance` | `null` | Health insurance–specific fields (present when `type=health_insurance`). |
+| `id` | `string` | Unique identifier for the group policy. |
+| `object` | `string` | The object type |
+| `plan` | `mixed` | Plan information for this policy |
+| `provider` | `mixed` | Provider information for this policy. |
+| `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
+| `status` | `mixed` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `mixed` | Policy type. |
 
 #### Example: Load
 
@@ -2172,16 +2173,16 @@ Create an instance: `$group_policy_intent = $client->GroupPolicyIntent();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `action_required` | `null` |  |
-| `cost_sharing` | `null` |  |
-| `disclosures` | `array` |  |
-| `due_date` | `mixed` |  |
-| `group_id` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `plan_id` | `string` |  |
-| `quote_intent_id` | `string` |  |
-| `status` | `mixed` |  |
+| `action_required` | `null` | Details of the required action when the intent is in ActionRequired status. |
+| `cost_sharing` | `null` | Cost sharing configuration for the policy intent |
+| `disclosures` | `array` | Disclosures associated with this intent. |
+| `due_date` | `mixed` | Due date for the policy intent |
+| `group_id` | `string` | Unique identifier for the group |
+| `id` | `string` | Unique identifier for the group policy intent |
+| `object` | `string` | Object type identifier |
+| `plan_id` | `string` | Unique identifier for the plan |
+| `quote_intent_id` | `string` | Unique identifier for the group quote intent this policy intent was created from |
+| `status` | `mixed` | Current status of the group policy intent |
 
 #### Example: Load
 
@@ -2225,12 +2226,12 @@ Create an instance: `$group_policy_intent_requirement_response_paged_list = $cli
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `string` |  |
-| `is_fulfilled` | `bool` |  |
-| `object` | `string` |  |
-| `object_id` | `string` |  |
-| `object_type` | `mixed` |  |
-| `requirement_type` | `mixed` |  |
+| `id` | `string` | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Whether the requirement has been fulfilled |
+| `object` | `string` | Object type identifier |
+| `object_id` | `string` | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `mixed` | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `mixed` | Type of requirement |
 
 #### Example: List
 
@@ -2254,11 +2255,11 @@ Create an instance: `$group_quote = $client->GroupQuote();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `family_type` | `null` |  |
-| `member_count` | `null` |  |
-| `member_selection` | `null` |  |
-| `percentage` | `null` |  |
-| `type` | `mixed` |  |
+| `family_type` | `null` | Type of the family covered by the employer. |
+| `member_count` | `null` | Numbers of additional members covered by the employer. |
+| `member_selection` | `null` | Whether specific member types are covered by the employer. |
+| `percentage` | `null` | Percentage of the premium the employer covers. |
+| `type` | `mixed` | Cost sharing type. |
 
 #### Example: Load
 
@@ -2284,16 +2285,16 @@ Create an instance: `$group_quote_intent = $client->GroupQuoteIntent();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `action_required` | `null` |  |
-| `consent_links` | `array` |  |
-| `cost_sharing` | `null` |  |
-| `disclosures` | `array` |  |
-| `expected_start_date` | `mixed` |  |
-| `group_id` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `plan_id` | `string` |  |
-| `status` | `mixed` |  |
+| `action_required` | `null` | Details of the action required from the caller, if the intent is in action_required status. |
+| `consent_links` | `array` | Consent links that need to be acknowledged |
+| `cost_sharing` | `null` | Cost sharing configuration for the quote |
+| `disclosures` | `array` | Disclosures associated with this intent. |
+| `expected_start_date` | `mixed` | Expected start date for the insurance coverage |
+| `group_id` | `string` | Unique identifier for the group |
+| `id` | `string` | Unique identifier for the group quote intent |
+| `object` | `string` | Object type identifier |
+| `plan_id` | `string` | Unique identifier for the plan |
+| `status` | `mixed` | Current status of the group quote intent |
 
 #### Example: Load
 
@@ -2337,12 +2338,12 @@ Create an instance: `$group_quote_intent_requirement_response_paged_list = $clie
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `string` |  |
-| `is_fulfilled` | `bool` |  |
-| `object` | `string` |  |
-| `object_id` | `string` |  |
-| `object_type` | `mixed` |  |
-| `requirement_type` | `mixed` |  |
+| `id` | `string` | Unique identifier for the requirement |
+| `is_fulfilled` | `bool` | Whether the requirement has been fulfilled |
+| `object` | `string` | Object type identifier |
+| `object_id` | `string` | Identifier of the object (employee ID or employer ID) |
+| `object_type` | `mixed` | Type of object this requirement is for (employee or employer) |
+| `requirement_type` | `mixed` | Type of requirement |
 
 #### Example: List
 
@@ -2367,24 +2368,24 @@ Create an instance: `$plan = $client->Plan();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `available_from` | `string` |  |
-| `available_to` | `mixed` |  |
-| `country` | `mixed` |  |
-| `coverage_options` | `mixed` |  |
-| `description` | `string` |  |
-| `disclosures` | `array` |  |
-| `documents` | `array` |  |
-| `eligible_count` | `mixed` |  |
-| `employee_eligibility_criteria` | `array` |  |
-| `employer_eligibility_criteria` | `array` |  |
-| `health_insurance` | `null` |  |
-| `id` | `string` |  |
-| `ineligible_count` | `mixed` |  |
-| `name` | `string` |  |
-| `object` | `string` |  |
-| `provider` | `mixed` |  |
-| `total_count` | `mixed` |  |
-| `type` | `mixed` |  |
+| `available_from` | `string` | The date from which this plan is available (inclusive). |
+| `available_to` | `mixed` | The date until which this plan is available (inclusive). |
+| `country` | `mixed` | The country this plan is available in. |
+| `coverage_options` | `mixed` | Coverage options available for this plan, organized by scope and input type. |
+| `description` | `string` | Description of the plan. |
+| `disclosures` | `array` | Disclosures associated with this plan. |
+| `documents` | `array` | List of plan documents (e.g., IPIDs, T&Cs). |
+| `eligible_count` | `mixed` | Number of employees in the queried group eligible for this plan as-of `start_date`. |
+| `employee_eligibility_criteria` | `array` | Eligibility criteria that employees must meet. |
+| `employer_eligibility_criteria` | `array` | Eligibility criteria that employers must meet. |
+| `health_insurance` | `null` | Health insurance-specific details. |
+| `id` | `string` | Unique identifier for the plan. |
+| `ineligible_count` | `mixed` | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `name` | `string` | The name of the plan. |
+| `object` | `string` | Object type. |
+| `provider` | `mixed` | The provider offering this plan. |
+| `total_count` | `mixed` | Total employees in the queried group. |
+| `type` | `mixed` | The benefit type of the plan. |
 
 #### Example: Load
 
@@ -2416,21 +2417,21 @@ Create an instance: `$policy = $client->Policy();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bundling_type` | `mixed` |  |
-| `cancellation_date` | `mixed` |  |
-| `disclosures` | `array` |  |
-| `employee_id` | `string` |  |
-| `end_date` | `mixed` |  |
-| `group_id` | `string` |  |
-| `group_policy_id` | `string` |  |
-| `health_insurance` | `null` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `plan` | `mixed` |  |
-| `provider` | `mixed` |  |
-| `start_date` | `string` |  |
-| `status` | `mixed` |  |
-| `type` | `mixed` |  |
+| `bundling_type` | `mixed` | Indicates how this policy is bundled within a group |
+| `cancellation_date` | `mixed` | Date the policy was cancelled (if applicable) |
+| `disclosures` | `array` | Disclosures associated with this policy. |
+| `employee_id` | `string` | Identifier of the employee associated with this policy. |
+| `end_date` | `mixed` | Policy end date (inclusive) in ISO 8601, or null if open-ended |
+| `group_id` | `string` | Identifier of the group associated with this policy. |
+| `group_policy_id` | `string` | Identifier of the group policy id associated with this policy. |
+| `health_insurance` | `null` | Health insurance–specific fields (present when `type=health_insurance`) |
+| `id` | `string` | Unique identifier for the policy. |
+| `object` | `string` | Object type |
+| `plan` | `mixed` | Plan information for this policy |
+| `provider` | `mixed` | Provider information for this policy |
+| `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
+| `status` | `mixed` | Current lifecycle state of the policy |
+| `type` | `mixed` | Policy type. |
 
 #### Example: Load
 
@@ -2463,16 +2464,16 @@ Create an instance: `$policy_amendment_intent = $client->PolicyAmendmentIntent()
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amendment_reason` | `mixed` |  |
-| `disclosures` | `array` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `pending_confirmation` | `null` |  |
-| `policy_id` | `string` |  |
-| `processing_error` | `null` |  |
-| `requested_changes` | `array` |  |
-| `required_action` | `null` |  |
-| `status` | `mixed` |  |
+| `amendment_reason` | `mixed` | The reason for the policy amendment. |
+| `disclosures` | `array` | Disclosures associated with this intent. |
+| `id` | `string` | Unique identifier for the policy amendment intent. |
+| `object` | `string` | Object type identifier. |
+| `pending_confirmation` | `null` | Information about the pending confirmation if the intent status is `pending_confirmation`. |
+| `policy_id` | `string` | The policy ID for which the amendment is requested. |
+| `processing_error` | `null` | Information about the processing error if the intent status is `processing_error`. |
+| `requested_changes` | `array` | List of requested changes to the policy. |
+| `required_action` | `null` | Information about the required action if the intent status is `action_required`. |
+| `status` | `mixed` | Current status of the policy amendment intent. |
 
 #### Example: Load
 
@@ -2518,16 +2519,16 @@ Create an instance: `$policy_import_intent = $client->PolicyImportIntent();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `associated_persons` | `array` |  |
-| `employee_id` | `string` |  |
-| `group_id` | `string` |  |
-| `id` | `string` |  |
-| `member_number` | `string` |  |
-| `object` | `string` |  |
-| `policy_end_date` | `mixed` |  |
-| `policy_start_date` | `string` |  |
-| `provider_policy_number` | `string` |  |
-| `status` | `mixed` |  |
+| `associated_persons` | `array` | List of associated persons linked to this policy import. |
+| `employee_id` | `string` | The employee ID for the policy import. |
+| `group_id` | `string` | The group ID for the policy import. |
+| `id` | `string` | Unique identifier for the policy import intent. |
+| `member_number` | `string` | The member number assigned by the provider. |
+| `object` | `string` | Object type identifier. |
+| `policy_end_date` | `mixed` | The end date of the policy. |
+| `policy_start_date` | `string` | The start date of the policy. |
+| `provider_policy_number` | `string` | The provider's policy number. |
+| `status` | `mixed` | Current status of the policy import intent. |
 
 #### Example: Load
 
@@ -2574,16 +2575,16 @@ Create an instance: `$provider = $client->Provider();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `employer_platform_url` | `mixed` |  |
-| `id` | `string` |  |
-| `kota_hub_url` | `mixed` |  |
-| `logo_url` | `string` |  |
-| `name` | `string` |  |
-| `object` | `string` |  |
-| `support_phone` | `string` |  |
-| `supported_countries` | `array` |  |
-| `website_url` | `string` |  |
+| `description` | `string` | Description of the provider. |
+| `employer_platform_url` | `mixed` | URL to the employer portal/platform for this provider, if available. |
+| `id` | `string` | Unique identifier for the provider. |
+| `kota_hub_url` | `mixed` | URL to the Kota Hub page for this platform, if configured. |
+| `logo_url` | `string` | URL to the provider's logo image. |
+| `name` | `string` | The name of the provider. |
+| `object` | `string` | Object type. |
+| `support_phone` | `string` | Customer support phone number. |
+| `supported_countries` | `array` | List of countries supported by this provider. |
+| `website_url` | `string` | The provider's main website URL. |
 
 #### Example: Load
 
@@ -2641,11 +2642,11 @@ Create an instance: `$webhook_endpoint = $client->WebhookEndpoint();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `endpoint_url` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `subscribed_events` | `array` |  |
+| `created_at` | `string` | The date and time the endpoint was created |
+| `endpoint_url` | `string` | The registered URL of the endpoint |
+| `id` | `string` | The unique identifier of the endpoint |
+| `object` | `string` | The object type |
+| `subscribed_events` | `array` | The events the endpoint is subscribed to |
 
 #### Example: Load
 
@@ -2669,11 +2670,11 @@ Create an instance: `$webhook_endpoint_response_paged_list = $client->WebhookEnd
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `endpoint_url` | `string` |  |
-| `id` | `string` |  |
-| `object` | `string` |  |
-| `subscribed_events` | `array` |  |
+| `created_at` | `string` | The date and time the endpoint was created |
+| `endpoint_url` | `string` | The registered URL of the endpoint |
+| `id` | `string` | The unique identifier of the endpoint |
+| `object` | `string` | The object type |
+| `subscribed_events` | `array` | The events the endpoint is subscribed to |
 
 #### Example: List
 

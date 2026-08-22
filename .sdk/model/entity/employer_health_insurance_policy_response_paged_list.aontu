@@ -8,6 +8,7 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
     {
       name: "cancellation_date"
       req: false
+      short: "Policy was cancelled on this date, if cancellation occured"
       type: [
         "`$ONE`"
         [
@@ -19,31 +20,37 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
     {
       name: "coverage_levels"
       req: true
+      short: "Represents the available coverage levels for this policy"
       type: "`$ARRAY`"
     }
     {
       name: "employer_cancellation_period_length"
       req: true
+      short: "How many days the employer has to cancel the policy since the policy starts"
       type: "`$INTEGER`"
     }
     {
       name: "employer_id"
       req: true
+      short: "The Id of the employer for which the policy is created"
       type: "`$STRING`"
     }
     {
       name: "end_date"
       req: true
+      short: "Policy ends on this date"
       type: "`$STRING`"
     }
     {
       name: "enrolment_type"
       req: true
+      short: "Enrolment type of the policy"
       type: "`$ANY`"
     }
     {
       name: "group_policy_number"
       req: false
+      short: "Group’s health insurance policy number, if available"
       type: [
         "`$ONE`"
         [
@@ -55,26 +62,31 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
     {
       name: "id"
       req: true
+      short: "Unique identifier for policy"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "renewal"
       req: true
+      short: "Renewal information for the policy"
       type: "`$ANY`"
     }
     {
       name: "start_date"
       req: true
+      short: "Policy starts on this date"
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of policy"
       type: "`$ANY`"
     }
   ]

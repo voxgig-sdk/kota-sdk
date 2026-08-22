@@ -5,6 +5,6 @@ import type { GroupEmployee, GroupEmployeeCreateData } from '../KotaTypes';
 declare class GroupEmployeeEntity extends KotaEntityBase<GroupEmployee> {
     constructor(client: KotaSDK, entopts: any);
     make(this: GroupEmployeeEntity): GroupEmployeeEntity;
-    create(this: any, reqdata?: GroupEmployeeCreateData, ctrl?: Control): Promise<GroupEmployee>;
+    create(this: any, reqdata?: GroupEmployeeCreateData, ctrl?: Control): Promise<GroupEmployeeEntity>;
 }
 export { GroupEmployeeEntity };

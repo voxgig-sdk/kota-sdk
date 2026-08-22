@@ -8,6 +8,7 @@ main: kit: entity: group: {
     {
       name: "description"
       req: false
+      short: "Short description of the purpose or scope of the `group`."
       type: [
         "`$ONE`"
         [
@@ -19,51 +20,61 @@ main: kit: entity: group: {
     {
       name: "employer_id"
       req: true
+      short: "Identifier for the `employer` that owns this `group`."
       type: "`$STRING`"
     }
     {
       name: "enrolment_type"
       req: true
+      short: "Indicates how employees are enrolled into the group."
       type: "`$ANY`"
     }
     {
       name: "group_policy_ids"
       req: true
+      short: "Group policy unique identifiers associated with this group."
       type: "`$ARRAY`"
     }
     {
       name: "group_policy_intent_ids"
       req: true
+      short: "Group policy intent unique identifiers associated with this group."
       type: "`$ARRAY`"
     }
     {
       name: "group_quote_intent_ids"
       req: true
+      short: "Group quote intent unique identifiers associated with this group."
       type: "`$ARRAY`"
     }
     {
       name: "group_type"
       req: true
+      short: "Indicates how policies are organized for this group."
       type: "`$ANY`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the `group`."
       type: "`$STRING`"
     }
     {
       name: "name"
       req: true
+      short: "Human-readable name of the `group`."
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Current lifecycle state of the `group`, indicating its current progress."
       type: "`$ANY`"
     }
   ]

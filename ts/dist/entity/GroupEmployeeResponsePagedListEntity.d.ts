@@ -5,6 +5,6 @@ import type { GroupEmployeeResponsePagedList, GroupEmployeeResponsePagedListList
 declare class GroupEmployeeResponsePagedListEntity extends KotaEntityBase<GroupEmployeeResponsePagedList> {
     constructor(client: KotaSDK, entopts: any);
     make(this: GroupEmployeeResponsePagedListEntity): GroupEmployeeResponsePagedListEntity;
-    list(this: any, reqmatch?: GroupEmployeeResponsePagedListListMatch, ctrl?: Control): Promise<GroupEmployeeResponsePagedList[]>;
+    list(this: any, reqmatch?: GroupEmployeeResponsePagedListListMatch, ctrl?: Control): Promise<GroupEmployeeResponsePagedListEntity[]>;
 }
 export { GroupEmployeeResponsePagedListEntity };

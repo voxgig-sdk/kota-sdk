@@ -285,9 +285,7 @@ class DependentsManagementIntentLoadMatch
 /** Request payload for DependentsManagementIntent#create. */
 class DependentsManagementIntentCreateData
 {
-    public ?string $policy_amendment_intent_id = null;
-    public ?string $policy_id = null;
-    public ?string $enrolment_intent_id = null;
+    public string $enrolment_intent_id;
     public mixed $action_required = null;
     public mixed $coverage_options = null;
     public array $dependents;

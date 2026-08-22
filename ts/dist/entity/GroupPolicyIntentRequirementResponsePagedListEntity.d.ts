@@ -5,6 +5,6 @@ import type { GroupPolicyIntentRequirementResponsePagedList, GroupPolicyIntentRe
 declare class GroupPolicyIntentRequirementResponsePagedListEntity extends KotaEntityBase<GroupPolicyIntentRequirementResponsePagedList> {
     constructor(client: KotaSDK, entopts: any);
     make(this: GroupPolicyIntentRequirementResponsePagedListEntity): GroupPolicyIntentRequirementResponsePagedListEntity;
-    list(this: any, reqmatch?: GroupPolicyIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<GroupPolicyIntentRequirementResponsePagedList[]>;
+    list(this: any, reqmatch?: GroupPolicyIntentRequirementResponsePagedListListMatch, ctrl?: Control): Promise<GroupPolicyIntentRequirementResponsePagedListEntity[]>;
 }
 export { GroupPolicyIntentRequirementResponsePagedListEntity };

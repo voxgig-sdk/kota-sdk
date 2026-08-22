@@ -5,8 +5,8 @@ import type { PolicyImportIntent, PolicyImportIntentLoadMatch, PolicyImportInten
 declare class PolicyImportIntentEntity extends KotaEntityBase<PolicyImportIntent> {
     constructor(client: KotaSDK, entopts: any);
     make(this: PolicyImportIntentEntity): PolicyImportIntentEntity;
-    load(this: any, reqmatch?: PolicyImportIntentLoadMatch, ctrl?: Control): Promise<PolicyImportIntent>;
-    list(this: any, reqmatch?: PolicyImportIntentListMatch, ctrl?: Control): Promise<PolicyImportIntent[]>;
-    create(this: any, reqdata?: PolicyImportIntentCreateData, ctrl?: Control): Promise<PolicyImportIntent>;
+    load(this: any, reqmatch?: PolicyImportIntentLoadMatch, ctrl?: Control): Promise<PolicyImportIntentEntity>;
+    list(this: any, reqmatch?: PolicyImportIntentListMatch, ctrl?: Control): Promise<PolicyImportIntentEntity[]>;
+    create(this: any, reqdata?: PolicyImportIntentCreateData, ctrl?: Control): Promise<PolicyImportIntentEntity>;
 }
 export { PolicyImportIntentEntity };

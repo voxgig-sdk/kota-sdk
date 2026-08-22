@@ -259,9 +259,7 @@ type DependentsManagementIntentLoadMatch struct {
 
 // DependentsManagementIntentCreateData is the typed request payload for DependentsManagementIntent.CreateTyped.
 type DependentsManagementIntentCreateData struct {
-	PolicyAmendmentIntentId *string `json:"policy_amendment_intent_id,omitempty"`
-	PolicyId *string `json:"policy_id,omitempty"`
-	EnrolmentIntentId *string `json:"enrolment_intent_id,omitempty"`
+	EnrolmentIntentId string `json:"enrolment_intent_id"`
 	ActionRequired *any `json:"action_required,omitempty"`
 	CoverageOptions *any `json:"coverage_options,omitempty"`
 	Dependents []any `json:"dependents"`

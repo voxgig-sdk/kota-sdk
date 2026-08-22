@@ -8,6 +8,7 @@ main: kit: entity: employee_health_insurance_policy: {
     {
       name: "cancellation_date"
       req: false
+      short: "Policy was cancelled on this date, if cancellation occured"
       type: [
         "`$ONE`"
         [
@@ -19,41 +20,49 @@ main: kit: entity: employee_health_insurance_policy: {
     {
       name: "coverage_level"
       req: true
+      short: "Represents the current coverage level for the policy"
       type: "`$ANY`"
     }
     {
       name: "employee_id"
       req: true
+      short: "The Id of the employee for which the policy is created"
       type: "`$STRING`"
     }
     {
       name: "employer_id"
       req: true
+      short: "The Id of the employer for which the policy is created"
       type: "`$STRING`"
     }
     {
       name: "end_date"
       req: true
+      short: "Policy ends on this date"
       type: "`$STRING`"
     }
     {
       name: "enrolled_dependants_count"
       req: true
+      short: "Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy."
       type: "`$INTEGER`"
     }
     {
       name: "enrolment_type"
       req: true
+      short: "Enrolment type of the policy"
       type: "`$ANY`"
     }
     {
       name: "estimated_gross_premium"
       req: true
+      short: "Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration."
       type: "`$ANY`"
     }
     {
       name: "external_customer_id"
       req: false
+      short: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
       type: [
         "`$ONE`"
         [
@@ -65,21 +74,25 @@ main: kit: entity: employee_health_insurance_policy: {
     {
       name: "id"
       req: true
+      short: "Unique identifier for policy"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "opt_out_deadline_date"
       req: true
+      short: "Last day to opt out from the policy"
       type: "`$STRING`"
     }
     {
       name: "policy_number"
       req: false
+      short: "Health insurance policy number, if available"
       type: [
         "`$ONE`"
         [
@@ -91,16 +104,19 @@ main: kit: entity: employee_health_insurance_policy: {
     {
       name: "renewal"
       req: true
+      short: "Renewal information for the policy"
       type: "`$ANY`"
     }
     {
       name: "start_date"
       req: true
+      short: "Policy starts on this date"
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of policy"
       type: "`$ANY`"
     }
   ]

@@ -75,11 +75,11 @@ const utility_1 = require("../../utility");
         // LIST
         const provider_ref01_ent = client.Provider();
         const provider_ref01_match = {};
-        const provider_ref01_list = await provider_ref01_ent.list(provider_ref01_match);
+        const provider_ref01_list = (await provider_ref01_ent.list(provider_ref01_match)).map((e) => e.data());
         // LOAD
         const provider_ref01_match_dt0 = {};
         provider_ref01_match_dt0.id = provider_ref01_data.id;
-        const provider_ref01_data_dt0 = await provider_ref01_ent.load(provider_ref01_match_dt0);
+        const provider_ref01_data_dt0 = (await provider_ref01_ent.load(provider_ref01_match_dt0)).data();
         (0, node_assert_1.default)(provider_ref01_data_dt0.id === provider_ref01_data.id);
     });
 });

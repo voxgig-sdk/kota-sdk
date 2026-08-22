@@ -74,24 +74,24 @@ const utility_1 = require("../../utility");
         // CREATE
         const enrolment_intent_ref01_ent = client.EnrolmentIntent();
         let enrolment_intent_ref01_data = setup.data.new.enrolment_intent['enrolment_intent_ref01'];
-        enrolment_intent_ref01_data = await enrolment_intent_ref01_ent.create(enrolment_intent_ref01_data);
+        enrolment_intent_ref01_data = (await enrolment_intent_ref01_ent.create(enrolment_intent_ref01_data)).data();
         (0, node_assert_1.default)(null != enrolment_intent_ref01_data.id);
         // LIST
         const enrolment_intent_ref01_match = {};
-        const enrolment_intent_ref01_list = await enrolment_intent_ref01_ent.list(enrolment_intent_ref01_match);
+        const enrolment_intent_ref01_list = (await enrolment_intent_ref01_ent.list(enrolment_intent_ref01_match)).map((e) => e.data());
         (0, node_assert_1.default)(!isempty(select(enrolment_intent_ref01_list, { id: enrolment_intent_ref01_data.id })));
         // UPDATE
         const enrolment_intent_ref01_data_up0 = {};
         enrolment_intent_ref01_data_up0.id = enrolment_intent_ref01_data.id;
         const enrolment_intent_ref01_markdef_up0 = { name: 'employee_id', value: 'Mark01-enrolment_intent_ref01_' + setup.now };
         enrolment_intent_ref01_data_up0[enrolment_intent_ref01_markdef_up0.name] = enrolment_intent_ref01_markdef_up0.value;
-        const enrolment_intent_ref01_resdata_up0 = await enrolment_intent_ref01_ent.update(enrolment_intent_ref01_data_up0);
+        const enrolment_intent_ref01_resdata_up0 = (await enrolment_intent_ref01_ent.update(enrolment_intent_ref01_data_up0)).data();
         (0, node_assert_1.default)(enrolment_intent_ref01_resdata_up0.id === enrolment_intent_ref01_data_up0.id);
         (0, node_assert_1.default)(enrolment_intent_ref01_resdata_up0[enrolment_intent_ref01_markdef_up0.name] === enrolment_intent_ref01_markdef_up0.value);
         // LOAD
         const enrolment_intent_ref01_match_dt0 = {};
         enrolment_intent_ref01_match_dt0.id = enrolment_intent_ref01_data.id;
-        const enrolment_intent_ref01_data_dt0 = await enrolment_intent_ref01_ent.load(enrolment_intent_ref01_match_dt0);
+        const enrolment_intent_ref01_data_dt0 = (await enrolment_intent_ref01_ent.load(enrolment_intent_ref01_match_dt0)).data();
         (0, node_assert_1.default)(enrolment_intent_ref01_data_dt0.id === enrolment_intent_ref01_data.id);
     });
 });

@@ -8,26 +8,31 @@ main: kit: entity: group_quote_intent: {
     {
       name: "action_required"
       req: false
+      short: "Details of the action required from the caller, if the intent is in action_required status."
       type: "`$NULL`"
     }
     {
       name: "consent_links"
       req: true
+      short: "Consent links that need to be acknowledged"
       type: "`$ARRAY`"
     }
     {
       name: "cost_sharing"
       req: false
+      short: "Cost sharing configuration for the quote"
       type: "`$NULL`"
     }
     {
       name: "disclosures"
       req: true
+      short: "Disclosures associated with this intent."
       type: "`$ARRAY`"
     }
     {
       name: "expected_start_date"
       req: false
+      short: "Expected start date for the insurance coverage"
       type: [
         "`$ONE`"
         [
@@ -39,26 +44,31 @@ main: kit: entity: group_quote_intent: {
     {
       name: "group_id"
       req: true
+      short: "Unique identifier for the group"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the group quote intent"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "Object type identifier"
       type: "`$STRING`"
     }
     {
       name: "plan_id"
       req: true
+      short: "Unique identifier for the plan"
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the group quote intent"
       type: "`$ANY`"
     }
   ]

@@ -5,9 +5,9 @@ import type { Group, GroupLoadMatch, GroupListMatch, GroupCreateData, GroupUpdat
 declare class GroupEntity extends KotaEntityBase<Group> {
     constructor(client: KotaSDK, entopts: any);
     make(this: GroupEntity): GroupEntity;
-    load(this: any, reqmatch?: GroupLoadMatch, ctrl?: Control): Promise<Group>;
-    list(this: any, reqmatch?: GroupListMatch, ctrl?: Control): Promise<Group[]>;
-    create(this: any, reqdata?: GroupCreateData, ctrl?: Control): Promise<Group>;
-    update(this: any, reqdata?: GroupUpdateData, ctrl?: Control): Promise<Group>;
+    load(this: any, reqmatch?: GroupLoadMatch, ctrl?: Control): Promise<GroupEntity>;
+    list(this: any, reqmatch?: GroupListMatch, ctrl?: Control): Promise<GroupEntity[]>;
+    create(this: any, reqdata?: GroupCreateData, ctrl?: Control): Promise<GroupEntity>;
+    update(this: any, reqdata?: GroupUpdateData, ctrl?: Control): Promise<GroupEntity>;
 }
 export { GroupEntity };

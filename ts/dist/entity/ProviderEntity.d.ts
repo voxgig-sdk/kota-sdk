@@ -5,7 +5,7 @@ import type { Provider, ProviderLoadMatch, ProviderListMatch } from '../KotaType
 declare class ProviderEntity extends KotaEntityBase<Provider> {
     constructor(client: KotaSDK, entopts: any);
     make(this: ProviderEntity): ProviderEntity;
-    load(this: any, reqmatch?: ProviderLoadMatch, ctrl?: Control): Promise<Provider>;
-    list(this: any, reqmatch?: ProviderListMatch, ctrl?: Control): Promise<Provider[]>;
+    load(this: any, reqmatch?: ProviderLoadMatch, ctrl?: Control): Promise<ProviderEntity>;
+    list(this: any, reqmatch?: ProviderListMatch, ctrl?: Control): Promise<ProviderEntity[]>;
 }
 export { ProviderEntity };

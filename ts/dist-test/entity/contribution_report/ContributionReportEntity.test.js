@@ -75,16 +75,16 @@ const utility_1 = require("../../utility");
         const contribution_report_ref01_ent = client.ContributionReport();
         let contribution_report_ref01_data = setup.data.new.contribution_report['contribution_report_ref01'];
         contribution_report_ref01_data['contribution_report_id'] = setup.idmap['contribution_report01'];
-        contribution_report_ref01_data = await contribution_report_ref01_ent.create(contribution_report_ref01_data);
+        contribution_report_ref01_data = (await contribution_report_ref01_ent.create(contribution_report_ref01_data)).data();
         (0, node_assert_1.default)(null != contribution_report_ref01_data.id);
         // LIST
         const contribution_report_ref01_match = {};
-        const contribution_report_ref01_list = await contribution_report_ref01_ent.list(contribution_report_ref01_match);
+        const contribution_report_ref01_list = (await contribution_report_ref01_ent.list(contribution_report_ref01_match)).map((e) => e.data());
         (0, node_assert_1.default)(!isempty(select(contribution_report_ref01_list, { id: contribution_report_ref01_data.id })));
         // LOAD
         const contribution_report_ref01_match_dt0 = {};
         contribution_report_ref01_match_dt0.id = contribution_report_ref01_data.id;
-        const contribution_report_ref01_data_dt0 = await contribution_report_ref01_ent.load(contribution_report_ref01_match_dt0);
+        const contribution_report_ref01_data_dt0 = (await contribution_report_ref01_ent.load(contribution_report_ref01_match_dt0)).data();
         (0, node_assert_1.default)(contribution_report_ref01_data_dt0.id === contribution_report_ref01_data.id);
     });
 });

@@ -8,36 +8,43 @@ main: kit: entity: employer_health_insurance_quote_response_paged_list: {
     {
       name: "coverage_levels"
       req: true
+      short: "List of levels covered under the policy, each item representing details about the plan’s cover."
       type: "`$ARRAY`"
     }
     {
       name: "employer_id"
       req: true
+      short: "The Id of the employer for which the is created"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: true
+      short: "Unique identifier for the quote"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "quoted_at"
       req: true
+      short: "Date and time the quote was created at"
       type: "`$STRING`"
     }
     {
       name: "required_action"
       req: false
+      short: "Actions required by the employer to proceed with the quote."
       type: "`$NULL`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the quote"
       type: "`$ANY`"
     }
   ]

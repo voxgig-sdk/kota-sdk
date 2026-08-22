@@ -5,6 +5,6 @@ import type { AssociatedPersonEligibilityResponsePagedList, AssociatedPersonElig
 declare class AssociatedPersonEligibilityResponsePagedListEntity extends KotaEntityBase<AssociatedPersonEligibilityResponsePagedList> {
     constructor(client: KotaSDK, entopts: any);
     make(this: AssociatedPersonEligibilityResponsePagedListEntity): AssociatedPersonEligibilityResponsePagedListEntity;
-    list(this: any, reqmatch?: AssociatedPersonEligibilityResponsePagedListListMatch, ctrl?: Control): Promise<AssociatedPersonEligibilityResponsePagedList[]>;
+    list(this: any, reqmatch?: AssociatedPersonEligibilityResponsePagedListListMatch, ctrl?: Control): Promise<AssociatedPersonEligibilityResponsePagedListEntity[]>;
 }
 export { AssociatedPersonEligibilityResponsePagedListEntity };

@@ -8,21 +8,25 @@ main: kit: entity: employee_health_insurance_offer: {
     {
       name: "coverage_level"
       req: true
+      short: "Details about the coverage level for the offer."
       type: "`$ANY`"
     }
     {
       name: "employee_id"
       req: true
+      short: "The Id of the employee for which the offer is available"
       type: "`$STRING`"
     }
     {
       name: "employer_id"
       req: true
+      short: "The Id of the employer for which the offer is available"
       type: "`$STRING`"
     }
     {
       name: "external_customer_id"
       req: false
+      short: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
       type: [
         "`$ONE`"
         [
@@ -34,21 +38,25 @@ main: kit: entity: employee_health_insurance_offer: {
     {
       name: "id"
       req: true
+      short: "Unique identifier for offer"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "required_action"
       req: false
+      short: "Required action to progress the offer, if any."
       type: "`$NULL`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of offer"
       type: "`$ANY`"
     }
   ]

@@ -8,16 +8,19 @@ main: kit: entity: contribution_report: {
     {
       name: "created_at"
       req: true
+      short: "Date and time the report was created"
       type: "`$STRING`"
     }
     {
       name: "employer_id"
       req: true
+      short: "Unique identifier of the employer for which the report is created"
       type: "`$STRING`"
     }
     {
       name: "external_customer_id"
       req: false
+      short: "Unique identifier of the customer for which the report is created."
       type: [
         "`$ONE`"
         [
@@ -29,6 +32,7 @@ main: kit: entity: contribution_report: {
     {
       name: "finalized_at"
       req: false
+      short: "Date and time the report was finalized, if applicable"
       type: [
         "`$ONE`"
         [
@@ -40,26 +44,31 @@ main: kit: entity: contribution_report: {
     {
       name: "id"
       req: true
+      short: "Unique identifier for the contribution report"
       type: "`$STRING`"
     }
     {
       name: "last_updated_at"
       req: true
+      short: "Date and time of the last update to the report"
       type: "`$STRING`"
     }
     {
       name: "object"
       req: false
+      short: "The object type"
       type: "`$STRING`"
     }
     {
       name: "period"
       req: true
+      short: "Period covered by the contribution report"
       type: "`$ANY`"
     }
     {
       name: "status"
       req: true
+      short: "Current status of the contribution report"
       type: "`$ANY`"
     }
   ]
