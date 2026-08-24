@@ -1,6 +1,15 @@
 {
+  "NAME": "KOTA",
+  "Name": "Kota",
   "def": "kota-openapi.json",
   "main": {
+    "api": {
+      "entity": {},
+      "guide": {}
+    },
+    "custom": {
+      "plurals": {}
+    },
     "def": {
       "desc": ""
     },
@@ -11465,5 +11474,8 @@
     }
   },
   "name": "kota",
+  "name-": "kota",
+  "name_": "kota",
+  "name__orig": "kota",
   "origin": "voxgig-sdk"
 }
