@@ -909,6 +909,10 @@ func MakeConfig() map[string]any {
 						"type": "`$ANY`",
 					},
 					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
+					},
+					map[string]any{
 						"name": "last_updated_at",
 						"req": true,
 						"short": "Date and time of the last update to the breakdown",
@@ -1063,6 +1067,10 @@ func MakeConfig() map[string]any {
 						"req": true,
 						"short": "Health insurance contribution details",
 						"type": "`$ANY`",
+					},
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "last_updated_at",

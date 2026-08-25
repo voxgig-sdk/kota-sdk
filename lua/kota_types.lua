@@ -115,6 +115,7 @@
 ---@field external_customer_id? nil|string
 ---@field finalized_at? nil|string
 ---@field health_insurance any
+---@field id? string
 ---@field last_updated_at string
 ---@field object? string
 ---@field period any
@@ -133,6 +134,7 @@
 ---@field external_customer_id? nil|string
 ---@field finalized_at? nil|string
 ---@field health_insurance any
+---@field id? string
 ---@field last_updated_at string
 ---@field object? string
 ---@field period any

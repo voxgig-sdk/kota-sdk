@@ -159,6 +159,7 @@ class ContributionReportEmployeeBreakdown
     public mixed $external_customer_id = null;
     public mixed $finalized_at = null;
     public mixed $health_insurance;
+    public ?string $id = null;
     public string $last_updated_at;
     public ?string $object = null;
     public mixed $period;
@@ -183,6 +184,7 @@ class ContributionReportEmployeeBreakdownResponsePagedList
     public mixed $external_customer_id = null;
     public mixed $finalized_at = null;
     public mixed $health_insurance;
+    public ?string $id = null;
     public string $last_updated_at;
     public ?string $object = null;
     public mixed $period;

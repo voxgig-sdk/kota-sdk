@@ -48,9 +48,13 @@ class ContributionReportEmployeeBreakdownEntityTest extends TestCase
 
         // LOAD
         $contribution_report_employee_breakdown_ref01_ent = $client->ContributionReportEmployeeBreakdown(null);
-        $contribution_report_employee_breakdown_ref01_match_dt0 = [];
+        $contribution_report_employee_breakdown_ref01_match_dt0 = [
+            "id" => $contribution_report_employee_breakdown_ref01_data["id"],
+        ];
         $contribution_report_employee_breakdown_ref01_data_dt0_loaded = $contribution_report_employee_breakdown_ref01_ent->load($contribution_report_employee_breakdown_ref01_match_dt0, null);
-        $this->assertNotNull($contribution_report_employee_breakdown_ref01_data_dt0_loaded);
+        $contribution_report_employee_breakdown_ref01_data_dt0_load_result = Helpers::to_map(is_object($contribution_report_employee_breakdown_ref01_data_dt0_loaded) && method_exists($contribution_report_employee_breakdown_ref01_data_dt0_loaded, 'data_get') ? $contribution_report_employee_breakdown_ref01_data_dt0_loaded->data_get() : $contribution_report_employee_breakdown_ref01_data_dt0_loaded);
+        $this->assertNotNull($contribution_report_employee_breakdown_ref01_data_dt0_load_result);
+        $this->assertEquals($contribution_report_employee_breakdown_ref01_data_dt0_load_result["id"], $contribution_report_employee_breakdown_ref01_data["id"]);
 
     }
 }

@@ -161,6 +161,7 @@ class ContributionReportEmployeeBreakdownRequired(TypedDict):
 class ContributionReportEmployeeBreakdown(ContributionReportEmployeeBreakdownRequired, total=False):
     external_customer_id: None | str
     finalized_at: None | str
+    id: str
     object: str
 
 
@@ -184,6 +185,7 @@ class ContributionReportEmployeeBreakdownResponsePagedListRequired(TypedDict):
 class ContributionReportEmployeeBreakdownResponsePagedList(ContributionReportEmployeeBreakdownResponsePagedListRequired, total=False):
     external_customer_id: None | str
     finalized_at: None | str
+    id: str
     object: str
 
 

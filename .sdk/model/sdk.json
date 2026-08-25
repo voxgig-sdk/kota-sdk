@@ -993,6 +993,12 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "last_updated_at",
               "req": true,
               "short": "Date and time of the last update to the breakdown",
@@ -1020,6 +1026,10 @@
               "type": "`$ANY`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "contribution_report_employee_breakdown",
           "op": {
             "load": {
@@ -1173,6 +1183,12 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "last_updated_at",
               "req": true,
               "short": "Date and time of the last update to the breakdown",
@@ -1200,6 +1216,10 @@
               "type": "`$ANY`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "contribution_report_employee_breakdown_response_paged_list",
           "op": {
             "list": {

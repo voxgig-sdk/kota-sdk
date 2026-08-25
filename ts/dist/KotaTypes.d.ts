@@ -109,6 +109,7 @@ export interface ContributionReportEmployeeBreakdown {
     external_customer_id?: null | string;
     finalized_at?: null | string;
     health_insurance: any;
+    id?: string;
     last_updated_at: string;
     object?: string;
     period: any;
@@ -127,6 +128,7 @@ export interface ContributionReportEmployeeBreakdownResponsePagedList {
     external_customer_id?: null | string;
     finalized_at?: null | string;
     health_insurance: any;
+    id?: string;
     last_updated_at: string;
     object?: string;
     period: any;

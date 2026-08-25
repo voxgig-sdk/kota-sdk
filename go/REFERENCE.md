@@ -533,6 +533,7 @@ fmt.Println(contributionReportEmployeeBreakdown.GetName()) // "contribution_repo
 | `external_customer_id` | `any` | No | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `any` | No | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `id` | `string` | No |  |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the employee breakdown |
@@ -595,6 +596,7 @@ fmt.Println(contributionReportEmployeeBreakdownResponsePagedList.GetName()) // "
 | `external_customer_id` | `any` | No | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `any` | No | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `id` | `string` | No |  |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the employee breakdown |

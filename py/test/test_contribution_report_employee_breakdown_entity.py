@@ -48,9 +48,13 @@ class TestContributionReportEmployeeBreakdownEntity:
 
         # LOAD
         contribution_report_employee_breakdown_ref01_ent = client.ContributionReportEmployeeBreakdown(None)
-        contribution_report_employee_breakdown_ref01_match_dt0 = {}
+        contribution_report_employee_breakdown_ref01_match_dt0 = {
+            "id": contribution_report_employee_breakdown_ref01_data["id"],
+        }
         contribution_report_employee_breakdown_ref01_data_dt0_loaded = contribution_report_employee_breakdown_ref01_ent.load(contribution_report_employee_breakdown_ref01_match_dt0, None)
-        assert contribution_report_employee_breakdown_ref01_data_dt0_loaded is not None
+        contribution_report_employee_breakdown_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(contribution_report_employee_breakdown_ref01_data_dt0_loaded))
+        assert contribution_report_employee_breakdown_ref01_data_dt0_load_result is not None
+        assert contribution_report_employee_breakdown_ref01_data_dt0_load_result["id"] == contribution_report_employee_breakdown_ref01_data["id"]
 
 
 

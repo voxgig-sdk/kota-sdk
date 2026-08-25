@@ -44,10 +44,14 @@ describe("ContributionReportEmployeeBreakdownEntity", function()
 
     -- LOAD
     local contribution_report_employee_breakdown_ref01_ent = client:ContributionReportEmployeeBreakdown(nil)
-    local contribution_report_employee_breakdown_ref01_match_dt0 = {}
+    local contribution_report_employee_breakdown_ref01_match_dt0 = {
+      id = contribution_report_employee_breakdown_ref01_data["id"],
+    }
     local contribution_report_employee_breakdown_ref01_data_dt0_loaded, err = contribution_report_employee_breakdown_ref01_ent:load(contribution_report_employee_breakdown_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(contribution_report_employee_breakdown_ref01_data_dt0_loaded)
+    local contribution_report_employee_breakdown_ref01_data_dt0_load_result = helpers.to_map(type(contribution_report_employee_breakdown_ref01_data_dt0_loaded) == 'table' and contribution_report_employee_breakdown_ref01_data_dt0_loaded.data_get and contribution_report_employee_breakdown_ref01_data_dt0_loaded:data_get() or contribution_report_employee_breakdown_ref01_data_dt0_loaded)
+    assert.is_not_nil(contribution_report_employee_breakdown_ref01_data_dt0_load_result)
+    assert.are.equal(contribution_report_employee_breakdown_ref01_data_dt0_load_result["id"], contribution_report_employee_breakdown_ref01_data["id"])
 
   end)
 end)

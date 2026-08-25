@@ -45,7 +45,8 @@ class DependentEntity extends KotaEntityBase<Dependent> {
     const {
       makeContext,
       done,
-      error,
+      // The registry name is `makeError`; `error` is the local alias.
+      makeError: error,
       featureHook,
       makePoint,
       makeRequest,
@@ -173,7 +174,8 @@ class DependentEntity extends KotaEntityBase<Dependent> {
     const {
       makeContext,
       done,
-      error,
+      // The registry name is `makeError`; `error` is the local alias.
+      makeError: error,
       featureHook,
       makePoint,
       makeRequest,

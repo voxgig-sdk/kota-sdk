@@ -61,13 +61,19 @@ func TestContributionReportEmployeeBreakdownEntity(t *testing.T) {
 
 		// LOAD
 		contributionReportEmployeeBreakdownRef01Ent := client.ContributionReportEmployeeBreakdown(nil)
-		contributionReportEmployeeBreakdownRef01MatchDt0 := map[string]any{}
+		contributionReportEmployeeBreakdownRef01MatchDt0 := map[string]any{
+			"id": contributionReportEmployeeBreakdownRef01Data["id"],
+		}
 		contributionReportEmployeeBreakdownRef01DataDt0Loaded, err := contributionReportEmployeeBreakdownRef01Ent.Load(contributionReportEmployeeBreakdownRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if contributionReportEmployeeBreakdownRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		contributionReportEmployeeBreakdownRef01DataDt0LoadResult := core.ToMapAny(entityData(contributionReportEmployeeBreakdownRef01DataDt0Loaded))
+		if contributionReportEmployeeBreakdownRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if contributionReportEmployeeBreakdownRef01DataDt0LoadResult["id"] != contributionReportEmployeeBreakdownRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

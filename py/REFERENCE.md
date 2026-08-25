@@ -504,6 +504,7 @@ contribution_report_employee_breakdown = client.ContributionReportEmployeeBreakd
 | `external_customer_id` | `None | str` | No | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `None | str` | No | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `Any` | Yes | Health insurance contribution details |
+| `id` | `str` | No |  |
 | `last_updated_at` | `str` | Yes | Date and time of the last update to the breakdown |
 | `object` | `str` | No | The object type |
 | `period` | `Any` | Yes | Period covered by the employee breakdown |
@@ -566,6 +567,7 @@ contribution_report_employee_breakdown_response_paged_list = client.Contribution
 | `external_customer_id` | `None | str` | No | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `None | str` | No | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `Any` | Yes | Health insurance contribution details |
+| `id` | `str` | No |  |
 | `last_updated_at` | `str` | Yes | Date and time of the last update to the breakdown |
 | `object` | `str` | No | The object type |
 | `period` | `Any` | Yes | Period covered by the employee breakdown |

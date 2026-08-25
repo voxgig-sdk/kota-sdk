@@ -905,6 +905,10 @@ local function make_config()
             ["type"] = "`$ANY`",
           },
           {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+          {
             ["name"] = "last_updated_at",
             ["req"] = true,
             ["short"] = "Date and time of the last update to the breakdown",
@@ -1059,6 +1063,10 @@ local function make_config()
             ["req"] = true,
             ["short"] = "Health insurance contribution details",
             ["type"] = "`$ANY`",
+          },
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "last_updated_at",

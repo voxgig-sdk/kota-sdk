@@ -146,6 +146,7 @@ type ContributionReportEmployeeBreakdown struct {
 	ExternalCustomerId *any `json:"external_customer_id,omitempty"`
 	FinalizedAt *any `json:"finalized_at,omitempty"`
 	HealthInsurance any `json:"health_insurance"`
+	Id *string `json:"id,omitempty"`
 	LastUpdatedAt string `json:"last_updated_at"`
 	Object *string `json:"object,omitempty"`
 	Period any `json:"period"`
@@ -168,6 +169,7 @@ type ContributionReportEmployeeBreakdownResponsePagedList struct {
 	ExternalCustomerId *any `json:"external_customer_id,omitempty"`
 	FinalizedAt *any `json:"finalized_at,omitempty"`
 	HealthInsurance any `json:"health_insurance"`
+	Id *string `json:"id,omitempty"`
 	LastUpdatedAt string `json:"last_updated_at"`
 	Object *string `json:"object,omitempty"`
 	Period any `json:"period"`

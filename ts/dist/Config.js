@@ -918,6 +918,10 @@ class Config {
                     "type": "`$ANY`"
                 },
                 {
+                    "name": "id",
+                    "type": "`$STRING`"
+                },
+                {
                     "name": "last_updated_at",
                     "req": true,
                     "short": "Date and time of the last update to the breakdown",
@@ -1072,6 +1076,10 @@ class Config {
                     "req": true,
                     "short": "Health insurance contribution details",
                     "type": "`$ANY`"
+                },
+                {
+                    "name": "id",
+                    "type": "`$STRING`"
                 },
                 {
                     "name": "last_updated_at",

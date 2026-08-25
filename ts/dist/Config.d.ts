@@ -493,6 +493,11 @@ declare class Config {
                 req?: undefined;
             } | {
                 name: string;
+                type: string;
+                req?: undefined;
+                short?: undefined;
+            } | {
+                name: string;
                 short: string;
                 type: string;
                 req?: undefined;
@@ -553,6 +558,11 @@ declare class Config {
                 short: string;
                 type: (string | string[])[];
                 req?: undefined;
+            } | {
+                name: string;
+                type: string;
+                req?: undefined;
+                short?: undefined;
             } | {
                 name: string;
                 short: string;

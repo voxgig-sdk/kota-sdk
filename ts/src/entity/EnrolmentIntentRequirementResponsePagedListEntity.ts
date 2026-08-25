@@ -44,7 +44,8 @@ class EnrolmentIntentRequirementResponsePagedListEntity extends KotaEntityBase<E
     const {
       makeContext,
       done,
-      error,
+      // The registry name is `makeError`; `error` is the local alias.
+      makeError: error,
       featureHook,
       makePoint,
       makeRequest,

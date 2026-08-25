@@ -504,6 +504,7 @@ local contribution_report_employee_breakdown = client:ContributionReportEmployee
 | `external_customer_id` | `nil|string` | No | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `nil|string` | No | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `id` | `string` | No |  |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the employee breakdown |
@@ -567,6 +568,7 @@ local contribution_report_employee_breakdown_response_paged_list = client:Contri
 | `external_customer_id` | `nil|string` | No | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `nil|string` | No | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `any` | Yes | Health insurance contribution details |
+| `id` | `string` | No |  |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the employee breakdown |

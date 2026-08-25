@@ -140,6 +140,7 @@
  * @property {null|string} [external_customer_id]
  * @property {null|string} [finalized_at]
  * @property {*} health_insurance
+ * @property {string} [id]
  * @property {string} last_updated_at
  * @property {string} [object]
  * @property {*} period
@@ -162,6 +163,7 @@
  * @property {null|string} [external_customer_id]
  * @property {null|string} [finalized_at]
  * @property {*} health_insurance
+ * @property {string} [id]
  * @property {string} last_updated_at
  * @property {string} [object]
  * @property {*} period

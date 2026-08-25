@@ -443,6 +443,7 @@ API path: `/contribution_reports/{contribution_report_id}/finalize`
 | `external_customer_id` | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | Health insurance contribution details |
+| `id` |  |
 | `last_updated_at` | Date and time of the last update to the breakdown |
 | `object` | The object type |
 | `period` | Period covered by the employee breakdown |
@@ -464,6 +465,7 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns/{e
 | `external_customer_id` | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | Health insurance contribution details |
+| `id` |  |
 | `last_updated_at` | Date and time of the last update to the breakdown |
 | `object` | The object type |
 | `period` | Period covered by the employee breakdown |
@@ -1284,6 +1286,7 @@ Create an instance: `const contribution_report_employee_breakdown = client.Contr
 | `external_customer_id` | `null|string` | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `null|string` | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `*` | Health insurance contribution details |
+| `id` | `string` |  |
 | `last_updated_at` | `string` | Date and time of the last update to the breakdown |
 | `object` | `string` | The object type |
 | `period` | `*` | Period covered by the employee breakdown |
@@ -1318,6 +1321,7 @@ Create an instance: `const contribution_report_employee_breakdown_response_paged
 | `external_customer_id` | `null|string` | Unique identifier of the customer for which the breakdown is created. |
 | `finalized_at` | `null|string` | Date and time the breakdown was finalized, if applicable |
 | `health_insurance` | `*` | Health insurance contribution details |
+| `id` | `string` |  |
 | `last_updated_at` | `string` | Date and time of the last update to the breakdown |
 | `object` | `string` | The object type |
 | `period` | `*` | Period covered by the employee breakdown |

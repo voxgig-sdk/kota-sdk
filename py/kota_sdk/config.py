@@ -926,6 +926,10 @@ def make_config():
             "type": "`$ANY`",
           },
           {
+            "name": "id",
+            "type": "`$STRING`",
+          },
+          {
             "name": "last_updated_at",
             "req": True,
             "short": "Date and time of the last update to the breakdown",
@@ -1080,6 +1084,10 @@ def make_config():
             "req": True,
             "short": "Health insurance contribution details",
             "type": "`$ANY`",
+          },
+          {
+            "name": "id",
+            "type": "`$STRING`",
           },
           {
             "name": "last_updated_at",
