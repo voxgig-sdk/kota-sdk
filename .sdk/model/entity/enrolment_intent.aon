@@ -49,6 +49,7 @@ main: kit: entity: enrolment_intent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier."
       type: "`$STRING`"
@@ -113,16 +114,22 @@ main: kit: entity: enrolment_intent: {
           }
           method: "POST"
           orig: "/enrolment_intents/{enrolment_intent_id}/confirm"
-          parts: [
-            "enrolment_intents"
-            "{id}"
-            "confirm"
-          ]
           rename: {
             param: {
               enrolment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "confirm"
+            }
+          ]
           select: {
             "$action": "confirm"
             exist: [
@@ -159,16 +166,22 @@ main: kit: entity: enrolment_intent: {
           }
           method: "POST"
           orig: "/enrolment_intents/{enrolment_intent_id}/coverage-selections"
-          parts: [
-            "enrolment_intents"
-            "{id}"
-            "coverage-selections"
-          ]
           rename: {
             param: {
               enrolment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "coverage-selections"
+            }
+          ]
           select: {
             "$action": "coverage_selection"
             exist: [
@@ -205,16 +218,22 @@ main: kit: entity: enrolment_intent: {
           }
           method: "POST"
           orig: "/enrolment_intents/{enrolment_intent_id}/reject"
-          parts: [
-            "enrolment_intents"
-            "{id}"
-            "reject"
-          ]
           rename: {
             param: {
               enrolment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "reject"
+            }
+          ]
           select: {
             "$action": "reject"
             exist: [
@@ -248,8 +267,10 @@ main: kit: entity: enrolment_intent: {
           }
           method: "POST"
           orig: "/enrolment_intents"
-          parts: [
-            "enrolment_intents"
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
           ]
           select: {
             exist: [
@@ -320,8 +341,10 @@ main: kit: entity: enrolment_intent: {
           }
           method: "GET"
           orig: "/enrolment_intents"
-          parts: [
-            "enrolment_intents"
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
           ]
           select: {
             exist: [
@@ -367,15 +390,19 @@ main: kit: entity: enrolment_intent: {
           }
           method: "GET"
           orig: "/enrolment_intents/{enrolment_intent_id}"
-          parts: [
-            "enrolment_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               enrolment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -416,15 +443,19 @@ main: kit: entity: enrolment_intent: {
           }
           method: "PUT"
           orig: "/enrolment_intents/{enrolment_intent_id}"
-          parts: [
-            "enrolment_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               enrolment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

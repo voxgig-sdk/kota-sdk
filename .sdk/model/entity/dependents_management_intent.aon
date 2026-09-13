@@ -43,6 +43,7 @@ main: kit: entity: dependents_management_intent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier."
       type: "`$STRING`"
@@ -115,18 +116,28 @@ main: kit: entity: dependents_management_intent: {
           }
           method: "POST"
           orig: "/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent"
-          parts: [
-            "policies"
-            "{policy_id}"
-            "policy_amendment_intents"
-            "{policy_amendment_intent_id}"
-            "create_dependents_management_intent"
-          ]
           rename: {
             param: {
               id: "policy_amendment_intent_id"
             }
           }
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "policy_amendment_intent_id"
+            }
+            {
+              lit: "create_dependents_management_intent"
+            }
+          ]
           select: {
             exist: [
               "policy_amendment_intent_id"
@@ -163,10 +174,16 @@ main: kit: entity: dependents_management_intent: {
           }
           method: "POST"
           orig: "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent"
-          parts: [
-            "enrolment_intents"
-            "{enrolment_intent_id}"
-            "create_dependents_management_intent"
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "enrolment_intent_id"
+            }
+            {
+              lit: "create_dependents_management_intent"
+            }
           ]
           select: {
             exist: [
@@ -203,16 +220,22 @@ main: kit: entity: dependents_management_intent: {
           }
           method: "POST"
           orig: "/dependents_management_intents/{dependents_management_intent_id}/cancel"
-          parts: [
-            "dependents_management_intents"
-            "{id}"
-            "cancel"
-          ]
           rename: {
             param: {
               dependents_management_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "cancel"
+            }
+          ]
           select: {
             "$action": "cancel"
             exist: [
@@ -249,16 +272,22 @@ main: kit: entity: dependents_management_intent: {
           }
           method: "POST"
           orig: "/dependents_management_intents/{dependents_management_intent_id}/confirm"
-          parts: [
-            "dependents_management_intents"
-            "{id}"
-            "confirm"
-          ]
           rename: {
             param: {
               dependents_management_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "confirm"
+            }
+          ]
           select: {
             "$action": "confirm"
             exist: [
@@ -300,15 +329,19 @@ main: kit: entity: dependents_management_intent: {
           }
           method: "GET"
           orig: "/dependents_management_intents/{dependents_management_intent_id}"
-          parts: [
-            "dependents_management_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               dependents_management_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

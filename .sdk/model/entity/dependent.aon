@@ -43,6 +43,7 @@ main: kit: entity: dependent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier."
       type: "`$STRING`"
@@ -114,10 +115,16 @@ main: kit: entity: dependent: {
           }
           method: "POST"
           orig: "/dependents_management_intents/{dependents_management_intent_id}/dependents"
-          parts: [
-            "dependents_management_intents"
-            "{dependents_management_intent_id}"
-            "dependents"
+          segments: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "dependents_management_intent_id"
+            }
+            {
+              lit: "dependents"
+            }
           ]
           select: {
             exist: [
@@ -168,17 +175,25 @@ main: kit: entity: dependent: {
           }
           method: "DELETE"
           orig: "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}"
-          parts: [
-            "dependents_management_intents"
-            "{dependents_management_intent_id}"
-            "dependents"
-            "{id}"
-          ]
           rename: {
             param: {
               associated_person_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "dependents_management_intent_id"
+            }
+            {
+              lit: "dependents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "dependents_management_intent_id"

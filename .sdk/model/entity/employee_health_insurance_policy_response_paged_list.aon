@@ -6,6 +6,7 @@ main: kit: entity: employee_health_insurance_policy_response_paged_list: {
 
   fields: [
     {
+      format: "date"
       name: "cancellation_date"
       req: false
       short: "Policy was cancelled on this date, if cancellation occured"
@@ -36,12 +37,14 @@ main: kit: entity: employee_health_insurance_policy_response_paged_list: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "end_date"
       req: true
       short: "Policy ends on this date"
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "enrolled_dependants_count"
       req: true
       short: "Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy."
@@ -79,11 +82,13 @@ main: kit: entity: employee_health_insurance_policy_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "opt_out_deadline_date"
       req: true
       short: "Last day to opt out from the policy"
@@ -108,6 +113,7 @@ main: kit: entity: employee_health_insurance_policy_response_paged_list: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "start_date"
       req: true
       short: "Policy starts on this date"
@@ -178,11 +184,19 @@ main: kit: entity: employee_health_insurance_policy_response_paged_list: {
           }
           method: "GET"
           orig: "/employees/{employee_id}/health_insurance/policies"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "health_insurance"
-            "policies"
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "policies"
+            }
           ]
           select: {
             exist: [

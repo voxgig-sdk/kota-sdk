@@ -55,6 +55,7 @@ main: kit: entity: provider: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type."
       type: "`$STRING`"
@@ -126,8 +127,10 @@ main: kit: entity: provider: {
           }
           method: "GET"
           orig: "/providers"
-          parts: [
-            "providers"
+          segments: [
+            {
+              lit: "providers"
+            }
           ]
           select: {
             exist: [
@@ -171,15 +174,19 @@ main: kit: entity: provider: {
           }
           method: "GET"
           orig: "/providers/{provider_id}"
-          parts: [
-            "providers"
-            "{id}"
-          ]
           rename: {
             param: {
               provider_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "providers"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

@@ -101,7 +101,7 @@ func TestEmployeeEntity(t *testing.T) {
 		// CREATE
 		employeeRef01Ent := client.Employee(nil)
 		employeeRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "employee"}, setup.data), "employee_ref01"))
+			vs.GetPath(setup.data, []any{"new", "employee"}), "employee_ref01"))
 
 		employeeRef01DataResult, err := employeeRef01Ent.Create(employeeRef01Data, nil)
 		if err != nil {
@@ -199,7 +199,7 @@ func employeeBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"employee01", "employee02", "employee03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -219,7 +219,7 @@ func employeeBasicSetup(extra map[string]any) *entityTestSetup {
 		"KOTA_TEST_EMPLOYEE_ENTID": idmap,
 		"KOTA_TEST_LIVE":      "FALSE",
 		"KOTA_TEST_EXPLAIN":   "FALSE",
-		"KOTA_APIKEY":         "NONE",
+		"KOTA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["KOTA_TEST_EMPLOYEE_ENTID"])
@@ -228,11 +228,23 @@ func employeeBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["KOTA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["KOTA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewKotaSDK(core.ToMapAny(mergedOpts))
 	}

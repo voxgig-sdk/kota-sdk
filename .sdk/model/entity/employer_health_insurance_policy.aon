@@ -6,6 +6,7 @@ main: kit: entity: employer_health_insurance_policy: {
 
   fields: [
     {
+      format: "date"
       name: "cancellation_date"
       req: false
       short: "Policy was cancelled on this date, if cancellation occured"
@@ -24,6 +25,7 @@ main: kit: entity: employer_health_insurance_policy: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "employer_cancellation_period_length"
       req: true
       short: "How many days the employer has to cancel the policy since the policy starts"
@@ -36,6 +38,7 @@ main: kit: entity: employer_health_insurance_policy: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "end_date"
       req: true
       short: "Policy ends on this date"
@@ -67,6 +70,7 @@ main: kit: entity: employer_health_insurance_policy: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -78,6 +82,7 @@ main: kit: entity: employer_health_insurance_policy: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "start_date"
       req: true
       short: "Policy starts on this date"
@@ -133,18 +138,28 @@ main: kit: entity: employer_health_insurance_policy: {
           }
           method: "GET"
           orig: "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}"
-          parts: [
-            "employers"
-            "{employer_id}"
-            "health_insurance"
-            "policies"
-            "{id}"
-          ]
           rename: {
             param: {
               employer_policy_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "employer_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "employer_id"

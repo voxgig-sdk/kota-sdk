@@ -6,12 +6,14 @@ main: kit: entity: plan: {
 
   fields: [
     {
+      format: "date"
       name: "available_from"
       req: true
       short: "The date from which this plan is available (inclusive)."
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "available_to"
       req: false
       short: "The date until which this plan is available (inclusive)."
@@ -60,6 +62,7 @@ main: kit: entity: plan: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "eligible_count"
       req: false
       short: "Number of employees in the queried group eligible for this plan as-of `start_date`."
@@ -96,6 +99,7 @@ main: kit: entity: plan: {
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "ineligible_count"
       req: false
       short: "Number of employees in the queried group ineligible for this plan as-of `start_date`."
@@ -115,6 +119,7 @@ main: kit: entity: plan: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type."
       type: "`$STRING`"
@@ -126,6 +131,7 @@ main: kit: entity: plan: {
       type: "`$ANY`"
     }
     {
+      format: "int32"
       name: "total_count"
       req: false
       short: "Total employees in the queried group."
@@ -242,8 +248,10 @@ main: kit: entity: plan: {
           }
           method: "GET"
           orig: "/plans"
-          parts: [
-            "plans"
+          segments: [
+            {
+              lit: "plans"
+            }
           ]
           select: {
             exist: [
@@ -311,15 +319,19 @@ main: kit: entity: plan: {
           }
           method: "GET"
           orig: "/plans/{plan_id}"
-          parts: [
-            "plans"
-            "{id}"
-          ]
           rename: {
             param: {
               plan_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "plans"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "group_id"

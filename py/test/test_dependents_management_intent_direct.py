@@ -65,15 +65,18 @@ def _dependents_management_intent_direct_setup(mockres):
     env = runner.env_override({
         "KOTA_TEST_DEPENDENTS_MANAGEMENT_INTENT_ENTID": {},
         "KOTA_TEST_LIVE": "FALSE",
-        "KOTA_APIKEY": "NONE",
+        "KOTA_APIKEY": "",
     })
 
     live = env.get("KOTA_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("KOTA_APIKEY"),
-        }
+        })
         client = KotaSDK(merged_opts)
         return {
             "client": client,

@@ -43,6 +43,7 @@ main: kit: entity: employee_health_insurance_offer: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -103,18 +104,28 @@ main: kit: entity: employee_health_insurance_offer: {
           }
           method: "GET"
           orig: "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "health_insurance"
-            "offers"
-            "{id}"
-          ]
           rename: {
             param: {
               employee_offer_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "offers"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "employee_id"

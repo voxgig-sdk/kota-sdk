@@ -19,6 +19,7 @@ main: kit: entity: group_policy_intent_requirement_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier"
       type: "`$STRING`"
@@ -107,16 +108,22 @@ main: kit: entity: group_policy_intent_requirement_response_paged_list: {
           }
           method: "GET"
           orig: "/group_policy_intents/{group_policy_intent_id}/requirements"
-          parts: [
-            "group_policy_intents"
-            "{id}"
-            "requirements"
-          ]
           rename: {
             param: {
               group_policy_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "group_policy_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "requirements"
+            }
+          ]
           select: {
             "$action": "requirements"
             exist: [

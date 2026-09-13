@@ -39,6 +39,8 @@ class AssociatedPersonLoadMatch
 class AssociatedPersonListMatch
 {
     public string $employee_id;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** Request payload for AssociatedPerson#create. */
@@ -98,6 +100,8 @@ class AssociatedPersonEligibilityResponsePagedList
 class AssociatedPersonEligibilityResponsePagedListListMatch
 {
     public string $dependents_management_intent_id;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** ContributionReport entity data model. */
@@ -123,15 +127,13 @@ class ContributionReportLoadMatch
 /** Request payload for ContributionReport#list. */
 class ContributionReportListMatch
 {
-    public ?string $created_at = null;
     public ?string $employer_id = null;
-    public mixed $external_customer_id = null;
-    public mixed $finalized_at = null;
-    public ?string $id = null;
-    public ?string $last_updated_at = null;
-    public ?string $object = null;
-    public mixed $period = null;
-    public mixed $status = null;
+    public ?string $external_customer_id = null;
+    public ?int $month = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
+    public ?int $year = null;
 }
 
 /** Request payload for ContributionReport#create. */
@@ -195,6 +197,8 @@ class ContributionReportEmployeeBreakdownResponsePagedList
 class ContributionReportEmployeeBreakdownResponsePagedListListMatch
 {
     public string $id;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** CreateHostedSessionToken entity data model. */
@@ -355,26 +359,12 @@ class EmployeeLoadMatch
 /** Request payload for Employee#list. */
 class EmployeeListMatch
 {
-    public mixed $bank_account = null;
-    public ?string $date_of_birth = null;
-    public mixed $earliest_benefits_start_date = null;
-    public ?string $email = null;
     public ?string $employer_id = null;
-    public mixed $external_customer_id = null;
-    public ?string $first_name = null;
-    public mixed $home_address = null;
-    public ?string $id = null;
-    public ?string $last_name = null;
-    public mixed $metadata = null;
-    public ?string $national_tax_id = null;
-    public mixed $nationality = null;
-    public ?string $object = null;
-    public mixed $offboard_on = null;
-    public ?string $phone_number = null;
-    public ?string $platform_id = null;
-    public mixed $sex_at_birth = null;
-    public ?string $start_on = null;
-    public mixed $status = null;
+    public ?string $external_customer_id = null;
+    public ?string $filter = null;
+    public ?string $metadata_id = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** Request payload for Employee#create. */
@@ -464,6 +454,8 @@ class EmployeeHealthInsuranceOfferResponsePagedList
 class EmployeeHealthInsuranceOfferResponsePagedListListMatch
 {
     public string $employee_id;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** EmployeeHealthInsurancePolicy entity data model. */
@@ -519,6 +511,9 @@ class EmployeeHealthInsurancePolicyResponsePagedList
 class EmployeeHealthInsurancePolicyResponsePagedListListMatch
 {
     public string $employee_id;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** Employer entity data model. */
@@ -546,17 +541,9 @@ class EmployerLoadMatch
 /** Request payload for Employer#list. */
 class EmployerListMatch
 {
-    public mixed $contact = null;
-    public mixed $earliest_benefits_start_date = null;
-    public ?string $id = null;
-    public mixed $legal_address = null;
-    public ?string $legal_name = null;
-    public mixed $metadata = null;
-    public ?string $object = null;
-    public mixed $offboard_on = null;
-    public ?string $platform_id = null;
-    public mixed $registration_number = null;
-    public mixed $status = null;
+    public ?string $filter = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** Request payload for Employer#create. */
@@ -636,6 +623,9 @@ class EmployerHealthInsurancePolicyResponsePagedList
 class EmployerHealthInsurancePolicyResponsePagedListListMatch
 {
     public string $employer_id;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** EmployerHealthInsuranceQuote entity data model. */
@@ -673,6 +663,9 @@ class EmployerHealthInsuranceQuoteResponsePagedList
 class EmployerHealthInsuranceQuoteResponsePagedListListMatch
 {
     public string $employer_id;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** EnrolmentIntent entity data model. */
@@ -701,18 +694,11 @@ class EnrolmentIntentLoadMatch
 /** Request payload for EnrolmentIntent#list. */
 class EnrolmentIntentListMatch
 {
-    public mixed $action_required = null;
-    public ?array $disclosures = null;
     public ?string $employee_id = null;
-    public ?bool $force_confirmation = null;
     public ?string $group_id = null;
-    public ?string $id = null;
-    public mixed $ineligibility_reason = null;
-    public ?string $object = null;
-    public mixed $pending_confirmation = null;
-    public mixed $policy_configuration = null;
-    public ?array $policy_enrolments = null;
-    public mixed $status = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** Request payload for EnrolmentIntent#create. */
@@ -764,6 +750,10 @@ class EnrolmentIntentRequirementResponsePagedList
 class EnrolmentIntentRequirementResponsePagedListListMatch
 {
     public string $id;
+    public ?string $object_id = null;
+    public mixed $object_type = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** Event entity data model. */
@@ -789,15 +779,11 @@ class EventLoadMatch
 /** Request payload for Event#list. */
 class EventListMatch
 {
-    public ?string $api_version = null;
-    public ?string $created = null;
-    public mixed $data = null;
-    public ?string $id = null;
-    public mixed $options = null;
-    public mixed $parent = null;
-    public ?string $platform_id = null;
-    public mixed $root = null;
-    public ?string $type = null;
+    public ?string $created_after = null;
+    public mixed $order_direction = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public mixed $version = null;
 }
 
 /** Group entity data model. */
@@ -825,17 +811,10 @@ class GroupLoadMatch
 /** Request payload for Group#list. */
 class GroupListMatch
 {
-    public mixed $description = null;
     public ?string $employer_id = null;
-    public mixed $enrolment_type = null;
-    public ?array $group_policy_ids = null;
-    public ?array $group_policy_intent_ids = null;
-    public ?array $group_quote_intent_ids = null;
-    public mixed $group_type = null;
-    public ?string $id = null;
-    public ?string $name = null;
-    public ?string $object = null;
-    public mixed $status = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** Request payload for Group#create. */
@@ -919,6 +898,9 @@ class GroupEmployeeResponsePagedList
 class GroupEmployeeResponsePagedListListMatch
 {
     public string $id;
+    public ?string $employee_id = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** GroupPolicy entity data model. */
@@ -948,19 +930,11 @@ class GroupPolicyLoadMatch
 /** Request payload for GroupPolicy#list. */
 class GroupPolicyListMatch
 {
-    public mixed $cancellation_date = null;
-    public ?array $disclosures = null;
     public ?string $employer_id = null;
-    public mixed $end_date = null;
     public ?string $group_id = null;
-    public mixed $health_insurance = null;
-    public ?string $id = null;
-    public ?string $object = null;
-    public mixed $plan = null;
-    public mixed $provider = null;
-    public ?string $start_date = null;
-    public mixed $status = null;
-    public mixed $type = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** GroupPolicyIntent entity data model. */
@@ -987,16 +961,11 @@ class GroupPolicyIntentLoadMatch
 /** Request payload for GroupPolicyIntent#list. */
 class GroupPolicyIntentListMatch
 {
-    public mixed $action_required = null;
-    public mixed $cost_sharing = null;
-    public ?array $disclosures = null;
-    public mixed $due_date = null;
     public ?string $group_id = null;
-    public ?string $id = null;
-    public ?string $object = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
     public ?string $plan_id = null;
-    public ?string $quote_intent_id = null;
-    public mixed $status = null;
+    public ?string $status = null;
 }
 
 /** Request payload for GroupPolicyIntent#create. */
@@ -1029,6 +998,10 @@ class GroupPolicyIntentRequirementResponsePagedList
 class GroupPolicyIntentRequirementResponsePagedListListMatch
 {
     public string $id;
+    public ?string $object_id = null;
+    public mixed $object_type = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** GroupQuote entity data model. */
@@ -1071,16 +1044,11 @@ class GroupQuoteIntentLoadMatch
 /** Request payload for GroupQuoteIntent#list. */
 class GroupQuoteIntentListMatch
 {
-    public mixed $action_required = null;
-    public ?array $consent_links = null;
-    public mixed $cost_sharing = null;
-    public ?array $disclosures = null;
-    public mixed $expected_start_date = null;
     public ?string $group_id = null;
-    public ?string $id = null;
-    public ?string $object = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
     public ?string $plan_id = null;
-    public mixed $status = null;
+    public ?string $status = null;
 }
 
 /** Request payload for GroupQuoteIntent#create. */
@@ -1113,6 +1081,10 @@ class GroupQuoteIntentRequirementResponsePagedList
 class GroupQuoteIntentRequirementResponsePagedListListMatch
 {
     public string $id;
+    public ?string $object_id = null;
+    public mixed $object_type = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** Plan entity data model. */
@@ -1142,29 +1114,23 @@ class Plan
 class PlanLoadMatch
 {
     public string $id;
+    public ?string $group_id = null;
+    public ?string $start_date = null;
 }
 
 /** Request payload for Plan#list. */
 class PlanListMatch
 {
-    public ?string $available_from = null;
-    public mixed $available_to = null;
+    public ?string $available_on = null;
     public mixed $country = null;
-    public mixed $coverage_options = null;
-    public ?string $description = null;
-    public ?array $disclosures = null;
-    public ?array $documents = null;
-    public mixed $eligible_count = null;
-    public ?array $employee_eligibility_criteria = null;
-    public ?array $employer_eligibility_criteria = null;
-    public mixed $health_insurance = null;
-    public ?string $id = null;
-    public mixed $ineligible_count = null;
-    public ?string $name = null;
-    public ?string $object = null;
-    public mixed $provider = null;
-    public mixed $total_count = null;
-    public mixed $type = null;
+    public ?string $group_id = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $provider_id = null;
+    public mixed $sort_by = null;
+    public mixed $sort_dir = null;
+    public ?string $start_date = null;
+    public ?string $type = null;
 }
 
 /** Policy entity data model. */
@@ -1196,21 +1162,12 @@ class PolicyLoadMatch
 /** Request payload for Policy#list. */
 class PolicyListMatch
 {
-    public mixed $bundling_type = null;
-    public mixed $cancellation_date = null;
-    public ?array $disclosures = null;
     public ?string $employee_id = null;
-    public mixed $end_date = null;
     public ?string $group_id = null;
     public ?string $group_policy_id = null;
-    public mixed $health_insurance = null;
-    public ?string $id = null;
-    public ?string $object = null;
-    public mixed $plan = null;
-    public mixed $provider = null;
-    public ?string $start_date = null;
-    public mixed $status = null;
-    public mixed $type = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** PolicyAmendmentIntent entity data model. */
@@ -1239,6 +1196,9 @@ class PolicyAmendmentIntentLoadMatch
 class PolicyAmendmentIntentListMatch
 {
     public string $id;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** Request payload for PolicyAmendmentIntent#create. */
@@ -1280,16 +1240,11 @@ class PolicyImportIntentLoadMatch
 /** Request payload for PolicyImportIntent#list. */
 class PolicyImportIntentListMatch
 {
-    public ?array $associated_persons = null;
     public ?string $employee_id = null;
     public ?string $group_id = null;
-    public ?string $id = null;
-    public ?string $member_number = null;
-    public ?string $object = null;
-    public mixed $policy_end_date = null;
-    public ?string $policy_start_date = null;
-    public ?string $provider_policy_number = null;
-    public mixed $status = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
+    public ?string $status = null;
 }
 
 /** Request payload for PolicyImportIntent#create. */
@@ -1331,16 +1286,9 @@ class ProviderLoadMatch
 /** Request payload for Provider#list. */
 class ProviderListMatch
 {
-    public ?string $description = null;
-    public mixed $employer_platform_url = null;
-    public ?string $id = null;
-    public mixed $kota_hub_url = null;
-    public ?string $logo_url = null;
-    public ?string $name = null;
-    public ?string $object = null;
-    public ?string $support_phone = null;
-    public ?array $supported_countries = null;
-    public ?string $website_url = null;
+    public mixed $country = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 
 /** Replay entity data model. */
@@ -1386,10 +1334,7 @@ class WebhookEndpointResponsePagedList
 /** Request payload for WebhookEndpointResponsePagedList#list. */
 class WebhookEndpointResponsePagedListListMatch
 {
-    public ?string $created_at = null;
-    public ?string $endpoint_url = null;
-    public ?string $id = null;
-    public ?string $object = null;
-    public ?array $subscribed_events = null;
+    public ?int $page = null;
+    public ?int $page_size = null;
 }
 

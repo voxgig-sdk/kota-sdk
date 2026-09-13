@@ -13,6 +13,7 @@ main: kit: entity: eligibility_check: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type."
       type: "`$STRING`"
@@ -66,10 +67,16 @@ main: kit: entity: eligibility_check: {
           }
           method: "POST"
           orig: "/groups/{group_id}/eligibility_check"
-          parts: [
-            "groups"
-            "{group_id}"
-            "eligibility_check"
+          segments: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "group_id"
+            }
+            {
+              lit: "eligibility_check"
+            }
           ]
           select: {
             exist: [

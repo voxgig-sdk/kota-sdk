@@ -6,6 +6,7 @@ main: kit: entity: webhook_endpoint_response_paged_list: {
 
   fields: [
     {
+      format: "date-time"
       name: "created_at"
       req: true
       short: "The date and time the endpoint was created"
@@ -25,6 +26,7 @@ main: kit: entity: webhook_endpoint_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -77,9 +79,13 @@ main: kit: entity: webhook_endpoint_response_paged_list: {
           }
           method: "GET"
           orig: "/webhooks/endpoints"
-          parts: [
-            "webhooks"
-            "endpoints"
+          segments: [
+            {
+              lit: "webhooks"
+            }
+            {
+              lit: "endpoints"
+            }
           ]
           select: {
             exist: [

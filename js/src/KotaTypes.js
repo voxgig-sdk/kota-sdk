@@ -30,6 +30,8 @@
 /**
  * @typedef {Object} AssociatedPersonListMatch
  * @property {string} employee_id
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -84,6 +86,8 @@
 /**
  * @typedef {Object} AssociatedPersonEligibilityResponsePagedListListMatch
  * @property {string} dependents_management_intent_id
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -106,15 +110,13 @@
 
 /**
  * @typedef {Object} ContributionReportListMatch
- * @property {string} [created_at]
  * @property {string} [employer_id]
- * @property {null|string} [external_customer_id]
- * @property {null|string} [finalized_at]
- * @property {string} [id]
- * @property {string} [last_updated_at]
- * @property {string} [object]
- * @property {*} [period]
- * @property {*} [status]
+ * @property {string} [external_customer_id]
+ * @property {number} [month]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
+ * @property {number} [year]
  */
 
 /**
@@ -173,6 +175,8 @@
 /**
  * @typedef {Object} ContributionReportEmployeeBreakdownResponsePagedListListMatch
  * @property {string} id
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -318,26 +322,12 @@
 
 /**
  * @typedef {Object} EmployeeListMatch
- * @property {null} [bank_account]
- * @property {string} [date_of_birth]
- * @property {null|string} [earliest_benefits_start_date]
- * @property {string} [email]
  * @property {string} [employer_id]
- * @property {null|string} [external_customer_id]
- * @property {string} [first_name]
- * @property {null} [home_address]
- * @property {string} [id]
- * @property {string} [last_name]
- * @property {null|Object} [metadata]
- * @property {string} [national_tax_id]
- * @property {null} [nationality]
- * @property {string} [object]
- * @property {null|string} [offboard_on]
- * @property {string} [phone_number]
- * @property {string} [platform_id]
- * @property {*} [sex_at_birth]
- * @property {string} [start_on]
- * @property {*} [status]
+ * @property {string} [external_customer_id]
+ * @property {string} [filter]
+ * @property {string} [metadata_id]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -421,6 +411,8 @@
 /**
  * @typedef {Object} EmployeeHealthInsuranceOfferResponsePagedListListMatch
  * @property {string} employee_id
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -472,6 +464,9 @@
 /**
  * @typedef {Object} EmployeeHealthInsurancePolicyResponsePagedListListMatch
  * @property {string} employee_id
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -496,17 +491,9 @@
 
 /**
  * @typedef {Object} EmployerListMatch
- * @property {*} [contact]
- * @property {null|string} [earliest_benefits_start_date]
- * @property {string} [id]
- * @property {*} [legal_address]
- * @property {string} [legal_name]
- * @property {null|Object} [metadata]
- * @property {string} [object]
- * @property {null|string} [offboard_on]
- * @property {string} [platform_id]
- * @property {null|string} [registration_number]
- * @property {*} [status]
+ * @property {string} [filter]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -580,6 +567,9 @@
 /**
  * @typedef {Object} EmployerHealthInsurancePolicyResponsePagedListListMatch
  * @property {string} employer_id
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -613,6 +603,9 @@
 /**
  * @typedef {Object} EmployerHealthInsuranceQuoteResponsePagedListListMatch
  * @property {string} employer_id
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -638,18 +631,11 @@
 
 /**
  * @typedef {Object} EnrolmentIntentListMatch
- * @property {null} [action_required]
- * @property {Array} [disclosures]
  * @property {string} [employee_id]
- * @property {boolean} [force_confirmation]
  * @property {string} [group_id]
- * @property {string} [id]
- * @property {null} [ineligibility_reason]
- * @property {string} [object]
- * @property {null} [pending_confirmation]
- * @property {null} [policy_configuration]
- * @property {Array} [policy_enrolments]
- * @property {*} [status]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -697,6 +683,10 @@
 /**
  * @typedef {Object} EnrolmentIntentRequirementResponsePagedListListMatch
  * @property {string} id
+ * @property {string} [object_id]
+ * @property {*} [object_type]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -719,15 +709,11 @@
 
 /**
  * @typedef {Object} EventListMatch
- * @property {string} [api_version]
- * @property {string} [created]
- * @property {null} [data]
- * @property {string} [id]
- * @property {null} [options]
- * @property {null} [parent]
- * @property {string} [platform_id]
- * @property {*} [root]
- * @property {string} [type]
+ * @property {string} [created_after]
+ * @property {*} [order_direction]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {*} [version]
  */
 
 /**
@@ -752,17 +738,10 @@
 
 /**
  * @typedef {Object} GroupListMatch
- * @property {null|string} [description]
  * @property {string} [employer_id]
- * @property {*} [enrolment_type]
- * @property {Array} [group_policy_ids]
- * @property {Array} [group_policy_intent_ids]
- * @property {Array} [group_quote_intent_ids]
- * @property {*} [group_type]
- * @property {string} [id]
- * @property {string} [name]
- * @property {string} [object]
- * @property {*} [status]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -840,6 +819,9 @@
 /**
  * @typedef {Object} GroupEmployeeResponsePagedListListMatch
  * @property {string} id
+ * @property {string} [employee_id]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -866,19 +848,11 @@
 
 /**
  * @typedef {Object} GroupPolicyListMatch
- * @property {null|string} [cancellation_date]
- * @property {Array} [disclosures]
  * @property {string} [employer_id]
- * @property {null|string} [end_date]
  * @property {string} [group_id]
- * @property {null} [health_insurance]
- * @property {string} [id]
- * @property {string} [object]
- * @property {*} [plan]
- * @property {*} [provider]
- * @property {string} [start_date]
- * @property {*} [status]
- * @property {*} [type]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -902,16 +876,11 @@
 
 /**
  * @typedef {Object} GroupPolicyIntentListMatch
- * @property {null} [action_required]
- * @property {null} [cost_sharing]
- * @property {Array} [disclosures]
- * @property {null|string} [due_date]
  * @property {string} [group_id]
- * @property {string} [id]
- * @property {string} [object]
+ * @property {number} [page]
+ * @property {number} [page_size]
  * @property {string} [plan_id]
- * @property {string} [quote_intent_id]
- * @property {*} [status]
+ * @property {string} [status]
  */
 
 /**
@@ -941,6 +910,10 @@
 /**
  * @typedef {Object} GroupPolicyIntentRequirementResponsePagedListListMatch
  * @property {string} id
+ * @property {string} [object_id]
+ * @property {*} [object_type]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -978,16 +951,11 @@
 
 /**
  * @typedef {Object} GroupQuoteIntentListMatch
- * @property {null} [action_required]
- * @property {Array} [consent_links]
- * @property {null} [cost_sharing]
- * @property {Array} [disclosures]
- * @property {null|string} [expected_start_date]
  * @property {string} [group_id]
- * @property {string} [id]
- * @property {string} [object]
+ * @property {number} [page]
+ * @property {number} [page_size]
  * @property {string} [plan_id]
- * @property {*} [status]
+ * @property {string} [status]
  */
 
 /**
@@ -1017,6 +985,10 @@
 /**
  * @typedef {Object} GroupQuoteIntentRequirementResponsePagedListListMatch
  * @property {string} id
+ * @property {string} [object_id]
+ * @property {*} [object_type]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -1044,28 +1016,22 @@
 /**
  * @typedef {Object} PlanLoadMatch
  * @property {string} id
+ * @property {string} [group_id]
+ * @property {string} [start_date]
  */
 
 /**
  * @typedef {Object} PlanListMatch
- * @property {string} [available_from]
- * @property {null|string} [available_to]
+ * @property {string} [available_on]
  * @property {*} [country]
- * @property {null|Array} [coverage_options]
- * @property {string} [description]
- * @property {Array} [disclosures]
- * @property {Array} [documents]
- * @property {null|number} [eligible_count]
- * @property {Array} [employee_eligibility_criteria]
- * @property {Array} [employer_eligibility_criteria]
- * @property {null} [health_insurance]
- * @property {string} [id]
- * @property {null|number} [ineligible_count]
- * @property {string} [name]
- * @property {string} [object]
- * @property {*} [provider]
- * @property {null|number} [total_count]
- * @property {*} [type]
+ * @property {string} [group_id]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [provider_id]
+ * @property {*} [sort_by]
+ * @property {*} [sort_dir]
+ * @property {string} [start_date]
+ * @property {string} [type]
  */
 
 /**
@@ -1094,21 +1060,12 @@
 
 /**
  * @typedef {Object} PolicyListMatch
- * @property {*} [bundling_type]
- * @property {null|string} [cancellation_date]
- * @property {Array} [disclosures]
  * @property {string} [employee_id]
- * @property {null|string} [end_date]
  * @property {string} [group_id]
  * @property {string} [group_policy_id]
- * @property {null} [health_insurance]
- * @property {string} [id]
- * @property {string} [object]
- * @property {*} [plan]
- * @property {*} [provider]
- * @property {string} [start_date]
- * @property {*} [status]
- * @property {*} [type]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -1134,6 +1091,9 @@
 /**
  * @typedef {Object} PolicyAmendmentIntentListMatch
  * @property {string} id
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -1171,16 +1131,11 @@
 
 /**
  * @typedef {Object} PolicyImportIntentListMatch
- * @property {Array} [associated_persons]
  * @property {string} [employee_id]
  * @property {string} [group_id]
- * @property {string} [id]
- * @property {string} [member_number]
- * @property {string} [object]
- * @property {null|string} [policy_end_date]
- * @property {string} [policy_start_date]
- * @property {string} [provider_policy_number]
- * @property {*} [status]
+ * @property {number} [page]
+ * @property {number} [page_size]
+ * @property {string} [status]
  */
 
 /**
@@ -1218,16 +1173,9 @@
 
 /**
  * @typedef {Object} ProviderListMatch
- * @property {string} [description]
- * @property {null|string} [employer_platform_url]
- * @property {string} [id]
- * @property {null|string} [kota_hub_url]
- * @property {string} [logo_url]
- * @property {string} [name]
- * @property {string} [object]
- * @property {string} [support_phone]
- * @property {Array} [supported_countries]
- * @property {string} [website_url]
+ * @property {*} [country]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 
 /**
@@ -1267,10 +1215,7 @@
 
 /**
  * @typedef {Object} WebhookEndpointResponsePagedListListMatch
- * @property {string} [created_at]
- * @property {string} [endpoint_url]
- * @property {string} [id]
- * @property {string} [object]
- * @property {Array} [subscribed_events]
+ * @property {number} [page]
+ * @property {number} [page_size]
  */
 

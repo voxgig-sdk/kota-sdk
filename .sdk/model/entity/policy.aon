@@ -12,6 +12,7 @@ main: kit: entity: policy: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "cancellation_date"
       req: false
       short: "Date the policy was cancelled (if applicable)"
@@ -36,6 +37,7 @@ main: kit: entity: policy: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "end_date"
       req: false
       short: "Policy end date (inclusive) in ISO 8601, or null if open-ended"
@@ -73,6 +75,7 @@ main: kit: entity: policy: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type"
       type: "`$STRING`"
@@ -90,6 +93,7 @@ main: kit: entity: policy: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "start_date"
       req: true
       short: "Policy start (effective) date in ISO 8601 (YYYY-MM-DD)"
@@ -180,8 +184,10 @@ main: kit: entity: policy: {
           }
           method: "GET"
           orig: "/policies"
-          parts: [
-            "policies"
+          segments: [
+            {
+              lit: "policies"
+            }
           ]
           select: {
             exist: [
@@ -228,15 +234,19 @@ main: kit: entity: policy: {
           }
           method: "GET"
           orig: "/policies/{policy_id}"
-          parts: [
-            "policies"
-            "{id}"
-          ]
           rename: {
             param: {
               policy_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

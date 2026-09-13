@@ -66,10 +66,16 @@ main: kit: entity: group_quote: {
           }
           method: "GET"
           orig: "/group_quote_intents/{group_quote_intent_id}/quote"
-          parts: [
-            "group_quote_intents"
-            "{group_quote_intent_id}"
-            "quote"
+          segments: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "group_quote_intent_id"
+            }
+            {
+              lit: "quote"
+            }
           ]
           select: {
             exist: [

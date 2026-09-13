@@ -6,6 +6,7 @@ main: kit: entity: create_hosted_session_token: {
 
   fields: [
     {
+      format: "date-time"
       name: "expiry"
       req: true
       type: "`$STRING`"
@@ -25,9 +26,13 @@ main: kit: entity: create_hosted_session_token: {
         {
           method: "POST"
           orig: "/hosted/sessions"
-          parts: [
-            "hosted"
-            "sessions"
+          segments: [
+            {
+              lit: "hosted"
+            }
+            {
+              lit: "sessions"
+            }
           ]
           transform: {
             req: "`reqdata`"

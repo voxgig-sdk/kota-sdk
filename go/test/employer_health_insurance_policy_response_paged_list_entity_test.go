@@ -98,7 +98,7 @@ func TestEmployerHealthInsurancePolicyResponsePagedListEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		employerHealthInsurancePolicyResponsePagedListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.employer_health_insurance_policy_response_paged_list", setup.data)))
+		employerHealthInsurancePolicyResponsePagedListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.employer_health_insurance_policy_response_paged_list")))
 		var employerHealthInsurancePolicyResponsePagedListRef01Data map[string]any
 		if len(employerHealthInsurancePolicyResponsePagedListRef01DataRaw) > 0 {
 			employerHealthInsurancePolicyResponsePagedListRef01Data = core.ToMapAny(employerHealthInsurancePolicyResponsePagedListRef01DataRaw[0][1])
@@ -149,7 +149,7 @@ func employer_health_insurance_policy_response_paged_listBasicSetup(extra map[st
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"employer_health_insurance_policy_response_paged_list01", "employer_health_insurance_policy_response_paged_list02", "employer_health_insurance_policy_response_paged_list03", "employer01", "employer02", "employer03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -169,7 +169,7 @@ func employer_health_insurance_policy_response_paged_listBasicSetup(extra map[st
 		"KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST_ENTID": idmap,
 		"KOTA_TEST_LIVE":      "FALSE",
 		"KOTA_TEST_EXPLAIN":   "FALSE",
-		"KOTA_APIKEY":         "NONE",
+		"KOTA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_POLICY_RESPONSE_PAGED_LIST_ENTID"])
@@ -178,11 +178,23 @@ func employer_health_insurance_policy_response_paged_listBasicSetup(extra map[st
 	}
 
 	if env["KOTA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["KOTA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewKotaSDK(core.ToMapAny(mergedOpts))
 	}

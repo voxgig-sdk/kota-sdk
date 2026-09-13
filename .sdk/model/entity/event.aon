@@ -7,10 +7,12 @@ main: kit: entity: event: {
   fields: [
     {
       name: "api_version"
+      readOnly: true
       req: false
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created"
       req: true
       type: "`$STRING`"
@@ -27,11 +29,13 @@ main: kit: entity: event: {
     }
     {
       name: "options"
+      readOnly: true
       req: false
       type: "`$NULL`"
     }
     {
       name: "parent"
+      readOnly: true
       req: false
       type: "`$NULL`"
     }
@@ -42,6 +46,7 @@ main: kit: entity: event: {
     }
     {
       name: "root"
+      readOnly: true
       req: false
       type: "`$ANY`"
     }
@@ -113,8 +118,10 @@ main: kit: entity: event: {
           }
           method: "GET"
           orig: "/events"
-          parts: [
-            "events"
+          segments: [
+            {
+              lit: "events"
+            }
           ]
           select: {
             exist: [
@@ -160,15 +167,19 @@ main: kit: entity: event: {
           }
           method: "GET"
           orig: "/events/{event_id}"
-          parts: [
-            "events"
-            "{id}"
-          ]
           rename: {
             param: {
               event_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "events"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

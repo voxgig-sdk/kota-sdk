@@ -11,6 +11,7 @@ main: kit: entity: employer: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "earliest_benefits_start_date"
       req: false
       type: [
@@ -50,11 +51,13 @@ main: kit: entity: employer: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "offboard_on"
       req: false
       type: [
@@ -129,16 +132,22 @@ main: kit: entity: employer: {
           }
           method: "POST"
           orig: "/employers/{employer_id}/offboard"
-          parts: [
-            "employers"
-            "{id}"
-            "offboard"
-          ]
           rename: {
             param: {
               employer_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "offboard"
+            }
+          ]
           select: {
             "$action": "offboard"
             exist: [
@@ -173,8 +182,10 @@ main: kit: entity: employer: {
           }
           method: "POST"
           orig: "/employers"
-          parts: [
-            "employers"
+          segments: [
+            {
+              lit: "employers"
+            }
           ]
           select: {
             exist: [
@@ -229,8 +240,10 @@ main: kit: entity: employer: {
           }
           method: "GET"
           orig: "/employers"
-          parts: [
-            "employers"
+          segments: [
+            {
+              lit: "employers"
+            }
           ]
           select: {
             exist: [
@@ -274,15 +287,19 @@ main: kit: entity: employer: {
           }
           method: "GET"
           orig: "/employers/{employer_id}"
-          parts: [
-            "employers"
-            "{id}"
-          ]
           rename: {
             param: {
               employer_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -323,15 +340,19 @@ main: kit: entity: employer: {
           }
           method: "PUT"
           orig: "/employers/{employer_id}"
-          parts: [
-            "employers"
-            "{id}"
-          ]
           rename: {
             param: {
               employer_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

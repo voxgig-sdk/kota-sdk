@@ -100,6 +100,7 @@ class KotaConfig
         'associated_person' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'date_of_birth',
               'req' => true,
               'short' => 'Date of birth of the associated person',
@@ -142,6 +143,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -174,6 +176,10 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'associated_person',
           'op' => [
             'create' => [
@@ -204,10 +210,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/employees/{employee_id}/associated_persons',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'associated_persons',
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'associated_persons',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -218,6 +230,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'associated_persons',
                   ],
                 ],
               ],
@@ -264,10 +281,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}/associated_persons',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'associated_persons',
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'associated_persons',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -280,6 +303,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'associated_persons',
                   ],
                 ],
               ],
@@ -320,15 +348,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}/associated_persons/{associated_person_id}',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'associated_persons',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'associated_person_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'associated_persons',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -341,6 +377,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'associated_persons',
+                    '{id}',
                   ],
                 ],
               ],
@@ -381,15 +423,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/employees/{employee_id}/associated_persons/{associated_person_id}',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'associated_persons',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'associated_person_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'associated_persons',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -402,6 +452,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'associated_persons',
+                    '{id}',
                   ],
                 ],
               ],
@@ -442,15 +498,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/employees/{employee_id}/associated_persons/{associated_person_id}',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'associated_persons',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'associated_person_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'associated_persons',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -463,6 +527,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'associated_persons',
+                    '{id}',
                   ],
                 ],
               ],
@@ -485,6 +555,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'date_of_birth',
               'req' => true,
               'short' => 'Date of birth of the associated person.',
@@ -521,6 +592,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -581,10 +653,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility',
-                  'parts' => [
-                    'dependents_management_intents',
-                    '{dependents_management_intent_id}',
-                    'associated_persons_eligibility',
+                  'segments' => [
+                    [
+                      'lit' => 'dependents_management_intents',
+                    ],
+                    [
+                      'var' => 'dependents_management_intent_id',
+                    ],
+                    [
+                      'lit' => 'associated_persons_eligibility',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -597,6 +675,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'dependents_management_intents',
+                    '{dependents_management_intent_id}',
+                    'associated_persons_eligibility',
                   ],
                 ],
               ],
@@ -613,6 +696,7 @@ class KotaConfig
         'contribution_report' => [
           'fields' => [
             [
+              'format' => 'date-time',
               'name' => 'created_at',
               'req' => true,
               'short' => 'Date and time the report was created',
@@ -636,6 +720,7 @@ class KotaConfig
               ],
             ],
             [
+              'format' => 'date-time',
               'name' => 'finalized_at',
               'short' => 'Date and time the report was finalized, if applicable',
               'type' => [
@@ -653,6 +738,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'last_updated_at',
               'req' => true,
               'short' => 'Date and time of the last update to the report',
@@ -660,6 +746,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -675,6 +762,10 @@ class KotaConfig
               'short' => 'Current status of the contribution report',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'contribution_report',
           'op' => [
@@ -706,14 +797,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/contribution_reports/{contribution_report_id}/finalize',
-                  'parts' => [
-                    'contribution_reports',
-                    '{id}',
-                    'finalize',
-                  ],
                   'rename' => [
                     'param' => [
                       'contribution_report_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'contribution_reports',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'finalize',
                     ],
                   ],
                   'select' => [
@@ -726,6 +823,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'contribution_reports',
+                    '{id}',
+                    'finalize',
                   ],
                 ],
               ],
@@ -793,8 +895,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/contribution_reports',
-                  'parts' => [
-                    'contribution_reports',
+                  'segments' => [
+                    [
+                      'lit' => 'contribution_reports',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -811,6 +915,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'contribution_reports',
                   ],
                 ],
               ],
@@ -843,13 +950,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/contribution_reports/{contribution_report_id}',
-                  'parts' => [
-                    'contribution_reports',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'contribution_report_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'contribution_reports',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -861,6 +972,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'contribution_reports',
+                    '{id}',
                   ],
                 ],
               ],
@@ -879,6 +994,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'created_at',
               'req' => true,
               'short' => 'Date and time the breakdown was created',
@@ -914,6 +1030,7 @@ class KotaConfig
               ],
             ],
             [
+              'format' => 'date-time',
               'name' => 'finalized_at',
               'short' => 'Date and time the breakdown was finalized, if applicable',
               'type' => [
@@ -935,6 +1052,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'last_updated_at',
               'req' => true,
               'short' => 'Date and time of the last update to the breakdown',
@@ -942,6 +1060,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -957,6 +1076,10 @@ class KotaConfig
               'short' => 'Current status of the breakdown',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'contribution_report_employee_breakdown',
           'op' => [
@@ -996,15 +1119,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}',
-                  'parts' => [
-                    'contribution_reports',
-                    '{contribution_report_id}',
-                    'employee_breakdowns',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'contribution_reports',
+                    ],
+                    [
+                      'var' => 'contribution_report_id',
+                    ],
+                    [
+                      'lit' => 'employee_breakdowns',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -1017,6 +1148,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'contribution_reports',
+                    '{contribution_report_id}',
+                    'employee_breakdowns',
+                    '{id}',
                   ],
                 ],
               ],
@@ -1039,6 +1176,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'created_at',
               'req' => true,
               'short' => 'Date and time the breakdown was created',
@@ -1074,6 +1212,7 @@ class KotaConfig
               ],
             ],
             [
+              'format' => 'date-time',
               'name' => 'finalized_at',
               'short' => 'Date and time the breakdown was finalized, if applicable',
               'type' => [
@@ -1095,6 +1234,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'last_updated_at',
               'req' => true,
               'short' => 'Date and time of the last update to the breakdown',
@@ -1102,6 +1242,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -1117,6 +1258,10 @@ class KotaConfig
               'short' => 'Current status of the breakdown',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'contribution_report_employee_breakdown_response_paged_list',
           'op' => [
@@ -1162,14 +1307,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/contribution_reports/{contribution_report_id}/employee_breakdowns',
-                  'parts' => [
-                    'contribution_reports',
-                    '{id}',
-                    'employee_breakdowns',
-                  ],
                   'rename' => [
                     'param' => [
                       'contribution_report_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'contribution_reports',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'employee_breakdowns',
                     ],
                   ],
                   'select' => [
@@ -1185,6 +1336,11 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
                   ],
+                  'parts' => [
+                    'contribution_reports',
+                    '{id}',
+                    'employee_breakdowns',
+                  ],
                 ],
               ],
             ],
@@ -1196,6 +1352,7 @@ class KotaConfig
         'create_hosted_session_token' => [
           'fields' => [
             [
+              'format' => 'date-time',
               'name' => 'expiry',
               'req' => true,
               'type' => '`$STRING`',
@@ -1217,14 +1374,22 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/hosted/sessions',
-                  'parts' => [
-                    'hosted',
-                    'sessions',
+                  'segments' => [
+                    [
+                      'lit' => 'hosted',
+                    ],
+                    [
+                      'lit' => 'sessions',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'hosted',
+                    'sessions',
                   ],
                 ],
               ],
@@ -1237,6 +1402,7 @@ class KotaConfig
         'create_session_token' => [
           'fields' => [
             [
+              'format' => 'date-time',
               'name' => 'expiry',
               'req' => true,
               'type' => '`$STRING`',
@@ -1258,14 +1424,22 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/embed/sessions',
-                  'parts' => [
-                    'embed',
-                    'sessions',
+                  'segments' => [
+                    [
+                      'lit' => 'embed',
+                    ],
+                    [
+                      'lit' => 'sessions',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'embed',
+                    'sessions',
                   ],
                 ],
               ],
@@ -1313,6 +1487,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier.',
               'type' => '`$STRING`',
             ],
@@ -1340,6 +1515,10 @@ class KotaConfig
               'short' => 'Current status of the dependents management intent.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'dependent',
           'op' => [
@@ -1377,10 +1556,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/dependents_management_intents/{dependents_management_intent_id}/dependents',
-                  'parts' => [
-                    'dependents_management_intents',
-                    '{dependents_management_intent_id}',
-                    'dependents',
+                  'segments' => [
+                    [
+                      'lit' => 'dependents_management_intents',
+                    ],
+                    [
+                      'var' => 'dependents_management_intent_id',
+                    ],
+                    [
+                      'lit' => 'dependents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -1392,6 +1577,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'dependents_management_intents',
+                    '{dependents_management_intent_id}',
+                    'dependents',
                   ],
                 ],
               ],
@@ -1432,15 +1622,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}',
-                  'parts' => [
-                    'dependents_management_intents',
-                    '{dependents_management_intent_id}',
-                    'dependents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'associated_person_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'dependents_management_intents',
+                    ],
+                    [
+                      'var' => 'dependents_management_intent_id',
+                    ],
+                    [
+                      'lit' => 'dependents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -1453,6 +1651,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'dependents_management_intents',
+                    '{dependents_management_intent_id}',
+                    'dependents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -1504,6 +1708,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier.',
               'type' => '`$STRING`',
             ],
@@ -1531,6 +1736,10 @@ class KotaConfig
               'short' => 'Current status of the dependents management intent.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'dependents_management_intent',
           'op' => [
@@ -1570,16 +1779,26 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent',
-                  'parts' => [
-                    'policies',
-                    '{policy_id}',
-                    'policy_amendment_intents',
-                    '{policy_amendment_intent_id}',
-                    'create_dependents_management_intent',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'policy_amendment_intent_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'policy_id',
+                    ],
+                    [
+                      'lit' => 'policy_amendment_intents',
+                    ],
+                    [
+                      'var' => 'policy_amendment_intent_id',
+                    ],
+                    [
+                      'lit' => 'create_dependents_management_intent',
                     ],
                   ],
                   'select' => [
@@ -1592,6 +1811,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{policy_id}',
+                    'policy_amendment_intents',
+                    '{policy_amendment_intent_id}',
+                    'create_dependents_management_intent',
                   ],
                 ],
                 [
@@ -1618,10 +1844,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{enrolment_intent_id}',
-                    'create_dependents_management_intent',
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'enrolment_intent_id',
+                    ],
+                    [
+                      'lit' => 'create_dependents_management_intent',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -1632,6 +1864,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{enrolment_intent_id}',
+                    'create_dependents_management_intent',
                   ],
                 ],
                 [
@@ -1658,14 +1895,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/dependents_management_intents/{dependents_management_intent_id}/cancel',
-                  'parts' => [
-                    'dependents_management_intents',
-                    '{id}',
-                    'cancel',
-                  ],
                   'rename' => [
                     'param' => [
                       'dependents_management_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'dependents_management_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'cancel',
                     ],
                   ],
                   'select' => [
@@ -1678,6 +1921,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'dependents_management_intents',
+                    '{id}',
+                    'cancel',
                   ],
                 ],
                 [
@@ -1704,14 +1952,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/dependents_management_intents/{dependents_management_intent_id}/confirm',
-                  'parts' => [
-                    'dependents_management_intents',
-                    '{id}',
-                    'confirm',
-                  ],
                   'rename' => [
                     'param' => [
                       'dependents_management_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'dependents_management_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'confirm',
                     ],
                   ],
                   'select' => [
@@ -1724,6 +1978,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'dependents_management_intents',
+                    '{id}',
+                    'confirm',
                   ],
                 ],
               ],
@@ -1756,13 +2015,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/dependents_management_intents/{dependents_management_intent_id}',
-                  'parts' => [
-                    'dependents_management_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'dependents_management_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'dependents_management_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -1774,6 +2037,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'dependents_management_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -1801,6 +2068,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type.',
               'type' => '`$STRING`',
             ],
@@ -1853,10 +2121,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/groups/{group_id}/eligibility_check',
-                  'parts' => [
-                    'groups',
-                    '{group_id}',
-                    'eligibility_check',
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
+                    [
+                      'var' => 'group_id',
+                    ],
+                    [
+                      'lit' => 'eligibility_check',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -1867,6 +2141,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'groups',
+                    '{group_id}',
+                    'eligibility_check',
                   ],
                 ],
               ],
@@ -1888,12 +2167,14 @@ class KotaConfig
               'type' => '`$NULL`',
             ],
             [
+              'format' => 'date',
               'name' => 'date_of_birth',
               'req' => true,
               'short' => 'Date of birth of the employee',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'earliest_benefits_start_date',
               'short' => 'The earliest date this employee can be enrolled in any benefits.',
               'type' => [
@@ -1972,10 +2253,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'offboard_on',
               'short' => 'Date when the employee was or will be offboarded',
               'type' => [
@@ -2004,6 +2287,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_on',
               'short' => 'Employment start date',
               'type' => '`$STRING`',
@@ -2013,6 +2297,10 @@ class KotaConfig
               'short' => 'Current status of the employee',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employee',
           'op' => [
@@ -2050,14 +2338,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/employees/{employee_id}/offboard',
-                  'parts' => [
-                    'employees',
-                    '{id}',
-                    'offboard',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'offboard',
                     ],
                   ],
                   'select' => [
@@ -2071,6 +2365,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{id}',
+                    'offboard',
                   ],
                 ],
                 [
@@ -2103,15 +2402,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/employees/{employee_id}/offboard/cancel',
-                  'parts' => [
-                    'employees',
-                    '{id}',
-                    'offboard',
-                    'cancel',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'offboard',
+                    ],
+                    [
+                      'lit' => 'cancel',
                     ],
                   ],
                   'select' => [
@@ -2125,6 +2432,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{id}',
+                    'offboard',
+                    'cancel',
                   ],
                 ],
                 [
@@ -2147,8 +2460,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/employees',
-                  'parts' => [
-                    'employees',
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -2159,6 +2474,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
                   ],
                 ],
               ],
@@ -2220,8 +2538,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees',
-                  'parts' => [
-                    'employees',
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -2237,6 +2557,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employees',
                   ],
                 ],
               ],
@@ -2269,13 +2592,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}',
-                  'parts' => [
-                    'employees',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -2287,6 +2614,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{id}',
                   ],
                 ],
               ],
@@ -2319,13 +2650,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/employees/{employee_id}',
-                  'parts' => [
-                    'employees',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -2337,6 +2672,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{id}',
                   ],
                 ],
               ],
@@ -2385,6 +2724,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -2399,6 +2739,10 @@ class KotaConfig
               'short' => 'Current status of offer',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employee_health_insurance_offer',
           'op' => [
@@ -2438,16 +2782,26 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}/health_insurance/offers/{employee_offer_id}',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'health_insurance',
-                    'offers',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_offer_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'offers',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -2460,6 +2814,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'health_insurance',
+                    'offers',
+                    '{id}',
                   ],
                 ],
               ],
@@ -2512,6 +2873,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -2526,6 +2888,10 @@ class KotaConfig
               'short' => 'Current status of offer',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employee_health_insurance_offer_response_paged_list',
           'op' => [
@@ -2571,11 +2937,19 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}/health_insurance/offers',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'health_insurance',
-                    'offers',
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'offers',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -2588,6 +2962,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'health_insurance',
+                    'offers',
                   ],
                 ],
               ],
@@ -2604,6 +2984,7 @@ class KotaConfig
         'employee_health_insurance_policy' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'cancellation_date',
               'short' => 'Policy was cancelled on this date, if cancellation occured',
               'type' => [
@@ -2633,12 +3014,14 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'end_date',
               'req' => true,
               'short' => 'Policy ends on this date',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'enrolled_dependants_count',
               'req' => true,
               'short' => 'Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy.',
@@ -2675,10 +3058,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'opt_out_deadline_date',
               'req' => true,
               'short' => 'Last day to opt out from the policy',
@@ -2702,6 +3087,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_date',
               'req' => true,
               'short' => 'Policy starts on this date',
@@ -2713,6 +3099,10 @@ class KotaConfig
               'short' => 'Current status of policy',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employee_health_insurance_policy',
           'op' => [
@@ -2752,16 +3142,26 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}/health_insurance/policies/{employee_policy_id}',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'health_insurance',
-                    'policies',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employee_policy_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -2774,6 +3174,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'health_insurance',
+                    'policies',
+                    '{id}',
                   ],
                 ],
               ],
@@ -2790,6 +3197,7 @@ class KotaConfig
         'employee_health_insurance_policy_response_paged_list' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'cancellation_date',
               'short' => 'Policy was cancelled on this date, if cancellation occured',
               'type' => [
@@ -2819,12 +3227,14 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'end_date',
               'req' => true,
               'short' => 'Policy ends on this date',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'enrolled_dependants_count',
               'req' => true,
               'short' => 'Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy.',
@@ -2861,10 +3271,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'opt_out_deadline_date',
               'req' => true,
               'short' => 'Last day to opt out from the policy',
@@ -2888,6 +3300,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_date',
               'req' => true,
               'short' => 'Policy starts on this date',
@@ -2899,6 +3312,10 @@ class KotaConfig
               'short' => 'Current status of policy',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employee_health_insurance_policy_response_paged_list',
           'op' => [
@@ -2950,11 +3367,19 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employees/{employee_id}/health_insurance/policies',
-                  'parts' => [
-                    'employees',
-                    '{employee_id}',
-                    'health_insurance',
-                    'policies',
+                  'segments' => [
+                    [
+                      'lit' => 'employees',
+                    ],
+                    [
+                      'var' => 'employee_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'policies',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -2968,6 +3393,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employees',
+                    '{employee_id}',
+                    'health_insurance',
+                    'policies',
                   ],
                 ],
               ],
@@ -2989,6 +3420,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'earliest_benefits_start_date',
               'type' => [
                 '`$ONE`',
@@ -3026,10 +3458,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'offboard_on',
               'type' => [
                 '`$ONE`',
@@ -3057,6 +3491,10 @@ class KotaConfig
               'name' => 'status',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employer',
           'op' => [
@@ -3094,14 +3532,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/employers/{employer_id}/offboard',
-                  'parts' => [
-                    'employers',
-                    '{id}',
-                    'offboard',
-                  ],
                   'rename' => [
                     'param' => [
                       'employer_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'offboard',
                     ],
                   ],
                   'select' => [
@@ -3115,6 +3559,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employers',
+                    '{id}',
+                    'offboard',
                   ],
                 ],
                 [
@@ -3137,8 +3586,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/employers',
-                  'parts' => [
-                    'employers',
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -3149,6 +3600,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employers',
                   ],
                 ],
               ],
@@ -3191,8 +3645,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employers',
-                  'parts' => [
-                    'employers',
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -3205,6 +3661,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employers',
                   ],
                 ],
               ],
@@ -3237,13 +3696,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employers/{employer_id}',
-                  'parts' => [
-                    'employers',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employer_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -3255,6 +3718,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employers',
+                    '{id}',
                   ],
                 ],
               ],
@@ -3287,13 +3754,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/employers/{employer_id}',
-                  'parts' => [
-                    'employers',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employer_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -3306,6 +3777,10 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'employers',
+                    '{id}',
+                  ],
                 ],
               ],
             ],
@@ -3317,6 +3792,7 @@ class KotaConfig
         'employer_health_insurance_policy' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'cancellation_date',
               'short' => 'Policy was cancelled on this date, if cancellation occured',
               'type' => [
@@ -3334,6 +3810,7 @@ class KotaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'employer_cancellation_period_length',
               'req' => true,
               'short' => 'How many days the employer has to cancel the policy since the policy starts',
@@ -3346,6 +3823,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'end_date',
               'req' => true,
               'short' => 'Policy ends on this date',
@@ -3376,6 +3854,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -3386,6 +3865,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_date',
               'req' => true,
               'short' => 'Policy starts on this date',
@@ -3397,6 +3877,10 @@ class KotaConfig
               'short' => 'Current status of policy',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employer_health_insurance_policy',
           'op' => [
@@ -3436,16 +3920,26 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employers/{employer_id}/health_insurance/policies/{employer_policy_id}',
-                  'parts' => [
-                    'employers',
-                    '{employer_id}',
-                    'health_insurance',
-                    'policies',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employer_policy_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'employer_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -3458,6 +3952,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employers',
+                    '{employer_id}',
+                    'health_insurance',
+                    'policies',
+                    '{id}',
                   ],
                 ],
               ],
@@ -3474,6 +3975,7 @@ class KotaConfig
         'employer_health_insurance_policy_response_paged_list' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'cancellation_date',
               'short' => 'Policy was cancelled on this date, if cancellation occured',
               'type' => [
@@ -3491,6 +3993,7 @@ class KotaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'employer_cancellation_period_length',
               'req' => true,
               'short' => 'How many days the employer has to cancel the policy since the policy starts',
@@ -3503,6 +4006,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'end_date',
               'req' => true,
               'short' => 'Policy ends on this date',
@@ -3533,6 +4037,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -3543,6 +4048,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_date',
               'req' => true,
               'short' => 'Policy starts on this date',
@@ -3554,6 +4060,10 @@ class KotaConfig
               'short' => 'Current status of policy',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employer_health_insurance_policy_response_paged_list',
           'op' => [
@@ -3605,11 +4115,19 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employers/{employer_id}/health_insurance/policies',
-                  'parts' => [
-                    'employers',
-                    '{employer_id}',
-                    'health_insurance',
-                    'policies',
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'employer_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'policies',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -3623,6 +4141,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employers',
+                    '{employer_id}',
+                    'health_insurance',
+                    'policies',
                   ],
                 ],
               ],
@@ -3658,10 +4182,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'quoted_at',
               'req' => true,
               'short' => 'Date and time the quote was created at',
@@ -3678,6 +4204,10 @@ class KotaConfig
               'short' => 'Current status of the quote',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employer_health_insurance_quote',
           'op' => [
@@ -3717,16 +4247,26 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}',
-                  'parts' => [
-                    'employers',
-                    '{employer_id}',
-                    'health_insurance',
-                    'quotes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'employer_quote_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'employer_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'quotes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -3739,6 +4279,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'employers',
+                    '{employer_id}',
+                    'health_insurance',
+                    'quotes',
+                    '{id}',
                   ],
                 ],
               ],
@@ -3774,10 +4321,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'quoted_at',
               'req' => true,
               'short' => 'Date and time the quote was created at',
@@ -3794,6 +4343,10 @@ class KotaConfig
               'short' => 'Current status of the quote',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'employer_health_insurance_quote_response_paged_list',
           'op' => [
@@ -3845,11 +4398,19 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/employers/{employer_id}/health_insurance/quotes',
-                  'parts' => [
-                    'employers',
-                    '{employer_id}',
-                    'health_insurance',
-                    'quotes',
+                  'segments' => [
+                    [
+                      'lit' => 'employers',
+                    ],
+                    [
+                      'var' => 'employer_id',
+                    ],
+                    [
+                      'lit' => 'health_insurance',
+                    ],
+                    [
+                      'lit' => 'quotes',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -3863,6 +4424,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'employers',
+                    '{employer_id}',
+                    'health_insurance',
+                    'quotes',
                   ],
                 ],
               ],
@@ -3920,6 +4487,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier.',
               'type' => '`$STRING`',
             ],
@@ -3945,6 +4513,10 @@ class KotaConfig
               'short' => 'Current status of the enrolment intent.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'enrolment_intent',
           'op' => [
@@ -3976,14 +4548,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}/confirm',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{id}',
-                    'confirm',
-                  ],
                   'rename' => [
                     'param' => [
                       'enrolment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'confirm',
                     ],
                   ],
                   'select' => [
@@ -3996,6 +4574,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{id}',
+                    'confirm',
                   ],
                 ],
                 [
@@ -4022,14 +4605,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}/coverage-selections',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{id}',
-                    'coverage-selections',
-                  ],
                   'rename' => [
                     'param' => [
                       'enrolment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'coverage-selections',
                     ],
                   ],
                   'select' => [
@@ -4042,6 +4631,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{id}',
+                    'coverage-selections',
                   ],
                 ],
                 [
@@ -4068,14 +4662,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}/reject',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{id}',
-                    'reject',
-                  ],
                   'rename' => [
                     'param' => [
                       'enrolment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'reject',
                     ],
                   ],
                   'select' => [
@@ -4088,6 +4688,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{id}',
+                    'reject',
                   ],
                 ],
                 [
@@ -4110,8 +4715,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/enrolment_intents',
-                  'parts' => [
-                    'enrolment_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -4122,6 +4729,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
                   ],
                 ],
               ],
@@ -4178,8 +4788,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/enrolment_intents',
-                  'parts' => [
-                    'enrolment_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -4194,6 +4806,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
                   ],
                 ],
               ],
@@ -4226,13 +4841,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'enrolment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -4244,6 +4863,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -4276,13 +4899,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'enrolment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -4294,6 +4921,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -4319,6 +4950,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier',
               'type' => '`$STRING`',
             ],
@@ -4340,6 +4972,10 @@ class KotaConfig
               'short' => 'Type of requirement',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'enrolment_intent_requirement_response_paged_list',
           'op' => [
@@ -4397,14 +5033,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/enrolment_intents/{enrolment_intent_id}/requirements',
-                  'parts' => [
-                    'enrolment_intents',
-                    '{id}',
-                    'requirements',
-                  ],
                   'rename' => [
                     'param' => [
                       'enrolment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'enrolment_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'requirements',
                     ],
                   ],
                   'select' => [
@@ -4422,6 +5064,11 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
                   ],
+                  'parts' => [
+                    'enrolment_intents',
+                    '{id}',
+                    'requirements',
+                  ],
                 ],
               ],
             ],
@@ -4434,9 +5081,11 @@ class KotaConfig
           'fields' => [
             [
               'name' => 'api_version',
+              'readOnly' => true,
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'created',
               'req' => true,
               'type' => '`$STRING`',
@@ -4453,10 +5102,12 @@ class KotaConfig
             ],
             [
               'name' => 'options',
+              'readOnly' => true,
               'type' => '`$NULL`',
             ],
             [
               'name' => 'parent',
+              'readOnly' => true,
               'type' => '`$NULL`',
             ],
             [
@@ -4466,6 +5117,7 @@ class KotaConfig
             ],
             [
               'name' => 'root',
+              'readOnly' => true,
               'type' => '`$ANY`',
             ],
             [
@@ -4473,6 +5125,10 @@ class KotaConfig
               'req' => true,
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'event',
           'op' => [
@@ -4526,8 +5182,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/events',
-                  'parts' => [
-                    'events',
+                  'segments' => [
+                    [
+                      'lit' => 'events',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -4542,6 +5200,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'events',
                   ],
                 ],
               ],
@@ -4574,13 +5235,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/events/{event_id}',
-                  'parts' => [
-                    'events',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'event_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'events',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -4592,6 +5257,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.data`',
+                  ],
+                  'parts' => [
+                    'events',
+                    '{id}',
                   ],
                 ],
               ],
@@ -4664,6 +5333,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -4673,6 +5343,10 @@ class KotaConfig
               'short' => 'Current lifecycle state of the `group`, indicating its current progress.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group',
           'op' => [
@@ -4694,8 +5368,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/groups',
-                  'parts' => [
-                    'groups',
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -4705,6 +5381,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'groups',
                   ],
                 ],
               ],
@@ -4754,8 +5433,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/groups',
-                  'parts' => [
-                    'groups',
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -4769,6 +5450,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'groups',
                   ],
                 ],
               ],
@@ -4801,13 +5485,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/groups/{group_id}',
-                  'parts' => [
-                    'groups',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -4819,6 +5507,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'groups',
+                    '{id}',
                   ],
                 ],
               ],
@@ -4851,13 +5543,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/groups/{group_id}',
-                  'parts' => [
-                    'groups',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -4870,6 +5566,10 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'groups',
+                    '{id}',
+                  ],
                 ],
               ],
             ],
@@ -4881,6 +5581,7 @@ class KotaConfig
         'group_employee' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'desired_policy_start_date',
               'short' => 'The desired date for the employee\'s policy to start.',
               'type' => [
@@ -4898,6 +5599,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'enrolment_date',
               'short' => 'The date on which the employee agreed to enrol into the group\'s policies.',
               'type' => [
@@ -4934,6 +5636,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -4949,6 +5652,10 @@ class KotaConfig
               'short' => 'List of scheduled group transitions for the employee.',
               'type' => '`$ARRAY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group_employee',
           'op' => [
@@ -4986,14 +5693,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/groups/{group_id}/employees',
-                  'parts' => [
-                    'groups',
-                    '{id}',
-                    'employees',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'employees',
                     ],
                   ],
                   'select' => [
@@ -5007,6 +5720,11 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'groups',
+                    '{id}',
+                    'employees',
+                  ],
                 ],
               ],
             ],
@@ -5018,6 +5736,7 @@ class KotaConfig
         'group_employee_response_paged_list' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'desired_policy_start_date',
               'short' => 'The desired date for the employee\'s policy to start.',
               'type' => [
@@ -5035,6 +5754,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'enrolment_date',
               'short' => 'The date on which the employee agreed to enrol into the group\'s policies.',
               'type' => [
@@ -5071,6 +5791,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -5086,6 +5807,10 @@ class KotaConfig
               'short' => 'List of scheduled group transitions for the employee.',
               'type' => '`$ARRAY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group_employee_response_paged_list',
           'op' => [
@@ -5138,14 +5863,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/groups/{group_id}/employees',
-                  'parts' => [
-                    'groups',
-                    '{id}',
-                    'employees',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'groups',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'employees',
                     ],
                   ],
                   'select' => [
@@ -5162,6 +5893,11 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
                   ],
+                  'parts' => [
+                    'groups',
+                    '{id}',
+                    'employees',
+                  ],
                 ],
               ],
             ],
@@ -5173,6 +5909,7 @@ class KotaConfig
         'group_policy' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'cancellation_date',
               'short' => 'Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable.',
               'type' => [
@@ -5195,6 +5932,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'end_date',
               'short' => 'Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended.',
               'type' => [
@@ -5223,6 +5961,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -5239,6 +5978,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_date',
               'req' => true,
               'short' => 'Policy start (effective) date in ISO 8601 (YYYY-MM-DD).',
@@ -5256,6 +5996,10 @@ class KotaConfig
               'short' => 'Policy type.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group_policy',
           'op' => [
@@ -5311,8 +6055,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_policies',
-                  'parts' => [
-                    'group_policies',
+                  'segments' => [
+                    [
+                      'lit' => 'group_policies',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -5327,6 +6073,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'group_policies',
                   ],
                 ],
               ],
@@ -5359,13 +6108,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_policies/{group_policy_id}',
-                  'parts' => [
-                    'group_policies',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_policy_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'group_policies',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -5377,6 +6130,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'group_policies',
+                    '{id}',
                   ],
                 ],
               ],
@@ -5405,6 +6162,7 @@ class KotaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'due_date',
               'short' => 'Due date for the policy intent',
               'type' => [
@@ -5429,6 +6187,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier',
               'type' => '`$STRING`',
             ],
@@ -5451,6 +6210,10 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'group_policy_intent',
           'op' => [
             'create' => [
@@ -5471,8 +6234,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/group_policy_intents',
-                  'parts' => [
-                    'group_policy_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'group_policy_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -5482,6 +6247,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'group_policy_intents',
                   ],
                 ],
               ],
@@ -5538,8 +6306,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_policy_intents',
-                  'parts' => [
-                    'group_policy_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'group_policy_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -5554,6 +6324,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'group_policy_intents',
                   ],
                 ],
               ],
@@ -5586,13 +6359,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_policy_intents/{group_policy_intent_id}',
-                  'parts' => [
-                    'group_policy_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_policy_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'group_policy_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -5604,6 +6381,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'group_policy_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -5629,6 +6410,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier',
               'type' => '`$STRING`',
             ],
@@ -5650,6 +6432,10 @@ class KotaConfig
               'short' => 'Type of requirement',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group_policy_intent_requirement_response_paged_list',
           'op' => [
@@ -5707,14 +6493,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_policy_intents/{group_policy_intent_id}/requirements',
-                  'parts' => [
-                    'group_policy_intents',
-                    '{id}',
-                    'requirements',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_policy_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'group_policy_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'requirements',
                     ],
                   ],
                   'select' => [
@@ -5731,6 +6523,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'group_policy_intents',
+                    '{id}',
+                    'requirements',
                   ],
                 ],
               ],
@@ -5799,10 +6596,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_quote_intents/{group_quote_intent_id}/quote',
-                  'parts' => [
-                    'group_quote_intents',
-                    '{group_quote_intent_id}',
-                    'quote',
+                  'segments' => [
+                    [
+                      'lit' => 'group_quote_intents',
+                    ],
+                    [
+                      'var' => 'group_quote_intent_id',
+                    ],
+                    [
+                      'lit' => 'quote',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -5813,6 +6616,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.cost_sharing`',
+                  ],
+                  'parts' => [
+                    'group_quote_intents',
+                    '{group_quote_intent_id}',
+                    'quote',
                   ],
                 ],
               ],
@@ -5851,6 +6659,7 @@ class KotaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'date',
               'name' => 'expected_start_date',
               'short' => 'Expected start date for the insurance coverage',
               'type' => [
@@ -5875,6 +6684,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier',
               'type' => '`$STRING`',
             ],
@@ -5890,6 +6700,10 @@ class KotaConfig
               'short' => 'Current status of the group quote intent',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group_quote_intent',
           'op' => [
@@ -5921,14 +6735,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/group_quote_intents/{group_quote_intent_id}/reject',
-                  'parts' => [
-                    'group_quote_intents',
-                    '{id}',
-                    'reject',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_quote_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'group_quote_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'reject',
                     ],
                   ],
                   'select' => [
@@ -5941,6 +6761,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'group_quote_intents',
+                    '{id}',
+                    'reject',
                   ],
                 ],
                 [
@@ -5957,8 +6782,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/group_quote_intents',
-                  'parts' => [
-                    'group_quote_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'group_quote_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -5968,6 +6795,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'group_quote_intents',
                   ],
                 ],
               ],
@@ -6024,8 +6854,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_quote_intents',
-                  'parts' => [
-                    'group_quote_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'group_quote_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -6040,6 +6872,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'group_quote_intents',
                   ],
                 ],
               ],
@@ -6072,13 +6907,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_quote_intents/{group_quote_intent_id}',
-                  'parts' => [
-                    'group_quote_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_quote_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'group_quote_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -6090,6 +6929,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'group_quote_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -6115,6 +6958,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier',
               'type' => '`$STRING`',
             ],
@@ -6136,6 +6980,10 @@ class KotaConfig
               'short' => 'Type of requirement',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'group_quote_intent_requirement_response_paged_list',
           'op' => [
@@ -6193,14 +7041,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/group_quote_intents/{group_quote_intent_id}/requirements',
-                  'parts' => [
-                    'group_quote_intents',
-                    '{id}',
-                    'requirements',
-                  ],
                   'rename' => [
                     'param' => [
                       'group_quote_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'group_quote_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'requirements',
                     ],
                   ],
                   'select' => [
@@ -6218,6 +7072,11 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
                   ],
+                  'parts' => [
+                    'group_quote_intents',
+                    '{id}',
+                    'requirements',
+                  ],
                 ],
               ],
             ],
@@ -6229,12 +7088,14 @@ class KotaConfig
         'plan' => [
           'fields' => [
             [
+              'format' => 'date',
               'name' => 'available_from',
               'req' => true,
               'short' => 'The date from which this plan is available (inclusive).',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'available_to',
               'short' => 'The date until which this plan is available (inclusive).',
               'type' => [
@@ -6281,6 +7142,7 @@ class KotaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'eligible_count',
               'short' => 'Number of employees in the queried group eligible for this plan as-of `start_date`.',
               'type' => [
@@ -6315,6 +7177,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'ineligible_count',
               'short' => 'Number of employees in the queried group ineligible for this plan as-of `start_date`.',
               'type' => [
@@ -6333,6 +7196,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type.',
               'type' => '`$STRING`',
             ],
@@ -6343,6 +7207,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'total_count',
               'short' => 'Total employees in the queried group.',
               'type' => [
@@ -6359,6 +7224,10 @@ class KotaConfig
               'short' => 'The benefit type of the plan.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'plan',
           'op' => [
@@ -6443,8 +7312,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/plans',
-                  'parts' => [
-                    'plans',
+                  'segments' => [
+                    [
+                      'lit' => 'plans',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -6464,6 +7335,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'plans',
                   ],
                 ],
               ],
@@ -6511,13 +7385,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/plans/{plan_id}',
-                  'parts' => [
-                    'plans',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'plan_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'plans',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -6531,6 +7409,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'plans',
+                    '{id}',
                   ],
                 ],
               ],
@@ -6549,6 +7431,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'cancellation_date',
               'short' => 'Date the policy was cancelled (if applicable)',
               'type' => [
@@ -6572,6 +7455,7 @@ class KotaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'end_date',
               'short' => 'Policy end date (inclusive) in ISO 8601, or null if open-ended',
               'type' => [
@@ -6607,6 +7491,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type',
               'type' => '`$STRING`',
             ],
@@ -6623,6 +7508,7 @@ class KotaConfig
               'type' => '`$ANY`',
             ],
             [
+              'format' => 'date',
               'name' => 'start_date',
               'req' => true,
               'short' => 'Policy start (effective) date in ISO 8601 (YYYY-MM-DD)',
@@ -6640,6 +7526,10 @@ class KotaConfig
               'short' => 'Policy type.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'policy',
           'op' => [
@@ -6702,8 +7592,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/policies',
-                  'parts' => [
-                    'policies',
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -6719,6 +7611,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'policies',
                   ],
                 ],
               ],
@@ -6751,13 +7646,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/policies/{policy_id}',
-                  'parts' => [
-                    'policies',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'policy_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -6769,6 +7668,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{id}',
                   ],
                 ],
               ],
@@ -6800,6 +7703,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier.',
               'type' => '`$STRING`',
             ],
@@ -6836,6 +7740,10 @@ class KotaConfig
               'short' => 'Current status of the policy amendment intent.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'policy_amendment_intent',
           'op' => [
@@ -6875,12 +7783,22 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/policies/{policy_id}/policy_amendment_intents/{id}/cancel',
-                  'parts' => [
-                    'policies',
-                    '{policy_id}',
-                    'policy_amendment_intents',
-                    '{id}',
-                    'cancel',
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'policy_id',
+                    ],
+                    [
+                      'lit' => 'policy_amendment_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'cancel',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'cancel',
@@ -6893,6 +7811,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{policy_id}',
+                    'policy_amendment_intents',
+                    '{id}',
+                    'cancel',
                   ],
                 ],
                 [
@@ -6927,16 +7852,26 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm',
-                  'parts' => [
-                    'policies',
-                    '{policy_id}',
-                    'policy_amendment_intents',
-                    '{id}',
-                    'confirm',
-                  ],
                   'rename' => [
                     'param' => [
                       'policy_amendment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'policy_id',
+                    ],
+                    [
+                      'lit' => 'policy_amendment_intents',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'confirm',
                     ],
                   ],
                   'select' => [
@@ -6950,6 +7885,13 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{policy_id}',
+                    'policy_amendment_intents',
+                    '{id}',
+                    'confirm',
                   ],
                 ],
                 [
@@ -6976,14 +7918,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/policies/{policy_id}/policy_amendment_intents',
-                  'parts' => [
-                    'policies',
-                    '{id}',
-                    'policy_amendment_intents',
-                  ],
                   'rename' => [
                     'param' => [
                       'policy_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'policy_amendment_intents',
                     ],
                   ],
                   'select' => [
@@ -6995,6 +7943,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{id}',
+                    'policy_amendment_intents',
                   ],
                 ],
               ],
@@ -7047,14 +8000,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/policies/{policy_id}/policy_amendment_intents',
-                  'parts' => [
-                    'policies',
-                    '{id}',
-                    'policy_amendment_intents',
-                  ],
                   'rename' => [
                     'param' => [
                       'policy_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'policy_amendment_intents',
                     ],
                   ],
                   'select' => [
@@ -7069,6 +8028,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{id}',
+                    'policy_amendment_intents',
                   ],
                 ],
               ],
@@ -7109,15 +8073,23 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}',
-                  'parts' => [
-                    'policies',
-                    '{policy_id}',
-                    'policy_amendment_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'policy_amendment_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policies',
+                    ],
+                    [
+                      'var' => 'policy_id',
+                    ],
+                    [
+                      'lit' => 'policy_amendment_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -7130,6 +8102,12 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policies',
+                    '{policy_id}',
+                    'policy_amendment_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -7177,10 +8155,12 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type identifier.',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'policy_end_date',
               'short' => 'The end date of the policy.',
               'type' => [
@@ -7192,6 +8172,7 @@ class KotaConfig
               ],
             ],
             [
+              'format' => 'date',
               'name' => 'policy_start_date',
               'req' => true,
               'short' => 'The start date of the policy.',
@@ -7209,6 +8190,10 @@ class KotaConfig
               'short' => 'Current status of the policy import intent.',
               'type' => '`$ANY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'policy_import_intent',
           'op' => [
@@ -7230,8 +8215,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/policy_import_intents',
-                  'parts' => [
-                    'policy_import_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'policy_import_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -7241,6 +8228,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policy_import_intents',
                   ],
                 ],
               ],
@@ -7297,8 +8287,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/policy_import_intents',
-                  'parts' => [
-                    'policy_import_intents',
+                  'segments' => [
+                    [
+                      'lit' => 'policy_import_intents',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -7313,6 +8305,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'policy_import_intents',
                   ],
                 ],
               ],
@@ -7345,13 +8340,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/policy_import_intents/{policy_import_intent_id}',
-                  'parts' => [
-                    'policy_import_intents',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'policy_import_intent_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'policy_import_intents',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -7363,6 +8362,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'policy_import_intents',
+                    '{id}',
                   ],
                 ],
               ],
@@ -7422,6 +8425,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'Object type.',
               'type' => '`$STRING`',
             ],
@@ -7443,6 +8447,10 @@ class KotaConfig
               'short' => 'The provider\'s main website URL.',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'provider',
           'op' => [
@@ -7484,8 +8492,10 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/providers',
-                  'parts' => [
-                    'providers',
+                  'segments' => [
+                    [
+                      'lit' => 'providers',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -7498,6 +8508,9 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'providers',
                   ],
                 ],
               ],
@@ -7530,13 +8543,17 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/providers/{provider_id}',
-                  'parts' => [
-                    'providers',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'provider_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'providers',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -7548,6 +8565,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'providers',
+                    '{id}',
                   ],
                 ],
               ],
@@ -7600,10 +8621,16 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/events/{event_id}/replay',
-                  'parts' => [
-                    'events',
-                    '{event_id}',
-                    'replay',
+                  'segments' => [
+                    [
+                      'lit' => 'events',
+                    ],
+                    [
+                      'var' => 'event_id',
+                    ],
+                    [
+                      'lit' => 'replay',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -7614,6 +8641,11 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'events',
+                    '{event_id}',
+                    'replay',
                   ],
                 ],
               ],
@@ -7630,6 +8662,7 @@ class KotaConfig
         'webhook_endpoint' => [
           'fields' => [
             [
+              'format' => 'date-time',
               'name' => 'created_at',
               'req' => true,
               'short' => 'The date and time the endpoint was created',
@@ -7649,6 +8682,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -7658,6 +8692,10 @@ class KotaConfig
               'short' => 'The events the endpoint is subscribed to',
               'type' => '`$ARRAY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'webhook_endpoint',
           'op' => [
@@ -7689,14 +8727,20 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/webhooks/endpoints/{webhook_endpoint_id}',
-                  'parts' => [
-                    'webhooks',
-                    'endpoints',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'webhook_endpoint_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'webhooks',
+                    ],
+                    [
+                      'lit' => 'endpoints',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -7709,6 +8753,11 @@ class KotaConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'webhooks',
+                    'endpoints',
+                    '{id}',
+                  ],
                 ],
               ],
             ],
@@ -7720,6 +8769,7 @@ class KotaConfig
         'webhook_endpoint_response_paged_list' => [
           'fields' => [
             [
+              'format' => 'date-time',
               'name' => 'created_at',
               'req' => true,
               'short' => 'The date and time the endpoint was created',
@@ -7739,6 +8789,7 @@ class KotaConfig
             ],
             [
               'name' => 'object',
+              'readOnly' => true,
               'short' => 'The object type',
               'type' => '`$STRING`',
             ],
@@ -7748,6 +8799,10 @@ class KotaConfig
               'short' => 'The events the endpoint is subscribed to',
               'type' => '`$ARRAY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'webhook_endpoint_response_paged_list',
           'op' => [
@@ -7783,9 +8838,13 @@ class KotaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/webhooks/endpoints',
-                  'parts' => [
-                    'webhooks',
-                    'endpoints',
+                  'segments' => [
+                    [
+                      'lit' => 'webhooks',
+                    ],
+                    [
+                      'lit' => 'endpoints',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -7797,6 +8856,10 @@ class KotaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'webhooks',
+                    'endpoints',
                   ],
                 ],
               ],

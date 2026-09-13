@@ -6,6 +6,7 @@ main: kit: entity: group_policy: {
 
   fields: [
     {
+      format: "date"
       name: "cancellation_date"
       req: false
       short: "Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable."
@@ -30,6 +31,7 @@ main: kit: entity: group_policy: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "end_date"
       req: false
       short: "Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended."
@@ -61,6 +63,7 @@ main: kit: entity: group_policy: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -78,6 +81,7 @@ main: kit: entity: group_policy: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "start_date"
       req: true
       short: "Policy start (effective) date in ISO 8601 (YYYY-MM-DD)."
@@ -160,8 +164,10 @@ main: kit: entity: group_policy: {
           }
           method: "GET"
           orig: "/group_policies"
-          parts: [
-            "group_policies"
+          segments: [
+            {
+              lit: "group_policies"
+            }
           ]
           select: {
             exist: [
@@ -207,15 +213,19 @@ main: kit: entity: group_policy: {
           }
           method: "GET"
           orig: "/group_policies/{group_policy_id}"
-          parts: [
-            "group_policies"
-            "{id}"
-          ]
           rename: {
             param: {
               group_policy_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "group_policies"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

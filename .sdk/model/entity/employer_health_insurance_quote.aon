@@ -25,11 +25,13 @@ main: kit: entity: employer_health_insurance_quote: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "quoted_at"
       req: true
       short: "Date and time the quote was created at"
@@ -91,18 +93,28 @@ main: kit: entity: employer_health_insurance_quote: {
           }
           method: "GET"
           orig: "/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}"
-          parts: [
-            "employers"
-            "{employer_id}"
-            "health_insurance"
-            "quotes"
-            "{id}"
-          ]
           rename: {
             param: {
               employer_quote_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "employer_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "quotes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "employer_id"

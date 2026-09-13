@@ -19,6 +19,7 @@ main: kit: entity: group_quote_intent_requirement_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier"
       type: "`$STRING`"
@@ -107,16 +108,22 @@ main: kit: entity: group_quote_intent_requirement_response_paged_list: {
           }
           method: "GET"
           orig: "/group_quote_intents/{group_quote_intent_id}/requirements"
-          parts: [
-            "group_quote_intents"
-            "{id}"
-            "requirements"
-          ]
           rename: {
             param: {
               group_quote_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "requirements"
+            }
+          ]
           select: {
             "$action": "requirements"
             exist: [

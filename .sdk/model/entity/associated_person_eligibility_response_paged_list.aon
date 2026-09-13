@@ -12,6 +12,7 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "date_of_birth"
       req: true
       short: "Date of birth of the associated person."
@@ -49,6 +50,7 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -112,10 +114,16 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
           }
           method: "GET"
           orig: "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility"
-          parts: [
-            "dependents_management_intents"
-            "{dependents_management_intent_id}"
-            "associated_persons_eligibility"
+          segments: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "dependents_management_intent_id"
+            }
+            {
+              lit: "associated_persons_eligibility"
+            }
           ]
           select: {
             exist: [

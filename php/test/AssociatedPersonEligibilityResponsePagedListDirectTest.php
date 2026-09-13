@@ -82,15 +82,17 @@ function associated_person_eligibility_response_paged_list_direct_setup($mockres
     $env = Runner::env_override([
         "KOTA_TEST_ASSOCIATED_PERSON_ELIGIBILITY_RESPONSE_PAGED_LIST_ENTID" => [],
         "KOTA_TEST_LIVE" => "FALSE",
-        "KOTA_APIKEY" => "NONE",
+        "KOTA_APIKEY" => "",
     ]);
 
     $live = $env["KOTA_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["KOTA_APIKEY"],
-        ];
+        ]);
         $client = new KotaSDK($merged_opts);
         return [
             "client" => $client,

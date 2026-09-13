@@ -34,6 +34,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "date_of_birth",
               "req": true,
               "short": "Date of birth of the associated person",
@@ -83,6 +84,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -160,10 +162,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/employees/{employee_id}/associated_persons",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "associated_persons"
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "associated_persons"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -228,10 +236,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/associated_persons",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "associated_persons"
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "associated_persons"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -289,17 +303,25 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "associated_persons",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "associated_person_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "associated_persons"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employee_id",
@@ -355,17 +377,25 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "associated_persons",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "associated_person_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "associated_persons"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employee_id",
@@ -421,17 +451,25 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/employees/{employee_id}/associated_persons/{associated_person_id}",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "associated_persons",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "associated_person_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "associated_persons"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employee_id",
@@ -470,6 +508,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "date_of_birth",
               "req": true,
               "short": "Date of birth of the associated person.",
@@ -512,6 +551,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -583,10 +623,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility",
-                  "parts": [
-                    "dependents_management_intents",
-                    "{dependents_management_intent_id}",
-                    "associated_persons_eligibility"
+                  "segments": [
+                    {
+                      "lit": "dependents_management_intents"
+                    },
+                    {
+                      "var": "dependents_management_intent_id"
+                    },
+                    {
+                      "lit": "associated_persons_eligibility"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -620,6 +666,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": true,
               "short": "Date and time the report was created",
@@ -647,6 +694,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "finalized_at",
               "req": false,
               "short": "Date and time the report was finalized, if applicable",
@@ -667,6 +715,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "last_updated_at",
               "req": true,
               "short": "Date and time of the last update to the report",
@@ -675,6 +724,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -732,16 +782,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/contribution_reports/{contribution_report_id}/finalize",
-                  "parts": [
-                    "contribution_reports",
-                    "{id}",
-                    "finalize"
-                  ],
                   "rename": {
                     "param": {
                       "contribution_report_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "contribution_reports"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "finalize"
+                    }
+                  ],
                   "select": {
                     "$action": "finalize",
                     "exist": [
@@ -836,8 +892,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports",
-                  "parts": [
-                    "contribution_reports"
+                  "segments": [
+                    {
+                      "lit": "contribution_reports"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -890,15 +948,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports/{contribution_report_id}",
-                  "parts": [
-                    "contribution_reports",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "contribution_report_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "contribution_reports"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -932,6 +994,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": true,
               "short": "Date and time the breakdown was created",
@@ -973,6 +1036,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "finalized_at",
               "req": false,
               "short": "Date and time the breakdown was finalized, if applicable",
@@ -999,6 +1063,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "last_updated_at",
               "req": true,
               "short": "Date and time of the last update to the breakdown",
@@ -1007,6 +1072,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -1073,17 +1139,25 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}",
-                  "parts": [
-                    "contribution_reports",
-                    "{contribution_report_id}",
-                    "employee_breakdowns",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employee_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "contribution_reports"
+                    },
+                    {
+                      "var": "contribution_report_id"
+                    },
+                    {
+                      "lit": "employee_breakdowns"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "contribution_report_id",
@@ -1122,6 +1196,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": true,
               "short": "Date and time the breakdown was created",
@@ -1163,6 +1238,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "finalized_at",
               "req": false,
               "short": "Date and time the breakdown was finalized, if applicable",
@@ -1189,6 +1265,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "last_updated_at",
               "req": true,
               "short": "Date and time of the last update to the breakdown",
@@ -1197,6 +1274,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -1272,16 +1350,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/contribution_reports/{contribution_report_id}/employee_breakdowns",
-                  "parts": [
-                    "contribution_reports",
-                    "{id}",
-                    "employee_breakdowns"
-                  ],
                   "rename": {
                     "param": {
                       "contribution_report_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "contribution_reports"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "employee_breakdowns"
+                    }
+                  ],
                   "select": {
                     "$action": "employee_breakdowns",
                     "exist": [
@@ -1311,6 +1395,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "expiry",
               "req": true,
               "type": "`$STRING`"
@@ -1334,9 +1419,13 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/hosted/sessions",
-                  "parts": [
-                    "hosted",
-                    "sessions"
+                  "segments": [
+                    {
+                      "lit": "hosted"
+                    },
+                    {
+                      "lit": "sessions"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1359,6 +1448,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "expiry",
               "req": true,
               "type": "`$STRING`"
@@ -1382,9 +1472,13 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/embed/sessions",
-                  "parts": [
-                    "embed",
-                    "sessions"
+                  "segments": [
+                    {
+                      "lit": "embed"
+                    },
+                    {
+                      "lit": "sessions"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1449,6 +1543,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier.",
               "type": "`$STRING`"
@@ -1528,10 +1623,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/dependents",
-                  "parts": [
-                    "dependents_management_intents",
-                    "{dependents_management_intent_id}",
-                    "dependents"
+                  "segments": [
+                    {
+                      "lit": "dependents_management_intents"
+                    },
+                    {
+                      "var": "dependents_management_intent_id"
+                    },
+                    {
+                      "lit": "dependents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1588,17 +1689,25 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}",
-                  "parts": [
-                    "dependents_management_intents",
-                    "{dependents_management_intent_id}",
-                    "dependents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "associated_person_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "dependents_management_intents"
+                    },
+                    {
+                      "var": "dependents_management_intent_id"
+                    },
+                    {
+                      "lit": "dependents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "dependents_management_intent_id",
@@ -1672,6 +1781,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier.",
               "type": "`$STRING`"
@@ -1752,18 +1862,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents_management_intent",
-                  "parts": [
-                    "policies",
-                    "{policy_id}",
-                    "policy_amendment_intents",
-                    "{policy_amendment_intent_id}",
-                    "create_dependents_management_intent"
-                  ],
                   "rename": {
                     "param": {
                       "id": "policy_amendment_intent_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "policy_id"
+                    },
+                    {
+                      "lit": "policy_amendment_intents"
+                    },
+                    {
+                      "var": "policy_amendment_intent_id"
+                    },
+                    {
+                      "lit": "create_dependents_management_intent"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "policy_amendment_intent_id",
@@ -1804,10 +1924,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent",
-                  "parts": [
-                    "enrolment_intents",
-                    "{enrolment_intent_id}",
-                    "create_dependents_management_intent"
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "enrolment_intent_id"
+                    },
+                    {
+                      "lit": "create_dependents_management_intent"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1848,16 +1974,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/cancel",
-                  "parts": [
-                    "dependents_management_intents",
-                    "{id}",
-                    "cancel"
-                  ],
                   "rename": {
                     "param": {
                       "dependents_management_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "dependents_management_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "cancel"
+                    }
+                  ],
                   "select": {
                     "$action": "cancel",
                     "exist": [
@@ -1898,16 +2030,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}/confirm",
-                  "parts": [
-                    "dependents_management_intents",
-                    "{id}",
-                    "confirm"
-                  ],
                   "rename": {
                     "param": {
                       "dependents_management_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "dependents_management_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "confirm"
+                    }
+                  ],
                   "select": {
                     "$action": "confirm",
                     "exist": [
@@ -1954,15 +2092,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/dependents_management_intents/{dependents_management_intent_id}",
-                  "parts": [
-                    "dependents_management_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "dependents_management_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "dependents_management_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -2005,6 +2147,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type.",
               "type": "`$STRING`"
@@ -2065,10 +2208,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/groups/{group_id}/eligibility_check",
-                  "parts": [
-                    "groups",
-                    "{group_id}",
-                    "eligibility_check"
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    },
+                    {
+                      "var": "group_id"
+                    },
+                    {
+                      "lit": "eligibility_check"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -2107,6 +2256,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "date_of_birth",
               "req": true,
               "short": "Date of birth of the employee",
@@ -2114,6 +2264,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "earliest_benefits_start_date",
               "req": false,
               "short": "The earliest date this employee can be enrolled in any benefits.",
@@ -2210,12 +2361,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "offboard_on",
               "req": false,
               "short": "Date when the employee was or will be offboarded",
@@ -2250,6 +2403,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_on",
               "req": false,
               "short": "Employment start date",
@@ -2309,16 +2463,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/employees/{employee_id}/offboard",
-                  "parts": [
-                    "employees",
-                    "{id}",
-                    "offboard"
-                  ],
                   "rename": {
                     "param": {
                       "employee_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "offboard"
+                    }
+                  ],
                   "select": {
                     "$action": "offboard",
                     "exist": [
@@ -2368,17 +2528,25 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/employees/{employee_id}/offboard/cancel",
-                  "parts": [
-                    "employees",
-                    "{id}",
-                    "offboard",
-                    "cancel"
-                  ],
                   "rename": {
                     "param": {
                       "employee_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "offboard"
+                    },
+                    {
+                      "lit": "cancel"
+                    }
+                  ],
                   "select": {
                     "$action": "offboard_cancel",
                     "exist": [
@@ -2417,8 +2585,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/employees",
-                  "parts": [
-                    "employees"
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -2505,8 +2675,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees",
-                  "parts": [
-                    "employees"
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -2558,15 +2730,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}",
-                  "parts": [
-                    "employees",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employee_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -2612,15 +2788,19 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/employees/{employee_id}",
-                  "parts": [
-                    "employees",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employee_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -2689,6 +2869,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -2755,18 +2936,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "health_insurance",
-                    "offers",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employee_offer_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "offers"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employee_id",
@@ -2840,6 +3031,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -2915,11 +3107,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/offers",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "health_insurance",
-                    "offers"
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "offers"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -2953,6 +3153,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "cancellation_date",
               "req": false,
               "short": "Policy was cancelled on this date, if cancellation occured",
@@ -2987,6 +3188,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "end_date",
               "req": true,
               "short": "Policy ends on this date",
@@ -2994,6 +3196,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "enrolled_dependants_count",
               "req": true,
               "short": "Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy.",
@@ -3036,12 +3239,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date",
               "name": "opt_out_deadline_date",
               "req": true,
               "short": "Last day to opt out from the policy",
@@ -3069,6 +3274,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_date",
               "req": true,
               "short": "Policy starts on this date",
@@ -3129,18 +3335,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/policies/{employee_policy_id}",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "health_insurance",
-                    "policies",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employee_policy_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employee_id",
@@ -3172,6 +3388,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "cancellation_date",
               "req": false,
               "short": "Policy was cancelled on this date, if cancellation occured",
@@ -3206,6 +3423,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "end_date",
               "req": true,
               "short": "Policy ends on this date",
@@ -3213,6 +3431,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "enrolled_dependants_count",
               "req": true,
               "short": "Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy.",
@@ -3255,12 +3474,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date",
               "name": "opt_out_deadline_date",
               "req": true,
               "short": "Last day to opt out from the policy",
@@ -3288,6 +3509,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_date",
               "req": true,
               "short": "Policy starts on this date",
@@ -3365,11 +3587,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employees/{employee_id}/health_insurance/policies",
-                  "parts": [
-                    "employees",
-                    "{employee_id}",
-                    "health_insurance",
-                    "policies"
+                  "segments": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "policies"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -3410,6 +3640,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "earliest_benefits_start_date",
               "req": false,
               "type": [
@@ -3454,12 +3685,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "offboard_on",
               "req": false,
               "type": [
@@ -3541,16 +3774,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/employers/{employer_id}/offboard",
-                  "parts": [
-                    "employers",
-                    "{id}",
-                    "offboard"
-                  ],
                   "rename": {
                     "param": {
                       "employer_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "offboard"
+                    }
+                  ],
                   "select": {
                     "$action": "offboard",
                     "exist": [
@@ -3589,8 +3828,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/employers",
-                  "parts": [
-                    "employers"
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -3652,8 +3893,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employers",
-                  "parts": [
-                    "employers"
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -3702,15 +3945,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}",
-                  "parts": [
-                    "employers",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employer_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -3756,15 +4003,19 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/employers/{employer_id}",
-                  "parts": [
-                    "employers",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employer_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -3791,6 +4042,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "cancellation_date",
               "req": false,
               "short": "Policy was cancelled on this date, if cancellation occured",
@@ -3811,6 +4063,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "employer_cancellation_period_length",
               "req": true,
               "short": "How many days the employer has to cancel the policy since the policy starts",
@@ -3825,6 +4078,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "end_date",
               "req": true,
               "short": "Policy ends on this date",
@@ -3860,6 +4114,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -3873,6 +4128,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_date",
               "req": true,
               "short": "Policy starts on this date",
@@ -3933,18 +4189,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}",
-                  "parts": [
-                    "employers",
-                    "{employer_id}",
-                    "health_insurance",
-                    "policies",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employer_policy_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "employer_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employer_id",
@@ -3976,6 +4242,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "cancellation_date",
               "req": false,
               "short": "Policy was cancelled on this date, if cancellation occured",
@@ -3996,6 +4263,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "employer_cancellation_period_length",
               "req": true,
               "short": "How many days the employer has to cancel the policy since the policy starts",
@@ -4010,6 +4278,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "end_date",
               "req": true,
               "short": "Policy ends on this date",
@@ -4045,6 +4314,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -4058,6 +4328,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_date",
               "req": true,
               "short": "Policy starts on this date",
@@ -4135,11 +4406,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/policies",
-                  "parts": [
-                    "employers",
-                    "{employer_id}",
-                    "health_insurance",
-                    "policies"
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "employer_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "policies"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -4196,12 +4475,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "quoted_at",
               "req": true,
               "short": "Date and time the quote was created at",
@@ -4269,18 +4550,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}",
-                  "parts": [
-                    "employers",
-                    "{employer_id}",
-                    "health_insurance",
-                    "quotes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "employer_quote_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "employer_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "quotes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "employer_id",
@@ -4334,12 +4625,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "quoted_at",
               "req": true,
               "short": "Date and time the quote was created at",
@@ -4424,11 +4717,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/employers/{employer_id}/health_insurance/quotes",
-                  "parts": [
-                    "employers",
-                    "{employer_id}",
-                    "health_insurance",
-                    "quotes"
+                  "segments": [
+                    {
+                      "lit": "employers"
+                    },
+                    {
+                      "var": "employer_id"
+                    },
+                    {
+                      "lit": "health_insurance"
+                    },
+                    {
+                      "lit": "quotes"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -4513,6 +4814,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier.",
               "type": "`$STRING`"
@@ -4584,16 +4886,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/confirm",
-                  "parts": [
-                    "enrolment_intents",
-                    "{id}",
-                    "confirm"
-                  ],
                   "rename": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "confirm"
+                    }
+                  ],
                   "select": {
                     "$action": "confirm",
                     "exist": [
@@ -4634,16 +4942,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/coverage-selections",
-                  "parts": [
-                    "enrolment_intents",
-                    "{id}",
-                    "coverage-selections"
-                  ],
                   "rename": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "coverage-selections"
+                    }
+                  ],
                   "select": {
                     "$action": "coverage_selection",
                     "exist": [
@@ -4684,16 +4998,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/reject",
-                  "parts": [
-                    "enrolment_intents",
-                    "{id}",
-                    "reject"
-                  ],
                   "rename": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "reject"
+                    }
+                  ],
                   "select": {
                     "$action": "reject",
                     "exist": [
@@ -4731,8 +5051,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/enrolment_intents",
-                  "parts": [
-                    "enrolment_intents"
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -4812,8 +5134,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/enrolment_intents",
-                  "parts": [
-                    "enrolment_intents"
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -4864,15 +5188,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/enrolment_intents/{enrolment_intent_id}",
-                  "parts": [
-                    "enrolment_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -4918,15 +5246,19 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/enrolment_intents/{enrolment_intent_id}",
-                  "parts": [
-                    "enrolment_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -4968,6 +5300,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier",
               "type": "`$STRING`"
@@ -5066,16 +5399,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/enrolment_intents/{enrolment_intent_id}/requirements",
-                  "parts": [
-                    "enrolment_intents",
-                    "{id}",
-                    "requirements"
-                  ],
                   "rename": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "enrolment_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "requirements"
+                    }
+                  ],
                   "select": {
                     "$action": "requirements",
                     "exist": [
@@ -5108,11 +5447,13 @@
             {
               "active": true,
               "name": "api_version",
+              "readOnly": true,
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created",
               "req": true,
               "type": "`$STRING`"
@@ -5132,12 +5473,14 @@
             {
               "active": true,
               "name": "options",
+              "readOnly": true,
               "req": false,
               "type": "`$NULL`"
             },
             {
               "active": true,
               "name": "parent",
+              "readOnly": true,
               "req": false,
               "type": "`$NULL`"
             },
@@ -5150,6 +5493,7 @@
             {
               "active": true,
               "name": "root",
+              "readOnly": true,
               "req": false,
               "type": "`$ANY`"
             },
@@ -5229,8 +5573,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/events",
-                  "parts": [
-                    "events"
+                  "segments": [
+                    {
+                      "lit": "events"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -5281,15 +5627,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/events/{event_id}",
-                  "parts": [
-                    "events",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "event_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "events"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -5386,6 +5736,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -5425,8 +5776,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/groups",
-                  "parts": [
-                    "groups"
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -5496,8 +5849,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/groups",
-                  "parts": [
-                    "groups"
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -5547,15 +5902,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/groups/{group_id}",
-                  "parts": [
-                    "groups",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "group_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -5601,15 +5960,19 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/groups/{group_id}",
-                  "parts": [
-                    "groups",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "group_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -5636,6 +5999,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "desired_policy_start_date",
               "req": false,
               "short": "The desired date for the employee's policy to start.",
@@ -5656,6 +6020,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "enrolment_date",
               "req": false,
               "short": "The date on which the employee agreed to enrol into the group's policies.",
@@ -5698,6 +6063,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -5763,16 +6129,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/groups/{group_id}/employees",
-                  "parts": [
-                    "groups",
-                    "{id}",
-                    "employees"
-                  ],
                   "rename": {
                     "param": {
                       "group_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "employees"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -5800,6 +6172,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "desired_policy_start_date",
               "req": false,
               "short": "The desired date for the employee's policy to start.",
@@ -5820,6 +6193,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "enrolment_date",
               "req": false,
               "short": "The date on which the employee agreed to enrol into the group's policies.",
@@ -5862,6 +6236,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -5946,16 +6321,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/groups/{group_id}/employees",
-                  "parts": [
-                    "groups",
-                    "{id}",
-                    "employees"
-                  ],
                   "rename": {
                     "param": {
                       "group_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "groups"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "employees"
+                    }
+                  ],
                   "select": {
                     "$action": "employees",
                     "exist": [
@@ -5986,6 +6367,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "cancellation_date",
               "req": false,
               "short": "Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable.",
@@ -6013,6 +6395,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "end_date",
               "req": false,
               "short": "Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended.",
@@ -6048,6 +6431,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -6068,6 +6452,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_date",
               "req": true,
               "short": "Policy start (effective) date in ISO 8601 (YYYY-MM-DD).",
@@ -6159,8 +6544,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_policies",
-                  "parts": [
-                    "group_policies"
+                  "segments": [
+                    {
+                      "lit": "group_policies"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -6211,15 +6598,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_policies/{group_policy_id}",
-                  "parts": [
-                    "group_policies",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "group_policy_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "group_policies"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -6267,6 +6658,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "due_date",
               "req": false,
               "short": "Due date for the policy intent",
@@ -6295,6 +6687,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier",
               "type": "`$STRING`"
@@ -6348,8 +6741,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/group_policy_intents",
-                  "parts": [
-                    "group_policy_intents"
+                  "segments": [
+                    {
+                      "lit": "group_policy_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -6428,8 +6823,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_policy_intents",
-                  "parts": [
-                    "group_policy_intents"
+                  "segments": [
+                    {
+                      "lit": "group_policy_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -6480,15 +6877,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_policy_intents/{group_policy_intent_id}",
-                  "parts": [
-                    "group_policy_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "group_policy_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "group_policy_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -6530,6 +6931,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier",
               "type": "`$STRING`"
@@ -6628,16 +7030,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_policy_intents/{group_policy_intent_id}/requirements",
-                  "parts": [
-                    "group_policy_intents",
-                    "{id}",
-                    "requirements"
-                  ],
                   "rename": {
                     "param": {
                       "group_policy_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "group_policy_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "requirements"
+                    }
+                  ],
                   "select": {
                     "$action": "requirements",
                     "exist": [
@@ -6737,10 +7145,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents/{group_quote_intent_id}/quote",
-                  "parts": [
-                    "group_quote_intents",
-                    "{group_quote_intent_id}",
-                    "quote"
+                  "segments": [
+                    {
+                      "lit": "group_quote_intents"
+                    },
+                    {
+                      "var": "group_quote_intent_id"
+                    },
+                    {
+                      "lit": "quote"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -6800,6 +7214,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "expected_start_date",
               "req": false,
               "short": "Expected start date for the insurance coverage",
@@ -6828,6 +7243,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier",
               "type": "`$STRING`"
@@ -6885,16 +7301,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/group_quote_intents/{group_quote_intent_id}/reject",
-                  "parts": [
-                    "group_quote_intents",
-                    "{id}",
-                    "reject"
-                  ],
                   "rename": {
                     "param": {
                       "group_quote_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "group_quote_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "reject"
+                    }
+                  ],
                   "select": {
                     "$action": "reject",
                     "exist": [
@@ -6924,8 +7346,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/group_quote_intents",
-                  "parts": [
-                    "group_quote_intents"
+                  "segments": [
+                    {
+                      "lit": "group_quote_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -7004,8 +7428,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents",
-                  "parts": [
-                    "group_quote_intents"
+                  "segments": [
+                    {
+                      "lit": "group_quote_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -7056,15 +7482,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents/{group_quote_intent_id}",
-                  "parts": [
-                    "group_quote_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "group_quote_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "group_quote_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -7106,6 +7536,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier",
               "type": "`$STRING`"
@@ -7204,16 +7635,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/group_quote_intents/{group_quote_intent_id}/requirements",
-                  "parts": [
-                    "group_quote_intents",
-                    "{id}",
-                    "requirements"
-                  ],
                   "rename": {
                     "param": {
                       "group_quote_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "group_quote_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "requirements"
+                    }
+                  ],
                   "select": {
                     "$action": "requirements",
                     "exist": [
@@ -7245,6 +7682,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date",
               "name": "available_from",
               "req": true,
               "short": "The date from which this plan is available (inclusive).",
@@ -7252,6 +7690,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "available_to",
               "req": false,
               "short": "The date until which this plan is available (inclusive).",
@@ -7306,6 +7745,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "eligible_count",
               "req": false,
               "short": "Number of employees in the queried group eligible for this plan as-of `start_date`.",
@@ -7347,6 +7787,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "ineligible_count",
               "req": false,
               "short": "Number of employees in the queried group ineligible for this plan as-of `start_date`.",
@@ -7368,6 +7809,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type.",
               "type": "`$STRING`"
@@ -7381,6 +7823,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "total_count",
               "req": false,
               "short": "Total employees in the queried group.",
@@ -7510,8 +7953,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/plans",
-                  "parts": [
-                    "plans"
+                  "segments": [
+                    {
+                      "lit": "plans"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -7586,15 +8031,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/plans/{plan_id}",
-                  "parts": [
-                    "plans",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "plan_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "plans"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "group_id",
@@ -7630,6 +8079,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "cancellation_date",
               "req": false,
               "short": "Date the policy was cancelled (if applicable)",
@@ -7657,6 +8107,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "end_date",
               "req": false,
               "short": "Policy end date (inclusive) in ISO 8601, or null if open-ended",
@@ -7699,6 +8150,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type",
               "type": "`$STRING`"
@@ -7719,6 +8171,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "start_date",
               "req": true,
               "short": "Policy start (effective) date in ISO 8601 (YYYY-MM-DD)",
@@ -7819,8 +8272,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/policies",
-                  "parts": [
-                    "policies"
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -7872,15 +8327,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/policies/{policy_id}",
-                  "parts": [
-                    "policies",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "policy_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -7929,6 +8388,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier.",
               "type": "`$STRING`"
@@ -8023,12 +8483,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{id}/cancel",
-                  "parts": [
-                    "policies",
-                    "{policy_id}",
-                    "policy_amendment_intents",
-                    "{id}",
-                    "cancel"
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "policy_id"
+                    },
+                    {
+                      "lit": "policy_amendment_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "cancel"
+                    }
                   ],
                   "select": {
                     "$action": "cancel",
@@ -8080,18 +8550,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm",
-                  "parts": [
-                    "policies",
-                    "{policy_id}",
-                    "policy_amendment_intents",
-                    "{id}",
-                    "confirm"
-                  ],
                   "rename": {
                     "param": {
                       "policy_amendment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "policy_id"
+                    },
+                    {
+                      "lit": "policy_amendment_intents"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "confirm"
+                    }
+                  ],
                   "select": {
                     "$action": "confirm",
                     "exist": [
@@ -8133,16 +8613,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/policies/{policy_id}/policy_amendment_intents",
-                  "parts": [
-                    "policies",
-                    "{id}",
-                    "policy_amendment_intents"
-                  ],
                   "rename": {
                     "param": {
                       "policy_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "policy_amendment_intents"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -8214,16 +8700,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/policies/{policy_id}/policy_amendment_intents",
-                  "parts": [
-                    "policies",
-                    "{id}",
-                    "policy_amendment_intents"
-                  ],
                   "rename": {
                     "param": {
                       "policy_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "policy_amendment_intents"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -8281,17 +8773,25 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}",
-                  "parts": [
-                    "policies",
-                    "{policy_id}",
-                    "policy_amendment_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "policy_amendment_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policies"
+                    },
+                    {
+                      "var": "policy_id"
+                    },
+                    {
+                      "lit": "policy_amendment_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -8359,12 +8859,14 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type identifier.",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date",
               "name": "policy_end_date",
               "req": false,
               "short": "The end date of the policy.",
@@ -8378,6 +8880,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "policy_start_date",
               "req": true,
               "short": "The start date of the policy.",
@@ -8425,8 +8928,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/policy_import_intents",
-                  "parts": [
-                    "policy_import_intents"
+                  "segments": [
+                    {
+                      "lit": "policy_import_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -8505,8 +9010,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/policy_import_intents",
-                  "parts": [
-                    "policy_import_intents"
+                  "segments": [
+                    {
+                      "lit": "policy_import_intents"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -8557,15 +9064,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/policy_import_intents/{policy_import_intent_id}",
-                  "parts": [
-                    "policy_import_intents",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "policy_import_intent_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "policy_import_intents"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -8647,6 +9158,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "Object type.",
               "type": "`$STRING`"
@@ -8726,8 +9238,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/providers",
-                  "parts": [
-                    "providers"
+                  "segments": [
+                    {
+                      "lit": "providers"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -8776,15 +9290,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/providers/{provider_id}",
-                  "parts": [
-                    "providers",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "provider_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "providers"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -8856,10 +9374,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/events/{event_id}/replay",
-                  "parts": [
-                    "events",
-                    "{event_id}",
-                    "replay"
+                  "segments": [
+                    {
+                      "lit": "events"
+                    },
+                    {
+                      "var": "event_id"
+                    },
+                    {
+                      "lit": "replay"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -8891,6 +9415,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": true,
               "short": "The date and time the endpoint was created",
@@ -8913,6 +9438,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -8963,16 +9489,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/endpoints/{webhook_endpoint_id}",
-                  "parts": [
-                    "webhooks",
-                    "endpoints",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "webhook_endpoint_id": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "webhooks"
+                    },
+                    {
+                      "lit": "endpoints"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -8999,6 +9531,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": true,
               "short": "The date and time the endpoint was created",
@@ -9021,6 +9554,7 @@
             {
               "active": true,
               "name": "object",
+              "readOnly": true,
               "req": false,
               "short": "The object type",
               "type": "`$STRING`"
@@ -9078,9 +9612,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/endpoints",
-                  "parts": [
-                    "webhooks",
-                    "endpoints"
+                  "segments": [
+                    {
+                      "lit": "webhooks"
+                    },
+                    {
+                      "lit": "endpoints"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -9166,8 +9704,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -10979,6 +11520,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -11004,6 +11548,10 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -11055,6 +11603,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -11079,6 +11628,7 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -11130,6 +11680,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -11154,6 +11705,7 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "js": {
@@ -11194,6 +11746,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -11218,6 +11773,9 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [
+            "test/runner.js"
+          ],
           "title": "JavaScript"
         },
         "lua": {
@@ -11258,6 +11816,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -11283,6 +11844,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -11317,6 +11881,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -11342,6 +11909,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -11382,6 +11952,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -11407,6 +11980,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "ts": {
@@ -11424,11 +12000,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -11457,6 +12028,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -11481,6 +12055,14 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

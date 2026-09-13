@@ -37,11 +37,13 @@ main: kit: entity: policy_import_intent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier."
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "policy_end_date"
       req: false
       short: "The end date of the policy."
@@ -54,6 +56,7 @@ main: kit: entity: policy_import_intent: {
       ]
     }
     {
+      format: "date"
       name: "policy_start_date"
       req: true
       short: "The start date of the policy."
@@ -97,8 +100,10 @@ main: kit: entity: policy_import_intent: {
           }
           method: "POST"
           orig: "/policy_import_intents"
-          parts: [
-            "policy_import_intents"
+          segments: [
+            {
+              lit: "policy_import_intents"
+            }
           ]
           select: {
             exist: [
@@ -168,8 +173,10 @@ main: kit: entity: policy_import_intent: {
           }
           method: "GET"
           orig: "/policy_import_intents"
-          parts: [
-            "policy_import_intents"
+          segments: [
+            {
+              lit: "policy_import_intents"
+            }
           ]
           select: {
             exist: [
@@ -215,15 +222,19 @@ main: kit: entity: policy_import_intent: {
           }
           method: "GET"
           orig: "/policy_import_intents/{policy_import_intent_id}"
-          parts: [
-            "policy_import_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               policy_import_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "policy_import_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

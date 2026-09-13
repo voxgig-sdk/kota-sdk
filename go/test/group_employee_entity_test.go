@@ -52,7 +52,7 @@ func TestGroupEmployeeEntity(t *testing.T) {
 		// CREATE
 		groupEmployeeRef01Ent := client.GroupEmployee(nil)
 		groupEmployeeRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "group_employee"}, setup.data), "group_employee_ref01"))
+			vs.GetPath(setup.data, []any{"new", "group_employee"}), "group_employee_ref01"))
 		groupEmployeeRef01Data["group_id"] = setup.idmap["group01"]
 
 		groupEmployeeRef01DataResult, err := groupEmployeeRef01Ent.Create(groupEmployeeRef01Data, nil)
@@ -94,7 +94,7 @@ func group_employeeBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"group_employee01", "group_employee02", "group_employee03", "group01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -114,7 +114,7 @@ func group_employeeBasicSetup(extra map[string]any) *entityTestSetup {
 		"KOTA_TEST_GROUP_EMPLOYEE_ENTID": idmap,
 		"KOTA_TEST_LIVE":      "FALSE",
 		"KOTA_TEST_EXPLAIN":   "FALSE",
-		"KOTA_APIKEY":         "NONE",
+		"KOTA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["KOTA_TEST_GROUP_EMPLOYEE_ENTID"])
@@ -123,11 +123,23 @@ func group_employeeBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["KOTA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["KOTA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewKotaSDK(core.ToMapAny(mergedOpts))
 	}

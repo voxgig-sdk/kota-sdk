@@ -98,7 +98,7 @@ func TestGroupPolicyEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		groupPolicyRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.group_policy", setup.data)))
+		groupPolicyRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.group_policy")))
 		var groupPolicyRef01Data map[string]any
 		if len(groupPolicyRef01DataRaw) > 0 {
 			groupPolicyRef01Data = core.ToMapAny(groupPolicyRef01DataRaw[0][1])
@@ -163,7 +163,7 @@ func group_policyBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"group_policy01", "group_policy02", "group_policy03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -183,7 +183,7 @@ func group_policyBasicSetup(extra map[string]any) *entityTestSetup {
 		"KOTA_TEST_GROUP_POLICY_ENTID": idmap,
 		"KOTA_TEST_LIVE":      "FALSE",
 		"KOTA_TEST_EXPLAIN":   "FALSE",
-		"KOTA_APIKEY":         "NONE",
+		"KOTA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["KOTA_TEST_GROUP_POLICY_ENTID"])
@@ -192,11 +192,23 @@ func group_policyBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["KOTA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["KOTA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewKotaSDK(core.ToMapAny(mergedOpts))
 	}

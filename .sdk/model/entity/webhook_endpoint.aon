@@ -6,6 +6,7 @@ main: kit: entity: webhook_endpoint: {
 
   fields: [
     {
+      format: "date-time"
       name: "created_at"
       req: true
       short: "The date and time the endpoint was created"
@@ -25,6 +26,7 @@ main: kit: entity: webhook_endpoint: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -71,16 +73,22 @@ main: kit: entity: webhook_endpoint: {
           }
           method: "GET"
           orig: "/webhooks/endpoints/{webhook_endpoint_id}"
-          parts: [
-            "webhooks"
-            "endpoints"
-            "{id}"
-          ]
           rename: {
             param: {
               webhook_endpoint_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "webhooks"
+            }
+            {
+              lit: "endpoints"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

@@ -12,12 +12,14 @@ main: kit: entity: employee: {
       type: "`$NULL`"
     }
     {
+      format: "date"
       name: "date_of_birth"
       req: true
       short: "Date of birth of the employee"
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "earliest_benefits_start_date"
       req: false
       short: "The earliest date this employee can be enrolled in any benefits."
@@ -103,11 +105,13 @@ main: kit: entity: employee: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "offboard_on"
       req: false
       short: "Date when the employee was or will be offboarded"
@@ -138,6 +142,7 @@ main: kit: entity: employee: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "start_on"
       req: false
       short: "Employment start date"
@@ -192,16 +197,22 @@ main: kit: entity: employee: {
           }
           method: "POST"
           orig: "/employees/{employee_id}/offboard"
-          parts: [
-            "employees"
-            "{id}"
-            "offboard"
-          ]
           rename: {
             param: {
               employee_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "offboard"
+            }
+          ]
           select: {
             "$action": "offboard"
             exist: [
@@ -246,17 +257,25 @@ main: kit: entity: employee: {
           }
           method: "POST"
           orig: "/employees/{employee_id}/offboard/cancel"
-          parts: [
-            "employees"
-            "{id}"
-            "offboard"
-            "cancel"
-          ]
           rename: {
             param: {
               employee_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "offboard"
+            }
+            {
+              lit: "cancel"
+            }
+          ]
           select: {
             "$action": "offboard_cancel"
             exist: [
@@ -291,8 +310,10 @@ main: kit: entity: employee: {
           }
           method: "POST"
           orig: "/employees"
-          parts: [
-            "employees"
+          segments: [
+            {
+              lit: "employees"
+            }
           ]
           select: {
             exist: [
@@ -369,8 +390,10 @@ main: kit: entity: employee: {
           }
           method: "GET"
           orig: "/employees"
-          parts: [
-            "employees"
+          segments: [
+            {
+              lit: "employees"
+            }
           ]
           select: {
             exist: [
@@ -417,15 +440,19 @@ main: kit: entity: employee: {
           }
           method: "GET"
           orig: "/employees/{employee_id}"
-          parts: [
-            "employees"
-            "{id}"
-          ]
           rename: {
             param: {
               employee_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -466,15 +493,19 @@ main: kit: entity: employee: {
           }
           method: "PUT"
           orig: "/employees/{employee_id}"
-          parts: [
-            "employees"
-            "{id}"
-          ]
           rename: {
             param: {
               employee_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

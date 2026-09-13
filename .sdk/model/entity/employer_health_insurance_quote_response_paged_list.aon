@@ -25,11 +25,13 @@ main: kit: entity: employer_health_insurance_quote_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "quoted_at"
       req: true
       short: "Date and time the quote was created at"
@@ -106,11 +108,19 @@ main: kit: entity: employer_health_insurance_quote_response_paged_list: {
           }
           method: "GET"
           orig: "/employers/{employer_id}/health_insurance/quotes"
-          parts: [
-            "employers"
-            "{employer_id}"
-            "health_insurance"
-            "quotes"
+          segments: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "employer_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "quotes"
+            }
           ]
           select: {
             exist: [

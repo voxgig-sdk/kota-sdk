@@ -119,14 +119,22 @@ func group_employee_response_paged_listDirectSetup(mockres any) *group_employee_
 	env := envOverride(map[string]any{
 		"KOTA_TEST_GROUP_EMPLOYEE_RESPONSE_PAGED_LIST_ENTID": map[string]any{},
 		"KOTA_TEST_LIVE":    "FALSE",
-		"KOTA_APIKEY":       "NONE",
+		"KOTA_APIKEY":       "",
 	})
 
 	live := env["KOTA_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["KOTA_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewKotaSDK(mergedOpts)
 

@@ -6,6 +6,7 @@ main: kit: entity: group_employee: {
 
   fields: [
     {
+      format: "date"
       name: "desired_policy_start_date"
       req: false
       short: "The desired date for the employee's policy to start."
@@ -24,6 +25,7 @@ main: kit: entity: group_employee: {
       type: "`$ANY`"
     }
     {
+      format: "date"
       name: "enrolment_date"
       req: false
       short: "The date on which the employee agreed to enrol into the group's policies."
@@ -61,6 +63,7 @@ main: kit: entity: group_employee: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -120,16 +123,22 @@ main: kit: entity: group_employee: {
           }
           method: "POST"
           orig: "/groups/{group_id}/employees"
-          parts: [
-            "groups"
-            "{id}"
-            "employees"
-          ]
           rename: {
             param: {
               group_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "employees"
+            }
+          ]
           select: {
             exist: [
               "id"

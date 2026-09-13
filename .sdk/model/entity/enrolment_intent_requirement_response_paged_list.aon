@@ -19,6 +19,7 @@ main: kit: entity: enrolment_intent_requirement_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier"
       type: "`$STRING`"
@@ -107,16 +108,22 @@ main: kit: entity: enrolment_intent_requirement_response_paged_list: {
           }
           method: "GET"
           orig: "/enrolment_intents/{enrolment_intent_id}/requirements"
-          parts: [
-            "enrolment_intents"
-            "{id}"
-            "requirements"
-          ]
           rename: {
             param: {
               enrolment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "requirements"
+            }
+          ]
           select: {
             "$action": "requirements"
             exist: [

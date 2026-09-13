@@ -100,7 +100,7 @@ func TestPolicyImportIntentEntity(t *testing.T) {
 		// CREATE
 		policyImportIntentRef01Ent := client.PolicyImportIntent(nil)
 		policyImportIntentRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "policy_import_intent"}, setup.data), "policy_import_intent_ref01"))
+			vs.GetPath(setup.data, []any{"new", "policy_import_intent"}), "policy_import_intent_ref01"))
 
 		policyImportIntentRef01DataResult, err := policyImportIntentRef01Ent.Create(policyImportIntentRef01Data, nil)
 		if err != nil {
@@ -174,7 +174,7 @@ func policy_import_intentBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"policy_import_intent01", "policy_import_intent02", "policy_import_intent03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -194,7 +194,7 @@ func policy_import_intentBasicSetup(extra map[string]any) *entityTestSetup {
 		"KOTA_TEST_POLICY_IMPORT_INTENT_ENTID": idmap,
 		"KOTA_TEST_LIVE":      "FALSE",
 		"KOTA_TEST_EXPLAIN":   "FALSE",
-		"KOTA_APIKEY":         "NONE",
+		"KOTA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["KOTA_TEST_POLICY_IMPORT_INTENT_ENTID"])
@@ -203,11 +203,23 @@ func policy_import_intentBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["KOTA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["KOTA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewKotaSDK(core.ToMapAny(mergedOpts))
 	}

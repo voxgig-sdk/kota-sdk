@@ -46,10 +46,16 @@ main: kit: entity: replay: {
           }
           method: "POST"
           orig: "/events/{event_id}/replay"
-          parts: [
-            "events"
-            "{event_id}"
-            "replay"
+          segments: [
+            {
+              lit: "events"
+            }
+            {
+              var: "event_id"
+            }
+            {
+              lit: "replay"
+            }
           ]
           select: {
             exist: [

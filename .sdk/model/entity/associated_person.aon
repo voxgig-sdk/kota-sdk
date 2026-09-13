@@ -6,6 +6,7 @@ main: kit: entity: associated_person: {
 
   fields: [
     {
+      format: "date"
       name: "date_of_birth"
       req: true
       short: "Date of birth of the associated person"
@@ -49,6 +50,7 @@ main: kit: entity: associated_person: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -119,10 +121,16 @@ main: kit: entity: associated_person: {
           }
           method: "POST"
           orig: "/employees/{employee_id}/associated_persons"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "associated_persons"
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
           ]
           select: {
             exist: [
@@ -180,10 +188,16 @@ main: kit: entity: associated_person: {
           }
           method: "GET"
           orig: "/employees/{employee_id}/associated_persons"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "associated_persons"
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
           ]
           select: {
             exist: [
@@ -235,17 +249,25 @@ main: kit: entity: associated_person: {
           }
           method: "GET"
           orig: "/employees/{employee_id}/associated_persons/{associated_person_id}"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "associated_persons"
-            "{id}"
-          ]
           rename: {
             param: {
               associated_person_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "employee_id"
@@ -295,17 +317,25 @@ main: kit: entity: associated_person: {
           }
           method: "DELETE"
           orig: "/employees/{employee_id}/associated_persons/{associated_person_id}"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "associated_persons"
-            "{id}"
-          ]
           rename: {
             param: {
               associated_person_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "employee_id"
@@ -355,17 +385,25 @@ main: kit: entity: associated_person: {
           }
           method: "PUT"
           orig: "/employees/{employee_id}/associated_persons/{associated_person_id}"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "associated_persons"
-            "{id}"
-          ]
           rename: {
             param: {
               associated_person_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "employee_id"

@@ -177,14 +177,22 @@ func group_quote_intentDirectSetup(mockres any) *group_quote_intentDirectSetupRe
 	env := envOverride(map[string]any{
 		"KOTA_TEST_GROUP_QUOTE_INTENT_ENTID": map[string]any{},
 		"KOTA_TEST_LIVE":    "FALSE",
-		"KOTA_APIKEY":       "NONE",
+		"KOTA_APIKEY":       "",
 	})
 
 	live := env["KOTA_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["KOTA_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewKotaSDK(mergedOpts)
 

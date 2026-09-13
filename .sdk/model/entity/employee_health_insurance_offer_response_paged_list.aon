@@ -43,6 +43,7 @@ main: kit: entity: employee_health_insurance_offer_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -111,11 +112,19 @@ main: kit: entity: employee_health_insurance_offer_response_paged_list: {
           }
           method: "GET"
           orig: "/employees/{employee_id}/health_insurance/offers"
-          parts: [
-            "employees"
-            "{employee_id}"
-            "health_insurance"
-            "offers"
+          segments: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "offers"
+            }
           ]
           select: {
             exist: [

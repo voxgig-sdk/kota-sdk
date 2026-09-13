@@ -12,6 +12,7 @@ main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: true
       short: "Date and time the breakdown was created"
@@ -48,6 +49,7 @@ main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
       ]
     }
     {
+      format: "date-time"
       name: "finalized_at"
       req: false
       short: "Date and time the breakdown was finalized, if applicable"
@@ -71,6 +73,7 @@ main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "last_updated_at"
       req: true
       short: "Date and time of the last update to the breakdown"
@@ -78,6 +81,7 @@ main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -146,16 +150,22 @@ main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
           }
           method: "GET"
           orig: "/contribution_reports/{contribution_report_id}/employee_breakdowns"
-          parts: [
-            "contribution_reports"
-            "{id}"
-            "employee_breakdowns"
-          ]
           rename: {
             param: {
               contribution_report_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "contribution_reports"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "employee_breakdowns"
+            }
+          ]
           select: {
             "$action": "employee_breakdowns"
             exist: [

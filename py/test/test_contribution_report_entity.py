@@ -141,7 +141,7 @@ def _contribution_report_basic_setup(extra):
         "KOTA_TEST_CONTRIBUTION_REPORT_ENTID": idmap,
         "KOTA_TEST_LIVE": "FALSE",
         "KOTA_TEST_EXPLAIN": "FALSE",
-        "KOTA_APIKEY": "NONE",
+        "KOTA_APIKEY": "",
     })
 
     idmap_resolved = helpers.to_map(
@@ -151,6 +151,10 @@ def _contribution_report_basic_setup(extra):
 
     if env.get("KOTA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
                 "apikey": env.get("KOTA_APIKEY"),
             },

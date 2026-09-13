@@ -25,6 +25,7 @@ main: kit: entity: policy_amendment_intent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier."
       type: "`$STRING`"
@@ -109,12 +110,22 @@ main: kit: entity: policy_amendment_intent: {
           }
           method: "POST"
           orig: "/policies/{policy_id}/policy_amendment_intents/{id}/cancel"
-          parts: [
-            "policies"
-            "{policy_id}"
-            "policy_amendment_intents"
-            "{id}"
-            "cancel"
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "cancel"
+            }
           ]
           select: {
             "$action": "cancel"
@@ -161,18 +172,28 @@ main: kit: entity: policy_amendment_intent: {
           }
           method: "POST"
           orig: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm"
-          parts: [
-            "policies"
-            "{policy_id}"
-            "policy_amendment_intents"
-            "{id}"
-            "confirm"
-          ]
           rename: {
             param: {
               policy_amendment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "confirm"
+            }
+          ]
           select: {
             "$action": "confirm"
             exist: [
@@ -210,16 +231,22 @@ main: kit: entity: policy_amendment_intent: {
           }
           method: "POST"
           orig: "/policies/{policy_id}/policy_amendment_intents"
-          parts: [
-            "policies"
-            "{id}"
-            "policy_amendment_intents"
-          ]
           rename: {
             param: {
               policy_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -283,16 +310,22 @@ main: kit: entity: policy_amendment_intent: {
           }
           method: "GET"
           orig: "/policies/{policy_id}/policy_amendment_intents"
-          parts: [
-            "policies"
-            "{id}"
-            "policy_amendment_intents"
-          ]
           rename: {
             param: {
               policy_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -344,17 +377,25 @@ main: kit: entity: policy_amendment_intent: {
           }
           method: "GET"
           orig: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}"
-          parts: [
-            "policies"
-            "{policy_id}"
-            "policy_amendment_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               policy_amendment_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

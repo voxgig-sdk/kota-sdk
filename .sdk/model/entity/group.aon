@@ -67,6 +67,7 @@ main: kit: entity: group: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "The object type"
       type: "`$STRING`"
@@ -103,8 +104,10 @@ main: kit: entity: group: {
           }
           method: "POST"
           orig: "/groups"
-          parts: [
-            "groups"
+          segments: [
+            {
+              lit: "groups"
+            }
           ]
           select: {
             exist: [
@@ -166,8 +169,10 @@ main: kit: entity: group: {
           }
           method: "GET"
           orig: "/groups"
-          parts: [
-            "groups"
+          segments: [
+            {
+              lit: "groups"
+            }
           ]
           select: {
             exist: [
@@ -212,15 +217,19 @@ main: kit: entity: group: {
           }
           method: "GET"
           orig: "/groups/{group_id}"
-          parts: [
-            "groups"
-            "{id}"
-          ]
           rename: {
             param: {
               group_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -261,15 +270,19 @@ main: kit: entity: group: {
           }
           method: "PUT"
           orig: "/groups/{group_id}"
-          parts: [
-            "groups"
-            "{id}"
-          ]
           rename: {
             param: {
               group_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

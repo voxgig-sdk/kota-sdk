@@ -24,6 +24,7 @@ main: kit: entity: group_policy_intent: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "due_date"
       req: false
       short: "Due date for the policy intent"
@@ -49,6 +50,7 @@ main: kit: entity: group_policy_intent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier"
       type: "`$STRING`"
@@ -97,8 +99,10 @@ main: kit: entity: group_policy_intent: {
           }
           method: "POST"
           orig: "/group_policy_intents"
-          parts: [
-            "group_policy_intents"
+          segments: [
+            {
+              lit: "group_policy_intents"
+            }
           ]
           select: {
             exist: [
@@ -168,8 +172,10 @@ main: kit: entity: group_policy_intent: {
           }
           method: "GET"
           orig: "/group_policy_intents"
-          parts: [
-            "group_policy_intents"
+          segments: [
+            {
+              lit: "group_policy_intents"
+            }
           ]
           select: {
             exist: [
@@ -215,15 +221,19 @@ main: kit: entity: group_policy_intent: {
           }
           method: "GET"
           orig: "/group_policy_intents/{group_policy_intent_id}"
-          parts: [
-            "group_policy_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               group_policy_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "group_policy_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

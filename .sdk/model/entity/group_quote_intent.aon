@@ -30,6 +30,7 @@ main: kit: entity: group_quote_intent: {
       type: "`$ARRAY`"
     }
     {
+      format: "date"
       name: "expected_start_date"
       req: false
       short: "Expected start date for the insurance coverage"
@@ -55,6 +56,7 @@ main: kit: entity: group_quote_intent: {
     }
     {
       name: "object"
+      readOnly: true
       req: false
       short: "Object type identifier"
       type: "`$STRING`"
@@ -107,16 +109,22 @@ main: kit: entity: group_quote_intent: {
           }
           method: "POST"
           orig: "/group_quote_intents/{group_quote_intent_id}/reject"
-          parts: [
-            "group_quote_intents"
-            "{id}"
-            "reject"
-          ]
           rename: {
             param: {
               group_quote_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "reject"
+            }
+          ]
           select: {
             "$action": "reject"
             exist: [
@@ -143,8 +151,10 @@ main: kit: entity: group_quote_intent: {
           }
           method: "POST"
           orig: "/group_quote_intents"
-          parts: [
-            "group_quote_intents"
+          segments: [
+            {
+              lit: "group_quote_intents"
+            }
           ]
           select: {
             exist: [
@@ -214,8 +224,10 @@ main: kit: entity: group_quote_intent: {
           }
           method: "GET"
           orig: "/group_quote_intents"
-          parts: [
-            "group_quote_intents"
+          segments: [
+            {
+              lit: "group_quote_intents"
+            }
           ]
           select: {
             exist: [
@@ -261,15 +273,19 @@ main: kit: entity: group_quote_intent: {
           }
           method: "GET"
           orig: "/group_quote_intents/{group_quote_intent_id}"
-          parts: [
-            "group_quote_intents"
-            "{id}"
-          ]
           rename: {
             param: {
               group_quote_intent_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
