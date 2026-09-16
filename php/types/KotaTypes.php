@@ -178,19 +178,7 @@ class ContributionReportEmployeeBreakdownLoadMatch
 /** ContributionReportEmployeeBreakdownResponsePagedList entity data model. */
 class ContributionReportEmployeeBreakdownResponsePagedList
 {
-    public string $contribution_report_id;
-    public string $created_at;
-    public mixed $currency;
-    public string $employee_id;
-    public string $employer_id;
-    public mixed $external_customer_id = null;
-    public mixed $finalized_at = null;
-    public mixed $health_insurance;
     public ?string $id = null;
-    public string $last_updated_at;
-    public ?string $object = null;
-    public mixed $period;
-    public mixed $status;
 }
 
 /** Request payload for ContributionReportEmployeeBreakdownResponsePagedList#list. */
@@ -738,12 +726,7 @@ class EnrolmentIntentUpdateData
 /** EnrolmentIntentRequirementResponsePagedList entity data model. */
 class EnrolmentIntentRequirementResponsePagedList
 {
-    public string $id;
-    public bool $is_fulfilled;
-    public ?string $object = null;
-    public string $object_id;
-    public mixed $object_type;
-    public mixed $requirement_type;
+    public ?string $id = null;
 }
 
 /** Request payload for EnrolmentIntentRequirementResponsePagedList#list. */
@@ -882,16 +865,7 @@ class GroupEmployeeCreateData
 /** GroupEmployeeResponsePagedList entity data model. */
 class GroupEmployeeResponsePagedList
 {
-    public mixed $desired_policy_start_date = null;
-    public mixed $eligibility_status;
-    public mixed $enrolment_date = null;
-    public mixed $enrolment_status;
-    public array $enrolments;
-    public string $group_id;
-    public string $id;
-    public ?string $object = null;
-    public array $policies;
-    public array $scheduled_group_transitions;
+    public ?string $id = null;
 }
 
 /** Request payload for GroupEmployeeResponsePagedList#list. */
@@ -986,12 +960,7 @@ class GroupPolicyIntentCreateData
 /** GroupPolicyIntentRequirementResponsePagedList entity data model. */
 class GroupPolicyIntentRequirementResponsePagedList
 {
-    public string $id;
-    public bool $is_fulfilled;
-    public ?string $object = null;
-    public string $object_id;
-    public mixed $object_type;
-    public mixed $requirement_type;
+    public ?string $id = null;
 }
 
 /** Request payload for GroupPolicyIntentRequirementResponsePagedList#list. */
@@ -1069,12 +1038,7 @@ class GroupQuoteIntentCreateData
 /** GroupQuoteIntentRequirementResponsePagedList entity data model. */
 class GroupQuoteIntentRequirementResponsePagedList
 {
-    public string $id;
-    public bool $is_fulfilled;
-    public ?string $object = null;
-    public string $object_id;
-    public mixed $object_type;
-    public mixed $requirement_type;
+    public ?string $id = null;
 }
 
 /** Request payload for GroupQuoteIntentRequirementResponsePagedList#list. */

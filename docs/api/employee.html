@@ -1,0 +1,1604 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Employee | Kota API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Kota API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/kota-sdk">voxgig-sdk/kota-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Kota API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/associated_person.html">AssociatedPerson</a>
+<a href="../api/associated_person_eligibility_response_paged_list.html">AssociatedPersonEligibilityResponsePagedList</a>
+<a href="../api/contribution_report.html">ContributionReport</a>
+<a href="../api/contribution_report_employee_breakdown.html">ContributionReportEmployeeBreakdown</a>
+<a href="../api/contribution_report_employee_breakdown_response_paged_list.html">ContributionReportEmployeeBreakdownResponsePagedList</a>
+<a href="../api/create_hosted_session_token.html">CreateHostedSessionToken</a>
+<a href="../api/create_session_token.html">CreateSessionToken</a>
+<a href="../api/dependent.html">Dependent</a>
+<a href="../api/dependents_management_intent.html">DependentsManagementIntent</a>
+<a href="../api/eligibility_check.html">EligibilityCheck</a>
+<a aria-current="page" href="../api/employee.html">Employee</a><div class="nav-sections"><a class="nav-section" href="#post-employeesemployee_idoffboard">POST /employees/{employee_id}/offboard</a>
+<a class="nav-section" href="#post-employeesemployee_idoffboardcancel">POST /employees/{employee_id}/offboard/cancel</a>
+<a class="nav-section" href="#post-employees">POST /employees</a>
+<a class="nav-section" href="#get-employees">GET /employees</a>
+<a class="nav-section" href="#get-employeesemployee_id">GET /employees/{employee_id}</a>
+<a class="nav-section" href="#put-employeesemployee_id">PUT /employees/{employee_id}</a></div>
+<a href="../api/employee_health_insurance_offer.html">EmployeeHealthInsuranceOffer</a>
+<a href="../api/employee_health_insurance_offer_response_paged_list.html">EmployeeHealthInsuranceOfferResponsePagedList</a>
+<a href="../api/employee_health_insurance_policy.html">EmployeeHealthInsurancePolicy</a>
+<a href="../api/employee_health_insurance_policy_response_paged_list.html">EmployeeHealthInsurancePolicyResponsePagedList</a>
+<a href="../api/employer.html">Employer</a>
+<a href="../api/employer_health_insurance_policy.html">EmployerHealthInsurancePolicy</a>
+<a href="../api/employer_health_insurance_policy_response_paged_list.html">EmployerHealthInsurancePolicyResponsePagedList</a>
+<a href="../api/employer_health_insurance_quote.html">EmployerHealthInsuranceQuote</a>
+<a href="../api/employer_health_insurance_quote_response_paged_list.html">EmployerHealthInsuranceQuoteResponsePagedList</a>
+<a href="../api/enrolment_intent.html">EnrolmentIntent</a>
+<a href="../api/enrolment_intent_requirement_response_paged_list.html">EnrolmentIntentRequirementResponsePagedList</a>
+<a href="../api/event.html">Event</a>
+<a href="../api/group.html">Group</a>
+<a href="../api/group_employee.html">GroupEmployee</a>
+<a href="../api/group_employee_response_paged_list.html">GroupEmployeeResponsePagedList</a>
+<a href="../api/group_policy.html">GroupPolicy</a>
+<a href="../api/group_policy_intent.html">GroupPolicyIntent</a>
+<a href="../api/group_policy_intent_requirement_response_paged_list.html">GroupPolicyIntentRequirementResponsePagedList</a>
+<a href="../api/group_quote.html">GroupQuote</a>
+<a href="../api/group_quote_intent.html">GroupQuoteIntent</a>
+<a href="../api/group_quote_intent_requirement_response_paged_list.html">GroupQuoteIntentRequirementResponsePagedList</a>
+<a href="../api/plan.html">Plan</a>
+<a href="../api/policy.html">Policy</a>
+<a href="../api/policy_amendment_intent.html">PolicyAmendmentIntent</a>
+<a href="../api/policy_import_intent.html">PolicyImportIntent</a>
+<a href="../api/provider.html">Provider</a>
+<a href="../api/replay.html">Replay</a>
+<a href="../api/webhook_endpoint.html">WebhookEndpoint</a>
+<a href="../api/webhook_endpoint_response_paged_list.html">WebhookEndpointResponsePagedList</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="employee">Employee</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-employeesemployee_idoffboard"><code>/employees/{employee_id}/offboard</code></a></td>
+<td><code>create</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-employeesemployee_idoffboardcancel"><code>/employees/{employee_id}/offboard/cancel</code></a></td>
+<td><code>create</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-employees"><code>/employees</code></a></td>
+<td><code>create</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-employees"><code>/employees</code></a></td>
+<td><code>list</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-employeesemployee_id"><code>/employees/{employee_id}</code></a></td>
+<td><code>load</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-employeesemployee_id"><code>/employees/{employee_id}</code></a></td>
+<td><code>update</code></td>
+<td>OK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>earliest_benefits_start_date</code></td>
+<td><code>one,null,string</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>external_customer_id</code></td>
+<td><code>one,null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee.</td>
+</tr>
+<tr>
+<td><code>home_address</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>one,null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object.</td>
+</tr>
+<tr>
+<td><code>national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>offboard_on</code></td>
+<td><code>one,null,string</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example</td>
+</tr>
+<tr>
+<td><code>platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>sex_at_birth</code></td>
+<td><code>any</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>start_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-employeesemployee_idoffboard" class="operation" data-method="post"><code>POST</code> /employees/{employee_id}/offboard</h3>
+<p>Operation ID: <code>OffboardEmployee</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>employee_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>Idempotency-Key</code> | <code>header</code> | <code>string</code> | No | Unique key to ensure idempotent requests. If the same key is used for multiple <em>identical &amp; successful</em> requests, the same response will be returned. <a href="/api#idempotent-requests">Read more here</a> |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object</code>.</p>
+<h4 id="responses">Responses</h4>
+<h5 id="200-ok" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>earliest_benefits_start_date</code></td>
+<td><code>null,string (date)</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits. Before this date, the employee remains in a Pending state and is excluded from benefit activation. Ignored for statutory schemes where immediate coverage is legally required. Example: Local Netherlands and UAE schemes.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>external_customer_id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is only available to EoR platforms.</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee. It can include the middle name</td>
+</tr>
+<tr>
+<td><code>home_address</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.</td>
+</tr>
+<tr>
+<td><code>national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td><code>enum: af, ax, al, dz, as, ad, ...</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example IE for Ireland, GB for United Kingdom, ES for Spain)</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>offboard_on</code></td>
+<td><code>null,string (date-time)</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example +447700900999)</td>
+</tr>
+<tr>
+<td><code>platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>sex_at_birth</code></td>
+<td><code>enum: male, female</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>start_on</code></td>
+<td><code>string (date)</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: pending, active, offboarding, inactive, restricted</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-employeesemployee_idoffboardcancel" class="operation" data-method="post"><code>POST</code> /employees/{employee_id}/offboard/cancel</h3>
+<p>Operation ID: <code>CancelOffboardingEmployee</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-1">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>employee_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>Idempotency-Key</code> | <code>header</code> | <code>string</code> | No | Unique key to ensure idempotent requests. If the same key is used for multiple <em>identical &amp; successful</em> requests, the same response will be returned. <a href="/api#idempotent-requests">Read more here</a> |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-ok-1" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>earliest_benefits_start_date</code></td>
+<td><code>null,string (date)</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits. Before this date, the employee remains in a Pending state and is excluded from benefit activation. Ignored for statutory schemes where immediate coverage is legally required. Example: Local Netherlands and UAE schemes.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>external_customer_id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is only available to EoR platforms.</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee. It can include the middle name</td>
+</tr>
+<tr>
+<td><code>home_address</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.</td>
+</tr>
+<tr>
+<td><code>national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td><code>enum: af, ax, al, dz, as, ad, ...</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example IE for Ireland, GB for United Kingdom, ES for Spain)</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>offboard_on</code></td>
+<td><code>null,string (date-time)</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example +447700900999)</td>
+</tr>
+<tr>
+<td><code>platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>sex_at_birth</code></td>
+<td><code>enum: male, female</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>start_on</code></td>
+<td><code>string (date)</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: pending, active, offboarding, inactive, restricted</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-1" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-employees" class="operation" data-method="post"><code>POST</code> /employees</h3>
+<p>Operation ID: <code>CreateEmployee</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-2">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>Idempotency-Key</code> | <code>header</code> | <code>string</code> | No | Unique key to ensure idempotent requests. If the same key is used for multiple <em>identical &amp; successful</em> requests, the same response will be returned. <a href="/api#idempotent-requests">Read more here</a> |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object</code>.</p>
+<h4 id="responses-2">Responses</h4>
+<h5 id="200-ok-2" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>earliest_benefits_start_date</code></td>
+<td><code>null,string (date)</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits. Before this date, the employee remains in a Pending state and is excluded from benefit activation. Ignored for statutory schemes where immediate coverage is legally required. Example: Local Netherlands and UAE schemes.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>external_customer_id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is only available to EoR platforms.</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee. It can include the middle name</td>
+</tr>
+<tr>
+<td><code>home_address</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.</td>
+</tr>
+<tr>
+<td><code>national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td><code>enum: af, ax, al, dz, as, ad, ...</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example IE for Ireland, GB for United Kingdom, ES for Spain)</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>offboard_on</code></td>
+<td><code>null,string (date-time)</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example +447700900999)</td>
+</tr>
+<tr>
+<td><code>platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>sex_at_birth</code></td>
+<td><code>enum: male, female</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>start_on</code></td>
+<td><code>string (date)</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: pending, active, offboarding, inactive, restricted</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-2" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="list">list</h2>
+<h3 id="get-employees" class="operation" data-method="get"><code>GET</code> /employees</h3>
+<p>Operation ID: <code>ListEmployees</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>filter</code> | <code>query</code> | <code>string</code> | No | Multiple values can be provided by separating them with a comma. Allowed values are: <code>pending</code>, <code>active</code>, <code>offboarding</code>, <code>inactive</code>, <code>restricted</code>. |
+| <code>employer_id</code> | <code>query</code> | <code>string</code> | No | Filter by employer ID. |
+| <code>external_customer_id</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>metadata_id</code> | <code>query</code> | <code>string</code> | No | Filter by the employee's metadata &quot;id&quot; value (case-insensitive, accent-insensitive, partial match) |
+| <code>page</code> | <code>query</code> | <code>integer (int32)</code> | No | The page of results to return. Defaults to 1 if not provided. |
+| <code>page_size</code> | <code>query</code> | <code>integer (int32)</code> | No | The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100. |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-ok-3" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>has_next_page</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether there are more pages available after this page</td>
+</tr>
+<tr>
+<td><code>has_previous_page</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether there are more pages available before this page</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>A paginated array containing the response elements</td>
+</tr>
+<tr>
+<td><code>items[].bank_account</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>items[].date_of_birth</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>items[].earliest_benefits_start_date</code></td>
+<td><code>null,string (date)</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits. Before this date, the employee remains in a Pending state and is excluded from benefit activation. Ignored for statutory schemes where immediate coverage is legally required. Example: Local Netherlands and UAE schemes.</td>
+</tr>
+<tr>
+<td><code>items[].email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>items[].employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>items[].external_customer_id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is only available to EoR platforms.</td>
+</tr>
+<tr>
+<td><code>items[].first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee. It can include the middle name</td>
+</tr>
+<tr>
+<td><code>items[].home_address</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>items[].id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>items[].last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>items[].metadata</code></td>
+<td><code>null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.</td>
+</tr>
+<tr>
+<td><code>items[].national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>items[].nationality</code></td>
+<td><code>enum: af, ax, al, dz, as, ad, ...</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example IE for Ireland, GB for United Kingdom, ES for Spain)</td>
+</tr>
+<tr>
+<td><code>items[].object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>items[].offboard_on</code></td>
+<td><code>null,string (date-time)</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>items[].phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example +447700900999)</td>
+</tr>
+<tr>
+<td><code>items[].platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>items[].sex_at_birth</code></td>
+<td><code>enum: male, female</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>items[].start_on</code></td>
+<td><code>string (date)</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>items[].status</code></td>
+<td><code>enum: pending, active, offboarding, inactive, restricted</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The current page of the results</td>
+</tr>
+<tr>
+<td><code>page_size</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The number of results on this page. This can be different from the requested page size if the total number of results is less than the requested page size</td>
+</tr>
+<tr>
+<td><code>total_count</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The total number of elements available in the response. This is the total number of elements available across all pages, not just the current page.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-3" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="load">load</h2>
+<h3 id="get-employeesemployee_id" class="operation" data-method="get"><code>GET</code> /employees/{employee_id}</h3>
+<p>Operation ID: <code>RetrieveEmployee</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-4">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>employee_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses-4">Responses</h4>
+<h5 id="200-ok-4" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>earliest_benefits_start_date</code></td>
+<td><code>null,string (date)</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits. Before this date, the employee remains in a Pending state and is excluded from benefit activation. Ignored for statutory schemes where immediate coverage is legally required. Example: Local Netherlands and UAE schemes.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>external_customer_id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is only available to EoR platforms.</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee. It can include the middle name</td>
+</tr>
+<tr>
+<td><code>home_address</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.</td>
+</tr>
+<tr>
+<td><code>national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td><code>enum: af, ax, al, dz, as, ad, ...</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example IE for Ireland, GB for United Kingdom, ES for Spain)</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>offboard_on</code></td>
+<td><code>null,string (date-time)</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example +447700900999)</td>
+</tr>
+<tr>
+<td><code>platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>sex_at_birth</code></td>
+<td><code>enum: male, female</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>start_on</code></td>
+<td><code>string (date)</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: pending, active, offboarding, inactive, restricted</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-4" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-1" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="update">update</h2>
+<h3 id="put-employeesemployee_id" class="operation" data-method="put"><code>PUT</code> /employees/{employee_id}</h3>
+<p>Operation ID: <code>UpdateEmployee</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-5">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>employee_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="request-body-2">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object</code>.</p>
+<h4 id="responses-5">Responses</h4>
+<h5 id="200-ok-5" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Bank account details</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Date of birth of the employee</td>
+</tr>
+<tr>
+<td><code>earliest_benefits_start_date</code></td>
+<td><code>null,string (date)</code></td>
+<td>No</td>
+<td>The earliest date this employee can be enrolled in any benefits. Before this date, the employee remains in a Pending state and is excluded from benefit activation. Ignored for statutory schemes where immediate coverage is legally required. Example: Local Netherlands and UAE schemes.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Email address of the employee</td>
+</tr>
+<tr>
+<td><code>employer_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employer</td>
+</tr>
+<tr>
+<td><code>external_customer_id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is only available to EoR platforms.</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>First name of the employee. It can include the middle name</td>
+</tr>
+<tr>
+<td><code>home_address</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Location where the employee is legally registered to live</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the employee</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Last name of the employee</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>null,object</code></td>
+<td>No</td>
+<td>Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.</td>
+</tr>
+<tr>
+<td><code>national_tax_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>PPSN in Ireland, NINo in the UK, DNI/NIE in Spain</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td><code>enum: af, ax, al, dz, as, ad, ...</code></td>
+<td>No</td>
+<td>Nationality of the employee (for example IE for Ireland, GB for United Kingdom, ES for Spain)</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The object type</td>
+</tr>
+<tr>
+<td><code>offboard_on</code></td>
+<td><code>null,string (date-time)</code></td>
+<td>No</td>
+<td>Date when the employee was or will be offboarded</td>
+</tr>
+<tr>
+<td><code>phone_number</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Phone number in E.164 international format (for example +447700900999)</td>
+</tr>
+<tr>
+<td><code>platform_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Unique identifier for the platform</td>
+</tr>
+<tr>
+<td><code>sex_at_birth</code></td>
+<td><code>enum: male, female</code></td>
+<td>Yes</td>
+<td>The sex assigned to the employee at birth</td>
+</tr>
+<tr>
+<td><code>start_on</code></td>
+<td><code>string (date)</code></td>
+<td>No</td>
+<td>Employment start date</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: pending, active, offboarding, inactive, restricted</code></td>
+<td>No</td>
+<td>Current status of the employee</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-5" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-2" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

@@ -395,19 +395,7 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns/{e
 
 | Field | Description |
 | --- | --- |
-| `contribution_report_id` | Unique identifier of the related contribution report |
-| `created_at` | Date and time the breakdown was created |
-| `currency` | The currency in which all the amounts in this breakdown are presented (e.g. |
-| `employee_id` | Unique identifier of the employee for which the breakdown is created |
-| `employer_id` | Unique identifier of the employer for which the breakdown is created |
-| `external_customer_id` | Unique identifier of the customer for which the breakdown is created. |
-| `finalized_at` | Date and time the breakdown was finalized, if applicable |
-| `health_insurance` | Health insurance contribution details |
 | `id` |  |
-| `last_updated_at` | Date and time of the last update to the breakdown |
-| `object` | The object type |
-| `period` | Period covered by the employee breakdown |
-| `status` | Current status of the breakdown |
 
 Operations: List.
 
@@ -719,12 +707,7 @@ API path: `/enrolment_intents/{enrolment_intent_id}/confirm`
 
 | Field | Description |
 | --- | --- |
-| `id` | Unique identifier for the requirement |
-| `is_fulfilled` | Whether the requirement has been fulfilled |
-| `object` | Object type identifier |
-| `object_id` | Identifier of the object (employee ID or employer ID) |
-| `object_type` | Type of object this requirement is for (employee or employer) |
-| `requirement_type` | Type of requirement |
+| `id` |  |
 
 Operations: List.
 
@@ -791,16 +774,7 @@ API path: `/groups/{group_id}/employees`
 
 | Field | Description |
 | --- | --- |
-| `desired_policy_start_date` | The desired date for the employee's policy to start. |
-| `eligibility_status` | Eligibility status for the employee in this group. |
-| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | Enrolment status for the employee in this group. |
-| `enrolments` | List of enrolments associated with the employee in this group. |
-| `group_id` | Unique identifier for the group. |
-| `id` | Unique identifier for the employee. |
-| `object` | The object type |
-| `policies` | List of policies associated with the employee in this group. |
-| `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
+| `id` |  |
 
 Operations: List.
 
@@ -851,12 +825,7 @@ API path: `/group_policy_intents`
 
 | Field | Description |
 | --- | --- |
-| `id` | Unique identifier for the requirement |
-| `is_fulfilled` | Whether the requirement has been fulfilled |
-| `object` | Object type identifier |
-| `object_id` | Identifier of the object (employee ID or employer ID) |
-| `object_type` | Type of object this requirement is for (employee or employer) |
-| `requirement_type` | Type of requirement |
+| `id` |  |
 
 Operations: List.
 
@@ -899,12 +868,7 @@ API path: `/group_quote_intents/{group_quote_intent_id}/reject`
 
 | Field | Description |
 | --- | --- |
-| `id` | Unique identifier for the requirement |
-| `is_fulfilled` | Whether the requirement has been fulfilled |
-| `object` | Object type identifier |
-| `object_id` | Identifier of the object (employee ID or employer ID) |
-| `object_type` | Type of object this requirement is for (employee or employer) |
-| `requirement_type` | Type of requirement |
+| `id` |  |
 
 Operations: List.
 
@@ -1251,19 +1215,7 @@ Create an instance: `contribution_report_employee_breakdown_response_paged_list 
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `contribution_report_id` | `str` | Unique identifier of the related contribution report |
-| `created_at` | `str` | Date and time the breakdown was created |
-| `currency` | `Any` | The currency in which all the amounts in this breakdown are presented (e.g. |
-| `employee_id` | `str` | Unique identifier of the employee for which the breakdown is created |
-| `employer_id` | `str` | Unique identifier of the employer for which the breakdown is created |
-| `external_customer_id` | `None | str` | Unique identifier of the customer for which the breakdown is created. |
-| `finalized_at` | `None | str` | Date and time the breakdown was finalized, if applicable |
-| `health_insurance` | `Any` | Health insurance contribution details |
 | `id` | `str` |  |
-| `last_updated_at` | `str` | Date and time of the last update to the breakdown |
-| `object` | `str` | The object type |
-| `period` | `Any` | Period covered by the employee breakdown |
-| `status` | `Any` | Current status of the breakdown |
 
 #### Example: List
 
@@ -1900,12 +1852,7 @@ Create an instance: `enrolment_intent_requirement_response_paged_list = client.E
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `str` | Unique identifier for the requirement |
-| `is_fulfilled` | `bool` | Whether the requirement has been fulfilled |
-| `object` | `str` | Object type identifier |
-| `object_id` | `str` | Identifier of the object (employee ID or employer ID) |
-| `object_type` | `Any` | Type of object this requirement is for (employee or employer) |
-| `requirement_type` | `Any` | Type of requirement |
+| `id` | `str` |  |
 
 #### Example: List
 
@@ -2064,16 +2011,7 @@ Create an instance: `group_employee_response_paged_list = client.GroupEmployeeRe
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `desired_policy_start_date` | `None | str` | The desired date for the employee's policy to start. |
-| `eligibility_status` | `Any` | Eligibility status for the employee in this group. |
-| `enrolment_date` | `None | str` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `Any` | Enrolment status for the employee in this group. |
-| `enrolments` | `list` | List of enrolments associated with the employee in this group. |
-| `group_id` | `str` | Unique identifier for the group. |
-| `id` | `str` | Unique identifier for the employee. |
-| `object` | `str` | The object type |
-| `policies` | `list` | List of policies associated with the employee in this group. |
-| `scheduled_group_transitions` | `list` | List of scheduled group transitions for the employee. |
+| `id` | `str` |  |
 
 #### Example: List
 
@@ -2191,12 +2129,7 @@ Create an instance: `group_policy_intent_requirement_response_paged_list = clien
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `str` | Unique identifier for the requirement |
-| `is_fulfilled` | `bool` | Whether the requirement has been fulfilled |
-| `object` | `str` | Object type identifier |
-| `object_id` | `str` | Identifier of the object (employee ID or employer ID) |
-| `object_type` | `Any` | Type of object this requirement is for (employee or employer) |
-| `requirement_type` | `Any` | Type of requirement |
+| `id` | `str` |  |
 
 #### Example: List
 
@@ -2299,12 +2232,7 @@ Create an instance: `group_quote_intent_requirement_response_paged_list = client
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `str` | Unique identifier for the requirement |
-| `is_fulfilled` | `bool` | Whether the requirement has been fulfilled |
-| `object` | `str` | Object type identifier |
-| `object_id` | `str` | Identifier of the object (employee ID or employer ID) |
-| `object_type` | `Any` | Type of object this requirement is for (employee or employer) |
-| `requirement_type` | `Any` | Type of requirement |
+| `id` | `str` |  |
 
 #### Example: List
 
@@ -2633,7 +2561,7 @@ webhook_endpoint_response_paged_lists = client.WebhookEndpointResponsePagedList(
 
 ## Features
 
-This SDK ships 1 optional features. Each is **inactive until you
+This SDK ships 8 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -2642,7 +2570,105 @@ above:
 
 | Feature | What it does |
 |---|---|
+| [`debug`](#debug) | Request/response capture ring buffer for debugging |
+| [`idempotency`](#idempotency) | Idempotency keys for safe retries of mutating operations |
+| [`metrics`](#metrics) | Statistics capture: per-operation counters and latency |
+| [`paging`](#paging) | Pagination signals for list operations |
+| [`ratelimit`](#ratelimit) | Client-side rate limiting via a token bucket |
+| [`retry`](#retry) | Automatic retry of transient failures with exponential backoff |
 | [`test`](#test) | In-memory mock transport for testing without a live server |
+| [`timeout`](#timeout) | Per-request timeout with transport abort |
+
+> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> transport, so each one wraps whatever is already installed: the order you
+> activate them in IS the nesting order. Activating them as an ordered list
+> rather than a map is what fixes that order.
+
+### debug
+
+Request/response capture ring buffer for debugging.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `max` | `100` |
+| `redact` | `['authorization', 'cookie', 'set-cookie', 'api-key', 'apikey', 'x-api-key', 'idempotency-key']` |
+
+Set `feature.debug.active` to enable it, then override any of the options above.
+
+### idempotency
+
+Idempotency keys for safe retries of mutating operations.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `header` | `'Idempotency-Key'` |
+| `methods` | `['POST', 'PUT', 'PATCH', 'DELETE']` |
+| `ops` | `['create', 'update', 'remove']` |
+
+Set `feature.idempotency.active` to enable it, then override any of the options above.
+
+### metrics
+
+Statistics capture: per-operation counters and latency.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.metrics.active` to enable it, then override any of the options above.
+
+### paging
+
+Pagination signals for list operations.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `afterVar` | `'after'` |
+| `cursorParam` | `'cursor'` |
+| `firstVar` | `'first'` |
+| `limitParam` | `'limit'` |
+| `pageParam` | `'page'` |
+| `startPage` | `1` |
+
+Set `feature.paging.active` to enable it, then override any of the options above.
+
+### ratelimit
+
+Client-side rate limiting via a token bucket.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+Set `feature.ratelimit.active` to enable it, then override any of the options above.
+
+`ratelimit` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
+
+### retry
+
+Automatic retry of transient failures with exponential backoff.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+Set `feature.retry.active` to enable it, then override any of the options above.
+
+`retry` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### test
 
@@ -2653,6 +2679,21 @@ In-memory mock transport for testing without a live server.
 | `active` | `false` |
 
 Set `feature.test.active` to enable it, then override any of the options above.
+
+### timeout
+
+Per-request timeout with transport abort.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+Set `feature.timeout.active` to enable it, then override any of the options above.
+
+`timeout` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 
 ## Advanced
@@ -2693,7 +2734,14 @@ with hook methods named after pipeline stages (e.g. `PrePoint`,
 
 The SDK ships with built-in features:
 
+- **DebugFeature**: Request/response capture ring buffer for debugging
+- **IdempotencyFeature**: Idempotency keys for safe retries of mutating operations
+- **MetricsFeature**: Statistics capture: per-operation counters and latency
+- **PagingFeature**: Pagination signals for list operations
+- **RatelimitFeature**: Client-side rate limiting via a token bucket
+- **RetryFeature**: Automatic retry of transient failures with exponential backoff
 - **TestFeature**: In-memory mock transport for testing without a live server
+- **TimeoutFeature**: Per-request timeout with transport abort
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.

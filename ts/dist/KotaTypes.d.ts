@@ -122,19 +122,7 @@ export interface ContributionReportEmployeeBreakdownLoadMatch {
     id: string;
 }
 export interface ContributionReportEmployeeBreakdownResponsePagedList {
-    contribution_report_id: string;
-    created_at: string;
-    currency: any;
-    employee_id: string;
-    employer_id: string;
-    external_customer_id?: null | string;
-    finalized_at?: null | string;
-    health_insurance: any;
     id?: string;
-    last_updated_at: string;
-    object?: string;
-    period: any;
-    status: any;
 }
 export interface ContributionReportEmployeeBreakdownResponsePagedListListMatch {
     id: string;
@@ -557,12 +545,7 @@ export interface EnrolmentIntentUpdateData {
     status?: any;
 }
 export interface EnrolmentIntentRequirementResponsePagedList {
-    id: string;
-    is_fulfilled: boolean;
-    object?: string;
-    object_id: string;
-    object_type: any;
-    requirement_type: any;
+    id?: string;
 }
 export interface EnrolmentIntentRequirementResponsePagedListListMatch {
     id: string;
@@ -667,16 +650,7 @@ export interface GroupEmployeeCreateData {
     scheduled_group_transitions: any[];
 }
 export interface GroupEmployeeResponsePagedList {
-    desired_policy_start_date?: null | string;
-    eligibility_status: any;
-    enrolment_date?: null | string;
-    enrolment_status: any;
-    enrolments: any[];
-    group_id: string;
-    id: string;
-    object?: string;
-    policies: any[];
-    scheduled_group_transitions: any[];
+    id?: string;
 }
 export interface GroupEmployeeResponsePagedListListMatch {
     id: string;
@@ -746,12 +720,7 @@ export interface GroupPolicyIntentCreateData {
     status: any;
 }
 export interface GroupPolicyIntentRequirementResponsePagedList {
-    id: string;
-    is_fulfilled: boolean;
-    object?: string;
-    object_id: string;
-    object_type: any;
-    requirement_type: any;
+    id?: string;
 }
 export interface GroupPolicyIntentRequirementResponsePagedListListMatch {
     id: string;
@@ -809,12 +778,7 @@ export interface GroupQuoteIntentCreateData {
     [action: string]: any;
 }
 export interface GroupQuoteIntentRequirementResponsePagedList {
-    id: string;
-    is_fulfilled: boolean;
-    object?: string;
-    object_id: string;
-    object_type: any;
-    requirement_type: any;
+    id?: string;
 }
 export interface GroupQuoteIntentRequirementResponsePagedListListMatch {
     id: string;

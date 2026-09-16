@@ -128,19 +128,7 @@
 ---@field id string
 
 ---@class ContributionReportEmployeeBreakdownResponsePagedList
----@field contribution_report_id string
----@field created_at string
----@field currency any
----@field employee_id string
----@field employer_id string
----@field external_customer_id? nil|string
----@field finalized_at? nil|string
----@field health_insurance any
 ---@field id? string
----@field last_updated_at string
----@field object? string
----@field period any
----@field status any
 
 ---@class ContributionReportEmployeeBreakdownResponsePagedListListMatch
 ---@field id string
@@ -553,12 +541,7 @@
 ---@field status? any
 
 ---@class EnrolmentIntentRequirementResponsePagedList
----@field id string
----@field is_fulfilled boolean
----@field object? string
----@field object_id string
----@field object_type any
----@field requirement_type any
+---@field id? string
 
 ---@class EnrolmentIntentRequirementResponsePagedListListMatch
 ---@field id string
@@ -661,16 +644,7 @@
 ---@field scheduled_group_transitions table
 
 ---@class GroupEmployeeResponsePagedList
----@field desired_policy_start_date? nil|string
----@field eligibility_status any
----@field enrolment_date? nil|string
----@field enrolment_status any
----@field enrolments table
----@field group_id string
----@field id string
----@field object? string
----@field policies table
----@field scheduled_group_transitions table
+---@field id? string
 
 ---@class GroupEmployeeResponsePagedListListMatch
 ---@field id string
@@ -738,12 +712,7 @@
 ---@field status any
 
 ---@class GroupPolicyIntentRequirementResponsePagedList
----@field id string
----@field is_fulfilled boolean
----@field object? string
----@field object_id string
----@field object_type any
----@field requirement_type any
+---@field id? string
 
 ---@class GroupPolicyIntentRequirementResponsePagedListListMatch
 ---@field id string
@@ -797,12 +766,7 @@
 ---@field status any
 
 ---@class GroupQuoteIntentRequirementResponsePagedList
----@field id string
----@field is_fulfilled boolean
----@field object? string
----@field object_id string
----@field object_type any
----@field requirement_type any
+---@field id? string
 
 ---@class GroupQuoteIntentRequirementResponsePagedListListMatch
 ---@field id string

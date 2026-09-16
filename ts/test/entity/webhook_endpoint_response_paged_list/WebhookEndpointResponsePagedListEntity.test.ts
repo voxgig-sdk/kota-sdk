@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { KotaSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('WebhookEndpointResponsePagedListEntity', async () => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'webhook_endpoint_response_paged_list.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'webhook_endpoint_response_paged_list.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_WEBHOOK_ENDPOINT_RESPONSE_PAGED_LIST_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"format":"date-time","name":"created_at","req":true,"short":"The date and time the endpoint was created","type":"`$STRING`","index$":0},{"active":true,"name":"endpoint_url","req":true,"short":"The registered URL of the endpoint","type":"`$STRING`","index$":1},{"active":true,"name":"id","req":true,"short":"The unique identifier of the endpoint","type":"`$STRING`","index$":2},{"active":true,"name":"object","readOnly":true,"req":false,"short":"The object type","type":"`$STRING`","index$":3},{"active":true,"name":"subscribed_events","req":true,"short":"The events the endpoint is subscribed to","type":"`$ARRAY`","index$":4}],"id":{"field":"id","name":"id"},"name":"webhook_endpoint_response_paged_list","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"header":[{"active":true,"kind":"header","name":"x_platform_id","orig":"x_platform_id","reqd":false,"type":"`$STRING`"}],"query":[{"active":true,"kind":"query","name":"page","orig":"page","reqd":false,"type":"`$INTEGER`","index$":0},{"active":true,"kind":"query","name":"page_size","orig":"page_size","reqd":false,"type":"`$INTEGER`","index$":1}]},"contract":{"id":"GET /webhooks/endpoints","json":"{\"operationId\":\"ListWebhookEndpoints\",\"parameters\":[{\"description\":\"The page of results to return. Defaults to 1 if not provided.\",\"in\":\"query\",\"name\":\"page\",\"schema\":{\"description\":\"The page of results to return. Defaults to 1 if not provided.\",\"format\":\"int32\",\"type\":\"integer\"}},{\"description\":\"The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.\",\"in\":\"query\",\"name\":\"page_size\",\"schema\":{\"description\":\"The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.\",\"format\":\"int32\",\"type\":\"integer\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"has_next_page\":{\"description\":\"Whether there are more pages available after this page\",\"example\":true,\"readOnly\":true,\"type\":\"boolean\"},\"has_previous_page\":{\"description\":\"Whether there are more pages available before this page\",\"example\":true,\"readOnly\":true,\"type\":\"boolean\"},\"items\":{\"description\":\"A paginated array containing the response elements\",\"items\":{\"additionalProperties\":false,\"properties\":{\"created_at\":{\"description\":\"The date and time the endpoint was created\",\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":\"string\"},\"endpoint_url\":{\"description\":\"The registered URL of the endpoint\",\"type\":\"string\"},\"id\":{\"description\":\"The unique identifier of the endpoint\",\"example\":\"whe_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"whe_.+\",\"type\":\"string\"},\"object\":{\"description\":\"The object type\",\"readOnly\":true,\"type\":\"string\"},\"subscribed_events\":{\"description\":\"The events the endpoint is subscribed to\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"required\":[\"created_at\",\"endpoint_url\",\"id\",\"subscribed_events\"],\"type\":\"object\"},\"type\":\"array\"},\"page\":{\"description\":\"The current page of the results\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"page_size\":{\"description\":\"The number of results on this page. This can be different from the requested page size if the total number of results is less than the requested page size\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"total_count\":{\"description\":\"The total number of elements available in the response. This is the total number of elements available across all pages, not just the current page.\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"items\",\"page\",\"page_size\",\"total_count\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"400\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"errors\":{\"additionalProperties\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"object\"},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Bad Request\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/webhooks/endpoints","segments":[{"lit":"webhooks"},{"lit":"endpoints"}],"select":{"exist":["page","page_size","x_platform_id"]},"transform":{"req":"`reqdata`","res":"`body.items`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"webhook_endpoint_response_paged_list","name__orig":"webhook_endpoint_response_paged_list","Name":"WebhookEndpointResponsePagedList","name_":"webhook_endpoint_response_paged_list","name-":"webhook-endpoint-response-paged-list","NAME":"WEBHOOK_ENDPOINT_RESPONSE_PAGED_LIST","index$":39}, {"active":true,"entity":"webhook_endpoint_response_paged_list","key$":"BasicWebhookEndpointResponsePagedListFlow","kind":"basic","name":"BasicWebhookEndpointResponsePagedListFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"webhook_endpoint_response_paged_list_ref01"}}],"index$":0}]}, 'WebhookEndpointResponsePagedList')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['KOTA_TEST_WEBHOOK_ENDPOINT_RESPONSE_PAGED_LIST_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'KOTA_TEST_WEBHOOK_ENDPOINT_RESPONSE_PAGED_LIST_ENTID': idmap,
     'KOTA_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.KOTA_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['KOTA_TEST_WEBHOOK_ENDPOINT_RESPONSE_PAGED_LIST_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -140,7 +138,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -153,7 +152,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

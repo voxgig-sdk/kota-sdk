@@ -1,12 +1,14 @@
 
 const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
+require('../../utility').loadEnvLocal(envlocal)
 
 const Path = require('node:path')
 const Fs = require('node:fs')
 
 const { test, describe, afterEach } = require('node:test')
 const assert = require('node:assert')
+const { createLiveTransport } = require('../../live-runner')
+const { runLiveEntity } = require('../../live-entity')
 
 
 const { KotaSDK, BaseFeature, stdutil, config } = require('../../..')
@@ -36,9 +38,13 @@ describe('GroupQuoteEntity', async () => {
   })
 
 
-  test('basic', async () => {
+  test('basic', async (t) => {
 
+    
     const setup = basicSetup()
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"family_type","req":false,"short":"Type of the family covered by the employer.","type":"`$NULL`","index$":0},{"active":true,"name":"member_count","req":false,"short":"Numbers of additional members covered by the employer.","type":"`$NULL`","index$":1},{"active":true,"name":"member_selection","req":false,"short":"Whether specific member types are covered by the employer.","type":"`$NULL`","index$":2},{"active":true,"name":"percentage","req":false,"short":"Percentage of the premium the employer covers.","type":"`$NULL`","index$":3},{"active":true,"name":"type","req":true,"short":"Cost sharing type.","type":"`$ANY`","index$":4}],"name":"group_quote","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"header":[{"active":true,"kind":"header","name":"x_platform_id","orig":"x_platform_id","reqd":false,"type":"`$STRING`"}],"params":[{"active":true,"example":"gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"group_quote_intent_id","orig":"group_quote_intent_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /group_quote_intents/{group_quote_intent_id}/quote","json":"{\"operationId\":\"GetGroupQuoteIntentQuote\",\"parameters\":[{\"in\":\"path\",\"name\":\"group_quote_intent_id\",\"required\":true,\"schema\":{\"example\":\"gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gqi_.+\",\"type\":\"string\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"cost_sharing\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"family_type\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"type\":{\"allOf\":[{\"enum\":[\"single\",\"couple\",\"single_with_children\",\"family\"],\"type\":\"string\"}],\"description\":\"Employer coverage family type\"}},\"required\":[\"type\"],\"type\":\"object\"}],\"description\":\"Type of the family covered by the employer.\",\"type\":\"null\"},\"member_count\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"adults\":{\"description\":\"Number of additional adults covered, including partner/spouse.\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"children\":{\"description\":\"Number of additional children covered.\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"adults\",\"children\"],\"type\":\"object\"}],\"description\":\"Numbers of additional members covered by the employer.\",\"type\":\"null\"},\"member_selection\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"children\":{\"description\":\"If children are covered.\",\"example\":true,\"type\":\"boolean\"},\"partner\":{\"description\":\"If a spouse/partner is covered.\",\"example\":true,\"type\":\"boolean\"}},\"required\":[\"children\",\"partner\"],\"type\":\"object\"}],\"description\":\"Whether specific member types are covered by the employer.\",\"type\":\"null\"},\"percentage\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"percentage\":{\"description\":\"Employer coverage percentage:\\n For 40% send 40.\\n For 100% send 100.\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"percentage\"],\"type\":\"object\"}],\"description\":\"Percentage of the premium the employer covers.\",\"type\":\"null\"},\"type\":{\"allOf\":[{\"enum\":[\"member_count\",\"member_selection\",\"percentage\",\"policyholder_only\",\"family_type\"],\"type\":\"string\"}],\"description\":\"Cost sharing type. Determines which sub-object is populated.\"}},\"required\":[\"type\"],\"type\":\"object\"}],\"description\":\"Cost sharing configuration for the quote\"},\"currency\":{\"description\":\"Currency of the premium (e.g. EUR, GBP)\",\"type\":\"string\"},\"employee_count\":{\"description\":\"Number of employees covered by the quote\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"expires_at\":{\"description\":\"When the quote expires\",\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":\"string\"},\"generated_at\":{\"description\":\"When the quote was generated\",\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":\"string\"},\"object\":{\"description\":\"Object type identifier\",\"readOnly\":true,\"type\":\"string\"},\"pdf_expires_at\":{\"description\":\"When the PDF URL expires\",\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":[\"null\",\"string\"]},\"pdf_url\":{\"description\":\"URL to download the quote PDF\",\"type\":[\"null\",\"string\"]},\"total_monthly_premium\":{\"description\":\"Total monthly premium for the group\",\"example\":123.45,\"format\":\"double\",\"type\":\"number\"}},\"required\":[\"cost_sharing\",\"currency\",\"employee_count\",\"expires_at\",\"generated_at\",\"total_monthly_premium\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"400\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/group_quote_intents/{group_quote_intent_id}/quote","segments":[{"lit":"group_quote_intents"},{"var":"group_quote_intent_id"},{"lit":"quote"}],"select":{"exist":["group_quote_intent_id","x_platform_id"]},"transform":{"req":"`reqdata`","res":"`body.cost_sharing`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["group_quote_intent"]]},"key$":"group_quote","name__orig":"group_quote","Name":"GroupQuote","name_":"group_quote","name-":"group-quote","NAME":"GROUP_QUOTE","index$":29}, {"active":true,"entity":"group_quote","key$":"BasicGroupQuoteFlow","kind":"basic","name":"BasicGroupQuoteFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"group_quote_ref01","srcdatavar":"group_quote_ref01_data","suffix":"_dt0"},"match":{"id":"group_quote01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-group_quote_ref01"}}],"index$":0}]}, 'GroupQuote')
+    }
     const client = setup.client
     const struct = setup.struct
 
@@ -99,7 +105,14 @@ function basicSetup(extra) {
 
   idmap = env['KOTA_TEST_GROUP_QUOTE_ENTID']
 
-  if ('TRUE' === env.KOTA_TEST_LIVE) {
+  const live = 'TRUE' === env.KOTA_TEST_LIVE
+  const transport = createLiveTransport()
+  if (live) {
+    const rawIds = process.env['KOTA_TEST_GROUP_QUOTE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -111,7 +124,8 @@ function basicSetup(extra) {
       // the last entry is undefined, and basicSetup is normally called with no
       // argument at all - so a bare 'extra' silently discarded the apikey and
       // server values above and handed the SDK undefined.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -123,6 +137,8 @@ function basicSetup(extra) {
     struct,
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
+    live,
+    transport,
     now: Date.now(),
   }
 

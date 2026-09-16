@@ -2,55 +2,288 @@
   "existing": {
     "group_employee_response_paged_list": {
       "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST00": {
-        "desired_policy_start_date": "s64",
-        "eligibility_status": "s65",
-        "enrolment_date": "s66",
-        "enrolment_status": "s67",
-        "enrolments": [],
-        "group_id": "GROUP01",
-        "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST00",
-        "object": "s6b",
-        "policies": [],
-        "scheduled_group_transitions": []
+        "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST00"
       },
       "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST01": {
-        "desired_policy_start_date": "sc8",
-        "eligibility_status": "sc9",
-        "enrolment_date": "sca",
-        "enrolment_status": "scb",
-        "enrolments": [],
-        "group_id": "GROUP01",
-        "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST01",
-        "object": "scf",
-        "policies": [],
-        "scheduled_group_transitions": []
+        "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST01"
       },
       "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST02": {
-        "desired_policy_start_date": "s12c",
-        "eligibility_status": "s12d",
-        "enrolment_date": "s12e",
-        "enrolment_status": "s12f",
-        "enrolments": [],
-        "group_id": "GROUP01",
-        "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST02",
-        "object": "s133",
-        "policies": [],
-        "scheduled_group_transitions": []
+        "id": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST02"
       }
     }
   },
   "new": {
     "group_employee_response_paged_list": {
-      "group_employee_response_paged_list_ref01": {
-        "desired_policy_start_date": "s190",
-        "eligibility_status": "s191",
-        "enrolment_date": "s192",
-        "enrolment_status": "s193",
-        "enrolments": [],
-        "group_id": "GROUP01",
-        "object": "s197",
-        "policies": [],
-        "scheduled_group_transitions": []
+      "group_employee_response_paged_list_ref01": {}
+    }
+  },
+  "requests": {
+    "GET /groups/{group_id}/employees": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "ListGroupEmployees",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "group_id",
+            "required": true,
+            "schema": {
+              "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "pattern": "gr_.+",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by employee ID.",
+            "in": "query",
+            "name": "employee_id",
+            "schema": {
+              "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "pattern": "ee_.+",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The page of results to return. Defaults to 1 if not provided.",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "description": "The page of results to return. Defaults to 1 if not provided.",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "description": "The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.",
+            "in": "header",
+            "name": "X-Platform-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "has_next_page": {
+                      "description": "Whether there are more pages available after this page",
+                      "example": true,
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "has_previous_page": {
+                      "description": "Whether there are more pages available before this page",
+                      "example": true,
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "items": {
+                      "description": "A paginated array containing the response elements",
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "desired_policy_start_date": {
+                            "description": "The desired date for the employee's policy to start. This date is not guaranteed to be honored by the insurance provider and may be adjusted based on provider-specific rules and requirements.",
+                            "example": "2024-12-01",
+                            "format": "date",
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "eligibility_status": {
+                            "allOf": [
+                              {
+                                "enum": [
+                                  "pending",
+                                  "eligible",
+                                  "ineligible"
+                                ],
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Eligibility status for the employee in this group. `Pending` = no eligibility check performed (no group policy), `Eligible` = employee meets provider's eligibility criteria, `Ineligible` = employee does not meet eligibility criteria (e.g., age restrictions)."
+                          },
+                          "enrolment_date": {
+                            "description": "The date on which the employee agreed to enrol into the group's policies. This date may be used by some insurance providers to determine the policy start date.",
+                            "example": "2024-12-01",
+                            "format": "date",
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "enrolment_status": {
+                            "allOf": [
+                              {
+                                "enum": [
+                                  "enrolled",
+                                  "enrolling",
+                                  "opted_out",
+                                  "cancelled",
+                                  "enrolment_available",
+                                  "not_available"
+                                ],
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Enrolment status for the employee in this group. Derived from policy and enrolment intent statuses."
+                          },
+                          "enrolments": {
+                            "description": "List of enrolments associated with the employee in this group.",
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {
+                                  "description": "Unique identifier for the enrolment.",
+                                  "example": "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                  "pattern": "ei_.+",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "group_id": {
+                            "description": "Unique identifier for the group.",
+                            "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                            "pattern": "gr_.+",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the employee.",
+                            "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                            "pattern": "ee_.+",
+                            "type": "string"
+                          },
+                          "object": {
+                            "description": "The object type",
+                            "readOnly": true,
+                            "type": "string"
+                          },
+                          "policies": {
+                            "description": "List of policies associated with the employee in this group.",
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {
+                                  "description": "Unique identifier for the policy.",
+                                  "example": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                  "pattern": "p_.+",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "scheduled_group_transitions": {
+                            "description": "List of scheduled group transitions for the employee. Only includes pending transitions.",
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "new_group_id": {
+                                  "description": "Unique identifier for the group the employee will be moved to",
+                                  "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                  "pattern": "gr_.+",
+                                  "type": "string"
+                                },
+                                "scheduled_date": {
+                                  "description": "The date when the employee will be moved to the new group",
+                                  "example": "2024-12-01",
+                                  "format": "date",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "new_group_id",
+                                "scheduled_date"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "eligibility_status",
+                          "enrolment_status",
+                          "enrolments",
+                          "group_id",
+                          "id",
+                          "policies",
+                          "scheduled_group_transitions"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "page": {
+                      "description": "The current page of the results",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "page_size": {
+                      "description": "The number of results on this page. This can be different from the requested page size if the total number of results is less than the requested page size",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "description": "The total number of elements available in the response. This is the total number of elements available across all pages, not just the current page.",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "page",
+                    "page_size",
+                    "total_count"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "description": "Authorization header using the Bearer scheme",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

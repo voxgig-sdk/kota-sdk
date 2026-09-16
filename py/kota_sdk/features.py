@@ -1,12 +1,26 @@
 # Kota SDK feature factory
 
 from kota_sdk.feature.base_feature import KotaBaseFeature
+from kota_sdk.feature.debug_feature import KotaDebugFeature
+from kota_sdk.feature.idempotency_feature import KotaIdempotencyFeature
+from kota_sdk.feature.metrics_feature import KotaMetricsFeature
+from kota_sdk.feature.paging_feature import KotaPagingFeature
+from kota_sdk.feature.ratelimit_feature import KotaRatelimitFeature
+from kota_sdk.feature.retry_feature import KotaRetryFeature
 from kota_sdk.feature.test_feature import KotaTestFeature
+from kota_sdk.feature.timeout_feature import KotaTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: KotaBaseFeature(),
+    "debug": lambda: KotaDebugFeature(),
+    "idempotency": lambda: KotaIdempotencyFeature(),
+    "metrics": lambda: KotaMetricsFeature(),
+    "paging": lambda: KotaPagingFeature(),
+    "ratelimit": lambda: KotaRatelimitFeature(),
+    "retry": lambda: KotaRetryFeature(),
     "test": lambda: KotaTestFeature(),
+    "timeout": lambda: KotaTimeoutFeature(),
 }
 
 

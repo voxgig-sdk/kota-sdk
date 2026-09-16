@@ -2,39 +2,277 @@
   "existing": {
     "group_quote_intent_requirement_response_paged_list": {
       "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST00": {
-        "id": "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST00",
-        "is_fulfilled": false,
-        "object": "s3e",
-        "object_id": "OBJECT01",
-        "object_type": "s40",
-        "requirement_type": "s41"
+        "id": "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST00"
       },
       "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST01": {
-        "id": "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST01",
-        "is_fulfilled": false,
-        "object": "s7a",
-        "object_id": "OBJECT01",
-        "object_type": "s7c",
-        "requirement_type": "s7d"
+        "id": "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST01"
       },
       "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST02": {
-        "id": "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST02",
-        "is_fulfilled": false,
-        "object": "sb6",
-        "object_id": "OBJECT01",
-        "object_type": "sb8",
-        "requirement_type": "sb9"
+        "id": "GROUP_QUOTE_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST02"
       }
     }
   },
   "new": {
     "group_quote_intent_requirement_response_paged_list": {
-      "group_quote_intent_requirement_response_paged_list_ref01": {
-        "is_fulfilled": false,
-        "object": "sf2",
-        "object_id": "OBJECT01",
-        "object_type": "sf4",
-        "requirement_type": "sf5"
+      "group_quote_intent_requirement_response_paged_list_ref01": {}
+    }
+  },
+  "requests": {
+    "GET /group_quote_intents/{group_quote_intent_id}/requirements": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "ListGroupQuoteIntentRequirements",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "group_quote_intent_id",
+            "required": true,
+            "schema": {
+              "example": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "pattern": "gqi_.+",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by object type (employee or employer)",
+            "in": "query",
+            "name": "object_type",
+            "schema": {
+              "allOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "allOf": [
+                        {
+                          "enum": [
+                            "employee",
+                            "employer",
+                            "associated_person"
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "description": "Filter by object type (employee or employer)"
+            }
+          },
+          {
+            "description": "Filter by object ID (employee ID or employer ID)",
+            "in": "query",
+            "name": "object_id",
+            "schema": {
+              "description": "Filter by object ID (employee ID or employer ID)",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The page of results to return. Defaults to 1 if not provided.",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "description": "The page of results to return. Defaults to 1 if not provided.",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "description": "The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.",
+            "in": "header",
+            "name": "X-Platform-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "has_next_page": {
+                      "description": "Whether there are more pages available after this page",
+                      "example": true,
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "has_previous_page": {
+                      "description": "Whether there are more pages available before this page",
+                      "example": true,
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "items": {
+                      "description": "A paginated array containing the response elements",
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "id": {
+                            "description": "Unique identifier for the requirement",
+                            "example": "ar_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                            "pattern": "ar_.+",
+                            "type": "string"
+                          },
+                          "is_fulfilled": {
+                            "description": "Whether the requirement has been fulfilled",
+                            "example": true,
+                            "type": "boolean"
+                          },
+                          "object": {
+                            "description": "Object type identifier",
+                            "readOnly": true,
+                            "type": "string"
+                          },
+                          "object_id": {
+                            "description": "Identifier of the object (employee ID or employer ID)",
+                            "type": "string"
+                          },
+                          "object_type": {
+                            "allOf": [
+                              {
+                                "enum": [
+                                  "employee",
+                                  "employer",
+                                  "associated_person"
+                                ],
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Type of object this requirement is for (employee or employer)"
+                          },
+                          "requirement_type": {
+                            "allOf": [
+                              {
+                                "enum": [
+                                  "group_quote_intent",
+                                  "group_policy_intent",
+                                  "dependent_management_intent",
+                                  "policy_amendment_intent",
+                                  "enrolment_intent"
+                                ],
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Type of requirement"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "is_fulfilled",
+                          "object_id",
+                          "object_type",
+                          "requirement_type"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "page": {
+                      "description": "The current page of the results",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "page_size": {
+                      "description": "The number of results on this page. This can be different from the requested page size if the total number of results is less than the requested page size",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "description": "The total number of elements available in the response. This is the total number of elements available across all pages, not just the current page.",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "page",
+                    "page_size",
+                    "total_count"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "additionalProperties": {},
+                  "properties": {
+                    "detail": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "instance": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "status": {
+                      "format": "int32",
+                      "type": [
+                        "null",
+                        "integer"
+                      ]
+                    },
+                    "title": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "description": "Authorization header using the Bearer scheme",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

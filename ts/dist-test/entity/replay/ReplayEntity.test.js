@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.KOTA_TEST_LIVE;
         for (const op of ['create']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'replay.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'replay.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_REPLAY_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "deliveries", "req": true, "type": "`$ARRAY`", "index$": 0 }, { "active": true, "name": "event_id", "req": true, "type": "`$STRING`", "index$": 1 }], "name": "replay", "op": { "create": { "input": "data", "name": "create", "points": [{ "active": true, "args": { "header": [{ "active": true, "kind": "header", "name": "x_platform_id", "orig": "x_platform_id", "reqd": false, "type": "`$STRING`" }], "params": [{ "active": true, "example": "evt_3b1333d87d9d4fd6ad83ba7f6b0e951a", "kind": "param", "name": "event_id", "orig": "event_id", "reqd": true, "type": "`$STRING`", "index$": 0 }] }, "contract": { "id": "POST /events/{event_id}/replay", "json": "{\"operationId\":\"ReplayEvent\",\"parameters\":[{\"in\":\"path\",\"name\":\"event_id\",\"required\":true,\"schema\":{\"example\":\"evt_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"evt_.+\",\"type\":\"string\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"deliveries\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"delivery_id\":{\"example\":\"evtd_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"evtd_.+\",\"type\":\"string\"},\"elapsed_time_ms\":{\"example\":123.45,\"format\":\"double\",\"type\":\"number\"},\"response_status_code\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"success\":{\"example\":true,\"type\":\"boolean\"}},\"required\":[\"delivery_id\",\"elapsed_time_ms\",\"response_status_code\",\"success\"],\"type\":\"object\"},\"type\":\"array\"},\"event_id\":{\"example\":\"evt_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"evt_.+\",\"type\":\"string\"}},\"required\":[\"deliveries\",\"event_id\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "POST", "orig": "/events/{event_id}/replay", "segments": [{ "lit": "events" }, { "var": "event_id" }, { "lit": "replay" }], "select": { "exist": ["event_id", "x_platform_id"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" } }, "relations": { "ancestors": [["event"]] }, "key$": "replay", "name__orig": "replay", "Name": "Replay", "name_": "replay", "name-": "replay", "NAME": "REPLAY", "index$": 37 }, { "active": true, "entity": "replay", "key$": "BasicReplayFlow", "kind": "basic", "name": "BasicReplayFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": { "ref": "replay_ref01" }, "match": { "event_id": "event01" }, "op": "create", "spec": [], "valid": [], "index$": 0 }] }, 'Replay');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -102,12 +100,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['KOTA_TEST_REPLAY_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'KOTA_TEST_REPLAY_ENTID': idmap,
         'KOTA_TEST_LIVE': 'FALSE',
@@ -116,7 +108,13 @@ function basicSetup(extra) {
     });
     idmap = env['KOTA_TEST_REPLAY_ENTID'];
     const live = 'TRUE' === env.KOTA_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['KOTA_TEST_REPLAY_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.KotaSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -129,7 +127,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -141,7 +140,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

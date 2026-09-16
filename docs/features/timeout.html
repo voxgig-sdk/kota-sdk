@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Per-request timeout with transport abort | Kota API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Kota API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/kota-sdk">voxgig-sdk/kota-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Kota API</a></details>
+<details><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/associated_person.html">AssociatedPerson</a>
+<a href="../api/associated_person_eligibility_response_paged_list.html">AssociatedPersonEligibilityResponsePagedList</a>
+<a href="../api/contribution_report.html">ContributionReport</a>
+<a href="../api/contribution_report_employee_breakdown.html">ContributionReportEmployeeBreakdown</a>
+<a href="../api/contribution_report_employee_breakdown_response_paged_list.html">ContributionReportEmployeeBreakdownResponsePagedList</a>
+<a href="../api/create_hosted_session_token.html">CreateHostedSessionToken</a>
+<a href="../api/create_session_token.html">CreateSessionToken</a>
+<a href="../api/dependent.html">Dependent</a>
+<a href="../api/dependents_management_intent.html">DependentsManagementIntent</a>
+<a href="../api/eligibility_check.html">EligibilityCheck</a>
+<a href="../api/employee.html">Employee</a>
+<a href="../api/employee_health_insurance_offer.html">EmployeeHealthInsuranceOffer</a>
+<a href="../api/employee_health_insurance_offer_response_paged_list.html">EmployeeHealthInsuranceOfferResponsePagedList</a>
+<a href="../api/employee_health_insurance_policy.html">EmployeeHealthInsurancePolicy</a>
+<a href="../api/employee_health_insurance_policy_response_paged_list.html">EmployeeHealthInsurancePolicyResponsePagedList</a>
+<a href="../api/employer.html">Employer</a>
+<a href="../api/employer_health_insurance_policy.html">EmployerHealthInsurancePolicy</a>
+<a href="../api/employer_health_insurance_policy_response_paged_list.html">EmployerHealthInsurancePolicyResponsePagedList</a>
+<a href="../api/employer_health_insurance_quote.html">EmployerHealthInsuranceQuote</a>
+<a href="../api/employer_health_insurance_quote_response_paged_list.html">EmployerHealthInsuranceQuoteResponsePagedList</a>
+<a href="../api/enrolment_intent.html">EnrolmentIntent</a>
+<a href="../api/enrolment_intent_requirement_response_paged_list.html">EnrolmentIntentRequirementResponsePagedList</a>
+<a href="../api/event.html">Event</a>
+<a href="../api/group.html">Group</a>
+<a href="../api/group_employee.html">GroupEmployee</a>
+<a href="../api/group_employee_response_paged_list.html">GroupEmployeeResponsePagedList</a>
+<a href="../api/group_policy.html">GroupPolicy</a>
+<a href="../api/group_policy_intent.html">GroupPolicyIntent</a>
+<a href="../api/group_policy_intent_requirement_response_paged_list.html">GroupPolicyIntentRequirementResponsePagedList</a>
+<a href="../api/group_quote.html">GroupQuote</a>
+<a href="../api/group_quote_intent.html">GroupQuoteIntent</a>
+<a href="../api/group_quote_intent_requirement_response_paged_list.html">GroupQuoteIntentRequirementResponsePagedList</a>
+<a href="../api/plan.html">Plan</a>
+<a href="../api/policy.html">Policy</a>
+<a href="../api/policy_amendment_intent.html">PolicyAmendmentIntent</a>
+<a href="../api/policy_import_intent.html">PolicyImportIntent</a>
+<a href="../api/provider.html">Provider</a>
+<a href="../api/replay.html">Replay</a>
+<a href="../api/webhook_endpoint.html">WebhookEndpoint</a>
+<a href="../api/webhook_endpoint_response_paged_list.html">WebhookEndpointResponsePagedList</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details open><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a aria-current="page" href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>Features</div><h1 id="per-request-timeout-with-transport-abort">Per-request timeout with transport abort</h1>
+<p>A feature adds behaviour around API calls without changing how you call the API. Being documented here does not mean it is switched on: features are off by default, and you enable the ones your application needs when you construct the client.</p>
+<h2 id="options">Options</h2>
+<p>The settings this feature reads, with the defaults compiled into the SDK. Pass replacements in the client configuration to change them; set <code>active</code> to turn the feature on.</p>
+<pre><code class="language-json">{
+  &quot;active&quot;: false,
+  &quot;ms&quot;: 30000
+}
+</code></pre>
+<h2 id="pipeline-stages">Pipeline stages</h2>
+<p>No pipeline stages are enabled for this feature.</p>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

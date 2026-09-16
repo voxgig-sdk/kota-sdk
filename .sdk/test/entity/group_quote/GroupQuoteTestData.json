@@ -40,5 +40,340 @@
         "type": "scc"
       }
     }
+  },
+  "requests": {
+    "GET /group_quote_intents/{group_quote_intent_id}/quote": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "GetGroupQuoteIntentQuote",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "group_quote_intent_id",
+            "required": true,
+            "schema": {
+              "example": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "pattern": "gqi_.+",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.",
+            "in": "header",
+            "name": "X-Platform-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cost_sharing": {
+                      "allOf": [
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "family_type": {
+                              "allOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "type": {
+                                      "allOf": [
+                                        {
+                                          "enum": [
+                                            "single",
+                                            "couple",
+                                            "single_with_children",
+                                            "family"
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "description": "Employer coverage family type"
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "description": "Type of the family covered by the employer.",
+                              "type": "null"
+                            },
+                            "member_count": {
+                              "allOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "adults": {
+                                      "description": "Number of additional adults covered, including partner/spouse.",
+                                      "example": 123,
+                                      "format": "int32",
+                                      "type": "integer"
+                                    },
+                                    "children": {
+                                      "description": "Number of additional children covered.",
+                                      "example": 123,
+                                      "format": "int32",
+                                      "type": "integer"
+                                    }
+                                  },
+                                  "required": [
+                                    "adults",
+                                    "children"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "description": "Numbers of additional members covered by the employer.",
+                              "type": "null"
+                            },
+                            "member_selection": {
+                              "allOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "children": {
+                                      "description": "If children are covered.",
+                                      "example": true,
+                                      "type": "boolean"
+                                    },
+                                    "partner": {
+                                      "description": "If a spouse/partner is covered.",
+                                      "example": true,
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "children",
+                                    "partner"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "description": "Whether specific member types are covered by the employer.",
+                              "type": "null"
+                            },
+                            "percentage": {
+                              "allOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "percentage": {
+                                      "description": "Employer coverage percentage:\n For 40% send 40.\n For 100% send 100.",
+                                      "example": 123,
+                                      "format": "int32",
+                                      "type": "integer"
+                                    }
+                                  },
+                                  "required": [
+                                    "percentage"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "description": "Percentage of the premium the employer covers.",
+                              "type": "null"
+                            },
+                            "type": {
+                              "allOf": [
+                                {
+                                  "enum": [
+                                    "member_count",
+                                    "member_selection",
+                                    "percentage",
+                                    "policyholder_only",
+                                    "family_type"
+                                  ],
+                                  "type": "string"
+                                }
+                              ],
+                              "description": "Cost sharing type. Determines which sub-object is populated."
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      ],
+                      "description": "Cost sharing configuration for the quote"
+                    },
+                    "currency": {
+                      "description": "Currency of the premium (e.g. EUR, GBP)",
+                      "type": "string"
+                    },
+                    "employee_count": {
+                      "description": "Number of employees covered by the quote",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "expires_at": {
+                      "description": "When the quote expires",
+                      "example": "2024-12-01T00:00:00Z",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "generated_at": {
+                      "description": "When the quote was generated",
+                      "example": "2024-12-01T00:00:00Z",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "object": {
+                      "description": "Object type identifier",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "pdf_expires_at": {
+                      "description": "When the PDF URL expires",
+                      "example": "2024-12-01T00:00:00Z",
+                      "format": "date-time",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "pdf_url": {
+                      "description": "URL to download the quote PDF",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "total_monthly_premium": {
+                      "description": "Total monthly premium for the group",
+                      "example": 123.45,
+                      "format": "double",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "cost_sharing",
+                    "currency",
+                    "employee_count",
+                    "expires_at",
+                    "generated_at",
+                    "total_monthly_premium"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "additionalProperties": {},
+                  "properties": {
+                    "detail": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "instance": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "status": {
+                      "format": "int32",
+                      "type": [
+                        "null",
+                        "integer"
+                      ]
+                    },
+                    "title": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "additionalProperties": {},
+                  "properties": {
+                    "detail": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "instance": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "status": {
+                      "format": "int32",
+                      "type": [
+                        "null",
+                        "integer"
+                      ]
+                    },
+                    "title": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "description": "Authorization header using the Bearer scheme",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

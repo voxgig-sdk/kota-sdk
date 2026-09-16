@@ -1,12 +1,14 @@
 
 const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
+require('../../utility').loadEnvLocal(envlocal)
 
 const Path = require('node:path')
 const Fs = require('node:fs')
 
 const { test, describe, afterEach } = require('node:test')
 const assert = require('node:assert')
+const { createLiveTransport } = require('../../live-runner')
+const { runLiveEntity } = require('../../live-entity')
 
 
 const { KotaSDK, BaseFeature, stdutil, config } = require('../../..')
@@ -36,9 +38,13 @@ describe('CreateHostedSessionTokenEntity', async () => {
   })
 
 
-  test('basic', async () => {
+  test('basic', async (t) => {
 
+    
     const setup = basicSetup()
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"format":"date-time","name":"expiry","req":true,"type":"`$STRING`","index$":0},{"active":true,"name":"link","req":true,"type":"`$STRING`","index$":1}],"name":"create_hosted_session_token","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{},"contract":{"id":"POST /hosted/sessions","json":"{\"operationId\":\"CreateHostedSession\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"employee_id\":{\"example\":\"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ee_.+\",\"type\":\"string\"},\"employer_id\":{\"example\":\"er_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"er_.+\",\"type\":\"string\"}},\"required\":[\"employee_id\",\"employer_id\"],\"type\":\"object\"}]}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"expiry\":{\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":\"string\"},\"link\":{\"type\":\"string\"}},\"required\":[\"expiry\",\"link\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/hosted/sessions","segments":[{"lit":"hosted"},{"lit":"sessions"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"create_hosted_session_token","name__orig":"create_hosted_session_token","Name":"CreateHostedSessionToken","name_":"create_hosted_session_token","name-":"create-hosted-session-token","NAME":"CREATE_HOSTED_SESSION_TOKEN","index$":5}, {"active":true,"entity":"create_hosted_session_token","key$":"BasicCreateHostedSessionTokenFlow","kind":"basic","name":"BasicCreateHostedSessionTokenFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"create_hosted_session_token_ref01"},"match":{},"op":"create","spec":[],"valid":[],"index$":0}]}, 'CreateHostedSessionToken')
+    }
     const client = setup.client
     const struct = setup.struct
 
@@ -99,7 +105,14 @@ function basicSetup(extra) {
 
   idmap = env['KOTA_TEST_CREATE_HOSTED_SESSION_TOKEN_ENTID']
 
-  if ('TRUE' === env.KOTA_TEST_LIVE) {
+  const live = 'TRUE' === env.KOTA_TEST_LIVE
+  const transport = createLiveTransport()
+  if (live) {
+    const rawIds = process.env['KOTA_TEST_CREATE_HOSTED_SESSION_TOKEN_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -111,7 +124,8 @@ function basicSetup(extra) {
       // the last entry is undefined, and basicSetup is normally called with no
       // argument at all - so a bare 'extra' silently discarded the apikey and
       // server values above and handed the SDK undefined.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -123,6 +137,8 @@ function basicSetup(extra) {
     struct,
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
+    live,
+    transport,
     now: Date.now(),
   }
 

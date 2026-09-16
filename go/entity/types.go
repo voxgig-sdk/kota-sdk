@@ -163,19 +163,7 @@ type ContributionReportEmployeeBreakdownLoadMatch struct {
 
 // ContributionReportEmployeeBreakdownResponsePagedList is the typed data model for the contribution_report_employee_breakdown_response_paged_list entity.
 type ContributionReportEmployeeBreakdownResponsePagedList struct {
-	ContributionReportId string `json:"contribution_report_id"`
-	CreatedAt string `json:"created_at"`
-	Currency any `json:"currency"`
-	EmployeeId string `json:"employee_id"`
-	EmployerId string `json:"employer_id"`
-	ExternalCustomerId *any `json:"external_customer_id,omitempty"`
-	FinalizedAt *any `json:"finalized_at,omitempty"`
-	HealthInsurance any `json:"health_insurance"`
 	Id *string `json:"id,omitempty"`
-	LastUpdatedAt string `json:"last_updated_at"`
-	Object *string `json:"object,omitempty"`
-	Period any `json:"period"`
-	Status any `json:"status"`
 }
 
 // ContributionReportEmployeeBreakdownResponsePagedListListMatch is the typed request payload for ContributionReportEmployeeBreakdownResponsePagedList.ListTyped.
@@ -678,12 +666,7 @@ type EnrolmentIntentUpdateData struct {
 
 // EnrolmentIntentRequirementResponsePagedList is the typed data model for the enrolment_intent_requirement_response_paged_list entity.
 type EnrolmentIntentRequirementResponsePagedList struct {
-	Id string `json:"id"`
-	IsFulfilled bool `json:"is_fulfilled"`
-	Object *string `json:"object,omitempty"`
-	ObjectId string `json:"object_id"`
-	ObjectType any `json:"object_type"`
-	RequirementType any `json:"requirement_type"`
+	Id *string `json:"id,omitempty"`
 }
 
 // EnrolmentIntentRequirementResponsePagedListListMatch is the typed request payload for EnrolmentIntentRequirementResponsePagedList.ListTyped.
@@ -810,16 +793,7 @@ type GroupEmployeeCreateData struct {
 
 // GroupEmployeeResponsePagedList is the typed data model for the group_employee_response_paged_list entity.
 type GroupEmployeeResponsePagedList struct {
-	DesiredPolicyStartDate *any `json:"desired_policy_start_date,omitempty"`
-	EligibilityStatus any `json:"eligibility_status"`
-	EnrolmentDate *any `json:"enrolment_date,omitempty"`
-	EnrolmentStatus any `json:"enrolment_status"`
-	Enrolments []any `json:"enrolments"`
-	GroupId string `json:"group_id"`
-	Id string `json:"id"`
-	Object *string `json:"object,omitempty"`
-	Policies []any `json:"policies"`
-	ScheduledGroupTransitions []any `json:"scheduled_group_transitions"`
+	Id *string `json:"id,omitempty"`
 }
 
 // GroupEmployeeResponsePagedListListMatch is the typed request payload for GroupEmployeeResponsePagedList.ListTyped.
@@ -905,12 +879,7 @@ type GroupPolicyIntentCreateData struct {
 
 // GroupPolicyIntentRequirementResponsePagedList is the typed data model for the group_policy_intent_requirement_response_paged_list entity.
 type GroupPolicyIntentRequirementResponsePagedList struct {
-	Id string `json:"id"`
-	IsFulfilled bool `json:"is_fulfilled"`
-	Object *string `json:"object,omitempty"`
-	ObjectId string `json:"object_id"`
-	ObjectType any `json:"object_type"`
-	RequirementType any `json:"requirement_type"`
+	Id *string `json:"id,omitempty"`
 }
 
 // GroupPolicyIntentRequirementResponsePagedListListMatch is the typed request payload for GroupPolicyIntentRequirementResponsePagedList.ListTyped.
@@ -980,12 +949,7 @@ type GroupQuoteIntentCreateData struct {
 
 // GroupQuoteIntentRequirementResponsePagedList is the typed data model for the group_quote_intent_requirement_response_paged_list entity.
 type GroupQuoteIntentRequirementResponsePagedList struct {
-	Id string `json:"id"`
-	IsFulfilled bool `json:"is_fulfilled"`
-	Object *string `json:"object,omitempty"`
-	ObjectId string `json:"object_id"`
-	ObjectType any `json:"object_type"`
-	RequirementType any `json:"requirement_type"`
+	Id *string `json:"id,omitempty"`
 }
 
 // GroupQuoteIntentRequirementResponsePagedListListMatch is the typed request payload for GroupQuoteIntentRequirementResponsePagedList.ListTyped.

@@ -1,0 +1,1424 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>EnrolmentIntent | Kota API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Kota API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/kota-sdk">voxgig-sdk/kota-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Kota API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/associated_person.html">AssociatedPerson</a>
+<a href="../api/associated_person_eligibility_response_paged_list.html">AssociatedPersonEligibilityResponsePagedList</a>
+<a href="../api/contribution_report.html">ContributionReport</a>
+<a href="../api/contribution_report_employee_breakdown.html">ContributionReportEmployeeBreakdown</a>
+<a href="../api/contribution_report_employee_breakdown_response_paged_list.html">ContributionReportEmployeeBreakdownResponsePagedList</a>
+<a href="../api/create_hosted_session_token.html">CreateHostedSessionToken</a>
+<a href="../api/create_session_token.html">CreateSessionToken</a>
+<a href="../api/dependent.html">Dependent</a>
+<a href="../api/dependents_management_intent.html">DependentsManagementIntent</a>
+<a href="../api/eligibility_check.html">EligibilityCheck</a>
+<a href="../api/employee.html">Employee</a>
+<a href="../api/employee_health_insurance_offer.html">EmployeeHealthInsuranceOffer</a>
+<a href="../api/employee_health_insurance_offer_response_paged_list.html">EmployeeHealthInsuranceOfferResponsePagedList</a>
+<a href="../api/employee_health_insurance_policy.html">EmployeeHealthInsurancePolicy</a>
+<a href="../api/employee_health_insurance_policy_response_paged_list.html">EmployeeHealthInsurancePolicyResponsePagedList</a>
+<a href="../api/employer.html">Employer</a>
+<a href="../api/employer_health_insurance_policy.html">EmployerHealthInsurancePolicy</a>
+<a href="../api/employer_health_insurance_policy_response_paged_list.html">EmployerHealthInsurancePolicyResponsePagedList</a>
+<a href="../api/employer_health_insurance_quote.html">EmployerHealthInsuranceQuote</a>
+<a href="../api/employer_health_insurance_quote_response_paged_list.html">EmployerHealthInsuranceQuoteResponsePagedList</a>
+<a aria-current="page" href="../api/enrolment_intent.html">EnrolmentIntent</a><div class="nav-sections"><a class="nav-section" href="#post-enrolment_intentsenrolment_intent_idconfirm">POST /enrolment_intents/{enrolment_intent_id}/confirm</a>
+<a class="nav-section" href="#post-enrolment_intentsenrolment_intent_idcoverage-selections">POST /enrolment_intents/{enrolment_intent_id}/coverage-selections</a>
+<a class="nav-section" href="#post-enrolment_intentsenrolment_intent_idreject">POST /enrolment_intents/{enrolment_intent_id}/reject</a>
+<a class="nav-section" href="#post-enrolment_intents">POST /enrolment_intents</a>
+<a class="nav-section" href="#get-enrolment_intents">GET /enrolment_intents</a>
+<a class="nav-section" href="#get-enrolment_intentsenrolment_intent_id">GET /enrolment_intents/{enrolment_intent_id}</a>
+<a class="nav-section" href="#put-enrolment_intentsenrolment_intent_id">PUT /enrolment_intents/{enrolment_intent_id}</a></div>
+<a href="../api/enrolment_intent_requirement_response_paged_list.html">EnrolmentIntentRequirementResponsePagedList</a>
+<a href="../api/event.html">Event</a>
+<a href="../api/group.html">Group</a>
+<a href="../api/group_employee.html">GroupEmployee</a>
+<a href="../api/group_employee_response_paged_list.html">GroupEmployeeResponsePagedList</a>
+<a href="../api/group_policy.html">GroupPolicy</a>
+<a href="../api/group_policy_intent.html">GroupPolicyIntent</a>
+<a href="../api/group_policy_intent_requirement_response_paged_list.html">GroupPolicyIntentRequirementResponsePagedList</a>
+<a href="../api/group_quote.html">GroupQuote</a>
+<a href="../api/group_quote_intent.html">GroupQuoteIntent</a>
+<a href="../api/group_quote_intent_requirement_response_paged_list.html">GroupQuoteIntentRequirementResponsePagedList</a>
+<a href="../api/plan.html">Plan</a>
+<a href="../api/policy.html">Policy</a>
+<a href="../api/policy_amendment_intent.html">PolicyAmendmentIntent</a>
+<a href="../api/policy_import_intent.html">PolicyImportIntent</a>
+<a href="../api/provider.html">Provider</a>
+<a href="../api/replay.html">Replay</a>
+<a href="../api/webhook_endpoint.html">WebhookEndpoint</a>
+<a href="../api/webhook_endpoint_response_paged_list.html">WebhookEndpointResponsePagedList</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="enrolmentintent">EnrolmentIntent</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-enrolment_intentsenrolment_intent_idconfirm"><code>/enrolment_intents/{enrolment_intent_id}/confirm</code></a></td>
+<td><code>create</code></td>
+<td>No Content</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-enrolment_intentsenrolment_intent_idcoverage-selections"><code>/enrolment_intents/{enrolment_intent_id}/coverage-selections</code></a></td>
+<td><code>create</code></td>
+<td>No Content</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-enrolment_intentsenrolment_intent_idreject"><code>/enrolment_intents/{enrolment_intent_id}/reject</code></a></td>
+<td><code>create</code></td>
+<td>No Content</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-enrolment_intents"><code>/enrolment_intents</code></a></td>
+<td><code>create</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-enrolment_intents"><code>/enrolment_intents</code></a></td>
+<td><code>list</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-enrolment_intentsenrolment_intent_id"><code>/enrolment_intents/{enrolment_intent_id}</code></a></td>
+<td><code>load</code></td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-enrolment_intentsenrolment_intent_id"><code>/enrolment_intents/{enrolment_intent_id}</code></a></td>
+<td><code>update</code></td>
+<td>OK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action_required</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>action_required</code>, this field provides details about the action that needs to be taken to proceed with the enrolment.</td>
+</tr>
+<tr>
+<td><code>disclosures</code></td>
+<td><code>array</code></td>
+<td>Yes</td>
+<td>Disclosures associated with this intent.</td>
+</tr>
+<tr>
+<td><code>employee_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the employee associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>force_confirmation</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>If set to true, the system will always force the <code>PendingConfirmation</code> state before enrolling the employee, even if no action is required.</td>
+</tr>
+<tr>
+<td><code>group_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the group associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Unique identifier for the enrolment intent.</td>
+</tr>
+<tr>
+<td><code>ineligibility_reason</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>ineligible</code>, this field provides details about the reason for employees ineligibility.</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Object type identifier.</td>
+</tr>
+<tr>
+<td><code>pending_confirmation</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>pending_confirmation</code>, this field provides details about the pending confirmation state.</td>
+</tr>
+<tr>
+<td><code>policy_configuration</code></td>
+<td><code>null</code></td>
+<td>No</td>
+<td>Policy configuration associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments</code></td>
+<td><code>array</code></td>
+<td>Yes</td>
+<td>Policy enrolment information</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>any</code></td>
+<td>Yes</td>
+<td>Current status of the enrolment intent.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-enrolment_intentsenrolment_intent_idconfirm" class="operation" data-method="post"><code>POST</code> /enrolment_intents/{enrolment_intent_id}/confirm</h3>
+<p>Operation ID: <code>ConfirmEnrolmentIntent</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>enrolment_intent_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses">Responses</h4>
+<h5 id="204-no-content" class="status" data-status="2xx">204: No Content</h5>
+<h5 id="400-bad-request" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-enrolment_intentsenrolment_intent_idcoverage-selections" class="operation" data-method="post"><code>POST</code> /enrolment_intents/{enrolment_intent_id}/coverage-selections</h3>
+<p>Operation ID: <code>SubmitEnrolmentIntentCoverageSelections</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-1">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>enrolment_intent_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object</code>.</p>
+<h4 id="responses-1">Responses</h4>
+<h5 id="204-no-content-1" class="status" data-status="2xx">204: No Content</h5>
+<h5 id="400-bad-request-1" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-1" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-enrolment_intentsenrolment_intent_idreject" class="operation" data-method="post"><code>POST</code> /enrolment_intents/{enrolment_intent_id}/reject</h3>
+<p>Operation ID: <code>RejectEnrolmentIntent</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-2">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>enrolment_intent_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses-2">Responses</h4>
+<h5 id="204-no-content-2" class="status" data-status="2xx">204: No Content</h5>
+<h5 id="400-bad-request-2" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-2" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-enrolment_intents" class="operation" data-method="post"><code>POST</code> /enrolment_intents</h3>
+<p>Operation ID: <code>CreateEnrolmentIntent</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>Idempotency-Key</code> | <code>header</code> | <code>string</code> | No | Unique key to ensure idempotent requests. If the same key is used for multiple <em>identical &amp; successful</em> requests, the same response will be returned. <a href="/api#idempotent-requests">Read more here</a> |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object</code>.</p>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-ok" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action_required</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>action_required</code>, this field provides details about the action that needs to be taken to proceed with the enrolment.</td>
+</tr>
+<tr>
+<td><code>disclosures</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Disclosures associated with this intent.</td>
+</tr>
+<tr>
+<td><code>disclosures[].category</code></td>
+<td><code>enum: regulatory, provider, intermediary</code></td>
+<td>Yes</td>
+<td>The category of the disclosure.</td>
+</tr>
+<tr>
+<td><code>disclosures[].text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The disclosure statement text.</td>
+</tr>
+<tr>
+<td><code>disclosures[].type</code></td>
+<td><code>enum: intermediary_role, intermediary_commission, underwriter_disclaimer, anti_selection_notice, statement_of_needs, product_information, ...</code></td>
+<td>Yes</td>
+<td>The specific type of disclosure within its category.</td>
+</tr>
+<tr>
+<td><code>employee_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the employee associated with this enrolment intent. Prefixed with <code>ee_</code>.</td>
+</tr>
+<tr>
+<td><code>force_confirmation</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>If set to true, the system will always force the <code>PendingConfirmation</code> state before enrolling the employee, even if no action is required. This can be useful in scenarios where you want to ensure that the employee explicitly confirms their enrolment, regardless of their eligibility or any other factors. Defaults to false.</td>
+</tr>
+<tr>
+<td><code>group_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the group associated with this enrolment intent. Prefixed with <code>gr_</code>.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Unique identifier for the enrolment intent. Prefixed with <code>ei_</code>.</td>
+</tr>
+<tr>
+<td><code>ineligibility_reason</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>ineligible</code>, this field provides details about the reason for employees ineligibility.</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Object type identifier.</td>
+</tr>
+<tr>
+<td><code>pending_confirmation</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>pending_confirmation</code>, this field provides details about the pending confirmation state.</td>
+</tr>
+<tr>
+<td><code>policy_configuration</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Policy configuration associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Policy enrolment information</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].estimated_effective_from</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Estimated date when the policy of this type is expected to become effective in ISO 8601 (YYYY-MM-DD).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].health_insurance</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Health insurance intent information (always present when type=health_insurance).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>Unique identifier for the policy created as part of this enrolment intent. Prefixed with <code>p_</code>. Only populated once the policy has been created.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].plan</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Plan information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].provider</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Provider information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].type</code></td>
+<td><code>enum: health_insurance, life_assurance</code></td>
+<td>Yes</td>
+<td>Type of policy to be created as part of this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: processing, scheduled, action_required, coverage_options_required, pending_confirmation, enrolling, ...</code></td>
+<td>Yes</td>
+<td>Current status of the enrolment intent.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-3" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-3" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="list">list</h2>
+<h3 id="get-enrolment_intents" class="operation" data-method="get"><code>GET</code> /enrolment_intents</h3>
+<p>Operation ID: <code>ListEnrolmentIntents</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-4">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>employee_id</code> | <code>query</code> | <code>string</code> | No | Filters enrolment intents by employee. |
+| <code>group_id</code> | <code>query</code> | <code>string</code> | No | Filters enrolment intents by group. |
+| <code>status</code> | <code>query</code> | <code>string</code> | No | Multiple values can be provided by separating them with a comma. Allowed values are: <code>processing</code>, <code>scheduled</code>, <code>action_required</code>, <code>coverage_options_required</code>, <code>pending_confirmation</code>, <code>enrolling</code>, <code>enrolled</code>, <code>not_undertaken</code>, <code>ineligible</code>. |
+| <code>page</code> | <code>query</code> | <code>integer (int32)</code> | No | The page of results to return. Defaults to 1 if not provided. |
+| <code>page_size</code> | <code>query</code> | <code>integer (int32)</code> | No | The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100. |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses-4">Responses</h4>
+<h5 id="200-ok-1" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>has_next_page</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether there are more pages available after this page</td>
+</tr>
+<tr>
+<td><code>has_previous_page</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether there are more pages available before this page</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>A paginated array containing the response elements</td>
+</tr>
+<tr>
+<td><code>items[].action_required</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>action_required</code>, this field provides details about the action that needs to be taken to proceed with the enrolment.</td>
+</tr>
+<tr>
+<td><code>items[].disclosures</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Disclosures associated with this intent.</td>
+</tr>
+<tr>
+<td><code>items[].disclosures[].category</code></td>
+<td><code>enum: regulatory, provider, intermediary</code></td>
+<td>Yes</td>
+<td>The category of the disclosure.</td>
+</tr>
+<tr>
+<td><code>items[].disclosures[].text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The disclosure statement text.</td>
+</tr>
+<tr>
+<td><code>items[].disclosures[].type</code></td>
+<td><code>enum: intermediary_role, intermediary_commission, underwriter_disclaimer, anti_selection_notice, statement_of_needs, product_information, ...</code></td>
+<td>Yes</td>
+<td>The specific type of disclosure within its category.</td>
+</tr>
+<tr>
+<td><code>items[].employee_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the employee associated with this enrolment intent. Prefixed with <code>ee_</code>.</td>
+</tr>
+<tr>
+<td><code>items[].force_confirmation</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>If set to true, the system will always force the <code>PendingConfirmation</code> state before enrolling the employee, even if no action is required. This can be useful in scenarios where you want to ensure that the employee explicitly confirms their enrolment, regardless of their eligibility or any other factors. Defaults to false.</td>
+</tr>
+<tr>
+<td><code>items[].group_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the group associated with this enrolment intent. Prefixed with <code>gr_</code>.</td>
+</tr>
+<tr>
+<td><code>items[].id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Unique identifier for the enrolment intent. Prefixed with <code>ei_</code>.</td>
+</tr>
+<tr>
+<td><code>items[].ineligibility_reason</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>ineligible</code>, this field provides details about the reason for employees ineligibility.</td>
+</tr>
+<tr>
+<td><code>items[].object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Object type identifier.</td>
+</tr>
+<tr>
+<td><code>items[].pending_confirmation</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>pending_confirmation</code>, this field provides details about the pending confirmation state.</td>
+</tr>
+<tr>
+<td><code>items[].policy_configuration</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Policy configuration associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Policy enrolment information</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments[].estimated_effective_from</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Estimated date when the policy of this type is expected to become effective in ISO 8601 (YYYY-MM-DD).</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments[].health_insurance</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Health insurance intent information (always present when type=health_insurance).</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments[].id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>Unique identifier for the policy created as part of this enrolment intent. Prefixed with <code>p_</code>. Only populated once the policy has been created.</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments[].plan</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Plan information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments[].provider</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Provider information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>items[].policy_enrolments[].type</code></td>
+<td><code>enum: health_insurance, life_assurance</code></td>
+<td>Yes</td>
+<td>Type of policy to be created as part of this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>items[].status</code></td>
+<td><code>enum: processing, scheduled, action_required, coverage_options_required, pending_confirmation, enrolling, ...</code></td>
+<td>Yes</td>
+<td>Current status of the enrolment intent.</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The current page of the results</td>
+</tr>
+<tr>
+<td><code>page_size</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The number of results on this page. This can be different from the requested page size if the total number of results is less than the requested page size</td>
+</tr>
+<tr>
+<td><code>total_count</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The total number of elements available in the response. This is the total number of elements available across all pages, not just the current page.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-4" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="load">load</h2>
+<h3 id="get-enrolment_intentsenrolment_intent_id" class="operation" data-method="get"><code>GET</code> /enrolment_intents/{enrolment_intent_id}</h3>
+<p>Operation ID: <code>RetrieveEnrolmentIntent</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-5">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>enrolment_intent_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="responses-5">Responses</h4>
+<h5 id="200-ok-2" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action_required</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>action_required</code>, this field provides details about the action that needs to be taken to proceed with the enrolment.</td>
+</tr>
+<tr>
+<td><code>disclosures</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Disclosures associated with this intent.</td>
+</tr>
+<tr>
+<td><code>disclosures[].category</code></td>
+<td><code>enum: regulatory, provider, intermediary</code></td>
+<td>Yes</td>
+<td>The category of the disclosure.</td>
+</tr>
+<tr>
+<td><code>disclosures[].text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The disclosure statement text.</td>
+</tr>
+<tr>
+<td><code>disclosures[].type</code></td>
+<td><code>enum: intermediary_role, intermediary_commission, underwriter_disclaimer, anti_selection_notice, statement_of_needs, product_information, ...</code></td>
+<td>Yes</td>
+<td>The specific type of disclosure within its category.</td>
+</tr>
+<tr>
+<td><code>employee_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the employee associated with this enrolment intent. Prefixed with <code>ee_</code>.</td>
+</tr>
+<tr>
+<td><code>force_confirmation</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>If set to true, the system will always force the <code>PendingConfirmation</code> state before enrolling the employee, even if no action is required. This can be useful in scenarios where you want to ensure that the employee explicitly confirms their enrolment, regardless of their eligibility or any other factors. Defaults to false.</td>
+</tr>
+<tr>
+<td><code>group_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the group associated with this enrolment intent. Prefixed with <code>gr_</code>.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Unique identifier for the enrolment intent. Prefixed with <code>ei_</code>.</td>
+</tr>
+<tr>
+<td><code>ineligibility_reason</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>ineligible</code>, this field provides details about the reason for employees ineligibility.</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Object type identifier.</td>
+</tr>
+<tr>
+<td><code>pending_confirmation</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>pending_confirmation</code>, this field provides details about the pending confirmation state.</td>
+</tr>
+<tr>
+<td><code>policy_configuration</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Policy configuration associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Policy enrolment information</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].estimated_effective_from</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Estimated date when the policy of this type is expected to become effective in ISO 8601 (YYYY-MM-DD).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].health_insurance</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Health insurance intent information (always present when type=health_insurance).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>Unique identifier for the policy created as part of this enrolment intent. Prefixed with <code>p_</code>. Only populated once the policy has been created.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].plan</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Plan information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].provider</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Provider information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].type</code></td>
+<td><code>enum: health_insurance, life_assurance</code></td>
+<td>Yes</td>
+<td>Type of policy to be created as part of this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: processing, scheduled, action_required, coverage_options_required, pending_confirmation, enrolling, ...</code></td>
+<td>Yes</td>
+<td>Current status of the enrolment intent.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-4" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="update">update</h2>
+<h3 id="put-enrolment_intentsenrolment_intent_id" class="operation" data-method="put"><code>PUT</code> /enrolment_intents/{enrolment_intent_id}</h3>
+<p>Operation ID: <code>UpdateEnrolmentIntentConfiguration</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-6">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>enrolment_intent_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>X-Platform-Id</code> | <code>header</code> | <code>string</code> | No | The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key, the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers. |</p>
+<h4 id="request-body-2">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object</code>.</p>
+<h4 id="responses-6">Responses</h4>
+<h5 id="200-ok-3" class="status" data-status="2xx">200: OK</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action_required</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>action_required</code>, this field provides details about the action that needs to be taken to proceed with the enrolment.</td>
+</tr>
+<tr>
+<td><code>disclosures</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Disclosures associated with this intent.</td>
+</tr>
+<tr>
+<td><code>disclosures[].category</code></td>
+<td><code>enum: regulatory, provider, intermediary</code></td>
+<td>Yes</td>
+<td>The category of the disclosure.</td>
+</tr>
+<tr>
+<td><code>disclosures[].text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The disclosure statement text.</td>
+</tr>
+<tr>
+<td><code>disclosures[].type</code></td>
+<td><code>enum: intermediary_role, intermediary_commission, underwriter_disclaimer, anti_selection_notice, statement_of_needs, product_information, ...</code></td>
+<td>Yes</td>
+<td>The specific type of disclosure within its category.</td>
+</tr>
+<tr>
+<td><code>employee_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the employee associated with this enrolment intent. Prefixed with <code>ee_</code>.</td>
+</tr>
+<tr>
+<td><code>force_confirmation</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>If set to true, the system will always force the <code>PendingConfirmation</code> state before enrolling the employee, even if no action is required. This can be useful in scenarios where you want to ensure that the employee explicitly confirms their enrolment, regardless of their eligibility or any other factors. Defaults to false.</td>
+</tr>
+<tr>
+<td><code>group_id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Identifier for the group associated with this enrolment intent. Prefixed with <code>gr_</code>.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Unique identifier for the enrolment intent. Prefixed with <code>ei_</code>.</td>
+</tr>
+<tr>
+<td><code>ineligibility_reason</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>ineligible</code>, this field provides details about the reason for employees ineligibility.</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Object type identifier.</td>
+</tr>
+<tr>
+<td><code>pending_confirmation</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>If the enrolment intent status is <code>pending_confirmation</code>, this field provides details about the pending confirmation state.</td>
+</tr>
+<tr>
+<td><code>policy_configuration</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Policy configuration associated with this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>Policy enrolment information</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].estimated_effective_from</code></td>
+<td><code>string (date)</code></td>
+<td>Yes</td>
+<td>Estimated date when the policy of this type is expected to become effective in ISO 8601 (YYYY-MM-DD).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].health_insurance</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Health insurance intent information (always present when type=health_insurance).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].id</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td>Unique identifier for the policy created as part of this enrolment intent. Prefixed with <code>p_</code>. Only populated once the policy has been created.</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].plan</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Plan information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].provider</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Provider information for this policy (from group policy).</td>
+</tr>
+<tr>
+<td><code>policy_enrolments[].type</code></td>
+<td><code>enum: health_insurance, life_assurance</code></td>
+<td>Yes</td>
+<td>Type of policy to be created as part of this enrolment intent.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>enum: processing, scheduled, action_required, coverage_options_required, pending_confirmation, enrolling, ...</code></td>
+<td>Yes</td>
+<td>Current status of the enrolment intent.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-5" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-not-found-5" class="status" data-status="4xx">404: Not Found</h5>
+<p><code>application/problem+json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detail</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>instance</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>null,integer (int32)</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>null,string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

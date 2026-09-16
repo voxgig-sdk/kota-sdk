@@ -10,10 +10,109 @@ declare class Config {
         target: string;
     };
     feature: {
+        debug: {
+            options: {
+                active: boolean;
+                max: number;
+                redact: string[];
+            };
+            optspec: {
+                now: string;
+                onEntry: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
+        idempotency: {
+            options: {
+                active: boolean;
+                header: string;
+                methods: string[];
+                ops: string[];
+            };
+            optspec: {
+                keygen: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
+        metrics: {
+            options: {
+                active: boolean;
+            };
+            optspec: {
+                now: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
+        paging: {
+            options: {
+                active: boolean;
+                afterVar: string;
+                cursorParam: string;
+                firstVar: string;
+                limitParam: string;
+                pageParam: string;
+                startPage: number;
+            };
+            optspec: {
+                limit: string;
+                ops: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
+        ratelimit: {
+            options: {
+                active: boolean;
+                burst: number;
+                rate: number;
+            };
+            optspec: {
+                now: string;
+                sleep: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
+        retry: {
+            options: {
+                active: boolean;
+                factor: number;
+                maxDelay: number;
+                minDelay: number;
+                retries: number;
+                statuses: number[];
+            };
+            optspec: {
+                jitter: string;
+                sleep: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
         test: {
             options: {
                 active: boolean;
             };
+            optspec: {
+                entity: string;
+                net: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
+        timeout: {
+            options: {
+                active: boolean;
+                ms: number;
+            };
+            optspec: {
+                clearTimer: string;
+                setTimer: string;
+            };
+            strict: boolean;
             transport: string;
         };
     };
@@ -702,49 +801,10 @@ declare class Config {
             };
         };
         contribution_report_employee_breakdown_response_paged_list: {
-            fields: ({
-                name: string;
-                req: boolean;
-                short: string;
-                type: string;
-                format?: undefined;
-                readOnly?: undefined;
-            } | {
-                format: string;
-                name: string;
-                req: boolean;
-                short: string;
-                type: string;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                short: string;
-                type: (string | string[])[];
-                req?: undefined;
-                format?: undefined;
-                readOnly?: undefined;
-            } | {
-                format: string;
-                name: string;
-                short: string;
-                type: (string | string[])[];
-                req?: undefined;
-                readOnly?: undefined;
-            } | {
+            fields: {
                 name: string;
                 type: string;
-                req?: undefined;
-                short?: undefined;
-                format?: undefined;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                readOnly: boolean;
-                short: string;
-                type: string;
-                req?: undefined;
-                format?: undefined;
-            })[];
+            }[];
             id: {
                 field: string;
                 name: string;
@@ -2738,19 +2798,10 @@ declare class Config {
             };
         };
         enrolment_intent_requirement_response_paged_list: {
-            fields: ({
+            fields: {
                 name: string;
-                req: boolean;
-                short: string;
                 type: string;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                readOnly: boolean;
-                short: string;
-                type: string;
-                req?: undefined;
-            })[];
+            }[];
             id: {
                 field: string;
                 name: string;
@@ -3194,28 +3245,10 @@ declare class Config {
             };
         };
         group_employee_response_paged_list: {
-            fields: ({
-                format: string;
+            fields: {
                 name: string;
-                short: string;
-                type: (string | string[])[];
-                req?: undefined;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                req: boolean;
-                short: string;
                 type: string;
-                format?: undefined;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                readOnly: boolean;
-                short: string;
-                type: string;
-                format?: undefined;
-                req?: undefined;
-            })[];
+            }[];
             id: {
                 field: string;
                 name: string;
@@ -3576,19 +3609,10 @@ declare class Config {
             };
         };
         group_policy_intent_requirement_response_paged_list: {
-            fields: ({
+            fields: {
                 name: string;
-                req: boolean;
-                short: string;
                 type: string;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                readOnly: boolean;
-                short: string;
-                type: string;
-                req?: undefined;
-            })[];
+            }[];
             id: {
                 field: string;
                 name: string;
@@ -3911,19 +3935,10 @@ declare class Config {
             };
         };
         group_quote_intent_requirement_response_paged_list: {
-            fields: ({
+            fields: {
                 name: string;
-                req: boolean;
-                short: string;
                 type: string;
-                readOnly?: undefined;
-            } | {
-                name: string;
-                readOnly: boolean;
-                short: string;
-                type: string;
-                req?: undefined;
-            })[];
+            }[];
             id: {
                 field: string;
                 name: string;

@@ -16,11 +16,135 @@ func MakeConfig() map[string]any {
 			"target": "go",
 		},
 		"feature": map[string]any{
+			"debug": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"max": 100,
+					"redact": []any{
+						"authorization",
+						"cookie",
+						"set-cookie",
+						"api-key",
+						"apikey",
+						"x-api-key",
+						"idempotency-key",
+					},
+				},
+				"optspec": map[string]any{
+					"now": "`$FUNCTION`",
+					"onEntry": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "none",
+			},
+			"idempotency": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"header": "Idempotency-Key",
+					"methods": []any{
+						"POST",
+						"PUT",
+						"PATCH",
+						"DELETE",
+					},
+					"ops": []any{
+						"create",
+						"update",
+						"remove",
+					},
+				},
+				"optspec": map[string]any{
+					"keygen": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "none",
+			},
+			"metrics": map[string]any{
+				"options": map[string]any{
+					"active": false,
+				},
+				"optspec": map[string]any{
+					"now": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "none",
+			},
+			"paging": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"afterVar": "after",
+					"cursorParam": "cursor",
+					"firstVar": "first",
+					"limitParam": "limit",
+					"pageParam": "page",
+					"startPage": 1,
+				},
+				"optspec": map[string]any{
+					"limit": "`$NUMBER`",
+					"ops": "`$LIST`",
+				},
+				"strict": false,
+				"transport": "none",
+			},
+			"ratelimit": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"burst": 5,
+					"rate": 5,
+				},
+				"optspec": map[string]any{
+					"now": "`$FUNCTION`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
+			"retry": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"factor": 2,
+					"maxDelay": 2000,
+					"minDelay": 50,
+					"retries": 2,
+					"statuses": []any{
+						408,
+						425,
+						429,
+						500,
+						502,
+						503,
+						504,
+					},
+				},
+				"optspec": map[string]any{
+					"jitter": "`$BOOLEAN`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
 			"test": map[string]any{
 				"options": map[string]any{
 					"active": false,
 				},
+				"optspec": map[string]any{
+					"entity": "`$MAP`",
+					"net": "`$MAP`",
+				},
+				"strict": false,
 				"transport": "base",
+			},
+			"timeout": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"ms": 30000,
+				},
+				"optspec": map[string]any{
+					"clearTimer": "`$FUNCTION`",
+					"setTimer": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
 			},
 		},
 		"options": map[string]any{
@@ -1148,93 +1272,8 @@ func MakeConfig() map[string]any {
 			"contribution_report_employee_breakdown_response_paged_list": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"name": "contribution_report_id",
-						"req": true,
-						"short": "Unique identifier of the related contribution report",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"format": "date-time",
-						"name": "created_at",
-						"req": true,
-						"short": "Date and time the breakdown was created",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "currency",
-						"req": true,
-						"short": "The currency in which all the amounts in this breakdown are presented (e.g.",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"name": "employee_id",
-						"req": true,
-						"short": "Unique identifier of the employee for which the breakdown is created",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "employer_id",
-						"req": true,
-						"short": "Unique identifier of the employer for which the breakdown is created",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "external_customer_id",
-						"short": "Unique identifier of the customer for which the breakdown is created.",
-						"type": []any{
-							"`$ONE`",
-							[]any{
-								"`$NULL`",
-								"`$STRING`",
-							},
-						},
-					},
-					map[string]any{
-						"format": "date-time",
-						"name": "finalized_at",
-						"short": "Date and time the breakdown was finalized, if applicable",
-						"type": []any{
-							"`$ONE`",
-							[]any{
-								"`$NULL`",
-								"`$STRING`",
-							},
-						},
-					},
-					map[string]any{
-						"name": "health_insurance",
-						"req": true,
-						"short": "Health insurance contribution details",
-						"type": "`$ANY`",
-					},
-					map[string]any{
 						"name": "id",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"format": "date-time",
-						"name": "last_updated_at",
-						"req": true,
-						"short": "Date and time of the last update to the breakdown",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object",
-						"readOnly": true,
-						"short": "The object type",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "period",
-						"req": true,
-						"short": "Period covered by the employee breakdown",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"name": "status",
-						"req": true,
-						"short": "Current status of the breakdown",
-						"type": "`$ANY`",
 					},
 				},
 				"id": map[string]any{
@@ -4916,39 +4955,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
-						"req": true,
-						"short": "Unique identifier for the requirement",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "is_fulfilled",
-						"req": true,
-						"short": "Whether the requirement has been fulfilled",
-						"type": "`$BOOLEAN`",
-					},
-					map[string]any{
-						"name": "object",
-						"readOnly": true,
-						"short": "Object type identifier",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object_id",
-						"req": true,
-						"short": "Identifier of the object (employee ID or employer ID)",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object_type",
-						"req": true,
-						"short": "Type of object this requirement is for (employee or employer)",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"name": "requirement_type",
-						"req": true,
-						"short": "Type of requirement",
-						"type": "`$ANY`",
 					},
 				},
 				"id": map[string]any{
@@ -5714,76 +5721,8 @@ func MakeConfig() map[string]any {
 			"group_employee_response_paged_list": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "date",
-						"name": "desired_policy_start_date",
-						"short": "The desired date for the employee's policy to start.",
-						"type": []any{
-							"`$ONE`",
-							[]any{
-								"`$NULL`",
-								"`$STRING`",
-							},
-						},
-					},
-					map[string]any{
-						"name": "eligibility_status",
-						"req": true,
-						"short": "Eligibility status for the employee in this group.",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"format": "date",
-						"name": "enrolment_date",
-						"short": "The date on which the employee agreed to enrol into the group's policies.",
-						"type": []any{
-							"`$ONE`",
-							[]any{
-								"`$NULL`",
-								"`$STRING`",
-							},
-						},
-					},
-					map[string]any{
-						"name": "enrolment_status",
-						"req": true,
-						"short": "Enrolment status for the employee in this group.",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"name": "enrolments",
-						"req": true,
-						"short": "List of enrolments associated with the employee in this group.",
-						"type": "`$ARRAY`",
-					},
-					map[string]any{
-						"name": "group_id",
-						"req": true,
-						"short": "Unique identifier for the group.",
-						"type": "`$STRING`",
-					},
-					map[string]any{
 						"name": "id",
-						"req": true,
-						"short": "Unique identifier for the employee.",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object",
-						"readOnly": true,
-						"short": "The object type",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "policies",
-						"req": true,
-						"short": "List of policies associated with the employee in this group.",
-						"type": "`$ARRAY`",
-					},
-					map[string]any{
-						"name": "scheduled_group_transitions",
-						"req": true,
-						"short": "List of scheduled group transitions for the employee.",
-						"type": "`$ARRAY`",
 					},
 				},
 				"id": map[string]any{
@@ -6376,39 +6315,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
-						"req": true,
-						"short": "Unique identifier for the requirement",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "is_fulfilled",
-						"req": true,
-						"short": "Whether the requirement has been fulfilled",
-						"type": "`$BOOLEAN`",
-					},
-					map[string]any{
-						"name": "object",
-						"readOnly": true,
-						"short": "Object type identifier",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object_id",
-						"req": true,
-						"short": "Identifier of the object (employee ID or employer ID)",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object_type",
-						"req": true,
-						"short": "Type of object this requirement is for (employee or employer)",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"name": "requirement_type",
-						"req": true,
-						"short": "Type of requirement",
-						"type": "`$ANY`",
 					},
 				},
 				"id": map[string]any{
@@ -6924,39 +6831,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
-						"req": true,
-						"short": "Unique identifier for the requirement",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "is_fulfilled",
-						"req": true,
-						"short": "Whether the requirement has been fulfilled",
-						"type": "`$BOOLEAN`",
-					},
-					map[string]any{
-						"name": "object",
-						"readOnly": true,
-						"short": "Object type identifier",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object_id",
-						"req": true,
-						"short": "Identifier of the object (employee ID or employer ID)",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "object_type",
-						"req": true,
-						"short": "Type of object this requirement is for (employee or employer)",
-						"type": "`$ANY`",
-					},
-					map[string]any{
-						"name": "requirement_type",
-						"req": true,
-						"short": "Type of requirement",
-						"type": "`$ANY`",
 					},
 				},
 				"id": map[string]any{
@@ -8882,9 +8757,37 @@ func SharedConfig() map[string]any {
 
 func makeFeature(name string) Feature {
 	switch name {
+	case "debug":
+		if NewDebugFeatureFunc != nil {
+			return NewDebugFeatureFunc()
+		}
+	case "idempotency":
+		if NewIdempotencyFeatureFunc != nil {
+			return NewIdempotencyFeatureFunc()
+		}
+	case "metrics":
+		if NewMetricsFeatureFunc != nil {
+			return NewMetricsFeatureFunc()
+		}
+	case "paging":
+		if NewPagingFeatureFunc != nil {
+			return NewPagingFeatureFunc()
+		}
+	case "ratelimit":
+		if NewRatelimitFeatureFunc != nil {
+			return NewRatelimitFeatureFunc()
+		}
+	case "retry":
+		if NewRetryFeatureFunc != nil {
+			return NewRetryFeatureFunc()
+		}
 	case "test":
 		if NewTestFeatureFunc != nil {
 			return NewTestFeatureFunc()
+		}
+	case "timeout":
+		if NewTimeoutFeatureFunc != nil {
+			return NewTimeoutFeatureFunc()
 		}
 	default:
 		if NewBaseFeatureFunc != nil {

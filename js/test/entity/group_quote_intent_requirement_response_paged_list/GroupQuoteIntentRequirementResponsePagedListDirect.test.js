@@ -1,6 +1,6 @@
 
 const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
+require('../../utility').loadEnvLocal(envlocal)
 
 const { test, describe, afterEach } = require('node:test')
 const assert = require('node:assert')
@@ -34,7 +34,8 @@ describe('GroupQuoteIntentRequirementResponsePagedListDirect', async () => {
   })
 
 
-  test('direct-list-group_quote_intent_requirement_response_paged_list', async () => {
+  test('direct-list-group_quote_intent_requirement_response_paged_list', async (t) => {
+    if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     const { client, calls } = setup
 
@@ -52,7 +53,7 @@ describe('GroupQuoteIntentRequirementResponsePagedListDirect', async () => {
     })
 
     assert(result.ok === true)
-    assert(result.status === 200)
+    assert(setup.live ? result.status >= 200 && result.status < 300 : result.status === 200)
     assert(Array.isArray(result.data))
 
     if (!setup.live) {
@@ -67,6 +68,7 @@ describe('GroupQuoteIntentRequirementResponsePagedListDirect', async () => {
 
 
 
+function liveScenariosActive() { return false && process.env.KOTA_TEST_LIVE === 'TRUE' }
 function directSetup(mockres) {
   const calls = []
 

@@ -157,19 +157,7 @@
 
 /**
  * @typedef {Object} ContributionReportEmployeeBreakdownResponsePagedList
- * @property {string} contribution_report_id
- * @property {string} created_at
- * @property {*} currency
- * @property {string} employee_id
- * @property {string} employer_id
- * @property {null|string} [external_customer_id]
- * @property {null|string} [finalized_at]
- * @property {*} health_insurance
  * @property {string} [id]
- * @property {string} last_updated_at
- * @property {string} [object]
- * @property {*} period
- * @property {*} status
  */
 
 /**
@@ -672,12 +660,7 @@
 
 /**
  * @typedef {Object} EnrolmentIntentRequirementResponsePagedList
- * @property {string} id
- * @property {boolean} is_fulfilled
- * @property {string} [object]
- * @property {string} object_id
- * @property {*} object_type
- * @property {*} requirement_type
+ * @property {string} [id]
  */
 
 /**
@@ -804,16 +787,7 @@
 
 /**
  * @typedef {Object} GroupEmployeeResponsePagedList
- * @property {null|string} [desired_policy_start_date]
- * @property {*} eligibility_status
- * @property {null|string} [enrolment_date]
- * @property {*} enrolment_status
- * @property {Array} enrolments
- * @property {string} group_id
- * @property {string} id
- * @property {string} [object]
- * @property {Array} policies
- * @property {Array} scheduled_group_transitions
+ * @property {string} [id]
  */
 
 /**
@@ -899,12 +873,7 @@
 
 /**
  * @typedef {Object} GroupPolicyIntentRequirementResponsePagedList
- * @property {string} id
- * @property {boolean} is_fulfilled
- * @property {string} [object]
- * @property {string} object_id
- * @property {*} object_type
- * @property {*} requirement_type
+ * @property {string} [id]
  */
 
 /**
@@ -974,12 +943,7 @@
 
 /**
  * @typedef {Object} GroupQuoteIntentRequirementResponsePagedList
- * @property {string} id
- * @property {boolean} is_fulfilled
- * @property {string} [object]
- * @property {string} object_id
- * @property {*} object_type
- * @property {*} requirement_type
+ * @property {string} [id]
  */
 
 /**

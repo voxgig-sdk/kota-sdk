@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { KotaSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('EmployerHealthInsurancePolicyEntity', async () => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'employer_health_insurance_policy.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'employer_health_insurance_policy.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_POLICY_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"format":"date","name":"cancellation_date","req":false,"short":"Policy was cancelled on this date, if cancellation occured","type":["`$ONE`",["`$NULL`","`$STRING`"]],"index$":0},{"active":true,"name":"coverage_levels","req":true,"short":"Represents the available coverage levels for this policy","type":"`$ARRAY`","index$":1},{"active":true,"format":"int32","name":"employer_cancellation_period_length","req":true,"short":"How many days the employer has to cancel the policy since the policy starts","type":"`$INTEGER`","index$":2},{"active":true,"name":"employer_id","req":true,"short":"The Id of the employer for which the policy is created","type":"`$STRING`","index$":3},{"active":true,"format":"date","name":"end_date","req":true,"short":"Policy ends on this date","type":"`$STRING`","index$":4},{"active":true,"name":"enrolment_type","req":true,"short":"Enrolment type of the policy","type":"`$ANY`","index$":5},{"active":true,"name":"group_policy_number","req":false,"short":"Group’s health insurance policy number, if available","type":["`$ONE`",["`$NULL`","`$STRING`"]],"index$":6},{"active":true,"name":"id","req":true,"short":"Unique identifier for policy","type":"`$STRING`","index$":7},{"active":true,"name":"object","readOnly":true,"req":false,"short":"The object type","type":"`$STRING`","index$":8},{"active":true,"name":"renewal","req":true,"short":"Renewal information for the policy","type":"`$ANY`","index$":9},{"active":true,"format":"date","name":"start_date","req":true,"short":"Policy starts on this date","type":"`$STRING`","index$":10},{"active":true,"name":"status","req":true,"short":"Current status of policy","type":"`$ANY`","index$":11}],"id":{"field":"id","name":"id"},"name":"employer_health_insurance_policy","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"header":[{"active":true,"kind":"header","name":"x_platform_id","orig":"x_platform_id","reqd":false,"type":"`$STRING`"}],"params":[{"active":true,"example":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"employer_id","orig":"employer_id","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"example":"erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"id","orig":"employer_policy_id","reqd":true,"type":"`$STRING`","index$":1}]},"contract":{"id":"GET /employers/{employer_id}/health_insurance/policies/{employer_policy_id}","json":"{\"operationId\":\"RetrieveEmployerHealthInsurancePolicy\",\"parameters\":[{\"in\":\"path\",\"name\":\"employer_id\",\"required\":true,\"schema\":{\"example\":\"er_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"er_.+\",\"type\":\"string\"}},{\"in\":\"path\",\"name\":\"employer_policy_id\",\"required\":true,\"schema\":{\"example\":\"erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"erhp_.+\",\"type\":\"string\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"cancellation_date\":{\"description\":\"Policy was cancelled on this date, if cancellation occured\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]},\"coverage_levels\":{\"description\":\"Represents the available coverage levels for this policy\",\"items\":{\"additionalProperties\":false,\"properties\":{\"documents\":{\"description\":\"Documents related to the health insurance plan, these documents may change at renewal, this includes the documents like `Insurance Product Information Document`, `Hospital Lists`, `Table of Cover` etc\",\"items\":{\"additionalProperties\":false,\"properties\":{\"link\":{\"description\":\"Health Insurance Document Link (can be a link to a website or a file path)\",\"type\":\"string\"},\"title\":{\"description\":\"Health Insurance Document Title\",\"type\":\"string\"}},\"required\":[\"link\",\"title\"],\"type\":\"object\"},\"type\":\"array\"},\"plan_currency\":{\"allOf\":[{\"enum\":[\"eur\",\"aed\",\"afn\",\"xcd\",\"all\",\"amd\",\"aoa\",\"ars\",\"usd\",\"aud\",\"awg\",\"azn\",\"bam\",\"bbd\",\"bdt\",\"xof\",\"bgn\",\"bhd\",\"bif\",\"bmd\",\"bnd\",\"bob\",\"bov\",\"brl\",\"bsd\",\"inr\",\"btn\",\"nok\",\"bwp\",\"byn\",\"bzd\",\"cad\",\"xaf\",\"cdf\",\"chf\",\"che\",\"chw\",\"nzd\",\"clp\",\"clf\",\"cny\",\"cop\",\"cou\",\"crc\",\"cup\",\"cuc\",\"cve\",\"ang\",\"czk\",\"djf\",\"dkk\",\"dop\",\"dzd\",\"egp\",\"mad\",\"ern\",\"etb\",\"fjd\",\"fkp\",\"mdl\",\"gbp\",\"gel\",\"ghs\",\"gip\",\"gmd\",\"gnf\",\"gtq\",\"gyd\",\"hkd\",\"hnl\",\"hrk\",\"htg\",\"huf\",\"idr\",\"xdr\",\"ils\",\"iqd\",\"irr\",\"isk\",\"jmd\",\"jod\",\"jpy\",\"kes\",\"kgs\",\"khr\",\"kmf\",\"kpw\",\"krw\",\"kwd\",\"kyd\",\"kzt\",\"lak\",\"lbp\",\"lkr\",\"lrd\",\"lsl\",\"zar\",\"lyd\",\"mga\",\"mkd\",\"mmk\",\"mnt\",\"mop\",\"mru\",\"mur\",\"mvr\",\"mwk\",\"mxn\",\"mxv\",\"myr\",\"mzn\",\"nad\",\"xpf\",\"ngn\",\"nio\",\"npr\",\"omr\",\"pab\",\"pen\",\"pgk\",\"php\",\"pkr\",\"pln\",\"pyg\",\"qar\",\"ron\",\"rsd\",\"rub\",\"rwf\",\"sar\",\"sbd\",\"scr\",\"sdg\",\"sek\",\"sgd\",\"shp\",\"sll\",\"sos\",\"srd\",\"ssp\",\"stn\",\"svc\",\"xsu\",\"syp\",\"twd\",\"szl\",\"thb\",\"tjs\",\"tmt\",\"tnd\",\"top\",\"try\",\"ttd\",\"tzs\",\"uah\",\"ugx\",\"usn\",\"uyu\",\"uyi\",\"uyw\",\"uzs\",\"ves\",\"vnd\",\"vuv\",\"wst\",\"yer\",\"xua\",\"zmw\",\"zwl\"],\"type\":\"string\"}],\"description\":\"Currency code of the health insurance plan\"},\"plan_id\":{\"description\":\"Unique identifier for the health insurance plan\",\"example\":\"pl_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"pl_.+\",\"type\":\"string\"},\"plan_name\":{\"description\":\"Name of the health insurance plan\",\"type\":\"string\"},\"provider_employer_platform_url\":{\"description\":\"URL to the health insurance provider's website for Employer Management\",\"type\":[\"null\",\"string\"]},\"provider_logo_url\":{\"description\":\"Logo URL of the health insurance provider\",\"type\":\"string\"},\"provider_name\":{\"description\":\"Name of the health insurance provider\",\"type\":\"string\"},\"provider_support_phone\":{\"description\":\"Support phone number to the health insurance provider's website for Employer Management\",\"type\":[\"null\",\"string\"]}},\"required\":[\"documents\",\"plan_currency\",\"plan_id\",\"plan_name\",\"provider_logo_url\",\"provider_name\"],\"type\":\"object\"},\"type\":\"array\"},\"employer_cancellation_period_length\":{\"description\":\"How many days the employer has to cancel the policy since the policy starts\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"employer_id\":{\"description\":\"The Id of the employer for which the policy is created\",\"example\":\"er_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"er_.+\",\"type\":\"string\"},\"end_date\":{\"description\":\"Policy ends on this date\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"},\"enrolment_type\":{\"allOf\":[{\"enum\":[\"opt_out\",\"opt_in\"],\"type\":\"string\"}],\"description\":\"Enrolment type of the policy\"},\"group_policy_number\":{\"description\":\"Group’s health insurance policy number, if available\",\"type\":[\"null\",\"string\"]},\"id\":{\"description\":\"Unique identifier for policy\",\"example\":\"erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"erhp_.+\",\"type\":\"string\"},\"object\":{\"description\":\"The object type\",\"readOnly\":true,\"type\":\"string\"},\"renewal\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"decision_confirmed\":{\"description\":\"Whether the decision to renew the policy has been confirmed\",\"example\":true,\"type\":\"boolean\"},\"renewal_date\":{\"description\":\"Policy renewal date\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"},\"renewed_health_insurance_id\":{\"description\":\"The ID of the renewed health insurance policy, if renewed\",\"example\":\"erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"erhp_.+\",\"type\":[\"null\",\"string\"]},\"status\":{\"allOf\":[{\"enum\":[\"upcoming\",\"open\",\"renewed\",\"cancelled\"],\"type\":\"string\"}],\"description\":\"The current status of the renewal\"},\"window_end_date\":{\"description\":\"Renewal window ends at the end of this day\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"},\"window_start_date\":{\"description\":\"Renewal window starts on this day\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"}},\"required\":[\"decision_confirmed\",\"renewal_date\",\"status\",\"window_end_date\",\"window_start_date\"],\"type\":\"object\"}],\"description\":\"Renewal information for the policy\"},\"start_date\":{\"description\":\"Policy starts on this date\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"},\"status\":{\"allOf\":[{\"enum\":[\"scheduled\",\"active\",\"expired\",\"cancelled\"],\"type\":\"string\"}],\"description\":\"Current status of policy\"}},\"required\":[\"coverage_levels\",\"employer_cancellation_period_length\",\"employer_id\",\"end_date\",\"enrolment_type\",\"id\",\"renewal\",\"start_date\",\"status\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/employers/{employer_id}/health_insurance/policies/{employer_policy_id}","rename":{"param":{"employer_policy_id":"id"}},"segments":[{"lit":"employers"},{"var":"employer_id"},{"lit":"health_insurance"},{"lit":"policies"},{"var":"id"}],"select":{"exist":["employer_id","id","x_platform_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["employer"]]},"key$":"employer_health_insurance_policy","name__orig":"employer_health_insurance_policy","Name":"EmployerHealthInsurancePolicy","name_":"employer_health_insurance_policy","name-":"employer-health-insurance-policy","NAME":"EMPLOYER_HEALTH_INSURANCE_POLICY","index$":16}, {"active":true,"entity":"employer_health_insurance_policy","key$":"BasicEmployerHealthInsurancePolicyFlow","kind":"basic","name":"BasicEmployerHealthInsurancePolicyFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"employer_health_insurance_policy_ref01","srcdatavar":"employer_health_insurance_policy_ref01_data","suffix":"_dt0"},"match":{"employer_id":"employer01","id":"employer_health_insurance_policy01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-employer_health_insurance_policy_ref01"}}],"index$":0}]}, 'EmployerHealthInsurancePolicy')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_POLICY_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_POLICY_ENTID': idmap,
     'KOTA_TEST_LIVE': 'FALSE',
@@ -128,7 +120,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.KOTA_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_POLICY_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -141,7 +139,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -154,7 +153,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

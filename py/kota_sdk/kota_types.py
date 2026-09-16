@@ -178,23 +178,8 @@ class ContributionReportEmployeeBreakdownLoadMatch(TypedDict):
     id: str
 
 
-class ContributionReportEmployeeBreakdownResponsePagedListRequired(TypedDict):
-    contribution_report_id: str
-    created_at: str
-    currency: Any
-    employee_id: str
-    employer_id: str
-    health_insurance: Any
-    last_updated_at: str
-    period: Any
-    status: Any
-
-
-class ContributionReportEmployeeBreakdownResponsePagedList(ContributionReportEmployeeBreakdownResponsePagedListRequired, total=False):
-    external_customer_id: None | str
-    finalized_at: None | str
+class ContributionReportEmployeeBreakdownResponsePagedList(TypedDict, total=False):
     id: str
-    object: str
 
 
 class ContributionReportEmployeeBreakdownResponsePagedListListMatchRequired(TypedDict):
@@ -735,16 +720,8 @@ class EnrolmentIntentUpdateData(EnrolmentIntentUpdateDataRequired, total=False):
     status: Any
 
 
-class EnrolmentIntentRequirementResponsePagedListRequired(TypedDict):
+class EnrolmentIntentRequirementResponsePagedList(TypedDict, total=False):
     id: str
-    is_fulfilled: bool
-    object_id: str
-    object_type: Any
-    requirement_type: Any
-
-
-class EnrolmentIntentRequirementResponsePagedList(EnrolmentIntentRequirementResponsePagedListRequired, total=False):
-    object: str
 
 
 class EnrolmentIntentRequirementResponsePagedListListMatchRequired(TypedDict):
@@ -879,20 +856,8 @@ class GroupEmployeeCreateData(GroupEmployeeCreateDataRequired, total=False):
     object: str
 
 
-class GroupEmployeeResponsePagedListRequired(TypedDict):
-    eligibility_status: Any
-    enrolment_status: Any
-    enrolments: list
-    group_id: str
+class GroupEmployeeResponsePagedList(TypedDict, total=False):
     id: str
-    policies: list
-    scheduled_group_transitions: list
-
-
-class GroupEmployeeResponsePagedList(GroupEmployeeResponsePagedListRequired, total=False):
-    desired_policy_start_date: None | str
-    enrolment_date: None | str
-    object: str
 
 
 class GroupEmployeeResponsePagedListListMatchRequired(TypedDict):
@@ -980,16 +945,8 @@ class GroupPolicyIntentCreateData(GroupPolicyIntentCreateDataRequired, total=Fal
     object: str
 
 
-class GroupPolicyIntentRequirementResponsePagedListRequired(TypedDict):
+class GroupPolicyIntentRequirementResponsePagedList(TypedDict, total=False):
     id: str
-    is_fulfilled: bool
-    object_id: str
-    object_type: Any
-    requirement_type: Any
-
-
-class GroupPolicyIntentRequirementResponsePagedList(GroupPolicyIntentRequirementResponsePagedListRequired, total=False):
-    object: str
 
 
 class GroupPolicyIntentRequirementResponsePagedListListMatchRequired(TypedDict):
@@ -1062,16 +1019,8 @@ class GroupQuoteIntentCreateData(GroupQuoteIntentCreateDataRequired, total=False
     object: str
 
 
-class GroupQuoteIntentRequirementResponsePagedListRequired(TypedDict):
+class GroupQuoteIntentRequirementResponsePagedList(TypedDict, total=False):
     id: str
-    is_fulfilled: bool
-    object_id: str
-    object_type: Any
-    requirement_type: Any
-
-
-class GroupQuoteIntentRequirementResponsePagedList(GroupQuoteIntentRequirementResponsePagedListRequired, total=False):
-    object: str
 
 
 class GroupQuoteIntentRequirementResponsePagedListListMatchRequired(TypedDict):

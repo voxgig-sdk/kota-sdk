@@ -41,11 +41,135 @@ def make_config():
             "target": "py",
         },
         "feature": {
+            "debug": {
+        "options": {
+          "active": False,
+          "max": 100,
+          "redact": [
+            "authorization",
+            "cookie",
+            "set-cookie",
+            "api-key",
+            "apikey",
+            "x-api-key",
+            "idempotency-key",
+          ],
+        },
+        "optspec": {
+          "now": "`$FUNCTION`",
+          "onEntry": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "none",
+      },
+            "idempotency": {
+        "options": {
+          "active": False,
+          "header": "Idempotency-Key",
+          "methods": [
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+          ],
+          "ops": [
+            "create",
+            "update",
+            "remove",
+          ],
+        },
+        "optspec": {
+          "keygen": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "none",
+      },
+            "metrics": {
+        "options": {
+          "active": False,
+        },
+        "optspec": {
+          "now": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "none",
+      },
+            "paging": {
+        "options": {
+          "active": False,
+          "afterVar": "after",
+          "cursorParam": "cursor",
+          "firstVar": "first",
+          "limitParam": "limit",
+          "pageParam": "page",
+          "startPage": 1,
+        },
+        "optspec": {
+          "limit": "`$NUMBER`",
+          "ops": "`$LIST`",
+        },
+        "strict": False,
+        "transport": "none",
+      },
+            "ratelimit": {
+        "options": {
+          "active": False,
+          "burst": 5,
+          "rate": 5,
+        },
+        "optspec": {
+          "now": "`$FUNCTION`",
+          "sleep": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "wrap",
+      },
+            "retry": {
+        "options": {
+          "active": False,
+          "factor": 2,
+          "maxDelay": 2000,
+          "minDelay": 50,
+          "retries": 2,
+          "statuses": [
+            408,
+            425,
+            429,
+            500,
+            502,
+            503,
+            504,
+          ],
+        },
+        "optspec": {
+          "jitter": "`$BOOLEAN`",
+          "sleep": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "wrap",
+      },
             "test": {
         "options": {
           "active": False,
         },
+        "optspec": {
+          "entity": "`$MAP`",
+          "net": "`$MAP`",
+        },
+        "strict": False,
         "transport": "base",
+      },
+            "timeout": {
+        "options": {
+          "active": False,
+          "ms": 30000,
+        },
+        "optspec": {
+          "clearTimer": "`$FUNCTION`",
+          "setTimer": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "wrap",
       },
         },
         "options": {
@@ -1173,93 +1297,8 @@ def make_config():
       "contribution_report_employee_breakdown_response_paged_list": {
         "fields": [
           {
-            "name": "contribution_report_id",
-            "req": True,
-            "short": "Unique identifier of the related contribution report",
-            "type": "`$STRING`",
-          },
-          {
-            "format": "date-time",
-            "name": "created_at",
-            "req": True,
-            "short": "Date and time the breakdown was created",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "currency",
-            "req": True,
-            "short": "The currency in which all the amounts in this breakdown are presented (e.g.",
-            "type": "`$ANY`",
-          },
-          {
-            "name": "employee_id",
-            "req": True,
-            "short": "Unique identifier of the employee for which the breakdown is created",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "employer_id",
-            "req": True,
-            "short": "Unique identifier of the employer for which the breakdown is created",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "external_customer_id",
-            "short": "Unique identifier of the customer for which the breakdown is created.",
-            "type": [
-              "`$ONE`",
-              [
-                "`$NULL`",
-                "`$STRING`",
-              ],
-            ],
-          },
-          {
-            "format": "date-time",
-            "name": "finalized_at",
-            "short": "Date and time the breakdown was finalized, if applicable",
-            "type": [
-              "`$ONE`",
-              [
-                "`$NULL`",
-                "`$STRING`",
-              ],
-            ],
-          },
-          {
-            "name": "health_insurance",
-            "req": True,
-            "short": "Health insurance contribution details",
-            "type": "`$ANY`",
-          },
-          {
             "name": "id",
             "type": "`$STRING`",
-          },
-          {
-            "format": "date-time",
-            "name": "last_updated_at",
-            "req": True,
-            "short": "Date and time of the last update to the breakdown",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object",
-            "readOnly": True,
-            "short": "The object type",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "period",
-            "req": True,
-            "short": "Period covered by the employee breakdown",
-            "type": "`$ANY`",
-          },
-          {
-            "name": "status",
-            "req": True,
-            "short": "Current status of the breakdown",
-            "type": "`$ANY`",
           },
         ],
         "id": {
@@ -4941,39 +4980,7 @@ def make_config():
         "fields": [
           {
             "name": "id",
-            "req": True,
-            "short": "Unique identifier for the requirement",
             "type": "`$STRING`",
-          },
-          {
-            "name": "is_fulfilled",
-            "req": True,
-            "short": "Whether the requirement has been fulfilled",
-            "type": "`$BOOLEAN`",
-          },
-          {
-            "name": "object",
-            "readOnly": True,
-            "short": "Object type identifier",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object_id",
-            "req": True,
-            "short": "Identifier of the object (employee ID or employer ID)",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object_type",
-            "req": True,
-            "short": "Type of object this requirement is for (employee or employer)",
-            "type": "`$ANY`",
-          },
-          {
-            "name": "requirement_type",
-            "req": True,
-            "short": "Type of requirement",
-            "type": "`$ANY`",
           },
         ],
         "id": {
@@ -5739,76 +5746,8 @@ def make_config():
       "group_employee_response_paged_list": {
         "fields": [
           {
-            "format": "date",
-            "name": "desired_policy_start_date",
-            "short": "The desired date for the employee's policy to start.",
-            "type": [
-              "`$ONE`",
-              [
-                "`$NULL`",
-                "`$STRING`",
-              ],
-            ],
-          },
-          {
-            "name": "eligibility_status",
-            "req": True,
-            "short": "Eligibility status for the employee in this group.",
-            "type": "`$ANY`",
-          },
-          {
-            "format": "date",
-            "name": "enrolment_date",
-            "short": "The date on which the employee agreed to enrol into the group's policies.",
-            "type": [
-              "`$ONE`",
-              [
-                "`$NULL`",
-                "`$STRING`",
-              ],
-            ],
-          },
-          {
-            "name": "enrolment_status",
-            "req": True,
-            "short": "Enrolment status for the employee in this group.",
-            "type": "`$ANY`",
-          },
-          {
-            "name": "enrolments",
-            "req": True,
-            "short": "List of enrolments associated with the employee in this group.",
-            "type": "`$ARRAY`",
-          },
-          {
-            "name": "group_id",
-            "req": True,
-            "short": "Unique identifier for the group.",
-            "type": "`$STRING`",
-          },
-          {
             "name": "id",
-            "req": True,
-            "short": "Unique identifier for the employee.",
             "type": "`$STRING`",
-          },
-          {
-            "name": "object",
-            "readOnly": True,
-            "short": "The object type",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "policies",
-            "req": True,
-            "short": "List of policies associated with the employee in this group.",
-            "type": "`$ARRAY`",
-          },
-          {
-            "name": "scheduled_group_transitions",
-            "req": True,
-            "short": "List of scheduled group transitions for the employee.",
-            "type": "`$ARRAY`",
           },
         ],
         "id": {
@@ -6401,39 +6340,7 @@ def make_config():
         "fields": [
           {
             "name": "id",
-            "req": True,
-            "short": "Unique identifier for the requirement",
             "type": "`$STRING`",
-          },
-          {
-            "name": "is_fulfilled",
-            "req": True,
-            "short": "Whether the requirement has been fulfilled",
-            "type": "`$BOOLEAN`",
-          },
-          {
-            "name": "object",
-            "readOnly": True,
-            "short": "Object type identifier",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object_id",
-            "req": True,
-            "short": "Identifier of the object (employee ID or employer ID)",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object_type",
-            "req": True,
-            "short": "Type of object this requirement is for (employee or employer)",
-            "type": "`$ANY`",
-          },
-          {
-            "name": "requirement_type",
-            "req": True,
-            "short": "Type of requirement",
-            "type": "`$ANY`",
           },
         ],
         "id": {
@@ -6949,39 +6856,7 @@ def make_config():
         "fields": [
           {
             "name": "id",
-            "req": True,
-            "short": "Unique identifier for the requirement",
             "type": "`$STRING`",
-          },
-          {
-            "name": "is_fulfilled",
-            "req": True,
-            "short": "Whether the requirement has been fulfilled",
-            "type": "`$BOOLEAN`",
-          },
-          {
-            "name": "object",
-            "readOnly": True,
-            "short": "Object type identifier",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object_id",
-            "req": True,
-            "short": "Identifier of the object (employee ID or employer ID)",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "object_type",
-            "req": True,
-            "short": "Type of object this requirement is for (employee or employer)",
-            "type": "`$ANY`",
-          },
-          {
-            "name": "requirement_type",
-            "req": True,
-            "short": "Type of requirement",
-            "type": "`$ANY`",
           },
         ],
         "id": {

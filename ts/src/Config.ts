@@ -1,11 +1,25 @@
 
 import { BaseFeature } from './feature/base/BaseFeature'
+import { DebugFeature } from './feature/debug/DebugFeature'
+import { IdempotencyFeature } from './feature/idempotency/IdempotencyFeature'
+import { MetricsFeature } from './feature/metrics/MetricsFeature'
+import { PagingFeature } from './feature/paging/PagingFeature'
+import { RatelimitFeature } from './feature/ratelimit/RatelimitFeature'
+import { RetryFeature } from './feature/retry/RetryFeature'
 import { TestFeature } from './feature/test/TestFeature'
+import { TimeoutFeature } from './feature/timeout/TimeoutFeature'
 
 
 
 const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
-   test: TestFeature,
+   debug: DebugFeature,
+ idempotency: IdempotencyFeature,
+ metrics: MetricsFeature,
+ paging: PagingFeature,
+ ratelimit: RatelimitFeature,
+ retry: RetryFeature,
+ test: TestFeature,
+ timeout: TimeoutFeature,
 
 }
 
@@ -48,11 +62,135 @@ class Config {
 
 
   feature = {
-     test:     {
+     debug:     {
+      "options": {
+        "active": false,
+        "max": 100,
+        "redact": [
+          "authorization",
+          "cookie",
+          "set-cookie",
+          "api-key",
+          "apikey",
+          "x-api-key",
+          "idempotency-key"
+        ]
+      },
+      "optspec": {
+        "now": "`$FUNCTION`",
+        "onEntry": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "none"
+    },
+ idempotency:     {
+      "options": {
+        "active": false,
+        "header": "Idempotency-Key",
+        "methods": [
+          "POST",
+          "PUT",
+          "PATCH",
+          "DELETE"
+        ],
+        "ops": [
+          "create",
+          "update",
+          "remove"
+        ]
+      },
+      "optspec": {
+        "keygen": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "none"
+    },
+ metrics:     {
       "options": {
         "active": false
       },
+      "optspec": {
+        "now": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "none"
+    },
+ paging:     {
+      "options": {
+        "active": false,
+        "afterVar": "after",
+        "cursorParam": "cursor",
+        "firstVar": "first",
+        "limitParam": "limit",
+        "pageParam": "page",
+        "startPage": 1
+      },
+      "optspec": {
+        "limit": "`$NUMBER`",
+        "ops": "`$LIST`"
+      },
+      "strict": false,
+      "transport": "none"
+    },
+ ratelimit:     {
+      "options": {
+        "active": false,
+        "burst": 5,
+        "rate": 5
+      },
+      "optspec": {
+        "now": "`$FUNCTION`",
+        "sleep": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
+    },
+ retry:     {
+      "options": {
+        "active": false,
+        "factor": 2,
+        "maxDelay": 2000,
+        "minDelay": 50,
+        "retries": 2,
+        "statuses": [
+          408,
+          425,
+          429,
+          500,
+          502,
+          503,
+          504
+        ]
+      },
+      "optspec": {
+        "jitter": "`$BOOLEAN`",
+        "sleep": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
+    },
+ test:     {
+      "options": {
+        "active": false
+      },
+      "optspec": {
+        "entity": "`$MAP`",
+        "net": "`$MAP`"
+      },
+      "strict": false,
       "transport": "base"
+    },
+ timeout:     {
+      "options": {
+        "active": false,
+        "ms": 30000
+      },
+      "optspec": {
+        "clearTimer": "`$FUNCTION`",
+        "setTimer": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
     },
 
   }
@@ -71,126 +209,126 @@ class Config {
 
     entity: {
       
-      associated_person: {
-      },
-
-      associated_person_eligibility_response_paged_list: {
-      },
-
-      contribution_report: {
-      },
-
-      contribution_report_employee_breakdown: {
-      },
-
-      contribution_report_employee_breakdown_response_paged_list: {
-      },
-
-      create_hosted_session_token: {
-      },
-
-      create_session_token: {
-      },
-
-      dependent: {
-      },
-
-      dependents_management_intent: {
-      },
-
-      eligibility_check: {
-      },
-
-      employee: {
-      },
-
-      employee_health_insurance_offer: {
-      },
-
-      employee_health_insurance_offer_response_paged_list: {
-      },
-
-      employee_health_insurance_policy: {
-      },
-
-      employee_health_insurance_policy_response_paged_list: {
-      },
-
-      employer: {
-      },
-
-      employer_health_insurance_policy: {
-      },
-
-      employer_health_insurance_policy_response_paged_list: {
-      },
-
-      employer_health_insurance_quote: {
-      },
-
-      employer_health_insurance_quote_response_paged_list: {
-      },
-
-      enrolment_intent: {
-      },
-
-      enrolment_intent_requirement_response_paged_list: {
-      },
-
-      event: {
-      },
-
-      group: {
-      },
-
-      group_employee: {
-      },
-
-      group_employee_response_paged_list: {
-      },
-
-      group_policy: {
-      },
-
-      group_policy_intent: {
-      },
-
-      group_policy_intent_requirement_response_paged_list: {
-      },
-
-      group_quote: {
-      },
-
-      group_quote_intent: {
-      },
-
-      group_quote_intent_requirement_response_paged_list: {
-      },
-
-      plan: {
-      },
-
-      policy: {
-      },
-
-      policy_amendment_intent: {
-      },
-
-      policy_import_intent: {
-      },
-
-      provider: {
-      },
-
-      replay: {
-      },
-
-      webhook_endpoint: {
-      },
-
-      webhook_endpoint_response_paged_list: {
-      },
-
+        associated_person: {
+        },
+  
+        associated_person_eligibility_response_paged_list: {
+        },
+  
+        contribution_report: {
+        },
+  
+        contribution_report_employee_breakdown: {
+        },
+  
+        contribution_report_employee_breakdown_response_paged_list: {
+        },
+  
+        create_hosted_session_token: {
+        },
+  
+        create_session_token: {
+        },
+  
+        dependent: {
+        },
+  
+        dependents_management_intent: {
+        },
+  
+        eligibility_check: {
+        },
+  
+        employee: {
+        },
+  
+        employee_health_insurance_offer: {
+        },
+  
+        employee_health_insurance_offer_response_paged_list: {
+        },
+  
+        employee_health_insurance_policy: {
+        },
+  
+        employee_health_insurance_policy_response_paged_list: {
+        },
+  
+        employer: {
+        },
+  
+        employer_health_insurance_policy: {
+        },
+  
+        employer_health_insurance_policy_response_paged_list: {
+        },
+  
+        employer_health_insurance_quote: {
+        },
+  
+        employer_health_insurance_quote_response_paged_list: {
+        },
+  
+        enrolment_intent: {
+        },
+  
+        enrolment_intent_requirement_response_paged_list: {
+        },
+  
+        event: {
+        },
+  
+        group: {
+        },
+  
+        group_employee: {
+        },
+  
+        group_employee_response_paged_list: {
+        },
+  
+        group_policy: {
+        },
+  
+        group_policy_intent: {
+        },
+  
+        group_policy_intent_requirement_response_paged_list: {
+        },
+  
+        group_quote: {
+        },
+  
+        group_quote_intent: {
+        },
+  
+        group_quote_intent_requirement_response_paged_list: {
+        },
+  
+        plan: {
+        },
+  
+        policy: {
+        },
+  
+        policy_amendment_intent: {
+        },
+  
+        policy_import_intent: {
+        },
+  
+        provider: {
+        },
+  
+        replay: {
+        },
+  
+        webhook_endpoint: {
+        },
+  
+        webhook_endpoint_response_paged_list: {
+        },
+  
     }
   }
 
@@ -1269,93 +1407,8 @@ class Config {
     "contribution_report_employee_breakdown_response_paged_list": {
       "fields": [
         {
-          "name": "contribution_report_id",
-          "req": true,
-          "short": "Unique identifier of the related contribution report",
-          "type": "`$STRING`"
-        },
-        {
-          "format": "date-time",
-          "name": "created_at",
-          "req": true,
-          "short": "Date and time the breakdown was created",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "currency",
-          "req": true,
-          "short": "The currency in which all the amounts in this breakdown are presented (e.g.",
-          "type": "`$ANY`"
-        },
-        {
-          "name": "employee_id",
-          "req": true,
-          "short": "Unique identifier of the employee for which the breakdown is created",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "employer_id",
-          "req": true,
-          "short": "Unique identifier of the employer for which the breakdown is created",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "external_customer_id",
-          "short": "Unique identifier of the customer for which the breakdown is created.",
-          "type": [
-            "`$ONE`",
-            [
-              "`$NULL`",
-              "`$STRING`"
-            ]
-          ]
-        },
-        {
-          "format": "date-time",
-          "name": "finalized_at",
-          "short": "Date and time the breakdown was finalized, if applicable",
-          "type": [
-            "`$ONE`",
-            [
-              "`$NULL`",
-              "`$STRING`"
-            ]
-          ]
-        },
-        {
-          "name": "health_insurance",
-          "req": true,
-          "short": "Health insurance contribution details",
-          "type": "`$ANY`"
-        },
-        {
           "name": "id",
           "type": "`$STRING`"
-        },
-        {
-          "format": "date-time",
-          "name": "last_updated_at",
-          "req": true,
-          "short": "Date and time of the last update to the breakdown",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object",
-          "readOnly": true,
-          "short": "The object type",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "period",
-          "req": true,
-          "short": "Period covered by the employee breakdown",
-          "type": "`$ANY`"
-        },
-        {
-          "name": "status",
-          "req": true,
-          "short": "Current status of the breakdown",
-          "type": "`$ANY`"
         }
       ],
       "id": {
@@ -5037,39 +5090,7 @@ class Config {
       "fields": [
         {
           "name": "id",
-          "req": true,
-          "short": "Unique identifier for the requirement",
           "type": "`$STRING`"
-        },
-        {
-          "name": "is_fulfilled",
-          "req": true,
-          "short": "Whether the requirement has been fulfilled",
-          "type": "`$BOOLEAN`"
-        },
-        {
-          "name": "object",
-          "readOnly": true,
-          "short": "Object type identifier",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object_id",
-          "req": true,
-          "short": "Identifier of the object (employee ID or employer ID)",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object_type",
-          "req": true,
-          "short": "Type of object this requirement is for (employee or employer)",
-          "type": "`$ANY`"
-        },
-        {
-          "name": "requirement_type",
-          "req": true,
-          "short": "Type of requirement",
-          "type": "`$ANY`"
         }
       ],
       "id": {
@@ -5835,76 +5856,8 @@ class Config {
     "group_employee_response_paged_list": {
       "fields": [
         {
-          "format": "date",
-          "name": "desired_policy_start_date",
-          "short": "The desired date for the employee's policy to start.",
-          "type": [
-            "`$ONE`",
-            [
-              "`$NULL`",
-              "`$STRING`"
-            ]
-          ]
-        },
-        {
-          "name": "eligibility_status",
-          "req": true,
-          "short": "Eligibility status for the employee in this group.",
-          "type": "`$ANY`"
-        },
-        {
-          "format": "date",
-          "name": "enrolment_date",
-          "short": "The date on which the employee agreed to enrol into the group's policies.",
-          "type": [
-            "`$ONE`",
-            [
-              "`$NULL`",
-              "`$STRING`"
-            ]
-          ]
-        },
-        {
-          "name": "enrolment_status",
-          "req": true,
-          "short": "Enrolment status for the employee in this group.",
-          "type": "`$ANY`"
-        },
-        {
-          "name": "enrolments",
-          "req": true,
-          "short": "List of enrolments associated with the employee in this group.",
-          "type": "`$ARRAY`"
-        },
-        {
-          "name": "group_id",
-          "req": true,
-          "short": "Unique identifier for the group.",
-          "type": "`$STRING`"
-        },
-        {
           "name": "id",
-          "req": true,
-          "short": "Unique identifier for the employee.",
           "type": "`$STRING`"
-        },
-        {
-          "name": "object",
-          "readOnly": true,
-          "short": "The object type",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "policies",
-          "req": true,
-          "short": "List of policies associated with the employee in this group.",
-          "type": "`$ARRAY`"
-        },
-        {
-          "name": "scheduled_group_transitions",
-          "req": true,
-          "short": "List of scheduled group transitions for the employee.",
-          "type": "`$ARRAY`"
         }
       ],
       "id": {
@@ -6497,39 +6450,7 @@ class Config {
       "fields": [
         {
           "name": "id",
-          "req": true,
-          "short": "Unique identifier for the requirement",
           "type": "`$STRING`"
-        },
-        {
-          "name": "is_fulfilled",
-          "req": true,
-          "short": "Whether the requirement has been fulfilled",
-          "type": "`$BOOLEAN`"
-        },
-        {
-          "name": "object",
-          "readOnly": true,
-          "short": "Object type identifier",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object_id",
-          "req": true,
-          "short": "Identifier of the object (employee ID or employer ID)",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object_type",
-          "req": true,
-          "short": "Type of object this requirement is for (employee or employer)",
-          "type": "`$ANY`"
-        },
-        {
-          "name": "requirement_type",
-          "req": true,
-          "short": "Type of requirement",
-          "type": "`$ANY`"
         }
       ],
       "id": {
@@ -7045,39 +6966,7 @@ class Config {
       "fields": [
         {
           "name": "id",
-          "req": true,
-          "short": "Unique identifier for the requirement",
           "type": "`$STRING`"
-        },
-        {
-          "name": "is_fulfilled",
-          "req": true,
-          "short": "Whether the requirement has been fulfilled",
-          "type": "`$BOOLEAN`"
-        },
-        {
-          "name": "object",
-          "readOnly": true,
-          "short": "Object type identifier",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object_id",
-          "req": true,
-          "short": "Identifier of the object (employee ID or employer ID)",
-          "type": "`$STRING`"
-        },
-        {
-          "name": "object_type",
-          "req": true,
-          "short": "Type of object this requirement is for (employee or employer)",
-          "type": "`$ANY`"
-        },
-        {
-          "name": "requirement_type",
-          "req": true,
-          "short": "Type of requirement",
-          "type": "`$ANY`"
         }
       ],
       "id": {

@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { KotaSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('EmployerHealthInsuranceQuoteEntity', async () => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'employer_health_insurance_quote.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'employer_health_insurance_quote.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_QUOTE_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"coverage_levels","req":true,"short":"List of levels covered under the policy, each item representing details about the plan’s cover.","type":"`$ARRAY`","index$":0},{"active":true,"name":"employer_id","req":true,"short":"The Id of the employer for which the is created","type":"`$STRING`","index$":1},{"active":true,"name":"id","req":true,"short":"Unique identifier for the quote","type":"`$STRING`","index$":2},{"active":true,"name":"object","readOnly":true,"req":false,"short":"The object type","type":"`$STRING`","index$":3},{"active":true,"format":"date-time","name":"quoted_at","req":true,"short":"Date and time the quote was created at","type":"`$STRING`","index$":4},{"active":true,"name":"required_action","req":false,"short":"Actions required by the employer to proceed with the quote.","type":"`$NULL`","index$":5},{"active":true,"name":"status","req":true,"short":"Current status of the quote","type":"`$ANY`","index$":6}],"id":{"field":"id","name":"id"},"name":"employer_health_insurance_quote","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"header":[{"active":true,"kind":"header","name":"x_platform_id","orig":"x_platform_id","reqd":false,"type":"`$STRING`"}],"params":[{"active":true,"example":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"employer_id","orig":"employer_id","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"example":"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"id","orig":"employer_quote_id","reqd":true,"type":"`$STRING`","index$":1}]},"contract":{"id":"GET /employers/{employer_id}/health_insurance/quotes/{employer_quote_id}","json":"{\"operationId\":\"RetrieveEmployerHealthInsuranceQuote\",\"parameters\":[{\"in\":\"path\",\"name\":\"employer_id\",\"required\":true,\"schema\":{\"example\":\"er_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"er_.+\",\"type\":\"string\"}},{\"in\":\"path\",\"name\":\"employer_quote_id\",\"required\":true,\"schema\":{\"example\":\"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"erhq_.+\",\"type\":\"string\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"coverage_levels\":{\"description\":\"List of levels covered under the policy, each item representing details about the plan’s cover. Currently Kota only supports a single level of cover.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"documents\":{\"description\":\"Documents related to the health insurance plan, these documents may change at renewal, this includes the documents like `Insurance Product Information Document`, `Hospital Lists`, `Table of Cover` etc\",\"items\":{\"additionalProperties\":false,\"properties\":{\"link\":{\"description\":\"Health Insurance Document Link (can be a link to a website or a file path)\",\"type\":\"string\"},\"title\":{\"description\":\"Health Insurance Document Title\",\"type\":\"string\"}},\"required\":[\"link\",\"title\"],\"type\":\"object\"},\"type\":\"array\"},\"plan_currency\":{\"allOf\":[{\"enum\":[\"eur\",\"aed\",\"afn\",\"xcd\",\"all\",\"amd\",\"aoa\",\"ars\",\"usd\",\"aud\",\"awg\",\"azn\",\"bam\",\"bbd\",\"bdt\",\"xof\",\"bgn\",\"bhd\",\"bif\",\"bmd\",\"bnd\",\"bob\",\"bov\",\"brl\",\"bsd\",\"inr\",\"btn\",\"nok\",\"bwp\",\"byn\",\"bzd\",\"cad\",\"xaf\",\"cdf\",\"chf\",\"che\",\"chw\",\"nzd\",\"clp\",\"clf\",\"cny\",\"cop\",\"cou\",\"crc\",\"cup\",\"cuc\",\"cve\",\"ang\",\"czk\",\"djf\",\"dkk\",\"dop\",\"dzd\",\"egp\",\"mad\",\"ern\",\"etb\",\"fjd\",\"fkp\",\"mdl\",\"gbp\",\"gel\",\"ghs\",\"gip\",\"gmd\",\"gnf\",\"gtq\",\"gyd\",\"hkd\",\"hnl\",\"hrk\",\"htg\",\"huf\",\"idr\",\"xdr\",\"ils\",\"iqd\",\"irr\",\"isk\",\"jmd\",\"jod\",\"jpy\",\"kes\",\"kgs\",\"khr\",\"kmf\",\"kpw\",\"krw\",\"kwd\",\"kyd\",\"kzt\",\"lak\",\"lbp\",\"lkr\",\"lrd\",\"lsl\",\"zar\",\"lyd\",\"mga\",\"mkd\",\"mmk\",\"mnt\",\"mop\",\"mru\",\"mur\",\"mvr\",\"mwk\",\"mxn\",\"mxv\",\"myr\",\"mzn\",\"nad\",\"xpf\",\"ngn\",\"nio\",\"npr\",\"omr\",\"pab\",\"pen\",\"pgk\",\"php\",\"pkr\",\"pln\",\"pyg\",\"qar\",\"ron\",\"rsd\",\"rub\",\"rwf\",\"sar\",\"sbd\",\"scr\",\"sdg\",\"sek\",\"sgd\",\"shp\",\"sll\",\"sos\",\"srd\",\"ssp\",\"stn\",\"svc\",\"xsu\",\"syp\",\"twd\",\"szl\",\"thb\",\"tjs\",\"tmt\",\"tnd\",\"top\",\"try\",\"ttd\",\"tzs\",\"uah\",\"ugx\",\"usn\",\"uyu\",\"uyi\",\"uyw\",\"uzs\",\"ves\",\"vnd\",\"vuv\",\"wst\",\"yer\",\"xua\",\"zmw\",\"zwl\"],\"type\":\"string\"}],\"description\":\"Currency code of the health insurance plan\"},\"plan_id\":{\"description\":\"Unique identifier for the health insurance plan\",\"example\":\"pl_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"pl_.+\",\"type\":\"string\"},\"plan_name\":{\"description\":\"Name of the health insurance plan\",\"type\":\"string\"},\"provider_employer_platform_url\":{\"description\":\"URL to the health insurance provider's website for Employer Management\",\"type\":[\"null\",\"string\"]},\"provider_logo_url\":{\"description\":\"Logo URL of the health insurance provider\",\"type\":\"string\"},\"provider_name\":{\"description\":\"Name of the health insurance provider\",\"type\":\"string\"},\"provider_support_phone\":{\"description\":\"Support phone number to the health insurance provider's website for Employer Management\",\"type\":[\"null\",\"string\"]}},\"required\":[\"documents\",\"plan_currency\",\"plan_id\",\"plan_name\",\"provider_logo_url\",\"provider_name\"],\"type\":\"object\"},\"type\":\"array\"},\"employer_id\":{\"description\":\"The Id of the employer for which the is created\",\"example\":\"er_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"er_.+\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the quote\",\"example\":\"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"erhq_.+\",\"type\":\"string\"},\"object\":{\"description\":\"The object type\",\"readOnly\":true,\"type\":\"string\"},\"quoted_at\":{\"description\":\"Date and time the quote was created at\",\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":\"string\"},\"required_action\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Identified the type of action required, not unique across health insurance providers\",\"type\":\"string\"},\"due_at\":{\"description\":\"Date and time by which the action is due, if this is not completed then the policy will not be issued.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"},\"reason\":{\"description\":\"Concise reason for the required action\",\"type\":\"string\"},\"reason_description\":{\"description\":\"Description for the required action\",\"type\":\"string\"}},\"required\":[\"code\",\"due_at\",\"reason\",\"reason_description\"],\"type\":\"object\"}],\"description\":\"Actions required by the employer to proceed with the quote. Set only when `status` is `action_required`.\",\"type\":\"null\"},\"status\":{\"allOf\":[{\"enum\":[\"pending_quote\",\"action_required\",\"not_undertaken\",\"accepted\",\"pending_insurer_acceptance\"],\"type\":\"string\"}],\"description\":\"Current status of the quote\"}},\"required\":[\"coverage_levels\",\"employer_id\",\"id\",\"quoted_at\",\"status\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}","rename":{"param":{"employer_quote_id":"id"}},"segments":[{"lit":"employers"},{"var":"employer_id"},{"lit":"health_insurance"},{"lit":"quotes"},{"var":"id"}],"select":{"exist":["employer_id","id","x_platform_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["employer"]]},"key$":"employer_health_insurance_quote","name__orig":"employer_health_insurance_quote","Name":"EmployerHealthInsuranceQuote","name_":"employer_health_insurance_quote","name-":"employer-health-insurance-quote","NAME":"EMPLOYER_HEALTH_INSURANCE_QUOTE","index$":18}, {"active":true,"entity":"employer_health_insurance_quote","key$":"BasicEmployerHealthInsuranceQuoteFlow","kind":"basic","name":"BasicEmployerHealthInsuranceQuoteFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"employer_health_insurance_quote_ref01","srcdatavar":"employer_health_insurance_quote_ref01_data","suffix":"_dt0"},"match":{"employer_id":"employer01","id":"employer_health_insurance_quote01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-employer_health_insurance_quote_ref01"}}],"index$":0}]}, 'EmployerHealthInsuranceQuote')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_QUOTE_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_QUOTE_ENTID': idmap,
     'KOTA_TEST_LIVE': 'FALSE',
@@ -128,7 +120,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.KOTA_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['KOTA_TEST_EMPLOYER_HEALTH_INSURANCE_QUOTE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -141,7 +139,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -154,7 +153,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

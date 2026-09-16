@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { KotaSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('GroupEmployeeEntity', async () => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
     for (const op of ['create']) {
-      if (maybeSkipControl(t, 'entityOp', 'group_employee.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'group_employee.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_GROUP_EMPLOYEE_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"format":"date","name":"desired_policy_start_date","req":false,"short":"The desired date for the employee's policy to start.","type":["`$ONE`",["`$NULL`","`$STRING`"]],"index$":0},{"active":true,"name":"eligibility_status","req":true,"short":"Eligibility status for the employee in this group.","type":"`$ANY`","index$":1},{"active":true,"format":"date","name":"enrolment_date","req":false,"short":"The date on which the employee agreed to enrol into the group's policies.","type":["`$ONE`",["`$NULL`","`$STRING`"]],"index$":2},{"active":true,"name":"enrolment_status","req":true,"short":"Enrolment status for the employee in this group.","type":"`$ANY`","index$":3},{"active":true,"name":"enrolments","req":true,"short":"List of enrolments associated with the employee in this group.","type":"`$ARRAY`","index$":4},{"active":true,"name":"group_id","req":true,"short":"Unique identifier for the group.","type":"`$STRING`","index$":5},{"active":true,"name":"id","req":true,"short":"Unique identifier for the employee.","type":"`$STRING`","index$":6},{"active":true,"name":"object","readOnly":true,"req":false,"short":"The object type","type":"`$STRING`","index$":7},{"active":true,"name":"policies","req":true,"short":"List of policies associated with the employee in this group.","type":"`$ARRAY`","index$":8},{"active":true,"name":"scheduled_group_transitions","req":true,"short":"List of scheduled group transitions for the employee.","type":"`$ARRAY`","index$":9}],"id":{"field":"id","name":"id"},"name":"group_employee","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{"header":[{"active":true,"kind":"header","name":"idempotency_key","orig":"idempotency_key","reqd":false,"type":"`$STRING`"},{"active":true,"kind":"header","name":"x_platform_id","orig":"x_platform_id","reqd":false,"type":"`$STRING`"}],"params":[{"active":true,"example":"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"id","orig":"group_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"POST /groups/{group_id}/employees","json":"{\"operationId\":\"AddEmployeeToGroup\",\"parameters\":[{\"in\":\"path\",\"name\":\"group_id\",\"required\":true,\"schema\":{\"example\":\"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gr_.+\",\"type\":\"string\"}},{\"description\":\"Unique key to ensure idempotent requests. If the same key is used for multiple _identical & successful_ requests, the same response will be returned. [Read more here](/api#idempotent-requests)\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"create_enrolment_intents\":{\"description\":\"Controls whether enrolment intents are automatically created for the employee. Defaults to `true` for hosted platforms. When `true` on a hosted platform, the response includes an `enrolment_intent_id`. For non-hosted platforms, the `enrolment_intent_id` is not included in the response, subscribe to the `enrolment_intent.processing` webhook to be notified when the enrolment intent is created.\",\"type\":[\"null\",\"boolean\"]},\"employee_id\":{\"description\":\"Employee Id\",\"example\":\"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ee_.+\",\"type\":\"string\"},\"policy_configuration\":{\"allOf\":[{\"additionalProperties\":false,\"properties\":{\"desired_policy_start_date\":{\"description\":\"The desired date for the employee's policy to start. This date is not guaranteed to be honored by the insurance provider and may be adjusted based on provider-specific rules and requirements. If unspecified, the policy start date will be determined by the insurance provider.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]},\"enrolment_date\":{\"description\":\"The date on which the employee agreed to enrol into the group's policies. This date may be used by some insurance providers to determine the policy start date. If unspecified, the enrolment date will default to the date the enrolment intent is processed.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}],\"description\":\"Policy configuration for the employee in this group. Leave null to use `group` defaults.\",\"type\":\"null\"}},\"required\":[\"employee_id\"],\"type\":\"object\"}]}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"desired_policy_start_date\":{\"description\":\"The desired date for the employee's policy to start. This date is not guaranteed to be honored by the insurance provider and may be adjusted based on provider-specific rules and requirements.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]},\"eligibility_status\":{\"allOf\":[{\"enum\":[\"pending\",\"eligible\",\"ineligible\"],\"type\":\"string\"}],\"description\":\"Eligibility status for the employee in this group. `Pending` = no eligibility check performed (no group policy), `Eligible` = employee meets provider's eligibility criteria, `Ineligible` = employee does not meet eligibility criteria (e.g., age restrictions).\"},\"enrolment_date\":{\"description\":\"The date on which the employee agreed to enrol into the group's policies. This date may be used by some insurance providers to determine the policy start date.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]},\"enrolment_status\":{\"allOf\":[{\"enum\":[\"enrolled\",\"enrolling\",\"opted_out\",\"cancelled\",\"enrolment_available\",\"not_available\"],\"type\":\"string\"}],\"description\":\"Enrolment status for the employee in this group. Derived from policy and enrolment intent statuses.\"},\"enrolments\":{\"description\":\"List of enrolments associated with the employee in this group.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"id\":{\"description\":\"Unique identifier for the enrolment.\",\"example\":\"ei_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ei_.+\",\"type\":\"string\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"group_id\":{\"description\":\"Unique identifier for the group.\",\"example\":\"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gr_.+\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the employee.\",\"example\":\"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ee_.+\",\"type\":\"string\"},\"object\":{\"description\":\"The object type\",\"readOnly\":true,\"type\":\"string\"},\"policies\":{\"description\":\"List of policies associated with the employee in this group.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"id\":{\"description\":\"Unique identifier for the policy.\",\"example\":\"p_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"p_.+\",\"type\":\"string\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"scheduled_group_transitions\":{\"description\":\"List of scheduled group transitions for the employee. Only includes pending transitions.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"new_group_id\":{\"description\":\"Unique identifier for the group the employee will be moved to\",\"example\":\"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gr_.+\",\"type\":\"string\"},\"scheduled_date\":{\"description\":\"The date when the employee will be moved to the new group\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"}},\"required\":[\"new_group_id\",\"scheduled_date\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"eligibility_status\",\"enrolment_status\",\"enrolments\",\"group_id\",\"id\",\"policies\",\"scheduled_group_transitions\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"400\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/groups/{group_id}/employees","rename":{"param":{"group_id":"id"}},"segments":[{"lit":"groups"},{"var":"id"},{"lit":"employees"}],"select":{"exist":["id","idempotency_key","x_platform_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"group_employee","name__orig":"group_employee","Name":"GroupEmployee","name_":"group_employee","name-":"group-employee","NAME":"GROUP_EMPLOYEE","index$":24}, {"active":true,"entity":"group_employee","key$":"BasicGroupEmployeeFlow","kind":"basic","name":"BasicGroupEmployeeFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"group_employee_ref01"},"match":{"group_id":"group01"},"op":"create","spec":[],"valid":[],"index$":0}]}, 'GroupEmployee')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['KOTA_TEST_GROUP_EMPLOYEE_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'KOTA_TEST_GROUP_EMPLOYEE_ENTID': idmap,
     'KOTA_TEST_LIVE': 'FALSE',
@@ -128,7 +120,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.KOTA_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['KOTA_TEST_GROUP_EMPLOYEE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -141,7 +139,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -154,7 +153,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

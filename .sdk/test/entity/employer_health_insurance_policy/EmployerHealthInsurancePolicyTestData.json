@@ -4,7 +4,7 @@
       "EMPLOYER_HEALTH_INSURANCE_POLICY00": {
         "cancellation_date": "s78",
         "coverage_levels": [],
-        "employer_cancellation_period_length": "s7a",
+        "employer_cancellation_period_length": 122,
         "employer_id": "EMPLOYER01",
         "end_date": "s7c",
         "enrolment_type": "s7d",
@@ -18,7 +18,7 @@
       "EMPLOYER_HEALTH_INSURANCE_POLICY01": {
         "cancellation_date": "sf0",
         "coverage_levels": [],
-        "employer_cancellation_period_length": "sf2",
+        "employer_cancellation_period_length": 242,
         "employer_id": "EMPLOYER01",
         "end_date": "sf4",
         "enrolment_type": "sf5",
@@ -32,7 +32,7 @@
       "EMPLOYER_HEALTH_INSURANCE_POLICY02": {
         "cancellation_date": "s168",
         "coverage_levels": [],
-        "employer_cancellation_period_length": "s16a",
+        "employer_cancellation_period_length": 362,
         "employer_id": "EMPLOYER01",
         "end_date": "s16c",
         "enrolment_type": "s16d",
@@ -50,7 +50,7 @@
       "employer_health_insurance_policy_ref01": {
         "cancellation_date": "s1e0",
         "coverage_levels": [],
-        "employer_cancellation_period_length": "s1e2",
+        "employer_cancellation_period_length": 482,
         "employer_id": "EMPLOYER01",
         "end_date": "s1e4",
         "enrolment_type": "s1e5",
@@ -59,6 +59,520 @@
         "renewal": "s1e9",
         "start_date": "s1ea",
         "status": "s1eb"
+      }
+    }
+  },
+  "requests": {
+    "GET /employers/{employer_id}/health_insurance/policies/{employer_policy_id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "RetrieveEmployerHealthInsurancePolicy",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "employer_id",
+            "required": true,
+            "schema": {
+              "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "pattern": "er_.+",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "employer_policy_id",
+            "required": true,
+            "schema": {
+              "example": "erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "pattern": "erhp_.+",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.",
+            "in": "header",
+            "name": "X-Platform-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cancellation_date": {
+                      "description": "Policy was cancelled on this date, if cancellation occured",
+                      "example": "2024-12-01",
+                      "format": "date",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "coverage_levels": {
+                      "description": "Represents the available coverage levels for this policy",
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "documents": {
+                            "description": "Documents related to the health insurance plan, these documents may change at renewal, this includes the documents like `Insurance Product Information Document`, `Hospital Lists`, `Table of Cover` etc",
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "link": {
+                                  "description": "Health Insurance Document Link (can be a link to a website or a file path)",
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "description": "Health Insurance Document Title",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "link",
+                                "title"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "plan_currency": {
+                            "allOf": [
+                              {
+                                "enum": [
+                                  "eur",
+                                  "aed",
+                                  "afn",
+                                  "xcd",
+                                  "all",
+                                  "amd",
+                                  "aoa",
+                                  "ars",
+                                  "usd",
+                                  "aud",
+                                  "awg",
+                                  "azn",
+                                  "bam",
+                                  "bbd",
+                                  "bdt",
+                                  "xof",
+                                  "bgn",
+                                  "bhd",
+                                  "bif",
+                                  "bmd",
+                                  "bnd",
+                                  "bob",
+                                  "bov",
+                                  "brl",
+                                  "bsd",
+                                  "inr",
+                                  "btn",
+                                  "nok",
+                                  "bwp",
+                                  "byn",
+                                  "bzd",
+                                  "cad",
+                                  "xaf",
+                                  "cdf",
+                                  "chf",
+                                  "che",
+                                  "chw",
+                                  "nzd",
+                                  "clp",
+                                  "clf",
+                                  "cny",
+                                  "cop",
+                                  "cou",
+                                  "crc",
+                                  "cup",
+                                  "cuc",
+                                  "cve",
+                                  "ang",
+                                  "czk",
+                                  "djf",
+                                  "dkk",
+                                  "dop",
+                                  "dzd",
+                                  "egp",
+                                  "mad",
+                                  "ern",
+                                  "etb",
+                                  "fjd",
+                                  "fkp",
+                                  "mdl",
+                                  "gbp",
+                                  "gel",
+                                  "ghs",
+                                  "gip",
+                                  "gmd",
+                                  "gnf",
+                                  "gtq",
+                                  "gyd",
+                                  "hkd",
+                                  "hnl",
+                                  "hrk",
+                                  "htg",
+                                  "huf",
+                                  "idr",
+                                  "xdr",
+                                  "ils",
+                                  "iqd",
+                                  "irr",
+                                  "isk",
+                                  "jmd",
+                                  "jod",
+                                  "jpy",
+                                  "kes",
+                                  "kgs",
+                                  "khr",
+                                  "kmf",
+                                  "kpw",
+                                  "krw",
+                                  "kwd",
+                                  "kyd",
+                                  "kzt",
+                                  "lak",
+                                  "lbp",
+                                  "lkr",
+                                  "lrd",
+                                  "lsl",
+                                  "zar",
+                                  "lyd",
+                                  "mga",
+                                  "mkd",
+                                  "mmk",
+                                  "mnt",
+                                  "mop",
+                                  "mru",
+                                  "mur",
+                                  "mvr",
+                                  "mwk",
+                                  "mxn",
+                                  "mxv",
+                                  "myr",
+                                  "mzn",
+                                  "nad",
+                                  "xpf",
+                                  "ngn",
+                                  "nio",
+                                  "npr",
+                                  "omr",
+                                  "pab",
+                                  "pen",
+                                  "pgk",
+                                  "php",
+                                  "pkr",
+                                  "pln",
+                                  "pyg",
+                                  "qar",
+                                  "ron",
+                                  "rsd",
+                                  "rub",
+                                  "rwf",
+                                  "sar",
+                                  "sbd",
+                                  "scr",
+                                  "sdg",
+                                  "sek",
+                                  "sgd",
+                                  "shp",
+                                  "sll",
+                                  "sos",
+                                  "srd",
+                                  "ssp",
+                                  "stn",
+                                  "svc",
+                                  "xsu",
+                                  "syp",
+                                  "twd",
+                                  "szl",
+                                  "thb",
+                                  "tjs",
+                                  "tmt",
+                                  "tnd",
+                                  "top",
+                                  "try",
+                                  "ttd",
+                                  "tzs",
+                                  "uah",
+                                  "ugx",
+                                  "usn",
+                                  "uyu",
+                                  "uyi",
+                                  "uyw",
+                                  "uzs",
+                                  "ves",
+                                  "vnd",
+                                  "vuv",
+                                  "wst",
+                                  "yer",
+                                  "xua",
+                                  "zmw",
+                                  "zwl"
+                                ],
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Currency code of the health insurance plan"
+                          },
+                          "plan_id": {
+                            "description": "Unique identifier for the health insurance plan",
+                            "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                            "pattern": "pl_.+",
+                            "type": "string"
+                          },
+                          "plan_name": {
+                            "description": "Name of the health insurance plan",
+                            "type": "string"
+                          },
+                          "provider_employer_platform_url": {
+                            "description": "URL to the health insurance provider's website for Employer Management",
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "provider_logo_url": {
+                            "description": "Logo URL of the health insurance provider",
+                            "type": "string"
+                          },
+                          "provider_name": {
+                            "description": "Name of the health insurance provider",
+                            "type": "string"
+                          },
+                          "provider_support_phone": {
+                            "description": "Support phone number to the health insurance provider's website for Employer Management",
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "documents",
+                          "plan_currency",
+                          "plan_id",
+                          "plan_name",
+                          "provider_logo_url",
+                          "provider_name"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "employer_cancellation_period_length": {
+                      "description": "How many days the employer has to cancel the policy since the policy starts",
+                      "example": 123,
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "employer_id": {
+                      "description": "The Id of the employer for which the policy is created",
+                      "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "pattern": "er_.+",
+                      "type": "string"
+                    },
+                    "end_date": {
+                      "description": "Policy ends on this date",
+                      "example": "2024-12-01",
+                      "format": "date",
+                      "type": "string"
+                    },
+                    "enrolment_type": {
+                      "allOf": [
+                        {
+                          "enum": [
+                            "opt_out",
+                            "opt_in"
+                          ],
+                          "type": "string"
+                        }
+                      ],
+                      "description": "Enrolment type of the policy"
+                    },
+                    "group_policy_number": {
+                      "description": "Group’s health insurance policy number, if available",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "id": {
+                      "description": "Unique identifier for policy",
+                      "example": "erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "pattern": "erhp_.+",
+                      "type": "string"
+                    },
+                    "object": {
+                      "description": "The object type",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "renewal": {
+                      "allOf": [
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "decision_confirmed": {
+                              "description": "Whether the decision to renew the policy has been confirmed",
+                              "example": true,
+                              "type": "boolean"
+                            },
+                            "renewal_date": {
+                              "description": "Policy renewal date",
+                              "example": "2024-12-01",
+                              "format": "date",
+                              "type": "string"
+                            },
+                            "renewed_health_insurance_id": {
+                              "description": "The ID of the renewed health insurance policy, if renewed",
+                              "example": "erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                              "pattern": "erhp_.+",
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "status": {
+                              "allOf": [
+                                {
+                                  "enum": [
+                                    "upcoming",
+                                    "open",
+                                    "renewed",
+                                    "cancelled"
+                                  ],
+                                  "type": "string"
+                                }
+                              ],
+                              "description": "The current status of the renewal"
+                            },
+                            "window_end_date": {
+                              "description": "Renewal window ends at the end of this day",
+                              "example": "2024-12-01",
+                              "format": "date",
+                              "type": "string"
+                            },
+                            "window_start_date": {
+                              "description": "Renewal window starts on this day",
+                              "example": "2024-12-01",
+                              "format": "date",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "decision_confirmed",
+                            "renewal_date",
+                            "status",
+                            "window_end_date",
+                            "window_start_date"
+                          ],
+                          "type": "object"
+                        }
+                      ],
+                      "description": "Renewal information for the policy"
+                    },
+                    "start_date": {
+                      "description": "Policy starts on this date",
+                      "example": "2024-12-01",
+                      "format": "date",
+                      "type": "string"
+                    },
+                    "status": {
+                      "allOf": [
+                        {
+                          "enum": [
+                            "scheduled",
+                            "active",
+                            "expired",
+                            "cancelled"
+                          ],
+                          "type": "string"
+                        }
+                      ],
+                      "description": "Current status of policy"
+                    }
+                  },
+                  "required": [
+                    "coverage_levels",
+                    "employer_cancellation_period_length",
+                    "employer_id",
+                    "end_date",
+                    "enrolment_type",
+                    "id",
+                    "renewal",
+                    "start_date",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "additionalProperties": {},
+                  "properties": {
+                    "detail": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "instance": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "status": {
+                      "format": "int32",
+                      "type": [
+                        "null",
+                        "integer"
+                      ]
+                    },
+                    "title": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "description": "Authorization header using the Bearer scheme",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

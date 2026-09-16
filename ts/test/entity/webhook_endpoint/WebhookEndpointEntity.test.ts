@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { KotaSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('WebhookEndpointEntity', async () => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'webhook_endpoint.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'webhook_endpoint.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_WEBHOOK_ENDPOINT_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"format":"date-time","name":"created_at","req":true,"short":"The date and time the endpoint was created","type":"`$STRING`","index$":0},{"active":true,"name":"endpoint_url","req":true,"short":"The registered URL of the endpoint","type":"`$STRING`","index$":1},{"active":true,"name":"id","req":true,"short":"The unique identifier of the endpoint","type":"`$STRING`","index$":2},{"active":true,"name":"object","readOnly":true,"req":false,"short":"The object type","type":"`$STRING`","index$":3},{"active":true,"name":"subscribed_events","req":true,"short":"The events the endpoint is subscribed to","type":"`$ARRAY`","index$":4}],"id":{"field":"id","name":"id"},"name":"webhook_endpoint","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"header":[{"active":true,"kind":"header","name":"x_platform_id","orig":"x_platform_id","reqd":false,"type":"`$STRING`"}],"params":[{"active":true,"example":"whe_3b1333d87d9d4fd6ad83ba7f6b0e951a","kind":"param","name":"id","orig":"webhook_endpoint_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /webhooks/endpoints/{webhook_endpoint_id}","json":"{\"operationId\":\"RetrieveWebhookEndpoint\",\"parameters\":[{\"in\":\"path\",\"name\":\"webhook_endpoint_id\",\"required\":true,\"schema\":{\"example\":\"whe_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"whe_.+\",\"type\":\"string\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"created_at\":{\"description\":\"The date and time the endpoint was created\",\"example\":\"2024-12-01T00:00:00Z\",\"format\":\"date-time\",\"type\":\"string\"},\"endpoint_url\":{\"description\":\"The registered URL of the endpoint\",\"type\":\"string\"},\"id\":{\"description\":\"The unique identifier of the endpoint\",\"example\":\"whe_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"whe_.+\",\"type\":\"string\"},\"object\":{\"description\":\"The object type\",\"readOnly\":true,\"type\":\"string\"},\"subscribed_events\":{\"description\":\"The events the endpoint is subscribed to\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"required\":[\"created_at\",\"endpoint_url\",\"id\",\"subscribed_events\"],\"type\":\"object\"}}},\"description\":\"OK\"},\"404\":{\"content\":{\"application/problem+json\":{\"schema\":{\"additionalProperties\":{},\"properties\":{\"detail\":{\"type\":[\"null\",\"string\"]},\"instance\":{\"type\":[\"null\",\"string\"]},\"status\":{\"format\":\"int32\",\"type\":[\"null\",\"integer\"]},\"title\":{\"type\":[\"null\",\"string\"]},\"type\":{\"type\":[\"null\",\"string\"]}},\"type\":\"object\"}}},\"description\":\"Not Found\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/webhooks/endpoints/{webhook_endpoint_id}","rename":{"param":{"webhook_endpoint_id":"id"}},"segments":[{"lit":"webhooks"},{"lit":"endpoints"},{"var":"id"}],"select":{"exist":["id","x_platform_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"webhook_endpoint","name__orig":"webhook_endpoint","Name":"WebhookEndpoint","name_":"webhook_endpoint","name-":"webhook-endpoint","NAME":"WEBHOOK_ENDPOINT","index$":38}, {"active":true,"entity":"webhook_endpoint","key$":"BasicWebhookEndpointFlow","kind":"basic","name":"BasicWebhookEndpointFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"webhook_endpoint_ref01","srcdatavar":"webhook_endpoint_ref01_data","suffix":"_dt0"},"match":{"id":"webhook_endpoint01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-webhook_endpoint_ref01"}}],"index$":0}]}, 'WebhookEndpoint')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['KOTA_TEST_WEBHOOK_ENDPOINT_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'KOTA_TEST_WEBHOOK_ENDPOINT_ENTID': idmap,
     'KOTA_TEST_LIVE': 'FALSE',
@@ -128,7 +120,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.KOTA_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['KOTA_TEST_WEBHOOK_ENDPOINT_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KotaSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -141,7 +139,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -154,7 +153,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

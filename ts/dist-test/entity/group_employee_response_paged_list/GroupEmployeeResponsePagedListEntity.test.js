@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.KOTA_TEST_LIVE;
         for (const op of ['list']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'group_employee_response_paged_list.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'group_employee_response_paged_list.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set KOTA_TEST_GROUP_EMPLOYEE_RESPONSE_PAGED_LIST_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "id", "req": false, "type": "`$STRING`", "index$": 0 }], "id": { "field": "id", "name": "id" }, "name": "group_employee_response_paged_list", "op": { "list": { "input": "data", "name": "list", "points": [{ "active": true, "args": { "header": [{ "active": true, "kind": "header", "name": "x_platform_id", "orig": "x_platform_id", "reqd": false, "type": "`$STRING`" }], "params": [{ "active": true, "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a", "kind": "param", "name": "id", "orig": "group_id", "reqd": true, "type": "`$STRING`", "index$": 0 }], "query": [{ "active": true, "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a", "kind": "query", "name": "employee_id", "orig": "employee_id", "reqd": false, "type": "`$STRING`", "index$": 0 }, { "active": true, "kind": "query", "name": "page", "orig": "page", "reqd": false, "type": "`$INTEGER`", "index$": 1 }, { "active": true, "kind": "query", "name": "page_size", "orig": "page_size", "reqd": false, "type": "`$INTEGER`", "index$": 2 }] }, "contract": { "id": "GET /groups/{group_id}/employees", "json": "{\"operationId\":\"ListGroupEmployees\",\"parameters\":[{\"in\":\"path\",\"name\":\"group_id\",\"required\":true,\"schema\":{\"example\":\"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gr_.+\",\"type\":\"string\"}},{\"description\":\"Filter by employee ID.\",\"in\":\"query\",\"name\":\"employee_id\",\"schema\":{\"example\":\"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ee_.+\",\"type\":\"string\"}},{\"description\":\"The page of results to return. Defaults to 1 if not provided.\",\"in\":\"query\",\"name\":\"page\",\"schema\":{\"description\":\"The page of results to return. Defaults to 1 if not provided.\",\"format\":\"int32\",\"type\":\"integer\"}},{\"description\":\"The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.\",\"in\":\"query\",\"name\":\"page_size\",\"schema\":{\"description\":\"The number of results to return per page. Defaults to 10 if not provided. Maximum value is 100.\",\"format\":\"int32\",\"type\":\"integer\"}},{\"description\":\"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.\",\"in\":\"header\",\"name\":\"X-Platform-Id\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"has_next_page\":{\"description\":\"Whether there are more pages available after this page\",\"example\":true,\"readOnly\":true,\"type\":\"boolean\"},\"has_previous_page\":{\"description\":\"Whether there are more pages available before this page\",\"example\":true,\"readOnly\":true,\"type\":\"boolean\"},\"items\":{\"description\":\"A paginated array containing the response elements\",\"items\":{\"additionalProperties\":false,\"properties\":{\"desired_policy_start_date\":{\"description\":\"The desired date for the employee's policy to start. This date is not guaranteed to be honored by the insurance provider and may be adjusted based on provider-specific rules and requirements.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]},\"eligibility_status\":{\"allOf\":[{\"enum\":[\"pending\",\"eligible\",\"ineligible\"],\"type\":\"string\"}],\"description\":\"Eligibility status for the employee in this group. `Pending` = no eligibility check performed (no group policy), `Eligible` = employee meets provider's eligibility criteria, `Ineligible` = employee does not meet eligibility criteria (e.g., age restrictions).\"},\"enrolment_date\":{\"description\":\"The date on which the employee agreed to enrol into the group's policies. This date may be used by some insurance providers to determine the policy start date.\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":[\"null\",\"string\"]},\"enrolment_status\":{\"allOf\":[{\"enum\":[\"enrolled\",\"enrolling\",\"opted_out\",\"cancelled\",\"enrolment_available\",\"not_available\"],\"type\":\"string\"}],\"description\":\"Enrolment status for the employee in this group. Derived from policy and enrolment intent statuses.\"},\"enrolments\":{\"description\":\"List of enrolments associated with the employee in this group.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"id\":{\"description\":\"Unique identifier for the enrolment.\",\"example\":\"ei_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ei_.+\",\"type\":\"string\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"group_id\":{\"description\":\"Unique identifier for the group.\",\"example\":\"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gr_.+\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the employee.\",\"example\":\"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"ee_.+\",\"type\":\"string\"},\"object\":{\"description\":\"The object type\",\"readOnly\":true,\"type\":\"string\"},\"policies\":{\"description\":\"List of policies associated with the employee in this group.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"id\":{\"description\":\"Unique identifier for the policy.\",\"example\":\"p_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"p_.+\",\"type\":\"string\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"scheduled_group_transitions\":{\"description\":\"List of scheduled group transitions for the employee. Only includes pending transitions.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"new_group_id\":{\"description\":\"Unique identifier for the group the employee will be moved to\",\"example\":\"gr_3b1333d87d9d4fd6ad83ba7f6b0e951a\",\"pattern\":\"gr_.+\",\"type\":\"string\"},\"scheduled_date\":{\"description\":\"The date when the employee will be moved to the new group\",\"example\":\"2024-12-01\",\"format\":\"date\",\"type\":\"string\"}},\"required\":[\"new_group_id\",\"scheduled_date\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"eligibility_status\",\"enrolment_status\",\"enrolments\",\"group_id\",\"id\",\"policies\",\"scheduled_group_transitions\"],\"type\":\"object\"},\"type\":\"array\"},\"page\":{\"description\":\"The current page of the results\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"page_size\":{\"description\":\"The number of results on this page. This can be different from the requested page size if the total number of results is less than the requested page size\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"},\"total_count\":{\"description\":\"The total number of elements available in the response. This is the total number of elements available across all pages, not just the current page.\",\"example\":123,\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"items\",\"page\",\"page_size\",\"total_count\"],\"type\":\"object\"}}},\"description\":\"OK\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"description\":\"Authorization header using the Bearer scheme\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/groups/{group_id}/employees", "rename": { "param": { "group_id": "id" } }, "segments": [{ "lit": "groups" }, { "var": "id" }, { "lit": "employees" }], "select": { "$action": "employees", "exist": ["employee_id", "id", "page", "page_size", "x_platform_id"] }, "transform": { "req": "`reqdata`", "res": "`body.items`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "group_employee_response_paged_list", "name__orig": "group_employee_response_paged_list", "Name": "GroupEmployeeResponsePagedList", "name_": "group_employee_response_paged_list", "name-": "group-employee-response-paged-list", "NAME": "GROUP_EMPLOYEE_RESPONSE_PAGED_LIST", "index$": 25 }, { "active": true, "entity": "group_employee_response_paged_list", "key$": "BasicGroupEmployeeResponsePagedListFlow", "kind": "basic", "name": "BasicGroupEmployeeResponsePagedListFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": {}, "match": { "group_id": "group01" }, "op": "list", "spec": [], "valid": [{ "apply": "ItemExists", "def": { "ref": "group_employee_response_paged_list_ref01" } }], "index$": 0 }] }, 'GroupEmployeeResponsePagedList');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -102,12 +100,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['KOTA_TEST_GROUP_EMPLOYEE_RESPONSE_PAGED_LIST_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'KOTA_TEST_GROUP_EMPLOYEE_RESPONSE_PAGED_LIST_ENTID': idmap,
         'KOTA_TEST_LIVE': 'FALSE',
@@ -116,7 +108,13 @@ function basicSetup(extra) {
     });
     idmap = env['KOTA_TEST_GROUP_EMPLOYEE_RESPONSE_PAGED_LIST_ENTID'];
     const live = 'TRUE' === env.KOTA_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['KOTA_TEST_GROUP_EMPLOYEE_RESPONSE_PAGED_LIST_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.KotaSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -129,7 +127,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -141,7 +140,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.KOTA_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;
