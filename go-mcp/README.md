@@ -129,7 +129,7 @@ Both tools take the same argument object:
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `entity` | string | One of the 40 supported entities (see below). |
+| `entity` | string | One of the 39 supported entities (see below). |
 | `query` | object | Optional match map. `{"id":N}` for load; omit or `{}` for list. |
 
 JSON schemas are emitted by the SDK from the `Args` struct's `json` /
@@ -151,9 +151,9 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 ### Entities
 
-The 40 entities valid as the `entity` argument:
+The 39 entities valid as the `entity` argument:
 
-associated_person | associated_person_eligibility_response_paged_list | contribution_report | contribution_report_employee_breakdown | contribution_report_employee_breakdown_response_paged_list | create_hosted_session_token | create_session_token | dependent | dependents_management_intent | eligibility_check | employee | employee_health_insurance_offer | employee_health_insurance_offer_response_paged_list | employee_health_insurance_policy | employee_health_insurance_policy_response_paged_list | employer | employer_health_insurance_policy | employer_health_insurance_policy_response_paged_list | employer_health_insurance_quote | employer_health_insurance_quote_response_paged_list | enrolment_intent | enrolment_intent_requirement_response_paged_list | event | group | group_employee | group_employee_response_paged_list | group_policy | group_policy_intent | group_policy_intent_requirement_response_paged_list | group_quote | group_quote_intent | group_quote_intent_requirement_response_paged_list | plan | policy | policy_amendment_intent | policy_import_intent | provider | replay | webhook_endpoint | webhook_endpoint_response_paged_list
+associated_person | associated_person_eligibility_response_paged_list | contribution_report | contribution_report_employee_breakdown | contribution_report_employee_breakdown_response_paged_list | create_hosted_session_token | create_session_token | dependent | dependents_management_intent | eligibility_check | employee | employee_health_insurance_offer | employee_health_insurance_offer_response_paged_list | employee_health_insurance_policy | employee_health_insurance_policy_response_paged_list | employer | employer_health_insurance_policy | employer_health_insurance_policy_response_paged_list | employer_health_insurance_quote | employer_health_insurance_quote_response_paged_list | enrolment_intent | enrolment_intent_requirement_response_paged_list | event | group | group_employee | group_employee_response_paged_list | group_policy | group_policy_intent | group_policy_intent_requirement_response_paged_list | group_quote | group_quote_intent | group_quote_intent_requirement_response_paged_list | plan | policy | policy_amendment_intent | policy_import_intent | provider | webhook_endpoint | webhook_endpoint_response_paged_list
 
 ### Smoke test via HTTP (raw JSON-RPC)
 

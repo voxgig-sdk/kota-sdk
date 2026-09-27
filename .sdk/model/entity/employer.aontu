@@ -1,0 +1,409 @@
+# Entity: employer
+
+main: kit: entity: employer: {
+
+  alias: field: {}
+
+  fields: {
+    contact: {
+      h: "Contact"
+      n: "contact"
+      r: true
+      t: "`$ANY`"
+    }
+    earliest_benefits_start_date: {
+      fo: "date"
+      h: "Earliest Benefits Start Date"
+      n: "earliest_benefits_start_date"
+      r: false
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      t: "`$STRING`"
+    }
+    legal_address: {
+      h: "Legal Address"
+      n: "legal_address"
+      r: true
+      t: "`$ANY`"
+    }
+    legal_name: {
+      h: "Legal Name"
+      n: "legal_name"
+      r: true
+      t: "`$STRING`"
+    }
+    metadata: {
+      h: "Metadata"
+      n: "metadata"
+      r: false
+      sh: "Set of key-value pairs that you can attach to an object."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$OBJECT`"
+        ]
+      ]
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    offboard_on: {
+      fo: "date-time"
+      h: "Offboard On"
+      n: "offboard_on"
+      r: false
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    platform_id: {
+      h: "Platform Id"
+      n: "platform_id"
+      r: false
+      t: "`$STRING`"
+    }
+    registration_number: {
+      h: "Registration Number"
+      n: "registration_number"
+      r: false
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employer"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /employers/{employer_id}/offboard"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employer_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/employers/{employer_id}/offboard"
+          q: {
+            "$action": "offboard"
+            exist: [
+              "id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employer_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "offboard"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /employers"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/employers"
+          q: {
+            exist: [
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /employers"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "filter"
+                or: "filter"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employers"
+          q: {
+            exist: [
+              "filter"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employers/{employer_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employer_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employers/{employer_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employer_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /employers/{employer_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employer_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/employers/{employer_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employer_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

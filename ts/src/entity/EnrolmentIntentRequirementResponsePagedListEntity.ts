@@ -19,7 +19,6 @@ import type {
   EnrolmentIntentRequirementResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class EnrolmentIntentRequirementResponsePagedListEntity extends KotaEntityBase<EnrolmentIntentRequirementResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

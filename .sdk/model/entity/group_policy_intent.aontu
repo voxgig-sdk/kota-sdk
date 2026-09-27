@@ -1,0 +1,279 @@
+# Entity: group_policy_intent
+
+main: kit: entity: group_policy_intent: {
+
+  alias: field: {}
+
+  fields: {
+    action_required: {
+      h: "Action Required"
+      n: "action_required"
+      r: false
+      sh: "Details of the required action when the intent is in ActionRequired status."
+      t: "`$NULL`"
+    }
+    cost_sharing: {
+      h: "Cost Sharing"
+      n: "cost_sharing"
+      r: false
+      sh: "Cost sharing configuration for the policy intent"
+      t: "`$NULL`"
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this intent."
+      t: "`$ARRAY`"
+    }
+    due_date: {
+      fo: "date-time"
+      h: "Due Date"
+      n: "due_date"
+      r: false
+      sh: "Due date for the policy intent"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    group_id: {
+      h: "Group Id"
+      n: "group_id"
+      r: true
+      sh: "Unique identifier for the group"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the group policy intent"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier"
+      t: "`$STRING`"
+    }
+    plan_id: {
+      h: "Plan Id"
+      n: "plan_id"
+      r: true
+      sh: "Unique identifier for the plan"
+      t: "`$STRING`"
+    }
+    quote_intent_id: {
+      h: "Quote Intent Id"
+      n: "quote_intent_id"
+      r: true
+      sh: "Unique identifier for the group quote intent this policy intent was created from"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the group policy intent"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_policy_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /group_policy_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/group_policy_intents"
+          q: {
+            exist: [
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "group_policy_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /group_policy_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "plan_id"
+                or: "plan_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_policy_intents"
+          q: {
+            exist: [
+              "group_id"
+              "page"
+              "page_size"
+              "plan_id"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "group_policy_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /group_policy_intents/{group_policy_intent_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gpi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_policy_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_policy_intents/{group_policy_intent_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_policy_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "group_policy_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

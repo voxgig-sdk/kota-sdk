@@ -113,7 +113,6 @@ _ENTITIES = {
     "PolicyAmendmentIntent": "policy_amendment_intent",
     "PolicyImportIntent": "policy_import_intent",
     "Provider": "provider",
-    "Replay": "replay",
     "WebhookEndpoint": "webhook_endpoint",
     "WebhookEndpointResponsePagedList": "webhook_endpoint_response_paged_list",
 }

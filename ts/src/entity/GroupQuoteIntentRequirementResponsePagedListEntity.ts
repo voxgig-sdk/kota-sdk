@@ -19,7 +19,6 @@ import type {
   GroupQuoteIntentRequirementResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class GroupQuoteIntentRequirementResponsePagedListEntity extends KotaEntityBase<GroupQuoteIntentRequirementResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

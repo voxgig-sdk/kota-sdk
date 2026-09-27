@@ -1,0 +1,118 @@
+# BasicAssociatedPersonFlow
+
+main: kit: flow: BasicAssociatedPersonFlow:
+{
+  entity: "associated_person",
+  kind: "basic",
+  name: "BasicAssociatedPersonFlow",
+  step: [
+    {
+      i: {
+        ref: "associated_person_ref01"
+      }
+
+      m: {
+        employee_id: "employee01"
+      }
+
+      o: "create"
+    }
+
+    {
+      m: {
+        employee_id: "employee01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "associated_person_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      d: {
+        employee_id: "employee01"
+      }
+
+      i: {
+        ref: "associated_person_ref01",
+        srcdatavar: "associated_person_ref01_data",
+        suffix: "_up0",
+        textfield: "date_of_birth"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-associated_person_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "associated_person_ref01",
+        srcdatavar: "associated_person_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        employee_id: "employee01",
+        id: "associated_person01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-associated_person_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "associated_person_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        employee_id: "employee01",
+        id: "associated_person01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      m: {
+        employee_id: "employee01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "associated_person_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAssociatedPersonFlow"
+}

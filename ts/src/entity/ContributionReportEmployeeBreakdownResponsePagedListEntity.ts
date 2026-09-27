@@ -19,7 +19,6 @@ import type {
   ContributionReportEmployeeBreakdownResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class ContributionReportEmployeeBreakdownResponsePagedListEntity extends KotaEntityBase<ContributionReportEmployeeBreakdownResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

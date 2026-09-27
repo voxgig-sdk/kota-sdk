@@ -1,0 +1,455 @@
+# Entity: policy_amendment_intent
+
+main: kit: entity: policy_amendment_intent: {
+
+  alias: field: {}
+
+  fields: {
+    amendment_reason: {
+      h: "Amendment Reason"
+      n: "amendment_reason"
+      r: true
+      sh: "The reason for the policy amendment."
+      t: "`$ANY`"
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this intent."
+      t: "`$ARRAY`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the policy amendment intent."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier."
+      t: "`$STRING`"
+    }
+    pending_confirmation: {
+      h: "Pending Confirmation"
+      n: "pending_confirmation"
+      r: false
+      sh: "Information about the pending confirmation if the intent status is `pending_confirmation`."
+      t: "`$NULL`"
+    }
+    policy_id: {
+      h: "Policy Id"
+      n: "policy_id"
+      r: true
+      sh: "The policy ID for which the amendment is requested."
+      t: "`$STRING`"
+    }
+    processing_error: {
+      h: "Processing Error"
+      n: "processing_error"
+      r: false
+      sh: "Information about the processing error if the intent status is `processing_error`."
+      t: "`$NULL`"
+    }
+    requested_changes: {
+      h: "Requested Changes"
+      n: "requested_changes"
+      r: true
+      sh: "List of requested changes to the policy."
+      t: "`$ARRAY`"
+    }
+    required_action: {
+      h: "Required Action"
+      n: "required_action"
+      r: false
+      sh: "Information about the required action if the intent status is `action_required`."
+      t: "`$NULL`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the policy amendment intent."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "policy_amendment_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /policies/{policy_id}/policy_amendment_intents/{id}/cancel"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "policy_id"
+                or: "policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/policies/{policy_id}/policy_amendment_intents/{id}/cancel"
+          q: {
+            "$action": "cancel"
+            exist: [
+              "id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "cancel"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "policy_amendment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "policy_id"
+                or: "policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}/confirm"
+          q: {
+            "$action": "confirm"
+            exist: [
+              "id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              policy_amendment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "confirm"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /policies/{policy_id}/policy_amendment_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/policies/{policy_id}/policy_amendment_intents"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              policy_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /policies/{policy_id}/policy_amendment_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/policies/{policy_id}/policy_amendment_intents"
+          q: {
+            exist: [
+              "id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              policy_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "pai_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "policy_amendment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "policy_id"
+                or: "policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/policies/{policy_id}/policy_amendment_intents/{policy_amendment_intent_id}"
+          q: {
+            exist: [
+              "id"
+              "policy_id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              policy_amendment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "policies"
+            }
+            {
+              var: "policy_id"
+            }
+            {
+              lit: "policy_amendment_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.policy")]
+  ]
+
+}

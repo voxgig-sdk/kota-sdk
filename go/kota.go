@@ -164,9 +164,6 @@ func init() {
 	core.NewProviderEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
 		return entity.NewProviderEntity(client, entopts)
 	}
-	core.NewReplayEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
-		return entity.NewReplayEntity(client, entopts)
-	}
 	core.NewWebhookEndpointEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
 		return entity.NewWebhookEndpointEntity(client, entopts)
 	}

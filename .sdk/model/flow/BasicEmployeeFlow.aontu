@@ -1,0 +1,71 @@
+# BasicEmployeeFlow
+
+main: kit: flow: BasicEmployeeFlow:
+{
+  entity: "employee",
+  kind: "basic",
+  name: "BasicEmployeeFlow",
+  step: [
+    {
+      i: {
+        ref: "employee_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "employee_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "employee_ref01",
+        srcdatavar: "employee_ref01_data",
+        suffix: "_up0",
+        textfield: "date_of_birth"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employee_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "employee_ref01",
+        srcdatavar: "employee_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "employee01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employee_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEmployeeFlow"
+}

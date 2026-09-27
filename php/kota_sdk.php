@@ -1007,24 +1007,6 @@ class KotaSDK
     }
 
 
-    private $_replay = null;
-
-    // Canonical facade: $client->Replay()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->replay()
-    // resolves here too.
-    public function Replay($data = null)
-    {
-        require_once __DIR__ . '/entity/replay_entity.php';
-        if ($data === null) {
-            if ($this->_replay === null) {
-                $this->_replay = new ReplayEntity($this, null);
-            }
-            return $this->_replay;
-        }
-        return new ReplayEntity($this, $data);
-    }
-
-
     private $_webhook_endpoint = null;
 
     // Canonical facade: $client->WebhookEndpoint()->list() / ->load(["id" => ...]).

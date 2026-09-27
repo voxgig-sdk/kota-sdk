@@ -1,0 +1,382 @@
+# Entity: plan
+
+main: kit: entity: plan: {
+
+  alias: field: {}
+
+  fields: {
+    available_from: {
+      fo: "date"
+      h: "Available From"
+      n: "available_from"
+      r: true
+      sh: "The date from which this plan is available (inclusive)."
+      t: "`$STRING`"
+    }
+    available_to: {
+      fo: "date"
+      h: "Available To"
+      n: "available_to"
+      r: false
+      sh: "The date until which this plan is available (inclusive)."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    country: {
+      h: "Country"
+      n: "country"
+      r: true
+      sh: "The country this plan is available in."
+      t: "`$ANY`"
+    }
+    coverage_options: {
+      h: "Coverage Options"
+      n: "coverage_options"
+      r: false
+      sh: "Coverage options available for this plan, organized by scope and input type."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: true
+      sh: "Description of the plan."
+      t: "`$STRING`"
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this plan."
+      t: "`$ARRAY`"
+    }
+    documents: {
+      h: "Documents"
+      n: "documents"
+      r: true
+      sh: "List of plan documents (e.g., IPIDs, T&Cs)."
+      t: "`$ARRAY`"
+    }
+    eligible_count: {
+      fo: "int32"
+      h: "Eligible Count"
+      n: "eligible_count"
+      r: false
+      sh: "Number of employees in the queried group eligible for this plan as-of `start_date`."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$INTEGER`"
+        ]
+      ]
+    }
+    employee_eligibility_criteria: {
+      h: "Employee Eligibility Criteria"
+      n: "employee_eligibility_criteria"
+      r: true
+      sh: "Eligibility criteria that employees must meet."
+      t: "`$ARRAY`"
+    }
+    employer_eligibility_criteria: {
+      h: "Employer Eligibility Criteria"
+      n: "employer_eligibility_criteria"
+      r: true
+      sh: "Eligibility criteria that employers must meet."
+      t: "`$ARRAY`"
+    }
+    health_insurance: {
+      h: "Health Insurance"
+      n: "health_insurance"
+      r: false
+      sh: "Health insurance-specific details."
+      t: "`$NULL`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the plan."
+      t: "`$STRING`"
+    }
+    ineligible_count: {
+      fo: "int32"
+      h: "Ineligible Count"
+      n: "ineligible_count"
+      r: false
+      sh: "Number of employees in the queried group ineligible for this plan as-of `start_date`."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$INTEGER`"
+        ]
+      ]
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "The name of the plan."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type."
+      t: "`$STRING`"
+    }
+    provider: {
+      h: "Provider"
+      n: "provider"
+      r: true
+      sh: "The provider offering this plan."
+      t: "`$ANY`"
+    }
+    total_count: {
+      fo: "int32"
+      h: "Total Count"
+      n: "total_count"
+      r: false
+      sh: "Total employees in the queried group."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$INTEGER`"
+        ]
+      ]
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: true
+      sh: "The benefit type of the plan."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "plan"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /plans"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "available_on"
+                or: "available_on"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "country"
+                or: "country"
+                r: false
+                t: "`$ANY`"
+              }
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "provider_id"
+                or: "provider_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "sort_by"
+                or: "sort_by"
+                r: false
+                t: "`$ANY`"
+              }
+              {
+                k: "query"
+                n: "sort_dir"
+                or: "sort_dir"
+                r: false
+                t: "`$ANY`"
+              }
+              {
+                k: "query"
+                n: "start_date"
+                or: "start_date"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "type"
+                or: "type"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/plans"
+          q: {
+            exist: [
+              "available_on"
+              "country"
+              "group_id"
+              "page"
+              "page_size"
+              "provider_id"
+              "sort_by"
+              "sort_dir"
+              "start_date"
+              "type"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "plans"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /plans/{plan_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "plan_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "start_date"
+                or: "start_date"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/plans/{plan_id}"
+          q: {
+            exist: [
+              "group_id"
+              "id"
+              "start_date"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              plan_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "plans"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

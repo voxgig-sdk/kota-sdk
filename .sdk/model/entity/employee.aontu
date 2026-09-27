@@ -1,0 +1,576 @@
+# Entity: employee
+
+main: kit: entity: employee: {
+
+  alias: field: {}
+
+  fields: {
+    bank_account: {
+      h: "Bank Account"
+      n: "bank_account"
+      r: false
+      sh: "Bank account details"
+      t: "`$NULL`"
+    }
+    date_of_birth: {
+      fo: "date"
+      h: "Date Of Birth"
+      n: "date_of_birth"
+      r: true
+      sh: "Date of birth of the employee"
+      t: "`$STRING`"
+    }
+    earliest_benefits_start_date: {
+      fo: "date"
+      h: "Earliest Benefits Start Date"
+      n: "earliest_benefits_start_date"
+      r: false
+      sh: "The earliest date this employee can be enrolled in any benefits."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    email: {
+      h: "Email"
+      n: "email"
+      r: true
+      sh: "Email address of the employee"
+      t: "`$STRING`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: false
+      sh: "Unique identifier for the employer"
+      t: "`$STRING`"
+    }
+    external_customer_id: {
+      h: "External Customer Id"
+      n: "external_customer_id"
+      r: false
+      sh: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    first_name: {
+      h: "First Name"
+      n: "first_name"
+      r: true
+      sh: "First name of the employee."
+      t: "`$STRING`"
+    }
+    home_address: {
+      h: "Home Address"
+      n: "home_address"
+      r: false
+      sh: "Location where the employee is legally registered to live"
+      t: "`$NULL`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the employee"
+      t: "`$STRING`"
+    }
+    last_name: {
+      h: "Last Name"
+      n: "last_name"
+      r: true
+      sh: "Last name of the employee"
+      t: "`$STRING`"
+    }
+    metadata: {
+      h: "Metadata"
+      n: "metadata"
+      r: false
+      sh: "Set of key-value pairs that you can attach to an object."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$OBJECT`"
+        ]
+      ]
+    }
+    national_tax_id: {
+      h: "National Tax Id"
+      n: "national_tax_id"
+      r: true
+      sh: "PPSN in Ireland, NINo in the UK, DNI/NIE in Spain"
+      t: "`$STRING`"
+    }
+    nationality: {
+      h: "Nationality"
+      n: "nationality"
+      r: false
+      sh: "Nationality of the employee (e.g."
+      t: "`$NULL`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    offboard_on: {
+      fo: "date-time"
+      h: "Offboard On"
+      n: "offboard_on"
+      r: false
+      sh: "Date when the employee was or will be offboarded"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    phone_number: {
+      h: "Phone Number"
+      n: "phone_number"
+      r: true
+      sh: "Phone number in E.164 international format (e.g."
+      t: "`$STRING`"
+    }
+    platform_id: {
+      h: "Platform Id"
+      n: "platform_id"
+      r: false
+      sh: "Unique identifier for the platform"
+      t: "`$STRING`"
+    }
+    sex_at_birth: {
+      h: "Sex At Birth"
+      n: "sex_at_birth"
+      r: true
+      sh: "The sex assigned to the employee at birth"
+      t: "`$ANY`"
+    }
+    start_on: {
+      fo: "date"
+      h: "Start On"
+      n: "start_on"
+      r: false
+      sh: "Employment start date"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      sh: "Current status of the employee"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employee"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /employees/{employee_id}/offboard"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/employees/{employee_id}/offboard"
+          q: {
+            "$action": "offboard"
+            exist: [
+              "id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "offboard"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /employees/{employee_id}/offboard/cancel"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/employees/{employee_id}/offboard/cancel"
+          q: {
+            "$action": "offboard_cancel"
+            exist: [
+              "id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "offboard"
+            }
+            {
+              lit: "cancel"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /employees"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/employees"
+          q: {
+            exist: [
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /employees"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "employer_id"
+                or: "employer_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "external_customer_id"
+                or: "external_customer_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "filter"
+                or: "filter"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "metadata_id"
+                or: "metadata_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employees"
+          q: {
+            exist: [
+              "employer_id"
+              "external_customer_id"
+              "filter"
+              "metadata_id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employees/{employee_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employees/{employee_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /employees/{employee_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/employees/{employee_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

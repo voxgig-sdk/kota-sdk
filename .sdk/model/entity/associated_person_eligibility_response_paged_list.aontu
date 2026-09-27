@@ -1,0 +1,164 @@
+# Entity: associated_person_eligibility_response_paged_list
+
+main: kit: entity: associated_person_eligibility_response_paged_list: {
+
+  alias: field: {}
+
+  fields: {
+    associated_person_id: {
+      h: "Associated Person Id"
+      n: "associated_person_id"
+      r: true
+      sh: "The associated person ID."
+      t: "`$STRING`"
+    }
+    date_of_birth: {
+      fo: "date"
+      h: "Date Of Birth"
+      n: "date_of_birth"
+      r: true
+      sh: "Date of birth of the associated person."
+      t: "`$STRING`"
+    }
+    eligibility_status: {
+      h: "Eligibility Status"
+      n: "eligibility_status"
+      r: true
+      sh: "Eligibility status for the policy/plan."
+      t: "`$ANY`"
+    }
+    first_name: {
+      h: "First Name"
+      n: "first_name"
+      r: true
+      sh: "First name of the associated person."
+      t: "`$STRING`"
+    }
+    ineligibility_reason: {
+      h: "Ineligibility Reason"
+      n: "ineligibility_reason"
+      r: false
+      sh: "Reason for ineligibility if status is ineligible."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    last_name: {
+      h: "Last Name"
+      n: "last_name"
+      r: true
+      sh: "Last name of the associated person."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    relationship: {
+      h: "Relationship"
+      n: "relationship"
+      r: true
+      sh: "Relationship type to the employee."
+      t: "`$ANY`"
+    }
+    sex_at_birth: {
+      h: "Sex At Birth"
+      n: "sex_at_birth"
+      r: true
+      sh: "Sex at birth of the associated person."
+      t: "`$ANY`"
+    }
+  }
+
+  name: "associated_person_eligibility_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "dependents_management_intent_id"
+                or: "dependents_management_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility"
+          q: {
+            exist: [
+              "dependents_management_intent_id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "dependents_management_intent_id"
+            }
+            {
+              lit: "associated_persons_eligibility"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.dependents_management_intent")]
+  ]
+
+}

@@ -19,7 +19,6 @@ import type {
   WebhookEndpointResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class WebhookEndpointResponsePagedListEntity extends KotaEntityBase<WebhookEndpointResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

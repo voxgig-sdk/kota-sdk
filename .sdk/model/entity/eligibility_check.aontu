@@ -1,0 +1,111 @@
+# Entity: eligibility_check
+
+main: kit: entity: eligibility_check: {
+
+  alias: field: {}
+
+  fields: {
+    eligibility_status: {
+      h: "Eligibility Status"
+      n: "eligibility_status"
+      r: true
+      sh: "Eligibility status: `eligible` or `ineligible`."
+      t: "`$ANY`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type."
+      t: "`$STRING`"
+    }
+    plan: {
+      h: "Plan"
+      n: "plan"
+      r: true
+      sh: "The insurance plan associated with the group."
+      t: "`$ANY`"
+    }
+    provider: {
+      h: "Provider"
+      n: "provider"
+      r: true
+      sh: "The insurance provider associated with the group."
+      t: "`$ANY`"
+    }
+    reasons: {
+      h: "Reasons"
+      n: "reasons"
+      r: true
+      sh: "List of reasons why the employee is ineligible."
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "eligibility_check"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /groups/{group_id}/eligibility_check"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "group_id"
+                or: "group_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/groups/{group_id}/eligibility_check"
+          q: {
+            exist: [
+              "group_id"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "group_id"
+            }
+            {
+              lit: "eligibility_check"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.group")]
+  ]
+
+}

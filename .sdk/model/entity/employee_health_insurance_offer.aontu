@@ -1,0 +1,163 @@
+# Entity: employee_health_insurance_offer
+
+main: kit: entity: employee_health_insurance_offer: {
+
+  alias: field: {}
+
+  fields: {
+    coverage_level: {
+      h: "Coverage Level"
+      n: "coverage_level"
+      r: true
+      sh: "Details about the coverage level for the offer."
+      t: "`$ANY`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "The Id of the employee for which the offer is available"
+      t: "`$STRING`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "The Id of the employer for which the offer is available"
+      t: "`$STRING`"
+    }
+    external_customer_id: {
+      h: "External Customer Id"
+      n: "external_customer_id"
+      r: false
+      sh: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for offer"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    required_action: {
+      h: "Required Action"
+      n: "required_action"
+      r: false
+      sh: "Required action to progress the offer, if any."
+      t: "`$NULL`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of offer"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employee_health_insurance_offer"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employees/{employee_id}/health_insurance/offers/{employee_offer_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "eeho_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_offer_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employees/{employee_id}/health_insurance/offers/{employee_offer_id}"
+          q: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_offer_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "offers"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.employee")]
+  ]
+
+}

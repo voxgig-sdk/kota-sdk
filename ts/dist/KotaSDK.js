@@ -39,7 +39,6 @@ const PolicyEntity_1 = require("./entity/PolicyEntity");
 const PolicyAmendmentIntentEntity_1 = require("./entity/PolicyAmendmentIntentEntity");
 const PolicyImportIntentEntity_1 = require("./entity/PolicyImportIntentEntity");
 const ProviderEntity_1 = require("./entity/ProviderEntity");
-const ReplayEntity_1 = require("./entity/ReplayEntity");
 const WebhookEndpointEntity_1 = require("./entity/WebhookEndpointEntity");
 const WebhookEndpointResponsePagedListEntity_1 = require("./entity/WebhookEndpointResponsePagedListEntity");
 const node_util_1 = require("node:util");
@@ -123,7 +122,6 @@ class KotaSDK {
             ctrl: fetchargs.ctrl || {},
         }, this._rootctx);
         const options = this._options;
-        // Build spec directly from SDK options + user-provided fetch args.
         const spec = {
             base: options.base,
             prefix: options.prefix,
@@ -137,14 +135,12 @@ class KotaSDK {
             step: 'start',
         };
         ctx.spec = spec;
-        // Merge user-provided headers over SDK defaults.
         if (fetchargs.headers) {
             const uheaders = fetchargs.headers;
             for (let key in uheaders) {
                 spec.headers[key] = uheaders[key];
             }
         }
-        // Apply SDK auth (apikey, auth prefix, etc.)
         const authResult = prepareAuth(ctx);
         if (authResult instanceof Error) {
             return authResult;
@@ -219,18 +215,6 @@ class KotaSDK {
             return { ok: false, err };
         }
     }
-    // Raw GraphQL access: the pressure valve that makes the generated
-    // surface's deliberate omissions (per-call selection sets, typed filter
-    // builders, batching, subscriptions) livable — the whole schema stays
-    // reachable.
-    //
-    // Thin wrapper over the same prepare/fetch path `direct` uses, with the
-    // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
-    // HTTP 200 as a top-level `errors` array, so status alone would report a
-    // failed query as ok.
-    //
-    // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
-    // ratelimit or paging features apply.
     async graphql(query, variables, ctrl) {
         const options = this._options;
         if (!options.allow.op.includes('graphql')) {
@@ -522,13 +506,6 @@ class KotaSDK {
     Provider(entopts) {
         const self = this;
         return new ProviderEntity_1.ProviderEntity(self, entopts);
-    }
-    // Entity access: `client.Replay().list()` / `client.Replay().load({ id })`.
-    // The argument is the entity OPTIONS object (passed to the entity
-    // constructor as entopts), not initial entity data.
-    Replay(entopts) {
-        const self = this;
-        return new ReplayEntity_1.ReplayEntity(self, entopts);
     }
     // Entity access: `client.WebhookEndpoint().list()` / `client.WebhookEndpoint().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity

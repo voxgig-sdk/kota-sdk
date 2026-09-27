@@ -94,8 +94,6 @@ var NewPolicyImportIntentEntityFunc func(client *KotaSDK, entopts map[string]any
 
 var NewProviderEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity
 
-var NewReplayEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity
-
 var NewWebhookEndpointEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity
 
 var NewWebhookEndpointResponsePagedListEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity

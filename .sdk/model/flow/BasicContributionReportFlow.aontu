@@ -1,0 +1,56 @@
+# BasicContributionReportFlow
+
+main: kit: flow: BasicContributionReportFlow:
+{
+  entity: "contribution_report",
+  kind: "basic",
+  name: "BasicContributionReportFlow",
+  step: [
+    {
+      i: {
+        ref: "contribution_report_ref01"
+      }
+
+      m: {
+        contribution_report_id: "contribution_report01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "contribution_report_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "contribution_report_ref01",
+        srcdatavar: "contribution_report_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "contribution_report01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-contribution_report_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContributionReportFlow"
+}

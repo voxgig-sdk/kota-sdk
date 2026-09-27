@@ -1,0 +1,227 @@
+# Entity: provider
+
+main: kit: entity: provider: {
+
+  alias: field: {}
+
+  fields: {
+    description: {
+      h: "Description"
+      n: "description"
+      r: true
+      sh: "Description of the provider."
+      t: "`$STRING`"
+    }
+    employer_platform_url: {
+      h: "Employer Platform Url"
+      n: "employer_platform_url"
+      r: false
+      sh: "URL to the employer portal/platform for this provider, if available."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the provider."
+      t: "`$STRING`"
+    }
+    kota_hub_url: {
+      h: "Kota Hub Url"
+      n: "kota_hub_url"
+      r: false
+      sh: "URL to the Kota Hub page for this platform, if configured."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    logo_url: {
+      h: "Logo Url"
+      n: "logo_url"
+      r: true
+      sh: "URL to the provider's logo image."
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "The name of the provider."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type."
+      t: "`$STRING`"
+    }
+    support_phone: {
+      h: "Support Phone"
+      n: "support_phone"
+      r: true
+      sh: "Customer support phone number."
+      t: "`$STRING`"
+    }
+    supported_countries: {
+      h: "Supported Countries"
+      n: "supported_countries"
+      r: true
+      sh: "List of countries supported by this provider."
+      t: "`$ARRAY`"
+    }
+    website_url: {
+      h: "Website Url"
+      n: "website_url"
+      r: true
+      sh: "The provider's main website URL."
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "provider"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /providers"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "country"
+                or: "country"
+                r: false
+                t: "`$ANY`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/providers"
+          q: {
+            exist: [
+              "country"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "providers"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /providers/{provider_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "pr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "provider_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/providers/{provider_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              provider_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "providers"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

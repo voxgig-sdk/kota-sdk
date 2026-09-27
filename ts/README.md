@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { KotaSDK } from '@voxgig-sdk/kota'
+import { KotaSDK } from '@voxgig-sdk/kota-sdk'
 
 const client = new KotaSDK({
   apikey: process.env.KOTA_APIKEY,
@@ -310,7 +310,6 @@ new KotaSDK(options?: {
 | `PolicyAmendmentIntent(data?)` | `PolicyAmendmentIntentEntity` | Create a PolicyAmendmentIntent entity instance. |
 | `PolicyImportIntent(data?)` | `PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider(data?)` | `ProviderEntity` | Create a Provider entity instance. |
-| `Replay(data?)` | `ReplayEntity` | Create a Replay entity instance. |
 | `WebhookEndpoint(data?)` | `WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
 | `WebhookEndpointResponsePagedList(data?)` | `WebhookEndpointResponsePagedListEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 | `tester(testopts?, sdkopts?)` | `KotaSDK` | Create a test-mode client instance. |
@@ -798,9 +797,9 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `root` |  |
 | `type` |  |
 
-Operations: list, load.
+Operations: create, list, load.
 
-API path: `/events`
+API path: `/events/{event_id}/replay`
 
 #### Group
 
@@ -1052,17 +1051,6 @@ API path: `/policy_import_intents`
 Operations: list, load.
 
 API path: `/providers`
-
-#### Replay
-
-| Field | Description |
-| --- | --- |
-| `deliveries` |  |
-| `event_id` |  |
-
-Operations: create.
-
-API path: `/events/{event_id}/replay`
 
 #### WebhookEndpoint
 
@@ -1940,6 +1928,7 @@ Create an instance: `const event = client.Event()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
@@ -1967,6 +1956,18 @@ const event = await client.Event().load({ id: 'event_id' })
 
 ```ts
 const events = await client.Event().list()
+```
+
+#### Example: Create
+
+```ts
+const event = await client.Event().create({
+  id: 'example_id',
+  created: 'example_created',
+  data: null,
+  platform_id: 'example_platform_id',
+  type: 'example_type',
+})
 ```
 
 
@@ -2550,33 +2551,6 @@ const providers = await client.Provider().list()
 ```
 
 
-### Replay
-
-Create an instance: `const replay = client.Replay()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `deliveries` | `any[]` |  |
-| `event_id` | `string` |  |
-
-#### Example: Create
-
-```ts
-const replay = await client.Replay().create({
-  event_id: 'example_event_id',
-  deliveries: [],
-})
-```
-
-
 ### WebhookEndpoint
 
 Create an instance: `const webhook_endpoint = client.WebhookEndpoint()`
@@ -2641,14 +2615,14 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`debug`](#debug) | Request/response capture ring buffer for debugging |
-| [`idempotency`](#idempotency) | Idempotency keys for safe retries of mutating operations |
-| [`metrics`](#metrics) | Statistics capture: per-operation counters and latency |
-| [`paging`](#paging) | Pagination signals for list operations |
-| [`ratelimit`](#ratelimit) | Client-side rate limiting via a token bucket |
-| [`retry`](#retry) | Automatic retry of transient failures with exponential backoff |
-| [`test`](#test) | In-memory mock transport for testing without a live server |
-| [`timeout`](#timeout) | Per-request timeout with transport abort |
+| [`debug`](#debug) | Debug capture |
+| [`idempotency`](#idempotency) | Idempotency |
+| [`metrics`](#metrics) | Metrics |
+| [`paging`](#paging) | Paging |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
 
 > **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
 > transport, so each one wraps whatever is already installed: the order you
@@ -2657,7 +2631,7 @@ above:
 
 ### debug
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 | Option | Default |
 |---|---|
@@ -2669,7 +2643,7 @@ Set `feature.debug.active` to enable it, then override any of the options above.
 
 ### idempotency
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 | Option | Default |
 |---|---|
@@ -2682,7 +2656,7 @@ Set `feature.idempotency.active` to enable it, then override any of the options 
 
 ### metrics
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 | Option | Default |
 |---|---|
@@ -2692,7 +2666,7 @@ Set `feature.metrics.active` to enable it, then override any of the options abov
 
 ### paging
 
-Pagination signals for list operations.
+Paging.
 
 | Option | Default |
 |---|---|
@@ -2708,7 +2682,7 @@ Set `feature.paging.active` to enable it, then override any of the options above
 
 ### ratelimit
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 | Option | Default |
 |---|---|
@@ -2724,7 +2698,7 @@ activated earlier.
 
 ### retry
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 | Option | Default |
 |---|---|
@@ -2743,7 +2717,7 @@ activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
@@ -2753,7 +2727,7 @@ Set `feature.test.active` to enable it, then override any of the options above.
 
 ### timeout
 
-Per-request timeout with transport abort.
+Timeout.
 
 | Option | Default |
 |---|---|
@@ -2805,14 +2779,14 @@ a function that receives the context.
 
 The SDK ships with built-in features:
 
-- **DebugFeature**: Request/response capture ring buffer for debugging
-- **IdempotencyFeature**: Idempotency keys for safe retries of mutating operations
-- **MetricsFeature**: Statistics capture: per-operation counters and latency
-- **PagingFeature**: Pagination signals for list operations
-- **RatelimitFeature**: Client-side rate limiting via a token bucket
-- **RetryFeature**: Automatic retry of transient failures with exponential backoff
-- **TestFeature**: In-memory mock transport for testing without a live server
-- **TimeoutFeature**: Per-request timeout with transport abort
+- **DebugFeature**: Debug capture
+- **IdempotencyFeature**: Idempotency
+- **MetricsFeature**: Metrics
+- **PagingFeature**: Paging
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -2833,7 +2807,7 @@ kota/
 Import the SDK from the package root:
 
 ```ts
-import { KotaSDK } from '@voxgig-sdk/kota'
+import { KotaSDK } from '@voxgig-sdk/kota-sdk'
 ```
 
 ### Entity state

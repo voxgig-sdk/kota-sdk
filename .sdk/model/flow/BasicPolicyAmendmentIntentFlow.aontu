@@ -1,0 +1,61 @@
+# BasicPolicyAmendmentIntentFlow
+
+main: kit: flow: BasicPolicyAmendmentIntentFlow:
+{
+  entity: "policy_amendment_intent",
+  kind: "basic",
+  name: "BasicPolicyAmendmentIntentFlow",
+  step: [
+    {
+      i: {
+        ref: "policy_amendment_intent_ref01"
+      }
+
+      m: {
+        policy_id: "policy01"
+      }
+
+      o: "create"
+    }
+
+    {
+      m: {
+        policy_id: "policy01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "policy_amendment_intent_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "policy_amendment_intent_ref01",
+        srcdatavar: "policy_amendment_intent_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "policy_amendment_intent01",
+        policy_id: "policy01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-policy_amendment_intent_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPolicyAmendmentIntentFlow"
+}

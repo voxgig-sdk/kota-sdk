@@ -577,6 +577,19 @@ export interface EventListMatch {
     page_size?: number;
     version?: any;
 }
+export interface EventCreateData {
+    id: string;
+    api_version?: string;
+    created: string;
+    data: null;
+    options?: null;
+    parent?: null;
+    platform_id: string;
+    root?: any;
+    type: string;
+    $action?: string;
+    [action: string]: any;
+}
 export interface Group {
     description?: null | string;
     employer_id: string;
@@ -943,14 +956,6 @@ export interface ProviderListMatch {
     country?: any;
     page?: number;
     page_size?: number;
-}
-export interface Replay {
-    deliveries: any[];
-    event_id: string;
-}
-export interface ReplayCreateData {
-    event_id: string;
-    deliveries: any[];
 }
 export interface WebhookEndpoint {
     created_at: string;

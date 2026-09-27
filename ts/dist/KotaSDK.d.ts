@@ -35,7 +35,6 @@ import { PolicyEntity } from './entity/PolicyEntity';
 import { PolicyAmendmentIntentEntity } from './entity/PolicyAmendmentIntentEntity';
 import { PolicyImportIntentEntity } from './entity/PolicyImportIntentEntity';
 import { ProviderEntity } from './entity/ProviderEntity';
-import { ReplayEntity } from './entity/ReplayEntity';
 import { WebhookEndpointEntity } from './entity/WebhookEndpointEntity';
 import { WebhookEndpointResponsePagedListEntity } from './entity/WebhookEndpointResponsePagedListEntity';
 export type * from './KotaTypes';
@@ -120,7 +119,6 @@ declare class KotaSDK {
     PolicyAmendmentIntent(entopts?: Record<string, any>): PolicyAmendmentIntentEntity;
     PolicyImportIntent(entopts?: Record<string, any>): PolicyImportIntentEntity;
     Provider(entopts?: Record<string, any>): ProviderEntity;
-    Replay(entopts?: Record<string, any>): ReplayEntity;
     WebhookEndpoint(entopts?: Record<string, any>): WebhookEndpointEntity;
     WebhookEndpointResponsePagedList(entopts?: Record<string, any>): WebhookEndpointResponsePagedListEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): KotaSDK;

@@ -1,7 +1,18 @@
 {
+  "version": 2,
+  "roots": [
+    ".github/workflows/docgen.yml",
+    ".sdk/admin/setup-github-pages.sh",
+    ".sdk/doc/generated.json",
+    ".sdk/doc/qa",
+    ".sdk/doc/qa-manifest.json",
+    "SUMMARY.md",
+    "docs"
+  ],
   "files": [
     ".github/workflows/docgen.yml",
     ".sdk/admin/setup-github-pages.sh",
+    ".sdk/doc/generated.json",
     ".sdk/doc/qa-manifest.json",
     ".sdk/doc/qa/STYLE-GUIDE.md",
     ".sdk/doc/qa/pages-job.yml",
@@ -50,7 +61,6 @@
     "docs/api/policy_amendment_intent.html",
     "docs/api/policy_import_intent.html",
     "docs/api/provider.html",
-    "docs/api/replay.html",
     "docs/api/webhook_endpoint.html",
     "docs/api/webhook_endpoint_response_paged_list.html",
     "docs/assets/nunito.woff2",

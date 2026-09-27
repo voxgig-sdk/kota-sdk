@@ -529,12 +529,6 @@ class KotaSDK:
         return ProviderEntity(self, data)
 
 
-    def Replay(self, data=None) -> "ReplayEntity":
-        """Entity factory: client.Replay().list() / client.Replay().load({"id": ...})."""
-        from kota_sdk.entity.replay_entity import ReplayEntity
-        return ReplayEntity(self, data)
-
-
     def WebhookEndpoint(self, data=None) -> "WebhookEndpointEntity":
         """Entity factory: client.WebhookEndpoint().list() / client.WebhookEndpoint().load({"id": ...})."""
         from kota_sdk.entity.webhook_endpoint_entity import WebhookEndpointEntity
@@ -611,6 +605,5 @@ if TYPE_CHECKING:
     from kota_sdk.entity.policy_amendment_intent_entity import PolicyAmendmentIntentEntity
     from kota_sdk.entity.policy_import_intent_entity import PolicyImportIntentEntity
     from kota_sdk.entity.provider_entity import ProviderEntity
-    from kota_sdk.entity.replay_entity import ReplayEntity
     from kota_sdk.entity.webhook_endpoint_entity import WebhookEndpointEntity
     from kota_sdk.entity.webhook_endpoint_response_paged_list_entity import WebhookEndpointResponsePagedListEntity

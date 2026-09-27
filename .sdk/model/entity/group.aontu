@@ -1,0 +1,334 @@
+# Entity: group
+
+main: kit: entity: group: {
+
+  alias: field: {}
+
+  fields: {
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "Short description of the purpose or scope of the `group`."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "Identifier for the `employer` that owns this `group`."
+      t: "`$STRING`"
+    }
+    enrolment_type: {
+      h: "Enrolment Type"
+      n: "enrolment_type"
+      r: true
+      sh: "Indicates how employees are enrolled into the group."
+      t: "`$ANY`"
+    }
+    group_policy_ids: {
+      h: "Group Policy Ids"
+      n: "group_policy_ids"
+      r: true
+      sh: "Group policy unique identifiers associated with this group."
+      t: "`$ARRAY`"
+    }
+    group_policy_intent_ids: {
+      h: "Group Policy Intent Ids"
+      n: "group_policy_intent_ids"
+      r: true
+      sh: "Group policy intent unique identifiers associated with this group."
+      t: "`$ARRAY`"
+    }
+    group_quote_intent_ids: {
+      h: "Group Quote Intent Ids"
+      n: "group_quote_intent_ids"
+      r: true
+      sh: "Group quote intent unique identifiers associated with this group."
+      t: "`$ARRAY`"
+    }
+    group_type: {
+      h: "Group Type"
+      n: "group_type"
+      r: true
+      sh: "Indicates how policies are organized for this group."
+      t: "`$ANY`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the `group`."
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "Human-readable name of the `group`."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current lifecycle state of the `group`, indicating its current progress."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /groups"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/groups"
+          q: {
+            exist: [
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "groups"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /groups"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "employer_id"
+                or: "employer_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/groups"
+          q: {
+            exist: [
+              "employer_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "groups"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /groups/{group_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/groups/{group_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /groups/{group_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/groups/{group_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

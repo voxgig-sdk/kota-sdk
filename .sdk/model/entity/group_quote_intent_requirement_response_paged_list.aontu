@@ -1,0 +1,123 @@
+# Entity: group_quote_intent_requirement_response_paged_list
+
+main: kit: entity: group_quote_intent_requirement_response_paged_list: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_quote_intent_requirement_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /group_quote_intents/{group_quote_intent_id}/requirements"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_quote_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "object_id"
+                or: "object_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "object_type"
+                or: "object_type"
+                r: false
+                t: "`$ANY`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_quote_intents/{group_quote_intent_id}/requirements"
+          q: {
+            "$action": "requirements"
+            exist: [
+              "id"
+              "object_id"
+              "object_type"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_quote_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "requirements"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

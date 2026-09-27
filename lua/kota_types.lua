@@ -1,7 +1,7 @@
 -- Typed models for the Kota SDK (LuaLS annotations).
 --
--- GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
--- params (op.<name>.points[].args.params[]). Field/param types come from the
+-- GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+-- params (op.<name>.points[].g.params[]). Field/param types come from the
 -- canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
@@ -571,6 +571,17 @@
 ---@field page_size? number
 ---@field version? any
 
+---@class EventCreateData
+---@field id string
+---@field api_version? string
+---@field created string
+---@field data nil
+---@field options? nil
+---@field parent? nil
+---@field platform_id string
+---@field root? any
+---@field type string
+
 ---@class Group
 ---@field description? nil|string
 ---@field employer_id string
@@ -927,14 +938,6 @@
 ---@field country? any
 ---@field page? number
 ---@field page_size? number
-
----@class Replay
----@field deliveries table
----@field event_id string
-
----@class ReplayCreateData
----@field event_id string
----@field deliveries table
 
 ---@class WebhookEndpoint
 ---@field created_at string

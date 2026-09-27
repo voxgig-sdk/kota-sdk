@@ -1,0 +1,119 @@
+# Entity: webhook_endpoint
+
+main: kit: entity: webhook_endpoint: {
+
+  alias: field: {}
+
+  fields: {
+    created_at: {
+      fo: "date-time"
+      h: "Created At"
+      n: "created_at"
+      r: true
+      sh: "The date and time the endpoint was created"
+      t: "`$STRING`"
+    }
+    endpoint_url: {
+      h: "Endpoint Url"
+      n: "endpoint_url"
+      r: true
+      sh: "The registered URL of the endpoint"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "The unique identifier of the endpoint"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    subscribed_events: {
+      h: "Subscribed Events"
+      n: "subscribed_events"
+      r: true
+      sh: "The events the endpoint is subscribed to"
+      t: "`$ARRAY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "webhook_endpoint"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /webhooks/endpoints/{webhook_endpoint_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "whe_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "webhook_endpoint_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/webhooks/endpoints/{webhook_endpoint_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              webhook_endpoint_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+            {
+              lit: "endpoints"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

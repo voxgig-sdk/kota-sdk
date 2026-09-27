@@ -1,0 +1,107 @@
+# Entity: contribution_report_employee_breakdown_response_paged_list
+
+main: kit: entity: contribution_report_employee_breakdown_response_paged_list: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "contribution_report_employee_breakdown_response_paged_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /contribution_reports/{contribution_report_id}/employee_breakdowns"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "contribution_report_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/contribution_reports/{contribution_report_id}/employee_breakdowns"
+          q: {
+            "$action": "employee_breakdowns"
+            exist: [
+              "id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              contribution_report_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "contribution_reports"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "employee_breakdowns"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

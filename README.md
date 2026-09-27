@@ -10,13 +10,13 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 > TypeScript, Python, PHP, Golang, Lua, JavaScript SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as **40 semantic entities** that you
+This SDK exposes the API as **39 semantic entities** that you
 call directly, instead of assembling URL paths and query strings. See the [Entities](#entities) table below for the full list. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`list`, `load`, `create`, `update`, `remove`):
@@ -101,12 +101,12 @@ console.log(dependentsmanagementintent)
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/kota` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/releases) |
-| Python | `voxgig-sdk-kota` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/releases) |
-| PHP | `voxgig-sdk/kota` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/releases) |
+| TypeScript | `@voxgig-sdk/kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
+| Python | `voxgig-sdk-kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
+| PHP | `voxgig-sdk/kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/kota-sdk/go` | `go get github.com/voxgig-sdk/kota-sdk/go@latest` |
-| Lua | `voxgig-sdk-kota` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/releases) |
-| JavaScript | `@voxgig-sdk/kota-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/releases) |
+| Lua | `voxgig-sdk-kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
+| JavaScript | `@voxgig-sdk/kota-sdk-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/kota-sdk/go-cli` | `go install github.com/voxgig-sdk/kota-sdk/go-cli/cmd/kota@latest` |
 | Go MCP server | `github.com/voxgig-sdk/kota-sdk/go-mcp` | `go get github.com/voxgig-sdk/kota-sdk/go-mcp@latest` |
 
@@ -115,7 +115,7 @@ console.log(dependentsmanagementintent)
 ### TypeScript
 
 ```ts
-import { KotaSDK } from '@voxgig-sdk/kota'
+import { KotaSDK } from '@voxgig-sdk/kota-sdk'
 
 const client = new KotaSDK({
   apikey: process.env.KOTA_APIKEY,
@@ -169,7 +169,7 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 40 entities:
+The API exposes 39 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
@@ -195,7 +195,7 @@ The API exposes 40 entities:
 | **EmployerHealthInsuranceQuoteResponsePagedList** | The EmployerHealthInsuranceQuoteResponsePagedList entity (list). | `/employers/{employer_id}/health_insurance/quotes` |
 | **EnrolmentIntent** | The EnrolmentIntent entity (create, list, load, update). | `/enrolment_intents` |
 | **EnrolmentIntentRequirementResponsePagedList** | The EnrolmentIntentRequirementResponsePagedList entity (list). | `/enrolment_intents/{enrolment_intent_id}/requirements` |
-| **Event** | The Event entity (list, load). | `/events` |
+| **Event** | The Event entity (create, list, load). | `/events` |
 | **Group** | The Group entity (create, list, load, update). | `/groups` |
 | **GroupEmployee** | The GroupEmployee entity (create). | `/groups/{group_id}/employees` |
 | **GroupEmployeeResponsePagedList** | The GroupEmployeeResponsePagedList entity (list). | `/groups/{group_id}/employees` |
@@ -210,7 +210,6 @@ The API exposes 40 entities:
 | **PolicyAmendmentIntent** | The PolicyAmendmentIntent entity (create, list, load). | `/policies/{policy_id}/policy_amendment_intents` |
 | **PolicyImportIntent** | The PolicyImportIntent entity (create, list, load). | `/policy_import_intents` |
 | **Provider** | The Provider entity (list, load). | `/providers` |
-| **Replay** | The Replay entity (create). | `/events/{event_id}/replay` |
 | **WebhookEndpoint** | The WebhookEndpoint entity (load). | `/webhooks/endpoints/{webhook_endpoint_id}` |
 | **WebhookEndpointResponsePagedList** | The WebhookEndpointResponsePagedList entity (list). | `/webhooks/endpoints` |
 
@@ -305,7 +304,7 @@ print(associatedperson)
 ### JavaScript
 
 ```js
-const { KotaSDK } = require('@voxgig-sdk/kota-js')
+const { KotaSDK } = require('@voxgig-sdk/kota-sdk-js')
 
 const client = new KotaSDK({
   apikey: process.env.KOTA_APIKEY,
@@ -428,14 +427,14 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **DebugFeature** | Request/response capture ring buffer for debugging |
-| **IdempotencyFeature** | Idempotency keys for safe retries of mutating operations |
-| **MetricsFeature** | Statistics capture: per-operation counters and latency |
-| **PagingFeature** | Pagination signals for list operations |
-| **RatelimitFeature** | Client-side rate limiting via a token bucket |
-| **RetryFeature** | Automatic retry of transient failures with exponential backoff |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-| **TimeoutFeature** | Per-request timeout with transport abort |
+| **DebugFeature** | Debug capture |
+| **IdempotencyFeature** | Idempotency |
+| **MetricsFeature** | Metrics |
+| **PagingFeature** | Paging |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 

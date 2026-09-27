@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 // Typed models for the Kota SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 //
@@ -769,6 +769,20 @@ class EventListMatch
     public mixed $version = null;
 }
 
+/** Request payload for Event#create. */
+class EventCreateData
+{
+    public string $id;
+    public ?string $api_version = null;
+    public string $created;
+    public mixed $data;
+    public mixed $options = null;
+    public mixed $parent = null;
+    public string $platform_id;
+    public mixed $root = null;
+    public string $type;
+}
+
 /** Group entity data model. */
 class Group
 {
@@ -1253,20 +1267,6 @@ class ProviderListMatch
     public mixed $country = null;
     public ?int $page = null;
     public ?int $page_size = null;
-}
-
-/** Replay entity data model. */
-class Replay
-{
-    public array $deliveries;
-    public string $event_id;
-}
-
-/** Request payload for Replay#create. */
-class ReplayCreateData
-{
-    public string $event_id;
-    public array $deliveries;
 }
 
 /** WebhookEndpoint entity data model. */

@@ -1,0 +1,55 @@
+# Entity: create_hosted_session_token
+
+main: kit: entity: create_hosted_session_token: {
+
+  alias: field: {}
+
+  fields: {
+    expiry: {
+      fo: "date-time"
+      h: "Expiry"
+      n: "expiry"
+      r: true
+      t: "`$STRING`"
+    }
+    link: {
+      h: "Link"
+      n: "link"
+      r: true
+      t: "`$STRING`"
+    }
+  }
+
+  name: "create_hosted_session_token"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /hosted/sessions"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/hosted/sessions"
+          s: [
+            {
+              lit: "hosted"
+            }
+            {
+              lit: "sessions"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

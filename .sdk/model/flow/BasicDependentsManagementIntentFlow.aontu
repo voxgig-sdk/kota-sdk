@@ -1,0 +1,44 @@
+# BasicDependentsManagementIntentFlow
+
+main: kit: flow: BasicDependentsManagementIntentFlow:
+{
+  entity: "dependents_management_intent",
+  kind: "basic",
+  name: "BasicDependentsManagementIntentFlow",
+  step: [
+    {
+      i: {
+        ref: "dependents_management_intent_ref01"
+      }
+
+      m: {
+        dependents_management_intent_id: "dependents_management_intent01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "dependents_management_intent_ref01",
+        srcdatavar: "dependents_management_intent_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "dependents_management_intent01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-dependents_management_intent_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicDependentsManagementIntentFlow"
+}

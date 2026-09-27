@@ -271,7 +271,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `PolicyAmendmentIntent` | `(data) -> PolicyAmendmentIntentEntity` | Create a PolicyAmendmentIntent entity instance. |
 | `PolicyImportIntent` | `(data) -> PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider` | `(data) -> ProviderEntity` | Create a Provider entity instance. |
-| `Replay` | `(data) -> ReplayEntity` | Create a Replay entity instance. |
 | `WebhookEndpoint` | `(data) -> WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
 | `WebhookEndpointResponsePagedList` | `(data) -> WebhookEndpointResponsePagedListEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 
@@ -727,9 +726,9 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `root` |  |
 | `type` |  |
 
-Operations: List, Load.
+Operations: Create, List, Load.
 
-API path: `/events`
+API path: `/events/{event_id}/replay`
 
 #### Group
 
@@ -981,17 +980,6 @@ API path: `/policy_import_intents`
 Operations: List, Load.
 
 API path: `/providers`
-
-#### Replay
-
-| Field | Description |
-| --- | --- |
-| `deliveries` |  |
-| `event_id` |  |
-
-Operations: Create.
-
-API path: `/events/{event_id}/replay`
 
 #### WebhookEndpoint
 
@@ -1869,6 +1857,7 @@ Create an instance: `event = client.Event()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
@@ -1896,6 +1885,18 @@ event = client.Event().load({"id": "event_id"})
 
 ```python
 events = client.Event().list()
+```
+
+#### Example: Create
+
+```python
+event = client.Event().create({
+    "id": "example_id",  # str
+    "created": "example_created",  # str
+    "data": "example_data",  # None
+    "platform_id": "example_platform_id",  # str
+    "type": "example_type",  # str
+})
 ```
 
 
@@ -2479,33 +2480,6 @@ providers = client.Provider().list()
 ```
 
 
-### Replay
-
-Create an instance: `replay = client.Replay()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `deliveries` | `list` |  |
-| `event_id` | `str` |  |
-
-#### Example: Create
-
-```python
-replay = client.Replay().create({
-    "event_id": "example_event_id",  # str
-    "deliveries": [],  # list
-})
-```
-
-
 ### WebhookEndpoint
 
 Create an instance: `webhook_endpoint = client.WebhookEndpoint()`
@@ -2570,14 +2544,14 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`debug`](#debug) | Request/response capture ring buffer for debugging |
-| [`idempotency`](#idempotency) | Idempotency keys for safe retries of mutating operations |
-| [`metrics`](#metrics) | Statistics capture: per-operation counters and latency |
-| [`paging`](#paging) | Pagination signals for list operations |
-| [`ratelimit`](#ratelimit) | Client-side rate limiting via a token bucket |
-| [`retry`](#retry) | Automatic retry of transient failures with exponential backoff |
-| [`test`](#test) | In-memory mock transport for testing without a live server |
-| [`timeout`](#timeout) | Per-request timeout with transport abort |
+| [`debug`](#debug) | Debug capture |
+| [`idempotency`](#idempotency) | Idempotency |
+| [`metrics`](#metrics) | Metrics |
+| [`paging`](#paging) | Paging |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
 
 > **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
 > transport, so each one wraps whatever is already installed: the order you
@@ -2586,7 +2560,7 @@ above:
 
 ### debug
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 | Option | Default |
 |---|---|
@@ -2598,7 +2572,7 @@ Set `feature.debug.active` to enable it, then override any of the options above.
 
 ### idempotency
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 | Option | Default |
 |---|---|
@@ -2611,7 +2585,7 @@ Set `feature.idempotency.active` to enable it, then override any of the options 
 
 ### metrics
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 | Option | Default |
 |---|---|
@@ -2621,7 +2595,7 @@ Set `feature.metrics.active` to enable it, then override any of the options abov
 
 ### paging
 
-Pagination signals for list operations.
+Paging.
 
 | Option | Default |
 |---|---|
@@ -2637,7 +2611,7 @@ Set `feature.paging.active` to enable it, then override any of the options above
 
 ### ratelimit
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 | Option | Default |
 |---|---|
@@ -2653,7 +2627,7 @@ activated earlier.
 
 ### retry
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 | Option | Default |
 |---|---|
@@ -2672,7 +2646,7 @@ activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
@@ -2682,7 +2656,7 @@ Set `feature.test.active` to enable it, then override any of the options above.
 
 ### timeout
 
-Per-request timeout with transport abort.
+Timeout.
 
 | Option | Default |
 |---|---|
@@ -2734,14 +2708,14 @@ with hook methods named after pipeline stages (e.g. `PrePoint`,
 
 The SDK ships with built-in features:
 
-- **DebugFeature**: Request/response capture ring buffer for debugging
-- **IdempotencyFeature**: Idempotency keys for safe retries of mutating operations
-- **MetricsFeature**: Statistics capture: per-operation counters and latency
-- **PagingFeature**: Pagination signals for list operations
-- **RatelimitFeature**: Client-side rate limiting via a token bucket
-- **RetryFeature**: Automatic retry of transient failures with exponential backoff
-- **TestFeature**: In-memory mock transport for testing without a live server
-- **TimeoutFeature**: Per-request timeout with transport abort
+- **DebugFeature**: Debug capture
+- **IdempotencyFeature**: Idempotency
+- **MetricsFeature**: Metrics
+- **PagingFeature**: Paging
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -2761,6 +2735,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── kota_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations

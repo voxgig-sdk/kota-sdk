@@ -1,0 +1,175 @@
+# Entity: group_employee
+
+main: kit: entity: group_employee: {
+
+  alias: field: {}
+
+  fields: {
+    desired_policy_start_date: {
+      fo: "date"
+      h: "Desired Policy Start Date"
+      n: "desired_policy_start_date"
+      r: false
+      sh: "The desired date for the employee's policy to start."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    eligibility_status: {
+      h: "Eligibility Status"
+      n: "eligibility_status"
+      r: true
+      sh: "Eligibility status for the employee in this group."
+      t: "`$ANY`"
+    }
+    enrolment_date: {
+      fo: "date"
+      h: "Enrolment Date"
+      n: "enrolment_date"
+      r: false
+      sh: "The date on which the employee agreed to enrol into the group's policies."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    enrolment_status: {
+      h: "Enrolment Status"
+      n: "enrolment_status"
+      r: true
+      sh: "Enrolment status for the employee in this group."
+      t: "`$ANY`"
+    }
+    enrolments: {
+      h: "Enrolments"
+      n: "enrolments"
+      r: true
+      sh: "List of enrolments associated with the employee in this group."
+      t: "`$ARRAY`"
+    }
+    group_id: {
+      h: "Group Id"
+      n: "group_id"
+      r: true
+      sh: "Unique identifier for the group."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the employee."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    policies: {
+      h: "Policies"
+      n: "policies"
+      r: true
+      sh: "List of policies associated with the employee in this group."
+      t: "`$ARRAY`"
+    }
+    scheduled_group_transitions: {
+      h: "Scheduled Group Transitions"
+      n: "scheduled_group_transitions"
+      r: true
+      sh: "List of scheduled group transitions for the employee."
+      t: "`$ARRAY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_employee"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /groups/{group_id}/employees"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/groups/{group_id}/employees"
+          q: {
+            exist: [
+              "id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "groups"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "employees"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -19,7 +19,6 @@ import type {
   GroupPolicyIntentRequirementResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class GroupPolicyIntentRequirementResponsePagedListEntity extends KotaEntityBase<GroupPolicyIntentRequirementResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

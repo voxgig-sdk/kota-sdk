@@ -1,0 +1,280 @@
+# Entity: policy_import_intent
+
+main: kit: entity: policy_import_intent: {
+
+  alias: field: {}
+
+  fields: {
+    associated_persons: {
+      h: "Associated Persons"
+      n: "associated_persons"
+      r: true
+      sh: "List of associated persons linked to this policy import."
+      t: "`$ARRAY`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "The employee ID for the policy import."
+      t: "`$STRING`"
+    }
+    group_id: {
+      h: "Group Id"
+      n: "group_id"
+      r: true
+      sh: "The group ID for the policy import."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the policy import intent."
+      t: "`$STRING`"
+    }
+    member_number: {
+      h: "Member Number"
+      n: "member_number"
+      r: true
+      sh: "The member number assigned by the provider."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier."
+      t: "`$STRING`"
+    }
+    policy_end_date: {
+      fo: "date"
+      h: "Policy End Date"
+      n: "policy_end_date"
+      r: false
+      sh: "The end date of the policy."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    policy_start_date: {
+      fo: "date"
+      h: "Policy Start Date"
+      n: "policy_start_date"
+      r: true
+      sh: "The start date of the policy."
+      t: "`$STRING`"
+    }
+    provider_policy_number: {
+      h: "Provider Policy Number"
+      n: "provider_policy_number"
+      r: true
+      sh: "The provider's policy number."
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the policy import intent."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "policy_import_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /policy_import_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/policy_import_intents"
+          q: {
+            exist: [
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "policy_import_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /policy_import_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "employee_id"
+                or: "employee_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/policy_import_intents"
+          q: {
+            exist: [
+              "employee_id"
+              "group_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "policy_import_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /policy_import_intents/{policy_import_intent_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "pii_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "policy_import_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/policy_import_intents/{policy_import_intent_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              policy_import_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "policy_import_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

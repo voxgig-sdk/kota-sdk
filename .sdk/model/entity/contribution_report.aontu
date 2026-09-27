@@ -1,0 +1,318 @@
+# Entity: contribution_report
+
+main: kit: entity: contribution_report: {
+
+  alias: field: {}
+
+  fields: {
+    created_at: {
+      fo: "date-time"
+      h: "Created At"
+      n: "created_at"
+      r: true
+      sh: "Date and time the report was created"
+      t: "`$STRING`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "Unique identifier of the employer for which the report is created"
+      t: "`$STRING`"
+    }
+    external_customer_id: {
+      h: "External Customer Id"
+      n: "external_customer_id"
+      r: false
+      sh: "Unique identifier of the customer for which the report is created."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    finalized_at: {
+      fo: "date-time"
+      h: "Finalized At"
+      n: "finalized_at"
+      r: false
+      sh: "Date and time the report was finalized, if applicable"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the contribution report"
+      t: "`$STRING`"
+    }
+    last_updated_at: {
+      fo: "date-time"
+      h: "Last Updated At"
+      n: "last_updated_at"
+      r: true
+      sh: "Date and time of the last update to the report"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    period: {
+      h: "Period"
+      n: "period"
+      r: true
+      sh: "Period covered by the contribution report"
+      t: "`$ANY`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the contribution report"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "contribution_report"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /contribution_reports/{contribution_report_id}/finalize"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "contribution_report_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/contribution_reports/{contribution_report_id}/finalize"
+          q: {
+            "$action": "finalize"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              contribution_report_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "contribution_reports"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "finalize"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /contribution_reports"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "employer_id"
+                or: "employer_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "external_customer_id"
+                or: "external_customer_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "month"
+                or: "month"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "year"
+                or: "year"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/contribution_reports"
+          q: {
+            exist: [
+              "employer_id"
+              "external_customer_id"
+              "month"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+              "year"
+            ]
+          }
+          s: [
+            {
+              lit: "contribution_reports"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /contribution_reports/{contribution_report_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "contribution_report_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/contribution_reports/{contribution_report_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              contribution_report_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "contribution_reports"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,0 +1,44 @@
+# BasicGroupPolicyFlow
+
+main: kit: flow: BasicGroupPolicyFlow:
+{
+  entity: "group_policy",
+  kind: "basic",
+  name: "BasicGroupPolicyFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "group_policy_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "group_policy_ref01",
+        srcdatavar: "group_policy_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "group_policy01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-group_policy_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGroupPolicyFlow"
+}

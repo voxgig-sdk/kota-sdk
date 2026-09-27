@@ -1,0 +1,336 @@
+# Entity: group_quote_intent
+
+main: kit: entity: group_quote_intent: {
+
+  alias: field: {}
+
+  fields: {
+    action_required: {
+      h: "Action Required"
+      n: "action_required"
+      r: false
+      sh: "Details of the action required from the caller, if the intent is in action_required status."
+      t: "`$NULL`"
+    }
+    consent_links: {
+      h: "Consent Links"
+      n: "consent_links"
+      r: true
+      sh: "Consent links that need to be acknowledged"
+      t: "`$ARRAY`"
+    }
+    cost_sharing: {
+      h: "Cost Sharing"
+      n: "cost_sharing"
+      r: false
+      sh: "Cost sharing configuration for the quote"
+      t: "`$NULL`"
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this intent."
+      t: "`$ARRAY`"
+    }
+    expected_start_date: {
+      fo: "date"
+      h: "Expected Start Date"
+      n: "expected_start_date"
+      r: false
+      sh: "Expected start date for the insurance coverage"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    group_id: {
+      h: "Group Id"
+      n: "group_id"
+      r: true
+      sh: "Unique identifier for the group"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the group quote intent"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier"
+      t: "`$STRING`"
+    }
+    plan_id: {
+      h: "Plan Id"
+      n: "plan_id"
+      r: true
+      sh: "Unique identifier for the plan"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the group quote intent"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_quote_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /group_quote_intents/{group_quote_intent_id}/reject"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_quote_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/group_quote_intents/{group_quote_intent_id}/reject"
+          q: {
+            "$action": "reject"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_quote_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "reject"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /group_quote_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/group_quote_intents"
+          q: {
+            exist: [
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "group_quote_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /group_quote_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "plan_id"
+                or: "plan_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_quote_intents"
+          q: {
+            exist: [
+              "group_id"
+              "page"
+              "page_size"
+              "plan_id"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "group_quote_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /group_quote_intents/{group_quote_intent_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_quote_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_quote_intents/{group_quote_intent_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_quote_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "group_quote_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

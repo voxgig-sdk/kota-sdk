@@ -1,0 +1,464 @@
+# Entity: associated_person
+
+main: kit: entity: associated_person: {
+
+  alias: field: {}
+
+  fields: {
+    date_of_birth: {
+      fo: "date"
+      h: "Date Of Birth"
+      n: "date_of_birth"
+      r: true
+      sh: "Date of birth of the associated person"
+      t: "`$STRING`"
+    }
+    email: {
+      h: "Email"
+      n: "email"
+      r: false
+      sh: "Email address of the associated person"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "Unique identifier for the employee this person is associated with"
+      t: "`$STRING`"
+    }
+    first_name: {
+      h: "First Name"
+      n: "first_name"
+      r: true
+      sh: "First name of the associated person"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the associated person"
+      t: "`$STRING`"
+    }
+    last_name: {
+      h: "Last Name"
+      n: "last_name"
+      r: true
+      sh: "Last name of the associated person"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    phone_number: {
+      h: "Phone Number"
+      n: "phone_number"
+      r: false
+      sh: "Phone number in E.164 international format (e.g."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    platform_id: {
+      h: "Platform Id"
+      n: "platform_id"
+      r: false
+      sh: "Unique identifier for the platform"
+      t: "`$STRING`"
+    }
+    relationship_type: {
+      h: "Relationship Type"
+      n: "relationship_type"
+      r: true
+      sh: "The relationship type between the employee and the associated person"
+      t: "`$ANY`"
+    }
+    sex_at_birth: {
+      h: "Sex At Birth"
+      n: "sex_at_birth"
+      r: true
+      sh: "The sex assigned to the associated person at birth"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "associated_person"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /employees/{employee_id}/associated_persons"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/employees/{employee_id}/associated_persons"
+          q: {
+            exist: [
+              "employee_id"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /employees/{employee_id}/associated_persons"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employees/{employee_id}/associated_persons"
+          q: {
+            exist: [
+              "employee_id"
+              "page"
+              "page_size"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employees/{employee_id}/associated_persons/{associated_person_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "associated_person_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employees/{employee_id}/associated_persons/{associated_person_id}"
+          q: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /employees/{employee_id}/associated_persons/{associated_person_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "associated_person_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/employees/{employee_id}/associated_persons/{associated_person_id}"
+          q: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /employees/{employee_id}/associated_persons/{associated_person_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "associated_person_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/employees/{employee_id}/associated_persons/{associated_person_id}"
+          q: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "associated_persons"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.employee")]
+  ]
+
+}

@@ -1,7 +1,7 @@
 # Typed models for the Kota SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Field/param types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
 #
@@ -762,6 +762,21 @@ class EventListMatch(TypedDict, total=False):
     version: Any
 
 
+class EventCreateDataRequired(TypedDict):
+    id: str
+    created: str
+    data: None
+    platform_id: str
+    type: str
+
+
+class EventCreateData(EventCreateDataRequired, total=False):
+    api_version: str
+    options: None
+    parent: None
+    root: Any
+
+
 class GroupRequired(TypedDict):
     employer_id: str
     enrolment_type: Any
@@ -1229,16 +1244,6 @@ class ProviderListMatch(TypedDict, total=False):
     country: Any
     page: int
     page_size: int
-
-
-class Replay(TypedDict):
-    deliveries: list
-    event_id: str
-
-
-class ReplayCreateData(TypedDict):
-    event_id: str
-    deliveries: list
 
 
 class WebhookEndpointRequired(TypedDict):

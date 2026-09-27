@@ -1,0 +1,523 @@
+# Entity: enrolment_intent
+
+main: kit: entity: enrolment_intent: {
+
+  alias: field: {}
+
+  fields: {
+    action_required: {
+      h: "Action Required"
+      n: "action_required"
+      r: false
+      sh: "If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment."
+      t: "`$NULL`"
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this intent."
+      t: "`$ARRAY`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "Identifier for the employee associated with this enrolment intent."
+      t: "`$STRING`"
+    }
+    force_confirmation: {
+      h: "Force Confirmation"
+      n: "force_confirmation"
+      r: true
+      sh: "If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required."
+      t: "`$BOOLEAN`"
+    }
+    group_id: {
+      h: "Group Id"
+      n: "group_id"
+      r: true
+      sh: "Identifier for the group associated with this enrolment intent."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the enrolment intent."
+      t: "`$STRING`"
+    }
+    ineligibility_reason: {
+      h: "Ineligibility Reason"
+      n: "ineligibility_reason"
+      r: false
+      sh: "If the enrolment intent status is `ineligible`, this field provides details about the reason for employees ineligibility."
+      t: "`$NULL`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier."
+      t: "`$STRING`"
+    }
+    pending_confirmation: {
+      h: "Pending Confirmation"
+      n: "pending_confirmation"
+      r: false
+      sh: "If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state."
+      t: "`$NULL`"
+    }
+    policy_configuration: {
+      h: "Policy Configuration"
+      n: "policy_configuration"
+      r: false
+      sh: "Policy configuration associated with this enrolment intent."
+      t: "`$NULL`"
+    }
+    policy_enrolments: {
+      h: "Policy Enrolments"
+      n: "policy_enrolments"
+      r: true
+      sh: "Policy enrolment information"
+      t: "`$ARRAY`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the enrolment intent."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "enrolment_intent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /enrolment_intents/{enrolment_intent_id}/confirm"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "enrolment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/enrolment_intents/{enrolment_intent_id}/confirm"
+          q: {
+            "$action": "confirm"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "confirm"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /enrolment_intents/{enrolment_intent_id}/coverage-selections"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "enrolment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/enrolment_intents/{enrolment_intent_id}/coverage-selections"
+          q: {
+            "$action": "coverage_selection"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "coverage-selections"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /enrolment_intents/{enrolment_intent_id}/reject"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "enrolment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/enrolment_intents/{enrolment_intent_id}/reject"
+          q: {
+            "$action": "reject"
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "reject"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /enrolment_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/enrolment_intents"
+          q: {
+            exist: [
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /enrolment_intents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "employee_id"
+                or: "employee_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/enrolment_intents"
+          q: {
+            exist: [
+              "employee_id"
+              "group_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /enrolment_intents/{enrolment_intent_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "enrolment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/enrolment_intents/{enrolment_intent_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /enrolment_intents/{enrolment_intent_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ei_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "enrolment_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/enrolment_intents/{enrolment_intent_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              enrolment_intent_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "enrolment_intents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -37,7 +37,6 @@ const { PolicyEntity } = require('./entity/PolicyEntity')
 const { PolicyAmendmentIntentEntity } = require('./entity/PolicyAmendmentIntentEntity')
 const { PolicyImportIntentEntity } = require('./entity/PolicyImportIntentEntity')
 const { ProviderEntity } = require('./entity/ProviderEntity')
-const { ReplayEntity } = require('./entity/ReplayEntity')
 const { WebhookEndpointEntity } = require('./entity/WebhookEndpointEntity')
 const { WebhookEndpointResponsePagedListEntity } = require('./entity/WebhookEndpointResponsePagedListEntity')
 
@@ -662,15 +661,6 @@ class KotaSDK {
   Provider(entopts) {
     const self = this
     return new ProviderEntity(self, entopts)
-  }
-
-
-  // Entity access: `client.Replay().list()` / `client.Replay().load({ id })`.
-  // The argument is the entity OPTIONS object (passed to the entity
-  // constructor as entopts), not initial entity data.
-  Replay(entopts) {
-    const self = this
-    return new ReplayEntity(self, entopts)
   }
 
 

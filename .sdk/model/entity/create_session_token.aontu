@@ -1,0 +1,55 @@
+# Entity: create_session_token
+
+main: kit: entity: create_session_token: {
+
+  alias: field: {}
+
+  fields: {
+    expiry: {
+      fo: "date-time"
+      h: "Expiry"
+      n: "expiry"
+      r: true
+      t: "`$STRING`"
+    }
+    token: {
+      h: "Token"
+      n: "token"
+      r: true
+      t: "`$STRING`"
+    }
+  }
+
+  name: "create_session_token"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /embed/sessions"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/embed/sessions"
+          s: [
+            {
+              lit: "embed"
+            }
+            {
+              lit: "sessions"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

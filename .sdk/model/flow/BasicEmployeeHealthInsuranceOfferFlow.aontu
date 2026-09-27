@@ -1,0 +1,33 @@
+# BasicEmployeeHealthInsuranceOfferFlow
+
+main: kit: flow: BasicEmployeeHealthInsuranceOfferFlow:
+{
+  entity: "employee_health_insurance_offer",
+  kind: "basic",
+  name: "BasicEmployeeHealthInsuranceOfferFlow",
+  step: [
+    {
+      i: {
+        ref: "employee_health_insurance_offer_ref01",
+        srcdatavar: "employee_health_insurance_offer_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        employee_id: "employee01",
+        id: "employee_health_insurance_offer01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-employee_health_insurance_offer_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEmployeeHealthInsuranceOfferFlow"
+}

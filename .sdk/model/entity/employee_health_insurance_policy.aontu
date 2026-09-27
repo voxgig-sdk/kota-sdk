@@ -1,0 +1,236 @@
+# Entity: employee_health_insurance_policy
+
+main: kit: entity: employee_health_insurance_policy: {
+
+  alias: field: {}
+
+  fields: {
+    cancellation_date: {
+      fo: "date"
+      h: "Cancellation Date"
+      n: "cancellation_date"
+      r: false
+      sh: "Policy was cancelled on this date, if cancellation occured"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    coverage_level: {
+      h: "Coverage Level"
+      n: "coverage_level"
+      r: true
+      sh: "Represents the current coverage level for the policy"
+      t: "`$ANY`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "The Id of the employee for which the policy is created"
+      t: "`$STRING`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "The Id of the employer for which the policy is created"
+      t: "`$STRING`"
+    }
+    end_date: {
+      fo: "date"
+      h: "End Date"
+      n: "end_date"
+      r: true
+      sh: "Policy ends on this date"
+      t: "`$STRING`"
+    }
+    enrolled_dependants_count: {
+      fo: "int32"
+      h: "Enrolled Dependants Count"
+      n: "enrolled_dependants_count"
+      r: true
+      sh: "Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy."
+      t: "`$INTEGER`"
+    }
+    enrolment_type: {
+      h: "Enrolment Type"
+      n: "enrolment_type"
+      r: true
+      sh: "Enrolment type of the policy"
+      t: "`$ANY`"
+    }
+    estimated_gross_premium: {
+      h: "Estimated Gross Premium"
+      n: "estimated_gross_premium"
+      r: true
+      sh: "Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration."
+      t: "`$ANY`"
+    }
+    external_customer_id: {
+      h: "External Customer Id"
+      n: "external_customer_id"
+      r: false
+      sh: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for policy"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    opt_out_deadline_date: {
+      fo: "date"
+      h: "Opt Out Deadline Date"
+      n: "opt_out_deadline_date"
+      r: true
+      sh: "Last day to opt out from the policy"
+      t: "`$STRING`"
+    }
+    policy_number: {
+      h: "Policy Number"
+      n: "policy_number"
+      r: false
+      sh: "Health insurance policy number, if available"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    renewal: {
+      h: "Renewal"
+      n: "renewal"
+      r: true
+      sh: "Renewal information for the policy"
+      t: "`$ANY`"
+    }
+    start_date: {
+      fo: "date"
+      h: "Start Date"
+      n: "start_date"
+      r: true
+      sh: "Policy starts on this date"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of policy"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employee_health_insurance_policy"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employees/{employee_id}/health_insurance/policies/{employee_policy_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employee_id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "eehp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employees/{employee_id}/health_insurance/policies/{employee_policy_id}"
+          q: {
+            exist: [
+              "employee_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_policy_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employees"
+            }
+            {
+              var: "employee_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.employee")]
+  ]
+
+}

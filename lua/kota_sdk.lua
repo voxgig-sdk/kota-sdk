@@ -871,20 +871,6 @@ function KotaSDK:Provider(data)
 end
 
 
--- Idiomatic facade: client:Replay():list() / client:Replay():load({ id = ... })
--- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function KotaSDK:Replay(data)
-  local EntityMod = require("entity.replay_entity")
-  if data == nil then
-    if self._replay == nil then
-      self._replay = EntityMod.new(self, nil)
-    end
-    return self._replay
-  end
-  return EntityMod.new(self, data)
-end
-
-
 -- Idiomatic facade: client:WebhookEndpoint():list() / client:WebhookEndpoint():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
 function KotaSDK:WebhookEndpoint(data)

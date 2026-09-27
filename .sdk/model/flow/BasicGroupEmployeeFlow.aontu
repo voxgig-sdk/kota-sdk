@@ -1,0 +1,22 @@
+# BasicGroupEmployeeFlow
+
+main: kit: flow: BasicGroupEmployeeFlow:
+{
+  entity: "group_employee",
+  kind: "basic",
+  name: "BasicGroupEmployeeFlow",
+  step: [
+    {
+      i: {
+        ref: "group_employee_ref01"
+      }
+
+      m: {
+        group_id: "group01"
+      }
+
+      o: "create"
+    }
+  ],
+  "key$": "BasicGroupEmployeeFlow"
+}

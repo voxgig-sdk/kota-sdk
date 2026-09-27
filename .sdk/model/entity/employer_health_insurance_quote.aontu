@@ -1,0 +1,151 @@
+# Entity: employer_health_insurance_quote
+
+main: kit: entity: employer_health_insurance_quote: {
+
+  alias: field: {}
+
+  fields: {
+    coverage_levels: {
+      h: "Coverage Levels"
+      n: "coverage_levels"
+      r: true
+      sh: "List of levels covered under the policy, each item representing details about the plan’s cover."
+      t: "`$ARRAY`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "The Id of the employer for which the is created"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the quote"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    quoted_at: {
+      fo: "date-time"
+      h: "Quoted At"
+      n: "quoted_at"
+      r: true
+      sh: "Date and time the quote was created at"
+      t: "`$STRING`"
+    }
+    required_action: {
+      h: "Required Action"
+      n: "required_action"
+      r: false
+      sh: "Actions required by the employer to proceed with the quote."
+      t: "`$NULL`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the quote"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employer_health_insurance_quote"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employers/{employer_id}/health_insurance/quotes/{employer_quote_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employer_id"
+                or: "employer_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employer_quote_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}"
+          q: {
+            exist: [
+              "employer_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employer_quote_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "employer_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "quotes"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.employer")]
+  ]
+
+}

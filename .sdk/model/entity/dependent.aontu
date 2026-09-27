@@ -1,0 +1,238 @@
+# Entity: dependent
+
+main: kit: entity: dependent: {
+
+  alias: field: {}
+
+  fields: {
+    action_required: {
+      h: "Action Required"
+      n: "action_required"
+      r: false
+      sh: "Details of the action required from the caller."
+      t: "`$NULL`"
+    }
+    coverage_options: {
+      h: "Coverage Options"
+      n: "coverage_options"
+      r: false
+      sh: "Available member-scoped coverage options for the plan."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    dependents: {
+      h: "Dependents"
+      n: "dependents"
+      r: true
+      sh: "List of dependents being managed."
+      t: "`$ARRAY`"
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this intent."
+      t: "`$ARRAY`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the dependents management intent."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier."
+      t: "`$STRING`"
+    }
+    parent_intent_id: {
+      h: "Parent Intent Id"
+      n: "parent_intent_id"
+      r: true
+      sh: "The parent intent ID (e.g."
+      t: "`$STRING`"
+    }
+    parent_intent_type: {
+      h: "Parent Intent Type"
+      n: "parent_intent_type"
+      r: true
+      sh: "The type of parent intent."
+      t: "`$ANY`"
+    }
+    plan: {
+      h: "Plan"
+      n: "plan"
+      r: true
+      sh: "Plan information including pricing details."
+      t: "`$ANY`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the dependents management intent."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "dependent"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /dependents_management_intents/{dependents_management_intent_id}/dependents"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "dependents_management_intent_id"
+                or: "dependents_management_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/dependents_management_intents/{dependents_management_intent_id}/dependents"
+          q: {
+            exist: [
+              "dependents_management_intent_id"
+              "idempotency_key"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "dependents_management_intent_id"
+            }
+            {
+              lit: "dependents"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "dmi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "dependents_management_intent_id"
+                or: "dependents_management_intent_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ap_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "associated_person_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/dependents_management_intents/{dependents_management_intent_id}/dependents/{associated_person_id}"
+          q: {
+            exist: [
+              "dependents_management_intent_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              associated_person_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "dependents_management_intents"
+            }
+            {
+              var: "dependents_management_intent_id"
+            }
+            {
+              lit: "dependents"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.dependents_management_intent")]
+  ]
+
+}

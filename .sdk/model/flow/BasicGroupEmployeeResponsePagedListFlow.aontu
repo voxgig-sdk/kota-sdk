@@ -1,0 +1,26 @@
+# BasicGroupEmployeeResponsePagedListFlow
+
+main: kit: flow: BasicGroupEmployeeResponsePagedListFlow:
+{
+  entity: "group_employee_response_paged_list",
+  kind: "basic",
+  name: "BasicGroupEmployeeResponsePagedListFlow",
+  step: [
+    {
+      m: {
+        group_id: "group01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "group_employee_response_paged_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGroupEmployeeResponsePagedListFlow"
+}

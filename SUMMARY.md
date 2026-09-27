@@ -6,7 +6,7 @@ The Kota API.
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 40 entities and 85 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 39 entities and 85 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
@@ -73,6 +73,10 @@ Key fields to recognise:
 Results: OK.
 
 SDK operations: `list`.
+
+Key fields to recognise:
+
+- `id`: Unique identifier for the contribution entry
 
 ### [CreateHostedSessionToken](docs/api/create_hosted_session_token.html)
 
@@ -285,11 +289,15 @@ Results: OK.
 
 SDK operations: `list`.
 
+Key fields to recognise:
+
+- `id`: Unique identifier for the requirement
+
 ### [Event](docs/api/event.html)
 
 Results: OK.
 
-SDK operations: `list`, `load`.
+SDK operations: `create`, `list`, `load`.
 
 ### [Group](docs/api/group.html)
 
@@ -325,6 +333,10 @@ Results: OK.
 
 SDK operations: `list`.
 
+Key fields to recognise:
+
+- `id`: Unique identifier for the employee.
+
 ### [GroupPolicy](docs/api/group_policy.html)
 
 Results: OK.
@@ -359,6 +371,10 @@ Results: OK.
 
 SDK operations: `list`.
 
+Key fields to recognise:
+
+- `id`: Unique identifier for the requirement
+
 ### [GroupQuote](docs/api/group_quote.html)
 
 Results: OK.
@@ -392,6 +408,10 @@ Key fields to recognise:
 Results: OK.
 
 SDK operations: `list`.
+
+Key fields to recognise:
+
+- `id`: Unique identifier for the requirement
 
 ### [Plan](docs/api/plan.html)
 
@@ -462,12 +482,6 @@ Key fields to recognise:
 - `id`: Unique identifier for the provider. Prefixed with `pr_`.
 - `kota_hub_url`: URL to the Kota Hub page for this platform, if configured.
 - `logo_url`: URL to the provider&#39;s logo image.
-
-### [Replay](docs/api/replay.html)
-
-Results: OK.
-
-SDK operations: `create`.
 
 ### [WebhookEndpoint](docs/api/webhook_endpoint.html)
 
@@ -551,6 +565,7 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | [EnrolmentIntent](docs/api/enrolment_intent.html) | `load` | `GET /enrolment_intents/{enrolment_intent_id}` | Required |
 | [EnrolmentIntent](docs/api/enrolment_intent.html) | `update` | `PUT /enrolment_intents/{enrolment_intent_id}` | Required |
 | [EnrolmentIntentRequirementResponsePagedList](docs/api/enrolment_intent_requirement_response_paged_list.html) | `list` | `GET /enrolment_intents/{enrolment_intent_id}/requirements` | Required |
+| [Event](docs/api/event.html) | `create` | `POST /events/{event_id}/replay` | Required |
 | [Event](docs/api/event.html) | `list` | `GET /events` | Required |
 | [Event](docs/api/event.html) | `load` | `GET /events/{event_id}` | Required |
 | [Group](docs/api/group.html) | `create` | `POST /groups` | Required |
@@ -585,7 +600,6 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | [PolicyImportIntent](docs/api/policy_import_intent.html) | `load` | `GET /policy_import_intents/{policy_import_intent_id}` | Required |
 | [Provider](docs/api/provider.html) | `list` | `GET /providers` | Required |
 | [Provider](docs/api/provider.html) | `load` | `GET /providers/{provider_id}` | Required |
-| [Replay](docs/api/replay.html) | `create` | `POST /events/{event_id}/replay` | Required |
 | [WebhookEndpoint](docs/api/webhook_endpoint.html) | `load` | `GET /webhooks/endpoints/{webhook_endpoint_id}` | Required |
 | [WebhookEndpointResponsePagedList](docs/api/webhook_endpoint_response_paged_list.html) | `list` | `GET /webhooks/endpoints` | Required |
 

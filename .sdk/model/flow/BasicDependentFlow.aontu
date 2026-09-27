@@ -1,0 +1,36 @@
+# BasicDependentFlow
+
+main: kit: flow: BasicDependentFlow:
+{
+  entity: "dependent",
+  kind: "basic",
+  name: "BasicDependentFlow",
+  step: [
+    {
+      i: {
+        ref: "dependent_ref01"
+      }
+
+      m: {
+        dependents_management_intent_id: "dependents_management_intent01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "dependent_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        dependents_management_intent_id: "dependents_management_intent01",
+        id: "dependent01"
+      }
+
+      o: "remove"
+    }
+  ],
+  "key$": "BasicDependentFlow"
+}

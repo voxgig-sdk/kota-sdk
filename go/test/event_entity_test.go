@@ -80,7 +80,7 @@ func TestEventEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list", "load"} {
+		for _, _op := range []string{"create", "list", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "event." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -97,27 +97,39 @@ func TestEventEntity(t *testing.T) {
 		}
 		client := setup.client
 
-		// Bootstrap entity data from existing test data (no create step in flow).
-		eventRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.event")))
-		var eventRef01Data map[string]any
-		if len(eventRef01DataRaw) > 0 {
-			eventRef01Data = core.ToMapAny(eventRef01DataRaw[0][1])
+		// CREATE
+		eventRef01Ent := client.Event(nil)
+		eventRef01Data := core.ToMapAny(vs.GetProp(
+			vs.GetPath(setup.data, []any{"new", "event"}), "event_ref01"))
+		eventRef01Data["event_id"] = setup.idmap["event01"]
+
+		eventRef01DataResult, err := eventRef01Ent.Create(eventRef01Data, nil)
+		if err != nil {
+			t.Fatalf("create failed: %v", err)
 		}
-		// Discard guards against Go's unused-var check when the flow's steps
-		// happen not to consume the bootstrap data (e.g. list-only flows).
-		_ = eventRef01Data
+		eventRef01Data = core.ToMapAny(entityData(eventRef01DataResult))
+		if eventRef01Data == nil {
+			t.Fatal("expected create result to be a map")
+		}
+		if eventRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
-		eventRef01Ent := client.Event(nil)
 		eventRef01Match := map[string]any{}
 
 		eventRef01ListResult, err := eventRef01Ent.List(eventRef01Match, nil)
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, eventRef01ListOk := eventRef01ListResult.([]any)
+		eventRef01List, eventRef01ListOk := eventRef01ListResult.([]any)
 		if !eventRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", eventRef01ListResult)
+		}
+
+		foundItem := vs.Select(entityListToData(eventRef01List), map[string]any{"id": eventRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
 		}
 
 		// LOAD

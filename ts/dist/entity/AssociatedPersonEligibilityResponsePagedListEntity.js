@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssociatedPersonEligibilityResponsePagedListEntity = void 0;
 const KotaEntityBase_1 = require("../KotaEntityBase");
-// TODO: needs Entity superclass
 class AssociatedPersonEligibilityResponsePagedListEntity extends KotaEntityBase_1.KotaEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

@@ -1,0 +1,201 @@
+# Entity: employer_health_insurance_policy
+
+main: kit: entity: employer_health_insurance_policy: {
+
+  alias: field: {}
+
+  fields: {
+    cancellation_date: {
+      fo: "date"
+      h: "Cancellation Date"
+      n: "cancellation_date"
+      r: false
+      sh: "Policy was cancelled on this date, if cancellation occured"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    coverage_levels: {
+      h: "Coverage Levels"
+      n: "coverage_levels"
+      r: true
+      sh: "Represents the available coverage levels for this policy"
+      t: "`$ARRAY`"
+    }
+    employer_cancellation_period_length: {
+      fo: "int32"
+      h: "Employer Cancellation Period Length"
+      n: "employer_cancellation_period_length"
+      r: true
+      sh: "How many days the employer has to cancel the policy since the policy starts"
+      t: "`$INTEGER`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "The Id of the employer for which the policy is created"
+      t: "`$STRING`"
+    }
+    end_date: {
+      fo: "date"
+      h: "End Date"
+      n: "end_date"
+      r: true
+      sh: "Policy ends on this date"
+      t: "`$STRING`"
+    }
+    enrolment_type: {
+      h: "Enrolment Type"
+      n: "enrolment_type"
+      r: true
+      sh: "Enrolment type of the policy"
+      t: "`$ANY`"
+    }
+    group_policy_number: {
+      h: "Group Policy Number"
+      n: "group_policy_number"
+      r: false
+      sh: "Group’s health insurance policy number, if available"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for policy"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    renewal: {
+      h: "Renewal"
+      n: "renewal"
+      r: true
+      sh: "Renewal information for the policy"
+      t: "`$ANY`"
+    }
+    start_date: {
+      fo: "date"
+      h: "Start Date"
+      n: "start_date"
+      r: true
+      sh: "Policy starts on this date"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of policy"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "employer_health_insurance_policy"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /employers/{employer_id}/health_insurance/policies/{employer_policy_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "employer_id"
+                or: "employer_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "erhp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employer_policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/employers/{employer_id}/health_insurance/policies/{employer_policy_id}"
+          q: {
+            exist: [
+              "employer_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employer_policy_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "employers"
+            }
+            {
+              var: "employer_id"
+            }
+            {
+              lit: "health_insurance"
+            }
+            {
+              lit: "policies"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.employer")]
+  ]
+
+}

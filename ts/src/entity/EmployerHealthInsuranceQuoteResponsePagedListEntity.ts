@@ -19,7 +19,6 @@ import type {
   EmployerHealthInsuranceQuoteResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class EmployerHealthInsuranceQuoteResponsePagedListEntity extends KotaEntityBase<EmployerHealthInsuranceQuoteResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

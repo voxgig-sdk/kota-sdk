@@ -39,7 +39,6 @@
     "docs/api/policy_amendment_intent.html",
     "docs/api/policy_import_intent.html",
     "docs/api/provider.html",
-    "docs/api/replay.html",
     "docs/api/webhook_endpoint.html",
     "docs/api/webhook_endpoint_response_paged_list.html",
     "docs/features/debug.html",

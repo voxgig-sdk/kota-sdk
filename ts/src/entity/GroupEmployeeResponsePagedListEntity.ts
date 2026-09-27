@@ -19,7 +19,6 @@ import type {
   GroupEmployeeResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class GroupEmployeeResponsePagedListEntity extends KotaEntityBase<GroupEmployeeResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

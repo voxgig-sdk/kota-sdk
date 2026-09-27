@@ -1,0 +1,203 @@
+# Entity: contribution_report_employee_breakdown
+
+main: kit: entity: contribution_report_employee_breakdown: {
+
+  alias: field: {}
+
+  fields: {
+    contribution_report_id: {
+      h: "Contribution Report Id"
+      n: "contribution_report_id"
+      r: true
+      sh: "Unique identifier of the related contribution report"
+      t: "`$STRING`"
+    }
+    created_at: {
+      fo: "date-time"
+      h: "Created At"
+      n: "created_at"
+      r: true
+      sh: "Date and time the breakdown was created"
+      t: "`$STRING`"
+    }
+    currency: {
+      h: "Currency"
+      n: "currency"
+      r: true
+      sh: "The currency in which all the amounts in this breakdown are presented (e.g."
+      t: "`$ANY`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "Unique identifier of the employee for which the breakdown is created"
+      t: "`$STRING`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      sh: "Unique identifier of the employer for which the breakdown is created"
+      t: "`$STRING`"
+    }
+    external_customer_id: {
+      h: "External Customer Id"
+      n: "external_customer_id"
+      r: false
+      sh: "Unique identifier of the customer for which the breakdown is created."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    finalized_at: {
+      fo: "date-time"
+      h: "Finalized At"
+      n: "finalized_at"
+      r: false
+      sh: "Date and time the breakdown was finalized, if applicable"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    health_insurance: {
+      h: "Health Insurance"
+      n: "health_insurance"
+      r: true
+      sh: "Health insurance contribution details"
+      t: "`$ANY`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    last_updated_at: {
+      fo: "date-time"
+      h: "Last Updated At"
+      n: "last_updated_at"
+      r: true
+      sh: "Date and time of the last update to the breakdown"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    period: {
+      h: "Period"
+      n: "period"
+      r: true
+      sh: "Period covered by the employee breakdown"
+      t: "`$ANY`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current status of the breakdown"
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "contribution_report_employee_breakdown"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "ctr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "contribution_report_id"
+                or: "contribution_report_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "employee_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/contribution_reports/{contribution_report_id}/employee_breakdowns/{employee_id}"
+          q: {
+            exist: [
+              "contribution_report_id"
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              employee_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "contribution_reports"
+            }
+            {
+              var: "contribution_report_id"
+            }
+            {
+              lit: "employee_breakdowns"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.contribution_report")]
+  ]
+
+}

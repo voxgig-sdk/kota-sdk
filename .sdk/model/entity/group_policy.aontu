@@ -1,0 +1,269 @@
+# Entity: group_policy
+
+main: kit: entity: group_policy: {
+
+  alias: field: {}
+
+  fields: {
+    cancellation_date: {
+      fo: "date"
+      h: "Cancellation Date"
+      n: "cancellation_date"
+      r: false
+      sh: "Policy cancellation date (inclusive) in ISO 8610 (YYYY-MM-DD), or null if not applicable."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    disclosures: {
+      h: "Disclosures"
+      n: "disclosures"
+      r: true
+      sh: "Disclosures associated with this group policy."
+      t: "`$ARRAY`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: false
+      sh: "Identifier for the employer associated with this group policy."
+      t: "`$STRING`"
+    }
+    end_date: {
+      fo: "date"
+      h: "End Date"
+      n: "end_date"
+      r: false
+      sh: "Policy end date (inclusive) in ISO 8601 (YYYY-MM-DD), or null if open-ended."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    group_id: {
+      h: "Group Id"
+      n: "group_id"
+      r: false
+      sh: "Identifier for the group associated with this group policy."
+      t: "`$STRING`"
+    }
+    health_insurance: {
+      h: "Health Insurance"
+      n: "health_insurance"
+      r: false
+      sh: "Health insurance–specific fields (present when `type=health_insurance`)."
+      t: "`$NULL`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the group policy."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "The object type"
+      t: "`$STRING`"
+    }
+    plan: {
+      h: "Plan"
+      n: "plan"
+      r: true
+      sh: "Plan information for this policy"
+      t: "`$ANY`"
+    }
+    provider: {
+      h: "Provider"
+      n: "provider"
+      r: true
+      sh: "Provider information for this policy."
+      t: "`$ANY`"
+    }
+    start_date: {
+      fo: "date"
+      h: "Start Date"
+      n: "start_date"
+      r: true
+      sh: "Policy start (effective) date in ISO 8601 (YYYY-MM-DD)."
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Current lifecycle state of the `group_policy`, indicating its progress from creation to activation."
+      t: "`$ANY`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: true
+      sh: "Policy type."
+      t: "`$ANY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "group_policy"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /group_policies"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "employer_id"
+                or: "employer_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "query"
+                n: "group_id"
+                or: "group_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_policies"
+          q: {
+            exist: [
+              "employer_id"
+              "group_id"
+              "page"
+              "page_size"
+              "status"
+              "x_platform_id"
+            ]
+          }
+          s: [
+            {
+              lit: "group_policies"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /group_policies/{group_policy_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "x_platform_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                ex: "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                k: "param"
+                n: "id"
+                or: "group_policy_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/group_policies/{group_policy_id}"
+          q: {
+            exist: [
+              "id"
+              "x_platform_id"
+            ]
+          }
+          r: {
+            param: {
+              group_policy_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "group_policies"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

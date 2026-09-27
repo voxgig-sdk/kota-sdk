@@ -19,7 +19,6 @@ import type {
   AssociatedPersonEligibilityResponsePagedListListMatch,
 } from '../KotaTypes'
 
-// TODO: needs Entity superclass
 class AssociatedPersonEligibilityResponsePagedListEntity extends KotaEntityBase<AssociatedPersonEligibilityResponsePagedList> {
 
   constructor(client: KotaSDK, entopts: any) {

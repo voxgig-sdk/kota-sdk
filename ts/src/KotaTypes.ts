@@ -1,7 +1,7 @@
 // Typed models for the Kota SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
@@ -676,6 +676,24 @@ export interface EventListMatch {
   version?: any
 }
 
+export interface EventCreateData {
+  id: string
+  api_version?: string
+  created: string
+  data: null
+  options?: null
+  parent?: null
+  platform_id: string
+  root?: any
+  type: string
+
+  // Selects a custom action instead of the plain create:
+  //   'replay'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
+}
+
 export interface Group {
   description?: null | string
   employer_id: string
@@ -1104,16 +1122,6 @@ export interface ProviderListMatch {
   country?: any
   page?: number
   page_size?: number
-}
-
-export interface Replay {
-  deliveries: any[]
-  event_id: string
-}
-
-export interface ReplayCreateData {
-  event_id: string
-  deliveries: any[]
 }
 
 export interface WebhookEndpoint {

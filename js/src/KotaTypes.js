@@ -1,7 +1,7 @@
 // Typed models for the Kota SDK (JSDoc typedefs).
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 // edit by hand.
@@ -700,6 +700,19 @@
  */
 
 /**
+ * @typedef {Object} EventCreateData
+ * @property {string} id
+ * @property {string} [api_version]
+ * @property {string} created
+ * @property {null} data
+ * @property {null} [options]
+ * @property {null} [parent]
+ * @property {string} platform_id
+ * @property {*} [root]
+ * @property {string} type
+ */
+
+/**
  * @typedef {Object} Group
  * @property {null|string} [description]
  * @property {string} employer_id
@@ -1140,18 +1153,6 @@
  * @property {*} [country]
  * @property {number} [page]
  * @property {number} [page_size]
- */
-
-/**
- * @typedef {Object} Replay
- * @property {Array} deliveries
- * @property {string} event_id
- */
-
-/**
- * @typedef {Object} ReplayCreateData
- * @property {string} event_id
- * @property {Array} deliveries
  */
 
 /**
