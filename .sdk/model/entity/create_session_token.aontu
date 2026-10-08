@@ -5,12 +5,43 @@ main: kit: entity: create_session_token: {
   alias: field: {}
 
   fields: {
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: false
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      t: "`$STRING`"
+    }
     expiry: {
       fo: "date-time"
       h: "Expiry"
       n: "expiry"
       r: true
       t: "`$STRING`"
+    }
+    external_customer_id: {
+      h: "External Customer Id"
+      n: "external_customer_id"
+      r: false
+      sh: "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
     }
     token: {
       h: "Token"
@@ -26,6 +57,11 @@ main: kit: entity: create_session_token: {
       name: "create"
       points: [
         {
+          bf: [
+            "employee_id"
+            "employer_id"
+            "external_customer_id"
+          ]
           co: {
             id: "POST /embed/sessions"
             source: "openapi3"
@@ -33,6 +69,10 @@ main: kit: entity: create_session_token: {
           }
           m: "POST"
           o: "/embed/sessions"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "embed"

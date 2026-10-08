@@ -9,9 +9,19 @@ import pytest
 from kota_sdk.utility.voxgig_struct import voxgig_struct as vs
 from kota_sdk import KotaSDK
 from kota_sdk.core import helpers
+from kota_sdk.config import shared_config
+from kota_sdk.feature.base_feature import KotaBaseFeature
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
+
+
+
+# main.kit.test.live.strict is true (the default is true): a live
+# request that fails, or a live test missing an input it needs,
+# fails the test.
+# An account with no record for a test to read skips it either way.
+LIVE_STRICT = True
 
 
 class TestPolicyAmendmentIntentEntity:
@@ -21,39 +31,14 @@ class TestPolicyAmendmentIntentEntity:
         ent = testsdk.PolicyAmendmentIntent(None)
         assert ent is not None
 
-    def test_should_stream(self):
-        # Feature #4: the entity stream(action, ...) method runs the op
-        # pipeline and yields result items. With the streaming feature active
-        # it yields the feature's incremental output; otherwise it falls back
-        # to the materialised list so stream always yields.
-        seed = {
-            "entity": {
-                "policy_amendment_intent": {
-                    "s1": {"id": "s1"},
-                    "s2": {"id": "s2"},
-                    "s3": {"id": "s3"},
-                }
-            }
-        }
-
-        # Fallback: streaming inactive -> yields the materialised list items.
-        base = KotaSDK.test(seed, None)
-        seen = list(base.PolicyAmendmentIntent(None).stream("list", None, None))
-        assert len(seen) == 3
-
-        # Inbound: streaming active -> yields each item from the feature.
-        from kota_sdk.config import shared_config
-        cfg = shared_config()
-        if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
-            sdk = KotaSDK.test(
-                seed, {"feature": {"streaming": {"active": True}}})
-            got = []
-            for item in sdk.PolicyAmendmentIntent(None).stream("list", None, None):
-                if isinstance(item, list):
-                    got.extend(item)
-                else:
-                    got.append(item)
-            assert len(got) == 3
+    def test_should_refuse_an_invalid_request(self):
+        if "validate" not in (shared_config().get("feature") or {}):
+            pytest.skip("feature not present in this SDK: validate")
+        client = KotaSDK.test(
+            None, {"feature": {"validate": {"active": True}}})
+        with pytest.raises(Exception) as err:
+            client.PolicyAmendmentIntent(None).list({"id": 1}, None)
+        assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
         setup = _policy_amendment_intent_basic_setup(None)
@@ -61,42 +46,24 @@ class TestPolicyAmendmentIntentEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load"]:
+        for _op in ["load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "policy_amendment_intent." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
-        # The basic flow consumes synthetic IDs from the fixture. In live mode
-        # without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if setup.get("synthetic_only"):
-            pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set KOTA_TEST_POLICY_AMENDMENT_INTENT_ENTID JSON to run live")
+        if setup["live"]:
+            runner.live_miss(LIVE_STRICT, "Live entity test blocked: " + "the flow loads a policy_amendment_intent record it has no list to find")
         client = setup["client"]
 
-        # CREATE
-        policy_amendment_intent_ref01_ent = client.PolicyAmendmentIntent(None)
-        policy_amendment_intent_ref01_data = helpers.to_map(vs.getprop(
-            vs.getpath(setup["data"], "new.policy_amendment_intent"), "policy_amendment_intent_ref01"))
-        policy_amendment_intent_ref01_data["policy_id"] = setup["idmap"]["policy01"]
-
-        policy_amendment_intent_ref01_data = helpers.to_map(runner.entity_data(policy_amendment_intent_ref01_ent.create(policy_amendment_intent_ref01_data, None)))
-        assert policy_amendment_intent_ref01_data is not None
-        assert policy_amendment_intent_ref01_data["id"] is not None
-
-        # LIST
-        policy_amendment_intent_ref01_match = {
-            "policy_id": setup["idmap"]["policy01"],
-        }
-
-        policy_amendment_intent_ref01_list_result = policy_amendment_intent_ref01_ent.list(policy_amendment_intent_ref01_match, None)
-        assert isinstance(policy_amendment_intent_ref01_list_result, list)
-
-        found_item = vs.select(
-            runner.entity_list_to_data(policy_amendment_intent_ref01_list_result),
-            {"id": policy_amendment_intent_ref01_data["id"]})
-        assert not vs.isempty(found_item)
+        # Bootstrap entity data from existing test data.
+        policy_amendment_intent_ref01_data_raw = vs.items(helpers.to_map(
+            vs.getpath(setup["data"], "existing.policy_amendment_intent")))
+        policy_amendment_intent_ref01_data = None
+        if len(policy_amendment_intent_ref01_data_raw) > 0:
+            policy_amendment_intent_ref01_data = helpers.to_map(policy_amendment_intent_ref01_data_raw[0][1])
 
         # LOAD
+        policy_amendment_intent_ref01_ent = client.PolicyAmendmentIntent(None)
         policy_amendment_intent_ref01_match_dt0 = {
             "id": policy_amendment_intent_ref01_data["id"],
         }
@@ -111,7 +78,7 @@ def _policy_amendment_intent_basic_setup(extra):
     runner.load_env_local()
 
     entity_data_file = os.path.join(_TEST_DIR, "../../.sdk/test/entity/policy_amendment_intent/PolicyAmendmentIntentTestData.json")
-    with open(entity_data_file, "r") as f:
+    with open(entity_data_file, "r", encoding="utf-8") as f:
         entity_data_source = f.read()
 
     entity_data = json.loads(entity_data_source)
@@ -132,9 +99,8 @@ def _policy_amendment_intent_basic_setup(extra):
         }
     )
 
-    # Detect ENTID env override before envOverride consumes it. When live
-    # mode is on without a real override, the basic test runs against synthetic
-    # IDs from the fixture and 4xx's. We surface this so the test can skip.
+    # Whether *_ENTID supplied the idmap, read before env_override consumes
+    # it: without it, the ids a live flow binds are the fixture's synthetic ones.
     _entid_env_raw = os.environ.get(
         "KOTA_TEST_POLICY_AMENDMENT_INTENT_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")

@@ -82,7 +82,7 @@ main: kit: entity: contribution_report: {
       n: "status"
       r: true
       sh: "Current status of the contribution report"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -107,7 +107,7 @@ main: kit: entity: contribution_report: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -129,13 +129,16 @@ main: kit: entity: contribution_report: {
             "$action": "finalize"
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               contribution_report_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -169,7 +172,7 @@ main: kit: entity: contribution_report: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -229,17 +232,9 @@ main: kit: entity: contribution_report: {
           }
           m: "GET"
           o: "/contribution_reports"
-          q: {
-            exist: [
-              "employer_id"
-              "external_customer_id"
-              "month"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
-              "year"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -267,7 +262,7 @@ main: kit: entity: contribution_report: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -288,13 +283,16 @@ main: kit: entity: contribution_report: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               contribution_report_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

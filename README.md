@@ -10,13 +10,13 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 > TypeScript, Python, PHP, Golang, Lua, JavaScript SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
+> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as **39 semantic entities** that you
+This SDK exposes the API as **38 semantic entities** that you
 call directly, instead of assembling URL paths and query strings. See the [Entities](#entities) table below for the full list. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`list`, `load`, `create`, `update`, `remove`):
@@ -42,23 +42,22 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = KotaSDK.test({
   entity: {
-    dependents_management_intent: {
-      test01: { id: 'test01', enrolment_intent_id: 'example_enrolment_intent_id', dependents: [], disclosures: [] },
+    group_quote_intent: {
+      test01: { id: 'test01', consent_links: [], disclosures: [], group_id: 'example_group_id' },
     },
   },
 })
-const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: 'test01' })
-// dependentsmanagementintent is the DependentsManagementIntent entity, populated with mock data
-// — call dependentsmanagementintent.data() for the record itself
-console.log(dependentsmanagementintent)
+const groupquoteintents = await client.GroupQuoteIntent().list()
+// groupquoteintents is an array of GroupQuoteIntent entities, one per mock record
+console.log(groupquoteintents.map((groupquoteintent) => groupquoteintent.data()))
 ```
 
 ### Python
 
 ```python
 client = KotaSDK.test()
-dependentsmanagementintent = client.DependentsManagementIntent().load({"id": "test01"})
-print(dependentsmanagementintent)
+groupquoteintents = client.GroupQuoteIntent().list()
+print([item.data_get() for item in groupquoteintents])
 ```
 
 ### PHP
@@ -66,17 +65,17 @@ print(dependentsmanagementintent)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = KotaSDK::test([
-    "entity" => ["dependentsmanagementintent" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["group_quote_intent" => ["test01" => ["id" => "test01"]]],
 ]);
-$dependentsmanagementintent = $client->DependentsManagementIntent()->load(["id" => "test01"]);
+$groupquoteintents = $client->GroupQuoteIntent()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.DependentsManagementIntent(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+result, err := client.GroupQuoteIntent(nil).List(
+    nil, nil,
 )
 ```
 
@@ -84,31 +83,30 @@ result, err := client.DependentsManagementIntent(nil).Load(
 
 ```lua
 local client = sdk.test()
-local result, err = client:DependentsManagementIntent():load({ id = "test01" })
+local results, err = client:GroupQuoteIntent():list()
 ```
 
 ### JavaScript
 
 ```js
 const client = KotaSDK.test()
-const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: 'test01' })
-// dependentsmanagementintent is the entity, populated with mock data
-// — call dependentsmanagementintent.data() for the record itself
-console.log(dependentsmanagementintent)
+const groupquoteintents = await client.GroupQuoteIntent().list()
+// groupquoteintents is an array of GroupQuoteIntent entities, one per mock record
+console.log(groupquoteintents.map((groupquoteintent) => groupquoteintent.data()))
 ```
 
 ## Packages
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
-| Python | `voxgig-sdk-kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
-| PHP | `voxgig-sdk/kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
+| TypeScript | `@voxgig-sdk/kota-sdk` | publish pending — [install from source](ts/README.md#install) |
+| Python | `voxgig-sdk-kota-sdk` | publish pending — [install from source](py/README.md#install) |
+| PHP | `voxgig-sdk/kota-sdk` | publish pending — [install from source](php/README.md#install) |
 | Golang | `github.com/voxgig-sdk/kota-sdk/go` | `go get github.com/voxgig-sdk/kota-sdk/go@latest` |
-| Lua | `voxgig-sdk-kota-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
-| JavaScript | `@voxgig-sdk/kota-sdk-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/kota-sdk/tags) |
-| Go CLI | `github.com/voxgig-sdk/kota-sdk/go-cli` | `go install github.com/voxgig-sdk/kota-sdk/go-cli/cmd/kota@latest` |
-| Go MCP server | `github.com/voxgig-sdk/kota-sdk/go-mcp` | `go get github.com/voxgig-sdk/kota-sdk/go-mcp@latest` |
+| Lua | `voxgig-sdk-kota-sdk` | publish pending — [install from source](lua/README.md#install) |
+| JavaScript | `@voxgig-sdk/kota-sdk-js` | publish pending — [install from source](js/README.md#install) |
+| Go CLI | `github.com/voxgig-sdk/kota-sdk/go-cli` | build from source — [go-cli/README.md](go-cli/README.md) |
+| Go MCP server | `github.com/voxgig-sdk/kota-sdk/go-mcp` | build from source — [go-mcp/README.md](go-mcp/README.md) |
 
 ## Quickstart
 
@@ -121,18 +119,18 @@ const client = new KotaSDK({
   apikey: process.env.KOTA_APIKEY,
 })
 
-// List all associatedpersons (returns AssociatedPersonEntity[] — .data() for the record)
+// List all associatedpersons (returns AssociatedPersonEntity[], one entity per record)
 const associatedpersons = await client.AssociatedPerson().list({ employee_id: "example" })
 for (const associatedperson of associatedpersons) {
-  console.log(associatedperson)
+  console.log(associatedperson.data())
 }
 
-// Load a specific associatedperson (returns a AssociatedPerson)
+// Load a specific associatedperson (returns the entity, an AssociatedPersonEntity)
 const associatedperson = await client.AssociatedPerson().load({
   employee_id: 'example_employee_id',
   id: 'example_id',
 })
-console.log(associatedperson)
+console.log(associatedperson.data())
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -147,9 +145,10 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 ## Use it from an AI agent (MCP)
 
-The generated MCP server exposes every operation in this SDK as an
-[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
-can call directly. Build and register it:
+The generated MCP server exposes this SDK's list and load operations as
+[MCP](https://modelcontextprotocol.io) tools that Claude, Cursor or Cline
+can call directly. It only reads: create, update, patch and remove become tools when the SDK's model sets
+`main: kit: target: 'go-mcp': tool: write: true`. Build and register it:
 
 ```bash
 cd go-mcp && go build -o kota-mcp .
@@ -169,7 +168,7 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 39 entities:
+The API exposes 38 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
@@ -210,8 +209,7 @@ The API exposes 39 entities:
 | **PolicyAmendmentIntent** | The PolicyAmendmentIntent entity (create, list, load). | `/policies/{policy_id}/policy_amendment_intents` |
 | **PolicyImportIntent** | The PolicyImportIntent entity (create, list, load). | `/policy_import_intents` |
 | **Provider** | The Provider entity (list, load). | `/providers` |
-| **WebhookEndpoint** | The WebhookEndpoint entity (load). | `/webhooks/endpoints/{webhook_endpoint_id}` |
-| **WebhookEndpointResponsePagedList** | The WebhookEndpointResponsePagedList entity (list). | `/webhooks/endpoints` |
+| **WebhookEndpoint** | The WebhookEndpoint entity (list, load). | `/webhooks/endpoints` |
 
 The operations available across these entities are **load**, **list**, **create**, **update**, **remove** — see each entity's
 own list above for exactly which it supports.
@@ -228,14 +226,14 @@ client = KotaSDK({
     "apikey": os.environ.get("KOTA_APIKEY"),
 })
 
-# List all associatedpersons (returns a list, raises on error)
+# List all associatedpersons (a list of entities, one per record; raises on error)
 associatedpersons = client.AssociatedPerson().list({"employee_id": "example"})
 for associatedperson in associatedpersons:
-    print(associatedperson)
+    print(associatedperson.data_get())
 
-# Load a specific associatedperson (returns the record, raises on error)
+# Load a specific associatedperson (returns the entity, raises on error)
 associatedperson = client.AssociatedPerson().load({"id": "example_id", "employee_id": "example_employee_id"})
-print(associatedperson)
+print(associatedperson.data_get())
 ```
 
 ### PHP
@@ -248,11 +246,11 @@ $client = new KotaSDK([
     "apikey" => getenv("KOTA_APIKEY"),
 ]);
 
-// List all associatedpersons (returns an array; throws on error)
-$associatedpersons = $client->AssociatedPerson()->list();
+// List all associatedpersons (an array of entities, one per record; throws on error)
+$associatedpersons = $client->AssociatedPerson()->list(["employee_id" => "example"]);
 print_r(array_map(fn($item) => $item->data_get(), $associatedpersons));
 
-// Load a specific associatedperson (returns the ENTITY; call data_get() for the record; throws on error)
+// Load a specific associatedperson (returns the entity; data_get() reads its record; throws on error)
 $associatedperson = $client->AssociatedPerson()->load(["id" => "example_id", "employee_id" => "example_employee_id"]);
 print_r($associatedperson->data_get());
 ```
@@ -266,39 +264,46 @@ client := sdk.NewKotaSDK(map[string]any{
     "apikey": os.Getenv("KOTA_APIKEY"),
 })
 
-// List all associatedpersons
-associatedPersons, err := client.AssociatedPerson(nil).List(nil, nil)
+// List all associatedpersons (one entity per record; err is non-nil on failure)
+associatedPersons, err := client.AssociatedPerson(nil).List(map[string]any{"employee_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(associatedPersons)
+for _, associatedPerson := range associatedPersons.([]any) {
+    fmt.Println(associatedPerson.(sdk.Entity).Data())
+}
 
-// Load a specific associatedperson
+// Load a specific associatedperson (returns the entity; err is non-nil on failure)
 associatedPerson, err := client.AssociatedPerson(nil).Load(
     map[string]any{"employee_id": "example_employee_id", "id": "example_id"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(associatedPerson)
+fmt.Println(associatedPerson.(sdk.Entity).Data())
 ```
 
 ### Lua
 
 ```lua
 local sdk = require("kota_sdk")
+local json = require("dkjson")
 
 local client = sdk.new({
   apikey = os.getenv("KOTA_APIKEY"),
 })
 
--- List all associatedpersons
-local associatedpersons, err = client:AssociatedPerson():list()
-print(associatedpersons)
+-- List all associatedpersons (an array of entities, one per record; err on failure)
+local associatedpersons, err = client:AssociatedPerson():list({ employee_id = "example" })
+if err then error(err) end
+for _, associatedperson in ipairs(associatedpersons) do
+  print(json.encode(associatedperson:data_get()))
+end
 
--- Load a specific associatedperson
+-- Load a specific associatedperson (returns the entity; err on failure)
 local associatedperson, err = client:AssociatedPerson():load({ id = "example_id", employee_id = "example_employee_id" })
-print(associatedperson)
+if err then error(err) end
+print(json.encode(associatedperson:data_get()))
 ```
 
 ### JavaScript
@@ -310,10 +315,10 @@ const client = new KotaSDK({
   apikey: process.env.KOTA_APIKEY,
 })
 
-// List all associatedpersons (returns an array)
+// List all associatedpersons (an array of entities, one per record)
 const associatedpersons = await client.AssociatedPerson().list({ employee_id: "example" })
 for (const associatedperson of associatedpersons) {
-  console.log(associatedperson)
+  console.log(associatedperson.data())
 }
 
 // Load a specific associatedperson (returns the entity)
@@ -321,7 +326,7 @@ const associatedperson = await client.AssociatedPerson().load({
   employee_id: 'example_employee_id',
   id: 'example_id',
 })
-console.log(associatedperson)
+console.log(associatedperson.data())
 ```
 
 ## Direct and prepare
@@ -347,10 +352,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 **Python:**
@@ -400,10 +404,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 ## Advanced
@@ -452,10 +455,12 @@ customizable without forking any upstream tool:
 - **Templates** (`.sdk/tm/`) and **components** (`.sdk/src/cmp/`) are
   the two layers of generation, copied into this repo: templates are the
   literal per-language source, components generate the API-shaped parts.
-- **Regeneration merges.** By default, newly generated content is
-  three-way merged into existing files, so generator updates and local
-  edits usually converge without manual conflict handling. A project can
-  opt for plain overwrite instead.
+- **Regeneration overwrites.** Each run rewrites every generated file from
+  the model, the templates and the components, so an edit made to
+  generated output is lost. Say what this project needs in its own model
+  (`.sdk/model/sdk.aontu`), or extend a target with a component of its
+  own in `.sdk/src/cmp/<target>/`, registered with `registerComponent`,
+  which `voxgig-sdkgen doctor` reports as an addition rather than drift.
 - **Custom features and entire custom targets** arrive through sdkgen
   packages (`voxgig-sdkgen package add`), on the same rails as the
   bundled languages, and `voxgig-sdkgen doctor` reports any drift from

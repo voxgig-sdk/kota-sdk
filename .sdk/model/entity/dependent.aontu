@@ -12,11 +12,31 @@ main: kit: entity: dependent: {
       sh: "Details of the action required from the caller."
       t: "`$NULL`"
     }
+    associated_person_ids: {
+      h: "Associated Person Ids"
+      n: "associated_person_ids"
+      r: true
+      sh: "List of associated person IDs to add as dependents."
+      t: "`$ARRAY`"
+    }
     coverage_options: {
       h: "Coverage Options"
       n: "coverage_options"
       r: false
       sh: "Available member-scoped coverage options for the plan."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    dependent_coverage_selections: {
+      h: "Dependent Coverage Selections"
+      n: "dependent_coverage_selections"
+      r: false
+      sh: "Optional coverage selections per dependent."
       t: [
         "`$ONE`"
         [
@@ -66,7 +86,7 @@ main: kit: entity: dependent: {
       n: "parent_intent_type"
       r: true
       sh: "The type of parent intent."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     plan: {
       h: "Plan"
@@ -80,7 +100,7 @@ main: kit: entity: dependent: {
       n: "status"
       r: true
       sh: "Current status of the dependents management intent."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -95,6 +115,10 @@ main: kit: entity: dependent: {
       name: "create"
       points: [
         {
+          bf: [
+            "associated_person_ids"
+            "dependent_coverage_selections"
+          ]
           co: {
             id: "POST /dependents_management_intents/{dependents_management_intent_id}/dependents"
             source: "openapi3"
@@ -105,14 +129,14 @@ main: kit: entity: dependent: {
               {
                 k: "header"
                 n: "idempotency_key"
-                or: "idempotency_key"
+                or: "Idempotency-Key"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -133,9 +157,11 @@ main: kit: entity: dependent: {
           q: {
             exist: [
               "dependents_management_intent_id"
-              "idempotency_key"
-              "x_platform_id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -169,7 +195,7 @@ main: kit: entity: dependent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -199,13 +225,16 @@ main: kit: entity: dependent: {
             exist: [
               "dependents_management_intent_id"
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               associated_person_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

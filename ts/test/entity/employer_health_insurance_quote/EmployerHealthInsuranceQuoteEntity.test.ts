@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { KotaSDK, BaseFeature, stdutil } from '../../..'
+import { KotaSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('EmployerHealthInsuranceQuoteEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = KotaSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.EmployerHealthInsuranceQuote().load({"employer_id":1,"id":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
@@ -51,7 +63,7 @@ describe('EmployerHealthInsuranceQuoteEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"coverage_levels":{"a":true,"h":"Coverage Levels","n":"coverage_levels","r":true,"sh":"List of levels covered under the policy, each item representing details about the plan’s cover.","t":"`$ARRAY`","key$":"coverage_levels","index$":0},"employer_id":{"a":true,"h":"Employer Id","n":"employer_id","r":true,"sh":"The Id of the employer for which the is created","t":"`$STRING`","key$":"employer_id","index$":1},"id":{"a":true,"h":"Id","n":"id","r":true,"sh":"Unique identifier for the quote","t":"`$STRING`","key$":"id","index$":2},"object":{"a":true,"h":"Object","n":"object","r":false,"ro":true,"sh":"The object type","t":"`$STRING`","key$":"object","index$":3},"quoted_at":{"a":true,"fo":"date-time","h":"Quoted At","n":"quoted_at","r":true,"sh":"Date and time the quote was created at","t":"`$STRING`","key$":"quoted_at","index$":4},"required_action":{"a":true,"h":"Required Action","n":"required_action","r":false,"sh":"Actions required by the employer to proceed with the quote.","t":"`$NULL`","key$":"required_action","index$":5},"status":{"a":true,"h":"Status","n":"status","r":true,"sh":"Current status of the quote","t":"`$ANY`","key$":"status","index$":6}},"id":{"field":"id","name":"id"},"name":"employer_health_insurance_quote","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /employers/{employer_id}/health_insurance/quotes/{employer_quote_id}","source":"openapi3","version":2},"g":{"header":[{"a":true,"k":"header","n":"x_platform_id","or":"x_platform_id","r":false,"t":"`$STRING`","index$":0}],"params":[{"a":true,"ex":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a","k":"param","n":"employer_id","or":"employer_id","r":true,"t":"`$STRING`","index$":0},{"a":true,"ex":"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a","k":"param","n":"id","or":"employer_quote_id","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}","q":{"exist":["employer_id","id","x_platform_id"]},"r":{"param":{"employer_quote_id":"id"}},"s":[{"lit":"employers"},{"var":"employer_id"},{"lit":"health_insurance"},{"lit":"quotes"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["$.main.kit.entity.employer"]]},"key$":"employer_health_insurance_quote","name__orig":"employer_health_insurance_quote","Name":"EmployerHealthInsuranceQuote","name_":"employer_health_insurance_quote","name-":"employer-health-insurance-quote","NAME":"EMPLOYER_HEALTH_INSURANCE_QUOTE","index$":18}, {"active":true,"entity":"employer_health_insurance_quote","key$":"BasicEmployerHealthInsuranceQuoteFlow","kind":"basic","name":"BasicEmployerHealthInsuranceQuoteFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"employer_health_insurance_quote_ref01","srcdatavar":"employer_health_insurance_quote_ref01_data","suffix":"_dt0"},"m":{"employer_id":"employer01","id":"employer_health_insurance_quote01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-employer_health_insurance_quote_ref01"}}],"index$":0}]}, 'EmployerHealthInsuranceQuote', {"GET /employers/{employer_id}/health_insurance/quotes/{employer_quote_id}":{"protocol":"http","parameters":[{"name":"employer_id","in":"path","required":true,"schema":{"pattern":"er_.+","type":"string","example":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"index$":0},{"name":"employer_quote_id","in":"path","required":true,"schema":{"pattern":"erhq_.+","type":"string","example":"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"index$":1},{"name":"X-Platform-Id","in":"header","description":"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.","schema":{"type":"string"},"index$":2}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"coverage_levels":{"a":true,"h":"Coverage Levels","n":"coverage_levels","r":true,"sh":"List of levels covered under the policy, each item representing details about the plan’s cover.","t":"`$ARRAY`","key$":"coverage_levels","index$":0},"employer_id":{"a":true,"h":"Employer Id","n":"employer_id","r":true,"sh":"The Id of the employer for which the is created","t":"`$STRING`","key$":"employer_id","index$":1},"id":{"a":true,"h":"Id","n":"id","r":true,"sh":"Unique identifier for the quote","t":"`$STRING`","key$":"id","index$":2},"object":{"a":true,"h":"Object","n":"object","r":false,"ro":true,"sh":"The object type","t":"`$STRING`","key$":"object","index$":3},"quoted_at":{"a":true,"fo":"date-time","h":"Quoted At","n":"quoted_at","r":true,"sh":"Date and time the quote was created at","t":"`$STRING`","key$":"quoted_at","index$":4},"required_action":{"a":true,"h":"Required Action","n":"required_action","r":false,"sh":"Actions required by the employer to proceed with the quote.","t":"`$NULL`","key$":"required_action","index$":5},"status":{"a":true,"h":"Status","n":"status","r":true,"sh":"Current status of the quote","t":"`$STRING`","key$":"status","index$":6}},"id":{"field":"id","name":"id"},"name":"employer_health_insurance_quote","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /employers/{employer_id}/health_insurance/quotes/{employer_quote_id}","source":"openapi3","version":2},"g":{"header":[{"a":true,"k":"header","n":"x_platform_id","or":"X-Platform-Id","r":false,"t":"`$STRING`","index$":0}],"params":[{"a":true,"ex":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a","k":"param","n":"employer_id","or":"employer_id","r":true,"t":"`$STRING`","index$":0},{"a":true,"ex":"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a","k":"param","n":"id","or":"employer_quote_id","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/employers/{employer_id}/health_insurance/quotes/{employer_quote_id}","q":{"exist":["employer_id","id"]},"r":{"param":{"employer_quote_id":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"employers"},{"var":"employer_id"},{"lit":"health_insurance"},{"lit":"quotes"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["$.main.kit.entity.employer"]]},"key$":"employer_health_insurance_quote","name__orig":"employer_health_insurance_quote","Name":"EmployerHealthInsuranceQuote","name_":"employer_health_insurance_quote","name-":"employer-health-insurance-quote","NAME":"EMPLOYER_HEALTH_INSURANCE_QUOTE","index$":18}, {"active":true,"entity":"employer_health_insurance_quote","key$":"BasicEmployerHealthInsuranceQuoteFlow","kind":"basic","name":"BasicEmployerHealthInsuranceQuoteFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"employer_health_insurance_quote_ref01","srcdatavar":"employer_health_insurance_quote_ref01_data","suffix":"_dt0"},"m":{"employer_id":"employer01","id":"employer_health_insurance_quote01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-employer_health_insurance_quote_ref01"}}],"index$":0}]}, 'EmployerHealthInsuranceQuote', {"GET /employers/{employer_id}/health_insurance/quotes/{employer_quote_id}":{"protocol":"http","parameters":[{"name":"employer_id","in":"path","required":true,"schema":{"pattern":"er_.+","type":"string","example":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"index$":0},{"name":"employer_quote_id","in":"path","required":true,"schema":{"pattern":"erhq_.+","type":"string","example":"erhq_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"index$":1},{"name":"X-Platform-Id","in":"header","description":"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.","schema":{"type":"string"},"index$":2}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -73,6 +85,12 @@ describe('EmployerHealthInsuranceQuoteEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

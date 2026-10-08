@@ -25,7 +25,7 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
       n: "eligibility_status"
       r: true
       sh: "Eligibility status for the policy/plan."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     first_name: {
       h: "First Name"
@@ -67,14 +67,14 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
       n: "relationship"
       r: true
       sh: "Relationship type to the employee."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     sex_at_birth: {
       h: "Sex At Birth"
       n: "sex_at_birth"
       r: true
       sh: "Sex at birth of the associated person."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -94,7 +94,7 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -131,10 +131,11 @@ main: kit: entity: associated_person_eligibility_response_paged_list: {
           q: {
             exist: [
               "dependents_management_intent_id"
-              "page"
-              "page_size"
-              "x_platform_id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

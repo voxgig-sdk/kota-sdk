@@ -5,6 +5,19 @@ main: kit: entity: group_employee: {
   alias: field: {}
 
   fields: {
+    create_enrolment_intents: {
+      h: "Create Enrolment Intents"
+      n: "create_enrolment_intents"
+      r: false
+      sh: "Controls whether enrolment intents are automatically created for the employee."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$BOOLEAN`"
+        ]
+      ]
+    }
     desired_policy_start_date: {
       fo: "date"
       h: "Desired Policy Start Date"
@@ -24,7 +37,14 @@ main: kit: entity: group_employee: {
       n: "eligibility_status"
       r: true
       sh: "Eligibility status for the employee in this group."
-      t: "`$ANY`"
+      t: "`$STRING`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "Employee Id"
+      t: "`$STRING`"
     }
     enrolment_date: {
       fo: "date"
@@ -45,7 +65,7 @@ main: kit: entity: group_employee: {
       n: "enrolment_status"
       r: true
       sh: "Enrolment status for the employee in this group."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     enrolments: {
       h: "Enrolments"
@@ -83,6 +103,13 @@ main: kit: entity: group_employee: {
       sh: "List of policies associated with the employee in this group."
       t: "`$ARRAY`"
     }
+    policy_configuration: {
+      h: "Policy Configuration"
+      n: "policy_configuration"
+      r: false
+      sh: "Policy configuration for the employee in this group."
+      t: "`$NULL`"
+    }
     scheduled_group_transitions: {
       h: "Scheduled Group Transitions"
       n: "scheduled_group_transitions"
@@ -103,6 +130,11 @@ main: kit: entity: group_employee: {
       name: "create"
       points: [
         {
+          bf: [
+            "create_enrolment_intents"
+            "employee_id"
+            "policy_configuration"
+          ]
           co: {
             id: "POST /groups/{group_id}/employees"
             source: "openapi3"
@@ -113,14 +145,14 @@ main: kit: entity: group_employee: {
               {
                 k: "header"
                 n: "idempotency_key"
-                or: "idempotency_key"
+                or: "Idempotency-Key"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -141,14 +173,16 @@ main: kit: entity: group_employee: {
           q: {
             exist: [
               "id"
-              "idempotency_key"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               group_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -25,7 +25,7 @@ main: kit: entity: contribution_report_employee_breakdown: {
       n: "currency"
       r: true
       sh: "The currency in which all the amounts in this breakdown are presented (e.g."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     employee_id: {
       h: "Employee Id"
@@ -109,7 +109,7 @@ main: kit: entity: contribution_report_employee_breakdown: {
       n: "status"
       r: true
       sh: "Current status of the breakdown"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -134,7 +134,7 @@ main: kit: entity: contribution_report_employee_breakdown: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -164,13 +164,16 @@ main: kit: entity: contribution_report_employee_breakdown: {
             exist: [
               "contribution_report_id"
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

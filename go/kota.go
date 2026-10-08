@@ -14,6 +14,7 @@ type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
 type KotaEntity = core.KotaEntity
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -166,9 +167,6 @@ func init() {
 	}
 	core.NewWebhookEndpointEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
 		return entity.NewWebhookEndpointEntity(client, entopts)
-	}
-	core.NewWebhookEndpointResponsePagedListEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
-		return entity.NewWebhookEndpointResponsePagedListEntity(client, entopts)
 	}
 }
 

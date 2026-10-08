@@ -25,7 +25,7 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntity extends KotaEnt
   /**
    * @param {ContributionReportEmployeeBreakdownResponsePagedListListMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<ContributionReportEmployeeBreakdownResponsePagedList[]>}
+   * @returns {Promise<ContributionReportEmployeeBreakdownResponsePagedListEntity[]>}
    */
   async list(reqmatch, ctrl) {
 
@@ -118,9 +118,15 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntity extends KotaEnt
       return done(ctx)
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -132,6 +138,7 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntity extends KotaEnt
       }
     }
   }
+
 
 
 

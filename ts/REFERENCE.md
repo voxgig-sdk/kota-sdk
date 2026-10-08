@@ -505,18 +505,6 @@ Create a new `WebhookEndpoint` entity instance.
 
 **Returns:** `WebhookEndpointEntity` instance.
 
-#### `WebhookEndpointResponsePagedList(data?: object)`
-
-Create a new `WebhookEndpointResponsePagedList` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `WebhookEndpointResponsePagedListEntity` instance.
-
 #### `options()`
 
 Return a deep copy of the current SDK options.
@@ -544,8 +532,10 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs.headers` | `object` | Request headers (merged with defaults). |
 | `fetchargs.body` | `any` | Request body (objects are JSON-serialized). |
 | `fetchargs.ctrl` | `object` | Control options (e.g. `{ explain: true }`). |
+| `fetchargs.ctrl.signal` | `AbortSignal` | Aborts the request in flight: `ok` is then `false` and `err.code` is `request_aborted`. |
 
-**Returns:** `Promise<{ ok, status, headers, data } | Error>`
+**Returns:** `Promise<{ ok, status, headers, data }>`. On a failure
+`ok` is `false` and `err` holds the error.
 
 #### `prepare(fetchargs?: object)`
 
@@ -559,6 +549,15 @@ same parameters as `direct()`.
 Alias for `KotaSDK.test()`.
 
 **Returns:** `KotaSDK` instance in test mode.
+
+#### Cancelling a call
+
+Every entity operation takes an optional `ctrl` object after its match or
+data, and an `AbortSignal` in `ctrl.signal` cancels the request in flight.
+The operation then rejects with an error whose `code` is
+`request_aborted` and whose `cause` is the signal's reason. A request
+whose signal has already aborted is not sent. `stream()` takes the signal
+as `callopts.signal`, and ends when it aborts.
 
 
 ---
@@ -582,14 +581,30 @@ const associated_person = client.AssociatedPerson()
 | `object` | `string` | No | The object type |
 | `phone_number` | `null | string` | No | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
-| `relationship_type` | `any` | Yes | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `any` | Yes | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | Yes | The sex assigned to the associated person at birth |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `date_of_birth` | - | - | - | Yes | - |
+| `email` | - | - | - | - | - |
+| `employee_id` | - | - | - | - | - |
+| `first_name` | - | - | - | Yes | - |
+| `id` | - | - | - | - | - |
+| `last_name` | - | - | - | Yes | - |
+| `object` | - | - | - | - | - |
+| `phone_number` | - | - | - | - | - |
+| `platform_id` | - | - | - | - | - |
+| `relationship_type` | - | - | - | Yes | - |
+| `sex_at_birth` | - | - | - | Yes | - |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.AssociatedPerson().create({
@@ -605,7 +620,7 @@ const result = await client.AssociatedPerson().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.AssociatedPerson().list({ employee_id: "example" })
@@ -613,7 +628,7 @@ const results = await client.AssociatedPerson().list({ employee_id: "example" })
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.AssociatedPerson().load({ id: 'associated_person_id', employee_id: 'employee_id' })
@@ -621,7 +636,7 @@ const result = await client.AssociatedPerson().load({ id: 'associated_person_id'
 
 #### `remove(match: object, ctrl?: object)`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
 
 ```ts
 const result = await client.AssociatedPerson().remove({ id: 'associated_person_id', employee_id: 'employee_id' })
@@ -629,7 +644,7 @@ const result = await client.AssociatedPerson().remove({ id: 'associated_person_i
 
 #### `update(data: object, ctrl?: object)`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
 
 ```ts
 const result = await client.AssociatedPerson().update({
@@ -679,19 +694,19 @@ const associated_person_eligibility_response_paged_list = client.AssociatedPerso
 | --- | --- | --- | --- |
 | `associated_person_id` | `string` | Yes | The associated person ID. |
 | `date_of_birth` | `string` | Yes | Date of birth of the associated person. |
-| `eligibility_status` | `any` | Yes | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Yes | Eligibility status for the policy/plan. |
 | `first_name` | `string` | Yes | First name of the associated person. |
 | `ineligibility_reason` | `null | string` | No | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Yes | Last name of the associated person. |
 | `object` | `string` | No | The object type |
-| `relationship` | `any` | Yes | Relationship type to the employee. |
-| `sex_at_birth` | `any` | Yes | Sex at birth of the associated person. |
+| `relationship` | `string` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.AssociatedPersonEligibilityResponsePagedList().list({ dependents_management_intent_id: "example" })
@@ -743,7 +758,7 @@ const contribution_report = client.ContributionReport()
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the contribution report |
-| `status` | `any` | Yes | Current status of the contribution report |
+| `status` | `string` | Yes | Current status of the contribution report |
 
 ### Actions
 
@@ -769,7 +784,7 @@ const result = await client.ContributionReport().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.ContributionReport().create({
@@ -784,7 +799,7 @@ const result = await client.ContributionReport().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.ContributionReport().list()
@@ -792,7 +807,7 @@ const results = await client.ContributionReport().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.ContributionReport().load({ id: 'contribution_report_id' })
@@ -838,7 +853,7 @@ const contribution_report_employee_breakdown = client.ContributionReportEmployee
 | --- | --- | --- | --- |
 | `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
 | `created_at` | `string` | Yes | Date and time the breakdown was created |
-| `currency` | `any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `null | string` | No | Unique identifier of the customer for which the breakdown is created. |
@@ -848,13 +863,13 @@ const contribution_report_employee_breakdown = client.ContributionReportEmployee
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the employee breakdown |
-| `status` | `any` | Yes | Current status of the breakdown |
+| `status` | `string` | Yes | Current status of the breakdown |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.ContributionReportEmployeeBreakdown().load({ id: 'contribution_report_employee_breakdown_id', contribution_report_id: 'contribution_report_id' })
@@ -924,7 +939,7 @@ const result = await client.ContributionReportEmployeeBreakdownResponsePagedList
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.ContributionReportEmployeeBreakdownResponsePagedList().list({ id: "example" })
@@ -968,6 +983,8 @@ const create_hosted_session_token = client.CreateHostedSessionToken()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `employee_id` | `string` | Yes |  |
+| `employer_id` | `string` | Yes |  |
 | `expiry` | `string` | Yes |  |
 | `link` | `string` | Yes |  |
 
@@ -975,10 +992,12 @@ const create_hosted_session_token = client.CreateHostedSessionToken()
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.CreateHostedSessionToken().create({
+  employee_id: 'example_employee_id',
+  employer_id: 'example_employer_id',
   expiry: 'example_expiry',
   link: 'example_link',
 })
@@ -1022,17 +1041,21 @@ const create_session_token = client.CreateSessionToken()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `employee_id` | `null | string` | No |  |
+| `employer_id` | `string` | Yes |  |
 | `expiry` | `string` | Yes |  |
+| `external_customer_id` | `null | string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` | Yes |  |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.CreateSessionToken().create({
+  employer_id: 'example_employer_id',
   expiry: 'example_expiry',
   token: 'example_token',
 })
@@ -1077,25 +1100,28 @@ const dependent = client.Dependent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the action required from the caller. |
+| `associated_person_ids` | `any[]` | Yes | List of associated person IDs to add as dependents. |
 | `coverage_options` | `null | any[]` | No | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `null | any[]` | No | Optional coverage selections per dependent. |
 | `dependents` | `any[]` | Yes | List of dependents being managed. |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this intent. |
 | `id` | `string` | Yes | Unique identifier for the dependents management intent. |
 | `object` | `string` | No | Object type identifier. |
 | `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `parent_intent_type` | `string` | Yes | The type of parent intent. |
 | `plan` | `any` | Yes | Plan information including pricing details. |
-| `status` | `any` | Yes | Current status of the dependents management intent. |
+| `status` | `string` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.Dependent().create({
   dependents_management_intent_id: 'example_dependents_management_intent_id',
+  associated_person_ids: [],
   dependents: [],
   disclosures: [],
   id: 'example_id',
@@ -1108,7 +1134,7 @@ const result = await client.Dependent().create({
 
 #### `remove(match: object, ctrl?: object)`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
 
 ```ts
 const result = await client.Dependent().remove({ dependents_management_intent_id: 'dependents_management_intent_id', id: 'id' })
@@ -1159,9 +1185,9 @@ const dependents_management_intent = client.DependentsManagementIntent()
 | `id` | `string` | Yes | Unique identifier for the dependents management intent. |
 | `object` | `string` | No | Object type identifier. |
 | `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `parent_intent_type` | `string` | Yes | The type of parent intent. |
 | `plan` | `any` | Yes | Plan information including pricing details. |
-| `status` | `any` | Yes | Current status of the dependents management intent. |
+| `status` | `string` | Yes | Current status of the dependents management intent. |
 
 ### Actions
 
@@ -1188,7 +1214,7 @@ const result = await client.DependentsManagementIntent().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.DependentsManagementIntent().create({
@@ -1205,7 +1231,7 @@ const result = await client.DependentsManagementIntent().create({
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.DependentsManagementIntent().load({ id: 'dependents_management_intent_id' })
@@ -1249,7 +1275,8 @@ const eligibility_check = client.EligibilityCheck()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `any` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | Yes | The employee to check eligibility for. |
 | `object` | `string` | No | The object type. |
 | `plan` | `any` | Yes | The insurance plan associated with the group. |
 | `provider` | `any` | Yes | The insurance provider associated with the group. |
@@ -1259,12 +1286,13 @@ const eligibility_check = client.EligibilityCheck()
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.EligibilityCheck().create({
   group_id: 'example_group_id',
   eligibility_status: 'example_eligibility_status',
+  employee_id: 'example_employee_id',
   plan: 'example_plan',
   provider: 'example_provider',
   reasons: [],
@@ -1326,9 +1354,34 @@ const employee = client.Employee()
 | `offboard_on` | `null | string` | No | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
-| `sex_at_birth` | `any` | Yes | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `string` | No | Employment start date |
-| `status` | `any` | No | Current status of the employee |
+| `status` | `string` | No | Current status of the employee |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `bank_account` | - | - | - | - |
+| `date_of_birth` | - | - | - | - |
+| `earliest_benefits_start_date` | - | - | - | - |
+| `email` | - | - | - | Yes |
+| `employer_id` | - | - | Yes | - |
+| `external_customer_id` | - | - | - | - |
+| `first_name` | - | - | - | Yes |
+| `home_address` | - | - | Yes | - |
+| `id` | - | - | - | - |
+| `last_name` | - | - | - | Yes |
+| `metadata` | - | - | - | - |
+| `national_tax_id` | - | - | - | Yes |
+| `nationality` | - | - | - | - |
+| `object` | - | - | - | - |
+| `offboard_on` | - | - | - | - |
+| `phone_number` | - | - | - | Yes |
+| `platform_id` | - | - | - | - |
+| `sex_at_birth` | - | - | - | - |
+| `start_on` | - | - | Yes | - |
+| `status` | - | - | - | - |
 
 ### Actions
 
@@ -1355,7 +1408,7 @@ const result = await client.Employee().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.Employee().create({
@@ -1371,7 +1424,7 @@ const result = await client.Employee().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Employee().list()
@@ -1379,7 +1432,7 @@ const results = await client.Employee().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Employee().load({ id: 'employee_id' })
@@ -1387,7 +1440,7 @@ const result = await client.Employee().load({ id: 'employee_id' })
 
 #### `update(data: object, ctrl?: object)`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
 
 ```ts
 const result = await client.Employee().update({
@@ -1441,13 +1494,13 @@ const employee_health_insurance_offer = client.EmployeeHealthInsuranceOffer()
 | `id` | `string` | Yes | Unique identifier for offer |
 | `object` | `string` | No | The object type |
 | `required_action` | `null` | No | Required action to progress the offer, if any. |
-| `status` | `any` | Yes | Current status of offer |
+| `status` | `string` | Yes | Current status of offer |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.EmployeeHealthInsuranceOffer().load({ id: 'employee_health_insurance_offer_id', employee_id: 'employee_id' })
@@ -1498,13 +1551,13 @@ const employee_health_insurance_offer_response_paged_list = client.EmployeeHealt
 | `id` | `string` | Yes | Unique identifier for offer |
 | `object` | `string` | No | The object type |
 | `required_action` | `null` | No | Required action to progress the offer, if any. |
-| `status` | `any` | Yes | Current status of offer |
+| `status` | `string` | Yes | Current status of offer |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.EmployeeHealthInsuranceOfferResponsePagedList().list({ employee_id: "example" })
@@ -1554,7 +1607,7 @@ const employee_health_insurance_policy = client.EmployeeHealthInsurancePolicy()
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `null | string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Yes | Unique identifier for policy |
@@ -1563,13 +1616,13 @@ const employee_health_insurance_policy = client.EmployeeHealthInsurancePolicy()
 | `policy_number` | `null | string` | No | Health insurance policy number, if available |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.EmployeeHealthInsurancePolicy().load({ id: 'employee_health_insurance_policy_id', employee_id: 'employee_id' })
@@ -1619,7 +1672,7 @@ const employee_health_insurance_policy_response_paged_list = client.EmployeeHeal
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `null | string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Yes | Unique identifier for policy |
@@ -1628,13 +1681,13 @@ const employee_health_insurance_policy_response_paged_list = client.EmployeeHeal
 | `policy_number` | `null | string` | No | Health insurance policy number, if available |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.EmployeeHealthInsurancePolicyResponsePagedList().list({ employee_id: "example" })
@@ -1679,16 +1732,32 @@ const employer = client.Employer()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `contact` | `any` | Yes |  |
-| `earliest_benefits_start_date` | `null | string` | No |  |
+| `earliest_benefits_start_date` | `null | string` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` | Yes |  |
-| `legal_address` | `any` | Yes |  |
-| `legal_name` | `string` | Yes |  |
+| `legal_address` | `any` | Yes | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Yes | Legal name of the company. |
 | `metadata` | `null | Record<string, any>` | No | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | No | The object type |
 | `offboard_on` | `null | string` | No |  |
 | `platform_id` | `string` | No |  |
-| `registration_number` | `null | string` | No |  |
-| `status` | `any` | No |  |
+| `registration_number` | `null | string` | No | Company registration number. |
+| `status` | `string` | No |  |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `contact` | - | - | - | Yes |
+| `earliest_benefits_start_date` | - | - | - | - |
+| `id` | - | - | - | - |
+| `legal_address` | - | - | - | Yes |
+| `legal_name` | - | - | - | Yes |
+| `metadata` | - | - | - | - |
+| `object` | - | - | - | - |
+| `offboard_on` | - | - | - | - |
+| `platform_id` | - | - | - | - |
+| `registration_number` | - | - | - | - |
+| `status` | - | - | - | - |
 
 ### Actions
 
@@ -1714,7 +1783,7 @@ const result = await client.Employer().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.Employer().create({
@@ -1727,7 +1796,7 @@ const result = await client.Employer().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Employer().list()
@@ -1735,7 +1804,7 @@ const results = await client.Employer().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Employer().load({ id: 'employer_id' })
@@ -1743,7 +1812,7 @@ const result = await client.Employer().load({ id: 'employer_id' })
 
 #### `update(data: object, ctrl?: object)`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
 
 ```ts
 const result = await client.Employer().update({
@@ -1795,19 +1864,19 @@ const employer_health_insurance_policy = client.EmployerHealthInsurancePolicy()
 | `employer_cancellation_period_length` | `number` | Yes | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `group_policy_number` | `null | string` | No | Group’s health insurance policy number, if available |
 | `id` | `string` | Yes | Unique identifier for policy |
 | `object` | `string` | No | The object type |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.EmployerHealthInsurancePolicy().load({ id: 'employer_health_insurance_policy_id', employer_id: 'employer_id' })
@@ -1856,19 +1925,19 @@ const employer_health_insurance_policy_response_paged_list = client.EmployerHeal
 | `employer_cancellation_period_length` | `number` | Yes | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `group_policy_number` | `null | string` | No | Group’s health insurance policy number, if available |
 | `id` | `string` | Yes | Unique identifier for policy |
 | `object` | `string` | No | The object type |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.EmployerHealthInsurancePolicyResponsePagedList().list({ employer_id: "example" })
@@ -1918,13 +1987,13 @@ const employer_health_insurance_quote = client.EmployerHealthInsuranceQuote()
 | `object` | `string` | No | The object type |
 | `quoted_at` | `string` | Yes | Date and time the quote was created at |
 | `required_action` | `null` | No | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Yes | Current status of the quote |
+| `status` | `string` | Yes | Current status of the quote |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.EmployerHealthInsuranceQuote().load({ id: 'employer_health_insurance_quote_id', employer_id: 'employer_id' })
@@ -1974,13 +2043,13 @@ const employer_health_insurance_quote_response_paged_list = client.EmployerHealt
 | `object` | `string` | No | The object type |
 | `quoted_at` | `string` | Yes | Date and time the quote was created at |
 | `required_action` | `null` | No | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Yes | Current status of the quote |
+| `status` | `string` | Yes | Current status of the quote |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.EmployerHealthInsuranceQuoteResponsePagedList().list({ employer_id: "example" })
@@ -2025,8 +2094,11 @@ const enrolment_intent = client.EnrolmentIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `null | any[]` | No | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `null | string` | No | The desired date for the employee's policy to start. |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this intent. |
 | `employee_id` | `string` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `null | string` | No | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `boolean` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Yes | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Yes | Unique identifier for the enrolment intent. |
@@ -2035,7 +2107,7 @@ const enrolment_intent = client.EnrolmentIntent()
 | `pending_confirmation` | `null` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `null` | No | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `any[]` | Yes | Policy enrolment information |
-| `status` | `any` | Yes | Current status of the enrolment intent. |
+| `status` | `string` | Yes | Current status of the enrolment intent. |
 
 ### Actions
 
@@ -2063,7 +2135,7 @@ const result = await client.EnrolmentIntent().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.EnrolmentIntent().create({
@@ -2079,7 +2151,7 @@ const result = await client.EnrolmentIntent().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.EnrolmentIntent().list()
@@ -2087,7 +2159,7 @@ const results = await client.EnrolmentIntent().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.EnrolmentIntent().load({ id: 'enrolment_intent_id' })
@@ -2095,7 +2167,7 @@ const result = await client.EnrolmentIntent().load({ id: 'enrolment_intent_id' }
 
 #### `update(data: object, ctrl?: object)`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
 
 ```ts
 const result = await client.EnrolmentIntent().update({
@@ -2168,7 +2240,7 @@ const result = await client.EnrolmentIntentRequirementResponsePagedList().list({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.EnrolmentIntentRequirementResponsePagedList().list({ id: "example" })
@@ -2216,10 +2288,7 @@ const event = client.Event()
 | `created` | `string` | Yes |  |
 | `data` | `null` | Yes |  |
 | `id` | `string` | Yes |  |
-| `options` | `null` | No |  |
-| `parent` | `null` | No |  |
 | `platform_id` | `string` | Yes |  |
-| `root` | `any` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Actions
@@ -2246,7 +2315,7 @@ const result = await client.Event().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.Event().create({
@@ -2260,7 +2329,7 @@ const result = await client.Event().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Event().list()
@@ -2268,7 +2337,7 @@ const results = await client.Event().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Event().load({ id: 'event_id' })
@@ -2314,21 +2383,37 @@ const group = client.Group()
 | --- | --- | --- | --- |
 | `description` | `null | string` | No | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Yes | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `any` | Yes | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Yes | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `any[]` | Yes | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `any[]` | Yes | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `any[]` | Yes | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `any` | Yes | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Yes | Indicates how policies are organized for this group. |
 | `id` | `string` | Yes | Unique identifier for the `group`. |
 | `name` | `string` | Yes | Human-readable name of the `group`. |
 | `object` | `string` | No | The object type |
-| `status` | `any` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `description` | - | - | - | - |
+| `employer_id` | - | - | - | - |
+| `enrolment_type` | - | - | - | - |
+| `group_policy_ids` | - | - | - | - |
+| `group_policy_intent_ids` | - | - | - | - |
+| `group_quote_intent_ids` | - | - | - | - |
+| `group_type` | - | - | - | - |
+| `id` | - | - | - | - |
+| `name` | - | - | - | Yes |
+| `object` | - | - | - | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.Group().create({
@@ -2346,7 +2431,7 @@ const result = await client.Group().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Group().list()
@@ -2354,7 +2439,7 @@ const results = await client.Group().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Group().load({ id: 'group_id' })
@@ -2362,7 +2447,7 @@ const result = await client.Group().load({ id: 'group_id' })
 
 #### `update(data: object, ctrl?: object)`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
 
 ```ts
 const result = await client.Group().update({
@@ -2409,27 +2494,31 @@ const group_employee = client.GroupEmployee()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `create_enrolment_intents` | `null | boolean` | No | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `null | string` | No | The desired date for the employee's policy to start. |
-| `eligibility_status` | `any` | Yes | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Yes | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Yes | Employee Id |
 | `enrolment_date` | `null | string` | No | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `any` | Yes | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Yes | Enrolment status for the employee in this group. |
 | `enrolments` | `any[]` | Yes | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Yes | Unique identifier for the group. |
 | `id` | `string` | Yes | Unique identifier for the employee. |
 | `object` | `string` | No | The object type |
 | `policies` | `any[]` | Yes | List of policies associated with the employee in this group. |
+| `policy_configuration` | `null` | No | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `any[]` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.GroupEmployee().create({
   id: 'example_id',
   eligibility_status: 'example_eligibility_status',
+  employee_id: 'example_employee_id',
   enrolment_status: 'example_enrolment_status',
   enrolments: [],
   group_id: 'example_group_id',
@@ -2502,7 +2591,7 @@ const result = await client.GroupEmployeeResponsePagedList().list({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.GroupEmployeeResponsePagedList().list({ id: "example" })
@@ -2557,14 +2646,14 @@ const group_policy = client.GroupPolicy()
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy. |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `any` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `any` | Yes | Policy type. |
+| `status` | `string` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Yes | Policy type. |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.GroupPolicy().list()
@@ -2572,7 +2661,7 @@ const results = await client.GroupPolicy().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.GroupPolicy().load({ id: 'group_policy_id' })
@@ -2617,6 +2706,7 @@ const group_policy_intent = client.GroupPolicyIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `null | any[]` | No | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this intent. |
 | `due_date` | `null | string` | No | Due date for the policy intent |
@@ -2625,13 +2715,13 @@ const group_policy_intent = client.GroupPolicyIntent()
 | `object` | `string` | No | Object type identifier |
 | `plan_id` | `string` | Yes | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `any` | Yes | Current status of the group policy intent |
+| `status` | `string` | Yes | Current status of the group policy intent |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.GroupPolicyIntent().create({
@@ -2646,7 +2736,7 @@ const result = await client.GroupPolicyIntent().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.GroupPolicyIntent().list()
@@ -2654,7 +2744,7 @@ const results = await client.GroupPolicyIntent().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.GroupPolicyIntent().load({ id: 'group_policy_intent_id' })
@@ -2724,7 +2814,7 @@ const result = await client.GroupPolicyIntentRequirementResponsePagedList().list
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.GroupPolicyIntentRequirementResponsePagedList().list({ id: "example" })
@@ -2768,17 +2858,21 @@ const group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `null` | No | Type of the family covered by the employer. |
-| `member_count` | `null` | No | Numbers of additional members covered by the employer. |
-| `member_selection` | `null` | No | Whether specific member types are covered by the employer. |
-| `percentage` | `null` | No | Percentage of the premium the employer covers. |
-| `type` | `any` | Yes | Cost sharing type. |
+| `cost_sharing` | `any` | Yes | Cost sharing configuration for the quote |
+| `currency` | `string` | Yes | Currency of the premium (e.g. |
+| `employee_count` | `number` | Yes | Number of employees covered by the quote |
+| `expires_at` | `string` | Yes | When the quote expires |
+| `generated_at` | `string` | Yes | When the quote was generated |
+| `object` | `string` | No | Object type identifier |
+| `pdf_expires_at` | `null | string` | No | When the PDF URL expires |
+| `pdf_url` | `null | string` | No | URL to download the quote PDF |
+| `total_monthly_premium` | `number` | Yes | Total monthly premium for the group |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.GroupQuote().load({ group_quote_intent_id: 'group_quote_intent_id' })
@@ -2825,13 +2919,14 @@ const group_quote_intent = client.GroupQuoteIntent()
 | `action_required` | `null` | No | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `any[]` | Yes | Consent links that need to be acknowledged |
 | `cost_sharing` | `null` | No | Cost sharing configuration for the quote |
+| `coverage_selections` | `null | any[]` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `null | string` | No | Expected start date for the insurance coverage |
 | `group_id` | `string` | Yes | Unique identifier for the group |
 | `id` | `string` | Yes | Unique identifier for the group quote intent |
 | `object` | `string` | No | Object type identifier |
 | `plan_id` | `string` | Yes | Unique identifier for the plan |
-| `status` | `any` | Yes | Current status of the group quote intent |
+| `status` | `string` | Yes | Current status of the group quote intent |
 
 ### Actions
 
@@ -2857,7 +2952,7 @@ const result = await client.GroupQuoteIntent().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.GroupQuoteIntent().create({
@@ -2872,7 +2967,7 @@ const result = await client.GroupQuoteIntent().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.GroupQuoteIntent().list()
@@ -2880,7 +2975,7 @@ const results = await client.GroupQuoteIntent().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.GroupQuoteIntent().load({ id: 'group_quote_intent_id' })
@@ -2950,7 +3045,7 @@ const result = await client.GroupQuoteIntentRequirementResponsePagedList().list(
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.GroupQuoteIntentRequirementResponsePagedList().list({ id: "example" })
@@ -2996,7 +3091,7 @@ const plan = client.Plan()
 | --- | --- | --- | --- |
 | `available_from` | `string` | Yes | The date from which this plan is available (inclusive). |
 | `available_to` | `null | string` | No | The date until which this plan is available (inclusive). |
-| `country` | `any` | Yes | The country this plan is available in. |
+| `country` | `string` | Yes | The country this plan is available in. |
 | `coverage_options` | `null | any[]` | No | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Yes | Description of the plan. |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this plan. |
@@ -3011,13 +3106,13 @@ const plan = client.Plan()
 | `object` | `string` | No | Object type. |
 | `provider` | `any` | Yes | The provider offering this plan. |
 | `total_count` | `null | number` | No | Total employees in the queried group. |
-| `type` | `any` | Yes | The benefit type of the plan. |
+| `type` | `string` | Yes | The benefit type of the plan. |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Plan().list()
@@ -3025,7 +3120,7 @@ const results = await client.Plan().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Plan().load({ id: 'plan_id' })
@@ -3069,7 +3164,7 @@ const policy = client.Policy()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `any` | Yes | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Yes | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `null | string` | No | Date the policy was cancelled (if applicable) |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this policy. |
 | `employee_id` | `string` | Yes | Identifier of the employee associated with this policy. |
@@ -3082,14 +3177,14 @@ const policy = client.Policy()
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `any` | Yes | Current lifecycle state of the policy |
-| `type` | `any` | Yes | Policy type. |
+| `status` | `string` | Yes | Current lifecycle state of the policy |
+| `type` | `string` | Yes | Policy type. |
 
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Policy().list()
@@ -3097,7 +3192,7 @@ const results = await client.Policy().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Policy().load({ id: 'policy_id' })
@@ -3150,7 +3245,7 @@ const policy_amendment_intent = client.PolicyAmendmentIntent()
 | `processing_error` | `null` | No | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `any[]` | Yes | List of requested changes to the policy. |
 | `required_action` | `null` | No | Information about the required action if the intent status is `action_required`. |
-| `status` | `any` | Yes | Current status of the policy amendment intent. |
+| `status` | `string` | Yes | Current status of the policy amendment intent. |
 
 ### Actions
 
@@ -3177,7 +3272,7 @@ const result = await client.PolicyAmendmentIntent().create({
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.PolicyAmendmentIntent().create({
@@ -3192,15 +3287,15 @@ const result = await client.PolicyAmendmentIntent().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.PolicyAmendmentIntent().list({ id: "example_id" })
+const results = await client.PolicyAmendmentIntent().list({ id: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.PolicyAmendmentIntent().load({ id: 'policy_amendment_intent_id', policy_id: 'policy_id' })
@@ -3253,13 +3348,28 @@ const policy_import_intent = client.PolicyImportIntent()
 | `policy_end_date` | `null | string` | No | The end date of the policy. |
 | `policy_start_date` | `string` | Yes | The start date of the policy. |
 | `provider_policy_number` | `string` | Yes | The provider's policy number. |
-| `status` | `any` | Yes | Current status of the policy import intent. |
+| `status` | `string` | Yes | Current status of the policy import intent. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `associated_persons` | - | - | Yes |
+| `employee_id` | - | - | - |
+| `group_id` | - | - | - |
+| `id` | - | - | - |
+| `member_number` | - | - | - |
+| `object` | - | - | - |
+| `policy_end_date` | - | - | - |
+| `policy_start_date` | - | - | - |
+| `provider_policy_number` | - | - | - |
+| `status` | - | - | - |
 
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
 const result = await client.PolicyImportIntent().create({
@@ -3276,7 +3386,7 @@ const result = await client.PolicyImportIntent().create({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.PolicyImportIntent().list()
@@ -3284,7 +3394,7 @@ const results = await client.PolicyImportIntent().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.PolicyImportIntent().load({ id: 'policy_import_intent_id' })
@@ -3343,7 +3453,7 @@ const provider = client.Provider()
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Provider().list()
@@ -3351,7 +3461,7 @@ const results = await client.Provider().list()
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Provider().load({ id: 'provider_id' })
@@ -3403,9 +3513,17 @@ const webhook_endpoint = client.WebhookEndpoint()
 
 ### Operations
 
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.WebhookEndpoint().list()
+```
+
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.WebhookEndpoint().load({ id: 'webhook_endpoint_id' })
@@ -3426,60 +3544,6 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `WebhookEndpointEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `KotaSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## WebhookEndpointResponsePagedListEntity
-
-```ts
-const webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePagedList()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | Yes | The date and time the endpoint was created |
-| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
-| `id` | `string` | Yes | The unique identifier of the endpoint |
-| `object` | `string` | No | The object type |
-| `subscribed_events` | `any[]` | Yes | The events the endpoint is subscribed to |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Returns an array.
-
-```ts
-const results = await client.WebhookEndpointResponsePagedList().list()
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `WebhookEndpointResponsePagedListEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -3783,6 +3847,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

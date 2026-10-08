@@ -8,8 +8,8 @@ export interface AssociatedPerson {
     object?: string;
     phone_number?: null | string;
     platform_id?: string;
-    relationship_type: any;
-    sex_at_birth: any;
+    relationship_type: string;
+    sex_at_birth: string;
 }
 export interface AssociatedPersonLoadMatch {
     employee_id: string;
@@ -30,8 +30,8 @@ export interface AssociatedPersonCreateData {
     object?: string;
     phone_number?: null | string;
     platform_id?: string;
-    relationship_type: any;
-    sex_at_birth: any;
+    relationship_type: string;
+    sex_at_birth: string;
 }
 export interface AssociatedPersonUpdateData {
     employee_id: string;
@@ -43,8 +43,8 @@ export interface AssociatedPersonUpdateData {
     object?: string;
     phone_number?: null | string;
     platform_id?: string;
-    relationship_type?: any;
-    sex_at_birth?: any;
+    relationship_type?: string;
+    sex_at_birth?: string;
 }
 export interface AssociatedPersonRemoveMatch {
     employee_id: string;
@@ -53,13 +53,13 @@ export interface AssociatedPersonRemoveMatch {
 export interface AssociatedPersonEligibilityResponsePagedList {
     associated_person_id: string;
     date_of_birth: string;
-    eligibility_status: any;
+    eligibility_status: string;
     first_name: string;
     ineligibility_reason?: null | string;
     last_name: string;
     object?: string;
-    relationship: any;
-    sex_at_birth: any;
+    relationship: string;
+    sex_at_birth: string;
 }
 export interface AssociatedPersonEligibilityResponsePagedListListMatch {
     dependents_management_intent_id: string;
@@ -75,7 +75,7 @@ export interface ContributionReport {
     last_updated_at: string;
     object?: string;
     period: any;
-    status: any;
+    status: string;
 }
 export interface ContributionReportLoadMatch {
     id: string;
@@ -98,14 +98,14 @@ export interface ContributionReportCreateData {
     last_updated_at: string;
     object?: string;
     period: any;
-    status: any;
+    status: string;
     $action?: string;
     [action: string]: any;
 }
 export interface ContributionReportEmployeeBreakdown {
     contribution_report_id: string;
     created_at: string;
-    currency: any;
+    currency: string;
     employee_id: string;
     employer_id: string;
     external_customer_id?: null | string;
@@ -115,7 +115,7 @@ export interface ContributionReportEmployeeBreakdown {
     last_updated_at: string;
     object?: string;
     period: any;
-    status: any;
+    status: string;
 }
 export interface ContributionReportEmployeeBreakdownLoadMatch {
     contribution_report_id: string;
@@ -132,45 +132,59 @@ export interface ContributionReportEmployeeBreakdownResponsePagedListListMatch {
     [action: string]: any;
 }
 export interface CreateHostedSessionToken {
+    employee_id: string;
+    employer_id: string;
     expiry: string;
     link: string;
 }
 export interface CreateHostedSessionTokenCreateData {
+    employee_id: string;
+    employer_id: string;
     expiry: string;
     link: string;
 }
 export interface CreateSessionToken {
+    employee_id?: null | string;
+    employer_id: string;
     expiry: string;
+    external_customer_id?: null | string;
     token: string;
 }
 export interface CreateSessionTokenCreateData {
+    employee_id?: null | string;
+    employer_id: string;
     expiry: string;
+    external_customer_id?: null | string;
     token: string;
 }
 export interface Dependent {
     action_required?: null;
+    associated_person_ids: any[];
     coverage_options?: null | any[];
+    dependent_coverage_selections?: null | any[];
     dependents: any[];
     disclosures: any[];
     id: string;
     object?: string;
     parent_intent_id: string;
-    parent_intent_type: any;
+    parent_intent_type: string;
     plan: any;
-    status: any;
+    status: string;
 }
 export interface DependentCreateData {
     dependents_management_intent_id: string;
     action_required?: null;
+    associated_person_ids: any[];
     coverage_options?: null | any[];
+    dependent_coverage_selections?: null | any[];
     dependents: any[];
     disclosures: any[];
     id: string;
     object?: string;
     parent_intent_id: string;
-    parent_intent_type: any;
+    parent_intent_type: string;
     plan: any;
-    status: any;
+    status: string;
 }
 export interface DependentRemoveMatch {
     dependents_management_intent_id: string;
@@ -184,9 +198,9 @@ export interface DependentsManagementIntent {
     id: string;
     object?: string;
     parent_intent_id: string;
-    parent_intent_type: any;
+    parent_intent_type: string;
     plan: any;
-    status: any;
+    status: string;
 }
 export interface DependentsManagementIntentLoadMatch {
     id: string;
@@ -200,14 +214,15 @@ export interface DependentsManagementIntentCreateData {
     id: string;
     object?: string;
     parent_intent_id: string;
-    parent_intent_type: any;
+    parent_intent_type: string;
     plan: any;
-    status: any;
+    status: string;
     $action?: string;
     [action: string]: any;
 }
 export interface EligibilityCheck {
-    eligibility_status: any;
+    eligibility_status: string;
+    employee_id: string;
     object?: string;
     plan: any;
     provider: any;
@@ -215,7 +230,8 @@ export interface EligibilityCheck {
 }
 export interface EligibilityCheckCreateData {
     group_id: string;
-    eligibility_status: any;
+    eligibility_status: string;
+    employee_id: string;
     object?: string;
     plan: any;
     provider: any;
@@ -239,9 +255,9 @@ export interface Employee {
     offboard_on?: null | string;
     phone_number: string;
     platform_id?: string;
-    sex_at_birth: any;
+    sex_at_birth: string;
     start_on?: string;
-    status?: any;
+    status?: string;
 }
 export interface EmployeeLoadMatch {
     id: string;
@@ -272,9 +288,9 @@ export interface EmployeeCreateData {
     offboard_on?: null | string;
     phone_number: string;
     platform_id?: string;
-    sex_at_birth: any;
+    sex_at_birth: string;
     start_on?: string;
-    status?: any;
+    status?: string;
     $action?: string;
     [action: string]: any;
 }
@@ -296,9 +312,9 @@ export interface EmployeeUpdateData {
     offboard_on?: null | string;
     phone_number?: string;
     platform_id?: string;
-    sex_at_birth?: any;
+    sex_at_birth?: string;
     start_on?: string;
-    status?: any;
+    status?: string;
 }
 export interface EmployeeHealthInsuranceOffer {
     coverage_level: any;
@@ -308,7 +324,7 @@ export interface EmployeeHealthInsuranceOffer {
     id: string;
     object?: string;
     required_action?: null;
-    status: any;
+    status: string;
 }
 export interface EmployeeHealthInsuranceOfferLoadMatch {
     employee_id: string;
@@ -322,7 +338,7 @@ export interface EmployeeHealthInsuranceOfferResponsePagedList {
     id: string;
     object?: string;
     required_action?: null;
-    status: any;
+    status: string;
 }
 export interface EmployeeHealthInsuranceOfferResponsePagedListListMatch {
     employee_id: string;
@@ -336,7 +352,7 @@ export interface EmployeeHealthInsurancePolicy {
     employer_id: string;
     end_date: string;
     enrolled_dependants_count: number;
-    enrolment_type: any;
+    enrolment_type: string;
     estimated_gross_premium: any;
     external_customer_id?: null | string;
     id: string;
@@ -345,7 +361,7 @@ export interface EmployeeHealthInsurancePolicy {
     policy_number?: null | string;
     renewal: any;
     start_date: string;
-    status: any;
+    status: string;
 }
 export interface EmployeeHealthInsurancePolicyLoadMatch {
     employee_id: string;
@@ -358,7 +374,7 @@ export interface EmployeeHealthInsurancePolicyResponsePagedList {
     employer_id: string;
     end_date: string;
     enrolled_dependants_count: number;
-    enrolment_type: any;
+    enrolment_type: string;
     estimated_gross_premium: any;
     external_customer_id?: null | string;
     id: string;
@@ -367,7 +383,7 @@ export interface EmployeeHealthInsurancePolicyResponsePagedList {
     policy_number?: null | string;
     renewal: any;
     start_date: string;
-    status: any;
+    status: string;
 }
 export interface EmployeeHealthInsurancePolicyResponsePagedListListMatch {
     employee_id: string;
@@ -386,7 +402,7 @@ export interface Employer {
     offboard_on?: null | string;
     platform_id?: string;
     registration_number?: null | string;
-    status?: any;
+    status?: string;
 }
 export interface EmployerLoadMatch {
     id: string;
@@ -407,7 +423,7 @@ export interface EmployerCreateData {
     offboard_on?: null | string;
     platform_id?: string;
     registration_number?: null | string;
-    status?: any;
+    status?: string;
     $action?: string;
     [action: string]: any;
 }
@@ -422,7 +438,7 @@ export interface EmployerUpdateData {
     offboard_on?: null | string;
     platform_id?: string;
     registration_number?: null | string;
-    status?: any;
+    status?: string;
 }
 export interface EmployerHealthInsurancePolicy {
     cancellation_date?: null | string;
@@ -430,13 +446,13 @@ export interface EmployerHealthInsurancePolicy {
     employer_cancellation_period_length: number;
     employer_id: string;
     end_date: string;
-    enrolment_type: any;
+    enrolment_type: string;
     group_policy_number?: null | string;
     id: string;
     object?: string;
     renewal: any;
     start_date: string;
-    status: any;
+    status: string;
 }
 export interface EmployerHealthInsurancePolicyLoadMatch {
     employer_id: string;
@@ -448,13 +464,13 @@ export interface EmployerHealthInsurancePolicyResponsePagedList {
     employer_cancellation_period_length: number;
     employer_id: string;
     end_date: string;
-    enrolment_type: any;
+    enrolment_type: string;
     group_policy_number?: null | string;
     id: string;
     object?: string;
     renewal: any;
     start_date: string;
-    status: any;
+    status: string;
 }
 export interface EmployerHealthInsurancePolicyResponsePagedListListMatch {
     employer_id: string;
@@ -469,7 +485,7 @@ export interface EmployerHealthInsuranceQuote {
     object?: string;
     quoted_at: string;
     required_action?: null;
-    status: any;
+    status: string;
 }
 export interface EmployerHealthInsuranceQuoteLoadMatch {
     employer_id: string;
@@ -482,7 +498,7 @@ export interface EmployerHealthInsuranceQuoteResponsePagedList {
     object?: string;
     quoted_at: string;
     required_action?: null;
-    status: any;
+    status: string;
 }
 export interface EmployerHealthInsuranceQuoteResponsePagedListListMatch {
     employer_id: string;
@@ -492,8 +508,11 @@ export interface EmployerHealthInsuranceQuoteResponsePagedListListMatch {
 }
 export interface EnrolmentIntent {
     action_required?: null;
+    coverage_selections?: null | any[];
+    desired_policy_start_date?: null | string;
     disclosures: any[];
     employee_id: string;
+    enrolment_date?: null | string;
     force_confirmation: boolean;
     group_id: string;
     id: string;
@@ -502,7 +521,7 @@ export interface EnrolmentIntent {
     pending_confirmation?: null;
     policy_configuration?: null;
     policy_enrolments: any[];
-    status: any;
+    status: string;
 }
 export interface EnrolmentIntentLoadMatch {
     id: string;
@@ -516,8 +535,11 @@ export interface EnrolmentIntentListMatch {
 }
 export interface EnrolmentIntentCreateData {
     action_required?: null;
+    coverage_selections?: null | any[];
+    desired_policy_start_date?: null | string;
     disclosures: any[];
     employee_id: string;
+    enrolment_date?: null | string;
     force_confirmation: boolean;
     group_id: string;
     id: string;
@@ -526,15 +548,18 @@ export interface EnrolmentIntentCreateData {
     pending_confirmation?: null;
     policy_configuration?: null;
     policy_enrolments: any[];
-    status: any;
+    status: string;
     $action?: string;
     [action: string]: any;
 }
 export interface EnrolmentIntentUpdateData {
     id: string;
     action_required?: null;
+    coverage_selections?: null | any[];
+    desired_policy_start_date?: null | string;
     disclosures?: any[];
     employee_id?: string;
+    enrolment_date?: null | string;
     force_confirmation?: boolean;
     group_id?: string;
     ineligibility_reason?: null;
@@ -542,7 +567,7 @@ export interface EnrolmentIntentUpdateData {
     pending_confirmation?: null;
     policy_configuration?: null;
     policy_enrolments?: any[];
-    status?: any;
+    status?: string;
 }
 export interface EnrolmentIntentRequirementResponsePagedList {
     id?: string;
@@ -561,10 +586,7 @@ export interface Event {
     created: string;
     data: null;
     id: string;
-    options?: null;
-    parent?: null;
     platform_id: string;
-    root?: any;
     type: string;
 }
 export interface EventLoadMatch {
@@ -582,10 +604,7 @@ export interface EventCreateData {
     api_version?: string;
     created: string;
     data: null;
-    options?: null;
-    parent?: null;
     platform_id: string;
-    root?: any;
     type: string;
     $action?: string;
     [action: string]: any;
@@ -593,15 +612,15 @@ export interface EventCreateData {
 export interface Group {
     description?: null | string;
     employer_id: string;
-    enrolment_type: any;
+    enrolment_type: string;
     group_policy_ids: any[];
     group_policy_intent_ids: any[];
     group_quote_intent_ids: any[];
-    group_type: any;
+    group_type: string;
     id: string;
     name: string;
     object?: string;
-    status: any;
+    status: string;
 }
 export interface GroupLoadMatch {
     id: string;
@@ -615,51 +634,57 @@ export interface GroupListMatch {
 export interface GroupCreateData {
     description?: null | string;
     employer_id: string;
-    enrolment_type: any;
+    enrolment_type: string;
     group_policy_ids: any[];
     group_policy_intent_ids: any[];
     group_quote_intent_ids: any[];
-    group_type: any;
+    group_type: string;
     id: string;
     name: string;
     object?: string;
-    status: any;
+    status: string;
 }
 export interface GroupUpdateData {
     id: string;
     description?: null | string;
     employer_id?: string;
-    enrolment_type?: any;
+    enrolment_type?: string;
     group_policy_ids?: any[];
     group_policy_intent_ids?: any[];
     group_quote_intent_ids?: any[];
-    group_type?: any;
+    group_type?: string;
     name?: string;
     object?: string;
-    status?: any;
+    status?: string;
 }
 export interface GroupEmployee {
+    create_enrolment_intents?: null | boolean;
     desired_policy_start_date?: null | string;
-    eligibility_status: any;
+    eligibility_status: string;
+    employee_id: string;
     enrolment_date?: null | string;
-    enrolment_status: any;
+    enrolment_status: string;
     enrolments: any[];
     group_id: string;
     id: string;
     object?: string;
     policies: any[];
+    policy_configuration?: null;
     scheduled_group_transitions: any[];
 }
 export interface GroupEmployeeCreateData {
     id: string;
+    create_enrolment_intents?: null | boolean;
     desired_policy_start_date?: null | string;
-    eligibility_status: any;
+    eligibility_status: string;
+    employee_id: string;
     enrolment_date?: null | string;
-    enrolment_status: any;
+    enrolment_status: string;
     enrolments: any[];
     group_id: string;
     object?: string;
     policies: any[];
+    policy_configuration?: null;
     scheduled_group_transitions: any[];
 }
 export interface GroupEmployeeResponsePagedList {
@@ -685,8 +710,8 @@ export interface GroupPolicy {
     plan: any;
     provider: any;
     start_date: string;
-    status: any;
-    type: any;
+    status: string;
+    type: string;
 }
 export interface GroupPolicyLoadMatch {
     id: string;
@@ -700,6 +725,7 @@ export interface GroupPolicyListMatch {
 }
 export interface GroupPolicyIntent {
     action_required?: null;
+    consent_approvals?: null | any[];
     cost_sharing?: null;
     disclosures: any[];
     due_date?: null | string;
@@ -708,7 +734,7 @@ export interface GroupPolicyIntent {
     object?: string;
     plan_id: string;
     quote_intent_id: string;
-    status: any;
+    status: string;
 }
 export interface GroupPolicyIntentLoadMatch {
     id: string;
@@ -722,6 +748,7 @@ export interface GroupPolicyIntentListMatch {
 }
 export interface GroupPolicyIntentCreateData {
     action_required?: null;
+    consent_approvals?: null | any[];
     cost_sharing?: null;
     disclosures: any[];
     due_date?: null | string;
@@ -730,7 +757,7 @@ export interface GroupPolicyIntentCreateData {
     object?: string;
     plan_id: string;
     quote_intent_id: string;
-    status: any;
+    status: string;
 }
 export interface GroupPolicyIntentRequirementResponsePagedList {
     id?: string;
@@ -745,11 +772,15 @@ export interface GroupPolicyIntentRequirementResponsePagedListListMatch {
     [action: string]: any;
 }
 export interface GroupQuote {
-    family_type?: null;
-    member_count?: null;
-    member_selection?: null;
-    percentage?: null;
-    type: any;
+    cost_sharing: any;
+    currency: string;
+    employee_count: number;
+    expires_at: string;
+    generated_at: string;
+    object?: string;
+    pdf_expires_at?: null | string;
+    pdf_url?: null | string;
+    total_monthly_premium: number;
 }
 export interface GroupQuoteLoadMatch {
     group_quote_intent_id: string;
@@ -758,13 +789,14 @@ export interface GroupQuoteIntent {
     action_required?: null;
     consent_links: any[];
     cost_sharing?: null;
+    coverage_selections?: null | any[];
     disclosures: any[];
     expected_start_date?: null | string;
     group_id: string;
     id: string;
     object?: string;
     plan_id: string;
-    status: any;
+    status: string;
 }
 export interface GroupQuoteIntentLoadMatch {
     id: string;
@@ -780,13 +812,14 @@ export interface GroupQuoteIntentCreateData {
     action_required?: null;
     consent_links: any[];
     cost_sharing?: null;
+    coverage_selections?: null | any[];
     disclosures: any[];
     expected_start_date?: null | string;
     group_id: string;
     id: string;
     object?: string;
     plan_id: string;
-    status: any;
+    status: string;
     $action?: string;
     [action: string]: any;
 }
@@ -805,7 +838,7 @@ export interface GroupQuoteIntentRequirementResponsePagedListListMatch {
 export interface Plan {
     available_from: string;
     available_to?: null | string;
-    country: any;
+    country: string;
     coverage_options?: null | any[];
     description: string;
     disclosures: any[];
@@ -820,7 +853,7 @@ export interface Plan {
     object?: string;
     provider: any;
     total_count?: null | number;
-    type: any;
+    type: string;
 }
 export interface PlanLoadMatch {
     id: string;
@@ -840,7 +873,7 @@ export interface PlanListMatch {
     type?: string;
 }
 export interface Policy {
-    bundling_type: any;
+    bundling_type: string;
     cancellation_date?: null | string;
     disclosures: any[];
     employee_id: string;
@@ -853,8 +886,8 @@ export interface Policy {
     plan: any;
     provider: any;
     start_date: string;
-    status: any;
-    type: any;
+    status: string;
+    type: string;
 }
 export interface PolicyLoadMatch {
     id: string;
@@ -877,7 +910,7 @@ export interface PolicyAmendmentIntent {
     processing_error?: null;
     requested_changes: any[];
     required_action?: null;
-    status: any;
+    status: string;
 }
 export interface PolicyAmendmentIntentLoadMatch {
     id: string;
@@ -899,7 +932,7 @@ export interface PolicyAmendmentIntentCreateData {
     processing_error?: null;
     requested_changes: any[];
     required_action?: null;
-    status: any;
+    status: string;
     $action?: string;
     [action: string]: any;
 }
@@ -913,7 +946,7 @@ export interface PolicyImportIntent {
     policy_end_date?: null | string;
     policy_start_date: string;
     provider_policy_number: string;
-    status: any;
+    status: string;
 }
 export interface PolicyImportIntentLoadMatch {
     id: string;
@@ -935,7 +968,7 @@ export interface PolicyImportIntentCreateData {
     policy_end_date?: null | string;
     policy_start_date: string;
     provider_policy_number: string;
-    status: any;
+    status: string;
 }
 export interface Provider {
     description: string;
@@ -967,14 +1000,7 @@ export interface WebhookEndpoint {
 export interface WebhookEndpointLoadMatch {
     id: string;
 }
-export interface WebhookEndpointResponsePagedList {
-    created_at: string;
-    endpoint_url: string;
-    id: string;
-    object?: string;
-    subscribed_events: any[];
-}
-export interface WebhookEndpointResponsePagedListListMatch {
+export interface WebhookEndpointListMatch {
     page?: number;
     page_size?: number;
 }

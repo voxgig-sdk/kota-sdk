@@ -38,12 +38,24 @@ describe('CreateSessionTokenEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == config.feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = KotaSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.CreateSessionToken().create({"employer_id":1,"expiry":"x","token":"x"}),
+      (err) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"expiry":{"a":true,"fo":"date-time","h":"Expiry","n":"expiry","r":true,"t":"`$STRING`","key$":"expiry","index$":0},"token":{"a":true,"h":"Token","n":"token","r":true,"t":"`$STRING`","key$":"token","index$":1}},"name":"create_session_token","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /embed/sessions","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/embed/sessions","q":{},"r":{},"s":[{"lit":"embed"},{"lit":"sessions"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"create_session_token","name__orig":"create_session_token","Name":"CreateSessionToken","name_":"create_session_token","name-":"create-session-token","NAME":"CREATE_SESSION_TOKEN","index$":6}, {"active":true,"entity":"create_session_token","key$":"BasicCreateSessionTokenFlow","kind":"basic","name":"BasicCreateSessionTokenFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"create_session_token_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0}]}, 'CreateSessionToken', {"POST /embed/sessions":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"allOf":[{"required":["employer_id"],"type":"object","properties":{"employer_id":{"pattern":"er_.+","type":"string","example":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"employee_id":{"pattern":"ee_.+","type":["null","string"],"example":"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"external_customer_id":{"type":["null","string"],"description":"A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is required for Employer Session tokens for EoR platforms."}},"additionalProperties":false,"x-ref":"#/components/schemas/CreateSessionTokenRequest"}],"index$":1}}},"required":true},"parameters":[]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"employee_id":{"a":true,"h":"Employee Id","n":"employee_id","r":false,"t":["`$ONE`",["`$NULL`","`$STRING`"]],"key$":"employee_id","index$":0},"employer_id":{"a":true,"h":"Employer Id","n":"employer_id","r":true,"t":"`$STRING`","key$":"employer_id","index$":1},"expiry":{"a":true,"fo":"date-time","h":"Expiry","n":"expiry","r":true,"t":"`$STRING`","key$":"expiry","index$":2},"external_customer_id":{"a":true,"h":"External Customer Id","n":"external_customer_id","r":false,"sh":"A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e.","t":["`$ONE`",["`$NULL`","`$STRING`"]],"key$":"external_customer_id","index$":3},"token":{"a":true,"h":"Token","n":"token","r":true,"t":"`$STRING`","key$":"token","index$":4}},"name":"create_session_token","op":{"create":{"input":"data","name":"create","points":[{"a":true,"bf":["employee_id","employer_id","external_customer_id"],"co":{"id":"POST /embed/sessions","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/embed/sessions","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"embed"},{"lit":"sessions"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"create_session_token","name__orig":"create_session_token","Name":"CreateSessionToken","name_":"create_session_token","name-":"create-session-token","NAME":"CREATE_SESSION_TOKEN","index$":6}, {"active":true,"entity":"create_session_token","key$":"BasicCreateSessionTokenFlow","kind":"basic","name":"BasicCreateSessionTokenFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"create_session_token_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0}]}, 'CreateSessionToken', {"POST /embed/sessions":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"allOf":[{"required":["employer_id"],"type":"object","properties":{"employer_id":{"pattern":"er_.+","type":"string","example":"er_3b1333d87d9d4fd6ad83ba7f6b0e951a","key$":"employer_id"},"employee_id":{"pattern":"ee_.+","type":["null","string"],"example":"ee_3b1333d87d9d4fd6ad83ba7f6b0e951a","key$":"employee_id"},"external_customer_id":{"type":["null","string"],"description":"A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. the company using the EoR service) for which the employee is employed. This ID groups employees under this Customer, enabling the aggregation of contribution reporting and other values per Customer rather than per legal entity. This parameter is required for Employer Session tokens for EoR platforms.","key$":"external_customer_id"}},"additionalProperties":false,"x-ref":"#/components/schemas/CreateSessionTokenRequest"}],"index$":1}}},"required":true},"parameters":[]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -64,6 +76,12 @@ describe('CreateSessionTokenEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra) {
   // TODO: fix test def options

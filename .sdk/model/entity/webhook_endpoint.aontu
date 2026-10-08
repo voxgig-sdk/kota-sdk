@@ -51,6 +51,63 @@ main: kit: entity: webhook_endpoint: {
 
   name: "webhook_endpoint"
   op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /webhooks/endpoints"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "x_platform_id"
+                or: "X-Platform-Id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/webhooks/endpoints"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+            {
+              lit: "endpoints"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [
@@ -65,7 +122,7 @@ main: kit: entity: webhook_endpoint: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -86,13 +143,16 @@ main: kit: entity: webhook_endpoint: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               webhook_endpoint_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

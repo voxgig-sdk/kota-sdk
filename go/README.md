@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/kota-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/kota-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/kota-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -35,9 +35,10 @@ loading a specific record.
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -53,42 +54,42 @@ func main() {
         "apikey": os.Getenv("KOTA_APIKEY"),
     })
 
-    // List associatedPerson records — the value is the array of records itself.
-    associatedPersons, err := client.AssociatedPerson(nil).List(nil, nil)
+    // List associatedPerson records — the value is a []any of entities, one per record.
+    associatedPersons, err := client.AssociatedPerson(nil).List(map[string]any{"employee_id": "example"}, nil)
     if err != nil {
         panic(err)
     }
     for _, item := range associatedPersons.([]any) {
-        fmt.Println(item)
+        fmt.Println(item.(sdk.Entity).Data())
     }
 
-    // Load a single associatedPerson — the value is the loaded record.
+    // Load a single associatedPerson — the value is the entity; Data() reads its record.
     associatedPerson, err := client.AssociatedPerson(nil).Load(map[string]any{"id": "example_id", "employee_id": "example_employee_id"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(associatedPerson)
+    fmt.Println(associatedPerson.(sdk.Entity).Data())
 
     // Create a associatedPerson.
     created, err := client.AssociatedPerson(nil).Create(map[string]any{"employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth", "first_name": "example_first_name", "id": "example_id", "last_name": "example_last_name", "relationship_type": "example_relationship_type", "sex_at_birth": "example_sex_at_birth"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(created)
+    fmt.Println(created.(sdk.Entity).Data())
 
     // Update a associatedPerson.
     updated, err := client.AssociatedPerson(nil).Update(map[string]any{"id": "example_id", "employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(updated)
+    fmt.Println(updated.(sdk.Entity).Data())
 
     // Remove a associatedPerson.
     removed, err := client.AssociatedPerson(nil).Remove(map[string]any{"id": "example_id", "employee_id": "example_employee_id"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(removed)
+    fmt.Println(removed.(sdk.Entity).Data())
 }
 ```
 
@@ -99,12 +100,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-dependentsmanagementintent, err := client.DependentsManagementIntent(nil).Load(map[string]any{"id": "example_id"}, nil)
+groupquoteintents, err := client.GroupQuoteIntent(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = dependentsmanagementintent
+_ = groupquoteintents
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -168,13 +169,16 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-dependentsManagementIntent, err := client.DependentsManagementIntent(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+groupQuoteIntents, err := client.GroupQuoteIntent(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(dependentsManagementIntent) // the returned mock data
+// A []any of entities, one per mock record.
+for _, item := range groupQuoteIntents.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Use a custom fetch function
@@ -291,7 +295,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `PolicyImportIntent` | `(data map[string]any) KotaEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider` | `(data map[string]any) KotaEntity` | Create a Provider entity instance. |
 | `WebhookEndpoint` | `(data map[string]any) KotaEntity` | Create a WebhookEndpoint entity instance. |
-| `WebhookEndpointResponsePagedList` | `(data map[string]any) KotaEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 
 ### Entity interface (KotaEntity)
 
@@ -299,11 +302,11 @@ All entities implement the `KotaEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
+| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria, and return it. |
+| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria, one per record. |
+| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity, and return it. |
+| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity, and return it. |
+| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity, and return it marked as deleted. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -311,21 +314,21 @@ All entities implement the `KotaEntity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
-| `List` | a `[]any` of entity records |
+| `Load` / `Create` / `Update` / `Remove` | the entity, whose `Data()` reads its record (`map[string]any`) |
+| `List` | a `[]any` of entities, one per record |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    associatedPerson, err := client.AssociatedPerson(nil).List(map[string]any{/* fields */}, nil)
+    associatedPerson, err := client.AssociatedPerson(nil).List(map[string]any{"employee_id": "example"}, nil)
     if err != nil { /* handle */ }
-    // associatedPerson is the returned record
+    // associatedPerson is a []any of entities, one per record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -424,6 +427,8 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns`
 
 | Field | Description |
 | --- | --- |
+| `"employee_id"` |  |
+| `"employer_id"` |  |
 | `"expiry"` |  |
 | `"link"` |  |
 
@@ -435,7 +440,10 @@ API path: `/hosted/sessions`
 
 | Field | Description |
 | --- | --- |
+| `"employee_id"` |  |
+| `"employer_id"` |  |
 | `"expiry"` |  |
+| `"external_customer_id"` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `"token"` |  |
 
 Operations: Create.
@@ -447,7 +455,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `"action_required"` | Details of the action required from the caller. |
+| `"associated_person_ids"` | List of associated person IDs to add as dependents. |
 | `"coverage_options"` | Available member-scoped coverage options for the plan. |
+| `"dependent_coverage_selections"` | Optional coverage selections per dependent. |
 | `"dependents"` | List of dependents being managed. |
 | `"disclosures"` | Disclosures associated with this intent. |
 | `"id"` | Unique identifier for the dependents management intent. |
@@ -485,6 +495,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | Field | Description |
 | --- | --- |
 | `"eligibility_status"` | Eligibility status: `eligible` or `ineligible`. |
+| `"employee_id"` | The employee to check eligibility for. |
 | `"object"` | The object type. |
 | `"plan"` | The insurance plan associated with the group. |
 | `"provider"` | The insurance provider associated with the group. |
@@ -612,15 +623,15 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 | Field | Description |
 | --- | --- |
 | `"contact"` |  |
-| `"earliest_benefits_start_date"` |  |
+| `"earliest_benefits_start_date"` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `"id"` |  |
-| `"legal_address"` |  |
-| `"legal_name"` |  |
+| `"legal_address"` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `"legal_name"` | Legal name of the company. |
 | `"metadata"` | Set of key-value pairs that you can attach to an object. |
 | `"object"` | The object type |
 | `"offboard_on"` |  |
 | `"platform_id"` |  |
-| `"registration_number"` |  |
+| `"registration_number"` | Company registration number. |
 | `"status"` |  |
 
 Operations: Create, List, Load, Update.
@@ -706,8 +717,11 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `"action_required"` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `"coverage_selections"` | Optional plan coverage option selections for policy-scoped configurations. |
+| `"desired_policy_start_date"` | The desired date for the employee's policy to start. |
 | `"disclosures"` | Disclosures associated with this intent. |
 | `"employee_id"` | Identifier for the employee associated with this enrolment intent. |
+| `"enrolment_date"` | The date on which the employee agreed to enrol into the group's policies. |
 | `"force_confirmation"` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `"group_id"` | Identifier for the group associated with this enrolment intent. |
 | `"id"` | Unique identifier for the enrolment intent. |
@@ -740,10 +754,7 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `"created"` |  |
 | `"data"` |  |
 | `"id"` |  |
-| `"options"` |  |
-| `"parent"` |  |
 | `"platform_id"` |  |
-| `"root"` |  |
 | `"type"` |  |
 
 Operations: Create, List, Load.
@@ -774,8 +785,10 @@ API path: `/groups`
 
 | Field | Description |
 | --- | --- |
+| `"create_enrolment_intents"` | Controls whether enrolment intents are automatically created for the employee. |
 | `"desired_policy_start_date"` | The desired date for the employee's policy to start. |
 | `"eligibility_status"` | Eligibility status for the employee in this group. |
+| `"employee_id"` | Employee Id |
 | `"enrolment_date"` | The date on which the employee agreed to enrol into the group's policies. |
 | `"enrolment_status"` | Enrolment status for the employee in this group. |
 | `"enrolments"` | List of enrolments associated with the employee in this group. |
@@ -783,6 +796,7 @@ API path: `/groups`
 | `"id"` | Unique identifier for the employee. |
 | `"object"` | The object type |
 | `"policies"` | List of policies associated with the employee in this group. |
+| `"policy_configuration"` | Policy configuration for the employee in this group. |
 | `"scheduled_group_transitions"` | List of scheduled group transitions for the employee. |
 
 Operations: Create.
@@ -826,6 +840,7 @@ API path: `/group_policies`
 | Field | Description |
 | --- | --- |
 | `"action_required"` | Details of the required action when the intent is in ActionRequired status. |
+| `"consent_approvals"` | Consent approvals to record at the time of intent creation |
 | `"cost_sharing"` | Cost sharing configuration for the policy intent |
 | `"disclosures"` | Disclosures associated with this intent. |
 | `"due_date"` | Due date for the policy intent |
@@ -854,11 +869,15 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `"family_type"` | Type of the family covered by the employer. |
-| `"member_count"` | Numbers of additional members covered by the employer. |
-| `"member_selection"` | Whether specific member types are covered by the employer. |
-| `"percentage"` | Percentage of the premium the employer covers. |
-| `"type"` | Cost sharing type. |
+| `"cost_sharing"` | Cost sharing configuration for the quote |
+| `"currency"` | Currency of the premium (e.g. |
+| `"employee_count"` | Number of employees covered by the quote |
+| `"expires_at"` | When the quote expires |
+| `"generated_at"` | When the quote was generated |
+| `"object"` | Object type identifier |
+| `"pdf_expires_at"` | When the PDF URL expires |
+| `"pdf_url"` | URL to download the quote PDF |
+| `"total_monthly_premium"` | Total monthly premium for the group |
 
 Operations: Load.
 
@@ -871,6 +890,7 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | `"action_required"` | Details of the action required from the caller, if the intent is in action_required status. |
 | `"consent_links"` | Consent links that need to be acknowledged |
 | `"cost_sharing"` | Cost sharing configuration for the quote |
+| `"coverage_selections"` | Plan coverage option selections for group-policy-scoped configurations. |
 | `"disclosures"` | Disclosures associated with this intent. |
 | `"expected_start_date"` | Expected start date for the insurance coverage |
 | `"group_id"` | Unique identifier for the group |
@@ -1011,21 +1031,7 @@ API path: `/providers`
 | `"object"` | The object type |
 | `"subscribed_events"` | The events the endpoint is subscribed to |
 
-Operations: Load.
-
-API path: `/webhooks/endpoints/{webhook_endpoint_id}`
-
-#### WebhookEndpointResponsePagedList
-
-| Field | Description |
-| --- | --- |
-| `"created_at"` | The date and time the endpoint was created |
-| `"endpoint_url"` | The registered URL of the endpoint |
-| `"id"` | The unique identifier of the endpoint |
-| `"object"` | The object type |
-| `"subscribed_events"` | The events the endpoint is subscribed to |
-
-Operations: List.
+Operations: List, Load.
 
 API path: `/webhooks/endpoints`
 
@@ -1061,8 +1067,8 @@ Create an instance: `associatedPerson := client.AssociatedPerson(nil)`
 | `object` | `string` | The object type |
 | `phone_number` | `any` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `relationship_type` | `any` | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `any` | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | The sex assigned to the associated person at birth |
 
 #### Example: Load
 
@@ -1071,17 +1077,20 @@ associatedPerson, err := client.AssociatedPerson(nil).Load(map[string]any{"id": 
 if err != nil {
     panic(err)
 }
-fmt.Println(associatedPerson) // the loaded record
+fmt.Println(associatedPerson.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-associatedPersons, err := client.AssociatedPerson(nil).List(nil, nil)
+associatedPersons, err := client.AssociatedPerson(nil).List(map[string]any{"employee_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(associatedPersons) // the array of records
+// A []any of entities, one per record.
+for _, item := range associatedPersons.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -1099,7 +1108,7 @@ result, err := client.AssociatedPerson(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1119,22 +1128,25 @@ Create an instance: `associatedPersonEligibilityResponsePagedList := client.Asso
 | --- | --- | --- |
 | `associated_person_id` | `string` | The associated person ID. |
 | `date_of_birth` | `string` | Date of birth of the associated person. |
-| `eligibility_status` | `any` | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Eligibility status for the policy/plan. |
 | `first_name` | `string` | First name of the associated person. |
 | `ineligibility_reason` | `any` | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Last name of the associated person. |
 | `object` | `string` | The object type |
-| `relationship` | `any` | Relationship type to the employee. |
-| `sex_at_birth` | `any` | Sex at birth of the associated person. |
+| `relationship` | `string` | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Sex at birth of the associated person. |
 
 #### Example: List
 
 ```go
-associatedPersonEligibilityResponsePagedLists, err := client.AssociatedPersonEligibilityResponsePagedList(nil).List(nil, nil)
+associatedPersonEligibilityResponsePagedLists, err := client.AssociatedPersonEligibilityResponsePagedList(nil).List(map[string]any{"dependents_management_intent_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(associatedPersonEligibilityResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range associatedPersonEligibilityResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -1162,7 +1174,7 @@ Create an instance: `contributionReport := client.ContributionReport(nil)`
 | `last_updated_at` | `string` | Date and time of the last update to the report |
 | `object` | `string` | The object type |
 | `period` | `any` | Period covered by the contribution report |
-| `status` | `any` | Current status of the contribution report |
+| `status` | `string` | Current status of the contribution report |
 
 #### Example: Load
 
@@ -1171,7 +1183,7 @@ contributionReport, err := client.ContributionReport(nil).Load(map[string]any{"i
 if err != nil {
     panic(err)
 }
-fmt.Println(contributionReport) // the loaded record
+fmt.Println(contributionReport.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -1181,7 +1193,10 @@ contributionReports, err := client.ContributionReport(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(contributionReports) // the array of records
+// A []any of entities, one per record.
+for _, item := range contributionReports.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -1198,7 +1213,7 @@ result, err := client.ContributionReport(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1218,7 +1233,7 @@ Create an instance: `contributionReportEmployeeBreakdown := client.ContributionR
 | --- | --- | --- |
 | `contribution_report_id` | `string` | Unique identifier of the related contribution report |
 | `created_at` | `string` | Date and time the breakdown was created |
-| `currency` | `any` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `any` | Unique identifier of the customer for which the breakdown is created. |
@@ -1228,7 +1243,7 @@ Create an instance: `contributionReportEmployeeBreakdown := client.ContributionR
 | `last_updated_at` | `string` | Date and time of the last update to the breakdown |
 | `object` | `string` | The object type |
 | `period` | `any` | Period covered by the employee breakdown |
-| `status` | `any` | Current status of the breakdown |
+| `status` | `string` | Current status of the breakdown |
 
 #### Example: Load
 
@@ -1237,7 +1252,7 @@ contributionReportEmployeeBreakdown, err := client.ContributionReportEmployeeBre
 if err != nil {
     panic(err)
 }
-fmt.Println(contributionReportEmployeeBreakdown) // the loaded record
+fmt.Println(contributionReportEmployeeBreakdown.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -1260,11 +1275,14 @@ Create an instance: `contributionReportEmployeeBreakdownResponsePagedList := cli
 #### Example: List
 
 ```go
-contributionReportEmployeeBreakdownResponsePagedLists, err := client.ContributionReportEmployeeBreakdownResponsePagedList(nil).List(nil, nil)
+contributionReportEmployeeBreakdownResponsePagedLists, err := client.ContributionReportEmployeeBreakdownResponsePagedList(nil).List(map[string]any{"id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(contributionReportEmployeeBreakdownResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range contributionReportEmployeeBreakdownResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -1282,6 +1300,8 @@ Create an instance: `createHostedSessionToken := client.CreateHostedSessionToken
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `string` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
 | `link` | `string` |  |
 
@@ -1289,13 +1309,15 @@ Create an instance: `createHostedSessionToken := client.CreateHostedSessionToken
 
 ```go
 result, err := client.CreateHostedSessionToken(nil).Create(map[string]any{
+    "employee_id": "example_employee_id",
+    "employer_id": "example_employer_id",
     "expiry": "example_expiry",
     "link": "example_link",
 }, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1313,20 +1335,24 @@ Create an instance: `createSessionToken := client.CreateSessionToken(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `any` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
+| `external_customer_id` | `any` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` |  |
 
 #### Example: Create
 
 ```go
 result, err := client.CreateSessionToken(nil).Create(map[string]any{
+    "employer_id": "example_employer_id",
     "expiry": "example_expiry",
     "token": "example_token",
 }, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1346,21 +1372,24 @@ Create an instance: `dependent := client.Dependent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` | Details of the action required from the caller. |
+| `associated_person_ids` | `[]any` | List of associated person IDs to add as dependents. |
 | `coverage_options` | `any` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `any` | Optional coverage selections per dependent. |
 | `dependents` | `[]any` | List of dependents being managed. |
 | `disclosures` | `[]any` | Disclosures associated with this intent. |
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `any` | Plan information including pricing details. |
-| `status` | `any` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Create
 
 ```go
 result, err := client.Dependent(nil).Create(map[string]any{
     "dependents_management_intent_id": "example_dependents_management_intent_id",
+    "associated_person_ids": []any{},
     "dependents": []any{},
     "disclosures": []any{},
     "id": "example_id",
@@ -1372,7 +1401,7 @@ result, err := client.Dependent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1398,9 +1427,9 @@ Create an instance: `dependentsManagementIntent := client.DependentsManagementIn
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `any` | Plan information including pricing details. |
-| `status` | `any` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Load
 
@@ -1409,7 +1438,7 @@ dependentsManagementIntent, err := client.DependentsManagementIntent(nil).Load(m
 if err != nil {
     panic(err)
 }
-fmt.Println(dependentsManagementIntent) // the loaded record
+fmt.Println(dependentsManagementIntent.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: Create
@@ -1428,7 +1457,7 @@ result, err := client.DependentsManagementIntent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1446,7 +1475,8 @@ Create an instance: `eligibilityCheck := client.EligibilityCheck(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `eligibility_status` | `any` | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | The employee to check eligibility for. |
 | `object` | `string` | The object type. |
 | `plan` | `any` | The insurance plan associated with the group. |
 | `provider` | `any` | The insurance provider associated with the group. |
@@ -1458,6 +1488,7 @@ Create an instance: `eligibilityCheck := client.EligibilityCheck(nil)`
 result, err := client.EligibilityCheck(nil).Create(map[string]any{
     "group_id": "example_group_id",
     "eligibility_status": "example_eligibility_status",
+    "employee_id": "example_employee_id",
     "plan": "example_plan",
     "provider": "example_provider",
     "reasons": []any{},
@@ -1465,7 +1496,7 @@ result, err := client.EligibilityCheck(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1503,9 +1534,9 @@ Create an instance: `employee := client.Employee(nil)`
 | `offboard_on` | `any` | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `sex_at_birth` | `any` | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | The sex assigned to the employee at birth |
 | `start_on` | `string` | Employment start date |
-| `status` | `any` | Current status of the employee |
+| `status` | `string` | Current status of the employee |
 
 #### Example: Load
 
@@ -1514,7 +1545,7 @@ employee, err := client.Employee(nil).Load(map[string]any{"id": "employee_id"}, 
 if err != nil {
     panic(err)
 }
-fmt.Println(employee) // the loaded record
+fmt.Println(employee.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -1524,7 +1555,10 @@ employees, err := client.Employee(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(employees) // the array of records
+// A []any of entities, one per record.
+for _, item := range employees.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -1542,7 +1576,7 @@ result, err := client.Employee(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1567,7 +1601,7 @@ Create an instance: `employeeHealthInsuranceOffer := client.EmployeeHealthInsura
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `any` | Required action to progress the offer, if any. |
-| `status` | `any` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: Load
 
@@ -1576,7 +1610,7 @@ employeeHealthInsuranceOffer, err := client.EmployeeHealthInsuranceOffer(nil).Lo
 if err != nil {
     panic(err)
 }
-fmt.Println(employeeHealthInsuranceOffer) // the loaded record
+fmt.Println(employeeHealthInsuranceOffer.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -1601,16 +1635,19 @@ Create an instance: `employeeHealthInsuranceOfferResponsePagedList := client.Emp
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `any` | Required action to progress the offer, if any. |
-| `status` | `any` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: List
 
 ```go
-employeeHealthInsuranceOfferResponsePagedLists, err := client.EmployeeHealthInsuranceOfferResponsePagedList(nil).List(nil, nil)
+employeeHealthInsuranceOfferResponsePagedLists, err := client.EmployeeHealthInsuranceOfferResponsePagedList(nil).List(map[string]any{"employee_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(employeeHealthInsuranceOfferResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range employeeHealthInsuranceOfferResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -1634,7 +1671,7 @@ Create an instance: `employeeHealthInsurancePolicy := client.EmployeeHealthInsur
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `any` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1643,7 +1680,7 @@ Create an instance: `employeeHealthInsurancePolicy := client.EmployeeHealthInsur
 | `policy_number` | `any` | Health insurance policy number, if available |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1652,7 +1689,7 @@ employeeHealthInsurancePolicy, err := client.EmployeeHealthInsurancePolicy(nil).
 if err != nil {
     panic(err)
 }
-fmt.Println(employeeHealthInsurancePolicy) // the loaded record
+fmt.Println(employeeHealthInsurancePolicy.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -1676,7 +1713,7 @@ Create an instance: `employeeHealthInsurancePolicyResponsePagedList := client.Em
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `any` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1685,16 +1722,19 @@ Create an instance: `employeeHealthInsurancePolicyResponsePagedList := client.Em
 | `policy_number` | `any` | Health insurance policy number, if available |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
 ```go
-employeeHealthInsurancePolicyResponsePagedLists, err := client.EmployeeHealthInsurancePolicyResponsePagedList(nil).List(nil, nil)
+employeeHealthInsurancePolicyResponsePagedLists, err := client.EmployeeHealthInsurancePolicyResponsePagedList(nil).List(map[string]any{"employee_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(employeeHealthInsurancePolicyResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range employeeHealthInsurancePolicyResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -1716,16 +1756,16 @@ Create an instance: `employer := client.Employer(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `contact` | `any` |  |
-| `earliest_benefits_start_date` | `any` |  |
+| `earliest_benefits_start_date` | `any` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` |  |
-| `legal_address` | `any` |  |
-| `legal_name` | `string` |  |
+| `legal_address` | `any` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Legal name of the company. |
 | `metadata` | `any` | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | The object type |
 | `offboard_on` | `any` |  |
 | `platform_id` | `string` |  |
-| `registration_number` | `any` |  |
-| `status` | `any` |  |
+| `registration_number` | `any` | Company registration number. |
+| `status` | `string` |  |
 
 #### Example: Load
 
@@ -1734,7 +1774,7 @@ employer, err := client.Employer(nil).Load(map[string]any{"id": "employer_id"}, 
 if err != nil {
     panic(err)
 }
-fmt.Println(employer) // the loaded record
+fmt.Println(employer.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -1744,7 +1784,10 @@ employers, err := client.Employer(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(employers) // the array of records
+// A []any of entities, one per record.
+for _, item := range employers.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -1759,7 +1802,7 @@ result, err := client.Employer(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1782,13 +1825,13 @@ Create an instance: `employerHealthInsurancePolicy := client.EmployerHealthInsur
 | `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `any` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1797,7 +1840,7 @@ employerHealthInsurancePolicy, err := client.EmployerHealthInsurancePolicy(nil).
 if err != nil {
     panic(err)
 }
-fmt.Println(employerHealthInsurancePolicy) // the loaded record
+fmt.Println(employerHealthInsurancePolicy.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -1820,22 +1863,25 @@ Create an instance: `employerHealthInsurancePolicyResponsePagedList := client.Em
 | `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `any` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
 ```go
-employerHealthInsurancePolicyResponsePagedLists, err := client.EmployerHealthInsurancePolicyResponsePagedList(nil).List(nil, nil)
+employerHealthInsurancePolicyResponsePagedLists, err := client.EmployerHealthInsurancePolicyResponsePagedList(nil).List(map[string]any{"employer_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(employerHealthInsurancePolicyResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range employerHealthInsurancePolicyResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -1859,7 +1905,7 @@ Create an instance: `employerHealthInsuranceQuote := client.EmployerHealthInsura
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `any` | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: Load
 
@@ -1868,7 +1914,7 @@ employerHealthInsuranceQuote, err := client.EmployerHealthInsuranceQuote(nil).Lo
 if err != nil {
     panic(err)
 }
-fmt.Println(employerHealthInsuranceQuote) // the loaded record
+fmt.Println(employerHealthInsuranceQuote.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -1892,16 +1938,19 @@ Create an instance: `employerHealthInsuranceQuoteResponsePagedList := client.Emp
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `any` | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: List
 
 ```go
-employerHealthInsuranceQuoteResponsePagedLists, err := client.EmployerHealthInsuranceQuoteResponsePagedList(nil).List(nil, nil)
+employerHealthInsuranceQuoteResponsePagedLists, err := client.EmployerHealthInsuranceQuoteResponsePagedList(nil).List(map[string]any{"employer_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(employerHealthInsuranceQuoteResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range employerHealthInsuranceQuoteResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -1923,8 +1972,11 @@ Create an instance: `enrolmentIntent := client.EnrolmentIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `any` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `any` | The desired date for the employee's policy to start. |
 | `disclosures` | `[]any` | Disclosures associated with this intent. |
 | `employee_id` | `string` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `any` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `bool` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Unique identifier for the enrolment intent. |
@@ -1933,7 +1985,7 @@ Create an instance: `enrolmentIntent := client.EnrolmentIntent(nil)`
 | `pending_confirmation` | `any` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `any` | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `[]any` | Policy enrolment information |
-| `status` | `any` | Current status of the enrolment intent. |
+| `status` | `string` | Current status of the enrolment intent. |
 
 #### Example: Load
 
@@ -1942,7 +1994,7 @@ enrolmentIntent, err := client.EnrolmentIntent(nil).Load(map[string]any{"id": "e
 if err != nil {
     panic(err)
 }
-fmt.Println(enrolmentIntent) // the loaded record
+fmt.Println(enrolmentIntent.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -1952,7 +2004,10 @@ enrolmentIntents, err := client.EnrolmentIntent(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(enrolmentIntents) // the array of records
+// A []any of entities, one per record.
+for _, item := range enrolmentIntents.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -1970,7 +2025,7 @@ result, err := client.EnrolmentIntent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -1993,11 +2048,14 @@ Create an instance: `enrolmentIntentRequirementResponsePagedList := client.Enrol
 #### Example: List
 
 ```go
-enrolmentIntentRequirementResponsePagedLists, err := client.EnrolmentIntentRequirementResponsePagedList(nil).List(nil, nil)
+enrolmentIntentRequirementResponsePagedLists, err := client.EnrolmentIntentRequirementResponsePagedList(nil).List(map[string]any{"id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(enrolmentIntentRequirementResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range enrolmentIntentRequirementResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2021,10 +2079,7 @@ Create an instance: `event := client.Event(nil)`
 | `created` | `string` |  |
 | `data` | `any` |  |
 | `id` | `string` |  |
-| `options` | `any` |  |
-| `parent` | `any` |  |
 | `platform_id` | `string` |  |
-| `root` | `any` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -2034,7 +2089,7 @@ event, err := client.Event(nil).Load(map[string]any{"id": "event_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(event) // the loaded record
+fmt.Println(event.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2044,7 +2099,10 @@ events, err := client.Event(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(events) // the array of records
+// A []any of entities, one per record.
+for _, item := range events.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -2060,7 +2118,7 @@ result, err := client.Event(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2083,15 +2141,15 @@ Create an instance: `group := client.Group(nil)`
 | --- | --- | --- |
 | `description` | `any` | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `any` | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `[]any` | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `[]any` | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `[]any` | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `any` | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Indicates how policies are organized for this group. |
 | `id` | `string` | Unique identifier for the `group`. |
 | `name` | `string` | Human-readable name of the `group`. |
 | `object` | `string` | The object type |
-| `status` | `any` | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Current lifecycle state of the `group`, indicating its current progress. |
 
 #### Example: Load
 
@@ -2100,7 +2158,7 @@ group, err := client.Group(nil).Load(map[string]any{"id": "group_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(group) // the loaded record
+fmt.Println(group.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2110,7 +2168,10 @@ groups, err := client.Group(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groups) // the array of records
+// A []any of entities, one per record.
+for _, item := range groups.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -2130,7 +2191,7 @@ result, err := client.Group(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2148,15 +2209,18 @@ Create an instance: `groupEmployee := client.GroupEmployee(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `create_enrolment_intents` | `any` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `any` | The desired date for the employee's policy to start. |
-| `eligibility_status` | `any` | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Employee Id |
 | `enrolment_date` | `any` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `any` | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Enrolment status for the employee in this group. |
 | `enrolments` | `[]any` | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Unique identifier for the group. |
 | `id` | `string` | Unique identifier for the employee. |
 | `object` | `string` | The object type |
 | `policies` | `[]any` | List of policies associated with the employee in this group. |
+| `policy_configuration` | `any` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `[]any` | List of scheduled group transitions for the employee. |
 
 #### Example: Create
@@ -2165,6 +2229,7 @@ Create an instance: `groupEmployee := client.GroupEmployee(nil)`
 result, err := client.GroupEmployee(nil).Create(map[string]any{
     "id": "example_id",
     "eligibility_status": "example_eligibility_status",
+    "employee_id": "example_employee_id",
     "enrolment_status": "example_enrolment_status",
     "enrolments": []any{},
     "group_id": "example_group_id",
@@ -2174,7 +2239,7 @@ result, err := client.GroupEmployee(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2197,11 +2262,14 @@ Create an instance: `groupEmployeeResponsePagedList := client.GroupEmployeeRespo
 #### Example: List
 
 ```go
-groupEmployeeResponsePagedLists, err := client.GroupEmployeeResponsePagedList(nil).List(nil, nil)
+groupEmployeeResponsePagedLists, err := client.GroupEmployeeResponsePagedList(nil).List(map[string]any{"id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groupEmployeeResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range groupEmployeeResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2231,8 +2299,8 @@ Create an instance: `groupPolicy := client.GroupPolicy(nil)`
 | `plan` | `any` | Plan information for this policy |
 | `provider` | `any` | Provider information for this policy. |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `any` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `any` | Policy type. |
+| `status` | `string` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2241,7 +2309,7 @@ groupPolicy, err := client.GroupPolicy(nil).Load(map[string]any{"id": "group_pol
 if err != nil {
     panic(err)
 }
-fmt.Println(groupPolicy) // the loaded record
+fmt.Println(groupPolicy.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2251,7 +2319,10 @@ groupPolicys, err := client.GroupPolicy(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groupPolicys) // the array of records
+// A []any of entities, one per record.
+for _, item := range groupPolicys.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2272,6 +2343,7 @@ Create an instance: `groupPolicyIntent := client.GroupPolicyIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `any` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `any` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `any` | Cost sharing configuration for the policy intent |
 | `disclosures` | `[]any` | Disclosures associated with this intent. |
 | `due_date` | `any` | Due date for the policy intent |
@@ -2280,7 +2352,7 @@ Create an instance: `groupPolicyIntent := client.GroupPolicyIntent(nil)`
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `any` | Current status of the group policy intent |
+| `status` | `string` | Current status of the group policy intent |
 
 #### Example: Load
 
@@ -2289,7 +2361,7 @@ groupPolicyIntent, err := client.GroupPolicyIntent(nil).Load(map[string]any{"id"
 if err != nil {
     panic(err)
 }
-fmt.Println(groupPolicyIntent) // the loaded record
+fmt.Println(groupPolicyIntent.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2299,7 +2371,10 @@ groupPolicyIntents, err := client.GroupPolicyIntent(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groupPolicyIntents) // the array of records
+// A []any of entities, one per record.
+for _, item := range groupPolicyIntents.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -2316,7 +2391,7 @@ result, err := client.GroupPolicyIntent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2339,11 +2414,14 @@ Create an instance: `groupPolicyIntentRequirementResponsePagedList := client.Gro
 #### Example: List
 
 ```go
-groupPolicyIntentRequirementResponsePagedLists, err := client.GroupPolicyIntentRequirementResponsePagedList(nil).List(nil, nil)
+groupPolicyIntentRequirementResponsePagedLists, err := client.GroupPolicyIntentRequirementResponsePagedList(nil).List(map[string]any{"id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groupPolicyIntentRequirementResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range groupPolicyIntentRequirementResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2361,11 +2439,15 @@ Create an instance: `groupQuote := client.GroupQuote(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `family_type` | `any` | Type of the family covered by the employer. |
-| `member_count` | `any` | Numbers of additional members covered by the employer. |
-| `member_selection` | `any` | Whether specific member types are covered by the employer. |
-| `percentage` | `any` | Percentage of the premium the employer covers. |
-| `type` | `any` | Cost sharing type. |
+| `cost_sharing` | `any` | Cost sharing configuration for the quote |
+| `currency` | `string` | Currency of the premium (e.g. |
+| `employee_count` | `int` | Number of employees covered by the quote |
+| `expires_at` | `string` | When the quote expires |
+| `generated_at` | `string` | When the quote was generated |
+| `object` | `string` | Object type identifier |
+| `pdf_expires_at` | `any` | When the PDF URL expires |
+| `pdf_url` | `any` | URL to download the quote PDF |
+| `total_monthly_premium` | `float64` | Total monthly premium for the group |
 
 #### Example: Load
 
@@ -2374,7 +2456,7 @@ groupQuote, err := client.GroupQuote(nil).Load(map[string]any{"group_quote_inten
 if err != nil {
     panic(err)
 }
-fmt.Println(groupQuote) // the loaded record
+fmt.Println(groupQuote.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -2397,13 +2479,14 @@ Create an instance: `groupQuoteIntent := client.GroupQuoteIntent(nil)`
 | `action_required` | `any` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `[]any` | Consent links that need to be acknowledged |
 | `cost_sharing` | `any` | Cost sharing configuration for the quote |
+| `coverage_selections` | `any` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `[]any` | Disclosures associated with this intent. |
 | `expected_start_date` | `any` | Expected start date for the insurance coverage |
 | `group_id` | `string` | Unique identifier for the group |
 | `id` | `string` | Unique identifier for the group quote intent |
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
-| `status` | `any` | Current status of the group quote intent |
+| `status` | `string` | Current status of the group quote intent |
 
 #### Example: Load
 
@@ -2412,7 +2495,7 @@ groupQuoteIntent, err := client.GroupQuoteIntent(nil).Load(map[string]any{"id": 
 if err != nil {
     panic(err)
 }
-fmt.Println(groupQuoteIntent) // the loaded record
+fmt.Println(groupQuoteIntent.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2422,7 +2505,10 @@ groupQuoteIntents, err := client.GroupQuoteIntent(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groupQuoteIntents) // the array of records
+// A []any of entities, one per record.
+for _, item := range groupQuoteIntents.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -2439,7 +2525,7 @@ result, err := client.GroupQuoteIntent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2462,11 +2548,14 @@ Create an instance: `groupQuoteIntentRequirementResponsePagedList := client.Grou
 #### Example: List
 
 ```go
-groupQuoteIntentRequirementResponsePagedLists, err := client.GroupQuoteIntentRequirementResponsePagedList(nil).List(nil, nil)
+groupQuoteIntentRequirementResponsePagedLists, err := client.GroupQuoteIntentRequirementResponsePagedList(nil).List(map[string]any{"id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(groupQuoteIntentRequirementResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range groupQuoteIntentRequirementResponsePagedLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2487,7 +2576,7 @@ Create an instance: `plan := client.Plan(nil)`
 | --- | --- | --- |
 | `available_from` | `string` | The date from which this plan is available (inclusive). |
 | `available_to` | `any` | The date until which this plan is available (inclusive). |
-| `country` | `any` | The country this plan is available in. |
+| `country` | `string` | The country this plan is available in. |
 | `coverage_options` | `any` | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Description of the plan. |
 | `disclosures` | `[]any` | Disclosures associated with this plan. |
@@ -2502,7 +2591,7 @@ Create an instance: `plan := client.Plan(nil)`
 | `object` | `string` | Object type. |
 | `provider` | `any` | The provider offering this plan. |
 | `total_count` | `any` | Total employees in the queried group. |
-| `type` | `any` | The benefit type of the plan. |
+| `type` | `string` | The benefit type of the plan. |
 
 #### Example: Load
 
@@ -2511,7 +2600,7 @@ plan, err := client.Plan(nil).Load(map[string]any{"id": "plan_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(plan) // the loaded record
+fmt.Println(plan.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2521,7 +2610,10 @@ plans, err := client.Plan(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(plans) // the array of records
+// A []any of entities, one per record.
+for _, item := range plans.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2540,7 +2632,7 @@ Create an instance: `policy := client.Policy(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bundling_type` | `any` | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `any` | Date the policy was cancelled (if applicable) |
 | `disclosures` | `[]any` | Disclosures associated with this policy. |
 | `employee_id` | `string` | Identifier of the employee associated with this policy. |
@@ -2553,8 +2645,8 @@ Create an instance: `policy := client.Policy(nil)`
 | `plan` | `any` | Plan information for this policy |
 | `provider` | `any` | Provider information for this policy |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `any` | Current lifecycle state of the policy |
-| `type` | `any` | Policy type. |
+| `status` | `string` | Current lifecycle state of the policy |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2563,7 +2655,7 @@ policy, err := client.Policy(nil).Load(map[string]any{"id": "policy_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(policy) // the loaded record
+fmt.Println(policy.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2573,7 +2665,10 @@ policys, err := client.Policy(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(policys) // the array of records
+// A []any of entities, one per record.
+for _, item := range policys.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2602,7 +2697,7 @@ Create an instance: `policyAmendmentIntent := client.PolicyAmendmentIntent(nil)`
 | `processing_error` | `any` | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `[]any` | List of requested changes to the policy. |
 | `required_action` | `any` | Information about the required action if the intent status is `action_required`. |
-| `status` | `any` | Current status of the policy amendment intent. |
+| `status` | `string` | Current status of the policy amendment intent. |
 
 #### Example: Load
 
@@ -2611,17 +2706,20 @@ policyAmendmentIntent, err := client.PolicyAmendmentIntent(nil).Load(map[string]
 if err != nil {
     panic(err)
 }
-fmt.Println(policyAmendmentIntent) // the loaded record
+fmt.Println(policyAmendmentIntent.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-policyAmendmentIntents, err := client.PolicyAmendmentIntent(nil).List(nil, nil)
+policyAmendmentIntents, err := client.PolicyAmendmentIntent(nil).List(map[string]any{"id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(policyAmendmentIntents) // the array of records
+// A []any of entities, one per record.
+for _, item := range policyAmendmentIntents.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -2638,7 +2736,7 @@ result, err := client.PolicyAmendmentIntent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2667,7 +2765,7 @@ Create an instance: `policyImportIntent := client.PolicyImportIntent(nil)`
 | `policy_end_date` | `any` | The end date of the policy. |
 | `policy_start_date` | `string` | The start date of the policy. |
 | `provider_policy_number` | `string` | The provider's policy number. |
-| `status` | `any` | Current status of the policy import intent. |
+| `status` | `string` | Current status of the policy import intent. |
 
 #### Example: Load
 
@@ -2676,7 +2774,7 @@ policyImportIntent, err := client.PolicyImportIntent(nil).Load(map[string]any{"i
 if err != nil {
     panic(err)
 }
-fmt.Println(policyImportIntent) // the loaded record
+fmt.Println(policyImportIntent.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2686,7 +2784,10 @@ policyImportIntents, err := client.PolicyImportIntent(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(policyImportIntents) // the array of records
+// A []any of entities, one per record.
+for _, item := range policyImportIntents.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -2705,7 +2806,7 @@ result, err := client.PolicyImportIntent(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -2742,7 +2843,7 @@ provider, err := client.Provider(nil).Load(map[string]any{"id": "provider_id"}, 
 if err != nil {
     panic(err)
 }
-fmt.Println(provider) // the loaded record
+fmt.Println(provider.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -2752,7 +2853,10 @@ providers, err := client.Provider(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(providers) // the array of records
+// A []any of entities, one per record.
+for _, item := range providers.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -2764,6 +2868,7 @@ Create an instance: `webhookEndpoint := client.WebhookEndpoint(nil)`
 
 | Method | Description |
 | --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -2783,38 +2888,20 @@ webhookEndpoint, err := client.WebhookEndpoint(nil).Load(map[string]any{"id": "w
 if err != nil {
     panic(err)
 }
-fmt.Println(webhookEndpoint) // the loaded record
+fmt.Println(webhookEndpoint.(sdk.Entity).Data()) // the loaded entity's record
 ```
-
-
-### WebhookEndpointResponsePagedList
-
-Create an instance: `webhookEndpointResponsePagedList := client.WebhookEndpointResponsePagedList(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `string` | The date and time the endpoint was created |
-| `endpoint_url` | `string` | The registered URL of the endpoint |
-| `id` | `string` | The unique identifier of the endpoint |
-| `object` | `string` | The object type |
-| `subscribed_events` | `[]any` | The events the endpoint is subscribed to |
 
 #### Example: List
 
 ```go
-webhookEndpointResponsePagedLists, err := client.WebhookEndpointResponsePagedList(nil).List(nil, nil)
+webhookEndpoints, err := client.WebhookEndpoint(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(webhookEndpointResponsePagedLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range webhookEndpoints.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ## Features
@@ -3010,7 +3097,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 
@@ -3030,15 +3119,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-dependentsmanagementintent := client.DependentsManagementIntent(nil)
-dependentsmanagementintent.Load(map[string]any{"id": "example_id"}, nil)
+groupquoteintent := client.GroupQuoteIntent(nil)
+groupquoteintent.List(nil, nil)
 
-// dependentsmanagementintent.Data() now returns the dependentsmanagementintent data from the last load
-// dependentsmanagementintent.Match() returns the last match criteria
+// groupquoteintent.Data() now returns the groupquoteintent data from the last list
+// groupquoteintent.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

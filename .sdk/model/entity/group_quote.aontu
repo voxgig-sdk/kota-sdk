@@ -5,40 +5,86 @@ main: kit: entity: group_quote: {
   alias: field: {}
 
   fields: {
-    family_type: {
-      h: "Family Type"
-      n: "family_type"
-      r: false
-      sh: "Type of the family covered by the employer."
-      t: "`$NULL`"
-    }
-    member_count: {
-      h: "Member Count"
-      n: "member_count"
-      r: false
-      sh: "Numbers of additional members covered by the employer."
-      t: "`$NULL`"
-    }
-    member_selection: {
-      h: "Member Selection"
-      n: "member_selection"
-      r: false
-      sh: "Whether specific member types are covered by the employer."
-      t: "`$NULL`"
-    }
-    percentage: {
-      h: "Percentage"
-      n: "percentage"
-      r: false
-      sh: "Percentage of the premium the employer covers."
-      t: "`$NULL`"
-    }
-    type: {
-      h: "Type"
-      n: "type"
+    cost_sharing: {
+      h: "Cost Sharing"
+      n: "cost_sharing"
       r: true
-      sh: "Cost sharing type."
+      sh: "Cost sharing configuration for the quote"
       t: "`$ANY`"
+    }
+    currency: {
+      h: "Currency"
+      n: "currency"
+      r: true
+      sh: "Currency of the premium (e.g."
+      t: "`$STRING`"
+    }
+    employee_count: {
+      fo: "int32"
+      h: "Employee Count"
+      n: "employee_count"
+      r: true
+      sh: "Number of employees covered by the quote"
+      t: "`$INTEGER`"
+    }
+    expires_at: {
+      fo: "date-time"
+      h: "Expires At"
+      n: "expires_at"
+      r: true
+      sh: "When the quote expires"
+      t: "`$STRING`"
+    }
+    generated_at: {
+      fo: "date-time"
+      h: "Generated At"
+      n: "generated_at"
+      r: true
+      sh: "When the quote was generated"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      ro: true
+      sh: "Object type identifier"
+      t: "`$STRING`"
+    }
+    pdf_expires_at: {
+      fo: "date-time"
+      h: "Pdf Expires At"
+      n: "pdf_expires_at"
+      r: false
+      sh: "When the PDF URL expires"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    pdf_url: {
+      h: "Pdf Url"
+      n: "pdf_url"
+      r: false
+      sh: "URL to download the quote PDF"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    total_monthly_premium: {
+      fo: "double"
+      h: "Total Monthly Premium"
+      n: "total_monthly_premium"
+      r: true
+      sh: "Total monthly premium for the group"
+      t: "`$NUMBER`"
     }
   }
 
@@ -58,7 +104,7 @@ main: kit: entity: group_quote: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -79,8 +125,11 @@ main: kit: entity: group_quote: {
           q: {
             exist: [
               "group_quote_intent_id"
-              "x_platform_id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -95,7 +144,7 @@ main: kit: entity: group_quote: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.cost_sharing`"
+            res: "`body`"
           }
         }
       ]

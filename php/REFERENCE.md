@@ -194,10 +194,6 @@ Create a new `ProviderEntity` instance. Pass `null` for no initial data.
 
 Create a new `WebhookEndpointEntity` instance. Pass `null` for no initial data.
 
-#### `WebhookEndpointResponsePagedList($data = null)`
-
-Create a new `WebhookEndpointResponsePagedListEntity` instance. Pass `null` for no initial data.
-
 #### `options_map(): array`
 
 Return a deep copy of the current SDK options.
@@ -254,14 +250,30 @@ $associated_person = $client->AssociatedPerson();
 | `object` | `string` | No | The object type |
 | `phone_number` | `mixed` | No | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
-| `relationship_type` | `mixed` | Yes | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `mixed` | Yes | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | Yes | The sex assigned to the associated person at birth |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `date_of_birth` | - | - | - | Yes | - |
+| `email` | - | - | - | - | - |
+| `employee_id` | - | - | - | - | - |
+| `first_name` | - | - | - | Yes | - |
+| `id` | - | - | - | - | - |
+| `last_name` | - | - | - | Yes | - |
+| `object` | - | - | - | - | - |
+| `phone_number` | - | - | - | - | - |
+| `platform_id` | - | - | - | - | - |
+| `relationship_type` | - | - | - | Yes | - |
+| `sex_at_birth` | - | - | - | Yes | - |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->AssociatedPerson()->create([
@@ -270,22 +282,22 @@ $result = $client->AssociatedPerson()->create([
   "first_name" => null, // string
   "id" => null, // string
   "last_name" => null, // string
-  "relationship_type" => null, // mixed
-  "sex_at_birth" => null, // mixed
+  "relationship_type" => null, // string
+  "sex_at_birth" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->AssociatedPerson()->list();
+$results = $client->AssociatedPerson()->list(["employee_id" => "example"]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->AssociatedPerson()->load(["id" => "associated_person_id", "employee_id" => "employee_id"]);
@@ -293,7 +305,7 @@ $result = $client->AssociatedPerson()->load(["id" => "associated_person_id", "em
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria. Throws on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
 $result = $client->AssociatedPerson()->remove(["id" => "associated_person_id", "employee_id" => "employee_id"]);
@@ -301,7 +313,7 @@ $result = $client->AssociatedPerson()->remove(["id" => "associated_person_id", "
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->AssociatedPerson()->update([
@@ -353,22 +365,22 @@ $associated_person_eligibility_response_paged_list = $client->AssociatedPersonEl
 | --- | --- | --- | --- |
 | `associated_person_id` | `string` | Yes | The associated person ID. |
 | `date_of_birth` | `string` | Yes | Date of birth of the associated person. |
-| `eligibility_status` | `mixed` | Yes | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Yes | Eligibility status for the policy/plan. |
 | `first_name` | `string` | Yes | First name of the associated person. |
 | `ineligibility_reason` | `mixed` | No | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Yes | Last name of the associated person. |
 | `object` | `string` | No | The object type |
-| `relationship` | `mixed` | Yes | Relationship type to the employee. |
-| `sex_at_birth` | `mixed` | Yes | Sex at birth of the associated person. |
+| `relationship` | `string` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->AssociatedPersonEligibilityResponsePagedList()->list();
+$results = $client->AssociatedPersonEligibilityResponsePagedList()->list(["dependents_management_intent_id" => "example"]);
 ```
 
 ### Common Methods
@@ -419,13 +431,13 @@ $contribution_report = $client->ContributionReport();
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
 | `object` | `string` | No | The object type |
 | `period` | `mixed` | Yes | Period covered by the contribution report |
-| `status` | `mixed` | Yes | Current status of the contribution report |
+| `status` | `string` | Yes | Current status of the contribution report |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->ContributionReport()->create([
@@ -434,13 +446,13 @@ $result = $client->ContributionReport()->create([
   "employer_id" => null, // string
   "last_updated_at" => null, // string
   "period" => null, // mixed
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->ContributionReport()->list();
@@ -448,7 +460,7 @@ $results = $client->ContributionReport()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->ContributionReport()->load(["id" => "contribution_report_id"]);
@@ -496,7 +508,7 @@ $contribution_report_employee_breakdown = $client->ContributionReportEmployeeBre
 | --- | --- | --- | --- |
 | `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
 | `created_at` | `string` | Yes | Date and time the breakdown was created |
-| `currency` | `mixed` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `mixed` | No | Unique identifier of the customer for which the breakdown is created. |
@@ -506,13 +518,13 @@ $contribution_report_employee_breakdown = $client->ContributionReportEmployeeBre
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `mixed` | Yes | Period covered by the employee breakdown |
-| `status` | `mixed` | Yes | Current status of the breakdown |
+| `status` | `string` | Yes | Current status of the breakdown |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->ContributionReportEmployeeBreakdown()->load(["id" => "contribution_report_employee_breakdown_id", "contribution_report_id" => "contribution_report_id"]);
@@ -564,10 +576,10 @@ $contribution_report_employee_breakdown_response_paged_list = $client->Contribut
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->ContributionReportEmployeeBreakdownResponsePagedList()->list();
+$results = $client->ContributionReportEmployeeBreakdownResponsePagedList()->list(["id" => "example"]);
 ```
 
 ### Common Methods
@@ -610,6 +622,8 @@ $create_hosted_session_token = $client->CreateHostedSessionToken();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `employee_id` | `string` | Yes |  |
+| `employer_id` | `string` | Yes |  |
 | `expiry` | `string` | Yes |  |
 | `link` | `string` | Yes |  |
 
@@ -617,10 +631,12 @@ $create_hosted_session_token = $client->CreateHostedSessionToken();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->CreateHostedSessionToken()->create([
+  "employee_id" => null, // string
+  "employer_id" => null, // string
   "expiry" => null, // string
   "link" => null, // string
 ]);
@@ -666,17 +682,21 @@ $create_session_token = $client->CreateSessionToken();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `employee_id` | `mixed` | No |  |
+| `employer_id` | `string` | Yes |  |
 | `expiry` | `string` | Yes |  |
+| `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` | Yes |  |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->CreateSessionToken()->create([
+  "employer_id" => null, // string
   "expiry" => null, // string
   "token" => null, // string
 ]);
@@ -723,38 +743,41 @@ $dependent = $client->Dependent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the action required from the caller. |
+| `associated_person_ids` | `array` | Yes | List of associated person IDs to add as dependents. |
 | `coverage_options` | `mixed` | No | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `mixed` | No | Optional coverage selections per dependent. |
 | `dependents` | `array` | Yes | List of dependents being managed. |
 | `disclosures` | `array` | Yes | Disclosures associated with this intent. |
 | `id` | `string` | Yes | Unique identifier for the dependents management intent. |
 | `object` | `string` | No | Object type identifier. |
 | `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
-| `parent_intent_type` | `mixed` | Yes | The type of parent intent. |
+| `parent_intent_type` | `string` | Yes | The type of parent intent. |
 | `plan` | `mixed` | Yes | Plan information including pricing details. |
-| `status` | `mixed` | Yes | Current status of the dependents management intent. |
+| `status` | `string` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Dependent()->create([
   "dependents_management_intent_id" => null, // string
+  "associated_person_ids" => null, // array
   "dependents" => null, // array
   "disclosures" => null, // array
   "id" => null, // string
   "parent_intent_id" => null, // string
-  "parent_intent_type" => null, // mixed
+  "parent_intent_type" => null, // string
   "plan" => null, // mixed
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria. Throws on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
 $result = $client->Dependent()->remove(["dependents_management_intent_id" => "dependents_management_intent_id", "id" => "id"]);
@@ -807,15 +830,15 @@ $dependents_management_intent = $client->DependentsManagementIntent();
 | `id` | `string` | Yes | Unique identifier for the dependents management intent. |
 | `object` | `string` | No | Object type identifier. |
 | `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
-| `parent_intent_type` | `mixed` | Yes | The type of parent intent. |
+| `parent_intent_type` | `string` | Yes | The type of parent intent. |
 | `plan` | `mixed` | Yes | Plan information including pricing details. |
-| `status` | `mixed` | Yes | Current status of the dependents management intent. |
+| `status` | `string` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->DependentsManagementIntent()->create([
@@ -824,15 +847,15 @@ $result = $client->DependentsManagementIntent()->create([
   "disclosures" => null, // array
   "id" => null, // string
   "parent_intent_id" => null, // string
-  "parent_intent_type" => null, // mixed
+  "parent_intent_type" => null, // string
   "plan" => null, // mixed
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->DependentsManagementIntent()->load(["id" => "dependents_management_intent_id"]);
@@ -878,7 +901,8 @@ $eligibility_check = $client->EligibilityCheck();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `mixed` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | Yes | The employee to check eligibility for. |
 | `object` | `string` | No | The object type. |
 | `plan` | `mixed` | Yes | The insurance plan associated with the group. |
 | `provider` | `mixed` | Yes | The insurance provider associated with the group. |
@@ -888,12 +912,13 @@ $eligibility_check = $client->EligibilityCheck();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->EligibilityCheck()->create([
   "group_id" => null, // string
-  "eligibility_status" => null, // mixed
+  "eligibility_status" => null, // string
+  "employee_id" => null, // string
   "plan" => null, // mixed
   "provider" => null, // mixed
   "reasons" => null, // array
@@ -957,15 +982,40 @@ $employee = $client->Employee();
 | `offboard_on` | `mixed` | No | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
-| `sex_at_birth` | `mixed` | Yes | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `string` | No | Employment start date |
-| `status` | `mixed` | No | Current status of the employee |
+| `status` | `string` | No | Current status of the employee |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `bank_account` | - | - | - | - |
+| `date_of_birth` | - | - | - | - |
+| `earliest_benefits_start_date` | - | - | - | - |
+| `email` | - | - | - | Yes |
+| `employer_id` | - | - | Yes | - |
+| `external_customer_id` | - | - | - | - |
+| `first_name` | - | - | - | Yes |
+| `home_address` | - | - | Yes | - |
+| `id` | - | - | - | - |
+| `last_name` | - | - | - | Yes |
+| `metadata` | - | - | - | - |
+| `national_tax_id` | - | - | - | Yes |
+| `nationality` | - | - | - | - |
+| `object` | - | - | - | - |
+| `offboard_on` | - | - | - | - |
+| `phone_number` | - | - | - | Yes |
+| `platform_id` | - | - | - | - |
+| `sex_at_birth` | - | - | - | - |
+| `start_on` | - | - | Yes | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Employee()->create([
@@ -975,13 +1025,13 @@ $result = $client->Employee()->create([
   "last_name" => null, // string
   "national_tax_id" => null, // string
   "phone_number" => null, // string
-  "sex_at_birth" => null, // mixed
+  "sex_at_birth" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Employee()->list();
@@ -989,7 +1039,7 @@ $results = $client->Employee()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Employee()->load(["id" => "employee_id"]);
@@ -997,7 +1047,7 @@ $result = $client->Employee()->load(["id" => "employee_id"]);
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->Employee()->update([
@@ -1053,13 +1103,13 @@ $employee_health_insurance_offer = $client->EmployeeHealthInsuranceOffer();
 | `id` | `string` | Yes | Unique identifier for offer |
 | `object` | `string` | No | The object type |
 | `required_action` | `null` | No | Required action to progress the offer, if any. |
-| `status` | `mixed` | Yes | Current status of offer |
+| `status` | `string` | Yes | Current status of offer |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->EmployeeHealthInsuranceOffer()->load(["id" => "employee_health_insurance_offer_id", "employee_id" => "employee_id"]);
@@ -1112,16 +1162,16 @@ $employee_health_insurance_offer_response_paged_list = $client->EmployeeHealthIn
 | `id` | `string` | Yes | Unique identifier for offer |
 | `object` | `string` | No | The object type |
 | `required_action` | `null` | No | Required action to progress the offer, if any. |
-| `status` | `mixed` | Yes | Current status of offer |
+| `status` | `string` | Yes | Current status of offer |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->EmployeeHealthInsuranceOfferResponsePagedList()->list();
+$results = $client->EmployeeHealthInsuranceOfferResponsePagedList()->list(["employee_id" => "example"]);
 ```
 
 ### Common Methods
@@ -1170,7 +1220,7 @@ $employee_health_insurance_policy = $client->EmployeeHealthInsurancePolicy();
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `estimated_gross_premium` | `mixed` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Yes | Unique identifier for policy |
@@ -1179,13 +1229,13 @@ $employee_health_insurance_policy = $client->EmployeeHealthInsurancePolicy();
 | `policy_number` | `mixed` | No | Health insurance policy number, if available |
 | `renewal` | `mixed` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `mixed` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->EmployeeHealthInsurancePolicy()->load(["id" => "employee_health_insurance_policy_id", "employee_id" => "employee_id"]);
@@ -1237,7 +1287,7 @@ $employee_health_insurance_policy_response_paged_list = $client->EmployeeHealthI
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `estimated_gross_premium` | `mixed` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `mixed` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Yes | Unique identifier for policy |
@@ -1246,16 +1296,16 @@ $employee_health_insurance_policy_response_paged_list = $client->EmployeeHealthI
 | `policy_number` | `mixed` | No | Health insurance policy number, if available |
 | `renewal` | `mixed` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `mixed` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->EmployeeHealthInsurancePolicyResponsePagedList()->list();
+$results = $client->EmployeeHealthInsurancePolicyResponsePagedList()->list(["employee_id" => "example"]);
 ```
 
 ### Common Methods
@@ -1299,22 +1349,38 @@ $employer = $client->Employer();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `contact` | `mixed` | Yes |  |
-| `earliest_benefits_start_date` | `mixed` | No |  |
+| `earliest_benefits_start_date` | `mixed` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` | Yes |  |
-| `legal_address` | `mixed` | Yes |  |
-| `legal_name` | `string` | Yes |  |
+| `legal_address` | `mixed` | Yes | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Yes | Legal name of the company. |
 | `metadata` | `mixed` | No | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | No | The object type |
 | `offboard_on` | `mixed` | No |  |
 | `platform_id` | `string` | No |  |
-| `registration_number` | `mixed` | No |  |
-| `status` | `mixed` | No |  |
+| `registration_number` | `mixed` | No | Company registration number. |
+| `status` | `string` | No |  |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `contact` | - | - | - | Yes |
+| `earliest_benefits_start_date` | - | - | - | - |
+| `id` | - | - | - | - |
+| `legal_address` | - | - | - | Yes |
+| `legal_name` | - | - | - | Yes |
+| `metadata` | - | - | - | - |
+| `object` | - | - | - | - |
+| `offboard_on` | - | - | - | - |
+| `platform_id` | - | - | - | - |
+| `registration_number` | - | - | - | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Employer()->create([
@@ -1327,7 +1393,7 @@ $result = $client->Employer()->create([
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Employer()->list();
@@ -1335,7 +1401,7 @@ $results = $client->Employer()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Employer()->load(["id" => "employer_id"]);
@@ -1343,7 +1409,7 @@ $result = $client->Employer()->load(["id" => "employer_id"]);
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->Employer()->update([
@@ -1397,19 +1463,19 @@ $employer_health_insurance_policy = $client->EmployerHealthInsurancePolicy();
 | `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
-| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `group_policy_number` | `mixed` | No | Group’s health insurance policy number, if available |
 | `id` | `string` | Yes | Unique identifier for policy |
 | `object` | `string` | No | The object type |
 | `renewal` | `mixed` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `mixed` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->EmployerHealthInsurancePolicy()->load(["id" => "employer_health_insurance_policy_id", "employer_id" => "employer_id"]);
@@ -1460,22 +1526,22 @@ $employer_health_insurance_policy_response_paged_list = $client->EmployerHealthI
 | `employer_cancellation_period_length` | `int` | Yes | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
-| `enrolment_type` | `mixed` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `group_policy_number` | `mixed` | No | Group’s health insurance policy number, if available |
 | `id` | `string` | Yes | Unique identifier for policy |
 | `object` | `string` | No | The object type |
 | `renewal` | `mixed` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `mixed` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->EmployerHealthInsurancePolicyResponsePagedList()->list();
+$results = $client->EmployerHealthInsurancePolicyResponsePagedList()->list(["employer_id" => "example"]);
 ```
 
 ### Common Methods
@@ -1524,13 +1590,13 @@ $employer_health_insurance_quote = $client->EmployerHealthInsuranceQuote();
 | `object` | `string` | No | The object type |
 | `quoted_at` | `string` | Yes | Date and time the quote was created at |
 | `required_action` | `null` | No | Actions required by the employer to proceed with the quote. |
-| `status` | `mixed` | Yes | Current status of the quote |
+| `status` | `string` | Yes | Current status of the quote |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->EmployerHealthInsuranceQuote()->load(["id" => "employer_health_insurance_quote_id", "employer_id" => "employer_id"]);
@@ -1582,16 +1648,16 @@ $employer_health_insurance_quote_response_paged_list = $client->EmployerHealthIn
 | `object` | `string` | No | The object type |
 | `quoted_at` | `string` | Yes | Date and time the quote was created at |
 | `required_action` | `null` | No | Actions required by the employer to proceed with the quote. |
-| `status` | `mixed` | Yes | Current status of the quote |
+| `status` | `string` | Yes | Current status of the quote |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->EmployerHealthInsuranceQuoteResponsePagedList()->list();
+$results = $client->EmployerHealthInsuranceQuoteResponsePagedList()->list(["employer_id" => "example"]);
 ```
 
 ### Common Methods
@@ -1635,8 +1701,11 @@ $enrolment_intent = $client->EnrolmentIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `mixed` | No | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `mixed` | No | The desired date for the employee's policy to start. |
 | `disclosures` | `array` | Yes | Disclosures associated with this intent. |
 | `employee_id` | `string` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `mixed` | No | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `bool` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Yes | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Yes | Unique identifier for the enrolment intent. |
@@ -1645,13 +1714,13 @@ $enrolment_intent = $client->EnrolmentIntent();
 | `pending_confirmation` | `null` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `null` | No | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `array` | Yes | Policy enrolment information |
-| `status` | `mixed` | Yes | Current status of the enrolment intent. |
+| `status` | `string` | Yes | Current status of the enrolment intent. |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->EnrolmentIntent()->create([
@@ -1661,13 +1730,13 @@ $result = $client->EnrolmentIntent()->create([
   "group_id" => null, // string
   "id" => null, // string
   "policy_enrolments" => null, // array
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->EnrolmentIntent()->list();
@@ -1675,7 +1744,7 @@ $results = $client->EnrolmentIntent()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->EnrolmentIntent()->load(["id" => "enrolment_intent_id"]);
@@ -1683,7 +1752,7 @@ $result = $client->EnrolmentIntent()->load(["id" => "enrolment_intent_id"]);
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->EnrolmentIntent()->update([
@@ -1738,10 +1807,10 @@ $enrolment_intent_requirement_response_paged_list = $client->EnrolmentIntentRequ
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->EnrolmentIntentRequirementResponsePagedList()->list();
+$results = $client->EnrolmentIntentRequirementResponsePagedList()->list(["id" => "example"]);
 ```
 
 ### Common Methods
@@ -1788,17 +1857,14 @@ $event = $client->Event();
 | `created` | `string` | Yes |  |
 | `data` | `null` | Yes |  |
 | `id` | `string` | Yes |  |
-| `options` | `null` | No |  |
-| `parent` | `null` | No |  |
 | `platform_id` | `string` | Yes |  |
-| `root` | `mixed` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Event()->create([
@@ -1812,7 +1878,7 @@ $result = $client->Event()->create([
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Event()->list();
@@ -1820,7 +1886,7 @@ $results = $client->Event()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Event()->load(["id" => "event_id"]);
@@ -1868,39 +1934,55 @@ $group = $client->Group();
 | --- | --- | --- | --- |
 | `description` | `mixed` | No | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Yes | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `mixed` | Yes | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Yes | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `array` | Yes | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `array` | Yes | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `array` | Yes | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `mixed` | Yes | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Yes | Indicates how policies are organized for this group. |
 | `id` | `string` | Yes | Unique identifier for the `group`. |
 | `name` | `string` | Yes | Human-readable name of the `group`. |
 | `object` | `string` | No | The object type |
-| `status` | `mixed` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `description` | - | - | - | - |
+| `employer_id` | - | - | - | - |
+| `enrolment_type` | - | - | - | - |
+| `group_policy_ids` | - | - | - | - |
+| `group_policy_intent_ids` | - | - | - | - |
+| `group_quote_intent_ids` | - | - | - | - |
+| `group_type` | - | - | - | - |
+| `id` | - | - | - | - |
+| `name` | - | - | - | Yes |
+| `object` | - | - | - | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Group()->create([
   "employer_id" => null, // string
-  "enrolment_type" => null, // mixed
+  "enrolment_type" => null, // string
   "group_policy_ids" => null, // array
   "group_policy_intent_ids" => null, // array
   "group_quote_intent_ids" => null, // array
-  "group_type" => null, // mixed
+  "group_type" => null, // string
   "id" => null, // string
   "name" => null, // string
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Group()->list();
@@ -1908,7 +1990,7 @@ $results = $client->Group()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Group()->load(["id" => "group_id"]);
@@ -1916,7 +1998,7 @@ $result = $client->Group()->load(["id" => "group_id"]);
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->Group()->update([
@@ -1965,28 +2047,32 @@ $group_employee = $client->GroupEmployee();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `create_enrolment_intents` | `mixed` | No | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `mixed` | No | The desired date for the employee's policy to start. |
-| `eligibility_status` | `mixed` | Yes | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Yes | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Yes | Employee Id |
 | `enrolment_date` | `mixed` | No | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `mixed` | Yes | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Yes | Enrolment status for the employee in this group. |
 | `enrolments` | `array` | Yes | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Yes | Unique identifier for the group. |
 | `id` | `string` | Yes | Unique identifier for the employee. |
 | `object` | `string` | No | The object type |
 | `policies` | `array` | Yes | List of policies associated with the employee in this group. |
+| `policy_configuration` | `null` | No | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `array` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->GroupEmployee()->create([
   "id" => null, // string
-  "eligibility_status" => null, // mixed
-  "enrolment_status" => null, // mixed
+  "eligibility_status" => null, // string
+  "employee_id" => null, // string
+  "enrolment_status" => null, // string
   "enrolments" => null, // array
   "group_id" => null, // string
   "policies" => null, // array
@@ -2040,10 +2126,10 @@ $group_employee_response_paged_list = $client->GroupEmployeeResponsePagedList();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->GroupEmployeeResponsePagedList()->list();
+$results = $client->GroupEmployeeResponsePagedList()->list(["id" => "example"]);
 ```
 
 ### Common Methods
@@ -2097,14 +2183,14 @@ $group_policy = $client->GroupPolicy();
 | `plan` | `mixed` | Yes | Plan information for this policy |
 | `provider` | `mixed` | Yes | Provider information for this policy. |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `mixed` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `mixed` | Yes | Policy type. |
+| `status` | `string` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Yes | Policy type. |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->GroupPolicy()->list();
@@ -2112,7 +2198,7 @@ $results = $client->GroupPolicy()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->GroupPolicy()->load(["id" => "group_policy_id"]);
@@ -2159,6 +2245,7 @@ $group_policy_intent = $client->GroupPolicyIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `mixed` | No | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent |
 | `disclosures` | `array` | Yes | Disclosures associated with this intent. |
 | `due_date` | `mixed` | No | Due date for the policy intent |
@@ -2167,13 +2254,13 @@ $group_policy_intent = $client->GroupPolicyIntent();
 | `object` | `string` | No | Object type identifier |
 | `plan_id` | `string` | Yes | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `mixed` | Yes | Current status of the group policy intent |
+| `status` | `string` | Yes | Current status of the group policy intent |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->GroupPolicyIntent()->create([
@@ -2182,13 +2269,13 @@ $result = $client->GroupPolicyIntent()->create([
   "id" => null, // string
   "plan_id" => null, // string
   "quote_intent_id" => null, // string
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->GroupPolicyIntent()->list();
@@ -2196,7 +2283,7 @@ $results = $client->GroupPolicyIntent()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->GroupPolicyIntent()->load(["id" => "group_policy_intent_id"]);
@@ -2248,10 +2335,10 @@ $group_policy_intent_requirement_response_paged_list = $client->GroupPolicyInten
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->GroupPolicyIntentRequirementResponsePagedList()->list();
+$results = $client->GroupPolicyIntentRequirementResponsePagedList()->list(["id" => "example"]);
 ```
 
 ### Common Methods
@@ -2294,17 +2381,21 @@ $group_quote = $client->GroupQuote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `null` | No | Type of the family covered by the employer. |
-| `member_count` | `null` | No | Numbers of additional members covered by the employer. |
-| `member_selection` | `null` | No | Whether specific member types are covered by the employer. |
-| `percentage` | `null` | No | Percentage of the premium the employer covers. |
-| `type` | `mixed` | Yes | Cost sharing type. |
+| `cost_sharing` | `mixed` | Yes | Cost sharing configuration for the quote |
+| `currency` | `string` | Yes | Currency of the premium (e.g. |
+| `employee_count` | `int` | Yes | Number of employees covered by the quote |
+| `expires_at` | `string` | Yes | When the quote expires |
+| `generated_at` | `string` | Yes | When the quote was generated |
+| `object` | `string` | No | Object type identifier |
+| `pdf_expires_at` | `mixed` | No | When the PDF URL expires |
+| `pdf_url` | `mixed` | No | URL to download the quote PDF |
+| `total_monthly_premium` | `float` | Yes | Total monthly premium for the group |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->GroupQuote()->load(["group_quote_intent_id" => "group_quote_intent_id"]);
@@ -2353,19 +2444,20 @@ $group_quote_intent = $client->GroupQuoteIntent();
 | `action_required` | `null` | No | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `array` | Yes | Consent links that need to be acknowledged |
 | `cost_sharing` | `null` | No | Cost sharing configuration for the quote |
+| `coverage_selections` | `mixed` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `array` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `mixed` | No | Expected start date for the insurance coverage |
 | `group_id` | `string` | Yes | Unique identifier for the group |
 | `id` | `string` | Yes | Unique identifier for the group quote intent |
 | `object` | `string` | No | Object type identifier |
 | `plan_id` | `string` | Yes | Unique identifier for the plan |
-| `status` | `mixed` | Yes | Current status of the group quote intent |
+| `status` | `string` | Yes | Current status of the group quote intent |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->GroupQuoteIntent()->create([
@@ -2374,13 +2466,13 @@ $result = $client->GroupQuoteIntent()->create([
   "group_id" => null, // string
   "id" => null, // string
   "plan_id" => null, // string
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->GroupQuoteIntent()->list();
@@ -2388,7 +2480,7 @@ $results = $client->GroupQuoteIntent()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->GroupQuoteIntent()->load(["id" => "group_quote_intent_id"]);
@@ -2440,10 +2532,10 @@ $group_quote_intent_requirement_response_paged_list = $client->GroupQuoteIntentR
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->GroupQuoteIntentRequirementResponsePagedList()->list();
+$results = $client->GroupQuoteIntentRequirementResponsePagedList()->list(["id" => "example"]);
 ```
 
 ### Common Methods
@@ -2488,7 +2580,7 @@ $plan = $client->Plan();
 | --- | --- | --- | --- |
 | `available_from` | `string` | Yes | The date from which this plan is available (inclusive). |
 | `available_to` | `mixed` | No | The date until which this plan is available (inclusive). |
-| `country` | `mixed` | Yes | The country this plan is available in. |
+| `country` | `string` | Yes | The country this plan is available in. |
 | `coverage_options` | `mixed` | No | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Yes | Description of the plan. |
 | `disclosures` | `array` | Yes | Disclosures associated with this plan. |
@@ -2503,13 +2595,13 @@ $plan = $client->Plan();
 | `object` | `string` | No | Object type. |
 | `provider` | `mixed` | Yes | The provider offering this plan. |
 | `total_count` | `mixed` | No | Total employees in the queried group. |
-| `type` | `mixed` | Yes | The benefit type of the plan. |
+| `type` | `string` | Yes | The benefit type of the plan. |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Plan()->list();
@@ -2517,7 +2609,7 @@ $results = $client->Plan()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Plan()->load(["id" => "plan_id"]);
@@ -2563,7 +2655,7 @@ $policy = $client->Policy();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `mixed` | Yes | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Yes | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `mixed` | No | Date the policy was cancelled (if applicable) |
 | `disclosures` | `array` | Yes | Disclosures associated with this policy. |
 | `employee_id` | `string` | Yes | Identifier of the employee associated with this policy. |
@@ -2576,14 +2668,14 @@ $policy = $client->Policy();
 | `plan` | `mixed` | Yes | Plan information for this policy |
 | `provider` | `mixed` | Yes | Provider information for this policy |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `mixed` | Yes | Current lifecycle state of the policy |
-| `type` | `mixed` | Yes | Policy type. |
+| `status` | `string` | Yes | Current lifecycle state of the policy |
+| `type` | `string` | Yes | Policy type. |
 
 ### Operations
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Policy()->list();
@@ -2591,7 +2683,7 @@ $results = $client->Policy()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Policy()->load(["id" => "policy_id"]);
@@ -2646,13 +2738,13 @@ $policy_amendment_intent = $client->PolicyAmendmentIntent();
 | `processing_error` | `null` | No | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `array` | Yes | List of requested changes to the policy. |
 | `required_action` | `null` | No | Information about the required action if the intent status is `action_required`. |
-| `status` | `mixed` | Yes | Current status of the policy amendment intent. |
+| `status` | `string` | Yes | Current status of the policy amendment intent. |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->PolicyAmendmentIntent()->create([
@@ -2661,21 +2753,21 @@ $result = $client->PolicyAmendmentIntent()->create([
   "disclosures" => null, // array
   "policy_id" => null, // string
   "requested_changes" => null, // array
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->PolicyAmendmentIntent()->list();
+$results = $client->PolicyAmendmentIntent()->list(["id" => "example"]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->PolicyAmendmentIntent()->load(["id" => "policy_amendment_intent_id", "policy_id" => "policy_id"]);
@@ -2730,13 +2822,28 @@ $policy_import_intent = $client->PolicyImportIntent();
 | `policy_end_date` | `mixed` | No | The end date of the policy. |
 | `policy_start_date` | `string` | Yes | The start date of the policy. |
 | `provider_policy_number` | `string` | Yes | The provider's policy number. |
-| `status` | `mixed` | Yes | Current status of the policy import intent. |
+| `status` | `string` | Yes | Current status of the policy import intent. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `associated_persons` | - | - | Yes |
+| `employee_id` | - | - | - |
+| `group_id` | - | - | - |
+| `id` | - | - | - |
+| `member_number` | - | - | - |
+| `object` | - | - | - |
+| `policy_end_date` | - | - | - |
+| `policy_start_date` | - | - | - |
+| `provider_policy_number` | - | - | - |
+| `status` | - | - | - |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->PolicyImportIntent()->create([
@@ -2747,13 +2854,13 @@ $result = $client->PolicyImportIntent()->create([
   "member_number" => null, // string
   "policy_start_date" => null, // string
   "provider_policy_number" => null, // string
-  "status" => null, // mixed
+  "status" => null, // string
 ]);
 ```
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->PolicyImportIntent()->list();
@@ -2761,7 +2868,7 @@ $results = $client->PolicyImportIntent()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->PolicyImportIntent()->load(["id" => "policy_import_intent_id"]);
@@ -2822,7 +2929,7 @@ $provider = $client->Provider();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Provider()->list();
@@ -2830,7 +2937,7 @@ $results = $client->Provider()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Provider()->load(["id" => "provider_id"]);
@@ -2884,9 +2991,17 @@ $webhook_endpoint = $client->WebhookEndpoint();
 
 ### Operations
 
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
+
+```php
+$results = $client->WebhookEndpoint()->list();
+```
+
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->WebhookEndpoint()->load(["id" => "webhook_endpoint_id"]);
@@ -2913,62 +3028,6 @@ Set the entity match criteria.
 #### `make(): WebhookEndpointEntity`
 
 Create a new `WebhookEndpointEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
-## WebhookEndpointResponsePagedListEntity
-
-```php
-$webhook_endpoint_response_paged_list = $client->WebhookEndpointResponsePagedList();
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | Yes | The date and time the endpoint was created |
-| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
-| `id` | `string` | Yes | The unique identifier of the endpoint |
-| `object` | `string` | No | The object type |
-| `subscribed_events` | `array` | Yes | The events the endpoint is subscribed to |
-
-### Operations
-
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
-
-```php
-$results = $client->WebhookEndpointResponsePagedList()->list();
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): WebhookEndpointResponsePagedListEntity`
-
-Create a new `WebhookEndpointResponsePagedListEntity` instance with the same client and
 options.
 
 #### `get_name(): string`
@@ -3268,6 +3327,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

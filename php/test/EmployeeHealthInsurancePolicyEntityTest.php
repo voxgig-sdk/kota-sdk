@@ -11,11 +11,33 @@ use Voxgig\Struct\Struct as Vs;
 
 class EmployeeHealthInsurancePolicyEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = KotaSDK::test(null, null);
         $ent = $testsdk->EmployeeHealthInsurancePolicy(null);
         $this->assertNotNull($ent);
+    }
+
+    public function test_validate(): void
+    {
+        $cfg = KotaConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $client = KotaSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->EmployeeHealthInsurancePolicy(null)->load(["employee_id" => 1, "id" => 'x'], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
     }
 
     public function test_basic_flow(): void
@@ -30,11 +52,8 @@ class EmployeeHealthInsurancePolicyEntityTest extends TestCase
                 return;
             }
         }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set KOTA_TEST_EMPLOYEE_HEALTH_INSURANCE_POLICY_ENTID JSON to run live");
-            return;
+        if (!empty($setup["live"])) {
+            Runner::live_miss(self::LIVE_STRICT, "Live entity test blocked: " . "the flow loads a employee_health_insurance_policy record it has no list to find");
         }
         $client = $setup["client"];
 
@@ -78,9 +97,8 @@ function employee_health_insurance_policy_basic_setup($extra)
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("KOTA_TEST_EMPLOYEE_HEALTH_INSURANCE_POLICY_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 

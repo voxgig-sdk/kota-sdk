@@ -166,6 +166,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -219,7 +220,6 @@ def make_config():
                 "policy_import_intent": {},
                 "provider": {},
                 "webhook_endpoint": {},
-                "webhook_endpoint_response_paged_list": {},
             },
         },
         "entity": {
@@ -230,6 +230,17 @@ def make_config():
             "title": "Date Of Birth",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "Date of birth of the associated person",
             "format": "date",
           },
@@ -257,6 +268,17 @@ def make_config():
             "title": "First Name",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "First name of the associated person",
           },
           {
@@ -271,6 +293,17 @@ def make_config():
             "title": "Last Name",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "Last name of the associated person",
           },
           {
@@ -301,15 +334,25 @@ def make_config():
           {
             "name": "relationship_type",
             "title": "Relationship Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": "`$NULL`",
+              },
+            },
             "short": "The relationship type between the employee and the associated person",
           },
           {
             "name": "sex_at_birth",
             "title": "Sex At Birth",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": "`$NULL`",
+              },
+            },
             "short": "The sex assigned to the associated person at birth",
           },
         ],
@@ -352,7 +395,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -371,8 +414,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "employee_id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -410,7 +456,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -443,10 +489,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "employee_id",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -492,7 +539,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -520,8 +567,11 @@ def make_config():
                   "exist": [
                     "employee_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -567,7 +617,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -595,8 +645,11 @@ def make_config():
                   "exist": [
                     "employee_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -642,7 +695,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -670,8 +723,11 @@ def make_config():
                   "exist": [
                     "employee_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -705,7 +761,7 @@ def make_config():
           {
             "name": "eligibility_status",
             "title": "Eligibility Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Eligibility status for the policy/plan.",
           },
@@ -745,14 +801,14 @@ def make_config():
           {
             "name": "relationship",
             "title": "Relationship",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Relationship type to the employee.",
           },
           {
             "name": "sex_at_birth",
             "title": "Sex At Birth",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Sex at birth of the associated person.",
           },
@@ -792,7 +848,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -825,10 +881,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "dependents_management_intent_id",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -916,7 +973,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the contribution report",
           },
@@ -964,7 +1021,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -984,8 +1041,11 @@ def make_config():
                   "$action": "finalize",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1015,7 +1075,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1027,12 +1087,14 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "external_customer_id",
                       "orig": "external_customer_id",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "month",
@@ -1057,6 +1119,7 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "year",
@@ -1066,17 +1129,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employer_id",
-                    "external_customer_id",
-                    "month",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
-                    "year",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1114,7 +1170,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1133,8 +1189,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1164,7 +1223,7 @@ def make_config():
           {
             "name": "currency",
             "title": "Currency",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "The currency in which all the amounts in this breakdown are presented (e.g.",
           },
@@ -1244,7 +1303,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the breakdown",
           },
@@ -1296,7 +1355,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1324,8 +1383,11 @@ def make_config():
                   "exist": [
                     "contribution_report_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1390,7 +1452,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1424,10 +1486,11 @@ def make_config():
                   "$action": "employee_breakdowns",
                   "exist": [
                     "id",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1439,6 +1502,18 @@ def make_config():
       },
       "create_hosted_session_token": {
         "fields": [
+          {
+            "name": "employee_id",
+            "title": "Employee Id",
+            "type": "`$STRING`",
+            "req": True,
+          },
+          {
+            "name": "employer_id",
+            "title": "Employer Id",
+            "type": "`$STRING`",
+            "req": True,
+          },
           {
             "name": "expiry",
             "title": "Expiry",
@@ -1482,6 +1557,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -1493,11 +1572,40 @@ def make_config():
       "create_session_token": {
         "fields": [
           {
+            "name": "employee_id",
+            "title": "Employee Id",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$STRING`",
+              ],
+            ],
+          },
+          {
+            "name": "employer_id",
+            "title": "Employer Id",
+            "type": "`$STRING`",
+            "req": True,
+          },
+          {
             "name": "expiry",
             "title": "Expiry",
             "type": "`$STRING`",
             "req": True,
             "format": "date-time",
+          },
+          {
+            "name": "external_customer_id",
+            "title": "External Customer Id",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$STRING`",
+              ],
+            ],
+            "short": "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e.",
           },
           {
             "name": "token",
@@ -1535,6 +1643,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -1552,6 +1664,13 @@ def make_config():
             "short": "Details of the action required from the caller.",
           },
           {
+            "name": "associated_person_ids",
+            "title": "Associated Person Ids",
+            "type": "`$ARRAY`",
+            "req": True,
+            "short": "List of associated person IDs to add as dependents.",
+          },
+          {
             "name": "coverage_options",
             "title": "Coverage Options",
             "type": [
@@ -1562,6 +1681,18 @@ def make_config():
               ],
             ],
             "short": "Available member-scoped coverage options for the plan.",
+          },
+          {
+            "name": "dependent_coverage_selections",
+            "title": "Dependent Coverage Selections",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$ARRAY`",
+              ],
+            ],
+            "short": "Optional coverage selections per dependent.",
           },
           {
             "name": "dependents",
@@ -1601,7 +1732,7 @@ def make_config():
           {
             "name": "parent_intent_type",
             "title": "Parent Intent Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "The type of parent intent.",
           },
@@ -1615,7 +1746,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the dependents management intent.",
           },
@@ -1659,13 +1790,13 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1684,9 +1815,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "dependents_management_intent_id",
-                    "idempotency_key",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1732,7 +1865,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1760,8 +1893,11 @@ def make_config():
                   "exist": [
                     "dependents_management_intent_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1833,7 +1969,7 @@ def make_config():
           {
             "name": "parent_intent_type",
             "title": "Parent Intent Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "The type of parent intent.",
           },
@@ -1847,7 +1983,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the dependents management intent.",
           },
@@ -1903,7 +2039,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1931,8 +2067,11 @@ def make_config():
                   "exist": [
                     "policy_amendment_intent_id",
                     "policy_id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -1964,7 +2103,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -1983,8 +2122,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "enrolment_intent_id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -2020,7 +2162,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2040,7 +2182,6 @@ def make_config():
                   "$action": "cancel",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -2077,7 +2218,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2097,7 +2238,6 @@ def make_config():
                   "$action": "confirm",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -2136,7 +2276,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2155,8 +2295,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2179,9 +2322,16 @@ def make_config():
           {
             "name": "eligibility_status",
             "title": "Eligibility Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Eligibility status: `eligible` or `ineligible`.",
+          },
+          {
+            "name": "employee_id",
+            "title": "Employee Id",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "The employee to check eligibility for.",
           },
           {
             "name": "object",
@@ -2247,7 +2397,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2266,8 +2416,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "group_id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2315,12 +2468,29 @@ def make_config():
             "title": "Email",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "Email address of the employee",
           },
           {
             "name": "employer_id",
             "title": "Employer Id",
             "type": "`$STRING`",
+            "op": {
+              "create": {
+                "req": True,
+                "type": "`$STRING`",
+              },
+            },
             "short": "Unique identifier for the employer",
           },
           {
@@ -2340,12 +2510,29 @@ def make_config():
             "title": "First Name",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "First name of the employee.",
           },
           {
             "name": "home_address",
             "title": "Home Address",
             "type": "`$NULL`",
+            "op": {
+              "create": {
+                "req": True,
+                "type": "`$ANY`",
+              },
+            },
             "short": "Location where the employee is legally registered to live",
           },
           {
@@ -2359,6 +2546,17 @@ def make_config():
             "title": "Last Name",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "Last name of the employee",
           },
           {
@@ -2378,6 +2576,17 @@ def make_config():
             "title": "National Tax Id",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "PPSN in Ireland, NINo in the UK, DNI/NIE in Spain",
           },
           {
@@ -2411,6 +2620,17 @@ def make_config():
             "title": "Phone Number",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "Phone number in E.164 international format (e.g.",
           },
           {
@@ -2422,7 +2642,7 @@ def make_config():
           {
             "name": "sex_at_birth",
             "title": "Sex At Birth",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "The sex assigned to the employee at birth",
           },
@@ -2430,13 +2650,19 @@ def make_config():
             "name": "start_on",
             "title": "Start On",
             "type": "`$STRING`",
+            "op": {
+              "create": {
+                "req": True,
+                "type": "`$STRING`",
+              },
+            },
             "short": "Employment start date",
             "format": "date",
           },
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "short": "Current status of the employee",
           },
         ],
@@ -2483,13 +2709,13 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2509,9 +2735,11 @@ def make_config():
                   "$action": "offboard",
                   "exist": [
                     "id",
-                    "idempotency_key",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -2551,13 +2779,13 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2577,9 +2805,11 @@ def make_config():
                   "$action": "offboard_cancel",
                   "exist": [
                     "id",
-                    "idempotency_key",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -2603,23 +2833,22 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "idempotency_key",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2649,7 +2878,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2661,12 +2890,14 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "external_customer_id",
                       "orig": "external_customer_id",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "filter",
@@ -2694,16 +2925,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employer_id",
-                    "external_customer_id",
-                    "filter",
-                    "metadata_id",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2741,7 +2966,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2760,8 +2985,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2799,7 +3027,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2818,8 +3046,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2887,7 +3118,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of offer",
           },
@@ -2943,7 +3174,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -2971,8 +3202,11 @@ def make_config():
                   "exist": [
                     "employee_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3044,7 +3278,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of offer",
           },
@@ -3092,7 +3326,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3125,10 +3359,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "employee_id",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3197,7 +3432,7 @@ def make_config():
           {
             "name": "enrolment_type",
             "title": "Enrolment Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Enrolment type of the policy",
           },
@@ -3272,7 +3507,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of policy",
           },
@@ -3328,7 +3563,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3356,8 +3591,11 @@ def make_config():
                   "exist": [
                     "employee_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3426,7 +3664,7 @@ def make_config():
           {
             "name": "enrolment_type",
             "title": "Enrolment Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Enrolment type of the policy",
           },
@@ -3501,7 +3739,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of policy",
           },
@@ -3549,7 +3787,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3582,17 +3820,18 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
                     "employee_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3613,6 +3852,11 @@ def make_config():
             "title": "Contact",
             "type": "`$ANY`",
             "req": True,
+            "op": {
+              "update": {
+                "type": "`$NULL`",
+              },
+            },
           },
           {
             "name": "earliest_benefits_start_date",
@@ -3624,6 +3868,7 @@ def make_config():
                 "`$STRING`",
               ],
             ],
+            "short": "The earliest date this employer is permitted to set up any benefits scheme.",
             "format": "date",
           },
           {
@@ -3637,12 +3882,30 @@ def make_config():
             "title": "Legal Address",
             "type": "`$ANY`",
             "req": True,
+            "op": {
+              "update": {
+                "type": "`$NULL`",
+              },
+            },
+            "short": "Treated as a single object that is updated entirely, `null` sub-fields (e.g.",
           },
           {
             "name": "legal_name",
             "title": "Legal Name",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
+            "short": "Legal name of the company.",
           },
           {
             "name": "metadata",
@@ -3690,11 +3953,12 @@ def make_config():
                 "`$STRING`",
               ],
             ],
+            "short": "Company registration number.",
           },
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
           },
         ],
         "id": {
@@ -3740,13 +4004,13 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3766,9 +4030,11 @@ def make_config():
                   "$action": "offboard",
                   "exist": [
                     "id",
-                    "idempotency_key",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -3792,23 +4058,22 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "idempotency_key",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3838,7 +4103,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3864,13 +4129,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "filter",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3908,7 +4170,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3927,8 +4189,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -3966,7 +4231,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -3985,8 +4250,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -4044,7 +4312,7 @@ def make_config():
           {
             "name": "enrolment_type",
             "title": "Enrolment Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Enrolment type of the policy",
           },
@@ -4092,7 +4360,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of policy",
           },
@@ -4148,7 +4416,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4176,8 +4444,11 @@ def make_config():
                   "exist": [
                     "employer_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -4239,7 +4510,7 @@ def make_config():
           {
             "name": "enrolment_type",
             "title": "Enrolment Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Enrolment type of the policy",
           },
@@ -4287,7 +4558,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of policy",
           },
@@ -4335,7 +4606,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4368,17 +4639,18 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
                     "employer_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -4439,7 +4711,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the quote",
           },
@@ -4495,7 +4767,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4523,8 +4795,11 @@ def make_config():
                   "exist": [
                     "employer_id",
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -4585,7 +4860,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the quote",
           },
@@ -4633,7 +4908,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4666,17 +4941,18 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
                     "employer_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -4699,6 +4975,31 @@ def make_config():
             "short": "If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment.",
           },
           {
+            "name": "coverage_selections",
+            "title": "Coverage Selections",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$ARRAY`",
+              ],
+            ],
+            "short": "Optional plan coverage option selections for policy-scoped configurations.",
+          },
+          {
+            "name": "desired_policy_start_date",
+            "title": "Desired Policy Start Date",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$STRING`",
+              ],
+            ],
+            "short": "The desired date for the employee's policy to start.",
+            "format": "date",
+          },
+          {
             "name": "disclosures",
             "title": "Disclosures",
             "type": "`$ARRAY`",
@@ -4711,6 +5012,19 @@ def make_config():
             "type": "`$STRING`",
             "req": True,
             "short": "Identifier for the employee associated with this enrolment intent.",
+          },
+          {
+            "name": "enrolment_date",
+            "title": "Enrolment Date",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$STRING`",
+              ],
+            ],
+            "short": "The date on which the employee agreed to enrol into the group's policies.",
+            "format": "date",
           },
           {
             "name": "force_confirmation",
@@ -4768,7 +5082,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the enrolment intent.",
           },
@@ -4816,7 +5130,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4836,7 +5150,6 @@ def make_config():
                   "$action": "confirm",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -4873,7 +5186,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4893,7 +5206,6 @@ def make_config():
                   "$action": "coverage_selection",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -4930,7 +5242,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -4950,7 +5262,6 @@ def make_config():
                   "$action": "reject",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -4975,23 +5286,22 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "idempotency_key",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5021,7 +5331,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5033,6 +5343,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "group_id",
@@ -5040,6 +5351,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -5058,18 +5370,14 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employee_id",
-                    "group_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5107,7 +5415,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5126,8 +5434,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5165,7 +5476,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5184,8 +5495,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5246,7 +5560,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5292,12 +5606,11 @@ def make_config():
                   "$action": "requirements",
                   "exist": [
                     "id",
-                    "object_id",
-                    "object_type",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5335,28 +5648,10 @@ def make_config():
             "req": True,
           },
           {
-            "name": "options",
-            "title": "Options",
-            "type": "`$NULL`",
-            "readOnly": True,
-          },
-          {
-            "name": "parent",
-            "title": "Parent",
-            "type": "`$NULL`",
-            "readOnly": True,
-          },
-          {
             "name": "platform_id",
             "title": "Platform Id",
             "type": "`$STRING`",
             "req": True,
-          },
-          {
-            "name": "root",
-            "title": "Root",
-            "type": "`$ANY`",
-            "readOnly": True,
           },
           {
             "name": "type",
@@ -5408,7 +5703,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5428,8 +5723,11 @@ def make_config():
                   "$action": "replay",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5459,7 +5757,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5497,15 +5795,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "created_after",
-                    "order_direction",
-                    "page",
-                    "page_size",
-                    "version",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5537,13 +5830,13 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body.data`",
+                  "res": "`body`",
                 },
                 "args": {
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5562,8 +5855,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5597,7 +5893,7 @@ def make_config():
           {
             "name": "enrolment_type",
             "title": "Enrolment Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Indicates how employees are enrolled into the group.",
           },
@@ -5625,7 +5921,7 @@ def make_config():
           {
             "name": "group_type",
             "title": "Group Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Indicates how policies are organized for this group.",
           },
@@ -5641,6 +5937,17 @@ def make_config():
             "title": "Name",
             "type": "`$STRING`",
             "req": True,
+            "op": {
+              "update": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$STRING`",
+                  ],
+                ],
+              },
+            },
             "short": "Human-readable name of the `group`.",
           },
           {
@@ -5653,7 +5960,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current lifecycle state of the `group`, indicating its current progress.",
           },
@@ -5689,16 +5996,16 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5728,7 +6035,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5740,6 +6047,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -5758,17 +6066,14 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employer_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5806,7 +6111,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5825,8 +6130,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5864,7 +6172,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -5883,8 +6191,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -5896,6 +6207,18 @@ def make_config():
       },
       "group_employee": {
         "fields": [
+          {
+            "name": "create_enrolment_intents",
+            "title": "Create Enrolment Intents",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$BOOLEAN`",
+              ],
+            ],
+            "short": "Controls whether enrolment intents are automatically created for the employee.",
+          },
           {
             "name": "desired_policy_start_date",
             "title": "Desired Policy Start Date",
@@ -5912,9 +6235,16 @@ def make_config():
           {
             "name": "eligibility_status",
             "title": "Eligibility Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Eligibility status for the employee in this group.",
+          },
+          {
+            "name": "employee_id",
+            "title": "Employee Id",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "Employee Id",
           },
           {
             "name": "enrolment_date",
@@ -5932,7 +6262,7 @@ def make_config():
           {
             "name": "enrolment_status",
             "title": "Enrolment Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Enrolment status for the employee in this group.",
           },
@@ -5970,6 +6300,12 @@ def make_config():
             "type": "`$ARRAY`",
             "req": True,
             "short": "List of policies associated with the employee in this group.",
+          },
+          {
+            "name": "policy_configuration",
+            "title": "Policy Configuration",
+            "type": "`$NULL`",
+            "short": "Policy configuration for the employee in this group.",
           },
           {
             "name": "scheduled_group_transitions",
@@ -6022,13 +6358,13 @@ def make_config():
                   "header": [
                     {
                       "name": "idempotency_key",
-                      "orig": "idempotency_key",
+                      "orig": "Idempotency-Key",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6047,9 +6383,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "idempotency_key",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6110,7 +6448,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6150,12 +6488,12 @@ def make_config():
                 "select": {
                   "$action": "employees",
                   "exist": [
-                    "employee_id",
                     "id",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6257,14 +6595,14 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current lifecycle state of the `group_policy`, indicating its progress from creation to activation.",
           },
           {
             "name": "type",
             "title": "Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Policy type.",
           },
@@ -6300,7 +6638,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6312,6 +6650,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "group_id",
@@ -6319,6 +6658,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -6337,18 +6677,14 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employer_id",
-                    "group_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6386,7 +6722,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6405,8 +6741,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6423,6 +6762,18 @@ def make_config():
             "title": "Action Required",
             "type": "`$NULL`",
             "short": "Details of the required action when the intent is in ActionRequired status.",
+          },
+          {
+            "name": "consent_approvals",
+            "title": "Consent Approvals",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$ARRAY`",
+              ],
+            ],
+            "short": "Consent approvals to record at the time of intent creation",
           },
           {
             "name": "cost_sharing",
@@ -6488,7 +6839,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the group policy intent",
           },
@@ -6524,16 +6875,16 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6563,7 +6914,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6575,6 +6926,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -6594,24 +6946,21 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "status",
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "group_id",
-                    "page",
-                    "page_size",
-                    "plan_id",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6649,7 +6998,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6668,8 +7017,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6730,7 +7082,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6776,12 +7128,11 @@ def make_config():
                   "$action": "requirements",
                   "exist": [
                     "id",
-                    "object_id",
-                    "object_type",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6794,35 +7145,82 @@ def make_config():
       "group_quote": {
         "fields": [
           {
-            "name": "family_type",
-            "title": "Family Type",
-            "type": "`$NULL`",
-            "short": "Type of the family covered by the employer.",
-          },
-          {
-            "name": "member_count",
-            "title": "Member Count",
-            "type": "`$NULL`",
-            "short": "Numbers of additional members covered by the employer.",
-          },
-          {
-            "name": "member_selection",
-            "title": "Member Selection",
-            "type": "`$NULL`",
-            "short": "Whether specific member types are covered by the employer.",
-          },
-          {
-            "name": "percentage",
-            "title": "Percentage",
-            "type": "`$NULL`",
-            "short": "Percentage of the premium the employer covers.",
-          },
-          {
-            "name": "type",
-            "title": "Type",
+            "name": "cost_sharing",
+            "title": "Cost Sharing",
             "type": "`$ANY`",
             "req": True,
-            "short": "Cost sharing type.",
+            "short": "Cost sharing configuration for the quote",
+          },
+          {
+            "name": "currency",
+            "title": "Currency",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "Currency of the premium (e.g.",
+          },
+          {
+            "name": "employee_count",
+            "title": "Employee Count",
+            "type": "`$INTEGER`",
+            "req": True,
+            "short": "Number of employees covered by the quote",
+            "format": "int32",
+          },
+          {
+            "name": "expires_at",
+            "title": "Expires At",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "When the quote expires",
+            "format": "date-time",
+          },
+          {
+            "name": "generated_at",
+            "title": "Generated At",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "When the quote was generated",
+            "format": "date-time",
+          },
+          {
+            "name": "object",
+            "title": "Object",
+            "type": "`$STRING`",
+            "short": "Object type identifier",
+            "readOnly": True,
+          },
+          {
+            "name": "pdf_expires_at",
+            "title": "Pdf Expires At",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$STRING`",
+              ],
+            ],
+            "short": "When the PDF URL expires",
+            "format": "date-time",
+          },
+          {
+            "name": "pdf_url",
+            "title": "Pdf Url",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$STRING`",
+              ],
+            ],
+            "short": "URL to download the quote PDF",
+          },
+          {
+            "name": "total_monthly_premium",
+            "title": "Total Monthly Premium",
+            "type": "`$NUMBER`",
+            "req": True,
+            "short": "Total monthly premium for the group",
+            "format": "double",
           },
         ],
         "name": "group_quote",
@@ -6854,13 +7252,13 @@ def make_config():
                 "rename": {},
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body.cost_sharing`",
+                  "res": "`body`",
                 },
                 "args": {
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -6879,8 +7277,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "group_quote_intent_id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -6914,6 +7315,18 @@ def make_config():
             "title": "Cost Sharing",
             "type": "`$NULL`",
             "short": "Cost sharing configuration for the quote",
+          },
+          {
+            "name": "coverage_selections",
+            "title": "Coverage Selections",
+            "type": [
+              "`$ONE`",
+              [
+                "`$NULL`",
+                "`$ARRAY`",
+              ],
+            ],
+            "short": "Plan coverage option selections for group-policy-scoped configurations.",
           },
           {
             "name": "disclosures",
@@ -6966,7 +7379,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the group quote intent",
           },
@@ -7014,7 +7427,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7034,7 +7447,6 @@ def make_config():
                   "$action": "reject",
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -7059,16 +7471,16 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7098,7 +7510,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7110,6 +7522,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -7129,24 +7542,21 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "status",
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "group_id",
-                    "page",
-                    "page_size",
-                    "plan_id",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7184,7 +7594,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7203,8 +7613,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7265,7 +7678,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7311,12 +7724,11 @@ def make_config():
                   "$action": "requirements",
                   "exist": [
                     "id",
-                    "object_id",
-                    "object_type",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7352,7 +7764,7 @@ def make_config():
           {
             "name": "country",
             "title": "Country",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "The country this plan is available in.",
           },
@@ -7479,7 +7891,7 @@ def make_config():
           {
             "name": "type",
             "title": "Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "The benefit type of the plan.",
           },
@@ -7515,7 +7927,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7532,6 +7944,7 @@ def make_config():
                       "orig": "country",
                       "type": "`$ANY`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "group_id",
@@ -7581,23 +7994,14 @@ def make_config():
                       "orig": "type",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "available_on",
-                    "country",
-                    "group_id",
-                    "page",
-                    "page_size",
-                    "provider_id",
-                    "sort_by",
-                    "sort_dir",
-                    "start_date",
-                    "type",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7635,7 +8039,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7668,11 +8072,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "group_id",
                     "id",
-                    "start_date",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7687,7 +8092,7 @@ def make_config():
           {
             "name": "bundling_type",
             "title": "Bundling Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Indicates how this policy is bundled within a group",
           },
@@ -7790,14 +8195,14 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current lifecycle state of the policy",
           },
           {
             "name": "type",
             "title": "Type",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Policy type.",
           },
@@ -7833,7 +8238,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7845,6 +8250,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "group_id",
@@ -7852,6 +8258,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "group_policy_id",
@@ -7859,6 +8266,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -7877,19 +8285,14 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employee_id",
-                    "group_id",
-                    "group_policy_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -7927,7 +8330,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -7946,8 +8349,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8022,7 +8428,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the policy amendment intent.",
           },
@@ -8074,7 +8480,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8103,7 +8509,6 @@ def make_config():
                   "exist": [
                     "id",
                     "policy_id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -8148,7 +8553,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8177,7 +8582,6 @@ def make_config():
                   "exist": [
                     "id",
                     "policy_id",
-                    "x_platform_id",
                   ],
                 },
               },
@@ -8214,7 +8618,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8233,8 +8637,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8276,7 +8683,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8309,17 +8716,18 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
                     "id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8365,7 +8773,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8393,8 +8801,11 @@ def make_config():
                   "exist": [
                     "id",
                     "policy_id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8415,6 +8826,17 @@ def make_config():
             "title": "Associated Persons",
             "type": "`$ARRAY`",
             "req": True,
+            "op": {
+              "create": {
+                "type": [
+                  "`$ONE`",
+                  [
+                    "`$NULL`",
+                    "`$ARRAY`",
+                  ],
+                ],
+              },
+            },
             "short": "List of associated persons linked to this policy import.",
           },
           {
@@ -8483,7 +8905,7 @@ def make_config():
           {
             "name": "status",
             "title": "Status",
-            "type": "`$ANY`",
+            "type": "`$STRING`",
             "req": True,
             "short": "Current status of the policy import intent.",
           },
@@ -8519,16 +8941,16 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8558,7 +8980,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8570,6 +8992,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "group_id",
@@ -8577,6 +9000,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -8595,18 +9019,14 @@ def make_config():
                       "orig": "status",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "employee_id",
-                    "group_id",
-                    "page",
-                    "page_size",
-                    "status",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8644,7 +9064,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8663,8 +9083,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8788,7 +9211,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8814,13 +9237,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "country",
-                    "page",
-                    "page_size",
-                    "x_platform_id",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8858,7 +9278,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8877,8 +9297,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -8933,6 +9356,63 @@ def make_config():
         },
         "name": "webhook_endpoint",
         "op": {
+          "list": {
+            "input": "data",
+            "name": "list",
+            "points": [
+              {
+                "kind": "http",
+                "method": "GET",
+                "orig": "/webhooks/endpoints",
+                "segments": [
+                  {
+                    "lit": "webhooks",
+                  },
+                  {
+                    "lit": "endpoints",
+                  },
+                ],
+                "parts": [
+                  "webhooks",
+                  "endpoints",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.items`",
+                },
+                "args": {
+                  "header": [
+                    {
+                      "name": "x_platform_id",
+                      "orig": "X-Platform-Id",
+                      "type": "`$STRING`",
+                      "kind": "header",
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "page",
+                      "orig": "page",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "page_size",
+                      "orig": "page_size",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                  ],
+                },
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
+              },
+            ],
+          },
           "load": {
             "input": "data",
             "name": "load",
@@ -8970,7 +9450,7 @@ def make_config():
                   "header": [
                     {
                       "name": "x_platform_id",
-                      "orig": "x_platform_id",
+                      "orig": "X-Platform-Id",
                       "type": "`$STRING`",
                       "kind": "header",
                     },
@@ -8989,117 +9469,11 @@ def make_config():
                 "select": {
                   "exist": [
                     "id",
-                    "x_platform_id",
                   ],
                 },
-              },
-            ],
-          },
-        },
-        "relations": {
-          "ancestors": [],
-        },
-      },
-      "webhook_endpoint_response_paged_list": {
-        "fields": [
-          {
-            "name": "created_at",
-            "title": "Created At",
-            "type": "`$STRING`",
-            "req": True,
-            "short": "The date and time the endpoint was created",
-            "format": "date-time",
-          },
-          {
-            "name": "endpoint_url",
-            "title": "Endpoint Url",
-            "type": "`$STRING`",
-            "req": True,
-            "short": "The registered URL of the endpoint",
-          },
-          {
-            "name": "id",
-            "title": "Id",
-            "type": "`$STRING`",
-            "req": True,
-            "short": "The unique identifier of the endpoint",
-          },
-          {
-            "name": "object",
-            "title": "Object",
-            "type": "`$STRING`",
-            "short": "The object type",
-            "readOnly": True,
-          },
-          {
-            "name": "subscribed_events",
-            "title": "Subscribed Events",
-            "type": "`$ARRAY`",
-            "req": True,
-            "short": "The events the endpoint is subscribed to",
-          },
-        ],
-        "id": {
-          "field": "id",
-          "name": "id",
-        },
-        "name": "webhook_endpoint_response_paged_list",
-        "op": {
-          "list": {
-            "input": "data",
-            "name": "list",
-            "points": [
-              {
-                "kind": "http",
-                "method": "GET",
-                "orig": "/webhooks/endpoints",
-                "segments": [
-                  {
-                    "lit": "webhooks",
-                  },
-                  {
-                    "lit": "endpoints",
-                  },
-                ],
-                "parts": [
-                  "webhooks",
-                  "endpoints",
-                ],
-                "rename": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.items`",
-                },
-                "args": {
-                  "header": [
-                    {
-                      "name": "x_platform_id",
-                      "orig": "x_platform_id",
-                      "type": "`$STRING`",
-                      "kind": "header",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "name": "page",
-                      "orig": "page",
-                      "type": "`$INTEGER`",
-                      "kind": "query",
-                    },
-                    {
-                      "name": "page_size",
-                      "orig": "page_size",
-                      "type": "`$INTEGER`",
-                      "kind": "query",
-                    },
-                  ],
-                },
-                "select": {
-                  "exist": [
-                    "page",
-                    "page_size",
-                    "x_platform_id",
-                  ],
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],

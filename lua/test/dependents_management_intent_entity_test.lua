@@ -8,6 +8,13 @@ local runner = require("test.runner")
 
 local _test_dir = debug.getinfo(1, "S").source:match("^@(.+/)")  or "./"
 
+-- main.kit.test.live.strict is true (the default is true): a live
+-- request that fails, or a live test missing an input it needs,
+-- fails the test.
+-- An account with no record for a test to read skips it either way.
+local LIVE_STRICT = true
+
+
 describe("DependentsManagementIntentEntity", function()
   it("should create instance", function()
     local testsdk = sdk.test(nil, nil)
@@ -15,38 +22,43 @@ describe("DependentsManagementIntentEntity", function()
     assert.is_not_nil(ent)
   end)
 
+  it("should refuse an invalid request", function()
+    local config = require("config_shared")()
+    if type(config.feature) ~= "table" or config.feature.validate == nil then
+      pending("feature not present in this SDK: validate")
+      return
+    end
+    local client = sdk.test(nil, { feature = { validate = { active = true } } })
+    local _, err = client:DependentsManagementIntent(nil):load({ ["id"] = 1 }, nil)
+    assert.are.equal("validate_failed", type(err) == "table" and err.code or nil)
+  end)
+
   it("should run basic flow", function()
     local setup = dependents_management_intent_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"create", "load"}) do
+    for _, _op in ipairs({"load"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "dependents_management_intent." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
         return
       end
     end
-    -- The basic flow consumes synthetic IDs from the fixture. In live mode
-    -- without an *_ENTID env override, those IDs hit the live API and 4xx.
-    if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set KOTA_TEST_DEPENDENTS_MANAGEMENT_INTENT_ENTID JSON to run live")
-      return
+    if setup.live then
+      runner.live_miss(pending, LIVE_STRICT, "Live entity test blocked: " .. "the flow loads a dependents_management_intent record it has no list to find")
     end
     local client = setup.client
 
-    -- CREATE
-    local dependents_management_intent_ref01_ent = client:DependentsManagementIntent(nil)
-    local dependents_management_intent_ref01_data = helpers.to_map(vs.getprop(
-      vs.getpath(setup.data, "new.dependents_management_intent"), "dependents_management_intent_ref01"))
-    dependents_management_intent_ref01_data["dependents_management_intent_id"] = setup.idmap["dependents_management_intent01"]
-
-    local dependents_management_intent_ref01_data_result, err = dependents_management_intent_ref01_ent:create(dependents_management_intent_ref01_data, nil)
-    assert.is_nil(err)
-    dependents_management_intent_ref01_data = helpers.to_map(type(dependents_management_intent_ref01_data_result) == 'table' and dependents_management_intent_ref01_data_result.data_get and dependents_management_intent_ref01_data_result:data_get() or dependents_management_intent_ref01_data_result)
-    assert.is_not_nil(dependents_management_intent_ref01_data)
-    assert.is_not_nil(dependents_management_intent_ref01_data["id"])
+    -- Bootstrap entity data from existing test data.
+    local dependents_management_intent_ref01_data_raw = vs.items(helpers.to_map(
+      vs.getpath(setup.data, "existing.dependents_management_intent")))
+    local dependents_management_intent_ref01_data = nil
+    if #dependents_management_intent_ref01_data_raw > 0 then
+      dependents_management_intent_ref01_data = helpers.to_map(dependents_management_intent_ref01_data_raw[1][2])
+    end
 
     -- LOAD
+    local dependents_management_intent_ref01_ent = client:DependentsManagementIntent(nil)
     local dependents_management_intent_ref01_match_dt0 = {
       id = dependents_management_intent_ref01_data["id"],
     }
@@ -88,9 +100,8 @@ function dependents_management_intent_basic_setup(extra)
     }
   )
 
-  -- Detect ENTID env override before envOverride consumes it. When live
-  -- mode is on without a real override, the basic test runs against synthetic
-  -- IDs from the fixture and 4xx's. Surface this so the test can skip.
+  -- Whether *_ENTID supplied the idmap, read before env_override consumes
+  -- it: without it, the ids a live flow binds are the fixture's synthetic ones.
   local entid_env_raw = os.getenv("KOTA_TEST_DEPENDENTS_MANAGEMENT_INTENT_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 

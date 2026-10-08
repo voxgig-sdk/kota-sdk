@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Associ
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/kota-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/kota-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -37,15 +37,17 @@ local client = sdk.new({
 
 ### 2. List associatedperson records
 
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+Entity operations return `(value, err)`. For `list`, `value` is an
+array of entities, one per record — iterate it directly (there is no
+wrapper), and read each record with `data_get()`.
 
 ```lua
-local associatedpersons, err = client:AssociatedPerson():list()
+local associatedpersons, err = client:AssociatedPerson():list({ employee_id = "example" })
 if err then error(err) end
 
 for _, item in ipairs(associatedpersons) do
-  print(item["id"])
+  local rec = item:data_get()
+  print(rec["id"])
 end
 ```
 
@@ -53,10 +55,13 @@ end
 
 AssociatedPerson is nested under employee, so provide the `employee_id`.
 
+`load` returns the entity; `data_get()` reads its record.
+
 ```lua
 local associatedperson, err = client:AssociatedPerson():load({ employee_id = "example_employee_id", id = "example_id" })
 if err then error(err) end
-print(associatedperson)
+local rec = associatedperson:data_get()
+print(rec["id"])
 ```
 
 ### 4. Create, update, and remove
@@ -80,7 +85,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local dependentsmanagementintent, err = client:DependentsManagementIntent():load({ id = "example_id" })
+local groupquoteintents, err = client:GroupQuoteIntent():list()
 if err then error(err) end
 ```
 
@@ -138,8 +143,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:DependentsManagementIntent():load({ id = "test01" })
--- result is the returned data; err is set on failure
+local result, err = client:GroupQuoteIntent():list()
+-- result is an array of entities, one per mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -257,7 +262,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `PolicyImportIntent` | `(data) -> PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider` | `(data) -> ProviderEntity` | Create a Provider entity instance. |
 | `WebhookEndpoint` | `(data) -> WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
-| `WebhookEndpointResponsePagedList` | `(data) -> WebhookEndpointResponsePagedListEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 
 ### Entity interface
 
@@ -265,11 +269,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria, and return it. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
+| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity, and return it. |
+| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity, and return it. |
+| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity, and return it marked as deleted. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -279,19 +283,19 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `load` / `create` / `update` / `remove` | the entity, whose `data_get()` reads its record (a `table`) |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
     local associated_person, err = client:AssociatedPerson():load({ id = "example_id" })
     if err then error(err) end
-    -- associated_person is the loaded record
+    -- associated_person is the loaded entity
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -390,6 +394,8 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
 | `link` |  |
 
@@ -401,7 +407,10 @@ API path: `/hosted/sessions`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` |  |
 
 Operations: Create.
@@ -413,7 +422,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the action required from the caller. |
+| `associated_person_ids` | List of associated person IDs to add as dependents. |
 | `coverage_options` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | Optional coverage selections per dependent. |
 | `dependents` | List of dependents being managed. |
 | `disclosures` | Disclosures associated with this intent. |
 | `id` | Unique identifier for the dependents management intent. |
@@ -451,6 +462,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | Field | Description |
 | --- | --- |
 | `eligibility_status` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | The employee to check eligibility for. |
 | `object` | The object type. |
 | `plan` | The insurance plan associated with the group. |
 | `provider` | The insurance provider associated with the group. |
@@ -578,15 +590,15 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 | Field | Description |
 | --- | --- |
 | `contact` |  |
-| `earliest_benefits_start_date` |  |
+| `earliest_benefits_start_date` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` |  |
-| `legal_address` |  |
-| `legal_name` |  |
+| `legal_address` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | Legal name of the company. |
 | `metadata` | Set of key-value pairs that you can attach to an object. |
 | `object` | The object type |
 | `offboard_on` |  |
 | `platform_id` |  |
-| `registration_number` |  |
+| `registration_number` | Company registration number. |
 | `status` |  |
 
 Operations: Create, List, Load, Update.
@@ -672,8 +684,11 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `disclosures` | Disclosures associated with this intent. |
 | `employee_id` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | Identifier for the group associated with this enrolment intent. |
 | `id` | Unique identifier for the enrolment intent. |
@@ -706,10 +721,7 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
-| `options` |  |
-| `parent` |  |
 | `platform_id` |  |
-| `root` |  |
 | `type` |  |
 
 Operations: Create, List, Load.
@@ -740,8 +752,10 @@ API path: `/groups`
 
 | Field | Description |
 | --- | --- |
+| `create_enrolment_intents` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `eligibility_status` | Eligibility status for the employee in this group. |
+| `employee_id` | Employee Id |
 | `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `enrolment_status` | Enrolment status for the employee in this group. |
 | `enrolments` | List of enrolments associated with the employee in this group. |
@@ -749,6 +763,7 @@ API path: `/groups`
 | `id` | Unique identifier for the employee. |
 | `object` | The object type |
 | `policies` | List of policies associated with the employee in this group. |
+| `policy_configuration` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
 
 Operations: Create.
@@ -792,6 +807,7 @@ API path: `/group_policies`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | Cost sharing configuration for the policy intent |
 | `disclosures` | Disclosures associated with this intent. |
 | `due_date` | Due date for the policy intent |
@@ -820,11 +836,15 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `family_type` | Type of the family covered by the employer. |
-| `member_count` | Numbers of additional members covered by the employer. |
-| `member_selection` | Whether specific member types are covered by the employer. |
-| `percentage` | Percentage of the premium the employer covers. |
-| `type` | Cost sharing type. |
+| `cost_sharing` | Cost sharing configuration for the quote |
+| `currency` | Currency of the premium (e.g. |
+| `employee_count` | Number of employees covered by the quote |
+| `expires_at` | When the quote expires |
+| `generated_at` | When the quote was generated |
+| `object` | Object type identifier |
+| `pdf_expires_at` | When the PDF URL expires |
+| `pdf_url` | URL to download the quote PDF |
+| `total_monthly_premium` | Total monthly premium for the group |
 
 Operations: Load.
 
@@ -837,6 +857,7 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | `action_required` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | Consent links that need to be acknowledged |
 | `cost_sharing` | Cost sharing configuration for the quote |
+| `coverage_selections` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | Disclosures associated with this intent. |
 | `expected_start_date` | Expected start date for the insurance coverage |
 | `group_id` | Unique identifier for the group |
@@ -977,21 +998,7 @@ API path: `/providers`
 | `object` | The object type |
 | `subscribed_events` | The events the endpoint is subscribed to |
 
-Operations: Load.
-
-API path: `/webhooks/endpoints/{webhook_endpoint_id}`
-
-#### WebhookEndpointResponsePagedList
-
-| Field | Description |
-| --- | --- |
-| `created_at` | The date and time the endpoint was created |
-| `endpoint_url` | The registered URL of the endpoint |
-| `id` | The unique identifier of the endpoint |
-| `object` | The object type |
-| `subscribed_events` | The events the endpoint is subscribed to |
-
-Operations: List.
+Operations: List, Load.
 
 API path: `/webhooks/endpoints`
 
@@ -1027,8 +1034,8 @@ Create an instance: `local associated_person = client:AssociatedPerson(nil)`
 | `object` | `string` | The object type |
 | `phone_number` | `nil|string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `relationship_type` | `any` | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `any` | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | The sex assigned to the associated person at birth |
 
 #### Example: Load
 
@@ -1039,7 +1046,7 @@ local associated_person, err = client:AssociatedPerson():load({ id = "associated
 #### Example: List
 
 ```lua
-local associated_persons, err = client:AssociatedPerson():list()
+local associated_persons, err = client:AssociatedPerson():list({ employee_id = "example" })
 ```
 
 #### Example: Create
@@ -1051,8 +1058,8 @@ local associated_person, err = client:AssociatedPerson():create({
   first_name = "example_first_name", -- string
   id = "example_id", -- string
   last_name = "example_last_name", -- string
-  relationship_type = "example_relationship_type", -- any
-  sex_at_birth = "example_sex_at_birth", -- any
+  relationship_type = "example_relationship_type", -- string
+  sex_at_birth = "example_sex_at_birth", -- string
 })
 ```
 
@@ -1073,18 +1080,18 @@ Create an instance: `local associated_person_eligibility_response_paged_list = c
 | --- | --- | --- |
 | `associated_person_id` | `string` | The associated person ID. |
 | `date_of_birth` | `string` | Date of birth of the associated person. |
-| `eligibility_status` | `any` | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Eligibility status for the policy/plan. |
 | `first_name` | `string` | First name of the associated person. |
 | `ineligibility_reason` | `nil|string` | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Last name of the associated person. |
 | `object` | `string` | The object type |
-| `relationship` | `any` | Relationship type to the employee. |
-| `sex_at_birth` | `any` | Sex at birth of the associated person. |
+| `relationship` | `string` | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Sex at birth of the associated person. |
 
 #### Example: List
 
 ```lua
-local associated_person_eligibility_response_paged_lists, err = client:AssociatedPersonEligibilityResponsePagedList():list()
+local associated_person_eligibility_response_paged_lists, err = client:AssociatedPersonEligibilityResponsePagedList():list({ dependents_management_intent_id = "example" })
 ```
 
 
@@ -1112,7 +1119,7 @@ Create an instance: `local contribution_report = client:ContributionReport(nil)`
 | `last_updated_at` | `string` | Date and time of the last update to the report |
 | `object` | `string` | The object type |
 | `period` | `any` | Period covered by the contribution report |
-| `status` | `any` | Current status of the contribution report |
+| `status` | `string` | Current status of the contribution report |
 
 #### Example: Load
 
@@ -1135,7 +1142,7 @@ local contribution_report, err = client:ContributionReport():create({
   employer_id = "example_employer_id", -- string
   last_updated_at = "example_last_updated_at", -- string
   period = "example_period", -- any
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -1156,7 +1163,7 @@ Create an instance: `local contribution_report_employee_breakdown = client:Contr
 | --- | --- | --- |
 | `contribution_report_id` | `string` | Unique identifier of the related contribution report |
 | `created_at` | `string` | Date and time the breakdown was created |
-| `currency` | `any` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `nil|string` | Unique identifier of the customer for which the breakdown is created. |
@@ -1166,7 +1173,7 @@ Create an instance: `local contribution_report_employee_breakdown = client:Contr
 | `last_updated_at` | `string` | Date and time of the last update to the breakdown |
 | `object` | `string` | The object type |
 | `period` | `any` | Period covered by the employee breakdown |
-| `status` | `any` | Current status of the breakdown |
+| `status` | `string` | Current status of the breakdown |
 
 #### Example: Load
 
@@ -1194,7 +1201,7 @@ Create an instance: `local contribution_report_employee_breakdown_response_paged
 #### Example: List
 
 ```lua
-local contribution_report_employee_breakdown_response_paged_lists, err = client:ContributionReportEmployeeBreakdownResponsePagedList():list()
+local contribution_report_employee_breakdown_response_paged_lists, err = client:ContributionReportEmployeeBreakdownResponsePagedList():list({ id = "example" })
 ```
 
 
@@ -1212,6 +1219,8 @@ Create an instance: `local create_hosted_session_token = client:CreateHostedSess
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `string` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
 | `link` | `string` |  |
 
@@ -1219,6 +1228,8 @@ Create an instance: `local create_hosted_session_token = client:CreateHostedSess
 
 ```lua
 local create_hosted_session_token, err = client:CreateHostedSessionToken():create({
+  employee_id = "example_employee_id", -- string
+  employer_id = "example_employer_id", -- string
   expiry = "example_expiry", -- string
   link = "example_link", -- string
 })
@@ -1239,13 +1250,17 @@ Create an instance: `local create_session_token = client:CreateSessionToken(nil)
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `nil|string` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
+| `external_customer_id` | `nil|string` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` |  |
 
 #### Example: Create
 
 ```lua
 local create_session_token, err = client:CreateSessionToken():create({
+  employer_id = "example_employer_id", -- string
   expiry = "example_expiry", -- string
   token = "example_token", -- string
 })
@@ -1268,28 +1283,31 @@ Create an instance: `local dependent = client:Dependent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` | Details of the action required from the caller. |
+| `associated_person_ids` | `table` | List of associated person IDs to add as dependents. |
 | `coverage_options` | `nil|table` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `nil|table` | Optional coverage selections per dependent. |
 | `dependents` | `table` | List of dependents being managed. |
 | `disclosures` | `table` | Disclosures associated with this intent. |
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `any` | Plan information including pricing details. |
-| `status` | `any` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Create
 
 ```lua
 local dependent, err = client:Dependent():create({
   dependents_management_intent_id = "example_dependents_management_intent_id", -- string
+  associated_person_ids = {}, -- table
   dependents = {}, -- table
   disclosures = {}, -- table
   id = "example_id", -- string
   parent_intent_id = "example_parent_intent_id", -- string
-  parent_intent_type = "example_parent_intent_type", -- any
+  parent_intent_type = "example_parent_intent_type", -- string
   plan = "example_plan", -- any
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -1316,9 +1334,9 @@ Create an instance: `local dependents_management_intent = client:DependentsManag
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `any` | Plan information including pricing details. |
-| `status` | `any` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Load
 
@@ -1335,9 +1353,9 @@ local dependents_management_intent, err = client:DependentsManagementIntent():cr
   disclosures = {}, -- table
   id = "example_id", -- string
   parent_intent_id = "example_parent_intent_id", -- string
-  parent_intent_type = "example_parent_intent_type", -- any
+  parent_intent_type = "example_parent_intent_type", -- string
   plan = "example_plan", -- any
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -1356,7 +1374,8 @@ Create an instance: `local eligibility_check = client:EligibilityCheck(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `eligibility_status` | `any` | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | The employee to check eligibility for. |
 | `object` | `string` | The object type. |
 | `plan` | `any` | The insurance plan associated with the group. |
 | `provider` | `any` | The insurance provider associated with the group. |
@@ -1367,7 +1386,8 @@ Create an instance: `local eligibility_check = client:EligibilityCheck(nil)`
 ```lua
 local eligibility_check, err = client:EligibilityCheck():create({
   group_id = "example_group_id", -- string
-  eligibility_status = "example_eligibility_status", -- any
+  eligibility_status = "example_eligibility_status", -- string
+  employee_id = "example_employee_id", -- string
   plan = "example_plan", -- any
   provider = "example_provider", -- any
   reasons = {}, -- table
@@ -1409,9 +1429,9 @@ Create an instance: `local employee = client:Employee(nil)`
 | `offboard_on` | `nil|string` | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `sex_at_birth` | `any` | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | The sex assigned to the employee at birth |
 | `start_on` | `string` | Employment start date |
-| `status` | `any` | Current status of the employee |
+| `status` | `string` | Current status of the employee |
 
 #### Example: Load
 
@@ -1435,7 +1455,7 @@ local employee, err = client:Employee():create({
   last_name = "example_last_name", -- string
   national_tax_id = "example_national_tax_id", -- string
   phone_number = "example_phone_number", -- string
-  sex_at_birth = "example_sex_at_birth", -- any
+  sex_at_birth = "example_sex_at_birth", -- string
 })
 ```
 
@@ -1461,7 +1481,7 @@ Create an instance: `local employee_health_insurance_offer = client:EmployeeHeal
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `nil` | Required action to progress the offer, if any. |
-| `status` | `any` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: Load
 
@@ -1491,12 +1511,12 @@ Create an instance: `local employee_health_insurance_offer_response_paged_list =
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `nil` | Required action to progress the offer, if any. |
-| `status` | `any` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: List
 
 ```lua
-local employee_health_insurance_offer_response_paged_lists, err = client:EmployeeHealthInsuranceOfferResponsePagedList():list()
+local employee_health_insurance_offer_response_paged_lists, err = client:EmployeeHealthInsuranceOfferResponsePagedList():list({ employee_id = "example" })
 ```
 
 
@@ -1520,7 +1540,7 @@ Create an instance: `local employee_health_insurance_policy = client:EmployeeHea
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `nil|string` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1529,7 +1549,7 @@ Create an instance: `local employee_health_insurance_policy = client:EmployeeHea
 | `policy_number` | `nil|string` | Health insurance policy number, if available |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1558,7 +1578,7 @@ Create an instance: `local employee_health_insurance_policy_response_paged_list 
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `nil|string` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1567,12 +1587,12 @@ Create an instance: `local employee_health_insurance_policy_response_paged_list 
 | `policy_number` | `nil|string` | Health insurance policy number, if available |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
 ```lua
-local employee_health_insurance_policy_response_paged_lists, err = client:EmployeeHealthInsurancePolicyResponsePagedList():list()
+local employee_health_insurance_policy_response_paged_lists, err = client:EmployeeHealthInsurancePolicyResponsePagedList():list({ employee_id = "example" })
 ```
 
 
@@ -1594,16 +1614,16 @@ Create an instance: `local employer = client:Employer(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `contact` | `any` |  |
-| `earliest_benefits_start_date` | `nil|string` |  |
+| `earliest_benefits_start_date` | `nil|string` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` |  |
-| `legal_address` | `any` |  |
-| `legal_name` | `string` |  |
+| `legal_address` | `any` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Legal name of the company. |
 | `metadata` | `nil|table` | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | The object type |
 | `offboard_on` | `nil|string` |  |
 | `platform_id` | `string` |  |
-| `registration_number` | `nil|string` |  |
-| `status` | `any` |  |
+| `registration_number` | `nil|string` | Company registration number. |
+| `status` | `string` |  |
 
 #### Example: Load
 
@@ -1648,13 +1668,13 @@ Create an instance: `local employer_health_insurance_policy = client:EmployerHea
 | `employer_cancellation_period_length` | `number` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `nil|string` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1682,18 +1702,18 @@ Create an instance: `local employer_health_insurance_policy_response_paged_list 
 | `employer_cancellation_period_length` | `number` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `any` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `nil|string` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `any` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `any` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
 ```lua
-local employer_health_insurance_policy_response_paged_lists, err = client:EmployerHealthInsurancePolicyResponsePagedList():list()
+local employer_health_insurance_policy_response_paged_lists, err = client:EmployerHealthInsurancePolicyResponsePagedList():list({ employer_id = "example" })
 ```
 
 
@@ -1717,7 +1737,7 @@ Create an instance: `local employer_health_insurance_quote = client:EmployerHeal
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `nil` | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: Load
 
@@ -1746,12 +1766,12 @@ Create an instance: `local employer_health_insurance_quote_response_paged_list =
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `nil` | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: List
 
 ```lua
-local employer_health_insurance_quote_response_paged_lists, err = client:EmployerHealthInsuranceQuoteResponsePagedList():list()
+local employer_health_insurance_quote_response_paged_lists, err = client:EmployerHealthInsuranceQuoteResponsePagedList():list({ employer_id = "example" })
 ```
 
 
@@ -1773,8 +1793,11 @@ Create an instance: `local enrolment_intent = client:EnrolmentIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `nil|table` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `nil|string` | The desired date for the employee's policy to start. |
 | `disclosures` | `table` | Disclosures associated with this intent. |
 | `employee_id` | `string` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `nil|string` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `boolean` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Unique identifier for the enrolment intent. |
@@ -1783,7 +1806,7 @@ Create an instance: `local enrolment_intent = client:EnrolmentIntent(nil)`
 | `pending_confirmation` | `nil` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `nil` | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `table` | Policy enrolment information |
-| `status` | `any` | Current status of the enrolment intent. |
+| `status` | `string` | Current status of the enrolment intent. |
 
 #### Example: Load
 
@@ -1807,7 +1830,7 @@ local enrolment_intent, err = client:EnrolmentIntent():create({
   group_id = "example_group_id", -- string
   id = "example_id", -- string
   policy_enrolments = {}, -- table
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -1831,7 +1854,7 @@ Create an instance: `local enrolment_intent_requirement_response_paged_list = cl
 #### Example: List
 
 ```lua
-local enrolment_intent_requirement_response_paged_lists, err = client:EnrolmentIntentRequirementResponsePagedList():list()
+local enrolment_intent_requirement_response_paged_lists, err = client:EnrolmentIntentRequirementResponsePagedList():list({ id = "example" })
 ```
 
 
@@ -1855,10 +1878,7 @@ Create an instance: `local event = client:Event(nil)`
 | `created` | `string` |  |
 | `data` | `nil` |  |
 | `id` | `string` |  |
-| `options` | `nil` |  |
-| `parent` | `nil` |  |
 | `platform_id` | `string` |  |
-| `root` | `any` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -1879,7 +1899,7 @@ local events, err = client:Event():list()
 local event, err = client:Event():create({
   id = "example_id", -- string
   created = "example_created", -- string
-  data = "example_data", -- nil
+  data = nil, -- nil
   platform_id = "example_platform_id", -- string
   type = "example_type", -- string
 })
@@ -1905,15 +1925,15 @@ Create an instance: `local group = client:Group(nil)`
 | --- | --- | --- |
 | `description` | `nil|string` | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `any` | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `table` | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `table` | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `table` | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `any` | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Indicates how policies are organized for this group. |
 | `id` | `string` | Unique identifier for the `group`. |
 | `name` | `string` | Human-readable name of the `group`. |
 | `object` | `string` | The object type |
-| `status` | `any` | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Current lifecycle state of the `group`, indicating its current progress. |
 
 #### Example: Load
 
@@ -1932,14 +1952,14 @@ local groups, err = client:Group():list()
 ```lua
 local group, err = client:Group():create({
   employer_id = "example_employer_id", -- string
-  enrolment_type = "example_enrolment_type", -- any
+  enrolment_type = "example_enrolment_type", -- string
   group_policy_ids = {}, -- table
   group_policy_intent_ids = {}, -- table
   group_quote_intent_ids = {}, -- table
-  group_type = "example_group_type", -- any
+  group_type = "example_group_type", -- string
   id = "example_id", -- string
   name = "example_name", -- string
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -1958,15 +1978,18 @@ Create an instance: `local group_employee = client:GroupEmployee(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `create_enrolment_intents` | `nil|boolean` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `nil|string` | The desired date for the employee's policy to start. |
-| `eligibility_status` | `any` | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Employee Id |
 | `enrolment_date` | `nil|string` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `any` | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Enrolment status for the employee in this group. |
 | `enrolments` | `table` | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Unique identifier for the group. |
 | `id` | `string` | Unique identifier for the employee. |
 | `object` | `string` | The object type |
 | `policies` | `table` | List of policies associated with the employee in this group. |
+| `policy_configuration` | `nil` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `table` | List of scheduled group transitions for the employee. |
 
 #### Example: Create
@@ -1974,8 +1997,9 @@ Create an instance: `local group_employee = client:GroupEmployee(nil)`
 ```lua
 local group_employee, err = client:GroupEmployee():create({
   id = "example_id", -- string
-  eligibility_status = "example_eligibility_status", -- any
-  enrolment_status = "example_enrolment_status", -- any
+  eligibility_status = "example_eligibility_status", -- string
+  employee_id = "example_employee_id", -- string
+  enrolment_status = "example_enrolment_status", -- string
   enrolments = {}, -- table
   group_id = "example_group_id", -- string
   policies = {}, -- table
@@ -2003,7 +2027,7 @@ Create an instance: `local group_employee_response_paged_list = client:GroupEmpl
 #### Example: List
 
 ```lua
-local group_employee_response_paged_lists, err = client:GroupEmployeeResponsePagedList():list()
+local group_employee_response_paged_lists, err = client:GroupEmployeeResponsePagedList():list({ id = "example" })
 ```
 
 
@@ -2033,8 +2057,8 @@ Create an instance: `local group_policy = client:GroupPolicy(nil)`
 | `plan` | `any` | Plan information for this policy |
 | `provider` | `any` | Provider information for this policy. |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `any` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `any` | Policy type. |
+| `status` | `string` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2066,6 +2090,7 @@ Create an instance: `local group_policy_intent = client:GroupPolicyIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `nil|table` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `nil` | Cost sharing configuration for the policy intent |
 | `disclosures` | `table` | Disclosures associated with this intent. |
 | `due_date` | `nil|string` | Due date for the policy intent |
@@ -2074,7 +2099,7 @@ Create an instance: `local group_policy_intent = client:GroupPolicyIntent(nil)`
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `any` | Current status of the group policy intent |
+| `status` | `string` | Current status of the group policy intent |
 
 #### Example: Load
 
@@ -2097,7 +2122,7 @@ local group_policy_intent, err = client:GroupPolicyIntent():create({
   id = "example_id", -- string
   plan_id = "example_plan_id", -- string
   quote_intent_id = "example_quote_intent_id", -- string
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -2121,7 +2146,7 @@ Create an instance: `local group_policy_intent_requirement_response_paged_list =
 #### Example: List
 
 ```lua
-local group_policy_intent_requirement_response_paged_lists, err = client:GroupPolicyIntentRequirementResponsePagedList():list()
+local group_policy_intent_requirement_response_paged_lists, err = client:GroupPolicyIntentRequirementResponsePagedList():list({ id = "example" })
 ```
 
 
@@ -2139,11 +2164,15 @@ Create an instance: `local group_quote = client:GroupQuote(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `family_type` | `nil` | Type of the family covered by the employer. |
-| `member_count` | `nil` | Numbers of additional members covered by the employer. |
-| `member_selection` | `nil` | Whether specific member types are covered by the employer. |
-| `percentage` | `nil` | Percentage of the premium the employer covers. |
-| `type` | `any` | Cost sharing type. |
+| `cost_sharing` | `any` | Cost sharing configuration for the quote |
+| `currency` | `string` | Currency of the premium (e.g. |
+| `employee_count` | `number` | Number of employees covered by the quote |
+| `expires_at` | `string` | When the quote expires |
+| `generated_at` | `string` | When the quote was generated |
+| `object` | `string` | Object type identifier |
+| `pdf_expires_at` | `nil|string` | When the PDF URL expires |
+| `pdf_url` | `nil|string` | URL to download the quote PDF |
+| `total_monthly_premium` | `number` | Total monthly premium for the group |
 
 #### Example: Load
 
@@ -2171,13 +2200,14 @@ Create an instance: `local group_quote_intent = client:GroupQuoteIntent(nil)`
 | `action_required` | `nil` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `table` | Consent links that need to be acknowledged |
 | `cost_sharing` | `nil` | Cost sharing configuration for the quote |
+| `coverage_selections` | `nil|table` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `table` | Disclosures associated with this intent. |
 | `expected_start_date` | `nil|string` | Expected start date for the insurance coverage |
 | `group_id` | `string` | Unique identifier for the group |
 | `id` | `string` | Unique identifier for the group quote intent |
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
-| `status` | `any` | Current status of the group quote intent |
+| `status` | `string` | Current status of the group quote intent |
 
 #### Example: Load
 
@@ -2200,7 +2230,7 @@ local group_quote_intent, err = client:GroupQuoteIntent():create({
   group_id = "example_group_id", -- string
   id = "example_id", -- string
   plan_id = "example_plan_id", -- string
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -2224,7 +2254,7 @@ Create an instance: `local group_quote_intent_requirement_response_paged_list = 
 #### Example: List
 
 ```lua
-local group_quote_intent_requirement_response_paged_lists, err = client:GroupQuoteIntentRequirementResponsePagedList():list()
+local group_quote_intent_requirement_response_paged_lists, err = client:GroupQuoteIntentRequirementResponsePagedList():list({ id = "example" })
 ```
 
 
@@ -2245,7 +2275,7 @@ Create an instance: `local plan = client:Plan(nil)`
 | --- | --- | --- |
 | `available_from` | `string` | The date from which this plan is available (inclusive). |
 | `available_to` | `nil|string` | The date until which this plan is available (inclusive). |
-| `country` | `any` | The country this plan is available in. |
+| `country` | `string` | The country this plan is available in. |
 | `coverage_options` | `nil|table` | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Description of the plan. |
 | `disclosures` | `table` | Disclosures associated with this plan. |
@@ -2260,7 +2290,7 @@ Create an instance: `local plan = client:Plan(nil)`
 | `object` | `string` | Object type. |
 | `provider` | `any` | The provider offering this plan. |
 | `total_count` | `nil|number` | Total employees in the queried group. |
-| `type` | `any` | The benefit type of the plan. |
+| `type` | `string` | The benefit type of the plan. |
 
 #### Example: Load
 
@@ -2290,7 +2320,7 @@ Create an instance: `local policy = client:Policy(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bundling_type` | `any` | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `nil|string` | Date the policy was cancelled (if applicable) |
 | `disclosures` | `table` | Disclosures associated with this policy. |
 | `employee_id` | `string` | Identifier of the employee associated with this policy. |
@@ -2303,8 +2333,8 @@ Create an instance: `local policy = client:Policy(nil)`
 | `plan` | `any` | Plan information for this policy |
 | `provider` | `any` | Provider information for this policy |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `any` | Current lifecycle state of the policy |
-| `type` | `any` | Policy type. |
+| `status` | `string` | Current lifecycle state of the policy |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2344,7 +2374,7 @@ Create an instance: `local policy_amendment_intent = client:PolicyAmendmentInten
 | `processing_error` | `nil` | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `table` | List of requested changes to the policy. |
 | `required_action` | `nil` | Information about the required action if the intent status is `action_required`. |
-| `status` | `any` | Current status of the policy amendment intent. |
+| `status` | `string` | Current status of the policy amendment intent. |
 
 #### Example: Load
 
@@ -2355,7 +2385,7 @@ local policy_amendment_intent, err = client:PolicyAmendmentIntent():load({ id = 
 #### Example: List
 
 ```lua
-local policy_amendment_intents, err = client:PolicyAmendmentIntent():list()
+local policy_amendment_intents, err = client:PolicyAmendmentIntent():list({ id = "example" })
 ```
 
 #### Example: Create
@@ -2367,7 +2397,7 @@ local policy_amendment_intent, err = client:PolicyAmendmentIntent():create({
   disclosures = {}, -- table
   policy_id = "example_policy_id", -- string
   requested_changes = {}, -- table
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -2397,7 +2427,7 @@ Create an instance: `local policy_import_intent = client:PolicyImportIntent(nil)
 | `policy_end_date` | `nil|string` | The end date of the policy. |
 | `policy_start_date` | `string` | The start date of the policy. |
 | `provider_policy_number` | `string` | The provider's policy number. |
-| `status` | `any` | Current status of the policy import intent. |
+| `status` | `string` | Current status of the policy import intent. |
 
 #### Example: Load
 
@@ -2422,7 +2452,7 @@ local policy_import_intent, err = client:PolicyImportIntent():create({
   member_number = "example_member_number", -- string
   policy_start_date = "example_policy_start_date", -- string
   provider_policy_number = "example_provider_policy_number", -- string
-  status = "example_status", -- any
+  status = "example_status", -- string
 })
 ```
 
@@ -2474,6 +2504,7 @@ Create an instance: `local webhook_endpoint = client:WebhookEndpoint(nil)`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -2492,31 +2523,10 @@ Create an instance: `local webhook_endpoint = client:WebhookEndpoint(nil)`
 local webhook_endpoint, err = client:WebhookEndpoint():load({ id = "webhook_endpoint_id" })
 ```
 
-
-### WebhookEndpointResponsePagedList
-
-Create an instance: `local webhook_endpoint_response_paged_list = client:WebhookEndpointResponsePagedList(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `string` | The date and time the endpoint was created |
-| `endpoint_url` | `string` | The registered URL of the endpoint |
-| `id` | `string` | The unique identifier of the endpoint |
-| `object` | `string` | The object type |
-| `subscribed_events` | `table` | The events the endpoint is subscribed to |
-
 #### Example: List
 
 ```lua
-local webhook_endpoint_response_paged_lists, err = client:WebhookEndpointResponsePagedList():list()
+local webhook_endpoints, err = client:WebhookEndpoint():list()
 ```
 
 ## Features
@@ -2736,15 +2746,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local dependentsmanagementintent = client:DependentsManagementIntent()
-dependentsmanagementintent:load({ id = "example_id" })
+local groupquoteintent = client:GroupQuoteIntent()
+groupquoteintent:list()
 
--- dependentsmanagementintent:data_get() now returns the dependentsmanagementintent data from the last load
--- dependentsmanagementintent:match_get() returns the last match criteria
+-- groupquoteintent:data_get() now returns the groupquoteintent data from the last list
+-- groupquoteintent:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

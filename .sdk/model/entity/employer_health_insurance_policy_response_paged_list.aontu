@@ -54,7 +54,7 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
       n: "enrolment_type"
       r: true
       sh: "Enrolment type of the policy"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     group_policy_number: {
       h: "Group Policy Number"
@@ -104,7 +104,7 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
       n: "status"
       r: true
       sh: "Current status of policy"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -129,7 +129,7 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -173,11 +173,11 @@ main: kit: entity: employer_health_insurance_policy_response_paged_list: {
           q: {
             exist: [
               "employer_id"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

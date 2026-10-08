@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 KotaUtility::setRegistrar(function (KotaUtility $u): void {
     $u->clean = [KotaClean::class, 'call'];
+    $u->clean_add = [KotaClean::class, 'add'];
+    $u->clean_explain = [KotaDone::class, 'clean_explain'];
     $u->done = [KotaDone::class, 'call'];
     $u->make_error = [KotaMakeError::class, 'call'];
     $u->feature_add = [KotaFeatureAdd::class, 'call'];

@@ -22,8 +22,8 @@ class AssociatedPersonRequired(TypedDict):
     first_name: str
     id: str
     last_name: str
-    relationship_type: Any
-    sex_at_birth: Any
+    relationship_type: str
+    sex_at_birth: str
 
 
 class AssociatedPerson(AssociatedPersonRequired, total=False):
@@ -53,8 +53,8 @@ class AssociatedPersonCreateDataRequired(TypedDict):
     first_name: str
     id: str
     last_name: str
-    relationship_type: Any
-    sex_at_birth: Any
+    relationship_type: str
+    sex_at_birth: str
 
 
 class AssociatedPersonCreateData(AssociatedPersonCreateDataRequired, total=False):
@@ -77,8 +77,8 @@ class AssociatedPersonUpdateData(AssociatedPersonUpdateDataRequired, total=False
     object: str
     phone_number: None | str
     platform_id: str
-    relationship_type: Any
-    sex_at_birth: Any
+    relationship_type: str
+    sex_at_birth: str
 
 
 class AssociatedPersonRemoveMatch(TypedDict):
@@ -89,11 +89,11 @@ class AssociatedPersonRemoveMatch(TypedDict):
 class AssociatedPersonEligibilityResponsePagedListRequired(TypedDict):
     associated_person_id: str
     date_of_birth: str
-    eligibility_status: Any
+    eligibility_status: str
     first_name: str
     last_name: str
-    relationship: Any
-    sex_at_birth: Any
+    relationship: str
+    sex_at_birth: str
 
 
 class AssociatedPersonEligibilityResponsePagedList(AssociatedPersonEligibilityResponsePagedListRequired, total=False):
@@ -116,7 +116,7 @@ class ContributionReportRequired(TypedDict):
     id: str
     last_updated_at: str
     period: Any
-    status: Any
+    status: str
 
 
 class ContributionReport(ContributionReportRequired, total=False):
@@ -145,7 +145,7 @@ class ContributionReportCreateDataRequired(TypedDict):
     employer_id: str
     last_updated_at: str
     period: Any
-    status: Any
+    status: str
 
 
 class ContributionReportCreateData(ContributionReportCreateDataRequired, total=False):
@@ -157,13 +157,13 @@ class ContributionReportCreateData(ContributionReportCreateDataRequired, total=F
 class ContributionReportEmployeeBreakdownRequired(TypedDict):
     contribution_report_id: str
     created_at: str
-    currency: Any
+    currency: str
     employee_id: str
     employer_id: str
     health_insurance: Any
     last_updated_at: str
     period: Any
-    status: Any
+    status: str
 
 
 class ContributionReportEmployeeBreakdown(ContributionReportEmployeeBreakdownRequired, total=False):
@@ -192,55 +192,75 @@ class ContributionReportEmployeeBreakdownResponsePagedListListMatch(Contribution
 
 
 class CreateHostedSessionToken(TypedDict):
+    employee_id: str
+    employer_id: str
     expiry: str
     link: str
 
 
 class CreateHostedSessionTokenCreateData(TypedDict):
+    employee_id: str
+    employer_id: str
     expiry: str
     link: str
 
 
-class CreateSessionToken(TypedDict):
+class CreateSessionTokenRequired(TypedDict):
+    employer_id: str
     expiry: str
     token: str
 
 
-class CreateSessionTokenCreateData(TypedDict):
+class CreateSessionToken(CreateSessionTokenRequired, total=False):
+    employee_id: None | str
+    external_customer_id: None | str
+
+
+class CreateSessionTokenCreateDataRequired(TypedDict):
+    employer_id: str
     expiry: str
     token: str
+
+
+class CreateSessionTokenCreateData(CreateSessionTokenCreateDataRequired, total=False):
+    employee_id: None | str
+    external_customer_id: None | str
 
 
 class DependentRequired(TypedDict):
+    associated_person_ids: list
     dependents: list
     disclosures: list
     id: str
     parent_intent_id: str
-    parent_intent_type: Any
+    parent_intent_type: str
     plan: Any
-    status: Any
+    status: str
 
 
 class Dependent(DependentRequired, total=False):
     action_required: None
     coverage_options: None | list
+    dependent_coverage_selections: None | list
     object: str
 
 
 class DependentCreateDataRequired(TypedDict):
     dependents_management_intent_id: str
+    associated_person_ids: list
     dependents: list
     disclosures: list
     id: str
     parent_intent_id: str
-    parent_intent_type: Any
+    parent_intent_type: str
     plan: Any
-    status: Any
+    status: str
 
 
 class DependentCreateData(DependentCreateDataRequired, total=False):
     action_required: None
     coverage_options: None | list
+    dependent_coverage_selections: None | list
     object: str
 
 
@@ -254,9 +274,9 @@ class DependentsManagementIntentRequired(TypedDict):
     disclosures: list
     id: str
     parent_intent_id: str
-    parent_intent_type: Any
+    parent_intent_type: str
     plan: Any
-    status: Any
+    status: str
 
 
 class DependentsManagementIntent(DependentsManagementIntentRequired, total=False):
@@ -275,9 +295,9 @@ class DependentsManagementIntentCreateDataRequired(TypedDict):
     disclosures: list
     id: str
     parent_intent_id: str
-    parent_intent_type: Any
+    parent_intent_type: str
     plan: Any
-    status: Any
+    status: str
 
 
 class DependentsManagementIntentCreateData(DependentsManagementIntentCreateDataRequired, total=False):
@@ -287,7 +307,8 @@ class DependentsManagementIntentCreateData(DependentsManagementIntentCreateDataR
 
 
 class EligibilityCheckRequired(TypedDict):
-    eligibility_status: Any
+    eligibility_status: str
+    employee_id: str
     plan: Any
     provider: Any
     reasons: list
@@ -299,7 +320,8 @@ class EligibilityCheck(EligibilityCheckRequired, total=False):
 
 class EligibilityCheckCreateDataRequired(TypedDict):
     group_id: str
-    eligibility_status: Any
+    eligibility_status: str
+    employee_id: str
     plan: Any
     provider: Any
     reasons: list
@@ -316,7 +338,7 @@ class EmployeeRequired(TypedDict):
     last_name: str
     national_tax_id: str
     phone_number: str
-    sex_at_birth: Any
+    sex_at_birth: str
 
 
 class Employee(EmployeeRequired, total=False):
@@ -332,7 +354,7 @@ class Employee(EmployeeRequired, total=False):
     offboard_on: None | str
     platform_id: str
     start_on: str
-    status: Any
+    status: str
 
 
 class EmployeeLoadMatch(TypedDict):
@@ -355,7 +377,7 @@ class EmployeeCreateDataRequired(TypedDict):
     last_name: str
     national_tax_id: str
     phone_number: str
-    sex_at_birth: Any
+    sex_at_birth: str
 
 
 class EmployeeCreateData(EmployeeCreateDataRequired, total=False):
@@ -371,7 +393,7 @@ class EmployeeCreateData(EmployeeCreateDataRequired, total=False):
     offboard_on: None | str
     platform_id: str
     start_on: str
-    status: Any
+    status: str
 
 
 class EmployeeUpdateDataRequired(TypedDict):
@@ -395,9 +417,9 @@ class EmployeeUpdateData(EmployeeUpdateDataRequired, total=False):
     offboard_on: None | str
     phone_number: str
     platform_id: str
-    sex_at_birth: Any
+    sex_at_birth: str
     start_on: str
-    status: Any
+    status: str
 
 
 class EmployeeHealthInsuranceOfferRequired(TypedDict):
@@ -405,7 +427,7 @@ class EmployeeHealthInsuranceOfferRequired(TypedDict):
     employee_id: str
     employer_id: str
     id: str
-    status: Any
+    status: str
 
 
 class EmployeeHealthInsuranceOffer(EmployeeHealthInsuranceOfferRequired, total=False):
@@ -424,7 +446,7 @@ class EmployeeHealthInsuranceOfferResponsePagedListRequired(TypedDict):
     employee_id: str
     employer_id: str
     id: str
-    status: Any
+    status: str
 
 
 class EmployeeHealthInsuranceOfferResponsePagedList(EmployeeHealthInsuranceOfferResponsePagedListRequired, total=False):
@@ -448,13 +470,13 @@ class EmployeeHealthInsurancePolicyRequired(TypedDict):
     employer_id: str
     end_date: str
     enrolled_dependants_count: int
-    enrolment_type: Any
+    enrolment_type: str
     estimated_gross_premium: Any
     id: str
     opt_out_deadline_date: str
     renewal: Any
     start_date: str
-    status: Any
+    status: str
 
 
 class EmployeeHealthInsurancePolicy(EmployeeHealthInsurancePolicyRequired, total=False):
@@ -475,13 +497,13 @@ class EmployeeHealthInsurancePolicyResponsePagedListRequired(TypedDict):
     employer_id: str
     end_date: str
     enrolled_dependants_count: int
-    enrolment_type: Any
+    enrolment_type: str
     estimated_gross_premium: Any
     id: str
     opt_out_deadline_date: str
     renewal: Any
     start_date: str
-    status: Any
+    status: str
 
 
 class EmployeeHealthInsurancePolicyResponsePagedList(EmployeeHealthInsurancePolicyResponsePagedListRequired, total=False):
@@ -515,7 +537,7 @@ class Employer(EmployerRequired, total=False):
     offboard_on: None | str
     platform_id: str
     registration_number: None | str
-    status: Any
+    status: str
 
 
 class EmployerLoadMatch(TypedDict):
@@ -542,7 +564,7 @@ class EmployerCreateData(EmployerCreateDataRequired, total=False):
     offboard_on: None | str
     platform_id: str
     registration_number: None | str
-    status: Any
+    status: str
 
 
 class EmployerUpdateDataRequired(TypedDict):
@@ -559,7 +581,7 @@ class EmployerUpdateData(EmployerUpdateDataRequired, total=False):
     offboard_on: None | str
     platform_id: str
     registration_number: None | str
-    status: Any
+    status: str
 
 
 class EmployerHealthInsurancePolicyRequired(TypedDict):
@@ -567,11 +589,11 @@ class EmployerHealthInsurancePolicyRequired(TypedDict):
     employer_cancellation_period_length: int
     employer_id: str
     end_date: str
-    enrolment_type: Any
+    enrolment_type: str
     id: str
     renewal: Any
     start_date: str
-    status: Any
+    status: str
 
 
 class EmployerHealthInsurancePolicy(EmployerHealthInsurancePolicyRequired, total=False):
@@ -590,11 +612,11 @@ class EmployerHealthInsurancePolicyResponsePagedListRequired(TypedDict):
     employer_cancellation_period_length: int
     employer_id: str
     end_date: str
-    enrolment_type: Any
+    enrolment_type: str
     id: str
     renewal: Any
     start_date: str
-    status: Any
+    status: str
 
 
 class EmployerHealthInsurancePolicyResponsePagedList(EmployerHealthInsurancePolicyResponsePagedListRequired, total=False):
@@ -618,7 +640,7 @@ class EmployerHealthInsuranceQuoteRequired(TypedDict):
     employer_id: str
     id: str
     quoted_at: str
-    status: Any
+    status: str
 
 
 class EmployerHealthInsuranceQuote(EmployerHealthInsuranceQuoteRequired, total=False):
@@ -636,7 +658,7 @@ class EmployerHealthInsuranceQuoteResponsePagedListRequired(TypedDict):
     employer_id: str
     id: str
     quoted_at: str
-    status: Any
+    status: str
 
 
 class EmployerHealthInsuranceQuoteResponsePagedList(EmployerHealthInsuranceQuoteResponsePagedListRequired, total=False):
@@ -661,11 +683,14 @@ class EnrolmentIntentRequired(TypedDict):
     group_id: str
     id: str
     policy_enrolments: list
-    status: Any
+    status: str
 
 
 class EnrolmentIntent(EnrolmentIntentRequired, total=False):
     action_required: None
+    coverage_selections: None | list
+    desired_policy_start_date: None | str
+    enrolment_date: None | str
     ineligibility_reason: None
     object: str
     pending_confirmation: None
@@ -691,11 +716,14 @@ class EnrolmentIntentCreateDataRequired(TypedDict):
     group_id: str
     id: str
     policy_enrolments: list
-    status: Any
+    status: str
 
 
 class EnrolmentIntentCreateData(EnrolmentIntentCreateDataRequired, total=False):
     action_required: None
+    coverage_selections: None | list
+    desired_policy_start_date: None | str
+    enrolment_date: None | str
     ineligibility_reason: None
     object: str
     pending_confirmation: None
@@ -708,8 +736,11 @@ class EnrolmentIntentUpdateDataRequired(TypedDict):
 
 class EnrolmentIntentUpdateData(EnrolmentIntentUpdateDataRequired, total=False):
     action_required: None
+    coverage_selections: None | list
+    desired_policy_start_date: None | str
     disclosures: list
     employee_id: str
+    enrolment_date: None | str
     force_confirmation: bool
     group_id: str
     ineligibility_reason: None
@@ -717,7 +748,7 @@ class EnrolmentIntentUpdateData(EnrolmentIntentUpdateDataRequired, total=False):
     pending_confirmation: None
     policy_configuration: None
     policy_enrolments: list
-    status: Any
+    status: str
 
 
 class EnrolmentIntentRequirementResponsePagedList(TypedDict, total=False):
@@ -745,9 +776,6 @@ class EventRequired(TypedDict):
 
 class Event(EventRequired, total=False):
     api_version: str
-    options: None
-    parent: None
-    root: Any
 
 
 class EventLoadMatch(TypedDict):
@@ -772,21 +800,18 @@ class EventCreateDataRequired(TypedDict):
 
 class EventCreateData(EventCreateDataRequired, total=False):
     api_version: str
-    options: None
-    parent: None
-    root: Any
 
 
 class GroupRequired(TypedDict):
     employer_id: str
-    enrolment_type: Any
+    enrolment_type: str
     group_policy_ids: list
     group_policy_intent_ids: list
     group_quote_intent_ids: list
-    group_type: Any
+    group_type: str
     id: str
     name: str
-    status: Any
+    status: str
 
 
 class Group(GroupRequired, total=False):
@@ -807,14 +832,14 @@ class GroupListMatch(TypedDict, total=False):
 
 class GroupCreateDataRequired(TypedDict):
     employer_id: str
-    enrolment_type: Any
+    enrolment_type: str
     group_policy_ids: list
     group_policy_intent_ids: list
     group_quote_intent_ids: list
-    group_type: Any
+    group_type: str
     id: str
     name: str
-    status: Any
+    status: str
 
 
 class GroupCreateData(GroupCreateDataRequired, total=False):
@@ -829,19 +854,20 @@ class GroupUpdateDataRequired(TypedDict):
 class GroupUpdateData(GroupUpdateDataRequired, total=False):
     description: None | str
     employer_id: str
-    enrolment_type: Any
+    enrolment_type: str
     group_policy_ids: list
     group_policy_intent_ids: list
     group_quote_intent_ids: list
-    group_type: Any
+    group_type: str
     name: str
     object: str
-    status: Any
+    status: str
 
 
 class GroupEmployeeRequired(TypedDict):
-    eligibility_status: Any
-    enrolment_status: Any
+    eligibility_status: str
+    employee_id: str
+    enrolment_status: str
     enrolments: list
     group_id: str
     id: str
@@ -850,15 +876,18 @@ class GroupEmployeeRequired(TypedDict):
 
 
 class GroupEmployee(GroupEmployeeRequired, total=False):
+    create_enrolment_intents: None | bool
     desired_policy_start_date: None | str
     enrolment_date: None | str
     object: str
+    policy_configuration: None
 
 
 class GroupEmployeeCreateDataRequired(TypedDict):
     id: str
-    eligibility_status: Any
-    enrolment_status: Any
+    eligibility_status: str
+    employee_id: str
+    enrolment_status: str
     enrolments: list
     group_id: str
     policies: list
@@ -866,9 +895,11 @@ class GroupEmployeeCreateDataRequired(TypedDict):
 
 
 class GroupEmployeeCreateData(GroupEmployeeCreateDataRequired, total=False):
+    create_enrolment_intents: None | bool
     desired_policy_start_date: None | str
     enrolment_date: None | str
     object: str
+    policy_configuration: None
 
 
 class GroupEmployeeResponsePagedList(TypedDict, total=False):
@@ -891,8 +922,8 @@ class GroupPolicyRequired(TypedDict):
     plan: Any
     provider: Any
     start_date: str
-    status: Any
-    type: Any
+    status: str
+    type: str
 
 
 class GroupPolicy(GroupPolicyRequired, total=False):
@@ -922,11 +953,12 @@ class GroupPolicyIntentRequired(TypedDict):
     id: str
     plan_id: str
     quote_intent_id: str
-    status: Any
+    status: str
 
 
 class GroupPolicyIntent(GroupPolicyIntentRequired, total=False):
     action_required: None
+    consent_approvals: None | list
     cost_sharing: None
     due_date: None | str
     object: str
@@ -950,11 +982,12 @@ class GroupPolicyIntentCreateDataRequired(TypedDict):
     id: str
     plan_id: str
     quote_intent_id: str
-    status: Any
+    status: str
 
 
 class GroupPolicyIntentCreateData(GroupPolicyIntentCreateDataRequired, total=False):
     action_required: None
+    consent_approvals: None | list
     cost_sharing: None
     due_date: None | str
     object: str
@@ -976,14 +1009,18 @@ class GroupPolicyIntentRequirementResponsePagedListListMatch(GroupPolicyIntentRe
 
 
 class GroupQuoteRequired(TypedDict):
-    type: Any
+    cost_sharing: Any
+    currency: str
+    employee_count: int
+    expires_at: str
+    generated_at: str
+    total_monthly_premium: float
 
 
 class GroupQuote(GroupQuoteRequired, total=False):
-    family_type: None
-    member_count: None
-    member_selection: None
-    percentage: None
+    object: str
+    pdf_expires_at: None | str
+    pdf_url: None | str
 
 
 class GroupQuoteLoadMatch(TypedDict):
@@ -996,12 +1033,13 @@ class GroupQuoteIntentRequired(TypedDict):
     group_id: str
     id: str
     plan_id: str
-    status: Any
+    status: str
 
 
 class GroupQuoteIntent(GroupQuoteIntentRequired, total=False):
     action_required: None
     cost_sharing: None
+    coverage_selections: None | list
     expected_start_date: None | str
     object: str
 
@@ -1024,12 +1062,13 @@ class GroupQuoteIntentCreateDataRequired(TypedDict):
     group_id: str
     id: str
     plan_id: str
-    status: Any
+    status: str
 
 
 class GroupQuoteIntentCreateData(GroupQuoteIntentCreateDataRequired, total=False):
     action_required: None
     cost_sharing: None
+    coverage_selections: None | list
     expected_start_date: None | str
     object: str
 
@@ -1051,7 +1090,7 @@ class GroupQuoteIntentRequirementResponsePagedListListMatch(GroupQuoteIntentRequ
 
 class PlanRequired(TypedDict):
     available_from: str
-    country: Any
+    country: str
     description: str
     disclosures: list
     documents: list
@@ -1060,7 +1099,7 @@ class PlanRequired(TypedDict):
     id: str
     name: str
     provider: Any
-    type: Any
+    type: str
 
 
 class Plan(PlanRequired, total=False):
@@ -1096,7 +1135,7 @@ class PlanListMatch(TypedDict, total=False):
 
 
 class PolicyRequired(TypedDict):
-    bundling_type: Any
+    bundling_type: str
     disclosures: list
     employee_id: str
     group_id: str
@@ -1105,8 +1144,8 @@ class PolicyRequired(TypedDict):
     plan: Any
     provider: Any
     start_date: str
-    status: Any
-    type: Any
+    status: str
+    type: str
 
 
 class Policy(PolicyRequired, total=False):
@@ -1135,7 +1174,7 @@ class PolicyAmendmentIntentRequired(TypedDict):
     id: str
     policy_id: str
     requested_changes: list
-    status: Any
+    status: str
 
 
 class PolicyAmendmentIntent(PolicyAmendmentIntentRequired, total=False):
@@ -1166,7 +1205,7 @@ class PolicyAmendmentIntentCreateDataRequired(TypedDict):
     disclosures: list
     policy_id: str
     requested_changes: list
-    status: Any
+    status: str
 
 
 class PolicyAmendmentIntentCreateData(PolicyAmendmentIntentCreateDataRequired, total=False):
@@ -1184,7 +1223,7 @@ class PolicyImportIntentRequired(TypedDict):
     member_number: str
     policy_start_date: str
     provider_policy_number: str
-    status: Any
+    status: str
 
 
 class PolicyImportIntent(PolicyImportIntentRequired, total=False):
@@ -1212,7 +1251,7 @@ class PolicyImportIntentCreateDataRequired(TypedDict):
     member_number: str
     policy_start_date: str
     provider_policy_number: str
-    status: Any
+    status: str
 
 
 class PolicyImportIntentCreateData(PolicyImportIntentCreateDataRequired, total=False):
@@ -1261,17 +1300,6 @@ class WebhookEndpointLoadMatch(TypedDict):
     id: str
 
 
-class WebhookEndpointResponsePagedListRequired(TypedDict):
-    created_at: str
-    endpoint_url: str
-    id: str
-    subscribed_events: list
-
-
-class WebhookEndpointResponsePagedList(WebhookEndpointResponsePagedListRequired, total=False):
-    object: str
-
-
-class WebhookEndpointResponsePagedListListMatch(TypedDict, total=False):
+class WebhookEndpointListMatch(TypedDict, total=False):
     page: int
     page_size: int

@@ -165,6 +165,7 @@ class Config {
             },
             "optspec": {
                 "clearTimer": "`$FUNCTION`",
+                "now": "`$FUNCTION`",
                 "setTimer": "`$FUNCTION`"
             },
             "strict": false,
@@ -218,7 +219,6 @@ class Config {
             policy_import_intent: {},
             provider: {},
             webhook_endpoint: {},
-            webhook_endpoint_response_paged_list: {},
         }
     };
     entity = {
@@ -229,6 +229,17 @@ class Config {
                     "title": "Date Of Birth",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "Date of birth of the associated person",
                     "format": "date"
                 },
@@ -256,6 +267,17 @@ class Config {
                     "title": "First Name",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "First name of the associated person"
                 },
                 {
@@ -270,6 +292,17 @@ class Config {
                     "title": "Last Name",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "Last name of the associated person"
                 },
                 {
@@ -300,15 +333,25 @@ class Config {
                 {
                     "name": "relationship_type",
                     "title": "Relationship Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": "`$NULL`"
+                        }
+                    },
                     "short": "The relationship type between the employee and the associated person"
                 },
                 {
                     "name": "sex_at_birth",
                     "title": "Sex At Birth",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": "`$NULL`"
+                        }
+                    },
                     "short": "The sex assigned to the associated person at birth"
                 }
             ],
@@ -351,7 +394,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -369,9 +412,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "employee_id",
-                                    "x_platform_id"
+                                    "employee_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -409,7 +455,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -441,11 +487,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "employee_id",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "employee_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -491,7 +538,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -518,9 +565,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employee_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -566,7 +616,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -593,9 +643,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employee_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -641,7 +694,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -668,9 +721,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employee_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -704,7 +760,7 @@ class Config {
                 {
                     "name": "eligibility_status",
                     "title": "Eligibility Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Eligibility status for the policy/plan."
                 },
@@ -744,14 +800,14 @@ class Config {
                 {
                     "name": "relationship",
                     "title": "Relationship",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Relationship type to the employee."
                 },
                 {
                     "name": "sex_at_birth",
                     "title": "Sex At Birth",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Sex at birth of the associated person."
                 }
@@ -791,7 +847,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -823,11 +879,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "dependents_management_intent_id",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "dependents_management_intent_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -915,7 +972,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the contribution report"
                 }
@@ -963,7 +1020,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -982,9 +1039,12 @@ class Config {
                             "select": {
                                 "$action": "finalize",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1014,7 +1074,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1025,13 +1085,15 @@ class Config {
                                         "orig": "employer_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "external_customer_id",
                                         "orig": "external_customer_id",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     },
                                     {
                                         "name": "month",
@@ -1055,7 +1117,8 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     },
                                     {
                                         "name": "year",
@@ -1065,17 +1128,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employer_id",
-                                    "external_customer_id",
-                                    "month",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id",
-                                    "year"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1113,7 +1169,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1131,9 +1187,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1163,7 +1222,7 @@ class Config {
                 {
                     "name": "currency",
                     "title": "Currency",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "The currency in which all the amounts in this breakdown are presented (e.g."
                 },
@@ -1243,7 +1302,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the breakdown"
                 }
@@ -1295,7 +1354,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1322,9 +1381,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "contribution_report_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1389,7 +1451,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1422,11 +1484,12 @@ class Config {
                             "select": {
                                 "$action": "employee_breakdowns",
                                 "exist": [
-                                    "id",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1438,6 +1501,18 @@ class Config {
         },
         "create_hosted_session_token": {
             "fields": [
+                {
+                    "name": "employee_id",
+                    "title": "Employee Id",
+                    "type": "`$STRING`",
+                    "req": true
+                },
+                {
+                    "name": "employer_id",
+                    "title": "Employer Id",
+                    "type": "`$STRING`",
+                    "req": true
+                },
                 {
                     "name": "expiry",
                     "title": "Expiry",
@@ -1480,7 +1555,11 @@ class Config {
                                 "res": "`body`"
                             },
                             "args": {},
-                            "select": {}
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
+                            }
                         }
                     ]
                 }
@@ -1492,11 +1571,40 @@ class Config {
         "create_session_token": {
             "fields": [
                 {
+                    "name": "employee_id",
+                    "title": "Employee Id",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$STRING`"
+                        ]
+                    ]
+                },
+                {
+                    "name": "employer_id",
+                    "title": "Employer Id",
+                    "type": "`$STRING`",
+                    "req": true
+                },
+                {
                     "name": "expiry",
                     "title": "Expiry",
                     "type": "`$STRING`",
                     "req": true,
                     "format": "date-time"
+                },
+                {
+                    "name": "external_customer_id",
+                    "title": "External Customer Id",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$STRING`"
+                        ]
+                    ],
+                    "short": "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e."
                 },
                 {
                     "name": "token",
@@ -1533,7 +1641,11 @@ class Config {
                                 "res": "`body`"
                             },
                             "args": {},
-                            "select": {}
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
+                            }
                         }
                     ]
                 }
@@ -1551,6 +1663,13 @@ class Config {
                     "short": "Details of the action required from the caller."
                 },
                 {
+                    "name": "associated_person_ids",
+                    "title": "Associated Person Ids",
+                    "type": "`$ARRAY`",
+                    "req": true,
+                    "short": "List of associated person IDs to add as dependents."
+                },
+                {
                     "name": "coverage_options",
                     "title": "Coverage Options",
                     "type": [
@@ -1561,6 +1680,18 @@ class Config {
                         ]
                     ],
                     "short": "Available member-scoped coverage options for the plan."
+                },
+                {
+                    "name": "dependent_coverage_selections",
+                    "title": "Dependent Coverage Selections",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$ARRAY`"
+                        ]
+                    ],
+                    "short": "Optional coverage selections per dependent."
                 },
                 {
                     "name": "dependents",
@@ -1600,7 +1731,7 @@ class Config {
                 {
                     "name": "parent_intent_type",
                     "title": "Parent Intent Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "The type of parent intent."
                 },
@@ -1614,7 +1745,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the dependents management intent."
                 }
@@ -1658,13 +1789,13 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1682,10 +1813,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "dependents_management_intent_id",
-                                    "idempotency_key",
-                                    "x_platform_id"
+                                    "dependents_management_intent_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1731,7 +1864,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1758,9 +1891,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "dependents_management_intent_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1832,7 +1968,7 @@ class Config {
                 {
                     "name": "parent_intent_type",
                     "title": "Parent Intent Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "The type of parent intent."
                 },
@@ -1846,7 +1982,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the dependents management intent."
                 }
@@ -1902,7 +2038,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1929,9 +2065,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "policy_amendment_intent_id",
-                                    "policy_id",
-                                    "x_platform_id"
+                                    "policy_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         },
                         {
@@ -1963,7 +2102,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -1981,9 +2120,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "enrolment_intent_id",
-                                    "x_platform_id"
+                                    "enrolment_intent_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         },
                         {
@@ -2019,7 +2161,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2038,8 +2180,7 @@ class Config {
                             "select": {
                                 "$action": "cancel",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
                             }
                         },
@@ -2076,7 +2217,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2095,8 +2236,7 @@ class Config {
                             "select": {
                                 "$action": "confirm",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
                             }
                         }
@@ -2135,7 +2275,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2153,9 +2293,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -2178,9 +2321,16 @@ class Config {
                 {
                     "name": "eligibility_status",
                     "title": "Eligibility Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Eligibility status: `eligible` or `ineligible`."
+                },
+                {
+                    "name": "employee_id",
+                    "title": "Employee Id",
+                    "type": "`$STRING`",
+                    "req": true,
+                    "short": "The employee to check eligibility for."
                 },
                 {
                     "name": "object",
@@ -2246,7 +2396,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2264,9 +2414,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "group_id",
-                                    "x_platform_id"
+                                    "group_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -2314,12 +2467,29 @@ class Config {
                     "title": "Email",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "Email address of the employee"
                 },
                 {
                     "name": "employer_id",
                     "title": "Employer Id",
                     "type": "`$STRING`",
+                    "op": {
+                        "create": {
+                            "req": true,
+                            "type": "`$STRING`"
+                        }
+                    },
                     "short": "Unique identifier for the employer"
                 },
                 {
@@ -2339,12 +2509,29 @@ class Config {
                     "title": "First Name",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "First name of the employee."
                 },
                 {
                     "name": "home_address",
                     "title": "Home Address",
                     "type": "`$NULL`",
+                    "op": {
+                        "create": {
+                            "req": true,
+                            "type": "`$ANY`"
+                        }
+                    },
                     "short": "Location where the employee is legally registered to live"
                 },
                 {
@@ -2358,6 +2545,17 @@ class Config {
                     "title": "Last Name",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "Last name of the employee"
                 },
                 {
@@ -2377,6 +2575,17 @@ class Config {
                     "title": "National Tax Id",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "PPSN in Ireland, NINo in the UK, DNI/NIE in Spain"
                 },
                 {
@@ -2410,6 +2619,17 @@ class Config {
                     "title": "Phone Number",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "Phone number in E.164 international format (e.g."
                 },
                 {
@@ -2421,7 +2641,7 @@ class Config {
                 {
                     "name": "sex_at_birth",
                     "title": "Sex At Birth",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "The sex assigned to the employee at birth"
                 },
@@ -2429,13 +2649,19 @@ class Config {
                     "name": "start_on",
                     "title": "Start On",
                     "type": "`$STRING`",
+                    "op": {
+                        "create": {
+                            "req": true,
+                            "type": "`$STRING`"
+                        }
+                    },
                     "short": "Employment start date",
                     "format": "date"
                 },
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "short": "Current status of the employee"
                 }
             ],
@@ -2482,13 +2708,13 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2507,10 +2733,12 @@ class Config {
                             "select": {
                                 "$action": "offboard",
                                 "exist": [
-                                    "id",
-                                    "idempotency_key",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         },
                         {
@@ -2550,13 +2778,13 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2575,10 +2803,12 @@ class Config {
                             "select": {
                                 "$action": "offboard_cancel",
                                 "exist": [
-                                    "id",
-                                    "idempotency_key",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         },
                         {
@@ -2602,23 +2832,22 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "idempotency_key",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -2648,7 +2877,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2659,13 +2888,15 @@ class Config {
                                         "orig": "employer_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "external_customer_id",
                                         "orig": "external_customer_id",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     },
                                     {
                                         "name": "filter",
@@ -2693,16 +2924,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employer_id",
-                                    "external_customer_id",
-                                    "filter",
-                                    "metadata_id",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -2740,7 +2965,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2758,9 +2983,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -2798,7 +3026,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2816,9 +3044,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -2886,7 +3117,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of offer"
                 }
@@ -2942,7 +3173,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -2969,9 +3200,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employee_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3043,7 +3277,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of offer"
                 }
@@ -3091,7 +3325,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3123,11 +3357,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "employee_id",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "employee_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3196,7 +3431,7 @@ class Config {
                 {
                     "name": "enrolment_type",
                     "title": "Enrolment Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Enrolment type of the policy"
                 },
@@ -3271,7 +3506,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of policy"
                 }
@@ -3327,7 +3562,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3354,9 +3589,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employee_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3425,7 +3663,7 @@ class Config {
                 {
                     "name": "enrolment_type",
                     "title": "Enrolment Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Enrolment type of the policy"
                 },
@@ -3500,7 +3738,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of policy"
                 }
@@ -3548,7 +3786,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3580,18 +3818,19 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
                             "select": {
                                 "exist": [
-                                    "employee_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
+                                    "employee_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3611,7 +3850,12 @@ class Config {
                     "name": "contact",
                     "title": "Contact",
                     "type": "`$ANY`",
-                    "req": true
+                    "req": true,
+                    "op": {
+                        "update": {
+                            "type": "`$NULL`"
+                        }
+                    }
                 },
                 {
                     "name": "earliest_benefits_start_date",
@@ -3623,6 +3867,7 @@ class Config {
                             "`$STRING`"
                         ]
                     ],
+                    "short": "The earliest date this employer is permitted to set up any benefits scheme.",
                     "format": "date"
                 },
                 {
@@ -3635,13 +3880,31 @@ class Config {
                     "name": "legal_address",
                     "title": "Legal Address",
                     "type": "`$ANY`",
-                    "req": true
+                    "req": true,
+                    "op": {
+                        "update": {
+                            "type": "`$NULL`"
+                        }
+                    },
+                    "short": "Treated as a single object that is updated entirely, `null` sub-fields (e.g."
                 },
                 {
                     "name": "legal_name",
                     "title": "Legal Name",
                     "type": "`$STRING`",
-                    "req": true
+                    "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
+                    "short": "Legal name of the company."
                 },
                 {
                     "name": "metadata",
@@ -3688,12 +3951,13 @@ class Config {
                             "`$NULL`",
                             "`$STRING`"
                         ]
-                    ]
+                    ],
+                    "short": "Company registration number."
                 },
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`"
+                    "type": "`$STRING`"
                 }
             ],
             "id": {
@@ -3739,13 +4003,13 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3764,10 +4028,12 @@ class Config {
                             "select": {
                                 "$action": "offboard",
                                 "exist": [
-                                    "id",
-                                    "idempotency_key",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         },
                         {
@@ -3791,23 +4057,22 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "idempotency_key",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3837,7 +4102,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3863,13 +4128,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "filter",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3907,7 +4169,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3925,9 +4187,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -3965,7 +4230,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -3983,9 +4248,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -4043,7 +4311,7 @@ class Config {
                 {
                     "name": "enrolment_type",
                     "title": "Enrolment Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Enrolment type of the policy"
                 },
@@ -4091,7 +4359,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of policy"
                 }
@@ -4147,7 +4415,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4174,9 +4442,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employer_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -4238,7 +4509,7 @@ class Config {
                 {
                     "name": "enrolment_type",
                     "title": "Enrolment Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Enrolment type of the policy"
                 },
@@ -4286,7 +4557,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of policy"
                 }
@@ -4334,7 +4605,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4366,18 +4637,19 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
                             "select": {
                                 "exist": [
-                                    "employer_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
+                                    "employer_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -4438,7 +4710,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the quote"
                 }
@@ -4494,7 +4766,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4521,9 +4793,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "employer_id",
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -4584,7 +4859,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the quote"
                 }
@@ -4632,7 +4907,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4664,18 +4939,19 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
                             "select": {
                                 "exist": [
-                                    "employer_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
+                                    "employer_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -4698,6 +4974,31 @@ class Config {
                     "short": "If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment."
                 },
                 {
+                    "name": "coverage_selections",
+                    "title": "Coverage Selections",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$ARRAY`"
+                        ]
+                    ],
+                    "short": "Optional plan coverage option selections for policy-scoped configurations."
+                },
+                {
+                    "name": "desired_policy_start_date",
+                    "title": "Desired Policy Start Date",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$STRING`"
+                        ]
+                    ],
+                    "short": "The desired date for the employee's policy to start.",
+                    "format": "date"
+                },
+                {
                     "name": "disclosures",
                     "title": "Disclosures",
                     "type": "`$ARRAY`",
@@ -4710,6 +5011,19 @@ class Config {
                     "type": "`$STRING`",
                     "req": true,
                     "short": "Identifier for the employee associated with this enrolment intent."
+                },
+                {
+                    "name": "enrolment_date",
+                    "title": "Enrolment Date",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$STRING`"
+                        ]
+                    ],
+                    "short": "The date on which the employee agreed to enrol into the group's policies.",
+                    "format": "date"
                 },
                 {
                     "name": "force_confirmation",
@@ -4767,7 +5081,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the enrolment intent."
                 }
@@ -4815,7 +5129,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4834,8 +5148,7 @@ class Config {
                             "select": {
                                 "$action": "confirm",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
                             }
                         },
@@ -4872,7 +5185,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4891,8 +5204,7 @@ class Config {
                             "select": {
                                 "$action": "coverage_selection",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
                             }
                         },
@@ -4929,7 +5241,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -4948,8 +5260,7 @@ class Config {
                             "select": {
                                 "$action": "reject",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
                             }
                         },
@@ -4974,23 +5285,22 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "idempotency_key",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5020,7 +5330,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5031,14 +5341,16 @@ class Config {
                                         "orig": "employee_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "group_id",
                                         "orig": "group_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -5056,19 +5368,15 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employee_id",
-                                    "group_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5106,7 +5414,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5124,9 +5432,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5164,7 +5475,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5182,9 +5493,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5245,7 +5559,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5290,13 +5604,12 @@ class Config {
                             "select": {
                                 "$action": "requirements",
                                 "exist": [
-                                    "id",
-                                    "object_id",
-                                    "object_type",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5334,28 +5647,10 @@ class Config {
                     "req": true
                 },
                 {
-                    "name": "options",
-                    "title": "Options",
-                    "type": "`$NULL`",
-                    "readOnly": true
-                },
-                {
-                    "name": "parent",
-                    "title": "Parent",
-                    "type": "`$NULL`",
-                    "readOnly": true
-                },
-                {
                     "name": "platform_id",
                     "title": "Platform Id",
                     "type": "`$STRING`",
                     "req": true
-                },
-                {
-                    "name": "root",
-                    "title": "Root",
-                    "type": "`$ANY`",
-                    "readOnly": true
                 },
                 {
                     "name": "type",
@@ -5407,7 +5702,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5426,9 +5721,12 @@ class Config {
                             "select": {
                                 "$action": "replay",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5458,7 +5756,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5496,15 +5794,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "created_after",
-                                    "order_direction",
-                                    "page",
-                                    "page_size",
-                                    "version",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5536,13 +5829,13 @@ class Config {
                             },
                             "transform": {
                                 "req": "`reqdata`",
-                                "res": "`body.data`"
+                                "res": "`body`"
                             },
                             "args": {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5560,9 +5853,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5596,7 +5892,7 @@ class Config {
                 {
                     "name": "enrolment_type",
                     "title": "Enrolment Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Indicates how employees are enrolled into the group."
                 },
@@ -5624,7 +5920,7 @@ class Config {
                 {
                     "name": "group_type",
                     "title": "Group Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Indicates how policies are organized for this group."
                 },
@@ -5640,6 +5936,17 @@ class Config {
                     "title": "Name",
                     "type": "`$STRING`",
                     "req": true,
+                    "op": {
+                        "update": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$STRING`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "Human-readable name of the `group`."
                 },
                 {
@@ -5652,7 +5959,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current lifecycle state of the `group`, indicating its current progress."
                 }
@@ -5688,16 +5995,16 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5727,7 +6034,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5738,7 +6045,8 @@ class Config {
                                         "orig": "employer_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -5756,18 +6064,15 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employer_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5805,7 +6110,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5823,9 +6128,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5863,7 +6171,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -5881,9 +6189,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -5895,6 +6206,18 @@ class Config {
         },
         "group_employee": {
             "fields": [
+                {
+                    "name": "create_enrolment_intents",
+                    "title": "Create Enrolment Intents",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$BOOLEAN`"
+                        ]
+                    ],
+                    "short": "Controls whether enrolment intents are automatically created for the employee."
+                },
                 {
                     "name": "desired_policy_start_date",
                     "title": "Desired Policy Start Date",
@@ -5911,9 +6234,16 @@ class Config {
                 {
                     "name": "eligibility_status",
                     "title": "Eligibility Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Eligibility status for the employee in this group."
+                },
+                {
+                    "name": "employee_id",
+                    "title": "Employee Id",
+                    "type": "`$STRING`",
+                    "req": true,
+                    "short": "Employee Id"
                 },
                 {
                     "name": "enrolment_date",
@@ -5931,7 +6261,7 @@ class Config {
                 {
                     "name": "enrolment_status",
                     "title": "Enrolment Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Enrolment status for the employee in this group."
                 },
@@ -5969,6 +6299,12 @@ class Config {
                     "type": "`$ARRAY`",
                     "req": true,
                     "short": "List of policies associated with the employee in this group."
+                },
+                {
+                    "name": "policy_configuration",
+                    "title": "Policy Configuration",
+                    "type": "`$NULL`",
+                    "short": "Policy configuration for the employee in this group."
                 },
                 {
                     "name": "scheduled_group_transitions",
@@ -6021,13 +6357,13 @@ class Config {
                                 "header": [
                                     {
                                         "name": "idempotency_key",
-                                        "orig": "idempotency_key",
+                                        "orig": "Idempotency-Key",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     },
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6045,10 +6381,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "idempotency_key",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6109,7 +6447,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6149,12 +6487,12 @@ class Config {
                             "select": {
                                 "$action": "employees",
                                 "exist": [
-                                    "employee_id",
-                                    "id",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6256,14 +6594,14 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current lifecycle state of the `group_policy`, indicating its progress from creation to activation."
                 },
                 {
                     "name": "type",
                     "title": "Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Policy type."
                 }
@@ -6299,7 +6637,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6310,14 +6648,16 @@ class Config {
                                         "orig": "employer_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "group_id",
                                         "orig": "group_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -6335,19 +6675,15 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employer_id",
-                                    "group_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6385,7 +6721,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6403,9 +6739,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6422,6 +6761,18 @@ class Config {
                     "title": "Action Required",
                     "type": "`$NULL`",
                     "short": "Details of the required action when the intent is in ActionRequired status."
+                },
+                {
+                    "name": "consent_approvals",
+                    "title": "Consent Approvals",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$ARRAY`"
+                        ]
+                    ],
+                    "short": "Consent approvals to record at the time of intent creation"
                 },
                 {
                     "name": "cost_sharing",
@@ -6487,7 +6838,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the group policy intent"
                 }
@@ -6523,16 +6874,16 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6562,7 +6913,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6573,7 +6924,8 @@ class Config {
                                         "orig": "group_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -6592,25 +6944,22 @@ class Config {
                                         "orig": "plan_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "group_id",
-                                    "page",
-                                    "page_size",
-                                    "plan_id",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6648,7 +6997,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6666,9 +7015,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6729,7 +7081,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6774,13 +7126,12 @@ class Config {
                             "select": {
                                 "$action": "requirements",
                                 "exist": [
-                                    "id",
-                                    "object_id",
-                                    "object_type",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6793,35 +7144,82 @@ class Config {
         "group_quote": {
             "fields": [
                 {
-                    "name": "family_type",
-                    "title": "Family Type",
-                    "type": "`$NULL`",
-                    "short": "Type of the family covered by the employer."
-                },
-                {
-                    "name": "member_count",
-                    "title": "Member Count",
-                    "type": "`$NULL`",
-                    "short": "Numbers of additional members covered by the employer."
-                },
-                {
-                    "name": "member_selection",
-                    "title": "Member Selection",
-                    "type": "`$NULL`",
-                    "short": "Whether specific member types are covered by the employer."
-                },
-                {
-                    "name": "percentage",
-                    "title": "Percentage",
-                    "type": "`$NULL`",
-                    "short": "Percentage of the premium the employer covers."
-                },
-                {
-                    "name": "type",
-                    "title": "Type",
+                    "name": "cost_sharing",
+                    "title": "Cost Sharing",
                     "type": "`$ANY`",
                     "req": true,
-                    "short": "Cost sharing type."
+                    "short": "Cost sharing configuration for the quote"
+                },
+                {
+                    "name": "currency",
+                    "title": "Currency",
+                    "type": "`$STRING`",
+                    "req": true,
+                    "short": "Currency of the premium (e.g."
+                },
+                {
+                    "name": "employee_count",
+                    "title": "Employee Count",
+                    "type": "`$INTEGER`",
+                    "req": true,
+                    "short": "Number of employees covered by the quote",
+                    "format": "int32"
+                },
+                {
+                    "name": "expires_at",
+                    "title": "Expires At",
+                    "type": "`$STRING`",
+                    "req": true,
+                    "short": "When the quote expires",
+                    "format": "date-time"
+                },
+                {
+                    "name": "generated_at",
+                    "title": "Generated At",
+                    "type": "`$STRING`",
+                    "req": true,
+                    "short": "When the quote was generated",
+                    "format": "date-time"
+                },
+                {
+                    "name": "object",
+                    "title": "Object",
+                    "type": "`$STRING`",
+                    "short": "Object type identifier",
+                    "readOnly": true
+                },
+                {
+                    "name": "pdf_expires_at",
+                    "title": "Pdf Expires At",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$STRING`"
+                        ]
+                    ],
+                    "short": "When the PDF URL expires",
+                    "format": "date-time"
+                },
+                {
+                    "name": "pdf_url",
+                    "title": "Pdf Url",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$STRING`"
+                        ]
+                    ],
+                    "short": "URL to download the quote PDF"
+                },
+                {
+                    "name": "total_monthly_premium",
+                    "title": "Total Monthly Premium",
+                    "type": "`$NUMBER`",
+                    "req": true,
+                    "short": "Total monthly premium for the group",
+                    "format": "double"
                 }
             ],
             "name": "group_quote",
@@ -6853,13 +7251,13 @@ class Config {
                             "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
-                                "res": "`body.cost_sharing`"
+                                "res": "`body`"
                             },
                             "args": {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -6877,9 +7275,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "group_quote_intent_id",
-                                    "x_platform_id"
+                                    "group_quote_intent_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -6913,6 +7314,18 @@ class Config {
                     "title": "Cost Sharing",
                     "type": "`$NULL`",
                     "short": "Cost sharing configuration for the quote"
+                },
+                {
+                    "name": "coverage_selections",
+                    "title": "Coverage Selections",
+                    "type": [
+                        "`$ONE`",
+                        [
+                            "`$NULL`",
+                            "`$ARRAY`"
+                        ]
+                    ],
+                    "short": "Plan coverage option selections for group-policy-scoped configurations."
                 },
                 {
                     "name": "disclosures",
@@ -6965,7 +7378,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the group quote intent"
                 }
@@ -7013,7 +7426,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7032,8 +7445,7 @@ class Config {
                             "select": {
                                 "$action": "reject",
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
                             }
                         },
@@ -7058,16 +7470,16 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7097,7 +7509,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7108,7 +7520,8 @@ class Config {
                                         "orig": "group_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -7127,25 +7540,22 @@ class Config {
                                         "orig": "plan_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "group_id",
-                                    "page",
-                                    "page_size",
-                                    "plan_id",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7183,7 +7593,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7201,9 +7611,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7264,7 +7677,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7309,13 +7722,12 @@ class Config {
                             "select": {
                                 "$action": "requirements",
                                 "exist": [
-                                    "id",
-                                    "object_id",
-                                    "object_type",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7351,7 +7763,7 @@ class Config {
                 {
                     "name": "country",
                     "title": "Country",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "The country this plan is available in."
                 },
@@ -7478,7 +7890,7 @@ class Config {
                 {
                     "name": "type",
                     "title": "Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "The benefit type of the plan."
                 }
@@ -7514,7 +7926,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7530,7 +7942,8 @@ class Config {
                                         "name": "country",
                                         "orig": "country",
                                         "type": "`$ANY`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     },
                                     {
                                         "name": "group_id",
@@ -7579,24 +7992,15 @@ class Config {
                                         "name": "type",
                                         "orig": "type",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "available_on",
-                                    "country",
-                                    "group_id",
-                                    "page",
-                                    "page_size",
-                                    "provider_id",
-                                    "sort_by",
-                                    "sort_dir",
-                                    "start_date",
-                                    "type",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7634,7 +8038,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7667,11 +8071,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "group_id",
-                                    "id",
-                                    "start_date",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7686,7 +8091,7 @@ class Config {
                 {
                     "name": "bundling_type",
                     "title": "Bundling Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Indicates how this policy is bundled within a group"
                 },
@@ -7789,14 +8194,14 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current lifecycle state of the policy"
                 },
                 {
                     "name": "type",
                     "title": "Type",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Policy type."
                 }
@@ -7832,7 +8237,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7843,21 +8248,24 @@ class Config {
                                         "orig": "employee_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "group_id",
                                         "orig": "group_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "group_policy_id",
                                         "orig": "group_policy_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -7875,20 +8283,15 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employee_id",
-                                    "group_id",
-                                    "group_policy_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -7926,7 +8329,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -7944,9 +8347,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8021,7 +8427,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the policy amendment intent."
                 }
@@ -8073,7 +8479,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8101,8 +8507,7 @@ class Config {
                                 "$action": "cancel",
                                 "exist": [
                                     "id",
-                                    "policy_id",
-                                    "x_platform_id"
+                                    "policy_id"
                                 ]
                             }
                         },
@@ -8147,7 +8552,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8175,8 +8580,7 @@ class Config {
                                 "$action": "confirm",
                                 "exist": [
                                     "id",
-                                    "policy_id",
-                                    "x_platform_id"
+                                    "policy_id"
                                 ]
                             }
                         },
@@ -8213,7 +8617,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8231,9 +8635,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8275,7 +8682,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8307,18 +8714,19 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8364,7 +8772,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8391,9 +8799,12 @@ class Config {
                             "select": {
                                 "exist": [
                                     "id",
-                                    "policy_id",
-                                    "x_platform_id"
+                                    "policy_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8414,6 +8825,17 @@ class Config {
                     "title": "Associated Persons",
                     "type": "`$ARRAY`",
                     "req": true,
+                    "op": {
+                        "create": {
+                            "type": [
+                                "`$ONE`",
+                                [
+                                    "`$NULL`",
+                                    "`$ARRAY`"
+                                ]
+                            ]
+                        }
+                    },
                     "short": "List of associated persons linked to this policy import."
                 },
                 {
@@ -8482,7 +8904,7 @@ class Config {
                 {
                     "name": "status",
                     "title": "Status",
-                    "type": "`$ANY`",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Current status of the policy import intent."
                 }
@@ -8518,16 +8940,16 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8557,7 +8979,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8568,14 +8990,16 @@ class Config {
                                         "orig": "employee_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "group_id",
                                         "orig": "group_id",
                                         "type": "`$STRING`",
                                         "kind": "query",
-                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+                                        "example": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                                        "field": true
                                     },
                                     {
                                         "name": "page",
@@ -8593,19 +9017,15 @@ class Config {
                                         "name": "status",
                                         "orig": "status",
                                         "type": "`$STRING`",
-                                        "kind": "query"
+                                        "kind": "query",
+                                        "field": true
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "employee_id",
-                                    "group_id",
-                                    "page",
-                                    "page_size",
-                                    "status",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8643,7 +9063,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8661,9 +9081,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8787,7 +9210,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8813,13 +9236,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "country",
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8857,7 +9277,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8875,9 +9295,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
+                                    "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -8932,6 +9355,63 @@ class Config {
             },
             "name": "webhook_endpoint",
             "op": {
+                "list": {
+                    "input": "data",
+                    "name": "list",
+                    "points": [
+                        {
+                            "kind": "http",
+                            "method": "GET",
+                            "orig": "/webhooks/endpoints",
+                            "segments": [
+                                {
+                                    "lit": "webhooks"
+                                },
+                                {
+                                    "lit": "endpoints"
+                                }
+                            ],
+                            "parts": [
+                                "webhooks",
+                                "endpoints"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body.items`"
+                            },
+                            "args": {
+                                "header": [
+                                    {
+                                        "name": "x_platform_id",
+                                        "orig": "X-Platform-Id",
+                                        "type": "`$STRING`",
+                                        "kind": "header"
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "page_size",
+                                        "orig": "page_size",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
+                            }
+                        }
+                    ]
+                },
                 "load": {
                     "input": "data",
                     "name": "load",
@@ -8969,7 +9449,7 @@ class Config {
                                 "header": [
                                     {
                                         "name": "x_platform_id",
-                                        "orig": "x_platform_id",
+                                        "orig": "X-Platform-Id",
                                         "type": "`$STRING`",
                                         "kind": "header"
                                     }
@@ -8987,118 +9467,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "id",
-                                    "x_platform_id"
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            "relations": {
-                "ancestors": []
-            }
-        },
-        "webhook_endpoint_response_paged_list": {
-            "fields": [
-                {
-                    "name": "created_at",
-                    "title": "Created At",
-                    "type": "`$STRING`",
-                    "req": true,
-                    "short": "The date and time the endpoint was created",
-                    "format": "date-time"
-                },
-                {
-                    "name": "endpoint_url",
-                    "title": "Endpoint Url",
-                    "type": "`$STRING`",
-                    "req": true,
-                    "short": "The registered URL of the endpoint"
-                },
-                {
-                    "name": "id",
-                    "title": "Id",
-                    "type": "`$STRING`",
-                    "req": true,
-                    "short": "The unique identifier of the endpoint"
-                },
-                {
-                    "name": "object",
-                    "title": "Object",
-                    "type": "`$STRING`",
-                    "short": "The object type",
-                    "readOnly": true
-                },
-                {
-                    "name": "subscribed_events",
-                    "title": "Subscribed Events",
-                    "type": "`$ARRAY`",
-                    "req": true,
-                    "short": "The events the endpoint is subscribed to"
-                }
-            ],
-            "id": {
-                "field": "id",
-                "name": "id"
-            },
-            "name": "webhook_endpoint_response_paged_list",
-            "op": {
-                "list": {
-                    "input": "data",
-                    "name": "list",
-                    "points": [
-                        {
-                            "kind": "http",
-                            "method": "GET",
-                            "orig": "/webhooks/endpoints",
-                            "segments": [
-                                {
-                                    "lit": "webhooks"
-                                },
-                                {
-                                    "lit": "endpoints"
-                                }
-                            ],
-                            "parts": [
-                                "webhooks",
-                                "endpoints"
-                            ],
-                            "rename": {},
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body.items`"
-                            },
-                            "args": {
-                                "header": [
-                                    {
-                                        "name": "x_platform_id",
-                                        "orig": "x_platform_id",
-                                        "type": "`$STRING`",
-                                        "kind": "header"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`",
-                                        "kind": "query"
-                                    },
-                                    {
-                                        "name": "page_size",
-                                        "orig": "page_size",
-                                        "type": "`$INTEGER`",
-                                        "kind": "query"
-                                    }
+                                    "id"
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "page",
-                                    "page_size",
-                                    "x_platform_id"
-                                ]
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]

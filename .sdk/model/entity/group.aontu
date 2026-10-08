@@ -30,7 +30,7 @@ main: kit: entity: group: {
       n: "enrolment_type"
       r: true
       sh: "Indicates how employees are enrolled into the group."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     group_policy_ids: {
       h: "Group Policy Ids"
@@ -58,7 +58,7 @@ main: kit: entity: group: {
       n: "group_type"
       r: true
       sh: "Indicates how policies are organized for this group."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     id: {
       h: "Id"
@@ -70,6 +70,18 @@ main: kit: entity: group: {
     name: {
       h: "Name"
       n: "name"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "Human-readable name of the `group`."
       t: "`$STRING`"
@@ -87,7 +99,7 @@ main: kit: entity: group: {
       n: "status"
       r: true
       sh: "Current lifecycle state of the `group`, indicating its current progress."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -102,6 +114,11 @@ main: kit: entity: group: {
       name: "create"
       points: [
         {
+          bf: [
+            "description"
+            "employer_id"
+            "name"
+          ]
           co: {
             id: "POST /groups"
             source: "openapi3"
@@ -112,7 +129,7 @@ main: kit: entity: group: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -120,10 +137,9 @@ main: kit: entity: group: {
           }
           m: "POST"
           o: "/groups"
-          q: {
-            exist: [
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -151,7 +167,7 @@ main: kit: entity: group: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -190,14 +206,9 @@ main: kit: entity: group: {
           }
           m: "GET"
           o: "/groups"
-          q: {
-            exist: [
-              "employer_id"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -225,7 +236,7 @@ main: kit: entity: group: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -246,13 +257,16 @@ main: kit: entity: group: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               group_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -273,6 +287,10 @@ main: kit: entity: group: {
       name: "update"
       points: [
         {
+          bf: [
+            "description"
+            "name"
+          ]
           co: {
             id: "PUT /groups/{group_id}"
             source: "openapi3"
@@ -283,7 +301,7 @@ main: kit: entity: group: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -304,13 +322,16 @@ main: kit: entity: group: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               group_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

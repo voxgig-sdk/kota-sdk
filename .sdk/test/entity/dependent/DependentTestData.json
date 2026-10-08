@@ -2,42 +2,48 @@
   "existing": {
     "dependent": {
       "DEPENDENT00": {
-        "action_required": "s64",
-        "coverage_options": "s65",
+        "action_required": "s78",
+        "associated_person_ids": [],
+        "coverage_options": "s7a",
+        "dependent_coverage_selections": "s7b",
         "dependents": [],
         "disclosures": [],
         "id": "DEPENDENT00",
-        "object": "s69",
+        "object": "s7f",
         "parent_intent_id": "PARENT_INTENT01",
-        "parent_intent_type": "s6b",
-        "plan": "s6c",
-        "status": "s6d",
+        "parent_intent_type": "s81",
+        "plan": "s82",
+        "status": "s83",
         "dependents_management_intent_id": "DEPENDENTS_MANAGEMENT_INTENT01"
       },
       "DEPENDENT01": {
-        "action_required": "sc8",
-        "coverage_options": "sc9",
+        "action_required": "sf0",
+        "associated_person_ids": [],
+        "coverage_options": "sf2",
+        "dependent_coverage_selections": "sf3",
         "dependents": [],
         "disclosures": [],
         "id": "DEPENDENT01",
-        "object": "scd",
+        "object": "sf7",
         "parent_intent_id": "PARENT_INTENT01",
-        "parent_intent_type": "scf",
-        "plan": "sd0",
-        "status": "sd1",
+        "parent_intent_type": "sf9",
+        "plan": "sfa",
+        "status": "sfb",
         "dependents_management_intent_id": "DEPENDENTS_MANAGEMENT_INTENT01"
       },
       "DEPENDENT02": {
-        "action_required": "s12c",
-        "coverage_options": "s12d",
+        "action_required": "s168",
+        "associated_person_ids": [],
+        "coverage_options": "s16a",
+        "dependent_coverage_selections": "s16b",
         "dependents": [],
         "disclosures": [],
         "id": "DEPENDENT02",
-        "object": "s131",
+        "object": "s16f",
         "parent_intent_id": "PARENT_INTENT01",
-        "parent_intent_type": "s133",
-        "plan": "s134",
-        "status": "s135",
+        "parent_intent_type": "s171",
+        "plan": "s172",
+        "status": "s173",
         "dependents_management_intent_id": "DEPENDENTS_MANAGEMENT_INTENT01"
       }
     }
@@ -45,15 +51,17 @@
   "new": {
     "dependent": {
       "dependent_ref01": {
-        "action_required": "s190",
-        "coverage_options": "s191",
+        "action_required": "s1e0",
+        "associated_person_ids": [],
+        "coverage_options": "s1e2",
+        "dependent_coverage_selections": "s1e3",
         "dependents": [],
         "disclosures": [],
-        "object": "s195",
+        "object": "s1e7",
         "parent_intent_id": "PARENT_INTENT01",
-        "parent_intent_type": "s197",
-        "plan": "s198",
-        "status": "s199"
+        "parent_intent_type": "s1e9",
+        "plan": "s1ea",
+        "status": "s1eb"
       }
     }
   },

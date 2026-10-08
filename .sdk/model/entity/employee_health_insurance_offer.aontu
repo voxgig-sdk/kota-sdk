@@ -66,7 +66,7 @@ main: kit: entity: employee_health_insurance_offer: {
       n: "status"
       r: true
       sh: "Current status of offer"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -91,7 +91,7 @@ main: kit: entity: employee_health_insurance_offer: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -121,13 +121,16 @@ main: kit: entity: employee_health_insurance_offer: {
             exist: [
               "employee_id"
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_offer_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

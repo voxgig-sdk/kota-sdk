@@ -12,6 +12,19 @@ main: kit: entity: group_policy_intent: {
       sh: "Details of the required action when the intent is in ActionRequired status."
       t: "`$NULL`"
     }
+    consent_approvals: {
+      h: "Consent Approvals"
+      n: "consent_approvals"
+      r: false
+      sh: "Consent approvals to record at the time of intent creation"
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
     cost_sharing: {
       h: "Cost Sharing"
       n: "cost_sharing"
@@ -81,7 +94,7 @@ main: kit: entity: group_policy_intent: {
       n: "status"
       r: true
       sh: "Current status of the group policy intent"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -96,6 +109,11 @@ main: kit: entity: group_policy_intent: {
       name: "create"
       points: [
         {
+          bf: [
+            "consent_approvals"
+            "cost_sharing"
+            "quote_intent_id"
+          ]
           co: {
             id: "POST /group_policy_intents"
             source: "openapi3"
@@ -106,7 +124,7 @@ main: kit: entity: group_policy_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -114,10 +132,9 @@ main: kit: entity: group_policy_intent: {
           }
           m: "POST"
           o: "/group_policy_intents"
-          q: {
-            exist: [
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -145,7 +162,7 @@ main: kit: entity: group_policy_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -192,15 +209,9 @@ main: kit: entity: group_policy_intent: {
           }
           m: "GET"
           o: "/group_policy_intents"
-          q: {
-            exist: [
-              "group_id"
-              "page"
-              "page_size"
-              "plan_id"
-              "status"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -228,7 +239,7 @@ main: kit: entity: group_policy_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -249,13 +260,16 @@ main: kit: entity: group_policy_intent: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               group_policy_intent_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

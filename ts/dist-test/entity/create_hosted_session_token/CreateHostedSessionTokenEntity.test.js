@@ -54,6 +54,14 @@ const utility_1 = require("../../utility");
         const ent = testsdk.CreateHostedSessionToken();
         (0, node_assert_1.default)(null != ent);
     });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.KotaSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.CreateHostedSessionToken().create({ "employee_id": 1, "employer_id": "x", "expiry": "x", "link": "x" }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.KOTA_TEST_LIVE;
         for (const op of ['create']) {
@@ -62,7 +70,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "expiry": { "a": true, "fo": "date-time", "h": "Expiry", "n": "expiry", "r": true, "t": "`$STRING`", "key$": "expiry", "index$": 0 }, "link": { "a": true, "h": "Link", "n": "link", "r": true, "t": "`$STRING`", "key$": "link", "index$": 1 } }, "name": "create_hosted_session_token", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "co": { "id": "POST /hosted/sessions", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/hosted/sessions", "q": {}, "r": {}, "s": [{ "lit": "hosted" }, { "lit": "sessions" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" } }, "relations": { "ancestors": [] }, "key$": "create_hosted_session_token", "name__orig": "create_hosted_session_token", "Name": "CreateHostedSessionToken", "name_": "create_hosted_session_token", "name-": "create-hosted-session-token", "NAME": "CREATE_HOSTED_SESSION_TOKEN", "index$": 5 }, { "active": true, "entity": "create_hosted_session_token", "key$": "BasicCreateHostedSessionTokenFlow", "kind": "basic", "name": "BasicCreateHostedSessionTokenFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "create_hosted_session_token_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }] }, 'CreateHostedSessionToken', { "POST /hosted/sessions": { "protocol": "http", "requestBody": { "content": { "application/json": { "schema": { "allOf": [{ "required": ["employee_id", "employer_id"], "type": "object", "properties": { "employer_id": { "pattern": "er_.+", "type": "string", "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a" }, "employee_id": { "pattern": "ee_.+", "type": "string", "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a" } }, "additionalProperties": false, "x-ref": "#/components/schemas/CreateSessionTokenLinkRequest" }], "index$": 1 } } }, "required": true }, "parameters": [] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "employee_id": { "a": true, "h": "Employee Id", "n": "employee_id", "r": true, "t": "`$STRING`", "key$": "employee_id", "index$": 0 }, "employer_id": { "a": true, "h": "Employer Id", "n": "employer_id", "r": true, "t": "`$STRING`", "key$": "employer_id", "index$": 1 }, "expiry": { "a": true, "fo": "date-time", "h": "Expiry", "n": "expiry", "r": true, "t": "`$STRING`", "key$": "expiry", "index$": 2 }, "link": { "a": true, "h": "Link", "n": "link", "r": true, "t": "`$STRING`", "key$": "link", "index$": 3 } }, "name": "create_hosted_session_token", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "bf": ["employee_id", "employer_id"], "co": { "id": "POST /hosted/sessions", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/hosted/sessions", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "hosted" }, { "lit": "sessions" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" } }, "relations": { "ancestors": [] }, "key$": "create_hosted_session_token", "name__orig": "create_hosted_session_token", "Name": "CreateHostedSessionToken", "name_": "create_hosted_session_token", "name-": "create-hosted-session-token", "NAME": "CREATE_HOSTED_SESSION_TOKEN", "index$": 5 }, { "active": true, "entity": "create_hosted_session_token", "key$": "BasicCreateHostedSessionTokenFlow", "kind": "basic", "name": "BasicCreateHostedSessionTokenFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "create_hosted_session_token_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }] }, 'CreateHostedSessionToken', { "POST /hosted/sessions": { "protocol": "http", "requestBody": { "content": { "application/json": { "schema": { "allOf": [{ "required": ["employee_id", "employer_id"], "type": "object", "properties": { "employer_id": { "pattern": "er_.+", "type": "string", "example": "er_3b1333d87d9d4fd6ad83ba7f6b0e951a", "key$": "employer_id" }, "employee_id": { "pattern": "ee_.+", "type": "string", "example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a", "key$": "employee_id" } }, "additionalProperties": false, "x-ref": "#/components/schemas/CreateSessionTokenLinkRequest" }], "index$": 1 } } }, "required": true }, "parameters": [] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -75,6 +83,11 @@ const utility_1 = require("../../utility");
         (0, node_assert_1.default)(null != create_hosted_session_token_ref01_data);
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

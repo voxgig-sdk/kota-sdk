@@ -10,7 +10,7 @@ main: kit: entity: policy: {
       n: "bundling_type"
       r: true
       sh: "Indicates how this policy is bundled within a group"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     cancellation_date: {
       fo: "date"
@@ -117,14 +117,14 @@ main: kit: entity: policy: {
       n: "status"
       r: true
       sh: "Current lifecycle state of the policy"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     type: {
       h: "Type"
       n: "type"
       r: true
       sh: "Policy type."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -149,7 +149,7 @@ main: kit: entity: policy: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -204,16 +204,9 @@ main: kit: entity: policy: {
           }
           m: "GET"
           o: "/policies"
-          q: {
-            exist: [
-              "employee_id"
-              "group_id"
-              "group_policy_id"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -241,7 +234,7 @@ main: kit: entity: policy: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -262,13 +255,16 @@ main: kit: entity: policy: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               policy_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

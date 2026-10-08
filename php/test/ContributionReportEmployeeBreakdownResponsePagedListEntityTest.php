@@ -11,6 +11,12 @@ use Voxgig\Struct\Struct as Vs;
 
 class ContributionReportEmployeeBreakdownResponsePagedListEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = KotaSDK::test(null, null);
@@ -18,43 +24,20 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntityTest extends Tes
         $this->assertNotNull($ent);
     }
 
-    // Feature #4: the entity stream(action, ...) method runs the op pipeline
-    // and yields result items. With the streaming feature active it yields the
-    // feature's incremental output; otherwise it falls back to the materialised
-    // list so stream always yields.
-    public function test_stream(): void
+    public function test_validate(): void
     {
-        $seed = [
-            "entity" => [
-                "contribution_report_employee_breakdown_response_paged_list" => [
-                    "s1" => ["id" => "s1"],
-                    "s2" => ["id" => "s2"],
-                    "s3" => ["id" => "s3"],
-                ],
-            ],
-        ];
-
-        // Fallback: streaming inactive -> yields the materialised list items.
-        $base = KotaSDK::test($seed, null);
-        $seen = iterator_to_array($base->ContributionReportEmployeeBreakdownResponsePagedList(null)->stream("list", null, null), false);
-        $this->assertCount(3, $seen);
-
-        // Inbound: streaming active -> yields each item from the feature.
         $cfg = KotaConfig::shared_config();
-        if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
-            $sdk = KotaSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
-            $got = [];
-            foreach ($sdk->ContributionReportEmployeeBreakdownResponsePagedList(null)->stream("list", null, null) as $item) {
-                if (is_array($item) && array_is_list($item)) {
-                    foreach ($item as $sub) {
-                        $got[] = $sub;
-                    }
-                } else {
-                    $got[] = $item;
-                }
-            }
-            $this->assertCount(3, $got);
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
         }
+        $client = KotaSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->ContributionReportEmployeeBreakdownResponsePagedList(null)->list(["id" => 1], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
     }
 
     public function test_basic_flow(): void
@@ -62,18 +45,12 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntityTest extends Tes
         $setup = contribution_report_employee_breakdown_response_paged_list_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["list"] as $_op) {
+        foreach ([] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "contribution_report_employee_breakdown_response_paged_list." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
             }
-        }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set KOTA_TEST_CONTRIBUTION_REPORT_EMPLOYEE_BREAKDOWN_RESPONSE_PAGED_LIST_ENTID JSON to run live");
-            return;
         }
         $client = $setup["client"];
 
@@ -84,15 +61,6 @@ class ContributionReportEmployeeBreakdownResponsePagedListEntityTest extends Tes
         if (count($contribution_report_employee_breakdown_response_paged_list_ref01_data_raw) > 0) {
             $contribution_report_employee_breakdown_response_paged_list_ref01_data = Helpers::to_map($contribution_report_employee_breakdown_response_paged_list_ref01_data_raw[0][1]);
         }
-
-        // LIST
-        $contribution_report_employee_breakdown_response_paged_list_ref01_ent = $client->ContributionReportEmployeeBreakdownResponsePagedList(null);
-        $contribution_report_employee_breakdown_response_paged_list_ref01_match = [
-            "contribution_report_id" => $setup["idmap"]["contribution_report01"],
-        ];
-
-        $contribution_report_employee_breakdown_response_paged_list_ref01_list_result = $contribution_report_employee_breakdown_response_paged_list_ref01_ent->list($contribution_report_employee_breakdown_response_paged_list_ref01_match, null);
-        $this->assertIsArray($contribution_report_employee_breakdown_response_paged_list_ref01_list_result);
 
     }
 }
@@ -112,13 +80,12 @@ function contribution_report_employee_breakdown_response_paged_list_basic_setup(
 
     // Generate idmap.
     $idmap = [];
-    foreach (["contribution_report_employee_breakdown_response_paged_list01", "contribution_report_employee_breakdown_response_paged_list02", "contribution_report_employee_breakdown_response_paged_list03", "contribution_report01"] as $k) {
+    foreach (["contribution_report_employee_breakdown_response_paged_list01", "contribution_report_employee_breakdown_response_paged_list02", "contribution_report_employee_breakdown_response_paged_list03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("KOTA_TEST_CONTRIBUTION_REPORT_EMPLOYEE_BREAKDOWN_RESPONSE_PAGED_LIST_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 

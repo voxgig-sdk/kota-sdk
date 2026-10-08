@@ -8,6 +8,18 @@ main: kit: entity: policy_import_intent: {
     associated_persons: {
       h: "Associated Persons"
       n: "associated_persons"
+      op: {
+        create: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$ARRAY`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "List of associated persons linked to this policy import."
       t: "`$ARRAY`"
@@ -82,7 +94,7 @@ main: kit: entity: policy_import_intent: {
       n: "status"
       r: true
       sh: "Current status of the policy import intent."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -97,6 +109,15 @@ main: kit: entity: policy_import_intent: {
       name: "create"
       points: [
         {
+          bf: [
+            "associated_persons"
+            "employee_id"
+            "group_id"
+            "member_number"
+            "policy_end_date"
+            "policy_start_date"
+            "provider_policy_number"
+          ]
           co: {
             id: "POST /policy_import_intents"
             source: "openapi3"
@@ -107,7 +128,7 @@ main: kit: entity: policy_import_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -115,10 +136,9 @@ main: kit: entity: policy_import_intent: {
           }
           m: "POST"
           o: "/policy_import_intents"
-          q: {
-            exist: [
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -146,7 +166,7 @@ main: kit: entity: policy_import_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -193,15 +213,9 @@ main: kit: entity: policy_import_intent: {
           }
           m: "GET"
           o: "/policy_import_intents"
-          q: {
-            exist: [
-              "employee_id"
-              "group_id"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -229,7 +243,7 @@ main: kit: entity: policy_import_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -250,13 +264,16 @@ main: kit: entity: policy_import_intent: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               policy_import_intent_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

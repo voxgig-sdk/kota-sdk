@@ -31,32 +31,11 @@ main: kit: entity: event: {
       r: true
       t: "`$STRING`"
     }
-    options: {
-      h: "Options"
-      n: "options"
-      r: false
-      ro: true
-      t: "`$NULL`"
-    }
-    parent: {
-      h: "Parent"
-      n: "parent"
-      r: false
-      ro: true
-      t: "`$NULL`"
-    }
     platform_id: {
       h: "Platform Id"
       n: "platform_id"
       r: true
       t: "`$STRING`"
-    }
-    root: {
-      h: "Root"
-      n: "root"
-      r: false
-      ro: true
-      t: "`$ANY`"
     }
     type: {
       h: "Type"
@@ -87,7 +66,7 @@ main: kit: entity: event: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -109,13 +88,16 @@ main: kit: entity: event: {
             "$action": "replay"
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               event_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -149,7 +131,7 @@ main: kit: entity: event: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -194,15 +176,9 @@ main: kit: entity: event: {
           }
           m: "GET"
           o: "/events"
-          q: {
-            exist: [
-              "created_after"
-              "order_direction"
-              "page"
-              "page_size"
-              "version"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -230,7 +206,7 @@ main: kit: entity: event: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -251,13 +227,16 @@ main: kit: entity: event: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               event_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -269,7 +248,7 @@ main: kit: entity: event: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.data`"
+            res: "`body`"
           }
         }
       ]

@@ -40,8 +40,8 @@ type AssociatedPersonCreateData struct {
 	Object *string `json:"object,omitempty"`
 	PhoneNumber *any `json:"phone_number,omitempty"`
 	PlatformId *string `json:"platform_id,omitempty"`
-	RelationshipType any `json:"relationship_type"`
-	SexAtBirth any `json:"sex_at_birth"`
+	RelationshipType string `json:"relationship_type"`
+	SexAtBirth string `json:"sex_at_birth"`
 }
 
 // AssociatedPersonUpdateData is the typed request payload for AssociatedPerson.UpdateTyped.
@@ -55,8 +55,8 @@ type AssociatedPersonUpdateData struct {
 	Object *string `json:"object,omitempty"`
 	PhoneNumber *any `json:"phone_number,omitempty"`
 	PlatformId *string `json:"platform_id,omitempty"`
-	RelationshipType *any `json:"relationship_type,omitempty"`
-	SexAtBirth *any `json:"sex_at_birth,omitempty"`
+	RelationshipType *string `json:"relationship_type,omitempty"`
+	SexAtBirth *string `json:"sex_at_birth,omitempty"`
 }
 
 // AssociatedPersonRemoveMatch is the typed request payload for AssociatedPerson.RemoveTyped.
@@ -106,7 +106,7 @@ type ContributionReportCreateData struct {
 	LastUpdatedAt string `json:"last_updated_at"`
 	Object *string `json:"object,omitempty"`
 	Period any `json:"period"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // ContributionReportEmployeeBreakdown is the typed data model for the contribution_report_employee_breakdown entity.
@@ -136,6 +136,8 @@ type CreateHostedSessionToken struct {
 
 // CreateHostedSessionTokenCreateData is the typed request payload for CreateHostedSessionToken.CreateTyped.
 type CreateHostedSessionTokenCreateData struct {
+	EmployeeId string `json:"employee_id"`
+	EmployerId string `json:"employer_id"`
 	Expiry string `json:"expiry"`
 	Link string `json:"link"`
 }
@@ -146,7 +148,10 @@ type CreateSessionToken struct {
 
 // CreateSessionTokenCreateData is the typed request payload for CreateSessionToken.CreateTyped.
 type CreateSessionTokenCreateData struct {
+	EmployeeId *any `json:"employee_id,omitempty"`
+	EmployerId string `json:"employer_id"`
 	Expiry string `json:"expiry"`
+	ExternalCustomerId *any `json:"external_customer_id,omitempty"`
 	Token string `json:"token"`
 }
 
@@ -158,15 +163,17 @@ type Dependent struct {
 type DependentCreateData struct {
 	DependentsManagementIntentId string `json:"dependents_management_intent_id"`
 	ActionRequired *any `json:"action_required,omitempty"`
+	AssociatedPersonIds []any `json:"associated_person_ids"`
 	CoverageOptions *any `json:"coverage_options,omitempty"`
+	DependentCoverageSelections *any `json:"dependent_coverage_selections,omitempty"`
 	Dependents []any `json:"dependents"`
 	Disclosures []any `json:"disclosures"`
 	Id string `json:"id"`
 	Object *string `json:"object,omitempty"`
 	ParentIntentId string `json:"parent_intent_id"`
-	ParentIntentType any `json:"parent_intent_type"`
+	ParentIntentType string `json:"parent_intent_type"`
 	Plan any `json:"plan"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // DependentRemoveMatch is the typed request payload for Dependent.RemoveTyped.
@@ -194,9 +201,9 @@ type DependentsManagementIntentCreateData struct {
 	Id string `json:"id"`
 	Object *string `json:"object,omitempty"`
 	ParentIntentId string `json:"parent_intent_id"`
-	ParentIntentType any `json:"parent_intent_type"`
+	ParentIntentType string `json:"parent_intent_type"`
 	Plan any `json:"plan"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // EligibilityCheck is the typed data model for the eligibility_check entity.
@@ -206,7 +213,8 @@ type EligibilityCheck struct {
 // EligibilityCheckCreateData is the typed request payload for EligibilityCheck.CreateTyped.
 type EligibilityCheckCreateData struct {
 	GroupId string `json:"group_id"`
-	EligibilityStatus any `json:"eligibility_status"`
+	EligibilityStatus string `json:"eligibility_status"`
+	EmployeeId string `json:"employee_id"`
 	Object *string `json:"object,omitempty"`
 	Plan any `json:"plan"`
 	Provider any `json:"provider"`
@@ -251,9 +259,9 @@ type EmployeeCreateData struct {
 	OffboardOn *any `json:"offboard_on,omitempty"`
 	PhoneNumber string `json:"phone_number"`
 	PlatformId *string `json:"platform_id,omitempty"`
-	SexAtBirth any `json:"sex_at_birth"`
+	SexAtBirth string `json:"sex_at_birth"`
 	StartOn *string `json:"start_on,omitempty"`
-	Status *any `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // EmployeeUpdateData is the typed request payload for Employee.UpdateTyped.
@@ -275,9 +283,9 @@ type EmployeeUpdateData struct {
 	OffboardOn *any `json:"offboard_on,omitempty"`
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	PlatformId *string `json:"platform_id,omitempty"`
-	SexAtBirth *any `json:"sex_at_birth,omitempty"`
+	SexAtBirth *string `json:"sex_at_birth,omitempty"`
 	StartOn *string `json:"start_on,omitempty"`
-	Status *any `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // EmployeeHealthInsuranceOffer is the typed data model for the employee_health_insurance_offer entity.
@@ -351,7 +359,7 @@ type EmployerCreateData struct {
 	OffboardOn *any `json:"offboard_on,omitempty"`
 	PlatformId *string `json:"platform_id,omitempty"`
 	RegistrationNumber *any `json:"registration_number,omitempty"`
-	Status *any `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // EmployerUpdateData is the typed request payload for Employer.UpdateTyped.
@@ -366,7 +374,7 @@ type EmployerUpdateData struct {
 	OffboardOn *any `json:"offboard_on,omitempty"`
 	PlatformId *string `json:"platform_id,omitempty"`
 	RegistrationNumber *any `json:"registration_number,omitempty"`
-	Status *any `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // EmployerHealthInsurancePolicy is the typed data model for the employer_health_insurance_policy entity.
@@ -434,8 +442,11 @@ type EnrolmentIntentListMatch struct {
 // EnrolmentIntentCreateData is the typed request payload for EnrolmentIntent.CreateTyped.
 type EnrolmentIntentCreateData struct {
 	ActionRequired *any `json:"action_required,omitempty"`
+	CoverageSelections *any `json:"coverage_selections,omitempty"`
+	DesiredPolicyStartDate *any `json:"desired_policy_start_date,omitempty"`
 	Disclosures []any `json:"disclosures"`
 	EmployeeId string `json:"employee_id"`
+	EnrolmentDate *any `json:"enrolment_date,omitempty"`
 	ForceConfirmation bool `json:"force_confirmation"`
 	GroupId string `json:"group_id"`
 	Id string `json:"id"`
@@ -444,15 +455,18 @@ type EnrolmentIntentCreateData struct {
 	PendingConfirmation *any `json:"pending_confirmation,omitempty"`
 	PolicyConfiguration *any `json:"policy_configuration,omitempty"`
 	PolicyEnrolments []any `json:"policy_enrolments"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // EnrolmentIntentUpdateData is the typed request payload for EnrolmentIntent.UpdateTyped.
 type EnrolmentIntentUpdateData struct {
 	Id string `json:"id"`
 	ActionRequired *any `json:"action_required,omitempty"`
+	CoverageSelections *any `json:"coverage_selections,omitempty"`
+	DesiredPolicyStartDate *any `json:"desired_policy_start_date,omitempty"`
 	Disclosures *[]any `json:"disclosures,omitempty"`
 	EmployeeId *string `json:"employee_id,omitempty"`
+	EnrolmentDate *any `json:"enrolment_date,omitempty"`
 	ForceConfirmation *bool `json:"force_confirmation,omitempty"`
 	GroupId *string `json:"group_id,omitempty"`
 	IneligibilityReason *any `json:"ineligibility_reason,omitempty"`
@@ -460,7 +474,7 @@ type EnrolmentIntentUpdateData struct {
 	PendingConfirmation *any `json:"pending_confirmation,omitempty"`
 	PolicyConfiguration *any `json:"policy_configuration,omitempty"`
 	PolicyEnrolments *[]any `json:"policy_enrolments,omitempty"`
-	Status *any `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // EnrolmentIntentRequirementResponsePagedList is the typed data model for the enrolment_intent_requirement_response_paged_list entity.
@@ -500,10 +514,7 @@ type EventCreateData struct {
 	ApiVersion *string `json:"api_version,omitempty"`
 	Created string `json:"created"`
 	Data any `json:"data"`
-	Options *any `json:"options,omitempty"`
-	Parent *any `json:"parent,omitempty"`
 	PlatformId string `json:"platform_id"`
-	Root *any `json:"root,omitempty"`
 	Type string `json:"type"`
 }
 
@@ -528,15 +539,15 @@ type GroupListMatch struct {
 type GroupCreateData struct {
 	Description *any `json:"description,omitempty"`
 	EmployerId string `json:"employer_id"`
-	EnrolmentType any `json:"enrolment_type"`
+	EnrolmentType string `json:"enrolment_type"`
 	GroupPolicyIds []any `json:"group_policy_ids"`
 	GroupPolicyIntentIds []any `json:"group_policy_intent_ids"`
 	GroupQuoteIntentIds []any `json:"group_quote_intent_ids"`
-	GroupType any `json:"group_type"`
+	GroupType string `json:"group_type"`
 	Id string `json:"id"`
 	Name string `json:"name"`
 	Object *string `json:"object,omitempty"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // GroupUpdateData is the typed request payload for Group.UpdateTyped.
@@ -544,14 +555,14 @@ type GroupUpdateData struct {
 	Id string `json:"id"`
 	Description *any `json:"description,omitempty"`
 	EmployerId *string `json:"employer_id,omitempty"`
-	EnrolmentType *any `json:"enrolment_type,omitempty"`
+	EnrolmentType *string `json:"enrolment_type,omitempty"`
 	GroupPolicyIds *[]any `json:"group_policy_ids,omitempty"`
 	GroupPolicyIntentIds *[]any `json:"group_policy_intent_ids,omitempty"`
 	GroupQuoteIntentIds *[]any `json:"group_quote_intent_ids,omitempty"`
-	GroupType *any `json:"group_type,omitempty"`
+	GroupType *string `json:"group_type,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Object *string `json:"object,omitempty"`
-	Status *any `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // GroupEmployee is the typed data model for the group_employee entity.
@@ -561,14 +572,17 @@ type GroupEmployee struct {
 // GroupEmployeeCreateData is the typed request payload for GroupEmployee.CreateTyped.
 type GroupEmployeeCreateData struct {
 	Id string `json:"id"`
+	CreateEnrolmentIntents *any `json:"create_enrolment_intents,omitempty"`
 	DesiredPolicyStartDate *any `json:"desired_policy_start_date,omitempty"`
-	EligibilityStatus any `json:"eligibility_status"`
+	EligibilityStatus string `json:"eligibility_status"`
+	EmployeeId string `json:"employee_id"`
 	EnrolmentDate *any `json:"enrolment_date,omitempty"`
-	EnrolmentStatus any `json:"enrolment_status"`
+	EnrolmentStatus string `json:"enrolment_status"`
 	Enrolments []any `json:"enrolments"`
 	GroupId string `json:"group_id"`
 	Object *string `json:"object,omitempty"`
 	Policies []any `json:"policies"`
+	PolicyConfiguration *any `json:"policy_configuration,omitempty"`
 	ScheduledGroupTransitions []any `json:"scheduled_group_transitions"`
 }
 
@@ -623,6 +637,7 @@ type GroupPolicyIntentListMatch struct {
 // GroupPolicyIntentCreateData is the typed request payload for GroupPolicyIntent.CreateTyped.
 type GroupPolicyIntentCreateData struct {
 	ActionRequired *any `json:"action_required,omitempty"`
+	ConsentApprovals *any `json:"consent_approvals,omitempty"`
 	CostSharing *any `json:"cost_sharing,omitempty"`
 	Disclosures []any `json:"disclosures"`
 	DueDate *any `json:"due_date,omitempty"`
@@ -631,7 +646,7 @@ type GroupPolicyIntentCreateData struct {
 	Object *string `json:"object,omitempty"`
 	PlanId string `json:"plan_id"`
 	QuoteIntentId string `json:"quote_intent_id"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // GroupPolicyIntentRequirementResponsePagedList is the typed data model for the group_policy_intent_requirement_response_paged_list entity.
@@ -679,13 +694,14 @@ type GroupQuoteIntentCreateData struct {
 	ActionRequired *any `json:"action_required,omitempty"`
 	ConsentLinks []any `json:"consent_links"`
 	CostSharing *any `json:"cost_sharing,omitempty"`
+	CoverageSelections *any `json:"coverage_selections,omitempty"`
 	Disclosures []any `json:"disclosures"`
 	ExpectedStartDate *any `json:"expected_start_date,omitempty"`
 	GroupId string `json:"group_id"`
 	Id string `json:"id"`
 	Object *string `json:"object,omitempty"`
 	PlanId string `json:"plan_id"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // GroupQuoteIntentRequirementResponsePagedList is the typed data model for the group_quote_intent_requirement_response_paged_list entity.
@@ -774,7 +790,7 @@ type PolicyAmendmentIntentCreateData struct {
 	ProcessingError *any `json:"processing_error,omitempty"`
 	RequestedChanges []any `json:"requested_changes"`
 	RequiredAction *any `json:"required_action,omitempty"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // PolicyImportIntent is the typed data model for the policy_import_intent entity.
@@ -806,7 +822,7 @@ type PolicyImportIntentCreateData struct {
 	PolicyEndDate *any `json:"policy_end_date,omitempty"`
 	PolicyStartDate string `json:"policy_start_date"`
 	ProviderPolicyNumber string `json:"provider_policy_number"`
-	Status any `json:"status"`
+	Status string `json:"status"`
 }
 
 // Provider is the typed data model for the provider entity.
@@ -834,12 +850,8 @@ type WebhookEndpointLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// WebhookEndpointResponsePagedList is the typed data model for the webhook_endpoint_response_paged_list entity.
-type WebhookEndpointResponsePagedList struct {
-}
-
-// WebhookEndpointResponsePagedListListMatch is the typed request payload for WebhookEndpointResponsePagedList.ListTyped.
-type WebhookEndpointResponsePagedListListMatch struct {
+// WebhookEndpointListMatch is the typed request payload for WebhookEndpoint.ListTyped.
+type WebhookEndpointListMatch struct {
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
 }

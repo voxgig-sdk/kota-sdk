@@ -53,7 +53,7 @@
         },
         "edition": {
           "github-pages": {
-            "active": true,
+            "active": false,
             "base": "node_modules/@voxgig/docgen/project/.sdk",
             "brand": {},
             "filter": {
@@ -134,6 +134,18 @@
               "fo": "date",
               "h": "Date Of Birth",
               "n": "date_of_birth",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "Date of birth of the associated person",
               "t": "`$STRING`"
@@ -164,6 +176,18 @@
               "a": true,
               "h": "First Name",
               "n": "first_name",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "First name of the associated person",
               "t": "`$STRING`"
@@ -180,6 +204,18 @@
               "a": true,
               "h": "Last Name",
               "n": "last_name",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "Last name of the associated person",
               "t": "`$STRING`"
@@ -219,17 +255,29 @@
               "a": true,
               "h": "Relationship Type",
               "n": "relationship_type",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": "`$NULL`"
+                }
+              },
               "r": true,
               "sh": "The relationship type between the employee and the associated person",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "sex_at_birth": {
               "a": true,
               "h": "Sex At Birth",
               "n": "sex_at_birth",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": "`$NULL`"
+                }
+              },
               "r": true,
               "sh": "The sex assigned to the associated person at birth",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -244,6 +292,15 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "date_of_birth",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "phone_number",
+                    "relationship_type",
+                    "sex_at_birth"
+                  ],
                   "co": {
                     "id": "POST /employees/{employee_id}/associated_persons",
                     "source": "openapi3",
@@ -255,7 +312,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -277,11 +334,14 @@
                   "o": "/employees/{employee_id}/associated_persons",
                   "q": {
                     "exist": [
-                      "employee_id",
-                      "x_platform_id"
+                      "employee_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employees"
@@ -317,7 +377,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -357,13 +417,14 @@
                   "o": "/employees/{employee_id}/associated_persons",
                   "q": {
                     "exist": [
-                      "employee_id",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "employee_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employees"
@@ -399,7 +460,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -431,14 +492,17 @@
                   "q": {
                     "exist": [
                       "employee_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "associated_person_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -478,7 +542,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -510,14 +574,17 @@
                   "q": {
                     "exist": [
                       "employee_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "associated_person_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -546,6 +613,15 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "date_of_birth",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "phone_number",
+                    "relationship_type",
+                    "sex_at_birth"
+                  ],
                   "co": {
                     "id": "PUT /employees/{employee_id}/associated_persons/{associated_person_id}",
                     "source": "openapi3",
@@ -557,7 +633,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -589,14 +665,17 @@
                   "q": {
                     "exist": [
                       "employee_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "associated_person_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -657,7 +736,7 @@
               "n": "eligibility_status",
               "r": true,
               "sh": "Eligibility status for the policy/plan.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "first_name": {
               "a": true,
@@ -704,7 +783,7 @@
               "n": "relationship",
               "r": true,
               "sh": "Relationship type to the employee.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "sex_at_birth": {
               "a": true,
@@ -712,7 +791,7 @@
               "n": "sex_at_birth",
               "r": true,
               "sh": "Sex at birth of the associated person.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "name": "associated_person_eligibility_response_paged_list",
@@ -734,7 +813,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -774,13 +853,14 @@
                   "o": "/dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility",
                   "q": {
                     "exist": [
-                      "dependents_management_intent_id",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "dependents_management_intent_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "dependents_management_intents"
@@ -900,7 +980,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the contribution report",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -926,7 +1006,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -949,14 +1029,17 @@
                   "q": {
                     "$action": "finalize",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "contribution_report_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -993,7 +1076,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1061,19 +1144,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/contribution_reports",
-                  "q": {
-                    "exist": [
-                      "employer_id",
-                      "external_customer_id",
-                      "month",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id",
-                      "year"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "contribution_reports"
@@ -1103,7 +1179,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1125,14 +1201,17 @@
                   "o": "/contribution_reports/{contribution_report_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "contribution_report_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1183,7 +1262,7 @@
               "n": "currency",
               "r": true,
               "sh": "The currency in which all the amounts in this breakdown are presented (e.g.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "employee_id": {
               "a": true,
@@ -1277,7 +1356,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the breakdown",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -1303,7 +1382,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1335,14 +1414,17 @@
                   "q": {
                     "exist": [
                       "contribution_report_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1411,7 +1493,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1452,16 +1534,17 @@
                   "q": {
                     "$action": "employee_breakdowns",
                     "exist": [
-                      "id",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "contribution_report_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1492,6 +1575,20 @@
             "field": {}
           },
           "fields": {
+            "employee_id": {
+              "a": true,
+              "h": "Employee Id",
+              "n": "employee_id",
+              "r": true,
+              "t": "`$STRING`"
+            },
+            "employer_id": {
+              "a": true,
+              "h": "Employer Id",
+              "n": "employer_id",
+              "r": true,
+              "t": "`$STRING`"
+            },
             "expiry": {
               "a": true,
               "fo": "date-time",
@@ -1516,6 +1613,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "employee_id",
+                    "employer_id"
+                  ],
                   "co": {
                     "id": "POST /hosted/sessions",
                     "source": "openapi3",
@@ -1527,6 +1628,10 @@
                   "o": "/hosted/sessions",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "hosted"
@@ -1553,6 +1658,26 @@
             "field": {}
           },
           "fields": {
+            "employee_id": {
+              "a": true,
+              "h": "Employee Id",
+              "n": "employee_id",
+              "r": false,
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
+            "employer_id": {
+              "a": true,
+              "h": "Employer Id",
+              "n": "employer_id",
+              "r": true,
+              "t": "`$STRING`"
+            },
             "expiry": {
               "a": true,
               "fo": "date-time",
@@ -1560,6 +1685,20 @@
               "n": "expiry",
               "r": true,
               "t": "`$STRING`"
+            },
+            "external_customer_id": {
+              "a": true,
+              "h": "External Customer Id",
+              "n": "external_customer_id",
+              "r": false,
+              "sh": "A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "token": {
               "a": true,
@@ -1577,6 +1716,11 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "employee_id",
+                    "employer_id",
+                    "external_customer_id"
+                  ],
                   "co": {
                     "id": "POST /embed/sessions",
                     "source": "openapi3",
@@ -1588,6 +1732,10 @@
                   "o": "/embed/sessions",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "embed"
@@ -1622,12 +1770,34 @@
               "sh": "Details of the action required from the caller.",
               "t": "`$NULL`"
             },
+            "associated_person_ids": {
+              "a": true,
+              "h": "Associated Person Ids",
+              "n": "associated_person_ids",
+              "r": true,
+              "sh": "List of associated person IDs to add as dependents.",
+              "t": "`$ARRAY`"
+            },
             "coverage_options": {
               "a": true,
               "h": "Coverage Options",
               "n": "coverage_options",
               "r": false,
               "sh": "Available member-scoped coverage options for the plan.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$ARRAY`"
+                ]
+              ]
+            },
+            "dependent_coverage_selections": {
+              "a": true,
+              "h": "Dependent Coverage Selections",
+              "n": "dependent_coverage_selections",
+              "r": false,
+              "sh": "Optional coverage selections per dependent.",
               "t": [
                 "`$ONE`",
                 [
@@ -1683,7 +1853,7 @@
               "n": "parent_intent_type",
               "r": true,
               "sh": "The type of parent intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "plan": {
               "a": true,
@@ -1699,7 +1869,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the dependents management intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -1714,6 +1884,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "associated_person_ids",
+                    "dependent_coverage_selections"
+                  ],
                   "co": {
                     "id": "POST /dependents_management_intents/{dependents_management_intent_id}/dependents",
                     "source": "openapi3",
@@ -1725,7 +1899,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -1733,7 +1907,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1755,12 +1929,14 @@
                   "o": "/dependents_management_intents/{dependents_management_intent_id}/dependents",
                   "q": {
                     "exist": [
-                      "dependents_management_intent_id",
-                      "idempotency_key",
-                      "x_platform_id"
+                      "dependents_management_intent_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "dependents_management_intents"
@@ -1796,7 +1972,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1828,14 +2004,17 @@
                   "q": {
                     "exist": [
                       "dependents_management_intent_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "associated_person_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1942,7 +2121,7 @@
               "n": "parent_intent_type",
               "r": true,
               "sh": "The type of parent intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "plan": {
               "a": true,
@@ -1958,7 +2137,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the dependents management intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -1984,7 +2163,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2016,14 +2195,17 @@
                   "q": {
                     "exist": [
                       "policy_amendment_intent_id",
-                      "policy_id",
-                      "x_platform_id"
+                      "policy_id"
                     ]
                   },
                   "r": {
                     "param": {
                       "id": "policy_amendment_intent_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -2060,7 +2242,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2082,11 +2264,14 @@
                   "o": "/enrolment_intents/{enrolment_intent_id}/create_dependents_management_intent",
                   "q": {
                     "exist": [
-                      "enrolment_intent_id",
-                      "x_platform_id"
+                      "enrolment_intent_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "enrolment_intents"
@@ -2116,7 +2301,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2139,8 +2324,7 @@
                   "q": {
                     "$action": "cancel",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
@@ -2177,7 +2361,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2200,8 +2384,7 @@
                   "q": {
                     "$action": "confirm",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
@@ -2244,7 +2427,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2266,14 +2449,17 @@
                   "o": "/dependents_management_intents/{dependents_management_intent_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "dependents_management_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -2315,7 +2501,15 @@
               "n": "eligibility_status",
               "r": true,
               "sh": "Eligibility status: `eligible` or `ineligible`.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
+            },
+            "employee_id": {
+              "a": true,
+              "h": "Employee Id",
+              "n": "employee_id",
+              "r": true,
+              "sh": "The employee to check eligibility for.",
+              "t": "`$STRING`"
             },
             "object": {
               "a": true,
@@ -2359,6 +2553,9 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "employee_id"
+                  ],
                   "co": {
                     "id": "POST /groups/{group_id}/eligibility_check",
                     "source": "openapi3",
@@ -2370,7 +2567,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2392,11 +2589,14 @@
                   "o": "/groups/{group_id}/eligibility_check",
                   "q": {
                     "exist": [
-                      "group_id",
-                      "x_platform_id"
+                      "group_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "groups"
@@ -2466,6 +2666,18 @@
               "a": true,
               "h": "Email",
               "n": "email",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "Email address of the employee",
               "t": "`$STRING`"
@@ -2474,6 +2686,12 @@
               "a": true,
               "h": "Employer Id",
               "n": "employer_id",
+              "op": {
+                "create": {
+                  "req": true,
+                  "type": "`$STRING`"
+                }
+              },
               "r": false,
               "sh": "Unique identifier for the employer",
               "t": "`$STRING`"
@@ -2496,6 +2714,18 @@
               "a": true,
               "h": "First Name",
               "n": "first_name",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "First name of the employee.",
               "t": "`$STRING`"
@@ -2504,6 +2734,12 @@
               "a": true,
               "h": "Home Address",
               "n": "home_address",
+              "op": {
+                "create": {
+                  "req": true,
+                  "type": "`$ANY`"
+                }
+              },
               "r": false,
               "sh": "Location where the employee is legally registered to live",
               "t": "`$NULL`"
@@ -2520,6 +2756,18 @@
               "a": true,
               "h": "Last Name",
               "n": "last_name",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "Last name of the employee",
               "t": "`$STRING`"
@@ -2542,6 +2790,18 @@
               "a": true,
               "h": "National Tax Id",
               "n": "national_tax_id",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "PPSN in Ireland, NINo in the UK, DNI/NIE in Spain",
               "t": "`$STRING`"
@@ -2582,6 +2842,18 @@
               "a": true,
               "h": "Phone Number",
               "n": "phone_number",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "Phone number in E.164 international format (e.g.",
               "t": "`$STRING`"
@@ -2600,13 +2872,19 @@
               "n": "sex_at_birth",
               "r": true,
               "sh": "The sex assigned to the employee at birth",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "start_on": {
               "a": true,
               "fo": "date",
               "h": "Start On",
               "n": "start_on",
+              "op": {
+                "create": {
+                  "req": true,
+                  "type": "`$STRING`"
+                }
+              },
               "r": false,
               "sh": "Employment start date",
               "t": "`$STRING`"
@@ -2617,7 +2895,7 @@
               "n": "status",
               "r": false,
               "sh": "Current status of the employee",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -2632,6 +2910,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "offboard_on",
+                    "offboard_reason"
+                  ],
                   "co": {
                     "id": "POST /employees/{employee_id}/offboard",
                     "source": "openapi3",
@@ -2643,7 +2925,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -2651,7 +2933,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2674,15 +2956,17 @@
                   "q": {
                     "$action": "offboard",
                     "exist": [
-                      "id",
-                      "idempotency_key",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -2713,7 +2997,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -2721,7 +3005,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2744,15 +3028,17 @@
                   "q": {
                     "$action": "offboard_cancel",
                     "exist": [
-                      "id",
-                      "idempotency_key",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -2775,6 +3061,23 @@
                 },
                 {
                   "a": true,
+                  "bf": [
+                    "bank_account",
+                    "date_of_birth",
+                    "earliest_benefits_start_date",
+                    "email",
+                    "employer_id",
+                    "external_customer_id",
+                    "first_name",
+                    "home_address",
+                    "last_name",
+                    "metadata",
+                    "national_tax_id",
+                    "nationality",
+                    "phone_number",
+                    "sex_at_birth",
+                    "start_on"
+                  ],
                   "co": {
                     "id": "POST /employees",
                     "source": "openapi3",
@@ -2786,7 +3089,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -2794,7 +3097,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2803,13 +3106,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/employees",
-                  "q": {
-                    "exist": [
-                      "idempotency_key",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employees"
@@ -2839,7 +3141,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2899,18 +3201,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/employees",
-                  "q": {
-                    "exist": [
-                      "employer_id",
-                      "external_customer_id",
-                      "filter",
-                      "metadata_id",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employees"
@@ -2940,7 +3236,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2962,14 +3258,17 @@
                   "o": "/employees/{employee_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -2992,6 +3291,19 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "bank_account",
+                    "earliest_benefits_start_date",
+                    "email",
+                    "first_name",
+                    "home_address",
+                    "last_name",
+                    "metadata",
+                    "national_tax_id",
+                    "nationality",
+                    "phone_number",
+                    "start_on"
+                  ],
                   "co": {
                     "id": "PUT /employees/{employee_id}",
                     "source": "openapi3",
@@ -3003,7 +3315,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -3025,14 +3337,17 @@
                   "o": "/employees/{employee_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -3129,7 +3444,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of offer",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -3155,7 +3470,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -3187,14 +3502,17 @@
                   "q": {
                     "exist": [
                       "employee_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_offer_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -3304,7 +3622,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of offer",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -3330,7 +3648,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -3370,13 +3688,14 @@
                   "o": "/employees/{employee_id}/health_insurance/offers",
                   "q": {
                     "exist": [
-                      "employee_id",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "employee_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employees"
@@ -3476,7 +3795,7 @@
               "n": "enrolment_type",
               "r": true,
               "sh": "Enrolment type of the policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "estimated_gross_premium": {
               "a": true,
@@ -3563,7 +3882,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -3589,7 +3908,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -3621,14 +3940,17 @@
                   "q": {
                     "exist": [
                       "employee_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employee_policy_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -3732,7 +4054,7 @@
               "n": "enrolment_type",
               "r": true,
               "sh": "Enrolment type of the policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "estimated_gross_premium": {
               "a": true,
@@ -3819,7 +4141,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -3845,7 +4167,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -3893,14 +4215,14 @@
                   "o": "/employees/{employee_id}/health_insurance/policies",
                   "q": {
                     "exist": [
-                      "employee_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
+                      "employee_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employees"
@@ -3941,6 +4263,12 @@
               "a": true,
               "h": "Contact",
               "n": "contact",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": "`$NULL`"
+                }
+              },
               "r": true,
               "t": "`$ANY`"
             },
@@ -3950,6 +4278,7 @@
               "h": "Earliest Benefits Start Date",
               "n": "earliest_benefits_start_date",
               "r": false,
+              "sh": "The earliest date this employer is permitted to set up any benefits scheme.",
               "t": [
                 "`$ONE`",
                 [
@@ -3969,14 +4298,34 @@
               "a": true,
               "h": "Legal Address",
               "n": "legal_address",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": "`$NULL`"
+                }
+              },
               "r": true,
+              "sh": "Treated as a single object that is updated entirely, `null` sub-fields (e.g.",
               "t": "`$ANY`"
             },
             "legal_name": {
               "a": true,
               "h": "Legal Name",
               "n": "legal_name",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
+              "sh": "Legal name of the company.",
               "t": "`$STRING`"
             },
             "metadata": {
@@ -4028,6 +4377,7 @@
               "h": "Registration Number",
               "n": "registration_number",
               "r": false,
+              "sh": "Company registration number.",
               "t": [
                 "`$ONE`",
                 [
@@ -4041,7 +4391,7 @@
               "h": "Status",
               "n": "status",
               "r": false,
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -4067,7 +4417,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -4075,7 +4425,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4098,15 +4448,17 @@
                   "q": {
                     "$action": "offboard",
                     "exist": [
-                      "id",
-                      "idempotency_key",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employer_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -4126,6 +4478,14 @@
                 },
                 {
                   "a": true,
+                  "bf": [
+                    "contact",
+                    "earliest_benefits_start_date",
+                    "legal_address",
+                    "legal_name",
+                    "metadata",
+                    "registration_number"
+                  ],
                   "co": {
                     "id": "POST /employers",
                     "source": "openapi3",
@@ -4137,7 +4497,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -4145,7 +4505,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4154,13 +4514,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/employers",
-                  "q": {
-                    "exist": [
-                      "idempotency_key",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employers"
@@ -4190,7 +4549,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4225,15 +4584,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/employers",
-                  "q": {
-                    "exist": [
-                      "filter",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employers"
@@ -4263,7 +4619,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4285,14 +4641,17 @@
                   "o": "/employers/{employer_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employer_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -4315,6 +4674,14 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "contact",
+                    "earliest_benefits_start_date",
+                    "legal_address",
+                    "legal_name",
+                    "metadata",
+                    "registration_number"
+                  ],
                   "co": {
                     "id": "PUT /employers/{employer_id}",
                     "source": "openapi3",
@@ -4326,7 +4693,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4348,14 +4715,17 @@
                   "o": "/employers/{employer_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employer_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -4438,7 +4808,7 @@
               "n": "enrolment_type",
               "r": true,
               "sh": "Enrolment type of the policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "group_policy_number": {
               "a": true,
@@ -4494,7 +4864,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -4520,7 +4890,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4552,14 +4922,17 @@
                   "q": {
                     "exist": [
                       "employer_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employer_policy_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -4655,7 +5028,7 @@
               "n": "enrolment_type",
               "r": true,
               "sh": "Enrolment type of the policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "group_policy_number": {
               "a": true,
@@ -4711,7 +5084,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -4737,7 +5110,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4785,14 +5158,14 @@
                   "o": "/employers/{employer_id}/health_insurance/policies",
                   "q": {
                     "exist": [
-                      "employer_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
+                      "employer_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employers"
@@ -4885,7 +5258,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the quote",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -4911,7 +5284,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -4943,14 +5316,17 @@
                   "q": {
                     "exist": [
                       "employer_id",
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "employer_quote_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -5047,7 +5423,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the quote",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -5073,7 +5449,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5121,14 +5497,14 @@
                   "o": "/employers/{employer_id}/health_insurance/quotes",
                   "q": {
                     "exist": [
-                      "employer_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
+                      "employer_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "employers"
@@ -5173,6 +5549,35 @@
               "sh": "If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment.",
               "t": "`$NULL`"
             },
+            "coverage_selections": {
+              "a": true,
+              "h": "Coverage Selections",
+              "n": "coverage_selections",
+              "r": false,
+              "sh": "Optional plan coverage option selections for policy-scoped configurations.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$ARRAY`"
+                ]
+              ]
+            },
+            "desired_policy_start_date": {
+              "a": true,
+              "fo": "date",
+              "h": "Desired Policy Start Date",
+              "n": "desired_policy_start_date",
+              "r": false,
+              "sh": "The desired date for the employee's policy to start.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
             "disclosures": {
               "a": true,
               "h": "Disclosures",
@@ -5188,6 +5593,21 @@
               "r": true,
               "sh": "Identifier for the employee associated with this enrolment intent.",
               "t": "`$STRING`"
+            },
+            "enrolment_date": {
+              "a": true,
+              "fo": "date",
+              "h": "Enrolment Date",
+              "n": "enrolment_date",
+              "r": false,
+              "sh": "The date on which the employee agreed to enrol into the group's policies.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "force_confirmation": {
               "a": true,
@@ -5260,7 +5680,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the enrolment intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -5286,7 +5706,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5309,8 +5729,7 @@
                   "q": {
                     "$action": "confirm",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
@@ -5336,6 +5755,9 @@
                 },
                 {
                   "a": true,
+                  "bf": [
+                    "coverage_selections"
+                  ],
                   "co": {
                     "id": "POST /enrolment_intents/{enrolment_intent_id}/coverage-selections",
                     "source": "openapi3",
@@ -5347,7 +5769,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5370,8 +5792,7 @@
                   "q": {
                     "$action": "coverage_selection",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
@@ -5408,7 +5829,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5431,8 +5852,7 @@
                   "q": {
                     "$action": "reject",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
@@ -5458,6 +5878,13 @@
                 },
                 {
                   "a": true,
+                  "bf": [
+                    "coverage_selections",
+                    "employee_id",
+                    "force_confirmation",
+                    "group_id",
+                    "policy_configuration"
+                  ],
                   "co": {
                     "id": "POST /enrolment_intents",
                     "source": "openapi3",
@@ -5469,7 +5896,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -5477,7 +5904,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5486,13 +5913,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/enrolment_intents",
-                  "q": {
-                    "exist": [
-                      "idempotency_key",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "enrolment_intents"
@@ -5522,7 +5948,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5575,17 +6001,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/enrolment_intents",
-                  "q": {
-                    "exist": [
-                      "employee_id",
-                      "group_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "enrolment_intents"
@@ -5615,7 +6036,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5637,14 +6058,17 @@
                   "o": "/enrolment_intents/{enrolment_intent_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -5667,6 +6091,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "desired_policy_start_date",
+                    "enrolment_date"
+                  ],
                   "co": {
                     "id": "PUT /enrolment_intents/{enrolment_intent_id}",
                     "source": "openapi3",
@@ -5678,7 +6106,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5700,14 +6128,17 @@
                   "o": "/enrolment_intents/{enrolment_intent_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -5766,7 +6197,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5823,18 +6254,17 @@
                   "q": {
                     "$action": "requirements",
                     "exist": [
-                      "id",
-                      "object_id",
-                      "object_type",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "enrolment_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -5895,36 +6325,12 @@
               "r": true,
               "t": "`$STRING`"
             },
-            "options": {
-              "a": true,
-              "h": "Options",
-              "n": "options",
-              "r": false,
-              "ro": true,
-              "t": "`$NULL`"
-            },
-            "parent": {
-              "a": true,
-              "h": "Parent",
-              "n": "parent",
-              "r": false,
-              "ro": true,
-              "t": "`$NULL`"
-            },
             "platform_id": {
               "a": true,
               "h": "Platform Id",
               "n": "platform_id",
               "r": true,
               "t": "`$STRING`"
-            },
-            "root": {
-              "a": true,
-              "h": "Root",
-              "n": "root",
-              "r": false,
-              "ro": true,
-              "t": "`$ANY`"
             },
             "type": {
               "a": true,
@@ -5957,7 +6363,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -5980,14 +6386,17 @@
                   "q": {
                     "$action": "replay",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "event_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -6024,7 +6433,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6075,17 +6484,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/events",
-                  "q": {
-                    "exist": [
-                      "created_after",
-                      "order_direction",
-                      "page",
-                      "page_size",
-                      "version",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "events"
@@ -6115,7 +6519,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6137,14 +6541,17 @@
                   "o": "/events/{event_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "event_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -6156,7 +6563,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -6200,7 +6607,7 @@
               "n": "enrolment_type",
               "r": true,
               "sh": "Indicates how employees are enrolled into the group.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "group_policy_ids": {
               "a": true,
@@ -6232,7 +6639,7 @@
               "n": "group_type",
               "r": true,
               "sh": "Indicates how policies are organized for this group.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "id": {
               "a": true,
@@ -6246,6 +6653,18 @@
               "a": true,
               "h": "Name",
               "n": "name",
+              "op": {
+                "update": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "Human-readable name of the `group`.",
               "t": "`$STRING`"
@@ -6265,7 +6684,7 @@
               "n": "status",
               "r": true,
               "sh": "Current lifecycle state of the `group`, indicating its current progress.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -6280,6 +6699,11 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "description",
+                    "employer_id",
+                    "name"
+                  ],
                   "co": {
                     "id": "POST /groups",
                     "source": "openapi3",
@@ -6291,7 +6715,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6300,12 +6724,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/groups",
-                  "q": {
-                    "exist": [
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "groups"
@@ -6335,7 +6759,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6379,16 +6803,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/groups",
-                  "q": {
-                    "exist": [
-                      "employer_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "groups"
@@ -6418,7 +6838,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6440,14 +6860,17 @@
                   "o": "/groups/{group_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -6470,6 +6893,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "description",
+                    "name"
+                  ],
                   "co": {
                     "id": "PUT /groups/{group_id}",
                     "source": "openapi3",
@@ -6481,7 +6908,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6503,14 +6930,17 @@
                   "o": "/groups/{group_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -6538,6 +6968,20 @@
             "field": {}
           },
           "fields": {
+            "create_enrolment_intents": {
+              "a": true,
+              "h": "Create Enrolment Intents",
+              "n": "create_enrolment_intents",
+              "r": false,
+              "sh": "Controls whether enrolment intents are automatically created for the employee.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$BOOLEAN`"
+                ]
+              ]
+            },
             "desired_policy_start_date": {
               "a": true,
               "fo": "date",
@@ -6559,7 +7003,15 @@
               "n": "eligibility_status",
               "r": true,
               "sh": "Eligibility status for the employee in this group.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
+            },
+            "employee_id": {
+              "a": true,
+              "h": "Employee Id",
+              "n": "employee_id",
+              "r": true,
+              "sh": "Employee Id",
+              "t": "`$STRING`"
             },
             "enrolment_date": {
               "a": true,
@@ -6582,7 +7034,7 @@
               "n": "enrolment_status",
               "r": true,
               "sh": "Enrolment status for the employee in this group.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "enrolments": {
               "a": true,
@@ -6625,6 +7077,14 @@
               "sh": "List of policies associated with the employee in this group.",
               "t": "`$ARRAY`"
             },
+            "policy_configuration": {
+              "a": true,
+              "h": "Policy Configuration",
+              "n": "policy_configuration",
+              "r": false,
+              "sh": "Policy configuration for the employee in this group.",
+              "t": "`$NULL`"
+            },
             "scheduled_group_transitions": {
               "a": true,
               "h": "Scheduled Group Transitions",
@@ -6646,6 +7106,11 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "create_enrolment_intents",
+                    "employee_id",
+                    "policy_configuration"
+                  ],
                   "co": {
                     "id": "POST /groups/{group_id}/employees",
                     "source": "openapi3",
@@ -6657,7 +7122,7 @@
                         "a": true,
                         "k": "header",
                         "n": "idempotency_key",
-                        "or": "idempotency_key",
+                        "or": "Idempotency-Key",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -6665,7 +7130,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6687,15 +7152,17 @@
                   "o": "/groups/{group_id}/employees",
                   "q": {
                     "exist": [
-                      "id",
-                      "idempotency_key",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -6757,7 +7224,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -6807,17 +7274,17 @@
                   "q": {
                     "$action": "employees",
                     "exist": [
-                      "employee_id",
-                      "id",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -6958,7 +7425,7 @@
               "n": "status",
               "r": true,
               "sh": "Current lifecycle state of the `group_policy`, indicating its progress from creation to activation.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "type": {
               "a": true,
@@ -6966,7 +7433,7 @@
               "n": "type",
               "r": true,
               "sh": "Policy type.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -6992,7 +7459,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7045,17 +7512,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/group_policies",
-                  "q": {
-                    "exist": [
-                      "employer_id",
-                      "group_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "group_policies"
@@ -7085,7 +7547,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7107,14 +7569,17 @@
                   "o": "/group_policies/{group_policy_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_policy_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -7149,6 +7614,20 @@
               "r": false,
               "sh": "Details of the required action when the intent is in ActionRequired status.",
               "t": "`$NULL`"
+            },
+            "consent_approvals": {
+              "a": true,
+              "h": "Consent Approvals",
+              "n": "consent_approvals",
+              "r": false,
+              "sh": "Consent approvals to record at the time of intent creation",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$ARRAY`"
+                ]
+              ]
             },
             "cost_sharing": {
               "a": true,
@@ -7228,7 +7707,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the group policy intent",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -7243,6 +7722,11 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "consent_approvals",
+                    "cost_sharing",
+                    "quote_intent_id"
+                  ],
                   "co": {
                     "id": "POST /group_policy_intents",
                     "source": "openapi3",
@@ -7254,7 +7738,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7263,12 +7747,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/group_policy_intents",
-                  "q": {
-                    "exist": [
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "group_policy_intents"
@@ -7298,7 +7782,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7351,17 +7835,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/group_policy_intents",
-                  "q": {
-                    "exist": [
-                      "group_id",
-                      "page",
-                      "page_size",
-                      "plan_id",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "group_policy_intents"
@@ -7391,7 +7870,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7413,14 +7892,17 @@
                   "o": "/group_policy_intents/{group_policy_intent_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_policy_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -7479,7 +7961,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7536,18 +8018,17 @@
                   "q": {
                     "$action": "requirements",
                     "exist": [
-                      "id",
-                      "object_id",
-                      "object_type",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_policy_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -7578,45 +8059,95 @@
             "field": {}
           },
           "fields": {
-            "family_type": {
+            "cost_sharing": {
               "a": true,
-              "h": "Family Type",
-              "n": "family_type",
-              "r": false,
-              "sh": "Type of the family covered by the employer.",
-              "t": "`$NULL`"
-            },
-            "member_count": {
-              "a": true,
-              "h": "Member Count",
-              "n": "member_count",
-              "r": false,
-              "sh": "Numbers of additional members covered by the employer.",
-              "t": "`$NULL`"
-            },
-            "member_selection": {
-              "a": true,
-              "h": "Member Selection",
-              "n": "member_selection",
-              "r": false,
-              "sh": "Whether specific member types are covered by the employer.",
-              "t": "`$NULL`"
-            },
-            "percentage": {
-              "a": true,
-              "h": "Percentage",
-              "n": "percentage",
-              "r": false,
-              "sh": "Percentage of the premium the employer covers.",
-              "t": "`$NULL`"
-            },
-            "type": {
-              "a": true,
-              "h": "Type",
-              "n": "type",
+              "h": "Cost Sharing",
+              "n": "cost_sharing",
               "r": true,
-              "sh": "Cost sharing type.",
+              "sh": "Cost sharing configuration for the quote",
               "t": "`$ANY`"
+            },
+            "currency": {
+              "a": true,
+              "h": "Currency",
+              "n": "currency",
+              "r": true,
+              "sh": "Currency of the premium (e.g.",
+              "t": "`$STRING`"
+            },
+            "employee_count": {
+              "a": true,
+              "fo": "int32",
+              "h": "Employee Count",
+              "n": "employee_count",
+              "r": true,
+              "sh": "Number of employees covered by the quote",
+              "t": "`$INTEGER`"
+            },
+            "expires_at": {
+              "a": true,
+              "fo": "date-time",
+              "h": "Expires At",
+              "n": "expires_at",
+              "r": true,
+              "sh": "When the quote expires",
+              "t": "`$STRING`"
+            },
+            "generated_at": {
+              "a": true,
+              "fo": "date-time",
+              "h": "Generated At",
+              "n": "generated_at",
+              "r": true,
+              "sh": "When the quote was generated",
+              "t": "`$STRING`"
+            },
+            "object": {
+              "a": true,
+              "h": "Object",
+              "n": "object",
+              "r": false,
+              "ro": true,
+              "sh": "Object type identifier",
+              "t": "`$STRING`"
+            },
+            "pdf_expires_at": {
+              "a": true,
+              "fo": "date-time",
+              "h": "Pdf Expires At",
+              "n": "pdf_expires_at",
+              "r": false,
+              "sh": "When the PDF URL expires",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
+            "pdf_url": {
+              "a": true,
+              "h": "Pdf Url",
+              "n": "pdf_url",
+              "r": false,
+              "sh": "URL to download the quote PDF",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
+            "total_monthly_premium": {
+              "a": true,
+              "fo": "double",
+              "h": "Total Monthly Premium",
+              "n": "total_monthly_premium",
+              "r": true,
+              "sh": "Total monthly premium for the group",
+              "t": "`$NUMBER`"
             }
           },
           "name": "group_quote",
@@ -7638,7 +8169,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7660,11 +8191,14 @@
                   "o": "/group_quote_intents/{group_quote_intent_id}/quote",
                   "q": {
                     "exist": [
-                      "group_quote_intent_id",
-                      "x_platform_id"
+                      "group_quote_intent_id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "group_quote_intents"
@@ -7678,7 +8212,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.cost_sharing`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -7721,6 +8255,20 @@
               "r": false,
               "sh": "Cost sharing configuration for the quote",
               "t": "`$NULL`"
+            },
+            "coverage_selections": {
+              "a": true,
+              "h": "Coverage Selections",
+              "n": "coverage_selections",
+              "r": false,
+              "sh": "Plan coverage option selections for group-policy-scoped configurations.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$ARRAY`"
+                ]
+              ]
             },
             "disclosures": {
               "a": true,
@@ -7784,7 +8332,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the group quote intent",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -7810,7 +8358,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7833,8 +8381,7 @@
                   "q": {
                     "$action": "reject",
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
@@ -7860,6 +8407,13 @@
                 },
                 {
                   "a": true,
+                  "bf": [
+                    "cost_sharing",
+                    "coverage_selections",
+                    "expected_start_date",
+                    "group_id",
+                    "plan_id"
+                  ],
                   "co": {
                     "id": "POST /group_quote_intents",
                     "source": "openapi3",
@@ -7871,7 +8425,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7880,12 +8434,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/group_quote_intents",
-                  "q": {
-                    "exist": [
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "group_quote_intents"
@@ -7915,7 +8469,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7968,17 +8522,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/group_quote_intents",
-                  "q": {
-                    "exist": [
-                      "group_id",
-                      "page",
-                      "page_size",
-                      "plan_id",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "group_quote_intents"
@@ -8008,7 +8557,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8030,14 +8579,17 @@
                   "o": "/group_quote_intents/{group_quote_intent_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_quote_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -8096,7 +8648,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8153,18 +8705,17 @@
                   "q": {
                     "$action": "requirements",
                     "exist": [
-                      "id",
-                      "object_id",
-                      "object_type",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "group_quote_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -8225,7 +8776,7 @@
               "n": "country",
               "r": true,
               "sh": "The country this plan is available in.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "coverage_options": {
               "a": true,
@@ -8373,7 +8924,7 @@
               "n": "type",
               "r": true,
               "sh": "The benefit type of the plan.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -8399,7 +8950,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8491,22 +9042,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/plans",
-                  "q": {
-                    "exist": [
-                      "available_on",
-                      "country",
-                      "group_id",
-                      "page",
-                      "page_size",
-                      "provider_id",
-                      "sort_by",
-                      "sort_dir",
-                      "start_date",
-                      "type",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "plans"
@@ -8536,7 +9077,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8577,16 +9118,17 @@
                   "o": "/plans/{plan_id}",
                   "q": {
                     "exist": [
-                      "group_id",
-                      "id",
-                      "start_date",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "plan_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -8620,7 +9162,7 @@
               "n": "bundling_type",
               "r": true,
               "sh": "Indicates how this policy is bundled within a group",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "cancellation_date": {
               "a": true,
@@ -8740,7 +9282,7 @@
               "n": "status",
               "r": true,
               "sh": "Current lifecycle state of the policy",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             },
             "type": {
               "a": true,
@@ -8748,7 +9290,7 @@
               "n": "type",
               "r": true,
               "sh": "Policy type.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -8774,7 +9316,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8836,18 +9378,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/policies",
-                  "q": {
-                    "exist": [
-                      "employee_id",
-                      "group_id",
-                      "group_policy_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "policies"
@@ -8877,7 +9413,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8899,14 +9435,17 @@
                   "o": "/policies/{policy_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "policy_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -9013,7 +9552,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the policy amendment intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -9039,7 +9578,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9072,8 +9611,7 @@
                     "$action": "cancel",
                     "exist": [
                       "id",
-                      "policy_id",
-                      "x_platform_id"
+                      "policy_id"
                     ]
                   },
                   "r": {},
@@ -9112,7 +9650,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9145,8 +9683,7 @@
                     "$action": "confirm",
                     "exist": [
                       "id",
-                      "policy_id",
-                      "x_platform_id"
+                      "policy_id"
                     ]
                   },
                   "r": {
@@ -9178,6 +9715,10 @@
                 },
                 {
                   "a": true,
+                  "bf": [
+                    "amendment_reason",
+                    "requested_changes"
+                  ],
                   "co": {
                     "id": "POST /policies/{policy_id}/policy_amendment_intents",
                     "source": "openapi3",
@@ -9189,7 +9730,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9211,14 +9752,17 @@
                   "o": "/policies/{policy_id}/policy_amendment_intents",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "policy_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -9255,7 +9799,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9303,17 +9847,17 @@
                   "o": "/policies/{policy_id}/policy_amendment_intents",
                   "q": {
                     "exist": [
-                      "id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "policy_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -9350,7 +9894,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9382,14 +9926,17 @@
                   "q": {
                     "exist": [
                       "id",
-                      "policy_id",
-                      "x_platform_id"
+                      "policy_id"
                     ]
                   },
                   "r": {
                     "param": {
                       "policy_amendment_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -9431,6 +9978,18 @@
               "a": true,
               "h": "Associated Persons",
               "n": "associated_persons",
+              "op": {
+                "create": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$ARRAY`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
               "sh": "List of associated persons linked to this policy import.",
               "t": "`$ARRAY`"
@@ -9514,7 +10073,7 @@
               "n": "status",
               "r": true,
               "sh": "Current status of the policy import intent.",
-              "t": "`$ANY`"
+              "t": "`$STRING`"
             }
           },
           "id": {
@@ -9529,6 +10088,15 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "associated_persons",
+                    "employee_id",
+                    "group_id",
+                    "member_number",
+                    "policy_end_date",
+                    "policy_start_date",
+                    "provider_policy_number"
+                  ],
                   "co": {
                     "id": "POST /policy_import_intents",
                     "source": "openapi3",
@@ -9540,7 +10108,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9549,12 +10117,12 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/policy_import_intents",
-                  "q": {
-                    "exist": [
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "policy_import_intents"
@@ -9584,7 +10152,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9637,17 +10205,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/policy_import_intents",
-                  "q": {
-                    "exist": [
-                      "employee_id",
-                      "group_id",
-                      "page",
-                      "page_size",
-                      "status",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "policy_import_intents"
@@ -9677,7 +10240,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9699,14 +10262,17 @@
                   "o": "/policy_import_intents/{policy_import_intent_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "policy_import_intent_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -9851,7 +10417,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9886,15 +10452,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/providers",
-                  "q": {
-                    "exist": [
-                      "country",
-                      "page",
-                      "page_size",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "providers"
@@ -9924,7 +10487,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -9946,14 +10509,17 @@
                   "o": "/providers/{provider_id}",
                   "q": {
                     "exist": [
-                      "id",
-                      "x_platform_id"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "provider_id": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -10030,132 +10596,6 @@
           },
           "name": "webhook_endpoint",
           "op": {
-            "load": {
-              "input": "data",
-              "name": "load",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /webhooks/endpoints/{webhook_endpoint_id}",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "header": [
-                      {
-                        "a": true,
-                        "k": "header",
-                        "n": "x_platform_id",
-                        "or": "x_platform_id",
-                        "r": false,
-                        "t": "`$STRING`"
-                      }
-                    ],
-                    "params": [
-                      {
-                        "a": true,
-                        "ex": "whe_3b1333d87d9d4fd6ad83ba7f6b0e951a",
-                        "k": "param",
-                        "n": "id",
-                        "or": "webhook_endpoint_id",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/webhooks/endpoints/{webhook_endpoint_id}",
-                  "q": {
-                    "exist": [
-                      "id",
-                      "x_platform_id"
-                    ]
-                  },
-                  "r": {
-                    "param": {
-                      "webhook_endpoint_id": "id"
-                    }
-                  },
-                  "s": [
-                    {
-                      "lit": "webhooks"
-                    },
-                    {
-                      "lit": "endpoints"
-                    },
-                    {
-                      "var": "id"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            }
-          },
-          "relations": {
-            "ancestors": []
-          }
-        },
-        "webhook_endpoint_response_paged_list": {
-          "active": true,
-          "alias": {
-            "field": {}
-          },
-          "fields": {
-            "created_at": {
-              "a": true,
-              "fo": "date-time",
-              "h": "Created At",
-              "n": "created_at",
-              "r": true,
-              "sh": "The date and time the endpoint was created",
-              "t": "`$STRING`"
-            },
-            "endpoint_url": {
-              "a": true,
-              "h": "Endpoint Url",
-              "n": "endpoint_url",
-              "r": true,
-              "sh": "The registered URL of the endpoint",
-              "t": "`$STRING`"
-            },
-            "id": {
-              "a": true,
-              "h": "Id",
-              "n": "id",
-              "r": true,
-              "sh": "The unique identifier of the endpoint",
-              "t": "`$STRING`"
-            },
-            "object": {
-              "a": true,
-              "h": "Object",
-              "n": "object",
-              "r": false,
-              "ro": true,
-              "sh": "The object type",
-              "t": "`$STRING`"
-            },
-            "subscribed_events": {
-              "a": true,
-              "h": "Subscribed Events",
-              "n": "subscribed_events",
-              "r": true,
-              "sh": "The events the endpoint is subscribed to",
-              "t": "`$ARRAY`"
-            }
-          },
-          "id": {
-            "field": "id",
-            "name": "id"
-          },
-          "name": "webhook_endpoint_response_paged_list",
-          "op": {
             "list": {
               "input": "data",
               "name": "list",
@@ -10173,7 +10613,7 @@
                         "a": true,
                         "k": "header",
                         "n": "x_platform_id",
-                        "or": "x_platform_id",
+                        "or": "X-Platform-Id",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -10200,14 +10640,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/webhooks/endpoints",
-                  "q": {
-                    "exist": [
-                      "page",
-                      "page_size",
-                      "x_platform_id"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "webhooks"
@@ -10219,6 +10657,75 @@
                   "t": {
                     "req": "`reqdata`",
                     "res": "`body.items`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /webhooks/endpoints/{webhook_endpoint_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "header": [
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "x_platform_id",
+                        "or": "X-Platform-Id",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "whe_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "id",
+                        "or": "webhook_endpoint_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/webhooks/endpoints/{webhook_endpoint_id}",
+                  "q": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "webhook_endpoint_id": "id"
+                    }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "webhooks"
+                    },
+                    {
+                      "lit": "endpoints"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
                   }
                 }
               ]
@@ -10981,6 +11488,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -12726,6 +13234,22 @@
             {
               "a": true,
               "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "webhook_endpoint_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {},
               "i": {
                 "ref": "webhook_endpoint_ref01",
                 "srcdatavar": "webhook_endpoint_ref01_data",
@@ -12741,32 +13265,6 @@
                   "apply": "TextFieldMark",
                   "def": {
                     "mark": "Mark01-webhook_endpoint_ref01"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "BasicWebhookEndpointResponsePagedListFlow": {
-          "active": true,
-          "entity": "webhook_endpoint_response_paged_list",
-          "key$": "BasicWebhookEndpointResponsePagedListFlow",
-          "kind": "basic",
-          "name": "BasicWebhookEndpointResponsePagedListFlow",
-          "param": {},
-          "step": [
-            {
-              "a": true,
-              "d": {},
-              "i": {},
-              "m": {},
-              "o": "list",
-              "s": [],
-              "v": [
-                {
-                  "apply": "ItemExists",
-                  "def": {
-                    "ref": "webhook_endpoint_response_paged_list_ref01"
                   }
                 }
               ]
@@ -12803,7 +13301,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -12814,7 +13312,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {
@@ -12851,6 +13354,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -13081,7 +13589,10 @@
             "version": "0.1.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "js": {
           "active": true,
@@ -13457,6 +13968,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

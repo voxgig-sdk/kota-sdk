@@ -14,9 +14,16 @@ predictable and low-friction for both humans and AI agents.
 
 
 ## Install
-```js
-npm install kota
+This package is not yet published to npm. Install it from the GitHub
+release tag (`js/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/kota-sdk/tags)), or from a
+clone:
+
+```bash
+git clone https://github.com/voxgig-sdk/kota-sdk
+npm install ./kota-sdk/js
 ```
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -37,7 +44,7 @@ const client = new KotaSDK({
 
 ```js
 const associated_person = await client.AssociatedPerson().load({ id: 'associated_person_id', employee_id: 'example_employee_id' })
-console.log(associated_person)
+console.log(associated_person.data())
 ```
 
 ### List AssociatedPerson Records
@@ -45,7 +52,7 @@ console.log(associated_person)
 ```js
 const associated_persons = await client.AssociatedPerson().list({ employee_id: "example" })
 for (const associated_person of associated_persons) {
-  console.log(associated_person)
+  console.log(associated_person.data())
 }
 ```
 
@@ -61,7 +68,7 @@ const created = await client.AssociatedPerson().create({
   relationship_type: 'example_relationship_type',
   sex_at_birth: 'example_sex_at_birth',
 })
-console.log(created)
+console.log(created.data())
 ```
 
 ### Update a AssociatedPerson
@@ -72,7 +79,7 @@ const updated = await client.AssociatedPerson().update({
   employee_id: 'example_employee_id',
   date_of_birth: 'example_date_of_birth',
 })
-console.log(updated)
+console.log(updated.data())
 ```
 
 ### Remove a AssociatedPerson
@@ -104,15 +111,16 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: "example_id" })
-  console.log(dependentsmanagementintent)
+  const groupquoteintents = await client.GroupQuoteIntent().list()
+  console.log(groupquoteintents.map((item) => item.data()))
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -121,8 +129,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -140,9 +148,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -171,10 +176,9 @@ Create a mock client for unit testing — no server required:
 ```js
 const client = KotaSDK.test()
 
-const dependentsmanagementintent = await client.DependentsManagementIntent().load({ id: 'test01' })
-// dependentsmanagementintent is the entity, populated with mock response data
-// — call dependentsmanagementintent.data() for the record itself
-console.log(dependentsmanagementintent)
+const groupquoteintents = await client.GroupQuoteIntent().list()
+// groupquoteintents is an array of GroupQuoteIntent entities, one per mock record
+console.log(groupquoteintents.map((groupquoteintent) => groupquoteintent.data()))
 ```
 
 You can also use the instance method:
@@ -189,10 +193,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```js
-const entity = client.DependentsManagementIntent()
+const entity = client.GroupQuoteIntent()
 
 // First call runs the operation and stores its result
-await entity.load({ id: 'example' })
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -302,7 +306,6 @@ new KotaSDK(options?)
 | `PolicyImportIntent(data?)` | `PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider(data?)` | `ProviderEntity` | Create a Provider entity instance. |
 | `WebhookEndpoint(data?)` | `WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
-| `WebhookEndpointResponsePagedList(data?)` | `WebhookEndpointResponsePagedListEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 | `tester(testopts?, sdkopts?)` | `KotaSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -319,11 +322,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria, and return it. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria, one per record. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity, and return it. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity, and return it. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<Entity>` | Remove an entity, and return it marked as deleted. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -332,13 +335,13 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
 - `load`, `create` and `update` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `undefined`.
+- `remove` resolves to the entity, marked as deleted.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -466,6 +469,8 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
 | `link` |  |
 
@@ -477,7 +482,10 @@ API path: `/hosted/sessions`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` |  |
 
 Operations: create.
@@ -489,7 +497,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the action required from the caller. |
+| `associated_person_ids` | List of associated person IDs to add as dependents. |
 | `coverage_options` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | Optional coverage selections per dependent. |
 | `dependents` | List of dependents being managed. |
 | `disclosures` | Disclosures associated with this intent. |
 | `id` | Unique identifier for the dependents management intent. |
@@ -527,6 +537,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | Field | Description |
 | --- | --- |
 | `eligibility_status` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | The employee to check eligibility for. |
 | `object` | The object type. |
 | `plan` | The insurance plan associated with the group. |
 | `provider` | The insurance provider associated with the group. |
@@ -654,15 +665,15 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 | Field | Description |
 | --- | --- |
 | `contact` |  |
-| `earliest_benefits_start_date` |  |
+| `earliest_benefits_start_date` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` |  |
-| `legal_address` |  |
-| `legal_name` |  |
+| `legal_address` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | Legal name of the company. |
 | `metadata` | Set of key-value pairs that you can attach to an object. |
 | `object` | The object type |
 | `offboard_on` |  |
 | `platform_id` |  |
-| `registration_number` |  |
+| `registration_number` | Company registration number. |
 | `status` |  |
 
 Operations: create, list, load, update.
@@ -748,8 +759,11 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `disclosures` | Disclosures associated with this intent. |
 | `employee_id` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | Identifier for the group associated with this enrolment intent. |
 | `id` | Unique identifier for the enrolment intent. |
@@ -782,10 +796,7 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
-| `options` |  |
-| `parent` |  |
 | `platform_id` |  |
-| `root` |  |
 | `type` |  |
 
 Operations: create, list, load.
@@ -816,8 +827,10 @@ API path: `/groups`
 
 | Field | Description |
 | --- | --- |
+| `create_enrolment_intents` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `eligibility_status` | Eligibility status for the employee in this group. |
+| `employee_id` | Employee Id |
 | `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `enrolment_status` | Enrolment status for the employee in this group. |
 | `enrolments` | List of enrolments associated with the employee in this group. |
@@ -825,6 +838,7 @@ API path: `/groups`
 | `id` | Unique identifier for the employee. |
 | `object` | The object type |
 | `policies` | List of policies associated with the employee in this group. |
+| `policy_configuration` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
 
 Operations: create.
@@ -868,6 +882,7 @@ API path: `/group_policies`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | Cost sharing configuration for the policy intent |
 | `disclosures` | Disclosures associated with this intent. |
 | `due_date` | Due date for the policy intent |
@@ -896,11 +911,15 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `family_type` | Type of the family covered by the employer. |
-| `member_count` | Numbers of additional members covered by the employer. |
-| `member_selection` | Whether specific member types are covered by the employer. |
-| `percentage` | Percentage of the premium the employer covers. |
-| `type` | Cost sharing type. |
+| `cost_sharing` | Cost sharing configuration for the quote |
+| `currency` | Currency of the premium (e.g. |
+| `employee_count` | Number of employees covered by the quote |
+| `expires_at` | When the quote expires |
+| `generated_at` | When the quote was generated |
+| `object` | Object type identifier |
+| `pdf_expires_at` | When the PDF URL expires |
+| `pdf_url` | URL to download the quote PDF |
+| `total_monthly_premium` | Total monthly premium for the group |
 
 Operations: load.
 
@@ -913,6 +932,7 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | `action_required` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | Consent links that need to be acknowledged |
 | `cost_sharing` | Cost sharing configuration for the quote |
+| `coverage_selections` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | Disclosures associated with this intent. |
 | `expected_start_date` | Expected start date for the insurance coverage |
 | `group_id` | Unique identifier for the group |
@@ -1053,21 +1073,7 @@ API path: `/providers`
 | `object` | The object type |
 | `subscribed_events` | The events the endpoint is subscribed to |
 
-Operations: load.
-
-API path: `/webhooks/endpoints/{webhook_endpoint_id}`
-
-#### WebhookEndpointResponsePagedList
-
-| Field | Description |
-| --- | --- |
-| `created_at` | The date and time the endpoint was created |
-| `endpoint_url` | The registered URL of the endpoint |
-| `id` | The unique identifier of the endpoint |
-| `object` | The object type |
-| `subscribed_events` | The events the endpoint is subscribed to |
-
-Operations: list.
+Operations: list, load.
 
 API path: `/webhooks/endpoints`
 
@@ -1103,8 +1109,8 @@ Create an instance: `const associated_person = client.AssociatedPerson()`
 | `object` | `string` | The object type |
 | `phone_number` | `null|string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `relationship_type` | `*` | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `*` | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | The sex assigned to the associated person at birth |
 
 #### Example: Load
 
@@ -1149,13 +1155,13 @@ Create an instance: `const associated_person_eligibility_response_paged_list = c
 | --- | --- | --- |
 | `associated_person_id` | `string` | The associated person ID. |
 | `date_of_birth` | `string` | Date of birth of the associated person. |
-| `eligibility_status` | `*` | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Eligibility status for the policy/plan. |
 | `first_name` | `string` | First name of the associated person. |
 | `ineligibility_reason` | `null|string` | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Last name of the associated person. |
 | `object` | `string` | The object type |
-| `relationship` | `*` | Relationship type to the employee. |
-| `sex_at_birth` | `*` | Sex at birth of the associated person. |
+| `relationship` | `string` | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Sex at birth of the associated person. |
 
 #### Example: List
 
@@ -1188,7 +1194,7 @@ Create an instance: `const contribution_report = client.ContributionReport()`
 | `last_updated_at` | `string` | Date and time of the last update to the report |
 | `object` | `string` | The object type |
 | `period` | `*` | Period covered by the contribution report |
-| `status` | `*` | Current status of the contribution report |
+| `status` | `string` | Current status of the contribution report |
 
 #### Example: Load
 
@@ -1232,7 +1238,7 @@ Create an instance: `const contribution_report_employee_breakdown = client.Contr
 | --- | --- | --- |
 | `contribution_report_id` | `string` | Unique identifier of the related contribution report |
 | `created_at` | `string` | Date and time the breakdown was created |
-| `currency` | `*` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `null|string` | Unique identifier of the customer for which the breakdown is created. |
@@ -1242,7 +1248,7 @@ Create an instance: `const contribution_report_employee_breakdown = client.Contr
 | `last_updated_at` | `string` | Date and time of the last update to the breakdown |
 | `object` | `string` | The object type |
 | `period` | `*` | Period covered by the employee breakdown |
-| `status` | `*` | Current status of the breakdown |
+| `status` | `string` | Current status of the breakdown |
 
 #### Example: Load
 
@@ -1288,6 +1294,8 @@ Create an instance: `const create_hosted_session_token = client.CreateHostedSess
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `string` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
 | `link` | `string` |  |
 
@@ -1295,6 +1303,8 @@ Create an instance: `const create_hosted_session_token = client.CreateHostedSess
 
 ```ts
 const create_hosted_session_token = await client.CreateHostedSessionToken().create({
+  employee_id: 'example_employee_id',
+  employer_id: 'example_employer_id',
   expiry: 'example_expiry',
   link: 'example_link',
 })
@@ -1315,13 +1325,17 @@ Create an instance: `const create_session_token = client.CreateSessionToken()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `null|string` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
+| `external_customer_id` | `null|string` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const create_session_token = await client.CreateSessionToken().create({
+  employer_id: 'example_employer_id',
   expiry: 'example_expiry',
   token: 'example_token',
 })
@@ -1344,21 +1358,24 @@ Create an instance: `const dependent = client.Dependent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` | Details of the action required from the caller. |
+| `associated_person_ids` | `Array` | List of associated person IDs to add as dependents. |
 | `coverage_options` | `null|Array` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `null|Array` | Optional coverage selections per dependent. |
 | `dependents` | `Array` | List of dependents being managed. |
 | `disclosures` | `Array` | Disclosures associated with this intent. |
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `*` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `*` | Plan information including pricing details. |
-| `status` | `*` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Create
 
 ```ts
 const dependent = await client.Dependent().create({
   dependents_management_intent_id: 'example_dependents_management_intent_id',
+  associated_person_ids: [],
   dependents: [],
   disclosures: [],
   id: 'example_id',
@@ -1392,9 +1409,9 @@ Create an instance: `const dependents_management_intent = client.DependentsManag
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `*` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `*` | Plan information including pricing details. |
-| `status` | `*` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Load
 
@@ -1432,7 +1449,8 @@ Create an instance: `const eligibility_check = client.EligibilityCheck()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `eligibility_status` | `*` | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | The employee to check eligibility for. |
 | `object` | `string` | The object type. |
 | `plan` | `*` | The insurance plan associated with the group. |
 | `provider` | `*` | The insurance provider associated with the group. |
@@ -1444,6 +1462,7 @@ Create an instance: `const eligibility_check = client.EligibilityCheck()`
 const eligibility_check = await client.EligibilityCheck().create({
   group_id: 'example_group_id',
   eligibility_status: 'example_eligibility_status',
+  employee_id: 'example_employee_id',
   plan: 'example_plan',
   provider: 'example_provider',
   reasons: [],
@@ -1485,9 +1504,9 @@ Create an instance: `const employee = client.Employee()`
 | `offboard_on` | `null|string` | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `sex_at_birth` | `*` | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | The sex assigned to the employee at birth |
 | `start_on` | `string` | Employment start date |
-| `status` | `*` | Current status of the employee |
+| `status` | `string` | Current status of the employee |
 
 #### Example: Load
 
@@ -1537,7 +1556,7 @@ Create an instance: `const employee_health_insurance_offer = client.EmployeeHeal
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `null` | Required action to progress the offer, if any. |
-| `status` | `*` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: Load
 
@@ -1567,7 +1586,7 @@ Create an instance: `const employee_health_insurance_offer_response_paged_list =
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `null` | Required action to progress the offer, if any. |
-| `status` | `*` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: List
 
@@ -1596,7 +1615,7 @@ Create an instance: `const employee_health_insurance_policy = client.EmployeeHea
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `*` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `*` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `null|string` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1605,7 +1624,7 @@ Create an instance: `const employee_health_insurance_policy = client.EmployeeHea
 | `policy_number` | `null|string` | Health insurance policy number, if available |
 | `renewal` | `*` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `*` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1634,7 +1653,7 @@ Create an instance: `const employee_health_insurance_policy_response_paged_list 
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `*` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `*` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `null|string` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1643,7 +1662,7 @@ Create an instance: `const employee_health_insurance_policy_response_paged_list 
 | `policy_number` | `null|string` | Health insurance policy number, if available |
 | `renewal` | `*` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `*` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
@@ -1670,16 +1689,16 @@ Create an instance: `const employer = client.Employer()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `contact` | `*` |  |
-| `earliest_benefits_start_date` | `null|string` |  |
+| `earliest_benefits_start_date` | `null|string` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` |  |
-| `legal_address` | `*` |  |
-| `legal_name` | `string` |  |
+| `legal_address` | `*` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Legal name of the company. |
 | `metadata` | `null|Object` | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | The object type |
 | `offboard_on` | `null|string` |  |
 | `platform_id` | `string` |  |
-| `registration_number` | `null|string` |  |
-| `status` | `*` |  |
+| `registration_number` | `null|string` | Company registration number. |
+| `status` | `string` |  |
 
 #### Example: Load
 
@@ -1724,13 +1743,13 @@ Create an instance: `const employer_health_insurance_policy = client.EmployerHea
 | `employer_cancellation_period_length` | `number` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `*` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `null|string` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `*` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `*` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1758,13 +1777,13 @@ Create an instance: `const employer_health_insurance_policy_response_paged_list 
 | `employer_cancellation_period_length` | `number` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `*` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `null|string` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `*` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `*` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
@@ -1793,7 +1812,7 @@ Create an instance: `const employer_health_insurance_quote = client.EmployerHeal
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `null` | Actions required by the employer to proceed with the quote. |
-| `status` | `*` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: Load
 
@@ -1822,7 +1841,7 @@ Create an instance: `const employer_health_insurance_quote_response_paged_list =
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `null` | Actions required by the employer to proceed with the quote. |
-| `status` | `*` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: List
 
@@ -1849,8 +1868,11 @@ Create an instance: `const enrolment_intent = client.EnrolmentIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `null|Array` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `null|string` | The desired date for the employee's policy to start. |
 | `disclosures` | `Array` | Disclosures associated with this intent. |
 | `employee_id` | `string` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `null|string` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `boolean` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Unique identifier for the enrolment intent. |
@@ -1859,7 +1881,7 @@ Create an instance: `const enrolment_intent = client.EnrolmentIntent()`
 | `pending_confirmation` | `null` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `null` | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `Array` | Policy enrolment information |
-| `status` | `*` | Current status of the enrolment intent. |
+| `status` | `string` | Current status of the enrolment intent. |
 
 #### Example: Load
 
@@ -1931,10 +1953,7 @@ Create an instance: `const event = client.Event()`
 | `created` | `string` |  |
 | `data` | `null` |  |
 | `id` | `string` |  |
-| `options` | `null` |  |
-| `parent` | `null` |  |
 | `platform_id` | `string` |  |
-| `root` | `*` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -1981,15 +2000,15 @@ Create an instance: `const group = client.Group()`
 | --- | --- | --- |
 | `description` | `null|string` | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `*` | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `Array` | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `Array` | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `Array` | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `*` | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Indicates how policies are organized for this group. |
 | `id` | `string` | Unique identifier for the `group`. |
 | `name` | `string` | Human-readable name of the `group`. |
 | `object` | `string` | The object type |
-| `status` | `*` | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Current lifecycle state of the `group`, indicating its current progress. |
 
 #### Example: Load
 
@@ -2034,15 +2053,18 @@ Create an instance: `const group_employee = client.GroupEmployee()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `create_enrolment_intents` | `null|boolean` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `null|string` | The desired date for the employee's policy to start. |
-| `eligibility_status` | `*` | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Employee Id |
 | `enrolment_date` | `null|string` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `*` | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Enrolment status for the employee in this group. |
 | `enrolments` | `Array` | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Unique identifier for the group. |
 | `id` | `string` | Unique identifier for the employee. |
 | `object` | `string` | The object type |
 | `policies` | `Array` | List of policies associated with the employee in this group. |
+| `policy_configuration` | `null` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `Array` | List of scheduled group transitions for the employee. |
 
 #### Example: Create
@@ -2051,6 +2073,7 @@ Create an instance: `const group_employee = client.GroupEmployee()`
 const group_employee = await client.GroupEmployee().create({
   id: 'example_id',
   eligibility_status: 'example_eligibility_status',
+  employee_id: 'example_employee_id',
   enrolment_status: 'example_enrolment_status',
   enrolments: [],
   group_id: 'example_group_id',
@@ -2109,8 +2132,8 @@ Create an instance: `const group_policy = client.GroupPolicy()`
 | `plan` | `*` | Plan information for this policy |
 | `provider` | `*` | Provider information for this policy. |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `*` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `*` | Policy type. |
+| `status` | `string` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2142,6 +2165,7 @@ Create an instance: `const group_policy_intent = client.GroupPolicyIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `null|Array` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `null` | Cost sharing configuration for the policy intent |
 | `disclosures` | `Array` | Disclosures associated with this intent. |
 | `due_date` | `null|string` | Due date for the policy intent |
@@ -2150,7 +2174,7 @@ Create an instance: `const group_policy_intent = client.GroupPolicyIntent()`
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `*` | Current status of the group policy intent |
+| `status` | `string` | Current status of the group policy intent |
 
 #### Example: Load
 
@@ -2215,11 +2239,15 @@ Create an instance: `const group_quote = client.GroupQuote()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `family_type` | `null` | Type of the family covered by the employer. |
-| `member_count` | `null` | Numbers of additional members covered by the employer. |
-| `member_selection` | `null` | Whether specific member types are covered by the employer. |
-| `percentage` | `null` | Percentage of the premium the employer covers. |
-| `type` | `*` | Cost sharing type. |
+| `cost_sharing` | `*` | Cost sharing configuration for the quote |
+| `currency` | `string` | Currency of the premium (e.g. |
+| `employee_count` | `number` | Number of employees covered by the quote |
+| `expires_at` | `string` | When the quote expires |
+| `generated_at` | `string` | When the quote was generated |
+| `object` | `string` | Object type identifier |
+| `pdf_expires_at` | `null|string` | When the PDF URL expires |
+| `pdf_url` | `null|string` | URL to download the quote PDF |
+| `total_monthly_premium` | `number` | Total monthly premium for the group |
 
 #### Example: Load
 
@@ -2247,13 +2275,14 @@ Create an instance: `const group_quote_intent = client.GroupQuoteIntent()`
 | `action_required` | `null` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `Array` | Consent links that need to be acknowledged |
 | `cost_sharing` | `null` | Cost sharing configuration for the quote |
+| `coverage_selections` | `null|Array` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `Array` | Disclosures associated with this intent. |
 | `expected_start_date` | `null|string` | Expected start date for the insurance coverage |
 | `group_id` | `string` | Unique identifier for the group |
 | `id` | `string` | Unique identifier for the group quote intent |
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
-| `status` | `*` | Current status of the group quote intent |
+| `status` | `string` | Current status of the group quote intent |
 
 #### Example: Load
 
@@ -2321,7 +2350,7 @@ Create an instance: `const plan = client.Plan()`
 | --- | --- | --- |
 | `available_from` | `string` | The date from which this plan is available (inclusive). |
 | `available_to` | `null|string` | The date until which this plan is available (inclusive). |
-| `country` | `*` | The country this plan is available in. |
+| `country` | `string` | The country this plan is available in. |
 | `coverage_options` | `null|Array` | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Description of the plan. |
 | `disclosures` | `Array` | Disclosures associated with this plan. |
@@ -2336,7 +2365,7 @@ Create an instance: `const plan = client.Plan()`
 | `object` | `string` | Object type. |
 | `provider` | `*` | The provider offering this plan. |
 | `total_count` | `null|number` | Total employees in the queried group. |
-| `type` | `*` | The benefit type of the plan. |
+| `type` | `string` | The benefit type of the plan. |
 
 #### Example: Load
 
@@ -2366,7 +2395,7 @@ Create an instance: `const policy = client.Policy()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bundling_type` | `*` | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `null|string` | Date the policy was cancelled (if applicable) |
 | `disclosures` | `Array` | Disclosures associated with this policy. |
 | `employee_id` | `string` | Identifier of the employee associated with this policy. |
@@ -2379,8 +2408,8 @@ Create an instance: `const policy = client.Policy()`
 | `plan` | `*` | Plan information for this policy |
 | `provider` | `*` | Provider information for this policy |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `*` | Current lifecycle state of the policy |
-| `type` | `*` | Policy type. |
+| `status` | `string` | Current lifecycle state of the policy |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2420,7 +2449,7 @@ Create an instance: `const policy_amendment_intent = client.PolicyAmendmentInten
 | `processing_error` | `null` | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `Array` | List of requested changes to the policy. |
 | `required_action` | `null` | Information about the required action if the intent status is `action_required`. |
-| `status` | `*` | Current status of the policy amendment intent. |
+| `status` | `string` | Current status of the policy amendment intent. |
 
 #### Example: Load
 
@@ -2431,7 +2460,7 @@ const policy_amendment_intent = await client.PolicyAmendmentIntent().load({ id: 
 #### Example: List
 
 ```ts
-const policy_amendment_intents = await client.PolicyAmendmentIntent().list({ id: "example_id" })
+const policy_amendment_intents = await client.PolicyAmendmentIntent().list({ id: "example" })
 ```
 
 #### Example: Create
@@ -2473,7 +2502,7 @@ Create an instance: `const policy_import_intent = client.PolicyImportIntent()`
 | `policy_end_date` | `null|string` | The end date of the policy. |
 | `policy_start_date` | `string` | The start date of the policy. |
 | `provider_policy_number` | `string` | The provider's policy number. |
-| `status` | `*` | Current status of the policy import intent. |
+| `status` | `string` | Current status of the policy import intent. |
 
 #### Example: Load
 
@@ -2550,6 +2579,7 @@ Create an instance: `const webhook_endpoint = client.WebhookEndpoint()`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -2568,31 +2598,10 @@ Create an instance: `const webhook_endpoint = client.WebhookEndpoint()`
 const webhook_endpoint = await client.WebhookEndpoint().load({ id: 'webhook_endpoint_id' })
 ```
 
-
-### WebhookEndpointResponsePagedList
-
-Create an instance: `const webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePagedList()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `string` | The date and time the endpoint was created |
-| `endpoint_url` | `string` | The registered URL of the endpoint |
-| `id` | `string` | The unique identifier of the endpoint |
-| `object` | `string` | The object type |
-| `subscribed_events` | `Array` | The events the endpoint is subscribed to |
-
 #### Example: List
 
 ```ts
-const webhook_endpoint_response_paged_lists = await client.WebhookEndpointResponsePagedList().list()
+const webhook_endpoints = await client.WebhookEndpoint().list()
 ```
 
 ## Features
@@ -2802,16 +2811,16 @@ const { KotaSDK } = require('@voxgig-sdk/kota-sdk-js')
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const dependentsmanagementintent = client.DependentsManagementIntent()
-await dependentsmanagementintent.load({ id: "example_id" })
+const groupquoteintent = client.GroupQuoteIntent()
+await groupquoteintent.list()
 
-// dependentsmanagementintent.data() now returns the dependentsmanagementintent data from the last `load`
-// dependentsmanagementintent.match() returns { id: "example_id" }
+// groupquoteintent.data() now returns the groupquoteintent data from the last `list`
+// groupquoteintent.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

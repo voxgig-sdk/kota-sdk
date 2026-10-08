@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/kota-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const policy_amendment_intentEntityLiveStrict = true
+
+
 func TestPolicyAmendmentIntentEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,55 +31,21 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 		}
 	})
 
-	// Feature #4: the entity Stream(action, ...) method runs the op pipeline and
-	// returns a channel over result items. With the streaming feature active it
-	// yields the feature's incremental output; otherwise it falls back to the
-	// materialised list so Stream always yields.
-	t.Run("stream", func(t *testing.T) {
-		seed := map[string]any{
-			"entity": map[string]any{
-				"policy_amendment_intent": map[string]any{
-					"s1": map[string]any{"id": "s1"},
-					"s2": map[string]any{"id": "s2"},
-					"s3": map[string]any{"id": "s3"},
-				},
-			},
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
 		}
-
-		// Fallback: streaming inactive -> yields the materialised list items.
-		base := sdk.TestSDK(seed, nil)
-		var seen []any
-		for item := range base.PolicyAmendmentIntent(nil).Stream("list", nil, nil) {
-			seen = append(seen, item)
-		}
-		if len(seen) != 3 {
-			t.Fatalf("expected 3 streamed items, got %d", len(seen))
-		}
-
-		// Inbound: streaming active -> yields each item from the feature iterator.
-		hasStreaming := false
-		if fm, ok := core.SharedConfig()["feature"].(map[string]any); ok {
-			_, hasStreaming = fm["streaming"]
-		}
-		if hasStreaming {
-			streamSdk := sdk.TestSDK(seed, map[string]any{
-				"feature": map[string]any{"streaming": map[string]any{"active": true}},
-			})
-			var got []any
-			for item := range streamSdk.PolicyAmendmentIntent(nil).Stream("list", nil, nil) {
-				if sub, ok := item.([]any); ok {
-					got = append(got, sub...)
-				} else {
-					got = append(got, item)
-				}
-			}
-			if len(got) != 3 {
-				t.Fatalf("expected 3 items via streaming feature, got %d", len(got))
-			}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.PolicyAmendmentIntent(nil).List(map[string]any{"id": 1}, nil)
+		if sdkerr, ok := err.(*core.KotaError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := policy_amendment_intentBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -80,7 +53,7 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "policy_amendment_intent." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -89,52 +62,23 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set KOTA_TEST_POLICY_AMENDMENT_INTENT_ENTID JSON to run live")
-			return
+		if setup.live {
+			liveMiss(t, policy_amendment_intentEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a policy_amendment_intent record it has no list to find")
 		}
 		client := setup.client
 
-		// CREATE
-		policyAmendmentIntentRef01Ent := client.PolicyAmendmentIntent(nil)
-		policyAmendmentIntentRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath(setup.data, []any{"new", "policy_amendment_intent"}), "policy_amendment_intent_ref01"))
-		policyAmendmentIntentRef01Data["policy_id"] = setup.idmap["policy01"]
-
-		policyAmendmentIntentRef01DataResult, err := policyAmendmentIntentRef01Ent.Create(policyAmendmentIntentRef01Data, nil)
-		if err != nil {
-			t.Fatalf("create failed: %v", err)
+		// Bootstrap entity data from existing test data (no create step in flow).
+		policyAmendmentIntentRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.policy_amendment_intent")))
+		var policyAmendmentIntentRef01Data map[string]any
+		if len(policyAmendmentIntentRef01DataRaw) > 0 {
+			policyAmendmentIntentRef01Data = core.ToMapAny(policyAmendmentIntentRef01DataRaw[0][1])
 		}
-		policyAmendmentIntentRef01Data = core.ToMapAny(entityData(policyAmendmentIntentRef01DataResult))
-		if policyAmendmentIntentRef01Data == nil {
-			t.Fatal("expected create result to be a map")
-		}
-		if policyAmendmentIntentRef01Data["id"] == nil {
-			t.Fatal("expected created entity to have an id")
-		}
-
-		// LIST
-		policyAmendmentIntentRef01Match := map[string]any{
-			"policy_id": setup.idmap["policy01"],
-		}
-
-		policyAmendmentIntentRef01ListResult, err := policyAmendmentIntentRef01Ent.List(policyAmendmentIntentRef01Match, nil)
-		if err != nil {
-			t.Fatalf("list failed: %v", err)
-		}
-		policyAmendmentIntentRef01List, policyAmendmentIntentRef01ListOk := policyAmendmentIntentRef01ListResult.([]any)
-		if !policyAmendmentIntentRef01ListOk {
-			t.Fatalf("expected list result to be an array, got %T", policyAmendmentIntentRef01ListResult)
-		}
-
-		foundItem := vs.Select(entityListToData(policyAmendmentIntentRef01List), map[string]any{"id": policyAmendmentIntentRef01Data["id"]})
-		if vs.IsEmpty(foundItem) {
-			t.Fatal("expected to find created entity in list")
-		}
+		// Discard guards against Go's unused-var check when the flow's steps
+		// happen not to consume the bootstrap data (e.g. list-only flows).
+		_ = policyAmendmentIntentRef01Data
 
 		// LOAD
+		policyAmendmentIntentRef01Ent := client.PolicyAmendmentIntent(nil)
 		policyAmendmentIntentRef01MatchDt0 := map[string]any{
 			"id": policyAmendmentIntentRef01Data["id"],
 		}
@@ -187,9 +131,8 @@ func policy_amendment_intentBasicSetup(extra map[string]any) *entityTestSetup {
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("KOTA_TEST_POLICY_AMENDMENT_INTENT_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

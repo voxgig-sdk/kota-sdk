@@ -111,7 +111,7 @@ main: kit: entity: provider: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -142,13 +142,9 @@ main: kit: entity: provider: {
           }
           m: "GET"
           o: "/providers"
-          q: {
-            exist: [
-              "country"
-              "page"
-              "page_size"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -176,7 +172,7 @@ main: kit: entity: provider: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -197,13 +193,16 @@ main: kit: entity: provider: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               provider_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

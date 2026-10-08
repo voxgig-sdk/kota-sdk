@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/kota-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const enrolment_intent_requirement_response_paged_listEntityLiveStrict = true
+
+
 func TestEnrolmentIntentRequirementResponsePagedListEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,55 +31,21 @@ func TestEnrolmentIntentRequirementResponsePagedListEntity(t *testing.T) {
 		}
 	})
 
-	// Feature #4: the entity Stream(action, ...) method runs the op pipeline and
-	// returns a channel over result items. With the streaming feature active it
-	// yields the feature's incremental output; otherwise it falls back to the
-	// materialised list so Stream always yields.
-	t.Run("stream", func(t *testing.T) {
-		seed := map[string]any{
-			"entity": map[string]any{
-				"enrolment_intent_requirement_response_paged_list": map[string]any{
-					"s1": map[string]any{"id": "s1"},
-					"s2": map[string]any{"id": "s2"},
-					"s3": map[string]any{"id": "s3"},
-				},
-			},
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
 		}
-
-		// Fallback: streaming inactive -> yields the materialised list items.
-		base := sdk.TestSDK(seed, nil)
-		var seen []any
-		for item := range base.EnrolmentIntentRequirementResponsePagedList(nil).Stream("list", nil, nil) {
-			seen = append(seen, item)
-		}
-		if len(seen) != 3 {
-			t.Fatalf("expected 3 streamed items, got %d", len(seen))
-		}
-
-		// Inbound: streaming active -> yields each item from the feature iterator.
-		hasStreaming := false
-		if fm, ok := core.SharedConfig()["feature"].(map[string]any); ok {
-			_, hasStreaming = fm["streaming"]
-		}
-		if hasStreaming {
-			streamSdk := sdk.TestSDK(seed, map[string]any{
-				"feature": map[string]any{"streaming": map[string]any{"active": true}},
-			})
-			var got []any
-			for item := range streamSdk.EnrolmentIntentRequirementResponsePagedList(nil).Stream("list", nil, nil) {
-				if sub, ok := item.([]any); ok {
-					got = append(got, sub...)
-				} else {
-					got = append(got, item)
-				}
-			}
-			if len(got) != 3 {
-				t.Fatalf("expected 3 items via streaming feature, got %d", len(got))
-			}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.EnrolmentIntentRequirementResponsePagedList(nil).List(map[string]any{"id": 1}, nil)
+		if sdkerr, ok := err.(*core.KotaError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := enrolment_intent_requirement_response_paged_listBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -80,7 +53,7 @@ func TestEnrolmentIntentRequirementResponsePagedListEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list"} {
+		for _, _op := range []string{} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "enrolment_intent_requirement_response_paged_list." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -89,14 +62,6 @@ func TestEnrolmentIntentRequirementResponsePagedListEntity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set KOTA_TEST_ENROLMENT_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST_ENTID JSON to run live")
-			return
-		}
-		client := setup.client
-
 		// Bootstrap entity data from existing test data (no create step in flow).
 		enrolmentIntentRequirementResponsePagedListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.enrolment_intent_requirement_response_paged_list")))
 		var enrolmentIntentRequirementResponsePagedListRef01Data map[string]any
@@ -106,21 +71,6 @@ func TestEnrolmentIntentRequirementResponsePagedListEntity(t *testing.T) {
 		// Discard guards against Go's unused-var check when the flow's steps
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = enrolmentIntentRequirementResponsePagedListRef01Data
-
-		// LIST
-		enrolmentIntentRequirementResponsePagedListRef01Ent := client.EnrolmentIntentRequirementResponsePagedList(nil)
-		enrolmentIntentRequirementResponsePagedListRef01Match := map[string]any{
-			"enrolment_intent_id": setup.idmap["enrolment_intent01"],
-		}
-
-		enrolmentIntentRequirementResponsePagedListRef01ListResult, err := enrolmentIntentRequirementResponsePagedListRef01Ent.List(enrolmentIntentRequirementResponsePagedListRef01Match, nil)
-		if err != nil {
-			t.Fatalf("list failed: %v", err)
-		}
-		_, enrolmentIntentRequirementResponsePagedListRef01ListOk := enrolmentIntentRequirementResponsePagedListRef01ListResult.([]any)
-		if !enrolmentIntentRequirementResponsePagedListRef01ListOk {
-			t.Fatalf("expected list result to be an array, got %T", enrolmentIntentRequirementResponsePagedListRef01ListResult)
-		}
 
 	})
 }
@@ -150,7 +100,7 @@ func enrolment_intent_requirement_response_paged_listBasicSetup(extra map[string
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"enrolment_intent_requirement_response_paged_list01", "enrolment_intent_requirement_response_paged_list02", "enrolment_intent_requirement_response_paged_list03", "enrolment_intent01"},
+		[]any{"enrolment_intent_requirement_response_paged_list01", "enrolment_intent_requirement_response_paged_list02", "enrolment_intent_requirement_response_paged_list03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
@@ -159,9 +109,8 @@ func enrolment_intent_requirement_response_paged_listBasicSetup(extra map[string
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("KOTA_TEST_ENROLMENT_INTENT_REQUIREMENT_RESPONSE_PAGED_LIST_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

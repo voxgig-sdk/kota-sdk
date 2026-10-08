@@ -5,6 +5,18 @@ main: kit: entity: create_hosted_session_token: {
   alias: field: {}
 
   fields: {
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      t: "`$STRING`"
+    }
+    employer_id: {
+      h: "Employer Id"
+      n: "employer_id"
+      r: true
+      t: "`$STRING`"
+    }
     expiry: {
       fo: "date-time"
       h: "Expiry"
@@ -26,6 +38,10 @@ main: kit: entity: create_hosted_session_token: {
       name: "create"
       points: [
         {
+          bf: [
+            "employee_id"
+            "employer_id"
+          ]
           co: {
             id: "POST /hosted/sessions"
             source: "openapi3"
@@ -33,6 +49,10 @@ main: kit: entity: create_hosted_session_token: {
           }
           m: "POST"
           o: "/hosted/sessions"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "hosted"

@@ -38,4 +38,3 @@
 @"./policy_import_intent.aontu"
 @"./provider.aontu"
 @"./webhook_endpoint.aontu"
-@"./webhook_endpoint_response_paged_list.aontu"

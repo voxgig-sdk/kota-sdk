@@ -4,7 +4,7 @@
 #   guide.aontu
 
 guide: {
-  metrics: count: entity: 39
+  metrics: count: entity: 38
   metrics: count: path: 69
   metrics: count: method: 85
 
@@ -255,7 +255,6 @@ guide: {
     path: "/events/{event_id}": {
       rename: param: "event_id": *"id"
       op: load: method: *GET
-      op: load: transform: res: *("`body.data`")|top
     }
     path: "/events/{event_id}/replay": {
       action: "replay": {}
@@ -328,7 +327,6 @@ guide: {
   entity: group_quote: {
     path: "/group_quote_intents/{group_quote_intent_id}/quote": {
       op: load: method: *GET
-      op: load: transform: res: *("`body.cost_sharing`")|top
     }
   }
 
@@ -426,16 +424,13 @@ guide: {
   }
 
   entity: webhook_endpoint: {
-    path: "/webhooks/endpoints/{webhook_endpoint_id}": {
-      rename: param: "webhook_endpoint_id": *"id"
-      op: load: method: *GET
-    }
-  }
-
-  entity: webhook_endpoint_response_paged_list: {
     path: "/webhooks/endpoints": {
       op: list: method: *GET
       op: list: transform: res: *("`body.items`")|top
+    }
+    path: "/webhooks/endpoints/{webhook_endpoint_id}": {
+      rename: param: "webhook_endpoint_id": *"id"
+      op: load: method: *GET
     }
   }
 

@@ -36,7 +36,6 @@ import { PolicyAmendmentIntentEntity } from './entity/PolicyAmendmentIntentEntit
 import { PolicyImportIntentEntity } from './entity/PolicyImportIntentEntity';
 import { ProviderEntity } from './entity/ProviderEntity';
 import { WebhookEndpointEntity } from './entity/WebhookEndpointEntity';
-import { WebhookEndpointResponsePagedListEntity } from './entity/WebhookEndpointResponsePagedListEntity';
 export type * from './KotaTypes';
 import { inspect } from 'node:util';
 import type { Context, Feature } from './types';
@@ -45,6 +44,19 @@ import { KotaEntityBase } from './KotaEntityBase';
 import { Utility } from './utility/Utility';
 import { BaseFeature } from './feature/base/BaseFeature';
 declare const stdutil: Utility;
+type DirectResult = {
+    ok: false;
+    err: any;
+    status?: undefined;
+    headers?: undefined;
+    data?: undefined;
+} | {
+    ok: boolean;
+    status: number;
+    headers: any;
+    data: any;
+    err?: any;
+};
 declare class KotaSDK {
     _mode: string;
     _options: any;
@@ -55,32 +67,8 @@ declare class KotaSDK {
     options(): any;
     utility(): any;
     prepare(fetchargs?: any): Promise<any>;
-    direct(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    } | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    }>;
-    _rawRequest(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    } | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    }>;
+    direct(fetchargs?: any): Promise<DirectResult>;
+    _rawRequest(fetchargs?: any): Promise<DirectResult>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     AssociatedPerson(entopts?: Record<string, any>): AssociatedPersonEntity;
     AssociatedPersonEligibilityResponsePagedList(entopts?: Record<string, any>): AssociatedPersonEligibilityResponsePagedListEntity;
@@ -120,7 +108,6 @@ declare class KotaSDK {
     PolicyImportIntent(entopts?: Record<string, any>): PolicyImportIntentEntity;
     Provider(entopts?: Record<string, any>): ProviderEntity;
     WebhookEndpoint(entopts?: Record<string, any>): WebhookEndpointEntity;
-    WebhookEndpointResponsePagedList(entopts?: Record<string, any>): WebhookEndpointResponsePagedListEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): KotaSDK;
     tester(testopts?: any, sdkopts?: any): KotaSDK;
     toJSON(): {
@@ -131,3 +118,4 @@ declare class KotaSDK {
 }
 declare const SDK: typeof KotaSDK;
 export { stdutil, config, BaseFeature, KotaEntityBase, KotaSDK, SDK, };
+export type { DirectResult };

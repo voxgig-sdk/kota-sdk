@@ -34,7 +34,7 @@ main: kit: entity: group_employee_response_paged_list: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -79,17 +79,17 @@ main: kit: entity: group_employee_response_paged_list: {
           q: {
             "$action": "employees"
             exist: [
-              "employee_id"
               "id"
-              "page"
-              "page_size"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               group_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

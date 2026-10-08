@@ -61,7 +61,7 @@ main: kit: entity: employee_health_insurance_policy: {
       n: "enrolment_type"
       r: true
       sh: "Enrolment type of the policy"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     estimated_gross_premium: {
       h: "Estimated Gross Premium"
@@ -139,7 +139,7 @@ main: kit: entity: employee_health_insurance_policy: {
       n: "status"
       r: true
       sh: "Current status of policy"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -164,7 +164,7 @@ main: kit: entity: employee_health_insurance_policy: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -194,13 +194,16 @@ main: kit: entity: employee_health_insurance_policy: {
             exist: [
               "employee_id"
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_policy_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

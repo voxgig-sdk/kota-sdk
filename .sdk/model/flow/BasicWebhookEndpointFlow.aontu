@@ -7,6 +7,18 @@ main: kit: flow: BasicWebhookEndpointFlow:
   name: "BasicWebhookEndpointFlow",
   step: [
     {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "webhook_endpoint_ref01"
+          }
+        }
+      ]
+    }
+
+    {
       i: {
         ref: "webhook_endpoint_ref01",
         srcdatavar: "webhook_endpoint_ref01_data",

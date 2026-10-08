@@ -2,55 +2,59 @@
   "existing": {
     "group_policy_intent": {
       "GROUP_POLICY_INTENT00": {
-        "action_required": "s64",
-        "cost_sharing": "s65",
+        "action_required": "s6e",
+        "consent_approvals": "s6f",
+        "cost_sharing": "s70",
         "disclosures": [],
-        "due_date": "s67",
+        "due_date": "s72",
         "group_id": "GROUP01",
         "id": "GROUP_POLICY_INTENT00",
-        "object": "s6a",
+        "object": "s75",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "s6d"
+        "status": "s78"
       },
       "GROUP_POLICY_INTENT01": {
-        "action_required": "sc8",
-        "cost_sharing": "sc9",
+        "action_required": "sdc",
+        "consent_approvals": "sdd",
+        "cost_sharing": "sde",
         "disclosures": [],
-        "due_date": "scb",
+        "due_date": "se0",
         "group_id": "GROUP01",
         "id": "GROUP_POLICY_INTENT01",
-        "object": "sce",
+        "object": "se3",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "sd1"
+        "status": "se6"
       },
       "GROUP_POLICY_INTENT02": {
-        "action_required": "s12c",
-        "cost_sharing": "s12d",
+        "action_required": "s14a",
+        "consent_approvals": "s14b",
+        "cost_sharing": "s14c",
         "disclosures": [],
-        "due_date": "s12f",
+        "due_date": "s14e",
         "group_id": "GROUP01",
         "id": "GROUP_POLICY_INTENT02",
-        "object": "s132",
+        "object": "s151",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "s135"
+        "status": "s154"
       }
     }
   },
   "new": {
     "group_policy_intent": {
       "group_policy_intent_ref01": {
-        "action_required": "s190",
-        "cost_sharing": "s191",
+        "action_required": "s1b8",
+        "consent_approvals": "s1b9",
+        "cost_sharing": "s1ba",
         "disclosures": [],
-        "due_date": "s193",
+        "due_date": "s1bc",
         "group_id": "GROUP01",
-        "object": "s196",
+        "object": "s1bf",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "s199"
+        "status": "s1c2"
       }
     }
   },

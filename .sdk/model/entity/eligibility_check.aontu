@@ -10,7 +10,14 @@ main: kit: entity: eligibility_check: {
       n: "eligibility_status"
       r: true
       sh: "Eligibility status: `eligible` or `ineligible`."
-      t: "`$ANY`"
+      t: "`$STRING`"
+    }
+    employee_id: {
+      h: "Employee Id"
+      n: "employee_id"
+      r: true
+      sh: "The employee to check eligibility for."
+      t: "`$STRING`"
     }
     object: {
       h: "Object"
@@ -49,6 +56,9 @@ main: kit: entity: eligibility_check: {
       name: "create"
       points: [
         {
+          bf: [
+            "employee_id"
+          ]
           co: {
             id: "POST /groups/{group_id}/eligibility_check"
             source: "openapi3"
@@ -59,7 +69,7 @@ main: kit: entity: eligibility_check: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -80,8 +90,11 @@ main: kit: entity: eligibility_check: {
           q: {
             exist: [
               "group_id"
-              "x_platform_id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

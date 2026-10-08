@@ -6,40 +6,59 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	sdk "github.com/voxgig-sdk/kota-sdk/go"
 )
 
-// Args is the common argument shape for both tools. `entity` selects
-// the SDK entity to operate on; `query` is the optional reqmatch /
-// reqdata map passed through to the SDK. For load, `query` should be
-// `{"id": <value>}`. For list, omit `query` or pass an empty map.
-type Args struct {
-	Entity string         `json:"entity" jsonschema:"associated_person | associated_person_eligibility_response_paged_list | contribution_report | contribution_report_employee_breakdown | contribution_report_employee_breakdown_response_paged_list | create_hosted_session_token | create_session_token | dependent | dependents_management_intent | eligibility_check | employee | employee_health_insurance_offer | employee_health_insurance_offer_response_paged_list | employee_health_insurance_policy | employee_health_insurance_policy_response_paged_list | employer | employer_health_insurance_policy | employer_health_insurance_policy_response_paged_list | employer_health_insurance_quote | employer_health_insurance_quote_response_paged_list | enrolment_intent | enrolment_intent_requirement_response_paged_list | event | group | group_employee | group_employee_response_paged_list | group_policy | group_policy_intent | group_policy_intent_requirement_response_paged_list | group_quote | group_quote_intent | group_quote_intent_requirement_response_paged_list | plan | policy | policy_amendment_intent | policy_import_intent | provider | webhook_endpoint | webhook_endpoint_response_paged_list"`
-	Query  map[string]any `json:"query,omitempty" jsonschema:"optional match map e.g. {\"id\":1} for load, omit for list"`
+// ListArgs is what an agent sends to kota_list.
+type ListArgs struct {
+	Entity string         `json:"entity" jsonschema:"one of: associated_person | associated_person_eligibility_response_paged_list | contribution_report | contribution_report_employee_breakdown_response_paged_list | employee | employee_health_insurance_offer_response_paged_list | employee_health_insurance_policy_response_paged_list | employer | employer_health_insurance_policy_response_paged_list | employer_health_insurance_quote_response_paged_list | enrolment_intent | enrolment_intent_requirement_response_paged_list | event | group | group_employee_response_paged_list | group_policy | group_policy_intent | group_policy_intent_requirement_response_paged_list | group_quote_intent | group_quote_intent_requirement_response_paged_list | plan | policy | policy_amendment_intent | policy_import_intent | provider | webhook_endpoint"`
+	Query  map[string]any `json:"query,omitempty" jsonschema:"optional filter map; omit it for the first page"`
+}
+
+// LoadArgs is what an agent sends to kota_load.
+type LoadArgs struct {
+	Entity string         `json:"entity" jsonschema:"one of: associated_person | contribution_report | contribution_report_employee_breakdown | dependents_management_intent | employee | employee_health_insurance_offer | employee_health_insurance_policy | employer | employer_health_insurance_policy | employer_health_insurance_quote | enrolment_intent | event | group | group_policy | group_policy_intent | group_quote | group_quote_intent | plan | policy | policy_amendment_intent | policy_import_intent | provider | webhook_endpoint"`
+	Query  map[string]any `json:"query" jsonschema:"match map naming the record, such as {\"id\":1}"`
 }
 
 func registerTools(server *mcp.Server, client *sdk.KotaSDK) {
 	mcp.AddTool(server, &mcp.Tool{
-		Name: "kota_list",
-		Description: "List records from Kota. " +
-			"Args: entity (one of the supported SDK entities), query (optional filter map). " +
-			"Returns the first page of records as JSON.",
-	}, func(ctx context.Context, req *mcp.CallToolRequest, args Args) (*mcp.CallToolResult, any, error) {
-		return runOp(client, "list", args)
+		Name:        "kota_list",
+		Description: "List records from Kota. Args: entity, query (optional filter map; omit it for the first page). Returns the first page of records as JSON.",
+		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true},
+		InputSchema: entitySchema[ListArgs]("associated_person", "associated_person_eligibility_response_paged_list", "contribution_report", "contribution_report_employee_breakdown_response_paged_list", "employee", "employee_health_insurance_offer_response_paged_list", "employee_health_insurance_policy_response_paged_list", "employer", "employer_health_insurance_policy_response_paged_list", "employer_health_insurance_quote_response_paged_list", "enrolment_intent", "enrolment_intent_requirement_response_paged_list", "event", "group", "group_employee_response_paged_list", "group_policy", "group_policy_intent", "group_policy_intent_requirement_response_paged_list", "group_quote_intent", "group_quote_intent_requirement_response_paged_list", "plan", "policy", "policy_amendment_intent", "policy_import_intent", "provider", "webhook_endpoint"),
+	}, func(ctx context.Context, req *mcp.CallToolRequest, args ListArgs) (*mcp.CallToolResult, any, error) {
+		return runOp(ctx, client, "list", args.Entity, args.Query)
 	})
-
 	mcp.AddTool(server, &mcp.Tool{
-		Name: "kota_load",
-		Description: "Load a single record from Kota. " +
-			"Args: entity, query ({\"id\":N} required). Returns the record as JSON.",
-	}, func(ctx context.Context, req *mcp.CallToolRequest, args Args) (*mcp.CallToolResult, any, error) {
-		return runOp(client, "load", args)
+		Name:        "kota_load",
+		Description: "Load one record from Kota. Args: entity, query (match map naming the record, such as {\"id\":1}). Returns the record as JSON.",
+		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true},
+		InputSchema: entitySchema[LoadArgs]("associated_person", "contribution_report", "contribution_report_employee_breakdown", "dependents_management_intent", "employee", "employee_health_insurance_offer", "employee_health_insurance_policy", "employer", "employer_health_insurance_policy", "employer_health_insurance_quote", "enrolment_intent", "event", "group", "group_policy", "group_policy_intent", "group_quote", "group_quote_intent", "plan", "policy", "policy_amendment_intent", "policy_import_intent", "provider", "webhook_endpoint"),
+	}, func(ctx context.Context, req *mcp.CallToolRequest, args LoadArgs) (*mcp.CallToolResult, any, error) {
+		return runOp(ctx, client, "load", args.Entity, args.Query)
 	})
 }
 
-func runOp(client *sdk.KotaSDK, op string, args Args) (*mcp.CallToolResult, any, error) {
-	ent, err := entityFor(client, args.Entity)
+// entitySchema is the schema inferred from In, its entity limited to the
+// entities the tool serves.
+func entitySchema[In any](names ...string) *jsonschema.Schema {
+	schema, err := jsonschema.For[In](nil)
+	if err != nil {
+		panic(err)
+	}
+	enum := make([]any, len(names))
+	for i, name := range names {
+		enum[i] = name
+	}
+	schema.Properties["entity"].Enum = enum
+	return schema
+}
+
+func runOp(_ context.Context, client *sdk.KotaSDK, op string, entity string, input map[string]any) (*mcp.CallToolResult, any, error) {
+	ent, err := entityFor(client, entity)
 	if err != nil {
 		return toolError(err.Error())
 	}
@@ -47,9 +66,17 @@ func runOp(client *sdk.KotaSDK, op string, args Args) (*mcp.CallToolResult, any,
 	var result any
 	switch op {
 	case "list":
-		result, err = ent.List(args.Query, nil)
+		result, err = ent.List(input, nil)
 	case "load":
-		result, err = ent.Load(args.Query, nil)
+		result, err = ent.Load(input, nil)
+	case "create":
+		result, err = ent.Create(input, nil)
+	case "update":
+		result, err = ent.Update(input, nil)
+	case "patch":
+		result, err = ent.Patch(input, nil)
+	case "remove":
+		result, err = ent.Remove(input, nil)
 	default:
 		return toolError(fmt.Sprintf("unknown op %q", op))
 	}
@@ -152,9 +179,6 @@ func entityFor(client *sdk.KotaSDK, name string) (sdk.KotaEntity, error) {
 		return client.Provider(nil), nil
 	case "webhook_endpoint":
 		return client.WebhookEndpoint(nil), nil
-	case "webhook_endpoint_response_paged_list":
-		return client.WebhookEndpointResponsePagedList(nil), nil
-
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)
 }
@@ -186,4 +210,9 @@ func toolError(msg string) (*mcp.CallToolResult, any, error) {
 			&mcp.TextContent{Text: msg},
 		},
 	}, nil, nil
+}
+
+// hint is an MCP annotation that defaults to true unless stated.
+func hint(b bool) *bool {
+	return &b
 }

@@ -2,55 +2,59 @@
   "existing": {
     "group_quote_intent": {
       "GROUP_QUOTE_INTENT00": {
-        "action_required": "s64",
+        "action_required": "s6e",
         "consent_links": [],
-        "cost_sharing": "s66",
+        "cost_sharing": "s70",
+        "coverage_selections": "s71",
         "disclosures": [],
-        "expected_start_date": "s68",
+        "expected_start_date": "s73",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT00",
-        "object": "s6b",
+        "object": "s76",
         "plan_id": "PLAN01",
-        "status": "s6d"
+        "status": "s78"
       },
       "GROUP_QUOTE_INTENT01": {
-        "action_required": "sc8",
+        "action_required": "sdc",
         "consent_links": [],
-        "cost_sharing": "sca",
+        "cost_sharing": "sde",
+        "coverage_selections": "sdf",
         "disclosures": [],
-        "expected_start_date": "scc",
+        "expected_start_date": "se1",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT01",
-        "object": "scf",
+        "object": "se4",
         "plan_id": "PLAN01",
-        "status": "sd1"
+        "status": "se6"
       },
       "GROUP_QUOTE_INTENT02": {
-        "action_required": "s12c",
+        "action_required": "s14a",
         "consent_links": [],
-        "cost_sharing": "s12e",
+        "cost_sharing": "s14c",
+        "coverage_selections": "s14d",
         "disclosures": [],
-        "expected_start_date": "s130",
+        "expected_start_date": "s14f",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT02",
-        "object": "s133",
+        "object": "s152",
         "plan_id": "PLAN01",
-        "status": "s135"
+        "status": "s154"
       }
     }
   },
   "new": {
     "group_quote_intent": {
       "group_quote_intent_ref01": {
-        "action_required": "s190",
+        "action_required": "s1b8",
         "consent_links": [],
-        "cost_sharing": "s192",
+        "cost_sharing": "s1ba",
+        "coverage_selections": "s1bb",
         "disclosures": [],
-        "expected_start_date": "s194",
+        "expected_start_date": "s1bd",
         "group_id": "GROUP01",
-        "object": "s197",
+        "object": "s1c0",
         "plan_id": "PLAN01",
-        "status": "s199"
+        "status": "s1c2"
       }
     }
   },

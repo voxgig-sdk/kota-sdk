@@ -10,6 +10,18 @@ use PHPUnit\Framework\TestCase;
 
 class AssociatedPersonEligibilityResponsePagedListDirectTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
+    private static function liveOk(array $result): bool
+    {
+        $status = Helpers::to_int($result["status"] ?? 0);
+        return empty($result["err"]) && !empty($result["ok"]) && $status >= 200 && $status < 300;
+    }
+
     public function test_direct_list_associated_person_eligibility_response_paged_list(): void
     {
         $setup = associated_person_eligibility_response_paged_list_direct_setup([
@@ -23,20 +35,15 @@ class AssociatedPersonEligibilityResponsePagedListDirectTest extends TestCase
         }
         if ($setup["live"]) {
             foreach (["dependents_management_intent01"] as $_liveKey) {
-                if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
-                    $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
-                    return;
+                if (null === ($setup["idmap"][$_liveKey] ?? null)) {
+                    Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via KOTA_TEST_ASSOCIATED_PERSON_ELIGIBILITY_RESPONSE_PAGED_LIST_ENTID");
                 }
             }
         }
         $client = $setup["client"];
 
         $params = [];
-        if ($setup["live"]) {
-            $params["dependents_management_intent_id"] = $setup["idmap"]["dependents_management_intent01"];
-        } else {
-            $params["dependents_management_intent_id"] = "direct01";
-        }
+        $params["dependents_management_intent_id"] = $setup["live"] ? ($setup["idmap"]["dependents_management_intent01"] ?? null) : "direct01";
 
         $result = $client->direct([
             "path" => "dependents_management_intents/{dependents_management_intent_id}/associated_persons_eligibility",
@@ -44,22 +51,13 @@ class AssociatedPersonEligibilityResponsePagedListDirectTest extends TestCase
             "params" => $params,
         ]);
         if ($setup["live"]) {
-            // Live mode is lenient: synthetic IDs frequently 4xx and the
-            // list-response shape varies wildly across public APIs. Skip
-            // rather than fail when the call doesn't return a usable list.
-            if (!empty($result["err"])) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
-                return;
+            if (!self::liveOk($result)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list failed: " . Runner::live_describe($result));
             }
-            if (empty($result["ok"])) {
-                $this->markTestSkipped("list call not ok (likely synthetic IDs against live API)");
-                return;
+            if (null === Runner::live_list($result["data"] ?? null)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list returned no list: " . Runner::live_describe($result));
             }
-            $status = Helpers::to_int($result["status"]);
-            if ($status < 200 || $status >= 300) {
-                $this->markTestSkipped("expected 2xx status, got " . $status);
-                return;
-            }
+            $this->assertIsArray(Runner::live_list($result["data"]));
         } else {
             $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
@@ -94,11 +92,12 @@ function associated_person_eligibility_response_paged_list_direct_setup($mockres
             "apikey" => $env["KOTA_APIKEY"],
         ]);
         $client = new KotaSDK($merged_opts);
+        $idmap = $env["KOTA_TEST_ASSOCIATED_PERSON_ELIGIBILITY_RESPONSE_PAGED_LIST_ENTID"] ?? [];
         return [
             "client" => $client,
             "calls" => $calls,
             "live" => true,
-            "idmap" => [],
+            "idmap" => is_array($idmap) ? $idmap : [],
         ];
     }
 

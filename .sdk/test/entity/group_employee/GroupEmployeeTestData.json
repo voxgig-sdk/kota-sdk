@@ -2,39 +2,48 @@
   "existing": {
     "group_employee": {
       "GROUP_EMPLOYEE00": {
-        "desired_policy_start_date": "s64",
-        "eligibility_status": "s65",
-        "enrolment_date": "s66",
-        "enrolment_status": "s67",
+        "create_enrolment_intents": "s82",
+        "desired_policy_start_date": "s83",
+        "eligibility_status": "s84",
+        "employee_id": "EMPLOYEE01",
+        "enrolment_date": "s86",
+        "enrolment_status": "s87",
         "enrolments": [],
         "group_id": "GROUP01",
         "id": "GROUP_EMPLOYEE00",
-        "object": "s6b",
+        "object": "s8b",
         "policies": [],
+        "policy_configuration": "s8d",
         "scheduled_group_transitions": []
       },
       "GROUP_EMPLOYEE01": {
-        "desired_policy_start_date": "sc8",
-        "eligibility_status": "sc9",
-        "enrolment_date": "sca",
-        "enrolment_status": "scb",
+        "create_enrolment_intents": "s104",
+        "desired_policy_start_date": "s105",
+        "eligibility_status": "s106",
+        "employee_id": "EMPLOYEE01",
+        "enrolment_date": "s108",
+        "enrolment_status": "s109",
         "enrolments": [],
         "group_id": "GROUP01",
         "id": "GROUP_EMPLOYEE01",
-        "object": "scf",
+        "object": "s10d",
         "policies": [],
+        "policy_configuration": "s10f",
         "scheduled_group_transitions": []
       },
       "GROUP_EMPLOYEE02": {
-        "desired_policy_start_date": "s12c",
-        "eligibility_status": "s12d",
-        "enrolment_date": "s12e",
-        "enrolment_status": "s12f",
+        "create_enrolment_intents": "s186",
+        "desired_policy_start_date": "s187",
+        "eligibility_status": "s188",
+        "employee_id": "EMPLOYEE01",
+        "enrolment_date": "s18a",
+        "enrolment_status": "s18b",
         "enrolments": [],
         "group_id": "GROUP01",
         "id": "GROUP_EMPLOYEE02",
-        "object": "s133",
+        "object": "s18f",
         "policies": [],
+        "policy_configuration": "s191",
         "scheduled_group_transitions": []
       }
     }
@@ -42,14 +51,17 @@
   "new": {
     "group_employee": {
       "group_employee_ref01": {
-        "desired_policy_start_date": "s190",
-        "eligibility_status": "s191",
-        "enrolment_date": "s192",
-        "enrolment_status": "s193",
+        "create_enrolment_intents": "s208",
+        "desired_policy_start_date": "s209",
+        "eligibility_status": "s20a",
+        "employee_id": "EMPLOYEE01",
+        "enrolment_date": "s20c",
+        "enrolment_status": "s20d",
         "enrolments": [],
         "group_id": "GROUP01",
-        "object": "s197",
+        "object": "s211",
         "policies": [],
+        "policy_configuration": "s213",
         "scheduled_group_transitions": []
       }
     }

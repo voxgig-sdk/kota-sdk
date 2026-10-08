@@ -12,9 +12,14 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`):
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/kota-sdk/tags)), or
+from a clone as a Composer path repository:
 
-- Releases: [https://github.com/voxgig-sdk/kota-sdk/releases](https://github.com/voxgig-sdk/kota-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/kota-sdk
+composer config repositories.kota-sdk path ./kota-sdk/php
+composer require voxgig-sdk/kota-sdk:@dev
+```
 
 
 ## Tutorial: your first API call
@@ -38,7 +43,7 @@ $client = new KotaSDK([
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $associatedpersons = $client->AssociatedPerson()->list();
+    $associatedpersons = $client->AssociatedPerson()->list(["employee_id" => "example"]);
     foreach ($associatedpersons as $record) {
         $item = $record->data_get();
         echo $item["id"] . " " . $item["date_of_birth"] . "\n";
@@ -83,7 +88,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $dependentsmanagementintent = $client->DependentsManagementIntent()->load(["id" => "example_id"]);
+    $groupquoteintents = $client->GroupQuoteIntent()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -155,13 +160,13 @@ data via the `entity` option so offline calls resolve without a live server:
 
 ```php
 $client = KotaSDK::test([
-    "entity" => ["associatedperson" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["group_quote_intent" => ["test01" => ["id" => "test01"]]],
 ]);
 
 // list() returns entity instances (throws on error);
 // call data_get() for the mock record.
-$associatedperson = $client->AssociatedPerson()->list();
-print_r(array_map(fn($item) => $item->data_get(), $associatedperson));
+$groupquoteintent = $client->GroupQuoteIntent()->list();
+print_r(array_map(fn($item) => $item->data_get(), $groupquoteintent));
 ```
 
 ### Use a custom fetch function
@@ -280,7 +285,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `PolicyImportIntent` | `($data): PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider` | `($data): ProviderEntity` | Create a Provider entity instance. |
 | `WebhookEndpoint` | `($data): WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
-| `WebhookEndpointResponsePagedList` | `($data): WebhookEndpointResponsePagedListEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 
 ### Entity interface
 
@@ -288,11 +292,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
-| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
+| `create` | `($reqdata, $ctrl): mixed` | Create a new entity, and return it. |
+| `update` | `($reqdata, $ctrl): mixed` | Update an existing entity, and return it. |
+| `remove` | `($reqmatch, $ctrl): mixed` | Remove an entity, and return it marked as deleted. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -302,9 +306,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -412,6 +416,8 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
 | `link` |  |
 
@@ -423,7 +429,10 @@ API path: `/hosted/sessions`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` |  |
 
 Operations: Create.
@@ -435,7 +444,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the action required from the caller. |
+| `associated_person_ids` | List of associated person IDs to add as dependents. |
 | `coverage_options` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | Optional coverage selections per dependent. |
 | `dependents` | List of dependents being managed. |
 | `disclosures` | Disclosures associated with this intent. |
 | `id` | Unique identifier for the dependents management intent. |
@@ -473,6 +484,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | Field | Description |
 | --- | --- |
 | `eligibility_status` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | The employee to check eligibility for. |
 | `object` | The object type. |
 | `plan` | The insurance plan associated with the group. |
 | `provider` | The insurance provider associated with the group. |
@@ -600,15 +612,15 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 | Field | Description |
 | --- | --- |
 | `contact` |  |
-| `earliest_benefits_start_date` |  |
+| `earliest_benefits_start_date` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` |  |
-| `legal_address` |  |
-| `legal_name` |  |
+| `legal_address` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | Legal name of the company. |
 | `metadata` | Set of key-value pairs that you can attach to an object. |
 | `object` | The object type |
 | `offboard_on` |  |
 | `platform_id` |  |
-| `registration_number` |  |
+| `registration_number` | Company registration number. |
 | `status` |  |
 
 Operations: Create, List, Load, Update.
@@ -694,8 +706,11 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `disclosures` | Disclosures associated with this intent. |
 | `employee_id` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | Identifier for the group associated with this enrolment intent. |
 | `id` | Unique identifier for the enrolment intent. |
@@ -728,10 +743,7 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
-| `options` |  |
-| `parent` |  |
 | `platform_id` |  |
-| `root` |  |
 | `type` |  |
 
 Operations: Create, List, Load.
@@ -762,8 +774,10 @@ API path: `/groups`
 
 | Field | Description |
 | --- | --- |
+| `create_enrolment_intents` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `eligibility_status` | Eligibility status for the employee in this group. |
+| `employee_id` | Employee Id |
 | `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `enrolment_status` | Enrolment status for the employee in this group. |
 | `enrolments` | List of enrolments associated with the employee in this group. |
@@ -771,6 +785,7 @@ API path: `/groups`
 | `id` | Unique identifier for the employee. |
 | `object` | The object type |
 | `policies` | List of policies associated with the employee in this group. |
+| `policy_configuration` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
 
 Operations: Create.
@@ -814,6 +829,7 @@ API path: `/group_policies`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | Cost sharing configuration for the policy intent |
 | `disclosures` | Disclosures associated with this intent. |
 | `due_date` | Due date for the policy intent |
@@ -842,11 +858,15 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `family_type` | Type of the family covered by the employer. |
-| `member_count` | Numbers of additional members covered by the employer. |
-| `member_selection` | Whether specific member types are covered by the employer. |
-| `percentage` | Percentage of the premium the employer covers. |
-| `type` | Cost sharing type. |
+| `cost_sharing` | Cost sharing configuration for the quote |
+| `currency` | Currency of the premium (e.g. |
+| `employee_count` | Number of employees covered by the quote |
+| `expires_at` | When the quote expires |
+| `generated_at` | When the quote was generated |
+| `object` | Object type identifier |
+| `pdf_expires_at` | When the PDF URL expires |
+| `pdf_url` | URL to download the quote PDF |
+| `total_monthly_premium` | Total monthly premium for the group |
 
 Operations: Load.
 
@@ -859,6 +879,7 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | `action_required` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | Consent links that need to be acknowledged |
 | `cost_sharing` | Cost sharing configuration for the quote |
+| `coverage_selections` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | Disclosures associated with this intent. |
 | `expected_start_date` | Expected start date for the insurance coverage |
 | `group_id` | Unique identifier for the group |
@@ -999,21 +1020,7 @@ API path: `/providers`
 | `object` | The object type |
 | `subscribed_events` | The events the endpoint is subscribed to |
 
-Operations: Load.
-
-API path: `/webhooks/endpoints/{webhook_endpoint_id}`
-
-#### WebhookEndpointResponsePagedList
-
-| Field | Description |
-| --- | --- |
-| `created_at` | The date and time the endpoint was created |
-| `endpoint_url` | The registered URL of the endpoint |
-| `id` | The unique identifier of the endpoint |
-| `object` | The object type |
-| `subscribed_events` | The events the endpoint is subscribed to |
-
-Operations: List.
+Operations: List, Load.
 
 API path: `/webhooks/endpoints`
 
@@ -1049,8 +1056,8 @@ Create an instance: `$associated_person = $client->AssociatedPerson();`
 | `object` | `string` | The object type |
 | `phone_number` | `mixed` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `relationship_type` | `mixed` | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `mixed` | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | The sex assigned to the associated person at birth |
 
 #### Example: Load
 
@@ -1062,8 +1069,8 @@ $associated_person = $client->AssociatedPerson()->load(["id" => "associated_pers
 #### Example: List
 
 ```php
-// list() returns an array of AssociatedPerson records (throws on error).
-$associated_persons = $client->AssociatedPerson()->list();
+// list() returns an array of AssociatedPerson entities, one per record (throws on error).
+$associated_persons = $client->AssociatedPerson()->list(["employee_id" => "example"]);
 ```
 
 #### Example: Create
@@ -1075,8 +1082,8 @@ $associated_person = $client->AssociatedPerson()->create([
     "first_name" => null, // string
     "id" => null, // string
     "last_name" => null, // string
-    "relationship_type" => null, // mixed
-    "sex_at_birth" => null, // mixed
+    "relationship_type" => null, // string
+    "sex_at_birth" => null, // string
 ]);
 ```
 
@@ -1097,19 +1104,19 @@ Create an instance: `$associated_person_eligibility_response_paged_list = $clien
 | --- | --- | --- |
 | `associated_person_id` | `string` | The associated person ID. |
 | `date_of_birth` | `string` | Date of birth of the associated person. |
-| `eligibility_status` | `mixed` | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Eligibility status for the policy/plan. |
 | `first_name` | `string` | First name of the associated person. |
 | `ineligibility_reason` | `mixed` | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Last name of the associated person. |
 | `object` | `string` | The object type |
-| `relationship` | `mixed` | Relationship type to the employee. |
-| `sex_at_birth` | `mixed` | Sex at birth of the associated person. |
+| `relationship` | `string` | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Sex at birth of the associated person. |
 
 #### Example: List
 
 ```php
-// list() returns an array of AssociatedPersonEligibilityResponsePagedList records (throws on error).
-$associated_person_eligibility_response_paged_lists = $client->AssociatedPersonEligibilityResponsePagedList()->list();
+// list() returns an array of AssociatedPersonEligibilityResponsePagedList entities, one per record (throws on error).
+$associated_person_eligibility_response_paged_lists = $client->AssociatedPersonEligibilityResponsePagedList()->list(["dependents_management_intent_id" => "example"]);
 ```
 
 
@@ -1137,7 +1144,7 @@ Create an instance: `$contribution_report = $client->ContributionReport();`
 | `last_updated_at` | `string` | Date and time of the last update to the report |
 | `object` | `string` | The object type |
 | `period` | `mixed` | Period covered by the contribution report |
-| `status` | `mixed` | Current status of the contribution report |
+| `status` | `string` | Current status of the contribution report |
 
 #### Example: Load
 
@@ -1149,7 +1156,7 @@ $contribution_report = $client->ContributionReport()->load(["id" => "contributio
 #### Example: List
 
 ```php
-// list() returns an array of ContributionReport records (throws on error).
+// list() returns an array of ContributionReport entities, one per record (throws on error).
 $contribution_reports = $client->ContributionReport()->list();
 ```
 
@@ -1162,7 +1169,7 @@ $contribution_report = $client->ContributionReport()->create([
     "employer_id" => null, // string
     "last_updated_at" => null, // string
     "period" => null, // mixed
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -1183,7 +1190,7 @@ Create an instance: `$contribution_report_employee_breakdown = $client->Contribu
 | --- | --- | --- |
 | `contribution_report_id` | `string` | Unique identifier of the related contribution report |
 | `created_at` | `string` | Date and time the breakdown was created |
-| `currency` | `mixed` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `mixed` | Unique identifier of the customer for which the breakdown is created. |
@@ -1193,7 +1200,7 @@ Create an instance: `$contribution_report_employee_breakdown = $client->Contribu
 | `last_updated_at` | `string` | Date and time of the last update to the breakdown |
 | `object` | `string` | The object type |
 | `period` | `mixed` | Period covered by the employee breakdown |
-| `status` | `mixed` | Current status of the breakdown |
+| `status` | `string` | Current status of the breakdown |
 
 #### Example: Load
 
@@ -1222,8 +1229,8 @@ Create an instance: `$contribution_report_employee_breakdown_response_paged_list
 #### Example: List
 
 ```php
-// list() returns an array of ContributionReportEmployeeBreakdownResponsePagedList records (throws on error).
-$contribution_report_employee_breakdown_response_paged_lists = $client->ContributionReportEmployeeBreakdownResponsePagedList()->list();
+// list() returns an array of ContributionReportEmployeeBreakdownResponsePagedList entities, one per record (throws on error).
+$contribution_report_employee_breakdown_response_paged_lists = $client->ContributionReportEmployeeBreakdownResponsePagedList()->list(["id" => "example"]);
 ```
 
 
@@ -1241,6 +1248,8 @@ Create an instance: `$create_hosted_session_token = $client->CreateHostedSession
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `string` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
 | `link` | `string` |  |
 
@@ -1248,6 +1257,8 @@ Create an instance: `$create_hosted_session_token = $client->CreateHostedSession
 
 ```php
 $create_hosted_session_token = $client->CreateHostedSessionToken()->create([
+    "employee_id" => null, // string
+    "employer_id" => null, // string
     "expiry" => null, // string
     "link" => null, // string
 ]);
@@ -1268,13 +1279,17 @@ Create an instance: `$create_session_token = $client->CreateSessionToken();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `mixed` |  |
+| `employer_id` | `string` |  |
 | `expiry` | `string` |  |
+| `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` |  |
 
 #### Example: Create
 
 ```php
 $create_session_token = $client->CreateSessionToken()->create([
+    "employer_id" => null, // string
     "expiry" => null, // string
     "token" => null, // string
 ]);
@@ -1297,28 +1312,31 @@ Create an instance: `$dependent = $client->Dependent();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` | Details of the action required from the caller. |
+| `associated_person_ids` | `array` | List of associated person IDs to add as dependents. |
 | `coverage_options` | `mixed` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `mixed` | Optional coverage selections per dependent. |
 | `dependents` | `array` | List of dependents being managed. |
 | `disclosures` | `array` | Disclosures associated with this intent. |
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `mixed` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `mixed` | Plan information including pricing details. |
-| `status` | `mixed` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Create
 
 ```php
 $dependent = $client->Dependent()->create([
     "dependents_management_intent_id" => null, // string
+    "associated_person_ids" => null, // array
     "dependents" => null, // array
     "disclosures" => null, // array
     "id" => null, // string
     "parent_intent_id" => null, // string
-    "parent_intent_type" => null, // mixed
+    "parent_intent_type" => null, // string
     "plan" => null, // mixed
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -1345,9 +1363,9 @@ Create an instance: `$dependents_management_intent = $client->DependentsManageme
 | `id` | `string` | Unique identifier for the dependents management intent. |
 | `object` | `string` | Object type identifier. |
 | `parent_intent_id` | `string` | The parent intent ID (e.g. |
-| `parent_intent_type` | `mixed` | The type of parent intent. |
+| `parent_intent_type` | `string` | The type of parent intent. |
 | `plan` | `mixed` | Plan information including pricing details. |
-| `status` | `mixed` | Current status of the dependents management intent. |
+| `status` | `string` | Current status of the dependents management intent. |
 
 #### Example: Load
 
@@ -1365,9 +1383,9 @@ $dependents_management_intent = $client->DependentsManagementIntent()->create([
     "disclosures" => null, // array
     "id" => null, // string
     "parent_intent_id" => null, // string
-    "parent_intent_type" => null, // mixed
+    "parent_intent_type" => null, // string
     "plan" => null, // mixed
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -1386,7 +1404,8 @@ Create an instance: `$eligibility_check = $client->EligibilityCheck();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `eligibility_status` | `mixed` | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | The employee to check eligibility for. |
 | `object` | `string` | The object type. |
 | `plan` | `mixed` | The insurance plan associated with the group. |
 | `provider` | `mixed` | The insurance provider associated with the group. |
@@ -1397,7 +1416,8 @@ Create an instance: `$eligibility_check = $client->EligibilityCheck();`
 ```php
 $eligibility_check = $client->EligibilityCheck()->create([
     "group_id" => null, // string
-    "eligibility_status" => null, // mixed
+    "eligibility_status" => null, // string
+    "employee_id" => null, // string
     "plan" => null, // mixed
     "provider" => null, // mixed
     "reasons" => null, // array
@@ -1439,9 +1459,9 @@ Create an instance: `$employee = $client->Employee();`
 | `offboard_on` | `mixed` | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
-| `sex_at_birth` | `mixed` | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | The sex assigned to the employee at birth |
 | `start_on` | `string` | Employment start date |
-| `status` | `mixed` | Current status of the employee |
+| `status` | `string` | Current status of the employee |
 
 #### Example: Load
 
@@ -1453,7 +1473,7 @@ $employee = $client->Employee()->load(["id" => "employee_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Employee records (throws on error).
+// list() returns an array of Employee entities, one per record (throws on error).
 $employees = $client->Employee()->list();
 ```
 
@@ -1467,7 +1487,7 @@ $employee = $client->Employee()->create([
     "last_name" => null, // string
     "national_tax_id" => null, // string
     "phone_number" => null, // string
-    "sex_at_birth" => null, // mixed
+    "sex_at_birth" => null, // string
 ]);
 ```
 
@@ -1493,7 +1513,7 @@ Create an instance: `$employee_health_insurance_offer = $client->EmployeeHealthI
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `null` | Required action to progress the offer, if any. |
-| `status` | `mixed` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: Load
 
@@ -1524,13 +1544,13 @@ Create an instance: `$employee_health_insurance_offer_response_paged_list = $cli
 | `id` | `string` | Unique identifier for offer |
 | `object` | `string` | The object type |
 | `required_action` | `null` | Required action to progress the offer, if any. |
-| `status` | `mixed` | Current status of offer |
+| `status` | `string` | Current status of offer |
 
 #### Example: List
 
 ```php
-// list() returns an array of EmployeeHealthInsuranceOfferResponsePagedList records (throws on error).
-$employee_health_insurance_offer_response_paged_lists = $client->EmployeeHealthInsuranceOfferResponsePagedList()->list();
+// list() returns an array of EmployeeHealthInsuranceOfferResponsePagedList entities, one per record (throws on error).
+$employee_health_insurance_offer_response_paged_lists = $client->EmployeeHealthInsuranceOfferResponsePagedList()->list(["employee_id" => "example"]);
 ```
 
 
@@ -1554,7 +1574,7 @@ Create an instance: `$employee_health_insurance_policy = $client->EmployeeHealth
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `mixed` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1563,7 +1583,7 @@ Create an instance: `$employee_health_insurance_policy = $client->EmployeeHealth
 | `policy_number` | `mixed` | Health insurance policy number, if available |
 | `renewal` | `mixed` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `mixed` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1593,7 +1613,7 @@ Create an instance: `$employee_health_insurance_policy_response_paged_list = $cl
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `estimated_gross_premium` | `mixed` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `mixed` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Unique identifier for policy |
@@ -1602,13 +1622,13 @@ Create an instance: `$employee_health_insurance_policy_response_paged_list = $cl
 | `policy_number` | `mixed` | Health insurance policy number, if available |
 | `renewal` | `mixed` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `mixed` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
 ```php
-// list() returns an array of EmployeeHealthInsurancePolicyResponsePagedList records (throws on error).
-$employee_health_insurance_policy_response_paged_lists = $client->EmployeeHealthInsurancePolicyResponsePagedList()->list();
+// list() returns an array of EmployeeHealthInsurancePolicyResponsePagedList entities, one per record (throws on error).
+$employee_health_insurance_policy_response_paged_lists = $client->EmployeeHealthInsurancePolicyResponsePagedList()->list(["employee_id" => "example"]);
 ```
 
 
@@ -1630,16 +1650,16 @@ Create an instance: `$employer = $client->Employer();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `contact` | `mixed` |  |
-| `earliest_benefits_start_date` | `mixed` |  |
+| `earliest_benefits_start_date` | `mixed` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` |  |
-| `legal_address` | `mixed` |  |
-| `legal_name` | `string` |  |
+| `legal_address` | `mixed` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Legal name of the company. |
 | `metadata` | `mixed` | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | The object type |
 | `offboard_on` | `mixed` |  |
 | `platform_id` | `string` |  |
-| `registration_number` | `mixed` |  |
-| `status` | `mixed` |  |
+| `registration_number` | `mixed` | Company registration number. |
+| `status` | `string` |  |
 
 #### Example: Load
 
@@ -1651,7 +1671,7 @@ $employer = $client->Employer()->load(["id" => "employer_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Employer records (throws on error).
+// list() returns an array of Employer entities, one per record (throws on error).
 $employers = $client->Employer()->list();
 ```
 
@@ -1686,13 +1706,13 @@ Create an instance: `$employer_health_insurance_policy = $client->EmployerHealth
 | `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `mixed` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `mixed` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `mixed` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: Load
 
@@ -1721,19 +1741,19 @@ Create an instance: `$employer_health_insurance_policy_response_paged_list = $cl
 | `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Policy ends on this date |
-| `enrolment_type` | `mixed` | Enrolment type of the policy |
+| `enrolment_type` | `string` | Enrolment type of the policy |
 | `group_policy_number` | `mixed` | Group’s health insurance policy number, if available |
 | `id` | `string` | Unique identifier for policy |
 | `object` | `string` | The object type |
 | `renewal` | `mixed` | Renewal information for the policy |
 | `start_date` | `string` | Policy starts on this date |
-| `status` | `mixed` | Current status of policy |
+| `status` | `string` | Current status of policy |
 
 #### Example: List
 
 ```php
-// list() returns an array of EmployerHealthInsurancePolicyResponsePagedList records (throws on error).
-$employer_health_insurance_policy_response_paged_lists = $client->EmployerHealthInsurancePolicyResponsePagedList()->list();
+// list() returns an array of EmployerHealthInsurancePolicyResponsePagedList entities, one per record (throws on error).
+$employer_health_insurance_policy_response_paged_lists = $client->EmployerHealthInsurancePolicyResponsePagedList()->list(["employer_id" => "example"]);
 ```
 
 
@@ -1757,7 +1777,7 @@ Create an instance: `$employer_health_insurance_quote = $client->EmployerHealthI
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `null` | Actions required by the employer to proceed with the quote. |
-| `status` | `mixed` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: Load
 
@@ -1787,13 +1807,13 @@ Create an instance: `$employer_health_insurance_quote_response_paged_list = $cli
 | `object` | `string` | The object type |
 | `quoted_at` | `string` | Date and time the quote was created at |
 | `required_action` | `null` | Actions required by the employer to proceed with the quote. |
-| `status` | `mixed` | Current status of the quote |
+| `status` | `string` | Current status of the quote |
 
 #### Example: List
 
 ```php
-// list() returns an array of EmployerHealthInsuranceQuoteResponsePagedList records (throws on error).
-$employer_health_insurance_quote_response_paged_lists = $client->EmployerHealthInsuranceQuoteResponsePagedList()->list();
+// list() returns an array of EmployerHealthInsuranceQuoteResponsePagedList entities, one per record (throws on error).
+$employer_health_insurance_quote_response_paged_lists = $client->EmployerHealthInsuranceQuoteResponsePagedList()->list(["employer_id" => "example"]);
 ```
 
 
@@ -1815,8 +1835,11 @@ Create an instance: `$enrolment_intent = $client->EnrolmentIntent();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `mixed` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `mixed` | The desired date for the employee's policy to start. |
 | `disclosures` | `array` | Disclosures associated with this intent. |
 | `employee_id` | `string` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `mixed` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `bool` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Unique identifier for the enrolment intent. |
@@ -1825,7 +1848,7 @@ Create an instance: `$enrolment_intent = $client->EnrolmentIntent();`
 | `pending_confirmation` | `null` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `null` | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `array` | Policy enrolment information |
-| `status` | `mixed` | Current status of the enrolment intent. |
+| `status` | `string` | Current status of the enrolment intent. |
 
 #### Example: Load
 
@@ -1837,7 +1860,7 @@ $enrolment_intent = $client->EnrolmentIntent()->load(["id" => "enrolment_intent_
 #### Example: List
 
 ```php
-// list() returns an array of EnrolmentIntent records (throws on error).
+// list() returns an array of EnrolmentIntent entities, one per record (throws on error).
 $enrolment_intents = $client->EnrolmentIntent()->list();
 ```
 
@@ -1851,7 +1874,7 @@ $enrolment_intent = $client->EnrolmentIntent()->create([
     "group_id" => null, // string
     "id" => null, // string
     "policy_enrolments" => null, // array
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -1875,8 +1898,8 @@ Create an instance: `$enrolment_intent_requirement_response_paged_list = $client
 #### Example: List
 
 ```php
-// list() returns an array of EnrolmentIntentRequirementResponsePagedList records (throws on error).
-$enrolment_intent_requirement_response_paged_lists = $client->EnrolmentIntentRequirementResponsePagedList()->list();
+// list() returns an array of EnrolmentIntentRequirementResponsePagedList entities, one per record (throws on error).
+$enrolment_intent_requirement_response_paged_lists = $client->EnrolmentIntentRequirementResponsePagedList()->list(["id" => "example"]);
 ```
 
 
@@ -1900,10 +1923,7 @@ Create an instance: `$event = $client->Event();`
 | `created` | `string` |  |
 | `data` | `null` |  |
 | `id` | `string` |  |
-| `options` | `null` |  |
-| `parent` | `null` |  |
 | `platform_id` | `string` |  |
-| `root` | `mixed` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -1916,7 +1936,7 @@ $event = $client->Event()->load(["id" => "event_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Event records (throws on error).
+// list() returns an array of Event entities, one per record (throws on error).
 $events = $client->Event()->list();
 ```
 
@@ -1952,15 +1972,15 @@ Create an instance: `$group = $client->Group();`
 | --- | --- | --- |
 | `description` | `mixed` | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `mixed` | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `array` | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `array` | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `array` | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `mixed` | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Indicates how policies are organized for this group. |
 | `id` | `string` | Unique identifier for the `group`. |
 | `name` | `string` | Human-readable name of the `group`. |
 | `object` | `string` | The object type |
-| `status` | `mixed` | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Current lifecycle state of the `group`, indicating its current progress. |
 
 #### Example: Load
 
@@ -1972,7 +1992,7 @@ $group = $client->Group()->load(["id" => "group_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Group records (throws on error).
+// list() returns an array of Group entities, one per record (throws on error).
 $groups = $client->Group()->list();
 ```
 
@@ -1981,14 +2001,14 @@ $groups = $client->Group()->list();
 ```php
 $group = $client->Group()->create([
     "employer_id" => null, // string
-    "enrolment_type" => null, // mixed
+    "enrolment_type" => null, // string
     "group_policy_ids" => null, // array
     "group_policy_intent_ids" => null, // array
     "group_quote_intent_ids" => null, // array
-    "group_type" => null, // mixed
+    "group_type" => null, // string
     "id" => null, // string
     "name" => null, // string
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -2007,15 +2027,18 @@ Create an instance: `$group_employee = $client->GroupEmployee();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `create_enrolment_intents` | `mixed` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `mixed` | The desired date for the employee's policy to start. |
-| `eligibility_status` | `mixed` | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Employee Id |
 | `enrolment_date` | `mixed` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `mixed` | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Enrolment status for the employee in this group. |
 | `enrolments` | `array` | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Unique identifier for the group. |
 | `id` | `string` | Unique identifier for the employee. |
 | `object` | `string` | The object type |
 | `policies` | `array` | List of policies associated with the employee in this group. |
+| `policy_configuration` | `null` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `array` | List of scheduled group transitions for the employee. |
 
 #### Example: Create
@@ -2023,8 +2046,9 @@ Create an instance: `$group_employee = $client->GroupEmployee();`
 ```php
 $group_employee = $client->GroupEmployee()->create([
     "id" => null, // string
-    "eligibility_status" => null, // mixed
-    "enrolment_status" => null, // mixed
+    "eligibility_status" => null, // string
+    "employee_id" => null, // string
+    "enrolment_status" => null, // string
     "enrolments" => null, // array
     "group_id" => null, // string
     "policies" => null, // array
@@ -2052,8 +2076,8 @@ Create an instance: `$group_employee_response_paged_list = $client->GroupEmploye
 #### Example: List
 
 ```php
-// list() returns an array of GroupEmployeeResponsePagedList records (throws on error).
-$group_employee_response_paged_lists = $client->GroupEmployeeResponsePagedList()->list();
+// list() returns an array of GroupEmployeeResponsePagedList entities, one per record (throws on error).
+$group_employee_response_paged_lists = $client->GroupEmployeeResponsePagedList()->list(["id" => "example"]);
 ```
 
 
@@ -2083,8 +2107,8 @@ Create an instance: `$group_policy = $client->GroupPolicy();`
 | `plan` | `mixed` | Plan information for this policy |
 | `provider` | `mixed` | Provider information for this policy. |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `mixed` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `mixed` | Policy type. |
+| `status` | `string` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2096,7 +2120,7 @@ $group_policy = $client->GroupPolicy()->load(["id" => "group_policy_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of GroupPolicy records (throws on error).
+// list() returns an array of GroupPolicy entities, one per record (throws on error).
 $group_policys = $client->GroupPolicy()->list();
 ```
 
@@ -2118,6 +2142,7 @@ Create an instance: `$group_policy_intent = $client->GroupPolicyIntent();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `null` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `mixed` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `null` | Cost sharing configuration for the policy intent |
 | `disclosures` | `array` | Disclosures associated with this intent. |
 | `due_date` | `mixed` | Due date for the policy intent |
@@ -2126,7 +2151,7 @@ Create an instance: `$group_policy_intent = $client->GroupPolicyIntent();`
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `mixed` | Current status of the group policy intent |
+| `status` | `string` | Current status of the group policy intent |
 
 #### Example: Load
 
@@ -2138,7 +2163,7 @@ $group_policy_intent = $client->GroupPolicyIntent()->load(["id" => "group_policy
 #### Example: List
 
 ```php
-// list() returns an array of GroupPolicyIntent records (throws on error).
+// list() returns an array of GroupPolicyIntent entities, one per record (throws on error).
 $group_policy_intents = $client->GroupPolicyIntent()->list();
 ```
 
@@ -2151,7 +2176,7 @@ $group_policy_intent = $client->GroupPolicyIntent()->create([
     "id" => null, // string
     "plan_id" => null, // string
     "quote_intent_id" => null, // string
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -2175,8 +2200,8 @@ Create an instance: `$group_policy_intent_requirement_response_paged_list = $cli
 #### Example: List
 
 ```php
-// list() returns an array of GroupPolicyIntentRequirementResponsePagedList records (throws on error).
-$group_policy_intent_requirement_response_paged_lists = $client->GroupPolicyIntentRequirementResponsePagedList()->list();
+// list() returns an array of GroupPolicyIntentRequirementResponsePagedList entities, one per record (throws on error).
+$group_policy_intent_requirement_response_paged_lists = $client->GroupPolicyIntentRequirementResponsePagedList()->list(["id" => "example"]);
 ```
 
 
@@ -2194,11 +2219,15 @@ Create an instance: `$group_quote = $client->GroupQuote();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `family_type` | `null` | Type of the family covered by the employer. |
-| `member_count` | `null` | Numbers of additional members covered by the employer. |
-| `member_selection` | `null` | Whether specific member types are covered by the employer. |
-| `percentage` | `null` | Percentage of the premium the employer covers. |
-| `type` | `mixed` | Cost sharing type. |
+| `cost_sharing` | `mixed` | Cost sharing configuration for the quote |
+| `currency` | `string` | Currency of the premium (e.g. |
+| `employee_count` | `int` | Number of employees covered by the quote |
+| `expires_at` | `string` | When the quote expires |
+| `generated_at` | `string` | When the quote was generated |
+| `object` | `string` | Object type identifier |
+| `pdf_expires_at` | `mixed` | When the PDF URL expires |
+| `pdf_url` | `mixed` | URL to download the quote PDF |
+| `total_monthly_premium` | `float` | Total monthly premium for the group |
 
 #### Example: Load
 
@@ -2227,13 +2256,14 @@ Create an instance: `$group_quote_intent = $client->GroupQuoteIntent();`
 | `action_required` | `null` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `array` | Consent links that need to be acknowledged |
 | `cost_sharing` | `null` | Cost sharing configuration for the quote |
+| `coverage_selections` | `mixed` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `array` | Disclosures associated with this intent. |
 | `expected_start_date` | `mixed` | Expected start date for the insurance coverage |
 | `group_id` | `string` | Unique identifier for the group |
 | `id` | `string` | Unique identifier for the group quote intent |
 | `object` | `string` | Object type identifier |
 | `plan_id` | `string` | Unique identifier for the plan |
-| `status` | `mixed` | Current status of the group quote intent |
+| `status` | `string` | Current status of the group quote intent |
 
 #### Example: Load
 
@@ -2245,7 +2275,7 @@ $group_quote_intent = $client->GroupQuoteIntent()->load(["id" => "group_quote_in
 #### Example: List
 
 ```php
-// list() returns an array of GroupQuoteIntent records (throws on error).
+// list() returns an array of GroupQuoteIntent entities, one per record (throws on error).
 $group_quote_intents = $client->GroupQuoteIntent()->list();
 ```
 
@@ -2258,7 +2288,7 @@ $group_quote_intent = $client->GroupQuoteIntent()->create([
     "group_id" => null, // string
     "id" => null, // string
     "plan_id" => null, // string
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -2282,8 +2312,8 @@ Create an instance: `$group_quote_intent_requirement_response_paged_list = $clie
 #### Example: List
 
 ```php
-// list() returns an array of GroupQuoteIntentRequirementResponsePagedList records (throws on error).
-$group_quote_intent_requirement_response_paged_lists = $client->GroupQuoteIntentRequirementResponsePagedList()->list();
+// list() returns an array of GroupQuoteIntentRequirementResponsePagedList entities, one per record (throws on error).
+$group_quote_intent_requirement_response_paged_lists = $client->GroupQuoteIntentRequirementResponsePagedList()->list(["id" => "example"]);
 ```
 
 
@@ -2304,7 +2334,7 @@ Create an instance: `$plan = $client->Plan();`
 | --- | --- | --- |
 | `available_from` | `string` | The date from which this plan is available (inclusive). |
 | `available_to` | `mixed` | The date until which this plan is available (inclusive). |
-| `country` | `mixed` | The country this plan is available in. |
+| `country` | `string` | The country this plan is available in. |
 | `coverage_options` | `mixed` | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Description of the plan. |
 | `disclosures` | `array` | Disclosures associated with this plan. |
@@ -2319,7 +2349,7 @@ Create an instance: `$plan = $client->Plan();`
 | `object` | `string` | Object type. |
 | `provider` | `mixed` | The provider offering this plan. |
 | `total_count` | `mixed` | Total employees in the queried group. |
-| `type` | `mixed` | The benefit type of the plan. |
+| `type` | `string` | The benefit type of the plan. |
 
 #### Example: Load
 
@@ -2331,7 +2361,7 @@ $plan = $client->Plan()->load(["id" => "plan_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Plan records (throws on error).
+// list() returns an array of Plan entities, one per record (throws on error).
 $plans = $client->Plan()->list();
 ```
 
@@ -2351,7 +2381,7 @@ Create an instance: `$policy = $client->Policy();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bundling_type` | `mixed` | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `mixed` | Date the policy was cancelled (if applicable) |
 | `disclosures` | `array` | Disclosures associated with this policy. |
 | `employee_id` | `string` | Identifier of the employee associated with this policy. |
@@ -2364,8 +2394,8 @@ Create an instance: `$policy = $client->Policy();`
 | `plan` | `mixed` | Plan information for this policy |
 | `provider` | `mixed` | Provider information for this policy |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `mixed` | Current lifecycle state of the policy |
-| `type` | `mixed` | Policy type. |
+| `status` | `string` | Current lifecycle state of the policy |
+| `type` | `string` | Policy type. |
 
 #### Example: Load
 
@@ -2377,7 +2407,7 @@ $policy = $client->Policy()->load(["id" => "policy_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Policy records (throws on error).
+// list() returns an array of Policy entities, one per record (throws on error).
 $policys = $client->Policy()->list();
 ```
 
@@ -2407,7 +2437,7 @@ Create an instance: `$policy_amendment_intent = $client->PolicyAmendmentIntent()
 | `processing_error` | `null` | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `array` | List of requested changes to the policy. |
 | `required_action` | `null` | Information about the required action if the intent status is `action_required`. |
-| `status` | `mixed` | Current status of the policy amendment intent. |
+| `status` | `string` | Current status of the policy amendment intent. |
 
 #### Example: Load
 
@@ -2419,8 +2449,8 @@ $policy_amendment_intent = $client->PolicyAmendmentIntent()->load(["id" => "poli
 #### Example: List
 
 ```php
-// list() returns an array of PolicyAmendmentIntent records (throws on error).
-$policy_amendment_intents = $client->PolicyAmendmentIntent()->list();
+// list() returns an array of PolicyAmendmentIntent entities, one per record (throws on error).
+$policy_amendment_intents = $client->PolicyAmendmentIntent()->list(["id" => "example"]);
 ```
 
 #### Example: Create
@@ -2432,7 +2462,7 @@ $policy_amendment_intent = $client->PolicyAmendmentIntent()->create([
     "disclosures" => null, // array
     "policy_id" => null, // string
     "requested_changes" => null, // array
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -2462,7 +2492,7 @@ Create an instance: `$policy_import_intent = $client->PolicyImportIntent();`
 | `policy_end_date` | `mixed` | The end date of the policy. |
 | `policy_start_date` | `string` | The start date of the policy. |
 | `provider_policy_number` | `string` | The provider's policy number. |
-| `status` | `mixed` | Current status of the policy import intent. |
+| `status` | `string` | Current status of the policy import intent. |
 
 #### Example: Load
 
@@ -2474,7 +2504,7 @@ $policy_import_intent = $client->PolicyImportIntent()->load(["id" => "policy_imp
 #### Example: List
 
 ```php
-// list() returns an array of PolicyImportIntent records (throws on error).
+// list() returns an array of PolicyImportIntent entities, one per record (throws on error).
 $policy_import_intents = $client->PolicyImportIntent()->list();
 ```
 
@@ -2489,7 +2519,7 @@ $policy_import_intent = $client->PolicyImportIntent()->create([
     "member_number" => null, // string
     "policy_start_date" => null, // string
     "provider_policy_number" => null, // string
-    "status" => null, // mixed
+    "status" => null, // string
 ]);
 ```
 
@@ -2530,7 +2560,7 @@ $provider = $client->Provider()->load(["id" => "provider_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Provider records (throws on error).
+// list() returns an array of Provider entities, one per record (throws on error).
 $providers = $client->Provider()->list();
 ```
 
@@ -2543,6 +2573,7 @@ Create an instance: `$webhook_endpoint = $client->WebhookEndpoint();`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -2562,32 +2593,11 @@ Create an instance: `$webhook_endpoint = $client->WebhookEndpoint();`
 $webhook_endpoint = $client->WebhookEndpoint()->load(["id" => "webhook_endpoint_id"]);
 ```
 
-
-### WebhookEndpointResponsePagedList
-
-Create an instance: `$webhook_endpoint_response_paged_list = $client->WebhookEndpointResponsePagedList();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `string` | The date and time the endpoint was created |
-| `endpoint_url` | `string` | The registered URL of the endpoint |
-| `id` | `string` | The unique identifier of the endpoint |
-| `object` | `string` | The object type |
-| `subscribed_events` | `array` | The events the endpoint is subscribed to |
-
 #### Example: List
 
 ```php
-// list() returns an array of WebhookEndpointResponsePagedList records (throws on error).
-$webhook_endpoint_response_paged_lists = $client->WebhookEndpointResponsePagedList()->list();
+// list() returns an array of WebhookEndpoint entities, one per record (throws on error).
+$webhook_endpoints = $client->WebhookEndpoint()->list();
 ```
 
 ## Features
@@ -2807,15 +2817,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$dependentsmanagementintent = $client->DependentsManagementIntent();
-$dependentsmanagementintent->load(["id" => "example_id"]);
+$groupquoteintent = $client->GroupQuoteIntent();
+$groupquoteintent->list();
 
-// $dependentsmanagementintent->data_get() now returns the dependentsmanagementintent data from the last load
-// $dependentsmanagementintent->match_get() returns the last match criteria
+// $groupquoteintent->data_get() now returns the groupquoteintent data from the last list
+// $groupquoteintent->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

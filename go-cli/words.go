@@ -153,8 +153,6 @@ func entityFor(client *sdk.KotaSDK, name string) (sdk.KotaEntity, error) {
 		return client.Provider(nil), nil
 	case "webhook_endpoint":
 		return client.WebhookEndpoint(nil), nil
-	case "webhook_endpoint_response_paged_list":
-		return client.WebhookEndpointResponsePagedList(nil), nil
 
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)

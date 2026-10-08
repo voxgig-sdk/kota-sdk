@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/kota-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const group_employeeEntityLiveStrict = true
+
+
 func TestGroupEmployeeEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,7 +31,21 @@ func TestGroupEmployeeEntity(t *testing.T) {
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
+		}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.GroupEmployee(nil).Create(map[string]any{"id": 1, "eligibility_status": "x", "employee_id": "x", "enrolment_status": "x", "enrolments": "x", "group_id": "x", "policies": "x", "scheduled_group_transitions": "x"}, nil)
+		if sdkerr, ok := err.(*core.KotaError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
+		}
+	})
+
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := group_employeeBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -32,7 +53,7 @@ func TestGroupEmployeeEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create"} {
+		for _, _op := range []string{} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "group_employee." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -41,31 +62,15 @@ func TestGroupEmployeeEntity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set KOTA_TEST_GROUP_EMPLOYEE_ENTID JSON to run live")
-			return
+		// Bootstrap entity data from existing test data (no create step in flow).
+		groupEmployeeRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.group_employee")))
+		var groupEmployeeRef01Data map[string]any
+		if len(groupEmployeeRef01DataRaw) > 0 {
+			groupEmployeeRef01Data = core.ToMapAny(groupEmployeeRef01DataRaw[0][1])
 		}
-		client := setup.client
-
-		// CREATE
-		groupEmployeeRef01Ent := client.GroupEmployee(nil)
-		groupEmployeeRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath(setup.data, []any{"new", "group_employee"}), "group_employee_ref01"))
-		groupEmployeeRef01Data["group_id"] = setup.idmap["group01"]
-
-		groupEmployeeRef01DataResult, err := groupEmployeeRef01Ent.Create(groupEmployeeRef01Data, nil)
-		if err != nil {
-			t.Fatalf("create failed: %v", err)
-		}
-		groupEmployeeRef01Data = core.ToMapAny(entityData(groupEmployeeRef01DataResult))
-		if groupEmployeeRef01Data == nil {
-			t.Fatal("expected create result to be a map")
-		}
-		if groupEmployeeRef01Data["id"] == nil {
-			t.Fatal("expected created entity to have an id")
-		}
+		// Discard guards against Go's unused-var check when the flow's steps
+		// happen not to consume the bootstrap data (e.g. list-only flows).
+		_ = groupEmployeeRef01Data
 
 	})
 }
@@ -95,7 +100,7 @@ func group_employeeBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"group_employee01", "group_employee02", "group_employee03", "group01"},
+		[]any{"group_employee01", "group_employee02", "group_employee03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
@@ -104,9 +109,8 @@ func group_employeeBasicSetup(extra map[string]any) *entityTestSetup {
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("KOTA_TEST_GROUP_EMPLOYEE_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

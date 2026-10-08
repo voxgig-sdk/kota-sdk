@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/kota-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/kota-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -41,14 +41,14 @@ client = KotaSDK({
 
 ### 2. List associatedperson records
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
     associatedpersons = client.AssociatedPerson().list({"employee_id": "example"})
     for associatedperson in associatedpersons:
-        print(associatedperson)
+        print(associatedperson.data_get())
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -61,7 +61,7 @@ AssociatedPerson is nested under employee, so provide the `employee_id`.
 ```python
 try:
     associatedperson = client.AssociatedPerson().load({"employee_id": "example_employee_id", "id": "example_id"})
-    print(associatedperson)
+    print(associatedperson.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -72,7 +72,7 @@ except Exception as err:
 # Create — returns the ENTITY (call data_get() for the record)
 created = client.AssociatedPerson().create({"employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth", "first_name": "example_first_name", "id": "example_id", "last_name": "example_last_name", "relationship_type": "example_relationship_type", "sex_at_birth": "example_sex_at_birth"})
 
-# Update — the created record's id is a plain dict key
+# Update — the created entity's record holds its id
 client.AssociatedPerson().update({"id": created.data_get()["id"], "employee_id": "example_employee_id", "date_of_birth": "example_date_of_birth"})
 
 # Remove
@@ -86,10 +86,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    dependentsmanagementintent = client.DependentsManagementIntent().load({"id": "example_id"})
-    print(dependentsmanagementintent)
+    groupquoteintents = client.GroupQuoteIntent().list()
+    print([item.data_get() for item in groupquoteintents])
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -153,10 +153,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = KotaSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
-dependentsmanagementintent = client.DependentsManagementIntent().load({"id": "test01"})
-# dependentsmanagementintent contains the mock response record
+# Entity ops return the entity, and list one per record; they raise on error.
+groupquoteintent = client.GroupQuoteIntent().list()
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -272,7 +271,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `PolicyImportIntent` | `(data) -> PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider` | `(data) -> ProviderEntity` | Create a Provider entity instance. |
 | `WebhookEndpoint` | `(data) -> WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
-| `WebhookEndpointResponsePagedList` | `(data) -> WebhookEndpointResponsePagedListEntity` | Create a WebhookEndpointResponsePagedList entity instance. |
 
 ### Entity interface
 
@@ -280,11 +278,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity, and return it. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity, and return it marked as deleted. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -294,9 +292,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -404,6 +402,8 @@ API path: `/contribution_reports/{contribution_report_id}/employee_breakdowns`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
 | `link` |  |
 
@@ -415,7 +415,10 @@ API path: `/hosted/sessions`
 
 | Field | Description |
 | --- | --- |
+| `employee_id` |  |
+| `employer_id` |  |
 | `expiry` |  |
+| `external_customer_id` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` |  |
 
 Operations: Create.
@@ -427,7 +430,9 @@ API path: `/embed/sessions`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the action required from the caller. |
+| `associated_person_ids` | List of associated person IDs to add as dependents. |
 | `coverage_options` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | Optional coverage selections per dependent. |
 | `dependents` | List of dependents being managed. |
 | `disclosures` | Disclosures associated with this intent. |
 | `id` | Unique identifier for the dependents management intent. |
@@ -465,6 +470,7 @@ API path: `/policies/{policy_id}/policy_amendment_intents/{id}/create_dependents
 | Field | Description |
 | --- | --- |
 | `eligibility_status` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | The employee to check eligibility for. |
 | `object` | The object type. |
 | `plan` | The insurance plan associated with the group. |
 | `provider` | The insurance provider associated with the group. |
@@ -592,15 +598,15 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 | Field | Description |
 | --- | --- |
 | `contact` |  |
-| `earliest_benefits_start_date` |  |
+| `earliest_benefits_start_date` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` |  |
-| `legal_address` |  |
-| `legal_name` |  |
+| `legal_address` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | Legal name of the company. |
 | `metadata` | Set of key-value pairs that you can attach to an object. |
 | `object` | The object type |
 | `offboard_on` |  |
 | `platform_id` |  |
-| `registration_number` |  |
+| `registration_number` | Company registration number. |
 | `status` |  |
 
 Operations: Create, List, Load, Update.
@@ -686,8 +692,11 @@ API path: `/employers/{employer_id}/health_insurance/quotes`
 | Field | Description |
 | --- | --- |
 | `action_required` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `disclosures` | Disclosures associated with this intent. |
 | `employee_id` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | Identifier for the group associated with this enrolment intent. |
 | `id` | Unique identifier for the enrolment intent. |
@@ -720,10 +729,7 @@ API path: `/enrolment_intents/{enrolment_intent_id}/requirements`
 | `created` |  |
 | `data` |  |
 | `id` |  |
-| `options` |  |
-| `parent` |  |
 | `platform_id` |  |
-| `root` |  |
 | `type` |  |
 
 Operations: Create, List, Load.
@@ -754,8 +760,10 @@ API path: `/groups`
 
 | Field | Description |
 | --- | --- |
+| `create_enrolment_intents` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | The desired date for the employee's policy to start. |
 | `eligibility_status` | Eligibility status for the employee in this group. |
+| `employee_id` | Employee Id |
 | `enrolment_date` | The date on which the employee agreed to enrol into the group's policies. |
 | `enrolment_status` | Enrolment status for the employee in this group. |
 | `enrolments` | List of enrolments associated with the employee in this group. |
@@ -763,6 +771,7 @@ API path: `/groups`
 | `id` | Unique identifier for the employee. |
 | `object` | The object type |
 | `policies` | List of policies associated with the employee in this group. |
+| `policy_configuration` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | List of scheduled group transitions for the employee. |
 
 Operations: Create.
@@ -806,6 +815,7 @@ API path: `/group_policies`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | Cost sharing configuration for the policy intent |
 | `disclosures` | Disclosures associated with this intent. |
 | `due_date` | Due date for the policy intent |
@@ -834,11 +844,15 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `family_type` | Type of the family covered by the employer. |
-| `member_count` | Numbers of additional members covered by the employer. |
-| `member_selection` | Whether specific member types are covered by the employer. |
-| `percentage` | Percentage of the premium the employer covers. |
-| `type` | Cost sharing type. |
+| `cost_sharing` | Cost sharing configuration for the quote |
+| `currency` | Currency of the premium (e.g. |
+| `employee_count` | Number of employees covered by the quote |
+| `expires_at` | When the quote expires |
+| `generated_at` | When the quote was generated |
+| `object` | Object type identifier |
+| `pdf_expires_at` | When the PDF URL expires |
+| `pdf_url` | URL to download the quote PDF |
+| `total_monthly_premium` | Total monthly premium for the group |
 
 Operations: Load.
 
@@ -851,6 +865,7 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | `action_required` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | Consent links that need to be acknowledged |
 | `cost_sharing` | Cost sharing configuration for the quote |
+| `coverage_selections` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | Disclosures associated with this intent. |
 | `expected_start_date` | Expected start date for the insurance coverage |
 | `group_id` | Unique identifier for the group |
@@ -991,21 +1006,7 @@ API path: `/providers`
 | `object` | The object type |
 | `subscribed_events` | The events the endpoint is subscribed to |
 
-Operations: Load.
-
-API path: `/webhooks/endpoints/{webhook_endpoint_id}`
-
-#### WebhookEndpointResponsePagedList
-
-| Field | Description |
-| --- | --- |
-| `created_at` | The date and time the endpoint was created |
-| `endpoint_url` | The registered URL of the endpoint |
-| `id` | The unique identifier of the endpoint |
-| `object` | The object type |
-| `subscribed_events` | The events the endpoint is subscribed to |
-
-Operations: List.
+Operations: List, Load.
 
 API path: `/webhooks/endpoints`
 
@@ -1041,8 +1042,8 @@ Create an instance: `associated_person = client.AssociatedPerson()`
 | `object` | `str` | The object type |
 | `phone_number` | `None | str` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `str` | Unique identifier for the platform |
-| `relationship_type` | `Any` | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `Any` | The sex assigned to the associated person at birth |
+| `relationship_type` | `str` | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `str` | The sex assigned to the associated person at birth |
 
 #### Example: Load
 
@@ -1065,8 +1066,8 @@ associated_person = client.AssociatedPerson().create({
     "first_name": "example_first_name",  # str
     "id": "example_id",  # str
     "last_name": "example_last_name",  # str
-    "relationship_type": "example_relationship_type",  # Any
-    "sex_at_birth": "example_sex_at_birth",  # Any
+    "relationship_type": "example_relationship_type",  # str
+    "sex_at_birth": "example_sex_at_birth",  # str
 })
 ```
 
@@ -1087,13 +1088,13 @@ Create an instance: `associated_person_eligibility_response_paged_list = client.
 | --- | --- | --- |
 | `associated_person_id` | `str` | The associated person ID. |
 | `date_of_birth` | `str` | Date of birth of the associated person. |
-| `eligibility_status` | `Any` | Eligibility status for the policy/plan. |
+| `eligibility_status` | `str` | Eligibility status for the policy/plan. |
 | `first_name` | `str` | First name of the associated person. |
 | `ineligibility_reason` | `None | str` | Reason for ineligibility if status is ineligible. |
 | `last_name` | `str` | Last name of the associated person. |
 | `object` | `str` | The object type |
-| `relationship` | `Any` | Relationship type to the employee. |
-| `sex_at_birth` | `Any` | Sex at birth of the associated person. |
+| `relationship` | `str` | Relationship type to the employee. |
+| `sex_at_birth` | `str` | Sex at birth of the associated person. |
 
 #### Example: List
 
@@ -1126,7 +1127,7 @@ Create an instance: `contribution_report = client.ContributionReport()`
 | `last_updated_at` | `str` | Date and time of the last update to the report |
 | `object` | `str` | The object type |
 | `period` | `Any` | Period covered by the contribution report |
-| `status` | `Any` | Current status of the contribution report |
+| `status` | `str` | Current status of the contribution report |
 
 #### Example: Load
 
@@ -1149,7 +1150,7 @@ contribution_report = client.ContributionReport().create({
     "employer_id": "example_employer_id",  # str
     "last_updated_at": "example_last_updated_at",  # str
     "period": "example_period",  # Any
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -1170,7 +1171,7 @@ Create an instance: `contribution_report_employee_breakdown = client.Contributio
 | --- | --- | --- |
 | `contribution_report_id` | `str` | Unique identifier of the related contribution report |
 | `created_at` | `str` | Date and time the breakdown was created |
-| `currency` | `Any` | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `str` | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `str` | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `str` | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `None | str` | Unique identifier of the customer for which the breakdown is created. |
@@ -1180,7 +1181,7 @@ Create an instance: `contribution_report_employee_breakdown = client.Contributio
 | `last_updated_at` | `str` | Date and time of the last update to the breakdown |
 | `object` | `str` | The object type |
 | `period` | `Any` | Period covered by the employee breakdown |
-| `status` | `Any` | Current status of the breakdown |
+| `status` | `str` | Current status of the breakdown |
 
 #### Example: Load
 
@@ -1226,6 +1227,8 @@ Create an instance: `create_hosted_session_token = client.CreateHostedSessionTok
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `str` |  |
+| `employer_id` | `str` |  |
 | `expiry` | `str` |  |
 | `link` | `str` |  |
 
@@ -1233,6 +1236,8 @@ Create an instance: `create_hosted_session_token = client.CreateHostedSessionTok
 
 ```python
 create_hosted_session_token = client.CreateHostedSessionToken().create({
+    "employee_id": "example_employee_id",  # str
+    "employer_id": "example_employer_id",  # str
     "expiry": "example_expiry",  # str
     "link": "example_link",  # str
 })
@@ -1253,13 +1258,17 @@ Create an instance: `create_session_token = client.CreateSessionToken()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `employee_id` | `None | str` |  |
+| `employer_id` | `str` |  |
 | `expiry` | `str` |  |
+| `external_customer_id` | `None | str` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `str` |  |
 
 #### Example: Create
 
 ```python
 create_session_token = client.CreateSessionToken().create({
+    "employer_id": "example_employer_id",  # str
     "expiry": "example_expiry",  # str
     "token": "example_token",  # str
 })
@@ -1282,28 +1291,31 @@ Create an instance: `dependent = client.Dependent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` | Details of the action required from the caller. |
+| `associated_person_ids` | `list` | List of associated person IDs to add as dependents. |
 | `coverage_options` | `None | list` | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `None | list` | Optional coverage selections per dependent. |
 | `dependents` | `list` | List of dependents being managed. |
 | `disclosures` | `list` | Disclosures associated with this intent. |
 | `id` | `str` | Unique identifier for the dependents management intent. |
 | `object` | `str` | Object type identifier. |
 | `parent_intent_id` | `str` | The parent intent ID (e.g. |
-| `parent_intent_type` | `Any` | The type of parent intent. |
+| `parent_intent_type` | `str` | The type of parent intent. |
 | `plan` | `Any` | Plan information including pricing details. |
-| `status` | `Any` | Current status of the dependents management intent. |
+| `status` | `str` | Current status of the dependents management intent. |
 
 #### Example: Create
 
 ```python
 dependent = client.Dependent().create({
     "dependents_management_intent_id": "example_dependents_management_intent_id",  # str
+    "associated_person_ids": [],  # list
     "dependents": [],  # list
     "disclosures": [],  # list
     "id": "example_id",  # str
     "parent_intent_id": "example_parent_intent_id",  # str
-    "parent_intent_type": "example_parent_intent_type",  # Any
+    "parent_intent_type": "example_parent_intent_type",  # str
     "plan": "example_plan",  # Any
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -1330,9 +1342,9 @@ Create an instance: `dependents_management_intent = client.DependentsManagementI
 | `id` | `str` | Unique identifier for the dependents management intent. |
 | `object` | `str` | Object type identifier. |
 | `parent_intent_id` | `str` | The parent intent ID (e.g. |
-| `parent_intent_type` | `Any` | The type of parent intent. |
+| `parent_intent_type` | `str` | The type of parent intent. |
 | `plan` | `Any` | Plan information including pricing details. |
-| `status` | `Any` | Current status of the dependents management intent. |
+| `status` | `str` | Current status of the dependents management intent. |
 
 #### Example: Load
 
@@ -1349,9 +1361,9 @@ dependents_management_intent = client.DependentsManagementIntent().create({
     "disclosures": [],  # list
     "id": "example_id",  # str
     "parent_intent_id": "example_parent_intent_id",  # str
-    "parent_intent_type": "example_parent_intent_type",  # Any
+    "parent_intent_type": "example_parent_intent_type",  # str
     "plan": "example_plan",  # Any
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -1370,7 +1382,8 @@ Create an instance: `eligibility_check = client.EligibilityCheck()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `eligibility_status` | `Any` | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `str` | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `str` | The employee to check eligibility for. |
 | `object` | `str` | The object type. |
 | `plan` | `Any` | The insurance plan associated with the group. |
 | `provider` | `Any` | The insurance provider associated with the group. |
@@ -1381,7 +1394,8 @@ Create an instance: `eligibility_check = client.EligibilityCheck()`
 ```python
 eligibility_check = client.EligibilityCheck().create({
     "group_id": "example_group_id",  # str
-    "eligibility_status": "example_eligibility_status",  # Any
+    "eligibility_status": "example_eligibility_status",  # str
+    "employee_id": "example_employee_id",  # str
     "plan": "example_plan",  # Any
     "provider": "example_provider",  # Any
     "reasons": [],  # list
@@ -1423,9 +1437,9 @@ Create an instance: `employee = client.Employee()`
 | `offboard_on` | `None | str` | Date when the employee was or will be offboarded |
 | `phone_number` | `str` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `str` | Unique identifier for the platform |
-| `sex_at_birth` | `Any` | The sex assigned to the employee at birth |
+| `sex_at_birth` | `str` | The sex assigned to the employee at birth |
 | `start_on` | `str` | Employment start date |
-| `status` | `Any` | Current status of the employee |
+| `status` | `str` | Current status of the employee |
 
 #### Example: Load
 
@@ -1449,7 +1463,7 @@ employee = client.Employee().create({
     "last_name": "example_last_name",  # str
     "national_tax_id": "example_national_tax_id",  # str
     "phone_number": "example_phone_number",  # str
-    "sex_at_birth": "example_sex_at_birth",  # Any
+    "sex_at_birth": "example_sex_at_birth",  # str
 })
 ```
 
@@ -1475,7 +1489,7 @@ Create an instance: `employee_health_insurance_offer = client.EmployeeHealthInsu
 | `id` | `str` | Unique identifier for offer |
 | `object` | `str` | The object type |
 | `required_action` | `None` | Required action to progress the offer, if any. |
-| `status` | `Any` | Current status of offer |
+| `status` | `str` | Current status of offer |
 
 #### Example: Load
 
@@ -1505,7 +1519,7 @@ Create an instance: `employee_health_insurance_offer_response_paged_list = clien
 | `id` | `str` | Unique identifier for offer |
 | `object` | `str` | The object type |
 | `required_action` | `None` | Required action to progress the offer, if any. |
-| `status` | `Any` | Current status of offer |
+| `status` | `str` | Current status of offer |
 
 #### Example: List
 
@@ -1534,7 +1548,7 @@ Create an instance: `employee_health_insurance_policy = client.EmployeeHealthIns
 | `employer_id` | `str` | The Id of the employer for which the policy is created |
 | `end_date` | `str` | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `Any` | Enrolment type of the policy |
+| `enrolment_type` | `str` | Enrolment type of the policy |
 | `estimated_gross_premium` | `Any` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `None | str` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `str` | Unique identifier for policy |
@@ -1543,7 +1557,7 @@ Create an instance: `employee_health_insurance_policy = client.EmployeeHealthIns
 | `policy_number` | `None | str` | Health insurance policy number, if available |
 | `renewal` | `Any` | Renewal information for the policy |
 | `start_date` | `str` | Policy starts on this date |
-| `status` | `Any` | Current status of policy |
+| `status` | `str` | Current status of policy |
 
 #### Example: Load
 
@@ -1572,7 +1586,7 @@ Create an instance: `employee_health_insurance_policy_response_paged_list = clie
 | `employer_id` | `str` | The Id of the employer for which the policy is created |
 | `end_date` | `str` | Policy ends on this date |
 | `enrolled_dependants_count` | `int` | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `Any` | Enrolment type of the policy |
+| `enrolment_type` | `str` | Enrolment type of the policy |
 | `estimated_gross_premium` | `Any` | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `None | str` | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `str` | Unique identifier for policy |
@@ -1581,7 +1595,7 @@ Create an instance: `employee_health_insurance_policy_response_paged_list = clie
 | `policy_number` | `None | str` | Health insurance policy number, if available |
 | `renewal` | `Any` | Renewal information for the policy |
 | `start_date` | `str` | Policy starts on this date |
-| `status` | `Any` | Current status of policy |
+| `status` | `str` | Current status of policy |
 
 #### Example: List
 
@@ -1608,16 +1622,16 @@ Create an instance: `employer = client.Employer()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `contact` | `Any` |  |
-| `earliest_benefits_start_date` | `None | str` |  |
+| `earliest_benefits_start_date` | `None | str` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `str` |  |
-| `legal_address` | `Any` |  |
-| `legal_name` | `str` |  |
+| `legal_address` | `Any` | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `str` | Legal name of the company. |
 | `metadata` | `None | dict` | Set of key-value pairs that you can attach to an object. |
 | `object` | `str` | The object type |
 | `offboard_on` | `None | str` |  |
 | `platform_id` | `str` |  |
-| `registration_number` | `None | str` |  |
-| `status` | `Any` |  |
+| `registration_number` | `None | str` | Company registration number. |
+| `status` | `str` |  |
 
 #### Example: Load
 
@@ -1662,13 +1676,13 @@ Create an instance: `employer_health_insurance_policy = client.EmployerHealthIns
 | `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `str` | The Id of the employer for which the policy is created |
 | `end_date` | `str` | Policy ends on this date |
-| `enrolment_type` | `Any` | Enrolment type of the policy |
+| `enrolment_type` | `str` | Enrolment type of the policy |
 | `group_policy_number` | `None | str` | Group’s health insurance policy number, if available |
 | `id` | `str` | Unique identifier for policy |
 | `object` | `str` | The object type |
 | `renewal` | `Any` | Renewal information for the policy |
 | `start_date` | `str` | Policy starts on this date |
-| `status` | `Any` | Current status of policy |
+| `status` | `str` | Current status of policy |
 
 #### Example: Load
 
@@ -1696,13 +1710,13 @@ Create an instance: `employer_health_insurance_policy_response_paged_list = clie
 | `employer_cancellation_period_length` | `int` | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `str` | The Id of the employer for which the policy is created |
 | `end_date` | `str` | Policy ends on this date |
-| `enrolment_type` | `Any` | Enrolment type of the policy |
+| `enrolment_type` | `str` | Enrolment type of the policy |
 | `group_policy_number` | `None | str` | Group’s health insurance policy number, if available |
 | `id` | `str` | Unique identifier for policy |
 | `object` | `str` | The object type |
 | `renewal` | `Any` | Renewal information for the policy |
 | `start_date` | `str` | Policy starts on this date |
-| `status` | `Any` | Current status of policy |
+| `status` | `str` | Current status of policy |
 
 #### Example: List
 
@@ -1731,7 +1745,7 @@ Create an instance: `employer_health_insurance_quote = client.EmployerHealthInsu
 | `object` | `str` | The object type |
 | `quoted_at` | `str` | Date and time the quote was created at |
 | `required_action` | `None` | Actions required by the employer to proceed with the quote. |
-| `status` | `Any` | Current status of the quote |
+| `status` | `str` | Current status of the quote |
 
 #### Example: Load
 
@@ -1760,7 +1774,7 @@ Create an instance: `employer_health_insurance_quote_response_paged_list = clien
 | `object` | `str` | The object type |
 | `quoted_at` | `str` | Date and time the quote was created at |
 | `required_action` | `None` | Actions required by the employer to proceed with the quote. |
-| `status` | `Any` | Current status of the quote |
+| `status` | `str` | Current status of the quote |
 
 #### Example: List
 
@@ -1787,8 +1801,11 @@ Create an instance: `enrolment_intent = client.EnrolmentIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `None | list` | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `None | str` | The desired date for the employee's policy to start. |
 | `disclosures` | `list` | Disclosures associated with this intent. |
 | `employee_id` | `str` | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `None | str` | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `bool` | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `str` | Identifier for the group associated with this enrolment intent. |
 | `id` | `str` | Unique identifier for the enrolment intent. |
@@ -1797,7 +1814,7 @@ Create an instance: `enrolment_intent = client.EnrolmentIntent()`
 | `pending_confirmation` | `None` | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `None` | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `list` | Policy enrolment information |
-| `status` | `Any` | Current status of the enrolment intent. |
+| `status` | `str` | Current status of the enrolment intent. |
 
 #### Example: Load
 
@@ -1821,7 +1838,7 @@ enrolment_intent = client.EnrolmentIntent().create({
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
     "policy_enrolments": [],  # list
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -1869,10 +1886,7 @@ Create an instance: `event = client.Event()`
 | `created` | `str` |  |
 | `data` | `None` |  |
 | `id` | `str` |  |
-| `options` | `None` |  |
-| `parent` | `None` |  |
 | `platform_id` | `str` |  |
-| `root` | `Any` |  |
 | `type` | `str` |  |
 
 #### Example: Load
@@ -1893,7 +1907,7 @@ events = client.Event().list()
 event = client.Event().create({
     "id": "example_id",  # str
     "created": "example_created",  # str
-    "data": "example_data",  # None
+    "data": None,  # None
     "platform_id": "example_platform_id",  # str
     "type": "example_type",  # str
 })
@@ -1919,15 +1933,15 @@ Create an instance: `group = client.Group()`
 | --- | --- | --- |
 | `description` | `None | str` | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `str` | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `Any` | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `str` | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `list` | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `list` | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `list` | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `Any` | Indicates how policies are organized for this group. |
+| `group_type` | `str` | Indicates how policies are organized for this group. |
 | `id` | `str` | Unique identifier for the `group`. |
 | `name` | `str` | Human-readable name of the `group`. |
 | `object` | `str` | The object type |
-| `status` | `Any` | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `str` | Current lifecycle state of the `group`, indicating its current progress. |
 
 #### Example: Load
 
@@ -1946,14 +1960,14 @@ groups = client.Group().list()
 ```python
 group = client.Group().create({
     "employer_id": "example_employer_id",  # str
-    "enrolment_type": "example_enrolment_type",  # Any
+    "enrolment_type": "example_enrolment_type",  # str
     "group_policy_ids": [],  # list
     "group_policy_intent_ids": [],  # list
     "group_quote_intent_ids": [],  # list
-    "group_type": "example_group_type",  # Any
+    "group_type": "example_group_type",  # str
     "id": "example_id",  # str
     "name": "example_name",  # str
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -1972,15 +1986,18 @@ Create an instance: `group_employee = client.GroupEmployee()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `create_enrolment_intents` | `None | bool` | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `None | str` | The desired date for the employee's policy to start. |
-| `eligibility_status` | `Any` | Eligibility status for the employee in this group. |
+| `eligibility_status` | `str` | Eligibility status for the employee in this group. |
+| `employee_id` | `str` | Employee Id |
 | `enrolment_date` | `None | str` | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `Any` | Enrolment status for the employee in this group. |
+| `enrolment_status` | `str` | Enrolment status for the employee in this group. |
 | `enrolments` | `list` | List of enrolments associated with the employee in this group. |
 | `group_id` | `str` | Unique identifier for the group. |
 | `id` | `str` | Unique identifier for the employee. |
 | `object` | `str` | The object type |
 | `policies` | `list` | List of policies associated with the employee in this group. |
+| `policy_configuration` | `None` | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `list` | List of scheduled group transitions for the employee. |
 
 #### Example: Create
@@ -1988,8 +2005,9 @@ Create an instance: `group_employee = client.GroupEmployee()`
 ```python
 group_employee = client.GroupEmployee().create({
     "id": "example_id",  # str
-    "eligibility_status": "example_eligibility_status",  # Any
-    "enrolment_status": "example_enrolment_status",  # Any
+    "eligibility_status": "example_eligibility_status",  # str
+    "employee_id": "example_employee_id",  # str
+    "enrolment_status": "example_enrolment_status",  # str
     "enrolments": [],  # list
     "group_id": "example_group_id",  # str
     "policies": [],  # list
@@ -2047,8 +2065,8 @@ Create an instance: `group_policy = client.GroupPolicy()`
 | `plan` | `Any` | Plan information for this policy |
 | `provider` | `Any` | Provider information for this policy. |
 | `start_date` | `str` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `Any` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `Any` | Policy type. |
+| `status` | `str` | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `str` | Policy type. |
 
 #### Example: Load
 
@@ -2080,6 +2098,7 @@ Create an instance: `group_policy_intent = client.GroupPolicyIntent()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `None` | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `None | list` | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `None` | Cost sharing configuration for the policy intent |
 | `disclosures` | `list` | Disclosures associated with this intent. |
 | `due_date` | `None | str` | Due date for the policy intent |
@@ -2088,7 +2107,7 @@ Create an instance: `group_policy_intent = client.GroupPolicyIntent()`
 | `object` | `str` | Object type identifier |
 | `plan_id` | `str` | Unique identifier for the plan |
 | `quote_intent_id` | `str` | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `Any` | Current status of the group policy intent |
+| `status` | `str` | Current status of the group policy intent |
 
 #### Example: Load
 
@@ -2111,7 +2130,7 @@ group_policy_intent = client.GroupPolicyIntent().create({
     "id": "example_id",  # str
     "plan_id": "example_plan_id",  # str
     "quote_intent_id": "example_quote_intent_id",  # str
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -2153,11 +2172,15 @@ Create an instance: `group_quote = client.GroupQuote()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `family_type` | `None` | Type of the family covered by the employer. |
-| `member_count` | `None` | Numbers of additional members covered by the employer. |
-| `member_selection` | `None` | Whether specific member types are covered by the employer. |
-| `percentage` | `None` | Percentage of the premium the employer covers. |
-| `type` | `Any` | Cost sharing type. |
+| `cost_sharing` | `Any` | Cost sharing configuration for the quote |
+| `currency` | `str` | Currency of the premium (e.g. |
+| `employee_count` | `int` | Number of employees covered by the quote |
+| `expires_at` | `str` | When the quote expires |
+| `generated_at` | `str` | When the quote was generated |
+| `object` | `str` | Object type identifier |
+| `pdf_expires_at` | `None | str` | When the PDF URL expires |
+| `pdf_url` | `None | str` | URL to download the quote PDF |
+| `total_monthly_premium` | `float` | Total monthly premium for the group |
 
 #### Example: Load
 
@@ -2185,13 +2208,14 @@ Create an instance: `group_quote_intent = client.GroupQuoteIntent()`
 | `action_required` | `None` | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `list` | Consent links that need to be acknowledged |
 | `cost_sharing` | `None` | Cost sharing configuration for the quote |
+| `coverage_selections` | `None | list` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `list` | Disclosures associated with this intent. |
 | `expected_start_date` | `None | str` | Expected start date for the insurance coverage |
 | `group_id` | `str` | Unique identifier for the group |
 | `id` | `str` | Unique identifier for the group quote intent |
 | `object` | `str` | Object type identifier |
 | `plan_id` | `str` | Unique identifier for the plan |
-| `status` | `Any` | Current status of the group quote intent |
+| `status` | `str` | Current status of the group quote intent |
 
 #### Example: Load
 
@@ -2214,7 +2238,7 @@ group_quote_intent = client.GroupQuoteIntent().create({
     "group_id": "example_group_id",  # str
     "id": "example_id",  # str
     "plan_id": "example_plan_id",  # str
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -2259,7 +2283,7 @@ Create an instance: `plan = client.Plan()`
 | --- | --- | --- |
 | `available_from` | `str` | The date from which this plan is available (inclusive). |
 | `available_to` | `None | str` | The date until which this plan is available (inclusive). |
-| `country` | `Any` | The country this plan is available in. |
+| `country` | `str` | The country this plan is available in. |
 | `coverage_options` | `None | list` | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `str` | Description of the plan. |
 | `disclosures` | `list` | Disclosures associated with this plan. |
@@ -2274,7 +2298,7 @@ Create an instance: `plan = client.Plan()`
 | `object` | `str` | Object type. |
 | `provider` | `Any` | The provider offering this plan. |
 | `total_count` | `None | int` | Total employees in the queried group. |
-| `type` | `Any` | The benefit type of the plan. |
+| `type` | `str` | The benefit type of the plan. |
 
 #### Example: Load
 
@@ -2304,7 +2328,7 @@ Create an instance: `policy = client.Policy()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bundling_type` | `Any` | Indicates how this policy is bundled within a group |
+| `bundling_type` | `str` | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `None | str` | Date the policy was cancelled (if applicable) |
 | `disclosures` | `list` | Disclosures associated with this policy. |
 | `employee_id` | `str` | Identifier of the employee associated with this policy. |
@@ -2317,8 +2341,8 @@ Create an instance: `policy = client.Policy()`
 | `plan` | `Any` | Plan information for this policy |
 | `provider` | `Any` | Provider information for this policy |
 | `start_date` | `str` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `Any` | Current lifecycle state of the policy |
-| `type` | `Any` | Policy type. |
+| `status` | `str` | Current lifecycle state of the policy |
+| `type` | `str` | Policy type. |
 
 #### Example: Load
 
@@ -2358,7 +2382,7 @@ Create an instance: `policy_amendment_intent = client.PolicyAmendmentIntent()`
 | `processing_error` | `None` | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `list` | List of requested changes to the policy. |
 | `required_action` | `None` | Information about the required action if the intent status is `action_required`. |
-| `status` | `Any` | Current status of the policy amendment intent. |
+| `status` | `str` | Current status of the policy amendment intent. |
 
 #### Example: Load
 
@@ -2369,7 +2393,7 @@ policy_amendment_intent = client.PolicyAmendmentIntent().load({"id": "policy_ame
 #### Example: List
 
 ```python
-policy_amendment_intents = client.PolicyAmendmentIntent().list({"id": "example_id"})
+policy_amendment_intents = client.PolicyAmendmentIntent().list({"id": "example"})
 ```
 
 #### Example: Create
@@ -2381,7 +2405,7 @@ policy_amendment_intent = client.PolicyAmendmentIntent().create({
     "disclosures": [],  # list
     "policy_id": "example_policy_id",  # str
     "requested_changes": [],  # list
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -2411,7 +2435,7 @@ Create an instance: `policy_import_intent = client.PolicyImportIntent()`
 | `policy_end_date` | `None | str` | The end date of the policy. |
 | `policy_start_date` | `str` | The start date of the policy. |
 | `provider_policy_number` | `str` | The provider's policy number. |
-| `status` | `Any` | Current status of the policy import intent. |
+| `status` | `str` | Current status of the policy import intent. |
 
 #### Example: Load
 
@@ -2436,7 +2460,7 @@ policy_import_intent = client.PolicyImportIntent().create({
     "member_number": "example_member_number",  # str
     "policy_start_date": "example_policy_start_date",  # str
     "provider_policy_number": "example_provider_policy_number",  # str
-    "status": "example_status",  # Any
+    "status": "example_status",  # str
 })
 ```
 
@@ -2488,6 +2512,7 @@ Create an instance: `webhook_endpoint = client.WebhookEndpoint()`
 
 | Method | Description |
 | --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -2506,31 +2531,10 @@ Create an instance: `webhook_endpoint = client.WebhookEndpoint()`
 webhook_endpoint = client.WebhookEndpoint().load({"id": "webhook_endpoint_id"})
 ```
 
-
-### WebhookEndpointResponsePagedList
-
-Create an instance: `webhook_endpoint_response_paged_list = client.WebhookEndpointResponsePagedList()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | The date and time the endpoint was created |
-| `endpoint_url` | `str` | The registered URL of the endpoint |
-| `id` | `str` | The unique identifier of the endpoint |
-| `object` | `str` | The object type |
-| `subscribed_events` | `list` | The events the endpoint is subscribed to |
-
 #### Example: List
 
 ```python
-webhook_endpoint_response_paged_lists = client.WebhookEndpointResponsePagedList().list()
+webhook_endpoints = client.WebhookEndpoint().list()
 ```
 
 ## Features
@@ -2749,15 +2753,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-dependentsmanagementintent = client.DependentsManagementIntent()
-dependentsmanagementintent.load({"id": "example_id"})
+groupquoteintent = client.GroupQuoteIntent()
+groupquoteintent.list()
 
-# dependentsmanagementintent.data_get() now returns the dependentsmanagementintent data from the last load
-# dependentsmanagementintent.match_get() returns the last match criteria
+# groupquoteintent.data_get() now returns the groupquoteintent data from the last list
+# groupquoteintent.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -11,6 +11,12 @@ use Voxgig\Struct\Struct as Vs;
 
 class GroupEmployeeEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = KotaSDK::test(null, null);
@@ -18,36 +24,43 @@ class GroupEmployeeEntityTest extends TestCase
         $this->assertNotNull($ent);
     }
 
+    public function test_validate(): void
+    {
+        $cfg = KotaConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $client = KotaSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->GroupEmployee(null)->create(["id" => 1, "eligibility_status" => 'x', "employee_id" => 'x', "enrolment_status" => 'x', "enrolments" => 'x', "group_id" => 'x', "policies" => 'x', "scheduled_group_transitions" => 'x'], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
     public function test_basic_flow(): void
     {
         $setup = group_employee_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["create"] as $_op) {
+        foreach ([] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "group_employee." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
             }
         }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set KOTA_TEST_GROUP_EMPLOYEE_ENTID JSON to run live");
-            return;
-        }
         $client = $setup["client"];
 
-        // CREATE
-        $group_employee_ref01_ent = $client->GroupEmployee(null);
-        $group_employee_ref01_data = Helpers::to_map(Vs::getprop(
-            Vs::getpath($setup["data"], "new.group_employee"), "group_employee_ref01"));
-        $group_employee_ref01_data["group_id"] = $setup["idmap"]["group01"];
-
-        $group_employee_ref01_data_result = $group_employee_ref01_ent->create($group_employee_ref01_data, null);
-        $group_employee_ref01_data = Helpers::to_map(is_object($group_employee_ref01_data_result) && method_exists($group_employee_ref01_data_result, 'data_get') ? $group_employee_ref01_data_result->data_get() : $group_employee_ref01_data_result);
-        $this->assertNotNull($group_employee_ref01_data);
-        $this->assertNotNull($group_employee_ref01_data["id"]);
+        // Bootstrap entity data from existing test data.
+        $group_employee_ref01_data_raw = Vs::items(Helpers::to_map(
+            Vs::getpath($setup["data"], "existing.group_employee")));
+        $group_employee_ref01_data = null;
+        if (count($group_employee_ref01_data_raw) > 0) {
+            $group_employee_ref01_data = Helpers::to_map($group_employee_ref01_data_raw[0][1]);
+        }
 
     }
 }
@@ -67,13 +80,12 @@ function group_employee_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["group_employee01", "group_employee02", "group_employee03", "group01"] as $k) {
+    foreach (["group_employee01", "group_employee02", "group_employee03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("KOTA_TEST_GROUP_EMPLOYEE_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 

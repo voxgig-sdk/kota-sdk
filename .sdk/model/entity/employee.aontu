@@ -37,6 +37,18 @@ main: kit: entity: employee: {
     email: {
       h: "Email"
       n: "email"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "Email address of the employee"
       t: "`$STRING`"
@@ -44,6 +56,12 @@ main: kit: entity: employee: {
     employer_id: {
       h: "Employer Id"
       n: "employer_id"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "Unique identifier for the employer"
       t: "`$STRING`"
@@ -64,6 +82,18 @@ main: kit: entity: employee: {
     first_name: {
       h: "First Name"
       n: "first_name"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "First name of the employee."
       t: "`$STRING`"
@@ -71,6 +101,12 @@ main: kit: entity: employee: {
     home_address: {
       h: "Home Address"
       n: "home_address"
+      op: {
+        create: {
+          req: true
+          type: "`$ANY`"
+        }
+      }
       r: false
       sh: "Location where the employee is legally registered to live"
       t: "`$NULL`"
@@ -85,6 +121,18 @@ main: kit: entity: employee: {
     last_name: {
       h: "Last Name"
       n: "last_name"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "Last name of the employee"
       t: "`$STRING`"
@@ -105,6 +153,18 @@ main: kit: entity: employee: {
     national_tax_id: {
       h: "National Tax Id"
       n: "national_tax_id"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "PPSN in Ireland, NINo in the UK, DNI/NIE in Spain"
       t: "`$STRING`"
@@ -141,6 +201,18 @@ main: kit: entity: employee: {
     phone_number: {
       h: "Phone Number"
       n: "phone_number"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
       sh: "Phone number in E.164 international format (e.g."
       t: "`$STRING`"
@@ -157,12 +229,18 @@ main: kit: entity: employee: {
       n: "sex_at_birth"
       r: true
       sh: "The sex assigned to the employee at birth"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     start_on: {
       fo: "date"
       h: "Start On"
       n: "start_on"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "Employment start date"
       t: "`$STRING`"
@@ -172,7 +250,7 @@ main: kit: entity: employee: {
       n: "status"
       r: false
       sh: "Current status of the employee"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -187,6 +265,10 @@ main: kit: entity: employee: {
       name: "create"
       points: [
         {
+          bf: [
+            "offboard_on"
+            "offboard_reason"
+          ]
           co: {
             id: "POST /employees/{employee_id}/offboard"
             source: "openapi3"
@@ -197,14 +279,14 @@ main: kit: entity: employee: {
               {
                 k: "header"
                 n: "idempotency_key"
-                or: "idempotency_key"
+                or: "Idempotency-Key"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -226,14 +308,16 @@ main: kit: entity: employee: {
             "$action": "offboard"
             exist: [
               "id"
-              "idempotency_key"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -262,14 +346,14 @@ main: kit: entity: employee: {
               {
                 k: "header"
                 n: "idempotency_key"
-                or: "idempotency_key"
+                or: "Idempotency-Key"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -291,14 +375,16 @@ main: kit: entity: employee: {
             "$action": "offboard_cancel"
             exist: [
               "id"
-              "idempotency_key"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -320,6 +406,23 @@ main: kit: entity: employee: {
           }
         }
         {
+          bf: [
+            "bank_account"
+            "date_of_birth"
+            "earliest_benefits_start_date"
+            "email"
+            "employer_id"
+            "external_customer_id"
+            "first_name"
+            "home_address"
+            "last_name"
+            "metadata"
+            "national_tax_id"
+            "nationality"
+            "phone_number"
+            "sex_at_birth"
+            "start_on"
+          ]
           co: {
             id: "POST /employees"
             source: "openapi3"
@@ -330,14 +433,14 @@ main: kit: entity: employee: {
               {
                 k: "header"
                 n: "idempotency_key"
-                or: "idempotency_key"
+                or: "Idempotency-Key"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -345,11 +448,9 @@ main: kit: entity: employee: {
           }
           m: "POST"
           o: "/employees"
-          q: {
-            exist: [
-              "idempotency_key"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -377,7 +478,7 @@ main: kit: entity: employee: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -430,16 +531,9 @@ main: kit: entity: employee: {
           }
           m: "GET"
           o: "/employees"
-          q: {
-            exist: [
-              "employer_id"
-              "external_customer_id"
-              "filter"
-              "metadata_id"
-              "page"
-              "page_size"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -467,7 +561,7 @@ main: kit: entity: employee: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -488,13 +582,16 @@ main: kit: entity: employee: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -515,6 +612,19 @@ main: kit: entity: employee: {
       name: "update"
       points: [
         {
+          bf: [
+            "bank_account"
+            "earliest_benefits_start_date"
+            "email"
+            "first_name"
+            "home_address"
+            "last_name"
+            "metadata"
+            "national_tax_id"
+            "nationality"
+            "phone_number"
+            "start_on"
+          ]
           co: {
             id: "PUT /employees/{employee_id}"
             source: "openapi3"
@@ -525,7 +635,7 @@ main: kit: entity: employee: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -546,13 +656,16 @@ main: kit: entity: employee: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employee_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

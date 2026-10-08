@@ -2,63 +2,75 @@
   "existing": {
     "enrolment_intent": {
       "ENROLMENT_INTENT00": {
-        "action_required": "s78",
+        "action_required": "s96",
+        "coverage_selections": "s97",
+        "desired_policy_start_date": "s98",
         "disclosures": [],
         "employee_id": "EMPLOYEE01",
-        "force_confirmation": false,
+        "enrolment_date": "s9b",
+        "force_confirmation": true,
         "group_id": "GROUP01",
         "id": "ENROLMENT_INTENT00",
-        "ineligibility_reason": "s7e",
-        "object": "s7f",
-        "pending_confirmation": "s80",
-        "policy_configuration": "s81",
+        "ineligibility_reason": "s9f",
+        "object": "sa0",
+        "pending_confirmation": "sa1",
+        "policy_configuration": "sa2",
         "policy_enrolments": [],
-        "status": "s83"
+        "status": "sa4"
       },
       "ENROLMENT_INTENT01": {
-        "action_required": "sf0",
+        "action_required": "s12c",
+        "coverage_selections": "s12d",
+        "desired_policy_start_date": "s12e",
         "disclosures": [],
         "employee_id": "EMPLOYEE01",
-        "force_confirmation": false,
+        "enrolment_date": "s131",
+        "force_confirmation": true,
         "group_id": "GROUP01",
         "id": "ENROLMENT_INTENT01",
-        "ineligibility_reason": "sf6",
-        "object": "sf7",
-        "pending_confirmation": "sf8",
-        "policy_configuration": "sf9",
+        "ineligibility_reason": "s135",
+        "object": "s136",
+        "pending_confirmation": "s137",
+        "policy_configuration": "s138",
         "policy_enrolments": [],
-        "status": "sfb"
+        "status": "s13a"
       },
       "ENROLMENT_INTENT02": {
-        "action_required": "s168",
+        "action_required": "s1c2",
+        "coverage_selections": "s1c3",
+        "desired_policy_start_date": "s1c4",
         "disclosures": [],
         "employee_id": "EMPLOYEE01",
-        "force_confirmation": false,
+        "enrolment_date": "s1c7",
+        "force_confirmation": true,
         "group_id": "GROUP01",
         "id": "ENROLMENT_INTENT02",
-        "ineligibility_reason": "s16e",
-        "object": "s16f",
-        "pending_confirmation": "s170",
-        "policy_configuration": "s171",
+        "ineligibility_reason": "s1cb",
+        "object": "s1cc",
+        "pending_confirmation": "s1cd",
+        "policy_configuration": "s1ce",
         "policy_enrolments": [],
-        "status": "s173"
+        "status": "s1d0"
       }
     }
   },
   "new": {
     "enrolment_intent": {
       "enrolment_intent_ref01": {
-        "action_required": "s1e0",
+        "action_required": "s258",
+        "coverage_selections": "s259",
+        "desired_policy_start_date": "s25a",
         "disclosures": [],
         "employee_id": "EMPLOYEE01",
-        "force_confirmation": false,
+        "enrolment_date": "s25d",
+        "force_confirmation": true,
         "group_id": "GROUP01",
-        "ineligibility_reason": "s1e6",
-        "object": "s1e7",
-        "pending_confirmation": "s1e8",
-        "policy_configuration": "s1e9",
+        "ineligibility_reason": "s261",
+        "object": "s262",
+        "pending_confirmation": "s263",
+        "policy_configuration": "s264",
         "policy_enrolments": [],
-        "status": "s1eb"
+        "status": "s266"
       }
     }
   },

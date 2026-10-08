@@ -26,6 +26,19 @@ main: kit: entity: group_quote_intent: {
       sh: "Cost sharing configuration for the quote"
       t: "`$NULL`"
     }
+    coverage_selections: {
+      h: "Coverage Selections"
+      n: "coverage_selections"
+      r: false
+      sh: "Plan coverage option selections for group-policy-scoped configurations."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
     disclosures: {
       h: "Disclosures"
       n: "disclosures"
@@ -81,7 +94,7 @@ main: kit: entity: group_quote_intent: {
       n: "status"
       r: true
       sh: "Current status of the group quote intent"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -106,7 +119,7 @@ main: kit: entity: group_quote_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -128,7 +141,6 @@ main: kit: entity: group_quote_intent: {
             "$action": "reject"
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
@@ -153,6 +165,13 @@ main: kit: entity: group_quote_intent: {
           }
         }
         {
+          bf: [
+            "cost_sharing"
+            "coverage_selections"
+            "expected_start_date"
+            "group_id"
+            "plan_id"
+          ]
           co: {
             id: "POST /group_quote_intents"
             source: "openapi3"
@@ -163,7 +182,7 @@ main: kit: entity: group_quote_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -171,10 +190,9 @@ main: kit: entity: group_quote_intent: {
           }
           m: "POST"
           o: "/group_quote_intents"
-          q: {
-            exist: [
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -202,7 +220,7 @@ main: kit: entity: group_quote_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -249,15 +267,9 @@ main: kit: entity: group_quote_intent: {
           }
           m: "GET"
           o: "/group_quote_intents"
-          q: {
-            exist: [
-              "group_id"
-              "page"
-              "page_size"
-              "plan_id"
-              "status"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -285,7 +297,7 @@ main: kit: entity: group_quote_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -306,13 +318,16 @@ main: kit: entity: group_quote_intent: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               group_quote_intent_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

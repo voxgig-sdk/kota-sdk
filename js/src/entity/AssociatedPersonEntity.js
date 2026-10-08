@@ -24,7 +24,7 @@ class AssociatedPersonEntity extends KotaEntityBase {
   /**
    * @param {AssociatedPersonLoadMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<AssociatedPerson>}
+   * @returns {Promise<AssociatedPersonEntity>}
    */
   async load(reqmatch, ctrl) {
 
@@ -129,9 +129,15 @@ class AssociatedPersonEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -149,7 +155,7 @@ class AssociatedPersonEntity extends KotaEntityBase {
   /**
    * @param {AssociatedPersonListMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<AssociatedPerson[]>}
+   * @returns {Promise<AssociatedPersonEntity[]>}
    */
   async list(reqmatch, ctrl) {
 
@@ -242,9 +248,15 @@ class AssociatedPersonEntity extends KotaEntityBase {
       return done(ctx)
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -262,7 +274,7 @@ class AssociatedPersonEntity extends KotaEntityBase {
   /**
    * @param {AssociatedPersonCreateData} [reqdata]
    * @param {Object} [ctrl]
-   * @returns {Promise<AssociatedPerson>}
+   * @returns {Promise<AssociatedPersonEntity>}
    */
   async create(reqdata, ctrl) {
 
@@ -362,9 +374,15 @@ class AssociatedPersonEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -382,7 +400,7 @@ class AssociatedPersonEntity extends KotaEntityBase {
   /**
    * @param {AssociatedPersonUpdateData} [reqdata]
    * @param {Object} [ctrl]
-   * @returns {Promise<AssociatedPerson>}
+   * @returns {Promise<AssociatedPersonEntity>}
    */
   async update(reqdata, ctrl) {
 
@@ -488,9 +506,15 @@ class AssociatedPersonEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -505,10 +529,11 @@ class AssociatedPersonEntity extends KotaEntityBase {
 
 
 
+
   /**
    * @param {AssociatedPersonRemoveMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<AssociatedPerson>}
+   * @returns {Promise<AssociatedPersonEntity>}
    */
   async remove(reqmatch, ctrl) {
 
@@ -620,9 +645,15 @@ class AssociatedPersonEntity extends KotaEntityBase {
       return out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 

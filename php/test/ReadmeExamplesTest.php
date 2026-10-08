@@ -11,7 +11,7 @@ declare(strict_types=1);
 //   1. SYNTAX — 'php -l' on every block (a leading <?php is prepended when the
 //      snippet omits one). Every documented php example must parse.
 //   2. RUN — every RUNNABLE block (one that constructs the SDK, drives
-//      \$client->, or performs an entity op load/list/create/update/remove) is
+//      \$client->, or performs an entity op load/list/create/update/patch/remove) is
 //      EXECUTED offline in seeded test mode (KotaSDK::test)
 //      against the real SDK. The captured output is scanned for a real
 //      PHP-level error (undefined method, wrong-arg-count, TypeError, ...)
@@ -78,7 +78,6 @@ class ReadmeExamplesTest extends TestCase
         "PolicyImportIntent" => "policy_import_intent",
         "Provider" => "provider",
         "WebhookEndpoint" => "webhook_endpoint",
-        "WebhookEndpointResponsePagedList" => "webhook_endpoint_response_paged_list",
     ];
 
     // Documented SDK method names — used only to recognise the NARROW
@@ -142,7 +141,7 @@ class ReadmeExamplesTest extends TestCase
         return preg_match('/new\s+' . $cls . '\b/', $b) === 1
             || preg_match('/' . $cls . '::test\b/', $b) === 1
             || preg_match('/\$client\s*->/', $b) === 1
-            || preg_match('/->\s*(?:load|list|create|update|remove)\s*\(/', $b) === 1;
+            || preg_match('/->\s*(?:load|list|create|update|patch|remove)\s*\(/', $b) === 1;
     }
 
     /**
@@ -159,7 +158,7 @@ class ReadmeExamplesTest extends TestCase
         if (preg_match('/\b' . preg_quote(self::SDK_CLASS, '/') . '\b/', $b) === 1) {
             return true;
         }
-        if (preg_match('/->\s*(?:load|list|create|update|remove)\b/', $b) === 1) {
+        if (preg_match('/->\s*(?:load|list|create|update|patch|remove)\b/', $b) === 1) {
             return true;
         }
         foreach (array_keys(self::ENTITIES) as $name) {

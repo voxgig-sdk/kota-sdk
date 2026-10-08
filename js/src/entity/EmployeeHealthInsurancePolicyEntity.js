@@ -24,7 +24,7 @@ class EmployeeHealthInsurancePolicyEntity extends KotaEntityBase {
   /**
    * @param {EmployeeHealthInsurancePolicyLoadMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<EmployeeHealthInsurancePolicy>}
+   * @returns {Promise<EmployeeHealthInsurancePolicyEntity>}
    */
   async load(reqmatch, ctrl) {
 
@@ -129,9 +129,15 @@ class EmployeeHealthInsurancePolicyEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -143,6 +149,7 @@ class EmployeeHealthInsurancePolicyEntity extends KotaEntityBase {
       }
     }
   }
+
 
 
 

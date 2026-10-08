@@ -12,6 +12,33 @@ main: kit: entity: enrolment_intent: {
       sh: "If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment."
       t: "`$NULL`"
     }
+    coverage_selections: {
+      h: "Coverage Selections"
+      n: "coverage_selections"
+      r: false
+      sh: "Optional plan coverage option selections for policy-scoped configurations."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$ARRAY`"
+        ]
+      ]
+    }
+    desired_policy_start_date: {
+      fo: "date"
+      h: "Desired Policy Start Date"
+      n: "desired_policy_start_date"
+      r: false
+      sh: "The desired date for the employee's policy to start."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
     disclosures: {
       h: "Disclosures"
       n: "disclosures"
@@ -25,6 +52,20 @@ main: kit: entity: enrolment_intent: {
       r: true
       sh: "Identifier for the employee associated with this enrolment intent."
       t: "`$STRING`"
+    }
+    enrolment_date: {
+      fo: "date"
+      h: "Enrolment Date"
+      n: "enrolment_date"
+      r: false
+      sh: "The date on which the employee agreed to enrol into the group's policies."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
     }
     force_confirmation: {
       h: "Force Confirmation"
@@ -88,7 +129,7 @@ main: kit: entity: enrolment_intent: {
       n: "status"
       r: true
       sh: "Current status of the enrolment intent."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -113,7 +154,7 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -135,7 +176,6 @@ main: kit: entity: enrolment_intent: {
             "$action": "confirm"
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
@@ -160,6 +200,9 @@ main: kit: entity: enrolment_intent: {
           }
         }
         {
+          bf: [
+            "coverage_selections"
+          ]
           co: {
             id: "POST /enrolment_intents/{enrolment_intent_id}/coverage-selections"
             source: "openapi3"
@@ -170,7 +213,7 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -192,7 +235,6 @@ main: kit: entity: enrolment_intent: {
             "$action": "coverage_selection"
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
@@ -227,7 +269,7 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -249,7 +291,6 @@ main: kit: entity: enrolment_intent: {
             "$action": "reject"
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
@@ -274,6 +315,13 @@ main: kit: entity: enrolment_intent: {
           }
         }
         {
+          bf: [
+            "coverage_selections"
+            "employee_id"
+            "force_confirmation"
+            "group_id"
+            "policy_configuration"
+          ]
           co: {
             id: "POST /enrolment_intents"
             source: "openapi3"
@@ -284,14 +332,14 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "idempotency_key"
-                or: "idempotency_key"
+                or: "Idempotency-Key"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -299,11 +347,9 @@ main: kit: entity: enrolment_intent: {
           }
           m: "POST"
           o: "/enrolment_intents"
-          q: {
-            exist: [
-              "idempotency_key"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -331,7 +377,7 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -378,15 +424,9 @@ main: kit: entity: enrolment_intent: {
           }
           m: "GET"
           o: "/enrolment_intents"
-          q: {
-            exist: [
-              "employee_id"
-              "group_id"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -414,7 +454,7 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -435,13 +475,16 @@ main: kit: entity: enrolment_intent: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               enrolment_intent_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -462,6 +505,10 @@ main: kit: entity: enrolment_intent: {
       name: "update"
       points: [
         {
+          bf: [
+            "desired_policy_start_date"
+            "enrolment_date"
+          ]
           co: {
             id: "PUT /enrolment_intents/{enrolment_intent_id}"
             source: "openapi3"
@@ -472,7 +519,7 @@ main: kit: entity: enrolment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -493,13 +540,16 @@ main: kit: entity: enrolment_intent: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               enrolment_intent_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

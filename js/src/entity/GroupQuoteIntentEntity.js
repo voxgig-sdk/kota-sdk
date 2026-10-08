@@ -24,7 +24,7 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
   /**
    * @param {GroupQuoteIntentLoadMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<GroupQuoteIntent>}
+   * @returns {Promise<GroupQuoteIntentEntity>}
    */
   async load(reqmatch, ctrl) {
 
@@ -129,9 +129,15 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -149,7 +155,7 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
   /**
    * @param {GroupQuoteIntentListMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<GroupQuoteIntent[]>}
+   * @returns {Promise<GroupQuoteIntentEntity[]>}
    */
   async list(reqmatch, ctrl) {
 
@@ -242,9 +248,15 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
       return done(ctx)
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -262,7 +274,7 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
   /**
    * @param {GroupQuoteIntentCreateData} [reqdata]
    * @param {Object} [ctrl]
-   * @returns {Promise<GroupQuoteIntent>}
+   * @returns {Promise<GroupQuoteIntentEntity>}
    */
   async create(reqdata, ctrl) {
 
@@ -362,9 +374,15 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -376,6 +394,7 @@ class GroupQuoteIntentEntity extends KotaEntityBase {
       }
     }
   }
+
 
 
 

@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/kota-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const dependents_management_intentEntityLiveStrict = true
+
+
 func TestDependentsManagementIntentEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,7 +31,21 @@ func TestDependentsManagementIntentEntity(t *testing.T) {
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
+		}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.DependentsManagementIntent(nil).Load(map[string]any{"id": 1}, nil)
+		if sdkerr, ok := err.(*core.KotaError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
+		}
+	})
+
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := dependents_management_intentBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -32,7 +53,7 @@ func TestDependentsManagementIntentEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "load"} {
+		for _, _op := range []string{"load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "dependents_management_intent." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -41,33 +62,23 @@ func TestDependentsManagementIntentEntity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set KOTA_TEST_DEPENDENTS_MANAGEMENT_INTENT_ENTID JSON to run live")
-			return
+		if setup.live {
+			liveMiss(t, dependents_management_intentEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a dependents_management_intent record it has no list to find")
 		}
 		client := setup.client
 
-		// CREATE
-		dependentsManagementIntentRef01Ent := client.DependentsManagementIntent(nil)
-		dependentsManagementIntentRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath(setup.data, []any{"new", "dependents_management_intent"}), "dependents_management_intent_ref01"))
-		dependentsManagementIntentRef01Data["dependents_management_intent_id"] = setup.idmap["dependents_management_intent01"]
-
-		dependentsManagementIntentRef01DataResult, err := dependentsManagementIntentRef01Ent.Create(dependentsManagementIntentRef01Data, nil)
-		if err != nil {
-			t.Fatalf("create failed: %v", err)
+		// Bootstrap entity data from existing test data (no create step in flow).
+		dependentsManagementIntentRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.dependents_management_intent")))
+		var dependentsManagementIntentRef01Data map[string]any
+		if len(dependentsManagementIntentRef01DataRaw) > 0 {
+			dependentsManagementIntentRef01Data = core.ToMapAny(dependentsManagementIntentRef01DataRaw[0][1])
 		}
-		dependentsManagementIntentRef01Data = core.ToMapAny(entityData(dependentsManagementIntentRef01DataResult))
-		if dependentsManagementIntentRef01Data == nil {
-			t.Fatal("expected create result to be a map")
-		}
-		if dependentsManagementIntentRef01Data["id"] == nil {
-			t.Fatal("expected created entity to have an id")
-		}
+		// Discard guards against Go's unused-var check when the flow's steps
+		// happen not to consume the bootstrap data (e.g. list-only flows).
+		_ = dependentsManagementIntentRef01Data
 
 		// LOAD
+		dependentsManagementIntentRef01Ent := client.DependentsManagementIntent(nil)
 		dependentsManagementIntentRef01MatchDt0 := map[string]any{
 			"id": dependentsManagementIntentRef01Data["id"],
 		}
@@ -120,9 +131,8 @@ func dependents_management_intentBasicSetup(extra map[string]any) *entityTestSet
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("KOTA_TEST_DEPENDENTS_MANAGEMENT_INTENT_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

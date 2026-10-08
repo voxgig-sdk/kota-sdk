@@ -32,7 +32,7 @@ main: kit: entity: plan: {
       n: "country"
       r: true
       sh: "The country this plan is available in."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
     coverage_options: {
       h: "Coverage Options"
@@ -165,7 +165,7 @@ main: kit: entity: plan: {
       n: "type"
       r: true
       sh: "The benefit type of the plan."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -190,7 +190,7 @@ main: kit: entity: plan: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -271,20 +271,9 @@ main: kit: entity: plan: {
           }
           m: "GET"
           o: "/plans"
-          q: {
-            exist: [
-              "available_on"
-              "country"
-              "group_id"
-              "page"
-              "page_size"
-              "provider_id"
-              "sort_by"
-              "sort_dir"
-              "start_date"
-              "type"
-              "x_platform_id"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -312,7 +301,7 @@ main: kit: entity: plan: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -349,16 +338,17 @@ main: kit: entity: plan: {
           o: "/plans/{plan_id}"
           q: {
             exist: [
-              "group_id"
               "id"
-              "start_date"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               plan_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

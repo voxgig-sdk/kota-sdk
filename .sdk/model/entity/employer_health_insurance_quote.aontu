@@ -54,7 +54,7 @@ main: kit: entity: employer_health_insurance_quote: {
       n: "status"
       r: true
       sh: "Current status of the quote"
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -79,7 +79,7 @@ main: kit: entity: employer_health_insurance_quote: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -109,13 +109,16 @@ main: kit: entity: employer_health_insurance_quote: {
             exist: [
               "employer_id"
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               employer_quote_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

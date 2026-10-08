@@ -193,10 +193,6 @@ Create a new `Provider` entity instance. Pass `nil` for no initial data.
 
 Create a new `WebhookEndpoint` entity instance. Pass `nil` for no initial data.
 
-#### `WebhookEndpointResponsePagedList(data)`
-
-Create a new `WebhookEndpointResponsePagedList` entity instance. Pass `nil` for no initial data.
-
 #### `options_map() -> table`
 
 Return a deep copy of the current SDK options.
@@ -252,14 +248,30 @@ local associated_person = client:AssociatedPerson(nil)
 | `object` | `string` | No | The object type |
 | `phone_number` | `nil|string` | No | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
-| `relationship_type` | `any` | Yes | The relationship type between the employee and the associated person |
-| `sex_at_birth` | `any` | Yes | The sex assigned to the associated person at birth |
+| `relationship_type` | `string` | Yes | The relationship type between the employee and the associated person |
+| `sex_at_birth` | `string` | Yes | The sex assigned to the associated person at birth |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `date_of_birth` | - | - | - | Yes | - |
+| `email` | - | - | - | - | - |
+| `employee_id` | - | - | - | - | - |
+| `first_name` | - | - | - | Yes | - |
+| `id` | - | - | - | - | - |
+| `last_name` | - | - | - | Yes | - |
+| `object` | - | - | - | - | - |
+| `phone_number` | - | - | - | - | - |
+| `platform_id` | - | - | - | - | - |
+| `relationship_type` | - | - | - | Yes | - |
+| `sex_at_birth` | - | - | - | Yes | - |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:AssociatedPerson():create({
@@ -268,22 +280,22 @@ local result, err = client:AssociatedPerson():create({
   first_name = --[[ string ]],
   id = --[[ string ]],
   last_name = --[[ string ]],
-  relationship_type = --[[ any ]],
-  sex_at_birth = --[[ any ]],
+  relationship_type = --[[ string ]],
+  sex_at_birth = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:AssociatedPerson():list()
+local results, err = client:AssociatedPerson():list({ employee_id = "example" })
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:AssociatedPerson():load({ id = "associated_person_id", employee_id = "employee_id" })
@@ -291,7 +303,7 @@ local result, err = client:AssociatedPerson():load({ id = "associated_person_id"
 
 #### `remove(reqmatch, ctrl) -> any, err`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:AssociatedPerson():remove({ id = "associated_person_id", employee_id = "employee_id" })
@@ -299,7 +311,7 @@ local result, err = client:AssociatedPerson():remove({ id = "associated_person_i
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:AssociatedPerson():update({
@@ -351,22 +363,22 @@ local associated_person_eligibility_response_paged_list = client:AssociatedPerso
 | --- | --- | --- | --- |
 | `associated_person_id` | `string` | Yes | The associated person ID. |
 | `date_of_birth` | `string` | Yes | Date of birth of the associated person. |
-| `eligibility_status` | `any` | Yes | Eligibility status for the policy/plan. |
+| `eligibility_status` | `string` | Yes | Eligibility status for the policy/plan. |
 | `first_name` | `string` | Yes | First name of the associated person. |
 | `ineligibility_reason` | `nil|string` | No | Reason for ineligibility if status is ineligible. |
 | `last_name` | `string` | Yes | Last name of the associated person. |
 | `object` | `string` | No | The object type |
-| `relationship` | `any` | Yes | Relationship type to the employee. |
-| `sex_at_birth` | `any` | Yes | Sex at birth of the associated person. |
+| `relationship` | `string` | Yes | Relationship type to the employee. |
+| `sex_at_birth` | `string` | Yes | Sex at birth of the associated person. |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:AssociatedPersonEligibilityResponsePagedList():list()
+local results, err = client:AssociatedPersonEligibilityResponsePagedList():list({ dependents_management_intent_id = "example" })
 ```
 
 ### Common Methods
@@ -417,13 +429,13 @@ local contribution_report = client:ContributionReport(nil)
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the contribution report |
-| `status` | `any` | Yes | Current status of the contribution report |
+| `status` | `string` | Yes | Current status of the contribution report |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:ContributionReport():create({
@@ -432,13 +444,13 @@ local result, err = client:ContributionReport():create({
   employer_id = --[[ string ]],
   last_updated_at = --[[ string ]],
   period = --[[ any ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:ContributionReport():list()
@@ -446,7 +458,7 @@ local results, err = client:ContributionReport():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:ContributionReport():load({ id = "contribution_report_id" })
@@ -494,7 +506,7 @@ local contribution_report_employee_breakdown = client:ContributionReportEmployee
 | --- | --- | --- | --- |
 | `contribution_report_id` | `string` | Yes | Unique identifier of the related contribution report |
 | `created_at` | `string` | Yes | Date and time the breakdown was created |
-| `currency` | `any` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
+| `currency` | `string` | Yes | The currency in which all the amounts in this breakdown are presented (e.g. |
 | `employee_id` | `string` | Yes | Unique identifier of the employee for which the breakdown is created |
 | `employer_id` | `string` | Yes | Unique identifier of the employer for which the breakdown is created |
 | `external_customer_id` | `nil|string` | No | Unique identifier of the customer for which the breakdown is created. |
@@ -504,13 +516,13 @@ local contribution_report_employee_breakdown = client:ContributionReportEmployee
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the breakdown |
 | `object` | `string` | No | The object type |
 | `period` | `any` | Yes | Period covered by the employee breakdown |
-| `status` | `any` | Yes | Current status of the breakdown |
+| `status` | `string` | Yes | Current status of the breakdown |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:ContributionReportEmployeeBreakdown():load({ id = "contribution_report_employee_breakdown_id", contribution_report_id = "contribution_report_id" })
@@ -562,10 +574,10 @@ local contribution_report_employee_breakdown_response_paged_list = client:Contri
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:ContributionReportEmployeeBreakdownResponsePagedList():list()
+local results, err = client:ContributionReportEmployeeBreakdownResponsePagedList():list({ id = "example" })
 ```
 
 ### Common Methods
@@ -608,6 +620,8 @@ local create_hosted_session_token = client:CreateHostedSessionToken(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `employee_id` | `string` | Yes |  |
+| `employer_id` | `string` | Yes |  |
 | `expiry` | `string` | Yes |  |
 | `link` | `string` | Yes |  |
 
@@ -615,10 +629,12 @@ local create_hosted_session_token = client:CreateHostedSessionToken(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:CreateHostedSessionToken():create({
+  employee_id = --[[ string ]],
+  employer_id = --[[ string ]],
   expiry = --[[ string ]],
   link = --[[ string ]],
 })
@@ -664,17 +680,21 @@ local create_session_token = client:CreateSessionToken(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `employee_id` | `nil|string` | No |  |
+| `employer_id` | `string` | Yes |  |
 | `expiry` | `string` | Yes |  |
+| `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `token` | `string` | Yes |  |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:CreateSessionToken():create({
+  employer_id = --[[ string ]],
   expiry = --[[ string ]],
   token = --[[ string ]],
 })
@@ -721,38 +741,41 @@ local dependent = client:Dependent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No | Details of the action required from the caller. |
+| `associated_person_ids` | `table` | Yes | List of associated person IDs to add as dependents. |
 | `coverage_options` | `nil|table` | No | Available member-scoped coverage options for the plan. |
+| `dependent_coverage_selections` | `nil|table` | No | Optional coverage selections per dependent. |
 | `dependents` | `table` | Yes | List of dependents being managed. |
 | `disclosures` | `table` | Yes | Disclosures associated with this intent. |
 | `id` | `string` | Yes | Unique identifier for the dependents management intent. |
 | `object` | `string` | No | Object type identifier. |
 | `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `parent_intent_type` | `string` | Yes | The type of parent intent. |
 | `plan` | `any` | Yes | Plan information including pricing details. |
-| `status` | `any` | Yes | Current status of the dependents management intent. |
+| `status` | `string` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Dependent():create({
   dependents_management_intent_id = --[[ string ]],
+  associated_person_ids = --[[ table ]],
   dependents = --[[ table ]],
   disclosures = --[[ table ]],
   id = --[[ string ]],
   parent_intent_id = --[[ string ]],
-  parent_intent_type = --[[ any ]],
+  parent_intent_type = --[[ string ]],
   plan = --[[ any ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Dependent():remove({ dependents_management_intent_id = "dependents_management_intent_id", id = "id" })
@@ -805,15 +828,15 @@ local dependents_management_intent = client:DependentsManagementIntent(nil)
 | `id` | `string` | Yes | Unique identifier for the dependents management intent. |
 | `object` | `string` | No | Object type identifier. |
 | `parent_intent_id` | `string` | Yes | The parent intent ID (e.g. |
-| `parent_intent_type` | `any` | Yes | The type of parent intent. |
+| `parent_intent_type` | `string` | Yes | The type of parent intent. |
 | `plan` | `any` | Yes | Plan information including pricing details. |
-| `status` | `any` | Yes | Current status of the dependents management intent. |
+| `status` | `string` | Yes | Current status of the dependents management intent. |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:DependentsManagementIntent():create({
@@ -822,15 +845,15 @@ local result, err = client:DependentsManagementIntent():create({
   disclosures = --[[ table ]],
   id = --[[ string ]],
   parent_intent_id = --[[ string ]],
-  parent_intent_type = --[[ any ]],
+  parent_intent_type = --[[ string ]],
   plan = --[[ any ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:DependentsManagementIntent():load({ id = "dependents_management_intent_id" })
@@ -876,7 +899,8 @@ local eligibility_check = client:EligibilityCheck(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `eligibility_status` | `any` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `eligibility_status` | `string` | Yes | Eligibility status: `eligible` or `ineligible`. |
+| `employee_id` | `string` | Yes | The employee to check eligibility for. |
 | `object` | `string` | No | The object type. |
 | `plan` | `any` | Yes | The insurance plan associated with the group. |
 | `provider` | `any` | Yes | The insurance provider associated with the group. |
@@ -886,12 +910,13 @@ local eligibility_check = client:EligibilityCheck(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EligibilityCheck():create({
   group_id = --[[ string ]],
-  eligibility_status = --[[ any ]],
+  eligibility_status = --[[ string ]],
+  employee_id = --[[ string ]],
   plan = --[[ any ]],
   provider = --[[ any ]],
   reasons = --[[ table ]],
@@ -955,15 +980,40 @@ local employee = client:Employee(nil)
 | `offboard_on` | `nil|string` | No | Date when the employee was or will be offboarded |
 | `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
-| `sex_at_birth` | `any` | Yes | The sex assigned to the employee at birth |
+| `sex_at_birth` | `string` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `string` | No | Employment start date |
-| `status` | `any` | No | Current status of the employee |
+| `status` | `string` | No | Current status of the employee |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `bank_account` | - | - | - | - |
+| `date_of_birth` | - | - | - | - |
+| `earliest_benefits_start_date` | - | - | - | - |
+| `email` | - | - | - | Yes |
+| `employer_id` | - | - | Yes | - |
+| `external_customer_id` | - | - | - | - |
+| `first_name` | - | - | - | Yes |
+| `home_address` | - | - | Yes | - |
+| `id` | - | - | - | - |
+| `last_name` | - | - | - | Yes |
+| `metadata` | - | - | - | - |
+| `national_tax_id` | - | - | - | Yes |
+| `nationality` | - | - | - | - |
+| `object` | - | - | - | - |
+| `offboard_on` | - | - | - | - |
+| `phone_number` | - | - | - | Yes |
+| `platform_id` | - | - | - | - |
+| `sex_at_birth` | - | - | - | - |
+| `start_on` | - | - | Yes | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Employee():create({
@@ -973,13 +1023,13 @@ local result, err = client:Employee():create({
   last_name = --[[ string ]],
   national_tax_id = --[[ string ]],
   phone_number = --[[ string ]],
-  sex_at_birth = --[[ any ]],
+  sex_at_birth = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Employee():list()
@@ -987,7 +1037,7 @@ local results, err = client:Employee():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Employee():load({ id = "employee_id" })
@@ -995,7 +1045,7 @@ local result, err = client:Employee():load({ id = "employee_id" })
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Employee():update({
@@ -1051,13 +1101,13 @@ local employee_health_insurance_offer = client:EmployeeHealthInsuranceOffer(nil)
 | `id` | `string` | Yes | Unique identifier for offer |
 | `object` | `string` | No | The object type |
 | `required_action` | `nil` | No | Required action to progress the offer, if any. |
-| `status` | `any` | Yes | Current status of offer |
+| `status` | `string` | Yes | Current status of offer |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EmployeeHealthInsuranceOffer():load({ id = "employee_health_insurance_offer_id", employee_id = "employee_id" })
@@ -1110,16 +1160,16 @@ local employee_health_insurance_offer_response_paged_list = client:EmployeeHealt
 | `id` | `string` | Yes | Unique identifier for offer |
 | `object` | `string` | No | The object type |
 | `required_action` | `nil` | No | Required action to progress the offer, if any. |
-| `status` | `any` | Yes | Current status of offer |
+| `status` | `string` | Yes | Current status of offer |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:EmployeeHealthInsuranceOfferResponsePagedList():list()
+local results, err = client:EmployeeHealthInsuranceOfferResponsePagedList():list({ employee_id = "example" })
 ```
 
 ### Common Methods
@@ -1168,7 +1218,7 @@ local employee_health_insurance_policy = client:EmployeeHealthInsurancePolicy(ni
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Yes | Unique identifier for policy |
@@ -1177,13 +1227,13 @@ local employee_health_insurance_policy = client:EmployeeHealthInsurancePolicy(ni
 | `policy_number` | `nil|string` | No | Health insurance policy number, if available |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EmployeeHealthInsurancePolicy():load({ id = "employee_health_insurance_policy_id", employee_id = "employee_id" })
@@ -1235,7 +1285,7 @@ local employee_health_insurance_policy_response_paged_list = client:EmployeeHeal
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
 | `enrolled_dependants_count` | `number` | Yes | Number of dependants (spouse, children, or other eligible family members) currently enrolled in this health insurance policy. |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `estimated_gross_premium` | `any` | Yes | Estimated gross premium amounts for this health insurance policy based on current enrollment and policy configuration. |
 | `external_customer_id` | `nil|string` | No | A unique identifier assigned by the Employer of Record (EoR) platform to the Customer (i.e. |
 | `id` | `string` | Yes | Unique identifier for policy |
@@ -1244,16 +1294,16 @@ local employee_health_insurance_policy_response_paged_list = client:EmployeeHeal
 | `policy_number` | `nil|string` | No | Health insurance policy number, if available |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:EmployeeHealthInsurancePolicyResponsePagedList():list()
+local results, err = client:EmployeeHealthInsurancePolicyResponsePagedList():list({ employee_id = "example" })
 ```
 
 ### Common Methods
@@ -1297,22 +1347,38 @@ local employer = client:Employer(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `contact` | `any` | Yes |  |
-| `earliest_benefits_start_date` | `nil|string` | No |  |
+| `earliest_benefits_start_date` | `nil|string` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` | Yes |  |
-| `legal_address` | `any` | Yes |  |
-| `legal_name` | `string` | Yes |  |
+| `legal_address` | `any` | Yes | Treated as a single object that is updated entirely, `null` sub-fields (e.g. |
+| `legal_name` | `string` | Yes | Legal name of the company. |
 | `metadata` | `nil|table` | No | Set of key-value pairs that you can attach to an object. |
 | `object` | `string` | No | The object type |
 | `offboard_on` | `nil|string` | No |  |
 | `platform_id` | `string` | No |  |
-| `registration_number` | `nil|string` | No |  |
-| `status` | `any` | No |  |
+| `registration_number` | `nil|string` | No | Company registration number. |
+| `status` | `string` | No |  |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `contact` | - | - | - | Yes |
+| `earliest_benefits_start_date` | - | - | - | - |
+| `id` | - | - | - | - |
+| `legal_address` | - | - | - | Yes |
+| `legal_name` | - | - | - | Yes |
+| `metadata` | - | - | - | - |
+| `object` | - | - | - | - |
+| `offboard_on` | - | - | - | - |
+| `platform_id` | - | - | - | - |
+| `registration_number` | - | - | - | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Employer():create({
@@ -1325,7 +1391,7 @@ local result, err = client:Employer():create({
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Employer():list()
@@ -1333,7 +1399,7 @@ local results, err = client:Employer():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Employer():load({ id = "employer_id" })
@@ -1341,7 +1407,7 @@ local result, err = client:Employer():load({ id = "employer_id" })
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Employer():update({
@@ -1395,19 +1461,19 @@ local employer_health_insurance_policy = client:EmployerHealthInsurancePolicy(ni
 | `employer_cancellation_period_length` | `number` | Yes | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `group_policy_number` | `nil|string` | No | Group’s health insurance policy number, if available |
 | `id` | `string` | Yes | Unique identifier for policy |
 | `object` | `string` | No | The object type |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EmployerHealthInsurancePolicy():load({ id = "employer_health_insurance_policy_id", employer_id = "employer_id" })
@@ -1458,22 +1524,22 @@ local employer_health_insurance_policy_response_paged_list = client:EmployerHeal
 | `employer_cancellation_period_length` | `number` | Yes | How many days the employer has to cancel the policy since the policy starts |
 | `employer_id` | `string` | Yes | The Id of the employer for which the policy is created |
 | `end_date` | `string` | Yes | Policy ends on this date |
-| `enrolment_type` | `any` | Yes | Enrolment type of the policy |
+| `enrolment_type` | `string` | Yes | Enrolment type of the policy |
 | `group_policy_number` | `nil|string` | No | Group’s health insurance policy number, if available |
 | `id` | `string` | Yes | Unique identifier for policy |
 | `object` | `string` | No | The object type |
 | `renewal` | `any` | Yes | Renewal information for the policy |
 | `start_date` | `string` | Yes | Policy starts on this date |
-| `status` | `any` | Yes | Current status of policy |
+| `status` | `string` | Yes | Current status of policy |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:EmployerHealthInsurancePolicyResponsePagedList():list()
+local results, err = client:EmployerHealthInsurancePolicyResponsePagedList():list({ employer_id = "example" })
 ```
 
 ### Common Methods
@@ -1522,13 +1588,13 @@ local employer_health_insurance_quote = client:EmployerHealthInsuranceQuote(nil)
 | `object` | `string` | No | The object type |
 | `quoted_at` | `string` | Yes | Date and time the quote was created at |
 | `required_action` | `nil` | No | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Yes | Current status of the quote |
+| `status` | `string` | Yes | Current status of the quote |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EmployerHealthInsuranceQuote():load({ id = "employer_health_insurance_quote_id", employer_id = "employer_id" })
@@ -1580,16 +1646,16 @@ local employer_health_insurance_quote_response_paged_list = client:EmployerHealt
 | `object` | `string` | No | The object type |
 | `quoted_at` | `string` | Yes | Date and time the quote was created at |
 | `required_action` | `nil` | No | Actions required by the employer to proceed with the quote. |
-| `status` | `any` | Yes | Current status of the quote |
+| `status` | `string` | Yes | Current status of the quote |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:EmployerHealthInsuranceQuoteResponsePagedList():list()
+local results, err = client:EmployerHealthInsuranceQuoteResponsePagedList():list({ employer_id = "example" })
 ```
 
 ### Common Methods
@@ -1633,8 +1699,11 @@ local enrolment_intent = client:EnrolmentIntent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No | If the enrolment intent status is `action_required`, this field provides details about the action that needs to be taken to proceed with the enrolment. |
+| `coverage_selections` | `nil|table` | No | Optional plan coverage option selections for policy-scoped configurations. |
+| `desired_policy_start_date` | `nil|string` | No | The desired date for the employee's policy to start. |
 | `disclosures` | `table` | Yes | Disclosures associated with this intent. |
 | `employee_id` | `string` | Yes | Identifier for the employee associated with this enrolment intent. |
+| `enrolment_date` | `nil|string` | No | The date on which the employee agreed to enrol into the group's policies. |
 | `force_confirmation` | `boolean` | Yes | If set to true, the system will always force the `PendingConfirmation` state before enrolling the employee, even if no action is required. |
 | `group_id` | `string` | Yes | Identifier for the group associated with this enrolment intent. |
 | `id` | `string` | Yes | Unique identifier for the enrolment intent. |
@@ -1643,13 +1712,13 @@ local enrolment_intent = client:EnrolmentIntent(nil)
 | `pending_confirmation` | `nil` | No | If the enrolment intent status is `pending_confirmation`, this field provides details about the pending confirmation state. |
 | `policy_configuration` | `nil` | No | Policy configuration associated with this enrolment intent. |
 | `policy_enrolments` | `table` | Yes | Policy enrolment information |
-| `status` | `any` | Yes | Current status of the enrolment intent. |
+| `status` | `string` | Yes | Current status of the enrolment intent. |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EnrolmentIntent():create({
@@ -1659,13 +1728,13 @@ local result, err = client:EnrolmentIntent():create({
   group_id = --[[ string ]],
   id = --[[ string ]],
   policy_enrolments = --[[ table ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:EnrolmentIntent():list()
@@ -1673,7 +1742,7 @@ local results, err = client:EnrolmentIntent():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EnrolmentIntent():load({ id = "enrolment_intent_id" })
@@ -1681,7 +1750,7 @@ local result, err = client:EnrolmentIntent():load({ id = "enrolment_intent_id" }
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:EnrolmentIntent():update({
@@ -1736,10 +1805,10 @@ local enrolment_intent_requirement_response_paged_list = client:EnrolmentIntentR
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:EnrolmentIntentRequirementResponsePagedList():list()
+local results, err = client:EnrolmentIntentRequirementResponsePagedList():list({ id = "example" })
 ```
 
 ### Common Methods
@@ -1786,17 +1855,14 @@ local event = client:Event(nil)
 | `created` | `string` | Yes |  |
 | `data` | `nil` | Yes |  |
 | `id` | `string` | Yes |  |
-| `options` | `nil` | No |  |
-| `parent` | `nil` | No |  |
 | `platform_id` | `string` | Yes |  |
-| `root` | `any` | No |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Event():create({
@@ -1810,7 +1876,7 @@ local result, err = client:Event():create({
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Event():list()
@@ -1818,7 +1884,7 @@ local results, err = client:Event():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Event():load({ id = "event_id" })
@@ -1866,39 +1932,55 @@ local group = client:Group(nil)
 | --- | --- | --- | --- |
 | `description` | `nil|string` | No | Short description of the purpose or scope of the `group`. |
 | `employer_id` | `string` | Yes | Identifier for the `employer` that owns this `group`. |
-| `enrolment_type` | `any` | Yes | Indicates how employees are enrolled into the group. |
+| `enrolment_type` | `string` | Yes | Indicates how employees are enrolled into the group. |
 | `group_policy_ids` | `table` | Yes | Group policy unique identifiers associated with this group. |
 | `group_policy_intent_ids` | `table` | Yes | Group policy intent unique identifiers associated with this group. |
 | `group_quote_intent_ids` | `table` | Yes | Group quote intent unique identifiers associated with this group. |
-| `group_type` | `any` | Yes | Indicates how policies are organized for this group. |
+| `group_type` | `string` | Yes | Indicates how policies are organized for this group. |
 | `id` | `string` | Yes | Unique identifier for the `group`. |
 | `name` | `string` | Yes | Human-readable name of the `group`. |
 | `object` | `string` | No | The object type |
-| `status` | `any` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
+| `status` | `string` | Yes | Current lifecycle state of the `group`, indicating its current progress. |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `description` | - | - | - | - |
+| `employer_id` | - | - | - | - |
+| `enrolment_type` | - | - | - | - |
+| `group_policy_ids` | - | - | - | - |
+| `group_policy_intent_ids` | - | - | - | - |
+| `group_quote_intent_ids` | - | - | - | - |
+| `group_type` | - | - | - | - |
+| `id` | - | - | - | - |
+| `name` | - | - | - | Yes |
+| `object` | - | - | - | - |
+| `status` | - | - | - | - |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Group():create({
   employer_id = --[[ string ]],
-  enrolment_type = --[[ any ]],
+  enrolment_type = --[[ string ]],
   group_policy_ids = --[[ table ]],
   group_policy_intent_ids = --[[ table ]],
   group_quote_intent_ids = --[[ table ]],
-  group_type = --[[ any ]],
+  group_type = --[[ string ]],
   id = --[[ string ]],
   name = --[[ string ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Group():list()
@@ -1906,7 +1988,7 @@ local results, err = client:Group():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Group():load({ id = "group_id" })
@@ -1914,7 +1996,7 @@ local result, err = client:Group():load({ id = "group_id" })
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Group():update({
@@ -1963,28 +2045,32 @@ local group_employee = client:GroupEmployee(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `create_enrolment_intents` | `nil|boolean` | No | Controls whether enrolment intents are automatically created for the employee. |
 | `desired_policy_start_date` | `nil|string` | No | The desired date for the employee's policy to start. |
-| `eligibility_status` | `any` | Yes | Eligibility status for the employee in this group. |
+| `eligibility_status` | `string` | Yes | Eligibility status for the employee in this group. |
+| `employee_id` | `string` | Yes | Employee Id |
 | `enrolment_date` | `nil|string` | No | The date on which the employee agreed to enrol into the group's policies. |
-| `enrolment_status` | `any` | Yes | Enrolment status for the employee in this group. |
+| `enrolment_status` | `string` | Yes | Enrolment status for the employee in this group. |
 | `enrolments` | `table` | Yes | List of enrolments associated with the employee in this group. |
 | `group_id` | `string` | Yes | Unique identifier for the group. |
 | `id` | `string` | Yes | Unique identifier for the employee. |
 | `object` | `string` | No | The object type |
 | `policies` | `table` | Yes | List of policies associated with the employee in this group. |
+| `policy_configuration` | `nil` | No | Policy configuration for the employee in this group. |
 | `scheduled_group_transitions` | `table` | Yes | List of scheduled group transitions for the employee. |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupEmployee():create({
   id = --[[ string ]],
-  eligibility_status = --[[ any ]],
-  enrolment_status = --[[ any ]],
+  eligibility_status = --[[ string ]],
+  employee_id = --[[ string ]],
+  enrolment_status = --[[ string ]],
   enrolments = --[[ table ]],
   group_id = --[[ string ]],
   policies = --[[ table ]],
@@ -2038,10 +2124,10 @@ local group_employee_response_paged_list = client:GroupEmployeeResponsePagedList
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:GroupEmployeeResponsePagedList():list()
+local results, err = client:GroupEmployeeResponsePagedList():list({ id = "example" })
 ```
 
 ### Common Methods
@@ -2095,14 +2181,14 @@ local group_policy = client:GroupPolicy(nil)
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy. |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD). |
-| `status` | `any` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
-| `type` | `any` | Yes | Policy type. |
+| `status` | `string` | Yes | Current lifecycle state of the `group_policy`, indicating its progress from creation to activation. |
+| `type` | `string` | Yes | Policy type. |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:GroupPolicy():list()
@@ -2110,7 +2196,7 @@ local results, err = client:GroupPolicy():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupPolicy():load({ id = "group_policy_id" })
@@ -2157,6 +2243,7 @@ local group_policy_intent = client:GroupPolicyIntent(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `nil` | No | Details of the required action when the intent is in ActionRequired status. |
+| `consent_approvals` | `nil|table` | No | Consent approvals to record at the time of intent creation |
 | `cost_sharing` | `nil` | No | Cost sharing configuration for the policy intent |
 | `disclosures` | `table` | Yes | Disclosures associated with this intent. |
 | `due_date` | `nil|string` | No | Due date for the policy intent |
@@ -2165,13 +2252,13 @@ local group_policy_intent = client:GroupPolicyIntent(nil)
 | `object` | `string` | No | Object type identifier |
 | `plan_id` | `string` | Yes | Unique identifier for the plan |
 | `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
-| `status` | `any` | Yes | Current status of the group policy intent |
+| `status` | `string` | Yes | Current status of the group policy intent |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupPolicyIntent():create({
@@ -2180,13 +2267,13 @@ local result, err = client:GroupPolicyIntent():create({
   id = --[[ string ]],
   plan_id = --[[ string ]],
   quote_intent_id = --[[ string ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:GroupPolicyIntent():list()
@@ -2194,7 +2281,7 @@ local results, err = client:GroupPolicyIntent():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupPolicyIntent():load({ id = "group_policy_intent_id" })
@@ -2246,10 +2333,10 @@ local group_policy_intent_requirement_response_paged_list = client:GroupPolicyIn
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:GroupPolicyIntentRequirementResponsePagedList():list()
+local results, err = client:GroupPolicyIntentRequirementResponsePagedList():list({ id = "example" })
 ```
 
 ### Common Methods
@@ -2292,17 +2379,21 @@ local group_quote = client:GroupQuote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `family_type` | `nil` | No | Type of the family covered by the employer. |
-| `member_count` | `nil` | No | Numbers of additional members covered by the employer. |
-| `member_selection` | `nil` | No | Whether specific member types are covered by the employer. |
-| `percentage` | `nil` | No | Percentage of the premium the employer covers. |
-| `type` | `any` | Yes | Cost sharing type. |
+| `cost_sharing` | `any` | Yes | Cost sharing configuration for the quote |
+| `currency` | `string` | Yes | Currency of the premium (e.g. |
+| `employee_count` | `number` | Yes | Number of employees covered by the quote |
+| `expires_at` | `string` | Yes | When the quote expires |
+| `generated_at` | `string` | Yes | When the quote was generated |
+| `object` | `string` | No | Object type identifier |
+| `pdf_expires_at` | `nil|string` | No | When the PDF URL expires |
+| `pdf_url` | `nil|string` | No | URL to download the quote PDF |
+| `total_monthly_premium` | `number` | Yes | Total monthly premium for the group |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupQuote():load({ group_quote_intent_id = "group_quote_intent_id" })
@@ -2351,19 +2442,20 @@ local group_quote_intent = client:GroupQuoteIntent(nil)
 | `action_required` | `nil` | No | Details of the action required from the caller, if the intent is in action_required status. |
 | `consent_links` | `table` | Yes | Consent links that need to be acknowledged |
 | `cost_sharing` | `nil` | No | Cost sharing configuration for the quote |
+| `coverage_selections` | `nil|table` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `table` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `nil|string` | No | Expected start date for the insurance coverage |
 | `group_id` | `string` | Yes | Unique identifier for the group |
 | `id` | `string` | Yes | Unique identifier for the group quote intent |
 | `object` | `string` | No | Object type identifier |
 | `plan_id` | `string` | Yes | Unique identifier for the plan |
-| `status` | `any` | Yes | Current status of the group quote intent |
+| `status` | `string` | Yes | Current status of the group quote intent |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupQuoteIntent():create({
@@ -2372,13 +2464,13 @@ local result, err = client:GroupQuoteIntent():create({
   group_id = --[[ string ]],
   id = --[[ string ]],
   plan_id = --[[ string ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:GroupQuoteIntent():list()
@@ -2386,7 +2478,7 @@ local results, err = client:GroupQuoteIntent():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:GroupQuoteIntent():load({ id = "group_quote_intent_id" })
@@ -2438,10 +2530,10 @@ local group_quote_intent_requirement_response_paged_list = client:GroupQuoteInte
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:GroupQuoteIntentRequirementResponsePagedList():list()
+local results, err = client:GroupQuoteIntentRequirementResponsePagedList():list({ id = "example" })
 ```
 
 ### Common Methods
@@ -2486,7 +2578,7 @@ local plan = client:Plan(nil)
 | --- | --- | --- | --- |
 | `available_from` | `string` | Yes | The date from which this plan is available (inclusive). |
 | `available_to` | `nil|string` | No | The date until which this plan is available (inclusive). |
-| `country` | `any` | Yes | The country this plan is available in. |
+| `country` | `string` | Yes | The country this plan is available in. |
 | `coverage_options` | `nil|table` | No | Coverage options available for this plan, organized by scope and input type. |
 | `description` | `string` | Yes | Description of the plan. |
 | `disclosures` | `table` | Yes | Disclosures associated with this plan. |
@@ -2501,13 +2593,13 @@ local plan = client:Plan(nil)
 | `object` | `string` | No | Object type. |
 | `provider` | `any` | Yes | The provider offering this plan. |
 | `total_count` | `nil|number` | No | Total employees in the queried group. |
-| `type` | `any` | Yes | The benefit type of the plan. |
+| `type` | `string` | Yes | The benefit type of the plan. |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Plan():list()
@@ -2515,7 +2607,7 @@ local results, err = client:Plan():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Plan():load({ id = "plan_id" })
@@ -2561,7 +2653,7 @@ local policy = client:Policy(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bundling_type` | `any` | Yes | Indicates how this policy is bundled within a group |
+| `bundling_type` | `string` | Yes | Indicates how this policy is bundled within a group |
 | `cancellation_date` | `nil|string` | No | Date the policy was cancelled (if applicable) |
 | `disclosures` | `table` | Yes | Disclosures associated with this policy. |
 | `employee_id` | `string` | Yes | Identifier of the employee associated with this policy. |
@@ -2574,14 +2666,14 @@ local policy = client:Policy(nil)
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
-| `status` | `any` | Yes | Current lifecycle state of the policy |
-| `type` | `any` | Yes | Policy type. |
+| `status` | `string` | Yes | Current lifecycle state of the policy |
+| `type` | `string` | Yes | Policy type. |
 
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Policy():list()
@@ -2589,7 +2681,7 @@ local results, err = client:Policy():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Policy():load({ id = "policy_id" })
@@ -2644,13 +2736,13 @@ local policy_amendment_intent = client:PolicyAmendmentIntent(nil)
 | `processing_error` | `nil` | No | Information about the processing error if the intent status is `processing_error`. |
 | `requested_changes` | `table` | Yes | List of requested changes to the policy. |
 | `required_action` | `nil` | No | Information about the required action if the intent status is `action_required`. |
-| `status` | `any` | Yes | Current status of the policy amendment intent. |
+| `status` | `string` | Yes | Current status of the policy amendment intent. |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PolicyAmendmentIntent():create({
@@ -2659,21 +2751,21 @@ local result, err = client:PolicyAmendmentIntent():create({
   disclosures = --[[ table ]],
   policy_id = --[[ string ]],
   requested_changes = --[[ table ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:PolicyAmendmentIntent():list()
+local results, err = client:PolicyAmendmentIntent():list({ id = "example" })
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PolicyAmendmentIntent():load({ id = "policy_amendment_intent_id", policy_id = "policy_id" })
@@ -2728,13 +2820,28 @@ local policy_import_intent = client:PolicyImportIntent(nil)
 | `policy_end_date` | `nil|string` | No | The end date of the policy. |
 | `policy_start_date` | `string` | Yes | The start date of the policy. |
 | `provider_policy_number` | `string` | Yes | The provider's policy number. |
-| `status` | `any` | Yes | Current status of the policy import intent. |
+| `status` | `string` | Yes | Current status of the policy import intent. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `associated_persons` | - | - | Yes |
+| `employee_id` | - | - | - |
+| `group_id` | - | - | - |
+| `id` | - | - | - |
+| `member_number` | - | - | - |
+| `object` | - | - | - |
+| `policy_end_date` | - | - | - |
+| `policy_start_date` | - | - | - |
+| `provider_policy_number` | - | - | - |
+| `status` | - | - | - |
 
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PolicyImportIntent():create({
@@ -2745,13 +2852,13 @@ local result, err = client:PolicyImportIntent():create({
   member_number = --[[ string ]],
   policy_start_date = --[[ string ]],
   provider_policy_number = --[[ string ]],
-  status = --[[ any ]],
+  status = --[[ string ]],
 })
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:PolicyImportIntent():list()
@@ -2759,7 +2866,7 @@ local results, err = client:PolicyImportIntent():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PolicyImportIntent():load({ id = "policy_import_intent_id" })
@@ -2820,7 +2927,7 @@ local provider = client:Provider(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Provider():list()
@@ -2828,7 +2935,7 @@ local results, err = client:Provider():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Provider():load({ id = "provider_id" })
@@ -2882,9 +2989,17 @@ local webhook_endpoint = client:WebhookEndpoint(nil)
 
 ### Operations
 
+#### `list(reqmatch, ctrl) -> any, err`
+
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
+
+```lua
+local results, err = client:WebhookEndpoint():list()
+```
+
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:WebhookEndpoint():load({ id = "webhook_endpoint_id" })
@@ -2911,62 +3026,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `WebhookEndpointEntity` instance with the same client and
-options.
-
-#### `get_name() -> string`
-
-Return the entity name.
-
-
----
-
-## WebhookEndpointResponsePagedListEntity
-
-```lua
-local webhook_endpoint_response_paged_list = client:WebhookEndpointResponsePagedList(nil)
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | Yes | The date and time the endpoint was created |
-| `endpoint_url` | `string` | Yes | The registered URL of the endpoint |
-| `id` | `string` | Yes | The unique identifier of the endpoint |
-| `object` | `string` | No | The object type |
-| `subscribed_events` | `table` | Yes | The events the endpoint is subscribed to |
-
-### Operations
-
-#### `list(reqmatch, ctrl) -> any, err`
-
-List entities matching the given criteria. Returns an array.
-
-```lua
-local results, err = client:WebhookEndpointResponsePagedList():list()
-```
-
-### Common Methods
-
-#### `data_get() -> table`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> table`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `WebhookEndpointResponsePagedListEntity` instance with the same client and
 options.
 
 #### `get_name() -> string`
@@ -3266,6 +3325,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

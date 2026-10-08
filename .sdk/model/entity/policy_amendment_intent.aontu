@@ -74,7 +74,7 @@ main: kit: entity: policy_amendment_intent: {
       n: "status"
       r: true
       sh: "Current status of the policy amendment intent."
-      t: "`$ANY`"
+      t: "`$STRING`"
     }
   }
 
@@ -99,7 +99,7 @@ main: kit: entity: policy_amendment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -130,7 +130,6 @@ main: kit: entity: policy_amendment_intent: {
             exist: [
               "id"
               "policy_id"
-              "x_platform_id"
             ]
           }
           s: [
@@ -166,7 +165,7 @@ main: kit: entity: policy_amendment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -197,7 +196,6 @@ main: kit: entity: policy_amendment_intent: {
             exist: [
               "id"
               "policy_id"
-              "x_platform_id"
             ]
           }
           r: {
@@ -228,6 +226,10 @@ main: kit: entity: policy_amendment_intent: {
           }
         }
         {
+          bf: [
+            "amendment_reason"
+            "requested_changes"
+          ]
           co: {
             id: "POST /policies/{policy_id}/policy_amendment_intents"
             source: "openapi3"
@@ -238,7 +240,7 @@ main: kit: entity: policy_amendment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -259,13 +261,16 @@ main: kit: entity: policy_amendment_intent: {
           q: {
             exist: [
               "id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               policy_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -299,7 +304,7 @@ main: kit: entity: policy_amendment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -343,16 +348,16 @@ main: kit: entity: policy_amendment_intent: {
           q: {
             exist: [
               "id"
-              "page"
-              "page_size"
-              "status"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               policy_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -386,7 +391,7 @@ main: kit: entity: policy_amendment_intent: {
               {
                 k: "header"
                 n: "x_platform_id"
-                or: "x_platform_id"
+                or: "X-Platform-Id"
                 r: false
                 t: "`$STRING`"
               }
@@ -416,13 +421,16 @@ main: kit: entity: policy_amendment_intent: {
             exist: [
               "id"
               "policy_id"
-              "x_platform_id"
             ]
           }
           r: {
             param: {
               policy_amendment_intent_id: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

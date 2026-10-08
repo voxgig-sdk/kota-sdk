@@ -24,7 +24,7 @@ class EmployerEntity extends KotaEntityBase {
   /**
    * @param {EmployerLoadMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<Employer>}
+   * @returns {Promise<EmployerEntity>}
    */
   async load(reqmatch, ctrl) {
 
@@ -129,9 +129,15 @@ class EmployerEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -149,7 +155,7 @@ class EmployerEntity extends KotaEntityBase {
   /**
    * @param {EmployerListMatch} [reqmatch]
    * @param {Object} [ctrl]
-   * @returns {Promise<Employer[]>}
+   * @returns {Promise<EmployerEntity[]>}
    */
   async list(reqmatch, ctrl) {
 
@@ -242,9 +248,15 @@ class EmployerEntity extends KotaEntityBase {
       return done(ctx)
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -262,7 +274,7 @@ class EmployerEntity extends KotaEntityBase {
   /**
    * @param {EmployerCreateData} [reqdata]
    * @param {Object} [ctrl]
-   * @returns {Promise<Employer>}
+   * @returns {Promise<EmployerEntity>}
    */
   async create(reqdata, ctrl) {
 
@@ -362,9 +374,15 @@ class EmployerEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -382,7 +400,7 @@ class EmployerEntity extends KotaEntityBase {
   /**
    * @param {EmployerUpdateData} [reqdata]
    * @param {Object} [ctrl]
-   * @returns {Promise<Employer>}
+   * @returns {Promise<EmployerEntity>}
    */
   async update(reqdata, ctrl) {
 
@@ -488,9 +506,15 @@ class EmployerEntity extends KotaEntityBase {
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err) {
+      // What a hook throws here must not escape the cleaning below.
+      try {
 
-      fres = featureHook(ctx, 'PreUnexpected')
-      if (fres instanceof Promise) { await fres }
+        fres = featureHook(ctx, 'PreUnexpected')
+        if (fres instanceof Promise) { await fres }
+      }
+      catch (hookerr) {
+        err = hookerr
+      }
 
       err = this._unexpected(ctx, err)
 
@@ -502,6 +526,7 @@ class EmployerEntity extends KotaEntityBase {
       }
     }
   }
+
 
 
 

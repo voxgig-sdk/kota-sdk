@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { KotaSDK, BaseFeature, stdutil } from '../../..'
+import { KotaSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,29 @@ describe('GroupQuoteEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = KotaSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.GroupQuote().load({"group_quote_intent_id":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.KOTA_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of []) {
       if (!live && maybeSkipControl(t, 'entityOp', 'group_quote.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"family_type":{"a":true,"h":"Family Type","n":"family_type","r":false,"sh":"Type of the family covered by the employer.","t":"`$NULL`","key$":"family_type","index$":0},"member_count":{"a":true,"h":"Member Count","n":"member_count","r":false,"sh":"Numbers of additional members covered by the employer.","t":"`$NULL`","key$":"member_count","index$":1},"member_selection":{"a":true,"h":"Member Selection","n":"member_selection","r":false,"sh":"Whether specific member types are covered by the employer.","t":"`$NULL`","key$":"member_selection","index$":2},"percentage":{"a":true,"h":"Percentage","n":"percentage","r":false,"sh":"Percentage of the premium the employer covers.","t":"`$NULL`","key$":"percentage","index$":3},"type":{"a":true,"h":"Type","n":"type","r":true,"sh":"Cost sharing type.","t":"`$ANY`","key$":"type","index$":4}},"name":"group_quote","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /group_quote_intents/{group_quote_intent_id}/quote","source":"openapi3","version":2},"g":{"header":[{"a":true,"k":"header","n":"x_platform_id","or":"x_platform_id","r":false,"t":"`$STRING`","index$":0}],"params":[{"a":true,"ex":"gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a","k":"param","n":"group_quote_intent_id","or":"group_quote_intent_id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/group_quote_intents/{group_quote_intent_id}/quote","q":{"exist":["group_quote_intent_id","x_platform_id"]},"r":{},"s":[{"lit":"group_quote_intents"},{"var":"group_quote_intent_id"},{"lit":"quote"}],"t":{"req":"`reqdata`","res":"`body.cost_sharing`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["$.main.kit.entity.group_quote_intent"]]},"key$":"group_quote","name__orig":"group_quote","Name":"GroupQuote","name_":"group_quote","name-":"group-quote","NAME":"GROUP_QUOTE","index$":29}, {"active":true,"entity":"group_quote","key$":"BasicGroupQuoteFlow","kind":"basic","name":"BasicGroupQuoteFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"group_quote_ref01","srcdatavar":"group_quote_ref01_data","suffix":"_dt0"},"m":{"id":"group_quote01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-group_quote_ref01"}}],"index$":0}]}, 'GroupQuote', {"GET /group_quote_intents/{group_quote_intent_id}/quote":{"protocol":"http","parameters":[{"name":"group_quote_intent_id","in":"path","required":true,"schema":{"pattern":"gqi_.+","type":"string","example":"gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"index$":0},{"name":"X-Platform-Id","in":"header","description":"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.","schema":{"type":"string"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"cost_sharing":{"a":true,"h":"Cost Sharing","n":"cost_sharing","r":true,"sh":"Cost sharing configuration for the quote","t":"`$ANY`","key$":"cost_sharing","index$":0},"currency":{"a":true,"h":"Currency","n":"currency","r":true,"sh":"Currency of the premium (e.g.","t":"`$STRING`","key$":"currency","index$":1},"employee_count":{"a":true,"fo":"int32","h":"Employee Count","n":"employee_count","r":true,"sh":"Number of employees covered by the quote","t":"`$INTEGER`","key$":"employee_count","index$":2},"expires_at":{"a":true,"fo":"date-time","h":"Expires At","n":"expires_at","r":true,"sh":"When the quote expires","t":"`$STRING`","key$":"expires_at","index$":3},"generated_at":{"a":true,"fo":"date-time","h":"Generated At","n":"generated_at","r":true,"sh":"When the quote was generated","t":"`$STRING`","key$":"generated_at","index$":4},"object":{"a":true,"h":"Object","n":"object","r":false,"ro":true,"sh":"Object type identifier","t":"`$STRING`","key$":"object","index$":5},"pdf_expires_at":{"a":true,"fo":"date-time","h":"Pdf Expires At","n":"pdf_expires_at","r":false,"sh":"When the PDF URL expires","t":["`$ONE`",["`$NULL`","`$STRING`"]],"key$":"pdf_expires_at","index$":6},"pdf_url":{"a":true,"h":"Pdf Url","n":"pdf_url","r":false,"sh":"URL to download the quote PDF","t":["`$ONE`",["`$NULL`","`$STRING`"]],"key$":"pdf_url","index$":7},"total_monthly_premium":{"a":true,"fo":"double","h":"Total Monthly Premium","n":"total_monthly_premium","r":true,"sh":"Total monthly premium for the group","t":"`$NUMBER`","key$":"total_monthly_premium","index$":8}},"name":"group_quote","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /group_quote_intents/{group_quote_intent_id}/quote","source":"openapi3","version":2},"g":{"header":[{"a":true,"k":"header","n":"x_platform_id","or":"X-Platform-Id","r":false,"t":"`$STRING`","index$":0}],"params":[{"a":true,"ex":"gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a","k":"param","n":"group_quote_intent_id","or":"group_quote_intent_id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/group_quote_intents/{group_quote_intent_id}/quote","q":{"exist":["group_quote_intent_id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"group_quote_intents"},{"var":"group_quote_intent_id"},{"lit":"quote"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["$.main.kit.entity.group_quote_intent"]]},"key$":"group_quote","name__orig":"group_quote","Name":"GroupQuote","name_":"group_quote","name-":"group-quote","NAME":"GROUP_QUOTE","index$":29}, {"active":true,"entity":"group_quote","key$":"BasicGroupQuoteFlow","kind":"basic","name":"BasicGroupQuoteFlow","param":{},"step":[{"a":false,"d":{},"i":{"ref":"group_quote_ref01","srcdatavar":"group_quote_ref01_data","suffix":"_dt0"},"m":{"id":"group_quote01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-group_quote_ref01"}}],"unreachable":true}]}, 'GroupQuote', {"GET /group_quote_intents/{group_quote_intent_id}/quote":{"protocol":"http","parameters":[{"name":"group_quote_intent_id","in":"path","required":true,"schema":{"pattern":"gqi_.+","type":"string","example":"gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"},"index$":0},{"name":"X-Platform-Id","in":"header","description":"The target platform id. Required only when calling with a dashboard (WorkOS AuthKit) access token instead of a platform API key — the token carries no platform claim, so the caller must say which platform it means. Ignored for platform API key / embed session token callers.","schema":{"type":"string"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -61,15 +73,16 @@ describe('GroupQuoteEntity', async () => {
 
     let group_quote_ref01_data = Object.values(setup.data.existing.group_quote)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
-    const group_quote_ref01_ent = client.GroupQuote()
-
-
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options
