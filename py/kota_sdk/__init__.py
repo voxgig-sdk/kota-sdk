@@ -563,6 +563,12 @@ class KotaSDK:
         return ProviderEntity(self, data)
 
 
+    def Salary(self, data=None) -> "SalaryEntity":
+        """Entity factory: client.Salary().list() / client.Salary().load({"id": ...})."""
+        from kota_sdk.entity.salary_entity import SalaryEntity
+        return SalaryEntity(self, data)
+
+
     def WebhookEndpoint(self, data=None) -> "WebhookEndpointEntity":
         """Entity factory: client.WebhookEndpoint().list() / client.WebhookEndpoint().load({"id": ...})."""
         from kota_sdk.entity.webhook_endpoint_entity import WebhookEndpointEntity
@@ -633,4 +639,5 @@ if TYPE_CHECKING:
     from kota_sdk.entity.policy_amendment_intent_entity import PolicyAmendmentIntentEntity
     from kota_sdk.entity.policy_import_intent_entity import PolicyImportIntentEntity
     from kota_sdk.entity.provider_entity import ProviderEntity
+    from kota_sdk.entity.salary_entity import SalaryEntity
     from kota_sdk.entity.webhook_endpoint_entity import WebhookEndpointEntity

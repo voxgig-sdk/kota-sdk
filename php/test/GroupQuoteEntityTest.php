@@ -33,7 +33,7 @@ class GroupQuoteEntityTest extends TestCase
         $client = KotaSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
         $err = null;
         try {
-            $client->GroupQuote(null)->load(["group_quote_intent_id" => 1], null);
+            $client->GroupQuote(null)->list(["group_quote_intent_id" => 1], null);
         } catch (\Throwable $e) {
             $err = $e;
         }
@@ -45,11 +45,18 @@ class GroupQuoteEntityTest extends TestCase
         $setup = group_quote_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach ([] as $_op) {
+        foreach (["list"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "group_quote." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
+            }
+        }
+        if (!empty($setup["live"])) {
+            foreach (["group_quote_intent01"] as $_liveKey) {
+                if (!empty($setup["synthetic_only"]) || null === ($setup["idmap"][$_liveKey] ?? null)) {
+                    Runner::live_miss(self::LIVE_STRICT, "Live entity test blocked: needs " . $_liveKey . " via KOTA_TEST_GROUP_QUOTE_ENTID");
+                }
             }
         }
         $client = $setup["client"];
@@ -61,6 +68,15 @@ class GroupQuoteEntityTest extends TestCase
         if (count($group_quote_ref01_data_raw) > 0) {
             $group_quote_ref01_data = Helpers::to_map($group_quote_ref01_data_raw[0][1]);
         }
+
+        // LIST
+        $group_quote_ref01_ent = $client->GroupQuote(null);
+        $group_quote_ref01_match = [
+            "group_quote_intent_id" => $setup["idmap"]["group_quote_intent01"],
+        ];
+
+        $group_quote_ref01_list_result = $group_quote_ref01_ent->list($group_quote_ref01_match, null);
+        $this->assertIsArray($group_quote_ref01_list_result);
 
     }
 }

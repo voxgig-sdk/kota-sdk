@@ -1041,6 +1041,24 @@ class KotaSDK implements \JsonSerializable
     }
 
 
+    private $_salary = null;
+
+    // Canonical facade: $client->Salary()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->salary()
+    // resolves here too.
+    public function Salary($data = null)
+    {
+        require_once __DIR__ . '/entity/salary_entity.php';
+        if ($data === null) {
+            if ($this->_salary === null) {
+                $this->_salary = new SalaryEntity($this, null);
+            }
+            return $this->_salary;
+        }
+        return new SalaryEntity($this, $data);
+    }
+
+
     private $_webhook_endpoint = null;
 
     // Canonical facade: $client->WebhookEndpoint()->list() / ->load(["id" => ...]).

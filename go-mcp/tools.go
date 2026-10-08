@@ -13,13 +13,13 @@ import (
 
 // ListArgs is what an agent sends to kota_list.
 type ListArgs struct {
-	Entity string         `json:"entity" jsonschema:"one of: associated_person | associated_person_eligibility_response_paged_list | contribution_report | contribution_report_employee_breakdown_response_paged_list | employee | employee_health_insurance_offer_response_paged_list | employee_health_insurance_policy_response_paged_list | employer | employer_health_insurance_policy_response_paged_list | employer_health_insurance_quote_response_paged_list | enrolment_intent | enrolment_intent_requirement_response_paged_list | event | group | group_employee_response_paged_list | group_policy | group_policy_intent | group_policy_intent_requirement_response_paged_list | group_quote_intent | group_quote_intent_requirement_response_paged_list | plan | policy | policy_amendment_intent | policy_import_intent | provider | webhook_endpoint"`
+	Entity string         `json:"entity" jsonschema:"one of: associated_person | associated_person_eligibility_response_paged_list | contribution_report | contribution_report_employee_breakdown_response_paged_list | employee | employee_health_insurance_offer_response_paged_list | employee_health_insurance_policy_response_paged_list | employer | employer_health_insurance_policy_response_paged_list | employer_health_insurance_quote_response_paged_list | enrolment_intent | enrolment_intent_requirement_response_paged_list | event | group | group_employee_response_paged_list | group_policy | group_policy_intent | group_policy_intent_requirement_response_paged_list | group_quote | group_quote_intent | group_quote_intent_requirement_response_paged_list | plan | policy | policy_amendment_intent | policy_import_intent | provider | salary | webhook_endpoint"`
 	Query  map[string]any `json:"query,omitempty" jsonschema:"optional filter map; omit it for the first page"`
 }
 
 // LoadArgs is what an agent sends to kota_load.
 type LoadArgs struct {
-	Entity string         `json:"entity" jsonschema:"one of: associated_person | contribution_report | contribution_report_employee_breakdown | dependents_management_intent | employee | employee_health_insurance_offer | employee_health_insurance_policy | employer | employer_health_insurance_policy | employer_health_insurance_quote | enrolment_intent | event | group | group_policy | group_policy_intent | group_quote | group_quote_intent | plan | policy | policy_amendment_intent | policy_import_intent | provider | webhook_endpoint"`
+	Entity string         `json:"entity" jsonschema:"one of: associated_person | contribution_report | contribution_report_employee_breakdown | dependents_management_intent | employee | employee_health_insurance_offer | employee_health_insurance_policy | employer | employer_health_insurance_policy | employer_health_insurance_quote | enrolment_intent | event | group | group_policy | group_policy_intent | group_quote_intent | plan | policy | policy_amendment_intent | policy_import_intent | provider | salary | webhook_endpoint"`
 	Query  map[string]any `json:"query" jsonschema:"match map naming the record, such as {\"id\":1}"`
 }
 
@@ -28,7 +28,7 @@ func registerTools(server *mcp.Server, client *sdk.KotaSDK) {
 		Name:        "kota_list",
 		Description: "List records from Kota. Args: entity, query (optional filter map; omit it for the first page). Returns the first page of records as JSON.",
 		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true},
-		InputSchema: entitySchema[ListArgs]("associated_person", "associated_person_eligibility_response_paged_list", "contribution_report", "contribution_report_employee_breakdown_response_paged_list", "employee", "employee_health_insurance_offer_response_paged_list", "employee_health_insurance_policy_response_paged_list", "employer", "employer_health_insurance_policy_response_paged_list", "employer_health_insurance_quote_response_paged_list", "enrolment_intent", "enrolment_intent_requirement_response_paged_list", "event", "group", "group_employee_response_paged_list", "group_policy", "group_policy_intent", "group_policy_intent_requirement_response_paged_list", "group_quote_intent", "group_quote_intent_requirement_response_paged_list", "plan", "policy", "policy_amendment_intent", "policy_import_intent", "provider", "webhook_endpoint"),
+		InputSchema: entitySchema[ListArgs]("associated_person", "associated_person_eligibility_response_paged_list", "contribution_report", "contribution_report_employee_breakdown_response_paged_list", "employee", "employee_health_insurance_offer_response_paged_list", "employee_health_insurance_policy_response_paged_list", "employer", "employer_health_insurance_policy_response_paged_list", "employer_health_insurance_quote_response_paged_list", "enrolment_intent", "enrolment_intent_requirement_response_paged_list", "event", "group", "group_employee_response_paged_list", "group_policy", "group_policy_intent", "group_policy_intent_requirement_response_paged_list", "group_quote", "group_quote_intent", "group_quote_intent_requirement_response_paged_list", "plan", "policy", "policy_amendment_intent", "policy_import_intent", "provider", "salary", "webhook_endpoint"),
 	}, func(ctx context.Context, req *mcp.CallToolRequest, args ListArgs) (*mcp.CallToolResult, any, error) {
 		return runOp(ctx, client, "list", args.Entity, args.Query)
 	})
@@ -36,7 +36,7 @@ func registerTools(server *mcp.Server, client *sdk.KotaSDK) {
 		Name:        "kota_load",
 		Description: "Load one record from Kota. Args: entity, query (match map naming the record, such as {\"id\":1}). Returns the record as JSON.",
 		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true},
-		InputSchema: entitySchema[LoadArgs]("associated_person", "contribution_report", "contribution_report_employee_breakdown", "dependents_management_intent", "employee", "employee_health_insurance_offer", "employee_health_insurance_policy", "employer", "employer_health_insurance_policy", "employer_health_insurance_quote", "enrolment_intent", "event", "group", "group_policy", "group_policy_intent", "group_quote", "group_quote_intent", "plan", "policy", "policy_amendment_intent", "policy_import_intent", "provider", "webhook_endpoint"),
+		InputSchema: entitySchema[LoadArgs]("associated_person", "contribution_report", "contribution_report_employee_breakdown", "dependents_management_intent", "employee", "employee_health_insurance_offer", "employee_health_insurance_policy", "employer", "employer_health_insurance_policy", "employer_health_insurance_quote", "enrolment_intent", "event", "group", "group_policy", "group_policy_intent", "group_quote_intent", "plan", "policy", "policy_amendment_intent", "policy_import_intent", "provider", "salary", "webhook_endpoint"),
 	}, func(ctx context.Context, req *mcp.CallToolRequest, args LoadArgs) (*mcp.CallToolResult, any, error) {
 		return runOp(ctx, client, "load", args.Entity, args.Query)
 	})
@@ -177,6 +177,8 @@ func entityFor(client *sdk.KotaSDK, name string) (sdk.KotaEntity, error) {
 		return client.PolicyImportIntent(nil), nil
 	case "provider":
 		return client.Provider(nil), nil
+	case "salary":
+		return client.Salary(nil), nil
 	case "webhook_endpoint":
 		return client.WebhookEndpoint(nil), nil
 	}

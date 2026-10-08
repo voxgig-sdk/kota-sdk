@@ -190,6 +190,7 @@ local function make_config()
         ["policy_amendment_intent"] = {},
         ["policy_import_intent"] = {},
         ["provider"] = {},
+        ["salary"] = {},
         ["webhook_endpoint"] = {},
       },
     },
@@ -873,6 +874,13 @@ local function make_config()
       ["contribution_report"] = {
         ["fields"] = {
           {
+            ["name"] = "aggregates",
+            ["title"] = "Aggregates",
+            ["type"] = "`$ANY`",
+            ["req"] = true,
+            ["short"] = "Summary figures for the report, meant for dashboards and overviews.",
+          },
+          {
             ["name"] = "created_at",
             ["title"] = "Created At",
             ["type"] = "`$STRING`",
@@ -898,6 +906,24 @@ local function make_config()
               },
             },
             ["short"] = "Unique identifier of the customer for which the report is created.",
+          },
+          {
+            ["name"] = "file_id",
+            ["title"] = "File Id",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
+            ["short"] = "Identifier of the report's downloadable CSV file.",
+          },
+          {
+            ["name"] = "file_status",
+            ["title"] = "File Status",
+            ["type"] = "`$NULL`",
+            ["short"] = "Whether the report's downloadable CSV is ready yet.",
           },
           {
             ["name"] = "finalized_at",
@@ -2589,9 +2615,24 @@ local function make_config()
           {
             ["name"] = "phone_number",
             ["title"] = "Phone Number",
-            ["type"] = "`$STRING`",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
             ["req"] = true,
             ["op"] = {
+              ["create"] = {
+                ["type"] = {
+                  "`$ONE`",
+                  {
+                    "`$NULL`",
+                    "`$STRING`",
+                  },
+                },
+              },
               ["update"] = {
                 ["type"] = {
                   "`$ONE`",
@@ -3818,6 +3859,18 @@ local function make_config()
       },
       ["employer"] = {
         ["fields"] = {
+          {
+            ["name"] = "applicable_collective_agreement",
+            ["title"] = "Applicable Collective Agreement",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
+            ["short"] = "Name of the collective agreement that applies to the employer's workforce, if any.",
+          },
           {
             ["name"] = "contact",
             ["title"] = "Contact",
@@ -5556,7 +5609,7 @@ local function make_config()
                     {
                       ["name"] = "object_type",
                       ["orig"] = "object_type",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
@@ -5743,7 +5796,7 @@ local function make_config()
                     {
                       ["name"] = "order_direction",
                       ["orig"] = "order_direction",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
@@ -5761,7 +5814,7 @@ local function make_config()
                     {
                       ["name"] = "version",
                       ["orig"] = "version",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                   },
@@ -6535,6 +6588,19 @@ local function make_config()
             ["short"] = "Unique identifier for the group policy.",
           },
           {
+            ["name"] = "life_assurance",
+            ["title"] = "Life Assurance",
+            ["type"] = "`$NULL`",
+            ["short"] = "Life assurance–specific fields (present when `type=life_assurance`).",
+          },
+          {
+            ["name"] = "linked_group_policy_ids",
+            ["title"] = "Linked Group Policy Ids",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["short"] = "The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase.",
+          },
+          {
             ["name"] = "object",
             ["title"] = "Object",
             ["type"] = "`$STRING`",
@@ -6750,7 +6816,7 @@ local function make_config()
             ["name"] = "cost_sharing",
             ["title"] = "Cost Sharing",
             ["type"] = "`$NULL`",
-            ["short"] = "Cost sharing configuration for the policy intent",
+            ["short"] = "Cost sharing configuration for the policy intent.",
           },
           {
             ["name"] = "disclosures",
@@ -6775,9 +6841,22 @@ local function make_config()
           {
             ["name"] = "group_id",
             ["title"] = "Group Id",
-            ["type"] = "`$STRING`",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
             ["req"] = true,
-            ["short"] = "Unique identifier for the group",
+            ["short"] = "Unique identifier for the group.",
+          },
+          {
+            ["name"] = "group_policy_ids",
+            ["title"] = "Group Policy Ids",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["short"] = "The group policies created for this intent, one per level, once they exist.",
           },
           {
             ["name"] = "id",
@@ -6785,6 +6864,13 @@ local function make_config()
             ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "Unique identifier for the group policy intent",
+          },
+          {
+            ["name"] = "items",
+            ["title"] = "Items",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["short"] = "The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent.",
           },
           {
             ["name"] = "object",
@@ -6796,9 +6882,15 @@ local function make_config()
           {
             ["name"] = "plan_id",
             ["title"] = "Plan Id",
-            ["type"] = "`$STRING`",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
             ["req"] = true,
-            ["short"] = "Unique identifier for the plan",
+            ["short"] = "Unique identifier for the plan.",
           },
           {
             ["name"] = "quote_intent_id",
@@ -6813,6 +6905,12 @@ local function make_config()
             ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "Current status of the group policy intent",
+          },
+          {
+            ["name"] = "type",
+            ["title"] = "Type",
+            ["type"] = "`$NULL`",
+            ["short"] = "Whether the accepted quote covers one (group, plan) pair or several levels.",
           },
         },
         ["id"] = {
@@ -6922,6 +7020,13 @@ local function make_config()
                     {
                       ["name"] = "status",
                       ["orig"] = "status",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["field"] = true,
+                    },
+                    {
+                      ["name"] = "type",
+                      ["orig"] = "type",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                       ["field"] = true,
@@ -7078,7 +7183,7 @@ local function make_config()
                     {
                       ["name"] = "object_type",
                       ["orig"] = "object_type",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
@@ -7116,11 +7221,17 @@ local function make_config()
       ["group_quote"] = {
         ["fields"] = {
           {
+            ["name"] = "breakdown",
+            ["title"] = "Breakdown",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["short"] = "What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any.",
+          },
+          {
             ["name"] = "cost_sharing",
             ["title"] = "Cost Sharing",
-            ["type"] = "`$ANY`",
-            ["req"] = true,
-            ["short"] = "Cost sharing configuration for the quote",
+            ["type"] = "`$NULL`",
+            ["short"] = "Cost sharing configuration for the quote.",
           },
           {
             ["name"] = "currency",
@@ -7134,7 +7245,7 @@ local function make_config()
             ["title"] = "Employee Count",
             ["type"] = "`$INTEGER`",
             ["req"] = true,
-            ["short"] = "Number of employees covered by the quote",
+            ["short"] = "Number of employees covered by the quote.",
             ["format"] = "int32",
           },
           {
@@ -7152,6 +7263,13 @@ local function make_config()
             ["req"] = true,
             ["short"] = "When the quote was generated",
             ["format"] = "date-time",
+          },
+          {
+            ["name"] = "levels",
+            ["title"] = "Levels",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["short"] = "The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position.",
           },
           {
             ["name"] = "object",
@@ -7183,22 +7301,37 @@ local function make_config()
                 "`$STRING`",
               },
             },
-            ["short"] = "URL to download the quote PDF",
+            ["short"] = "URL to download the quote PDF.",
+          },
+          {
+            ["name"] = "quote_pdfs",
+            ["title"] = "Quote Pdfs",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["short"] = "The documents the provider issued for the quote as a whole.",
+          },
+          {
+            ["name"] = "total_annual_premium",
+            ["title"] = "Total Annual Premium",
+            ["type"] = "`$NUMBER`",
+            ["req"] = true,
+            ["short"] = "Total annual premium for the group, excluding any insurance premium tax.",
+            ["format"] = "double",
           },
           {
             ["name"] = "total_monthly_premium",
             ["title"] = "Total Monthly Premium",
             ["type"] = "`$NUMBER`",
             ["req"] = true,
-            ["short"] = "Total monthly premium for the group",
+            ["short"] = "Total monthly premium for the group, excluding any insurance premium tax.",
             ["format"] = "double",
           },
         },
         ["name"] = "group_quote",
         ["op"] = {
-          ["load"] = {
+          ["list"] = {
             ["input"] = "data",
-            ["name"] = "load",
+            ["name"] = "list",
             ["points"] = {
               {
                 ["kind"] = "http",
@@ -7279,13 +7412,13 @@ local function make_config()
             ["title"] = "Consent Links",
             ["type"] = "`$ARRAY`",
             ["req"] = true,
-            ["short"] = "Consent links that need to be acknowledged",
+            ["short"] = "The statements the customer must accept to proceed, each a sentence and the documents it names.",
           },
           {
             ["name"] = "cost_sharing",
             ["title"] = "Cost Sharing",
             ["type"] = "`$NULL`",
-            ["short"] = "Cost sharing configuration for the quote",
+            ["short"] = "Cost sharing configuration for the quote.",
           },
           {
             ["name"] = "coverage_selections",
@@ -7322,9 +7455,26 @@ local function make_config()
           {
             ["name"] = "group_id",
             ["title"] = "Group Id",
-            ["type"] = "`$STRING`",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
             ["req"] = true,
-            ["short"] = "Unique identifier for the group",
+            ["op"] = {
+              ["create"] = {
+                ["type"] = {
+                  "`$ONE`",
+                  {
+                    "`$NULL`",
+                    "`$STRING`",
+                  },
+                },
+              },
+            },
+            ["short"] = "Unique identifier for the group.",
           },
           {
             ["name"] = "id",
@@ -7332,6 +7482,24 @@ local function make_config()
             ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "Unique identifier for the group quote intent",
+          },
+          {
+            ["name"] = "items",
+            ["title"] = "Items",
+            ["type"] = "`$ARRAY`",
+            ["req"] = true,
+            ["op"] = {
+              ["create"] = {
+                ["type"] = {
+                  "`$ONE`",
+                  {
+                    "`$NULL`",
+                    "`$ARRAY`",
+                  },
+                },
+              },
+            },
+            ["short"] = "The benefits this intent quotes and the levels they are quoted at.",
           },
           {
             ["name"] = "object",
@@ -7343,9 +7511,26 @@ local function make_config()
           {
             ["name"] = "plan_id",
             ["title"] = "Plan Id",
-            ["type"] = "`$STRING`",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
             ["req"] = true,
-            ["short"] = "Unique identifier for the plan",
+            ["op"] = {
+              ["create"] = {
+                ["type"] = {
+                  "`$ONE`",
+                  {
+                    "`$NULL`",
+                    "`$STRING`",
+                  },
+                },
+              },
+            },
+            ["short"] = "Unique identifier for the plan.",
           },
           {
             ["name"] = "status",
@@ -7353,6 +7538,12 @@ local function make_config()
             ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "Current status of the group quote intent",
+          },
+          {
+            ["name"] = "type",
+            ["title"] = "Type",
+            ["type"] = "`$NULL`",
+            ["short"] = "Whether the intent quotes one (group, plan) pair or several levels.",
           },
         },
         ["id"] = {
@@ -7522,6 +7713,13 @@ local function make_config()
                       ["kind"] = "query",
                       ["field"] = true,
                     },
+                    {
+                      ["name"] = "type",
+                      ["orig"] = "type",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["field"] = true,
+                    },
                   },
                 },
                 ["select"] = {},
@@ -7674,7 +7872,7 @@ local function make_config()
                     {
                       ["name"] = "object_type",
                       ["orig"] = "object_type",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
@@ -7813,6 +8011,12 @@ local function make_config()
             ["short"] = "Unique identifier for the plan.",
           },
           {
+            ["name"] = "indicative_pricing",
+            ["title"] = "Indicative Pricing",
+            ["type"] = "`$NULL`",
+            ["short"] = "Average monthly guide prices used when exact catalog pricing is unavailable.",
+          },
+          {
             ["name"] = "ineligible_count",
             ["title"] = "Ineligible Count",
             ["type"] = {
@@ -7824,6 +8028,12 @@ local function make_config()
             },
             ["short"] = "Number of employees in the queried group ineligible for this plan as-of `start_date`.",
             ["format"] = "int32",
+          },
+          {
+            ["name"] = "life_assurance",
+            ["title"] = "Life Assurance",
+            ["type"] = "`$NULL`",
+            ["short"] = "Life assurance-specific details.",
           },
           {
             ["name"] = "name",
@@ -7913,7 +8123,7 @@ local function make_config()
                     {
                       ["name"] = "country",
                       ["orig"] = "country",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                       ["field"] = true,
                     },
@@ -7945,13 +8155,13 @@ local function make_config()
                     {
                       ["name"] = "sort_by",
                       ["orig"] = "sort_by",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "sort_dir",
                       ["orig"] = "sort_dir",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
@@ -8135,11 +8345,30 @@ local function make_config()
             ["short"] = "Unique identifier for the policy.",
           },
           {
+            ["name"] = "life_assurance",
+            ["title"] = "Life Assurance",
+            ["type"] = "`$NULL`",
+            ["short"] = "Life assurance–specific fields (present when `type=life_assurance`).",
+          },
+          {
             ["name"] = "object",
             ["title"] = "Object",
             ["type"] = "`$STRING`",
             ["short"] = "Object type",
             ["readOnly"] = true,
+          },
+          {
+            ["name"] = "opted_out_at",
+            ["title"] = "Opted Out At",
+            ["type"] = {
+              "`$ONE`",
+              {
+                "`$NULL`",
+                "`$STRING`",
+              },
+            },
+            ["short"] = "UTC timestamp of the moment the member opted out of this policy during the cooling-off window.",
+            ["format"] = "date-time",
           },
           {
             ["name"] = "plan",
@@ -9191,7 +9420,7 @@ local function make_config()
                     {
                       ["name"] = "country",
                       ["orig"] = "country",
-                      ["type"] = "`$ANY`",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
@@ -9280,6 +9509,433 @@ local function make_config()
         },
         ["relations"] = {
           ["ancestors"] = {},
+        },
+      },
+      ["salary"] = {
+        ["fields"] = {
+          {
+            ["name"] = "amount",
+            ["title"] = "Amount",
+            ["type"] = "`$NUMBER`",
+            ["req"] = true,
+            ["short"] = "Salary amount, in the given currency and pay frequency",
+            ["format"] = "double",
+          },
+          {
+            ["name"] = "currency",
+            ["title"] = "Currency",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
+            ["short"] = "ISO currency code the amount is denominated in",
+          },
+          {
+            ["name"] = "effective_from",
+            ["title"] = "Effective From",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
+            ["short"] = "Date from which this salary is effective",
+            ["format"] = "date",
+          },
+          {
+            ["name"] = "employee_id",
+            ["title"] = "Employee Id",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
+            ["short"] = "Unique identifier for the employee this salary belongs to",
+          },
+          {
+            ["name"] = "id",
+            ["title"] = "Id",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
+            ["short"] = "Unique identifier for the salary record",
+          },
+          {
+            ["name"] = "object",
+            ["title"] = "Object",
+            ["type"] = "`$STRING`",
+            ["short"] = "The object type",
+            ["readOnly"] = true,
+          },
+          {
+            ["name"] = "pay_frequency",
+            ["title"] = "Pay Frequency",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
+            ["short"] = "The period this amount represents (e.g.",
+          },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
+        ["name"] = "salary",
+        ["op"] = {
+          ["create"] = {
+            ["input"] = "data",
+            ["name"] = "create",
+            ["points"] = {
+              {
+                ["kind"] = "http",
+                ["method"] = "POST",
+                ["orig"] = "/employees/{employee_id}/salaries",
+                ["segments"] = {
+                  {
+                    ["lit"] = "employees",
+                  },
+                  {
+                    ["var"] = "employee_id",
+                  },
+                  {
+                    ["lit"] = "salaries",
+                  },
+                },
+                ["parts"] = {
+                  "employees",
+                  "{employee_id}",
+                  "salaries",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["header"] = {
+                    {
+                      ["name"] = "idempotency_key",
+                      ["orig"] = "Idempotency-Key",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "header",
+                    },
+                    {
+                      ["name"] = "x_platform_id",
+                      ["orig"] = "X-Platform-Id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "header",
+                    },
+                  },
+                  ["params"] = {
+                    {
+                      ["name"] = "employee_id",
+                      ["orig"] = "employee_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "employee_id",
+                  },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
+                },
+              },
+            },
+          },
+          ["list"] = {
+            ["input"] = "data",
+            ["name"] = "list",
+            ["points"] = {
+              {
+                ["kind"] = "http",
+                ["method"] = "GET",
+                ["orig"] = "/employees/{employee_id}/salaries",
+                ["segments"] = {
+                  {
+                    ["lit"] = "employees",
+                  },
+                  {
+                    ["var"] = "employee_id",
+                  },
+                  {
+                    ["lit"] = "salaries",
+                  },
+                },
+                ["parts"] = {
+                  "employees",
+                  "{employee_id}",
+                  "salaries",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body.items`",
+                },
+                ["args"] = {
+                  ["header"] = {
+                    {
+                      ["name"] = "x_platform_id",
+                      ["orig"] = "X-Platform-Id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "header",
+                    },
+                  },
+                  ["params"] = {
+                    {
+                      ["name"] = "employee_id",
+                      ["orig"] = "employee_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                  },
+                  ["query"] = {
+                    {
+                      ["name"] = "page",
+                      ["orig"] = "page",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "page_size",
+                      ["orig"] = "page_size",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "employee_id",
+                  },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
+                },
+              },
+            },
+          },
+          ["load"] = {
+            ["input"] = "data",
+            ["name"] = "load",
+            ["points"] = {
+              {
+                ["kind"] = "http",
+                ["method"] = "GET",
+                ["orig"] = "/employees/{employee_id}/salaries/{salary_id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "employees",
+                  },
+                  {
+                    ["var"] = "employee_id",
+                  },
+                  {
+                    ["lit"] = "salaries",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                },
+                ["parts"] = {
+                  "employees",
+                  "{employee_id}",
+                  "salaries",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["salary_id"] = "id",
+                  },
+                },
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["header"] = {
+                    {
+                      ["name"] = "x_platform_id",
+                      ["orig"] = "X-Platform-Id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "header",
+                    },
+                  },
+                  ["params"] = {
+                    {
+                      ["name"] = "employee_id",
+                      ["orig"] = "employee_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "salary_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "employee_id",
+                    "id",
+                  },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
+                },
+              },
+              {
+                ["kind"] = "http",
+                ["method"] = "GET",
+                ["orig"] = "/employees/{employee_id}/salaries/current",
+                ["segments"] = {
+                  {
+                    ["lit"] = "employees",
+                  },
+                  {
+                    ["var"] = "employee_id",
+                  },
+                  {
+                    ["lit"] = "salaries",
+                  },
+                  {
+                    ["lit"] = "current",
+                  },
+                },
+                ["parts"] = {
+                  "employees",
+                  "{employee_id}",
+                  "salaries",
+                  "current",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["header"] = {
+                    {
+                      ["name"] = "x_platform_id",
+                      ["orig"] = "X-Platform-Id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "header",
+                    },
+                  },
+                  ["params"] = {
+                    {
+                      ["name"] = "employee_id",
+                      ["orig"] = "employee_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["$action"] = "current",
+                  ["exist"] = {
+                    "employee_id",
+                  },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
+                },
+              },
+            },
+          },
+          ["remove"] = {
+            ["input"] = "data",
+            ["name"] = "remove",
+            ["points"] = {
+              {
+                ["kind"] = "http",
+                ["method"] = "DELETE",
+                ["orig"] = "/employees/{employee_id}/salaries/{salary_id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "employees",
+                  },
+                  {
+                    ["var"] = "employee_id",
+                  },
+                  {
+                    ["lit"] = "salaries",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                },
+                ["parts"] = {
+                  "employees",
+                  "{employee_id}",
+                  "salaries",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["salary_id"] = "id",
+                  },
+                },
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["header"] = {
+                    {
+                      ["name"] = "x_platform_id",
+                      ["orig"] = "X-Platform-Id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "header",
+                    },
+                  },
+                  ["params"] = {
+                    {
+                      ["name"] = "employee_id",
+                      ["orig"] = "employee_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "salary_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "employee_id",
+                    "id",
+                  },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
+                },
+              },
+            },
+          },
+        },
+        ["relations"] = {
+          ["ancestors"] = {
+            {
+              "$.main.kit.entity.employee",
+            },
+          },
         },
       },
       ["webhook_endpoint"] = {

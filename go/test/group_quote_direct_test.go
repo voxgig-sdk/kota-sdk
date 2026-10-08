@@ -17,25 +17,35 @@ import (
 const group_quoteDirectLiveStrict = true
 
 func TestGroupQuoteDirect(t *testing.T) {
-	t.Run("direct-load-group_quote", func(t *testing.T) {
-		setup := group_quoteDirectSetup(map[string]any{"id": "direct01"})
+	t.Run("direct-list-group_quote", func(t *testing.T) {
+		setup := group_quoteDirectSetup([]any{
+			map[string]any{"id": "direct01"},
+			map[string]any{"id": "direct02"},
+		})
 		_mode := "unit"
 		if setup.live {
 			_mode = "live"
 		}
-		if _shouldSkip, _reason := isControlSkipped("direct", "direct-load-group_quote", _mode); _shouldSkip {
+		if _shouldSkip, _reason := isControlSkipped("direct", "direct-list-group_quote", _mode); _shouldSkip {
 			if _reason == "" {
 				_reason = "skipped via sdk-test-control.json"
 			}
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"group_quote_intent01"} {
+				if v := setup.idmap[_liveKey]; v == nil {
+					liveMiss(t, group_quoteDirectLiveStrict, "Live test blocked: needs %s via KOTA_TEST_GROUP_QUOTE_ENTID", _liveKey)
+					return
+				}
+			}
+		}
 		client := setup.client
 
 		params := map[string]any{}
-		query := map[string]any{}
 		if setup.live {
-			params["group_quote_intent_id"] = "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+			params["group_quote_intent_id"] = setup.idmap["group_quote_intent01"]
 		} else {
 			params["group_quote_intent_id"] = "direct01"
 		}
@@ -44,17 +54,16 @@ func TestGroupQuoteDirect(t *testing.T) {
 			"path":   "group_quote_intents/{group_quote_intent_id}/quote",
 			"method": "GET",
 			"params": params,
-			"query":  query,
 		})
 		if setup.live {
 			if err != nil {
-				liveMiss(t, group_quoteDirectLiveStrict, "Live load failed: %v", err)
+				liveMiss(t, group_quoteDirectLiveStrict, "Live list failed: %v", err)
 			}
 			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
-				liveMiss(t, group_quoteDirectLiveStrict, "Live load failed: %s", liveDescribe(result))
+				liveMiss(t, group_quoteDirectLiveStrict, "Live list failed: %s", liveDescribe(result))
 			}
-			if result["data"] == nil {
-				liveMiss(t, group_quoteDirectLiveStrict, "Live load returned no data: %s", liveDescribe(result))
+			if _, ok := liveList(result["data"]); !ok {
+				liveMiss(t, group_quoteDirectLiveStrict, "Live list returned no list: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {
@@ -66,16 +75,15 @@ func TestGroupQuoteDirect(t *testing.T) {
 			if core.ToInt(result["status"]) != 200 {
 				t.Fatalf("expected status 200, got %v", result["status"])
 			}
-			if result["data"] == nil {
-				t.Fatal("expected data to be non-nil")
-			}
 		}
 
 		if !setup.live {
-			if dataMap, ok := result["data"].(map[string]any); ok {
-				if dataMap["id"] != "direct01" {
-					t.Fatalf("expected data.id to be direct01, got %v", dataMap["id"])
+			if dataList, ok := result["data"].([]any); ok {
+				if len(dataList) != 2 {
+					t.Fatalf("expected 2 items, got %d", len(dataList))
 				}
+			} else {
+				t.Fatalf("expected data to be an array, got %T", result["data"])
 			}
 
 			if len(*setup.calls) != 1 {

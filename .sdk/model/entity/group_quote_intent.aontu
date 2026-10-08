@@ -16,14 +16,14 @@ main: kit: entity: group_quote_intent: {
       h: "Consent Links"
       n: "consent_links"
       r: true
-      sh: "Consent links that need to be acknowledged"
+      sh: "The statements the customer must accept to proceed, each a sentence and the documents it names."
       t: "`$ARRAY`"
     }
     cost_sharing: {
       h: "Cost Sharing"
       n: "cost_sharing"
       r: false
-      sh: "Cost sharing configuration for the quote"
+      sh: "Cost sharing configuration for the quote."
       t: "`$NULL`"
     }
     coverage_selections: {
@@ -63,9 +63,27 @@ main: kit: entity: group_quote_intent: {
     group_id: {
       h: "Group Id"
       n: "group_id"
+      op: {
+        create: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
-      sh: "Unique identifier for the group"
-      t: "`$STRING`"
+      sh: "Unique identifier for the group."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
     }
     id: {
       h: "Id"
@@ -73,6 +91,25 @@ main: kit: entity: group_quote_intent: {
       r: true
       sh: "Unique identifier for the group quote intent"
       t: "`$STRING`"
+    }
+    items: {
+      h: "Items"
+      n: "items"
+      op: {
+        create: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$ARRAY`"
+            ]
+          ]
+        }
+      }
+      r: true
+      sh: "The benefits this intent quotes and the levels they are quoted at."
+      t: "`$ARRAY`"
     }
     object: {
       h: "Object"
@@ -85,9 +122,27 @@ main: kit: entity: group_quote_intent: {
     plan_id: {
       h: "Plan Id"
       n: "plan_id"
+      op: {
+        create: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$NULL`"
+              "`$STRING`"
+            ]
+          ]
+        }
+      }
       r: true
-      sh: "Unique identifier for the plan"
-      t: "`$STRING`"
+      sh: "Unique identifier for the plan."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
     }
     status: {
       h: "Status"
@@ -95,6 +150,13 @@ main: kit: entity: group_quote_intent: {
       r: true
       sh: "Current status of the group quote intent"
       t: "`$STRING`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "Whether the intent quotes one (group, plan) pair or several levels."
+      t: "`$NULL`"
     }
   }
 
@@ -170,6 +232,7 @@ main: kit: entity: group_quote_intent: {
             "coverage_selections"
             "expected_start_date"
             "group_id"
+            "items"
             "plan_id"
           ]
           co: {
@@ -260,6 +323,13 @@ main: kit: entity: group_quote_intent: {
                 k: "query"
                 n: "status"
                 or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "type"
+                or: "type"
                 r: false
                 t: "`$STRING`"
               }

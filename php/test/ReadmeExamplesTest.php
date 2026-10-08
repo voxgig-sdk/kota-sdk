@@ -77,6 +77,7 @@ class ReadmeExamplesTest extends TestCase
         "PolicyAmendmentIntent" => "policy_amendment_intent",
         "PolicyImportIntent" => "policy_import_intent",
         "Provider" => "provider",
+        "Salary" => "salary",
         "WebhookEndpoint" => "webhook_endpoint",
     ];
 

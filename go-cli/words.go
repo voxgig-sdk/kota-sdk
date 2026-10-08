@@ -151,6 +151,8 @@ func entityFor(client *sdk.KotaSDK, name string) (sdk.KotaEntity, error) {
 		return client.PolicyImportIntent(nil), nil
 	case "provider":
 		return client.Provider(nil), nil
+	case "salary":
+		return client.Salary(nil), nil
 	case "webhook_endpoint":
 		return client.WebhookEndpoint(nil), nil
 

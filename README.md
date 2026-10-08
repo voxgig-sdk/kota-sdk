@@ -16,7 +16,7 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 ## Entities, not endpoints
 
-This SDK exposes the API as **38 semantic entities** that you
+This SDK exposes the API as **39 semantic entities** that you
 call directly, instead of assembling URL paths and query strings. See the [Entities](#entities) table below for the full list. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`list`, `load`, `create`, `update`, `remove`):
@@ -42,22 +42,22 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = KotaSDK.test({
   entity: {
-    group_quote_intent: {
-      test01: { id: 'test01', consent_links: [], disclosures: [], group_id: 'example_group_id' },
+    contribution_report: {
+      test01: { id: 'test01', aggregates: 'example_aggregates', created_at: 'example_created_at' },
     },
   },
 })
-const groupquoteintents = await client.GroupQuoteIntent().list()
-// groupquoteintents is an array of GroupQuoteIntent entities, one per mock record
-console.log(groupquoteintents.map((groupquoteintent) => groupquoteintent.data()))
+const contributionreports = await client.ContributionReport().list()
+// contributionreports is an array of ContributionReport entities, one per mock record
+console.log(contributionreports.map((contributionreport) => contributionreport.data()))
 ```
 
 ### Python
 
 ```python
 client = KotaSDK.test()
-groupquoteintents = client.GroupQuoteIntent().list()
-print([item.data_get() for item in groupquoteintents])
+contributionreports = client.ContributionReport().list()
+print([item.data_get() for item in contributionreports])
 ```
 
 ### PHP
@@ -65,16 +65,16 @@ print([item.data_get() for item in groupquoteintents])
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = KotaSDK::test([
-    "entity" => ["group_quote_intent" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["contribution_report" => ["test01" => ["id" => "test01"]]],
 ]);
-$groupquoteintents = $client->GroupQuoteIntent()->list();
+$contributionreports = $client->ContributionReport()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.GroupQuoteIntent(nil).List(
+result, err := client.ContributionReport(nil).List(
     nil, nil,
 )
 ```
@@ -83,16 +83,16 @@ result, err := client.GroupQuoteIntent(nil).List(
 
 ```lua
 local client = sdk.test()
-local results, err = client:GroupQuoteIntent():list()
+local results, err = client:ContributionReport():list()
 ```
 
 ### JavaScript
 
 ```js
 const client = KotaSDK.test()
-const groupquoteintents = await client.GroupQuoteIntent().list()
-// groupquoteintents is an array of GroupQuoteIntent entities, one per mock record
-console.log(groupquoteintents.map((groupquoteintent) => groupquoteintent.data()))
+const contributionreports = await client.ContributionReport().list()
+// contributionreports is an array of ContributionReport entities, one per mock record
+console.log(contributionreports.map((contributionreport) => contributionreport.data()))
 ```
 
 ## Packages
@@ -168,7 +168,7 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 38 entities:
+The API exposes 39 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
@@ -201,7 +201,7 @@ The API exposes 38 entities:
 | **GroupPolicy** | The GroupPolicy entity (list, load). | `/group_policies` |
 | **GroupPolicyIntent** | The GroupPolicyIntent entity (create, list, load). | `/group_policy_intents` |
 | **GroupPolicyIntentRequirementResponsePagedList** | The GroupPolicyIntentRequirementResponsePagedList entity (list). | `/group_policy_intents/{group_policy_intent_id}/requirements` |
-| **GroupQuote** | The GroupQuote entity (load). | `/group_quote_intents/{group_quote_intent_id}/quote` |
+| **GroupQuote** | The GroupQuote entity (list). | `/group_quote_intents/{group_quote_intent_id}/quote` |
 | **GroupQuoteIntent** | The GroupQuoteIntent entity (create, list, load). | `/group_quote_intents` |
 | **GroupQuoteIntentRequirementResponsePagedList** | The GroupQuoteIntentRequirementResponsePagedList entity (list). | `/group_quote_intents/{group_quote_intent_id}/requirements` |
 | **Plan** | The Plan entity (list, load). | `/plans` |
@@ -209,6 +209,7 @@ The API exposes 38 entities:
 | **PolicyAmendmentIntent** | The PolicyAmendmentIntent entity (create, list, load). | `/policies/{policy_id}/policy_amendment_intents` |
 | **PolicyImportIntent** | The PolicyImportIntent entity (create, list, load). | `/policy_import_intents` |
 | **Provider** | The Provider entity (list, load). | `/providers` |
+| **Salary** | The Salary entity (create, list, load, remove). | `/employees/{employee_id}/salaries` |
 | **WebhookEndpoint** | The WebhookEndpoint entity (list, load). | `/webhooks/endpoints` |
 
 The operations available across these entities are **load**, **list**, **create**, **update**, **remove** — see each entity's

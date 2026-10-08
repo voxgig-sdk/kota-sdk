@@ -29,7 +29,7 @@ main: kit: entity: group_policy_intent: {
       h: "Cost Sharing"
       n: "cost_sharing"
       r: false
-      sh: "Cost sharing configuration for the policy intent"
+      sh: "Cost sharing configuration for the policy intent."
       t: "`$NULL`"
     }
     disclosures: {
@@ -57,8 +57,21 @@ main: kit: entity: group_policy_intent: {
       h: "Group Id"
       n: "group_id"
       r: true
-      sh: "Unique identifier for the group"
-      t: "`$STRING`"
+      sh: "Unique identifier for the group."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    group_policy_ids: {
+      h: "Group Policy Ids"
+      n: "group_policy_ids"
+      r: true
+      sh: "The group policies created for this intent, one per level, once they exist."
+      t: "`$ARRAY`"
     }
     id: {
       h: "Id"
@@ -66,6 +79,13 @@ main: kit: entity: group_policy_intent: {
       r: true
       sh: "Unique identifier for the group policy intent"
       t: "`$STRING`"
+    }
+    items: {
+      h: "Items"
+      n: "items"
+      r: true
+      sh: "The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent."
+      t: "`$ARRAY`"
     }
     object: {
       h: "Object"
@@ -79,8 +99,14 @@ main: kit: entity: group_policy_intent: {
       h: "Plan Id"
       n: "plan_id"
       r: true
-      sh: "Unique identifier for the plan"
-      t: "`$STRING`"
+      sh: "Unique identifier for the plan."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
     }
     quote_intent_id: {
       h: "Quote Intent Id"
@@ -95,6 +121,13 @@ main: kit: entity: group_policy_intent: {
       r: true
       sh: "Current status of the group policy intent"
       t: "`$STRING`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "Whether the accepted quote covers one (group, plan) pair or several levels."
+      t: "`$NULL`"
     }
   }
 
@@ -111,7 +144,6 @@ main: kit: entity: group_policy_intent: {
         {
           bf: [
             "consent_approvals"
-            "cost_sharing"
             "quote_intent_id"
           ]
           co: {
@@ -202,6 +234,13 @@ main: kit: entity: group_policy_intent: {
                 k: "query"
                 n: "status"
                 or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "type"
+                or: "type"
                 r: false
                 t: "`$STRING`"
               }

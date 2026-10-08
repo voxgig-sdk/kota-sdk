@@ -110,6 +110,13 @@ main: kit: entity: plan: {
       sh: "Unique identifier for the plan."
       t: "`$STRING`"
     }
+    indicative_pricing: {
+      h: "Indicative Pricing"
+      n: "indicative_pricing"
+      r: false
+      sh: "Average monthly guide prices used when exact catalog pricing is unavailable."
+      t: "`$NULL`"
+    }
     ineligible_count: {
       fo: "int32"
       h: "Ineligible Count"
@@ -123,6 +130,13 @@ main: kit: entity: plan: {
           "`$INTEGER`"
         ]
       ]
+    }
+    life_assurance: {
+      h: "Life Assurance"
+      n: "life_assurance"
+      r: false
+      sh: "Life assurance-specific details."
+      t: "`$NULL`"
     }
     name: {
       h: "Name"
@@ -208,7 +222,7 @@ main: kit: entity: plan: {
                 n: "country"
                 or: "country"
                 r: false
-                t: "`$ANY`"
+                t: "`$STRING`"
               }
               {
                 ex: "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a"
@@ -244,14 +258,14 @@ main: kit: entity: plan: {
                 n: "sort_by"
                 or: "sort_by"
                 r: false
-                t: "`$ANY`"
+                t: "`$STRING`"
               }
               {
                 k: "query"
                 n: "sort_dir"
                 or: "sort_dir"
                 r: false
-                t: "`$ANY`"
+                t: "`$STRING`"
               }
               {
                 k: "query"

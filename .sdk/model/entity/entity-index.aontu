@@ -37,4 +37,5 @@
 @"./policy_amendment_intent.aontu"
 @"./policy_import_intent.aontu"
 @"./provider.aontu"
+@"./salary.aontu"
 @"./webhook_endpoint.aontu"

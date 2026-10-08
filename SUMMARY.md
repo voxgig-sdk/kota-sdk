@@ -6,7 +6,7 @@ The Kota API.
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 38 entities and 85 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 39 entities and 90 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
@@ -48,11 +48,11 @@ SDK operations: `create`, `list`, `load`.
 
 Key fields to recognise:
 
+- `aggregates`: Summary figures for the report, meant for dashboards and overviews. They keep changing while the report is open. For payroll processing or reconciliation use the employee breakdowns, which carry the itemised contributions.
 - `created_at`: Date and time the report was created
 - `employer_id`: Unique identifier of the employer for which the report is created
 - `external_customer_id`: Unique identifier of the customer for which the report is created. This identifier is assigned by the Employer of Record (EoR) platform to the Customer (that is the company using the EoR service) for which the employee is employed. This parameter is only available to EoR platforms.
-- `finalized_at`: Date and time the report was finalized, if applicable
-- `id`: Unique identifier for the contribution report
+- `file_id`: Identifier of the report&#39;s downloadable CSV file. Null until the CSV has been prepared, which happens shortly after the report is finalized, use `file_status` to tell whether it is still on its way. Exchange it for a download link via `GET /files/&#123;file_id&#125;/download_link`.
 
 ### ContributionReportEmployeeBreakdown
 
@@ -214,11 +214,11 @@ SDK operations: `create`, `list`, `load`, `update`.
 
 Key fields to recognise:
 
+- `applicable_collective_agreement`: Name of the collective agreement that applies to the employer&#39;s workforce, if any.
 - `earliest_benefits_start_date`: The earliest date this employer is permitted to set up any benefits scheme.
 - `legal_address`: Treated as a single object that is updated entirely, `null` sub-fields (for example
 - `legal_name`: Legal name of the company.
 - `metadata`: Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Maximum 25 keys. Individual keys can be up to 40 characters and values up to 500 characters.
-- `object`: The object type
 
 ### EmployerHealthInsurancePolicy
 
@@ -298,7 +298,7 @@ SDK operations: `list`.
 
 Key fields to recognise:
 
-- `id`: Unique identifier for the requirement
+- `id`: Identifier of the requirement. Take it to the Adaptive Requirements public routes as-is: an `ar_` id is one requirement, an `ars_` id is a set of requirements composed into one form.
 
 ### Event
 
@@ -368,7 +368,7 @@ Key fields to recognise:
 
 - `action_required`: Details of the required action when the intent is in ActionRequired status.
 - `consent_approvals`: Consent approvals to record at the time of intent creation
-- `cost_sharing`: Cost sharing configuration for the policy intent
+- `cost_sharing`: Cost sharing configuration for the policy intent. Null on a multi-level intent, whose cost sharing is fixed per level at quote time.
 - `disclosures`: Disclosures associated with this intent.
 - `due_date`: Due date for the policy intent
 
@@ -380,21 +380,21 @@ SDK operations: `list`.
 
 Key fields to recognise:
 
-- `id`: Unique identifier for the requirement
+- `id`: Identifier of the requirement. Take it to the Adaptive Requirements public routes as-is: an `ar_` id is one requirement, an `ars_` id is a set of requirements composed into one form.
 
 ### GroupQuote
 
 Results: OK.
 
-SDK operations: `load`.
+SDK operations: `list`.
 
 Key fields to recognise:
 
-- `cost_sharing`: Cost sharing configuration for the quote
-- `currency`: Currency of the premium (for example EUR, GBP)
-- `employee_count`: Number of employees covered by the quote
+- `breakdown`: What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. Amounts are annual and sum to what the employer pays.
+- `cost_sharing`: Cost sharing configuration for the quote. Null on a multi-level quote, whose cost sharing is per level, read it from `levels[].cost_sharing`.
+- `currency`: Currency of the premium (for example EUR, GBP). Every level of a quote is in one currency today; when a quote can span currencies, the totals and this field become null and `levels[].currency` is the only answer.
+- `employee_count`: Number of employees covered by the quote. An employee covered by more than one of the quote&#39;s `levels` is counted once.
 - `expires_at`: When the quote expires
-- `generated_at`: When the quote was generated
 
 ### GroupQuoteIntent
 
@@ -405,10 +405,10 @@ SDK operations: `create`, `list`, `load`.
 Key fields to recognise:
 
 - `action_required`: Details of the action required from the caller, if the intent is in `action_required` status.
-- `consent_links`: Consent links that need to be acknowledged
-- `cost_sharing`: Cost sharing configuration for the quote
-- `coverage_selections`: Plan coverage option selections for group-policy-scoped configurations.
-- `disclosures`: Disclosures associated with this intent.
+- `consent_links`: The statements the customer must accept to proceed, each a sentence and the documents it names. Display them in the order given, each with its own acceptance, and submit every one back on `consent_approvals` when creating the group policy intent. A statement carries no type: it can bundle several documents, so its `id` identifies it instead. Empty until statements are configured.
+- `cost_sharing`: Cost sharing configuration for the quote. Null on a multi-level intent, whose cost sharing is per level.
+- `coverage_selections`: Plan coverage option selections for this level. Null when none were supplied.
+- `disclosures`: Disclosures associated with this intent. On a multi-level intent, the deduplicated union across its levels&#39; plans.
 
 ### GroupQuoteIntentRequirementResponsePagedList
 
@@ -418,7 +418,7 @@ SDK operations: `list`.
 
 Key fields to recognise:
 
-- `id`: Unique identifier for the requirement
+- `id`: Identifier of the requirement. Take it to the Adaptive Requirements public routes as-is: an `ar_` id is one requirement, an `ars_` id is a set of requirements composed into one form.
 
 ### Plan
 
@@ -489,6 +489,20 @@ Key fields to recognise:
 - `id`: Unique identifier for the provider. Prefixed with `pr_`.
 - `kota_hub_url`: URL to the Kota Hub page for this platform, if configured.
 - `logo_url`: URL to the provider&#39;s logo image.
+
+### Salary
+
+Results: OK.
+
+SDK operations: `create`, `list`, `load`, `remove`.
+
+Key fields to recognise:
+
+- `amount`: Salary amount, in the given currency and pay frequency
+- `currency`: ISO currency code the amount is denominated in
+- `effective_from`: Date from which this salary is effective
+- `employee_id`: Unique identifier for the employee this salary belongs to
+- `id`: Unique identifier for the salary record
 
 ### WebhookEndpoint
 
@@ -573,7 +587,7 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | GroupPolicyIntent | `list` | `GET /group_policy_intents` | Required |
 | GroupPolicyIntent | `load` | `GET /group_policy_intents/{group_policy_intent_id}` | Required |
 | GroupPolicyIntentRequirementResponsePagedList | `list` | `GET /group_policy_intents/{group_policy_intent_id}/requirements` | Required |
-| GroupQuote | `load` | `GET /group_quote_intents/{group_quote_intent_id}/quote` | Required |
+| GroupQuote | `list` | `GET /group_quote_intents/{group_quote_intent_id}/quote` | Required |
 | GroupQuoteIntent | `create` | `POST /group_quote_intents/{group_quote_intent_id}/reject` | Required |
 | GroupQuoteIntent | `create` | `POST /group_quote_intents` | Required |
 | GroupQuoteIntent | `list` | `GET /group_quote_intents` | Required |
@@ -593,6 +607,11 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | PolicyImportIntent | `load` | `GET /policy_import_intents/{policy_import_intent_id}` | Required |
 | Provider | `list` | `GET /providers` | Required |
 | Provider | `load` | `GET /providers/{provider_id}` | Required |
+| Salary | `create` | `POST /employees/{employee_id}/salaries` | Required |
+| Salary | `list` | `GET /employees/{employee_id}/salaries` | Required |
+| Salary | `load` | `GET /employees/{employee_id}/salaries/{salary_id}` | Required |
+| Salary | `load` | `GET /employees/{employee_id}/salaries/current` | Required |
+| Salary | `remove` | `DELETE /employees/{employee_id}/salaries/{salary_id}` | Required |
 | WebhookEndpoint | `list` | `GET /webhooks/endpoints` | Required |
 | WebhookEndpoint | `load` | `GET /webhooks/endpoints/{webhook_endpoint_id}` | Required |
 
@@ -647,8 +666,8 @@ Use the MCP server to expose supported API operations to an MCP client.
 
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
-- `kota_list`: List records for an entity. Supported entities: `associated_person`, `associated_person_eligibility_response_paged_list`, `contribution_report`, `contribution_report_employee_breakdown_response_paged_list`, `employee`, `employee_health_insurance_offer_response_paged_list`, `employee_health_insurance_policy_response_paged_list`, `employer`, `employer_health_insurance_policy_response_paged_list`, `employer_health_insurance_quote_response_paged_list`, `enrolment_intent`, `enrolment_intent_requirement_response_paged_list`, `event`, `group`, `group_employee_response_paged_list`, `group_policy`, `group_policy_intent`, `group_policy_intent_requirement_response_paged_list`, `group_quote_intent`, `group_quote_intent_requirement_response_paged_list`, `plan`, `policy`, `policy_amendment_intent`, `policy_import_intent`, `provider`, `webhook_endpoint`.
-- `kota_load`: Load one record for an entity. Supported entities: `associated_person`, `contribution_report`, `contribution_report_employee_breakdown`, `dependents_management_intent`, `employee`, `employee_health_insurance_offer`, `employee_health_insurance_policy`, `employer`, `employer_health_insurance_policy`, `employer_health_insurance_quote`, `enrolment_intent`, `event`, `group`, `group_policy`, `group_policy_intent`, `group_quote`, `group_quote_intent`, `plan`, `policy`, `policy_amendment_intent`, `policy_import_intent`, `provider`, `webhook_endpoint`.
+- `kota_list`: List records for an entity. Supported entities: `associated_person`, `associated_person_eligibility_response_paged_list`, `contribution_report`, `contribution_report_employee_breakdown_response_paged_list`, `employee`, `employee_health_insurance_offer_response_paged_list`, `employee_health_insurance_policy_response_paged_list`, `employer`, `employer_health_insurance_policy_response_paged_list`, `employer_health_insurance_quote_response_paged_list`, `enrolment_intent`, `enrolment_intent_requirement_response_paged_list`, `event`, `group`, `group_employee_response_paged_list`, `group_policy`, `group_policy_intent`, `group_policy_intent_requirement_response_paged_list`, `group_quote`, `group_quote_intent`, `group_quote_intent_requirement_response_paged_list`, `plan`, `policy`, `policy_amendment_intent`, `policy_import_intent`, `provider`, `salary`, `webhook_endpoint`.
+- `kota_load`: Load one record for an entity. Supported entities: `associated_person`, `contribution_report`, `contribution_report_employee_breakdown`, `dependents_management_intent`, `employee`, `employee_health_insurance_offer`, `employee_health_insurance_policy`, `employer`, `employer_health_insurance_policy`, `employer_health_insurance_quote`, `enrolment_intent`, `event`, `group`, `group_policy`, `group_policy_intent`, `group_quote_intent`, `plan`, `policy`, `policy_amendment_intent`, `policy_import_intent`, `provider`, `salary`, `webhook_endpoint`.
 
 ## Operational features
 

@@ -37,7 +37,7 @@ class TestGroupQuoteEntity:
         client = KotaSDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.GroupQuote(None).load({"group_quote_intent_id": 1}, None)
+            client.GroupQuote(None).list({"group_quote_intent_id": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -46,11 +46,15 @@ class TestGroupQuoteEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in []:
+        for _op in ["list"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "group_quote." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
+        if setup["live"]:
+            for _live_key in ["group_quote_intent01"]:
+                if setup.get("synthetic_only") or setup["idmap"].get(_live_key) is None:
+                    runner.live_miss(LIVE_STRICT, f"Live entity test blocked: needs {_live_key} via KOTA_TEST_GROUP_QUOTE_ENTID")
         client = setup["client"]
 
         # Bootstrap entity data from existing test data.
@@ -59,6 +63,15 @@ class TestGroupQuoteEntity:
         group_quote_ref01_data = None
         if len(group_quote_ref01_data_raw) > 0:
             group_quote_ref01_data = helpers.to_map(group_quote_ref01_data_raw[0][1])
+
+        # LIST
+        group_quote_ref01_ent = client.GroupQuote(None)
+        group_quote_ref01_match = {
+            "group_quote_intent_id": setup["idmap"]["group_quote_intent01"],
+        }
+
+        group_quote_ref01_list_result = group_quote_ref01_ent.list(group_quote_ref01_match, None)
+        assert isinstance(group_quote_ref01_list_result, list)
 
 
 

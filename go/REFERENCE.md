@@ -196,6 +196,10 @@ Create a new `PolicyImportIntent` entity instance. Pass `nil` for no initial dat
 
 Create a new `Provider` entity instance. Pass `nil` for no initial data.
 
+#### `Salary(data map[string]any) KotaEntity`
+
+Create a new `Salary` entity instance. Pass `nil` for no initial data.
+
 #### `WebhookEndpoint(data map[string]any) KotaEntity`
 
 Create a new `WebhookEndpoint` entity instance. Pass `nil` for no initial data.
@@ -463,9 +467,12 @@ fmt.Println(contributionReport.GetName()) // "contribution_report"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `aggregates` | `any` | Yes | Summary figures for the report, meant for dashboards and overviews. |
 | `created_at` | `string` | Yes | Date and time the report was created |
 | `employer_id` | `string` | Yes | Unique identifier of the employer for which the report is created |
 | `external_customer_id` | `any` | No | Unique identifier of the customer for which the report is created. |
+| `file_id` | `any` | No | Identifier of the report's downloadable CSV file. |
+| `file_status` | `any` | No | Whether the report's downloadable CSV is ready yet. |
 | `finalized_at` | `any` | No | Date and time the report was finalized, if applicable |
 | `id` | `string` | Yes | Unique identifier for the contribution report |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
@@ -508,6 +515,7 @@ Create a new entity with the given data. Returns the created entity; `err` is no
 ```go
 result, err := client.ContributionReport(nil).Create(map[string]any{
     "id": "example_id",
+    "aggregates": "example_aggregates",
     "created_at": "example_created_at",
     "employer_id": "example_employer_id",
     "last_updated_at": "example_last_updated_at",
@@ -1096,7 +1104,7 @@ fmt.Println(employee.GetName()) // "employee"
 | `nationality` | `any` | No | Nationality of the employee (e.g. |
 | `object` | `string` | No | The object type |
 | `offboard_on` | `any` | No | Date when the employee was or will be offboarded |
-| `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
+| `phone_number` | `any` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
 | `sex_at_birth` | `string` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `string` | No | Employment start date |
@@ -1121,7 +1129,7 @@ fmt.Println(employee.GetName()) // "employee"
 | `nationality` | - | - | - | - |
 | `object` | - | - | - | - |
 | `offboard_on` | - | - | - | - |
-| `phone_number` | - | - | - | Yes |
+| `phone_number` | - | - | Yes | Yes |
 | `platform_id` | - | - | - | - |
 | `sex_at_birth` | - | - | - | - |
 | `start_on` | - | - | Yes | - |
@@ -1517,6 +1525,7 @@ fmt.Println(employer.GetName()) // "employer"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `applicable_collective_agreement` | `any` | No | Name of the collective agreement that applies to the employer's workforce, if any. |
 | `contact` | `any` | Yes |  |
 | `earliest_benefits_start_date` | `any` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` | Yes |  |
@@ -1533,6 +1542,7 @@ fmt.Println(employer.GetName()) // "employer"
 
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
+| `applicable_collective_agreement` | - | - | - | - |
 | `contact` | - | - | - | Yes |
 | `earliest_benefits_start_date` | - | - | - | - |
 | `id` | - | - | - | - |
@@ -2485,6 +2495,8 @@ fmt.Println(groupPolicy.GetName()) // "group_policy"
 | `group_id` | `string` | No | Identifier for the group associated with this group policy. |
 | `health_insurance` | `any` | No | Health insurance–specific fields (present when `type=health_insurance`). |
 | `id` | `string` | Yes | Unique identifier for the group policy. |
+| `life_assurance` | `any` | No | Life assurance–specific fields (present when `type=life_assurance`). |
+| `linked_group_policy_ids` | `[]any` | Yes | The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase. |
 | `object` | `string` | No | The object type |
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy. |
@@ -2565,15 +2577,18 @@ fmt.Println(groupPolicyIntent.GetName()) // "group_policy_intent"
 | --- | --- | --- | --- |
 | `action_required` | `any` | No | Details of the required action when the intent is in ActionRequired status. |
 | `consent_approvals` | `any` | No | Consent approvals to record at the time of intent creation |
-| `cost_sharing` | `any` | No | Cost sharing configuration for the policy intent |
+| `cost_sharing` | `any` | No | Cost sharing configuration for the policy intent. |
 | `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
 | `due_date` | `any` | No | Due date for the policy intent |
-| `group_id` | `string` | Yes | Unique identifier for the group |
+| `group_id` | `any` | Yes | Unique identifier for the group. |
+| `group_policy_ids` | `[]any` | Yes | The group policies created for this intent, one per level, once they exist. |
 | `id` | `string` | Yes | Unique identifier for the group policy intent |
+| `items` | `[]any` | Yes | The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent. |
 | `object` | `string` | No | Object type identifier |
-| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `plan_id` | `any` | Yes | Unique identifier for the plan. |
 | `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
 | `status` | `string` | Yes | Current status of the group policy intent |
+| `type` | `any` | No | Whether the accepted quote covers one (group, plan) pair or several levels. |
 
 ### Operations
 
@@ -2611,7 +2626,9 @@ Create a new entity with the given data. Returns the created entity; `err` is no
 result, err := client.GroupPolicyIntent(nil).Create(map[string]any{
     "disclosures": []any{},
     "group_id": "example_group_id",
+    "group_policy_ids": []any{},
     "id": "example_id",
+    "items": []any{},
     "plan_id": "example_plan_id",
     "quote_intent_id": "example_quote_intent_id",
     "status": "example_status",
@@ -2726,28 +2743,34 @@ fmt.Println(groupQuote.GetName()) // "group_quote"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `any` | Yes | Cost sharing configuration for the quote |
+| `breakdown` | `[]any` | Yes | What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. |
+| `cost_sharing` | `any` | No | Cost sharing configuration for the quote. |
 | `currency` | `string` | Yes | Currency of the premium (e.g. |
-| `employee_count` | `int` | Yes | Number of employees covered by the quote |
+| `employee_count` | `int` | Yes | Number of employees covered by the quote. |
 | `expires_at` | `string` | Yes | When the quote expires |
 | `generated_at` | `string` | Yes | When the quote was generated |
+| `levels` | `[]any` | Yes | The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position. |
 | `object` | `string` | No | Object type identifier |
 | `pdf_expires_at` | `any` | No | When the PDF URL expires |
-| `pdf_url` | `any` | No | URL to download the quote PDF |
-| `total_monthly_premium` | `float64` | Yes | Total monthly premium for the group |
+| `pdf_url` | `any` | No | URL to download the quote PDF. |
+| `quote_pdfs` | `[]any` | Yes | The documents the provider issued for the quote as a whole. |
+| `total_annual_premium` | `float64` | Yes | Total annual premium for the group, excluding any insurance premium tax. |
+| `total_monthly_premium` | `float64` | Yes | Total monthly premium for the group, excluding any insurance premium tax. |
 
 ### Operations
 
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
 
-Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-result, err := client.GroupQuote(nil).Load(map[string]any{"group_quote_intent_id": "group_quote_intent_id"}, nil)
+results, err := client.GroupQuote(nil).List(map[string]any{"group_quote_intent_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result.(sdk.Entity).Data())
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Common Methods
@@ -2794,16 +2817,36 @@ fmt.Println(groupQuoteIntent.GetName()) // "group_quote_intent"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `any` | No | Details of the action required from the caller, if the intent is in action_required status. |
-| `consent_links` | `[]any` | Yes | Consent links that need to be acknowledged |
-| `cost_sharing` | `any` | No | Cost sharing configuration for the quote |
+| `consent_links` | `[]any` | Yes | The statements the customer must accept to proceed, each a sentence and the documents it names. |
+| `cost_sharing` | `any` | No | Cost sharing configuration for the quote. |
 | `coverage_selections` | `any` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `[]any` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `any` | No | Expected start date for the insurance coverage |
-| `group_id` | `string` | Yes | Unique identifier for the group |
+| `group_id` | `any` | Yes | Unique identifier for the group. |
 | `id` | `string` | Yes | Unique identifier for the group quote intent |
+| `items` | `[]any` | Yes | The benefits this intent quotes and the levels they are quoted at. |
 | `object` | `string` | No | Object type identifier |
-| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `plan_id` | `any` | Yes | Unique identifier for the plan. |
 | `status` | `string` | Yes | Current status of the group quote intent |
+| `type` | `any` | No | Whether the intent quotes one (group, plan) pair or several levels. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `action_required` | - | - | - |
+| `consent_links` | - | - | - |
+| `cost_sharing` | - | - | - |
+| `coverage_selections` | - | - | - |
+| `disclosures` | - | - | - |
+| `expected_start_date` | - | - | - |
+| `group_id` | - | - | Yes |
+| `id` | - | - | - |
+| `items` | - | - | Yes |
+| `object` | - | - | - |
+| `plan_id` | - | - | Yes |
+| `status` | - | - | - |
+| `type` | - | - | - |
 
 ### Operations
 
@@ -2843,6 +2886,7 @@ result, err := client.GroupQuoteIntent(nil).Create(map[string]any{
     "disclosures": []any{},
     "group_id": "example_group_id",
     "id": "example_id",
+    "items": []any{},
     "plan_id": "example_plan_id",
     "status": "example_status",
 }, nil)
@@ -2968,7 +3012,9 @@ fmt.Println(plan.GetName()) // "plan"
 | `employer_eligibility_criteria` | `[]any` | Yes | Eligibility criteria that employers must meet. |
 | `health_insurance` | `any` | No | Health insurance-specific details. |
 | `id` | `string` | Yes | Unique identifier for the plan. |
+| `indicative_pricing` | `any` | No | Average monthly guide prices used when exact catalog pricing is unavailable. |
 | `ineligible_count` | `any` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `life_assurance` | `any` | No | Life assurance-specific details. |
 | `name` | `string` | Yes | The name of the plan. |
 | `object` | `string` | No | Object type. |
 | `provider` | `any` | Yes | The provider offering this plan. |
@@ -3055,7 +3101,9 @@ fmt.Println(policy.GetName()) // "policy"
 | `group_policy_id` | `string` | Yes | Identifier of the group policy id associated with this policy. |
 | `health_insurance` | `any` | No | Health insurance–specific fields (present when `type=health_insurance`) |
 | `id` | `string` | Yes | Unique identifier for the policy. |
+| `life_assurance` | `any` | No | Life assurance–specific fields (present when `type=life_assurance`). |
 | `object` | `string` | No | Object type |
+| `opted_out_at` | `any` | No | UTC timestamp of the moment the member opted out of this policy during the cooling-off window. |
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
@@ -3406,6 +3454,116 @@ Get or set the entity match criteria. Works the same as `Data()`.
 #### `Make() Entity`
 
 Create a new `ProviderEntity` instance with the same client and
+options.
+
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
+
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
+
+#### `GetName() string`
+
+Return the entity name.
+
+
+---
+
+## SalaryEntity
+
+```go
+salary := client.Salary(nil)
+fmt.Println(salary.GetName()) // "salary"
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `amount` | `float64` | Yes | Salary amount, in the given currency and pay frequency |
+| `currency` | `string` | Yes | ISO currency code the amount is denominated in |
+| `effective_from` | `string` | Yes | Date from which this salary is effective |
+| `employee_id` | `string` | Yes | Unique identifier for the employee this salary belongs to |
+| `id` | `string` | Yes | Unique identifier for the salary record |
+| `object` | `string` | No | The object type |
+| `pay_frequency` | `string` | Yes | The period this amount represents (e.g. |
+
+### Operations
+
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
+
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
+
+```go
+results, err := client.Salary(nil).List(map[string]any{"employee_id": "example"}, nil)
+if err != nil {
+    panic(err)
+}
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
+```
+
+#### `Load(reqmatch, ctrl map[string]any) (any, error)`
+
+Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
+
+```go
+result, err := client.Salary(nil).Load(map[string]any{"id": "salary_id", "employee_id": "employee_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result.(sdk.Entity).Data())
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data. Returns the created entity; `err` is non-nil on failure.
+
+```go
+result, err := client.Salary(nil).Create(map[string]any{
+    "employee_id": "example_employee_id",
+    "amount": 1,
+    "currency": "example_currency",
+    "effective_from": "example_effective_from",
+    "id": "example_id",
+    "pay_frequency": "example_pay_frequency",
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result.(sdk.Entity).Data())
+```
+
+#### `Remove(reqmatch, ctrl map[string]any) (any, error)`
+
+Remove the entity matching the given criteria. Returns the entity, marked as deleted; `err` is non-nil on failure.
+
+```go
+result, err := client.Salary(nil).Remove(map[string]any{"id": "salary_id", "employee_id": "employee_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result.(sdk.Entity).Data())
+```
+
+### Common Methods
+
+#### `Data(args ...any) any`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `Match(args ...any) any`
+
+Get or set the entity match criteria. Works the same as `Data()`.
+
+#### `Make() Entity`
+
+Create a new `SalaryEntity` instance with the same client and
 options.
 
 #### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`

@@ -2,51 +2,63 @@
   "existing": {
     "contribution_report": {
       "CONTRIBUTION_REPORT00": {
-        "created_at": "s5a",
+        "aggregates": "s78",
+        "created_at": "s79",
         "employer_id": "EMPLOYER01",
         "external_customer_id": "EXTERNAL_CUSTOMER01",
-        "finalized_at": "s5d",
+        "file_id": "FILE01",
+        "file_status": "s7d",
+        "finalized_at": "s7e",
         "id": "CONTRIBUTION_REPORT00",
-        "last_updated_at": "s5f",
-        "object": "s60",
-        "period": "s61",
-        "status": "s62"
+        "last_updated_at": "s80",
+        "object": "s81",
+        "period": "s82",
+        "status": "s83"
       },
       "CONTRIBUTION_REPORT01": {
-        "created_at": "sb4",
+        "aggregates": "sf0",
+        "created_at": "sf1",
         "employer_id": "EMPLOYER01",
         "external_customer_id": "EXTERNAL_CUSTOMER01",
-        "finalized_at": "sb7",
+        "file_id": "FILE01",
+        "file_status": "sf5",
+        "finalized_at": "sf6",
         "id": "CONTRIBUTION_REPORT01",
-        "last_updated_at": "sb9",
-        "object": "sba",
-        "period": "sbb",
-        "status": "sbc"
+        "last_updated_at": "sf8",
+        "object": "sf9",
+        "period": "sfa",
+        "status": "sfb"
       },
       "CONTRIBUTION_REPORT02": {
-        "created_at": "s10e",
+        "aggregates": "s168",
+        "created_at": "s169",
         "employer_id": "EMPLOYER01",
         "external_customer_id": "EXTERNAL_CUSTOMER01",
-        "finalized_at": "s111",
+        "file_id": "FILE01",
+        "file_status": "s16d",
+        "finalized_at": "s16e",
         "id": "CONTRIBUTION_REPORT02",
-        "last_updated_at": "s113",
-        "object": "s114",
-        "period": "s115",
-        "status": "s116"
+        "last_updated_at": "s170",
+        "object": "s171",
+        "period": "s172",
+        "status": "s173"
       }
     }
   },
   "new": {
     "contribution_report": {
       "contribution_report_ref01": {
-        "created_at": "s168",
+        "aggregates": "s1e0",
+        "created_at": "s1e1",
         "employer_id": "EMPLOYER01",
         "external_customer_id": "EXTERNAL_CUSTOMER01",
-        "finalized_at": "s16b",
-        "last_updated_at": "s16d",
-        "object": "s16e",
-        "period": "s16f",
-        "status": "s170"
+        "file_id": "FILE01",
+        "file_status": "s1e5",
+        "finalized_at": "s1e6",
+        "last_updated_at": "s1e8",
+        "object": "s1e9",
+        "period": "s1ea",
+        "status": "s1eb"
       }
     }
   },

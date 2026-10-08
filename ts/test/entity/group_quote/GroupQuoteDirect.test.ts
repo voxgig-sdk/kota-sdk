@@ -39,16 +39,17 @@ describe('GroupQuoteDirect', async () => {
   })
 
 
-  test('direct-load-group_quote', async (t: any) => {
+  test('direct-list-group_quote', async (t: any) => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
-    const setup = directSetup({ id: 'direct01' })
-    if (maybeSkipControl(t, 'direct', 'direct-load-group_quote', setup.live)) return
+    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
+    if (maybeSkipControl(t, 'direct', 'direct-list-group_quote', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["group_quote_intent01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      params.group_quote_intent_id = "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      params.group_quote_intent_id = setup.idmap['group_quote_intent01']
     } else {
       params.group_quote_intent_id = 'direct01'
     }
@@ -62,16 +63,18 @@ describe('GroupQuoteDirect', async () => {
 
     if (setup.live) {
       if (!result.ok || result.status < 200 || result.status >= 300) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load failed: ' + describeLive(result))
+        return void liveMiss(t, LIVE_STRICT, 'Live list failed: ' + describeLive(result))
       }
-      if (!(null != result.data)) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load returned no data: ' + describeLive(result))
+      if (!(Array.isArray(unwrapListData(result.data)))) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list returned no list: ' + describeLive(result))
       }
     } else {
       assert(result.ok === true)
       assert(result.status === 200)
       assert(null != result.data)
-      assert(result.data.id === 'direct01')
+      const listArr = unwrapListData(result.data)
+      assert(Array.isArray(listArr))
+      assert(listArr!.length === 2)
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))

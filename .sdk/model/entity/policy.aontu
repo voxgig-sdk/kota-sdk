@@ -82,6 +82,13 @@ main: kit: entity: policy: {
       sh: "Unique identifier for the policy."
       t: "`$STRING`"
     }
+    life_assurance: {
+      h: "Life Assurance"
+      n: "life_assurance"
+      r: false
+      sh: "Life assurance–specific fields (present when `type=life_assurance`)."
+      t: "`$NULL`"
+    }
     object: {
       h: "Object"
       n: "object"
@@ -89,6 +96,20 @@ main: kit: entity: policy: {
       ro: true
       sh: "Object type"
       t: "`$STRING`"
+    }
+    opted_out_at: {
+      fo: "date-time"
+      h: "Opted Out At"
+      n: "opted_out_at"
+      r: false
+      sh: "UTC timestamp of the moment the member opted out of this policy during the cooling-off window."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
     }
     plan: {
       h: "Plan"

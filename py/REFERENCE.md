@@ -190,6 +190,10 @@ Create a new `PolicyImportIntentEntity` instance. Pass `None` for no initial dat
 
 Create a new `ProviderEntity` instance. Pass `None` for no initial data.
 
+#### `Salary(data=None)`
+
+Create a new `SalaryEntity` instance. Pass `None` for no initial data.
+
 #### `WebhookEndpoint(data=None)`
 
 Create a new `WebhookEndpointEntity` instance. Pass `None` for no initial data.
@@ -420,9 +424,12 @@ contribution_report = client.ContributionReport()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `aggregates` | `Any` | Yes | Summary figures for the report, meant for dashboards and overviews. |
 | `created_at` | `str` | Yes | Date and time the report was created |
 | `employer_id` | `str` | Yes | Unique identifier of the employer for which the report is created |
 | `external_customer_id` | `None | str` | No | Unique identifier of the customer for which the report is created. |
+| `file_id` | `None | str` | No | Identifier of the report's downloadable CSV file. |
+| `file_status` | `None` | No | Whether the report's downloadable CSV is ready yet. |
 | `finalized_at` | `None | str` | No | Date and time the report was finalized, if applicable |
 | `id` | `str` | Yes | Unique identifier for the contribution report |
 | `last_updated_at` | `str` | Yes | Date and time of the last update to the report |
@@ -439,6 +446,7 @@ Create a new entity with the given data. Returns the created entity and raises o
 ```python
 result = client.ContributionReport().create({
     "id": "example_id",  # str
+    "aggregates": "example_aggregates",  # Any
     "created_at": "example_created_at",  # str
     "employer_id": "example_employer_id",  # str
     "last_updated_at": "example_last_updated_at",  # str
@@ -973,7 +981,7 @@ employee = client.Employee()
 | `nationality` | `None` | No | Nationality of the employee (e.g. |
 | `object` | `str` | No | The object type |
 | `offboard_on` | `None | str` | No | Date when the employee was or will be offboarded |
-| `phone_number` | `str` | Yes | Phone number in E.164 international format (e.g. |
+| `phone_number` | `None | str` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `str` | No | Unique identifier for the platform |
 | `sex_at_birth` | `str` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `str` | No | Employment start date |
@@ -998,7 +1006,7 @@ employee = client.Employee()
 | `nationality` | - | - | - | - |
 | `object` | - | - | - | - |
 | `offboard_on` | - | - | - | - |
-| `phone_number` | - | - | - | Yes |
+| `phone_number` | - | - | Yes | Yes |
 | `platform_id` | - | - | - | - |
 | `sex_at_birth` | - | - | - | - |
 | `start_on` | - | - | Yes | - |
@@ -1017,7 +1025,7 @@ result = client.Employee().create({
     "first_name": "example_first_name",  # str
     "last_name": "example_last_name",  # str
     "national_tax_id": "example_national_tax_id",  # str
-    "phone_number": "example_phone_number",  # str
+    "phone_number": "example_phone_number",  # None | str
     "sex_at_birth": "example_sex_at_birth",  # str
 })
 ```
@@ -1342,6 +1350,7 @@ employer = client.Employer()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `applicable_collective_agreement` | `None | str` | No | Name of the collective agreement that applies to the employer's workforce, if any. |
 | `contact` | `Any` | Yes |  |
 | `earliest_benefits_start_date` | `None | str` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `str` | Yes |  |
@@ -1358,6 +1367,7 @@ employer = client.Employer()
 
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
+| `applicable_collective_agreement` | - | - | - | - |
 | `contact` | - | - | - | Yes |
 | `earliest_benefits_start_date` | - | - | - | - |
 | `id` | - | - | - | - |
@@ -2178,6 +2188,8 @@ group_policy = client.GroupPolicy()
 | `group_id` | `str` | No | Identifier for the group associated with this group policy. |
 | `health_insurance` | `None` | No | Health insurance–specific fields (present when `type=health_insurance`). |
 | `id` | `str` | Yes | Unique identifier for the group policy. |
+| `life_assurance` | `None` | No | Life assurance–specific fields (present when `type=life_assurance`). |
+| `linked_group_policy_ids` | `list` | Yes | The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase. |
 | `object` | `str` | No | The object type |
 | `plan` | `Any` | Yes | Plan information for this policy |
 | `provider` | `Any` | Yes | Provider information for this policy. |
@@ -2246,15 +2258,18 @@ group_policy_intent = client.GroupPolicyIntent()
 | --- | --- | --- | --- |
 | `action_required` | `None` | No | Details of the required action when the intent is in ActionRequired status. |
 | `consent_approvals` | `None | list` | No | Consent approvals to record at the time of intent creation |
-| `cost_sharing` | `None` | No | Cost sharing configuration for the policy intent |
+| `cost_sharing` | `None` | No | Cost sharing configuration for the policy intent. |
 | `disclosures` | `list` | Yes | Disclosures associated with this intent. |
 | `due_date` | `None | str` | No | Due date for the policy intent |
-| `group_id` | `str` | Yes | Unique identifier for the group |
+| `group_id` | `None | str` | Yes | Unique identifier for the group. |
+| `group_policy_ids` | `list` | Yes | The group policies created for this intent, one per level, once they exist. |
 | `id` | `str` | Yes | Unique identifier for the group policy intent |
+| `items` | `list` | Yes | The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent. |
 | `object` | `str` | No | Object type identifier |
-| `plan_id` | `str` | Yes | Unique identifier for the plan |
+| `plan_id` | `None | str` | Yes | Unique identifier for the plan. |
 | `quote_intent_id` | `str` | Yes | Unique identifier for the group quote intent this policy intent was created from |
 | `status` | `str` | Yes | Current status of the group policy intent |
+| `type` | `None` | No | Whether the accepted quote covers one (group, plan) pair or several levels. |
 
 ### Operations
 
@@ -2265,9 +2280,11 @@ Create a new entity with the given data. Returns the created entity and raises o
 ```python
 result = client.GroupPolicyIntent().create({
     "disclosures": [],  # list
-    "group_id": "example_group_id",  # str
+    "group_id": "example_group_id",  # None | str
+    "group_policy_ids": [],  # list
     "id": "example_id",  # str
-    "plan_id": "example_plan_id",  # str
+    "items": [],  # list
+    "plan_id": "example_plan_id",  # None | str
     "quote_intent_id": "example_quote_intent_id",  # str
     "status": "example_status",  # str
 })
@@ -2383,24 +2400,30 @@ group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `Any` | Yes | Cost sharing configuration for the quote |
+| `breakdown` | `list` | Yes | What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. |
+| `cost_sharing` | `None` | No | Cost sharing configuration for the quote. |
 | `currency` | `str` | Yes | Currency of the premium (e.g. |
-| `employee_count` | `int` | Yes | Number of employees covered by the quote |
+| `employee_count` | `int` | Yes | Number of employees covered by the quote. |
 | `expires_at` | `str` | Yes | When the quote expires |
 | `generated_at` | `str` | Yes | When the quote was generated |
+| `levels` | `list` | Yes | The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position. |
 | `object` | `str` | No | Object type identifier |
 | `pdf_expires_at` | `None | str` | No | When the PDF URL expires |
-| `pdf_url` | `None | str` | No | URL to download the quote PDF |
-| `total_monthly_premium` | `float` | Yes | Total monthly premium for the group |
+| `pdf_url` | `None | str` | No | URL to download the quote PDF. |
+| `quote_pdfs` | `list` | Yes | The documents the provider issued for the quote as a whole. |
+| `total_annual_premium` | `float` | Yes | Total annual premium for the group, excluding any insurance premium tax. |
+| `total_monthly_premium` | `float` | Yes | Total monthly premium for the group, excluding any insurance premium tax. |
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> GroupQuoteEntity`
+#### `list(reqmatch=None, ctrl=None) -> list[GroupQuoteEntity]`
 
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
-result = client.GroupQuote().load({"group_quote_intent_id": "group_quote_intent_id"})
+results = client.GroupQuote().list({"group_quote_intent_id": "example"})
+for group_quote in results:
+    print(group_quote.data_get())
 ```
 
 ### Common Methods
@@ -2443,16 +2466,36 @@ group_quote_intent = client.GroupQuoteIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `None` | No | Details of the action required from the caller, if the intent is in action_required status. |
-| `consent_links` | `list` | Yes | Consent links that need to be acknowledged |
-| `cost_sharing` | `None` | No | Cost sharing configuration for the quote |
+| `consent_links` | `list` | Yes | The statements the customer must accept to proceed, each a sentence and the documents it names. |
+| `cost_sharing` | `None` | No | Cost sharing configuration for the quote. |
 | `coverage_selections` | `None | list` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `list` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `None | str` | No | Expected start date for the insurance coverage |
-| `group_id` | `str` | Yes | Unique identifier for the group |
+| `group_id` | `None | str` | Yes | Unique identifier for the group. |
 | `id` | `str` | Yes | Unique identifier for the group quote intent |
+| `items` | `list` | Yes | The benefits this intent quotes and the levels they are quoted at. |
 | `object` | `str` | No | Object type identifier |
-| `plan_id` | `str` | Yes | Unique identifier for the plan |
+| `plan_id` | `None | str` | Yes | Unique identifier for the plan. |
 | `status` | `str` | Yes | Current status of the group quote intent |
+| `type` | `None` | No | Whether the intent quotes one (group, plan) pair or several levels. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `action_required` | - | - | - |
+| `consent_links` | - | - | - |
+| `cost_sharing` | - | - | - |
+| `coverage_selections` | - | - | - |
+| `disclosures` | - | - | - |
+| `expected_start_date` | - | - | - |
+| `group_id` | - | - | Yes |
+| `id` | - | - | - |
+| `items` | - | - | Yes |
+| `object` | - | - | - |
+| `plan_id` | - | - | Yes |
+| `status` | - | - | - |
+| `type` | - | - | - |
 
 ### Operations
 
@@ -2464,9 +2507,10 @@ Create a new entity with the given data. Returns the created entity and raises o
 result = client.GroupQuoteIntent().create({
     "consent_links": [],  # list
     "disclosures": [],  # list
-    "group_id": "example_group_id",  # str
+    "group_id": "example_group_id",  # None | str
     "id": "example_id",  # str
-    "plan_id": "example_plan_id",  # str
+    "items": [],  # list
+    "plan_id": "example_plan_id",  # None | str
     "status": "example_status",  # str
 })
 ```
@@ -2593,7 +2637,9 @@ plan = client.Plan()
 | `employer_eligibility_criteria` | `list` | Yes | Eligibility criteria that employers must meet. |
 | `health_insurance` | `None` | No | Health insurance-specific details. |
 | `id` | `str` | Yes | Unique identifier for the plan. |
+| `indicative_pricing` | `None` | No | Average monthly guide prices used when exact catalog pricing is unavailable. |
 | `ineligible_count` | `None | int` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `life_assurance` | `None` | No | Life assurance-specific details. |
 | `name` | `str` | Yes | The name of the plan. |
 | `object` | `str` | No | Object type. |
 | `provider` | `Any` | Yes | The provider offering this plan. |
@@ -2668,7 +2714,9 @@ policy = client.Policy()
 | `group_policy_id` | `str` | Yes | Identifier of the group policy id associated with this policy. |
 | `health_insurance` | `None` | No | Health insurance–specific fields (present when `type=health_insurance`) |
 | `id` | `str` | Yes | Unique identifier for the policy. |
+| `life_assurance` | `None` | No | Life assurance–specific fields (present when `type=life_assurance`). |
 | `object` | `str` | No | Object type |
+| `opted_out_at` | `None | str` | No | UTC timestamp of the moment the member opted out of this policy during the cooling-off window. |
 | `plan` | `Any` | Yes | Plan information for this policy |
 | `provider` | `Any` | Yes | Provider information for this policy |
 | `start_date` | `str` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
@@ -2973,6 +3021,96 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `ProviderEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## SalaryEntity
+
+```python
+salary = client.Salary()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `amount` | `float` | Yes | Salary amount, in the given currency and pay frequency |
+| `currency` | `str` | Yes | ISO currency code the amount is denominated in |
+| `effective_from` | `str` | Yes | Date from which this salary is effective |
+| `employee_id` | `str` | Yes | Unique identifier for the employee this salary belongs to |
+| `id` | `str` | Yes | Unique identifier for the salary record |
+| `object` | `str` | No | The object type |
+| `pay_frequency` | `str` | Yes | The period this amount represents (e.g. |
+
+### Operations
+
+#### `create(reqdata, ctrl=None) -> SalaryEntity`
+
+Create a new entity with the given data. Returns the created entity and raises on error.
+
+```python
+result = client.Salary().create({
+    "employee_id": "example_employee_id",  # str
+    "amount": 1,  # float
+    "currency": "example_currency",  # str
+    "effective_from": "example_effective_from",  # str
+    "id": "example_id",  # str
+    "pay_frequency": "example_pay_frequency",  # str
+})
+```
+
+#### `list(reqmatch=None, ctrl=None) -> list[SalaryEntity]`
+
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
+
+```python
+results = client.Salary().list({"employee_id": "example"})
+for salary in results:
+    print(salary.data_get())
+```
+
+#### `load(reqmatch, ctrl=None) -> SalaryEntity`
+
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
+
+```python
+result = client.Salary().load({"id": "salary_id", "employee_id": "employee_id"})
+```
+
+#### `remove(reqmatch, ctrl=None) -> SalaryEntity`
+
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and raises on error.
+
+```python
+result = client.Salary().remove({"id": "salary_id", "employee_id": "employee_id"})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `SalaryEntity` instance with the same options.
 
 #### `get_name() -> str`
 

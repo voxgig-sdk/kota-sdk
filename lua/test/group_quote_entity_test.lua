@@ -29,7 +29,7 @@ describe("GroupQuoteEntity", function()
       return
     end
     local client = sdk.test(nil, { feature = { validate = { active = true } } })
-    local _, err = client:GroupQuote(nil):load({ ["group_quote_intent_id"] = 1 }, nil)
+    local _, err = client:GroupQuote(nil):list({ ["group_quote_intent_id"] = 1 }, nil)
     assert.are.equal("validate_failed", type(err) == "table" and err.code or nil)
   end)
 
@@ -37,11 +37,18 @@ describe("GroupQuoteEntity", function()
     local setup = group_quote_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({}) do
+    for _, _op in ipairs({"list"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "group_quote." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
         return
+      end
+    end
+    if setup.live then
+      for _, _live_key in ipairs({"group_quote_intent01"}) do
+        if setup.synthetic_only or setup.idmap[_live_key] == nil then
+          runner.live_miss(pending, LIVE_STRICT, "Live entity test blocked: needs " .. _live_key .. " via KOTA_TEST_GROUP_QUOTE_ENTID")
+        end
       end
     end
     local client = setup.client
@@ -53,6 +60,16 @@ describe("GroupQuoteEntity", function()
     if #group_quote_ref01_data_raw > 0 then
       group_quote_ref01_data = helpers.to_map(group_quote_ref01_data_raw[1][2])
     end
+
+    -- LIST
+    local group_quote_ref01_ent = client:GroupQuote(nil)
+    local group_quote_ref01_match = {
+      ["group_quote_intent_id"] = setup.idmap["group_quote_intent01"],
+    }
+
+    local group_quote_ref01_list_result, err = group_quote_ref01_ent:list(group_quote_ref01_match, nil)
+    assert.is_nil(err)
+    assert.is_table(group_quote_ref01_list_result)
 
   end)
 end)

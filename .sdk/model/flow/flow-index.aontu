@@ -37,4 +37,5 @@
 @"./BasicPolicyFlow.aontu"
 @"./BasicPolicyImportIntentFlow.aontu"
 @"./BasicProviderFlow.aontu"
+@"./BasicSalaryFlow.aontu"
 @"./BasicWebhookEndpointFlow.aontu"

@@ -194,6 +194,7 @@ func MakeConfig() map[string]any {
 				"policy_amendment_intent": map[string]any{},
 				"policy_import_intent": map[string]any{},
 				"provider": map[string]any{},
+				"salary": map[string]any{},
 				"webhook_endpoint": map[string]any{},
 			},
 		},
@@ -877,6 +878,13 @@ func MakeConfig() map[string]any {
 			"contribution_report": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"name": "aggregates",
+						"title": "Aggregates",
+						"type": "`$ANY`",
+						"req": true,
+						"short": "Summary figures for the report, meant for dashboards and overviews.",
+					},
+					map[string]any{
 						"name": "created_at",
 						"title": "Created At",
 						"type": "`$STRING`",
@@ -902,6 +910,24 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"short": "Unique identifier of the customer for which the report is created.",
+					},
+					map[string]any{
+						"name": "file_id",
+						"title": "File Id",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
+						"short": "Identifier of the report's downloadable CSV file.",
+					},
+					map[string]any{
+						"name": "file_status",
+						"title": "File Status",
+						"type": "`$NULL`",
+						"short": "Whether the report's downloadable CSV is ready yet.",
 					},
 					map[string]any{
 						"name": "finalized_at",
@@ -2593,9 +2619,24 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "phone_number",
 						"title": "Phone Number",
-						"type": "`$STRING`",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
 						"req": true,
 						"op": map[string]any{
+							"create": map[string]any{
+								"type": []any{
+									"`$ONE`",
+									[]any{
+										"`$NULL`",
+										"`$STRING`",
+									},
+								},
+							},
 							"update": map[string]any{
 								"type": []any{
 									"`$ONE`",
@@ -3822,6 +3863,18 @@ func MakeConfig() map[string]any {
 			},
 			"employer": map[string]any{
 				"fields": []any{
+					map[string]any{
+						"name": "applicable_collective_agreement",
+						"title": "Applicable Collective Agreement",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
+						"short": "Name of the collective agreement that applies to the employer's workforce, if any.",
+					},
 					map[string]any{
 						"name": "contact",
 						"title": "Contact",
@@ -5560,7 +5613,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "object_type",
 											"orig": "object_type",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
@@ -5747,7 +5800,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "order_direction",
 											"orig": "order_direction",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
@@ -5765,7 +5818,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "version",
 											"orig": "version",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 									},
@@ -6539,6 +6592,19 @@ func MakeConfig() map[string]any {
 						"short": "Unique identifier for the group policy.",
 					},
 					map[string]any{
+						"name": "life_assurance",
+						"title": "Life Assurance",
+						"type": "`$NULL`",
+						"short": "Life assurance–specific fields (present when `type=life_assurance`).",
+					},
+					map[string]any{
+						"name": "linked_group_policy_ids",
+						"title": "Linked Group Policy Ids",
+						"type": "`$ARRAY`",
+						"req": true,
+						"short": "The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase.",
+					},
+					map[string]any{
 						"name": "object",
 						"title": "Object",
 						"type": "`$STRING`",
@@ -6754,7 +6820,7 @@ func MakeConfig() map[string]any {
 						"name": "cost_sharing",
 						"title": "Cost Sharing",
 						"type": "`$NULL`",
-						"short": "Cost sharing configuration for the policy intent",
+						"short": "Cost sharing configuration for the policy intent.",
 					},
 					map[string]any{
 						"name": "disclosures",
@@ -6779,9 +6845,22 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "group_id",
 						"title": "Group Id",
-						"type": "`$STRING`",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
 						"req": true,
-						"short": "Unique identifier for the group",
+						"short": "Unique identifier for the group.",
+					},
+					map[string]any{
+						"name": "group_policy_ids",
+						"title": "Group Policy Ids",
+						"type": "`$ARRAY`",
+						"req": true,
+						"short": "The group policies created for this intent, one per level, once they exist.",
 					},
 					map[string]any{
 						"name": "id",
@@ -6789,6 +6868,13 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 						"req": true,
 						"short": "Unique identifier for the group policy intent",
+					},
+					map[string]any{
+						"name": "items",
+						"title": "Items",
+						"type": "`$ARRAY`",
+						"req": true,
+						"short": "The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent.",
 					},
 					map[string]any{
 						"name": "object",
@@ -6800,9 +6886,15 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "plan_id",
 						"title": "Plan Id",
-						"type": "`$STRING`",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
 						"req": true,
-						"short": "Unique identifier for the plan",
+						"short": "Unique identifier for the plan.",
 					},
 					map[string]any{
 						"name": "quote_intent_id",
@@ -6817,6 +6909,12 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 						"req": true,
 						"short": "Current status of the group policy intent",
+					},
+					map[string]any{
+						"name": "type",
+						"title": "Type",
+						"type": "`$NULL`",
+						"short": "Whether the accepted quote covers one (group, plan) pair or several levels.",
 					},
 				},
 				"id": map[string]any{
@@ -6926,6 +7024,13 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "status",
 											"orig": "status",
+											"type": "`$STRING`",
+											"kind": "query",
+											"field": true,
+										},
+										map[string]any{
+											"name": "type",
+											"orig": "type",
 											"type": "`$STRING`",
 											"kind": "query",
 											"field": true,
@@ -7082,7 +7187,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "object_type",
 											"orig": "object_type",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
@@ -7120,11 +7225,17 @@ func MakeConfig() map[string]any {
 			"group_quote": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"name": "breakdown",
+						"title": "Breakdown",
+						"type": "`$ARRAY`",
+						"req": true,
+						"short": "What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any.",
+					},
+					map[string]any{
 						"name": "cost_sharing",
 						"title": "Cost Sharing",
-						"type": "`$ANY`",
-						"req": true,
-						"short": "Cost sharing configuration for the quote",
+						"type": "`$NULL`",
+						"short": "Cost sharing configuration for the quote.",
 					},
 					map[string]any{
 						"name": "currency",
@@ -7138,7 +7249,7 @@ func MakeConfig() map[string]any {
 						"title": "Employee Count",
 						"type": "`$INTEGER`",
 						"req": true,
-						"short": "Number of employees covered by the quote",
+						"short": "Number of employees covered by the quote.",
 						"format": "int32",
 					},
 					map[string]any{
@@ -7156,6 +7267,13 @@ func MakeConfig() map[string]any {
 						"req": true,
 						"short": "When the quote was generated",
 						"format": "date-time",
+					},
+					map[string]any{
+						"name": "levels",
+						"title": "Levels",
+						"type": "`$ARRAY`",
+						"req": true,
+						"short": "The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position.",
 					},
 					map[string]any{
 						"name": "object",
@@ -7187,22 +7305,37 @@ func MakeConfig() map[string]any {
 								"`$STRING`",
 							},
 						},
-						"short": "URL to download the quote PDF",
+						"short": "URL to download the quote PDF.",
+					},
+					map[string]any{
+						"name": "quote_pdfs",
+						"title": "Quote Pdfs",
+						"type": "`$ARRAY`",
+						"req": true,
+						"short": "The documents the provider issued for the quote as a whole.",
+					},
+					map[string]any{
+						"name": "total_annual_premium",
+						"title": "Total Annual Premium",
+						"type": "`$NUMBER`",
+						"req": true,
+						"short": "Total annual premium for the group, excluding any insurance premium tax.",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "total_monthly_premium",
 						"title": "Total Monthly Premium",
 						"type": "`$NUMBER`",
 						"req": true,
-						"short": "Total monthly premium for the group",
+						"short": "Total monthly premium for the group, excluding any insurance premium tax.",
 						"format": "double",
 					},
 				},
 				"name": "group_quote",
 				"op": map[string]any{
-					"load": map[string]any{
+					"list": map[string]any{
 						"input": "data",
-						"name": "load",
+						"name": "list",
 						"points": []any{
 							map[string]any{
 								"kind": "http",
@@ -7283,13 +7416,13 @@ func MakeConfig() map[string]any {
 						"title": "Consent Links",
 						"type": "`$ARRAY`",
 						"req": true,
-						"short": "Consent links that need to be acknowledged",
+						"short": "The statements the customer must accept to proceed, each a sentence and the documents it names.",
 					},
 					map[string]any{
 						"name": "cost_sharing",
 						"title": "Cost Sharing",
 						"type": "`$NULL`",
-						"short": "Cost sharing configuration for the quote",
+						"short": "Cost sharing configuration for the quote.",
 					},
 					map[string]any{
 						"name": "coverage_selections",
@@ -7326,9 +7459,26 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "group_id",
 						"title": "Group Id",
-						"type": "`$STRING`",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
 						"req": true,
-						"short": "Unique identifier for the group",
+						"op": map[string]any{
+							"create": map[string]any{
+								"type": []any{
+									"`$ONE`",
+									[]any{
+										"`$NULL`",
+										"`$STRING`",
+									},
+								},
+							},
+						},
+						"short": "Unique identifier for the group.",
 					},
 					map[string]any{
 						"name": "id",
@@ -7336,6 +7486,24 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 						"req": true,
 						"short": "Unique identifier for the group quote intent",
+					},
+					map[string]any{
+						"name": "items",
+						"title": "Items",
+						"type": "`$ARRAY`",
+						"req": true,
+						"op": map[string]any{
+							"create": map[string]any{
+								"type": []any{
+									"`$ONE`",
+									[]any{
+										"`$NULL`",
+										"`$ARRAY`",
+									},
+								},
+							},
+						},
+						"short": "The benefits this intent quotes and the levels they are quoted at.",
 					},
 					map[string]any{
 						"name": "object",
@@ -7347,9 +7515,26 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "plan_id",
 						"title": "Plan Id",
-						"type": "`$STRING`",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
 						"req": true,
-						"short": "Unique identifier for the plan",
+						"op": map[string]any{
+							"create": map[string]any{
+								"type": []any{
+									"`$ONE`",
+									[]any{
+										"`$NULL`",
+										"`$STRING`",
+									},
+								},
+							},
+						},
+						"short": "Unique identifier for the plan.",
 					},
 					map[string]any{
 						"name": "status",
@@ -7357,6 +7542,12 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 						"req": true,
 						"short": "Current status of the group quote intent",
+					},
+					map[string]any{
+						"name": "type",
+						"title": "Type",
+						"type": "`$NULL`",
+						"short": "Whether the intent quotes one (group, plan) pair or several levels.",
 					},
 				},
 				"id": map[string]any{
@@ -7526,6 +7717,13 @@ func MakeConfig() map[string]any {
 											"kind": "query",
 											"field": true,
 										},
+										map[string]any{
+											"name": "type",
+											"orig": "type",
+											"type": "`$STRING`",
+											"kind": "query",
+											"field": true,
+										},
 									},
 								},
 								"select": map[string]any{},
@@ -7678,7 +7876,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "object_type",
 											"orig": "object_type",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
@@ -7817,6 +8015,12 @@ func MakeConfig() map[string]any {
 						"short": "Unique identifier for the plan.",
 					},
 					map[string]any{
+						"name": "indicative_pricing",
+						"title": "Indicative Pricing",
+						"type": "`$NULL`",
+						"short": "Average monthly guide prices used when exact catalog pricing is unavailable.",
+					},
+					map[string]any{
 						"name": "ineligible_count",
 						"title": "Ineligible Count",
 						"type": []any{
@@ -7828,6 +8032,12 @@ func MakeConfig() map[string]any {
 						},
 						"short": "Number of employees in the queried group ineligible for this plan as-of `start_date`.",
 						"format": "int32",
+					},
+					map[string]any{
+						"name": "life_assurance",
+						"title": "Life Assurance",
+						"type": "`$NULL`",
+						"short": "Life assurance-specific details.",
 					},
 					map[string]any{
 						"name": "name",
@@ -7917,7 +8127,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "country",
 											"orig": "country",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 											"field": true,
 										},
@@ -7949,13 +8159,13 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "sort_by",
 											"orig": "sort_by",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
 											"name": "sort_dir",
 											"orig": "sort_dir",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
@@ -8139,11 +8349,30 @@ func MakeConfig() map[string]any {
 						"short": "Unique identifier for the policy.",
 					},
 					map[string]any{
+						"name": "life_assurance",
+						"title": "Life Assurance",
+						"type": "`$NULL`",
+						"short": "Life assurance–specific fields (present when `type=life_assurance`).",
+					},
+					map[string]any{
 						"name": "object",
 						"title": "Object",
 						"type": "`$STRING`",
 						"short": "Object type",
 						"readOnly": true,
+					},
+					map[string]any{
+						"name": "opted_out_at",
+						"title": "Opted Out At",
+						"type": []any{
+							"`$ONE`",
+							[]any{
+								"`$NULL`",
+								"`$STRING`",
+							},
+						},
+						"short": "UTC timestamp of the moment the member opted out of this policy during the cooling-off window.",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "plan",
@@ -9195,7 +9424,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"name": "country",
 											"orig": "country",
-											"type": "`$ANY`",
+											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
@@ -9284,6 +9513,433 @@ func MakeConfig() map[string]any {
 				},
 				"relations": map[string]any{
 					"ancestors": []any{},
+				},
+			},
+			"salary": map[string]any{
+				"fields": []any{
+					map[string]any{
+						"name": "amount",
+						"title": "Amount",
+						"type": "`$NUMBER`",
+						"req": true,
+						"short": "Salary amount, in the given currency and pay frequency",
+						"format": "double",
+					},
+					map[string]any{
+						"name": "currency",
+						"title": "Currency",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "ISO currency code the amount is denominated in",
+					},
+					map[string]any{
+						"name": "effective_from",
+						"title": "Effective From",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "Date from which this salary is effective",
+						"format": "date",
+					},
+					map[string]any{
+						"name": "employee_id",
+						"title": "Employee Id",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "Unique identifier for the employee this salary belongs to",
+					},
+					map[string]any{
+						"name": "id",
+						"title": "Id",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "Unique identifier for the salary record",
+					},
+					map[string]any{
+						"name": "object",
+						"title": "Object",
+						"type": "`$STRING`",
+						"short": "The object type",
+						"readOnly": true,
+					},
+					map[string]any{
+						"name": "pay_frequency",
+						"title": "Pay Frequency",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "The period this amount represents (e.g.",
+					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
+				"name": "salary",
+				"op": map[string]any{
+					"create": map[string]any{
+						"input": "data",
+						"name": "create",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "POST",
+								"orig": "/employees/{employee_id}/salaries",
+								"segments": []any{
+									map[string]any{
+										"lit": "employees",
+									},
+									map[string]any{
+										"var": "employee_id",
+									},
+									map[string]any{
+										"lit": "salaries",
+									},
+								},
+								"parts": []any{
+									"employees",
+									"{employee_id}",
+									"salaries",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"header": []any{
+										map[string]any{
+											"name": "idempotency_key",
+											"orig": "Idempotency-Key",
+											"type": "`$STRING`",
+											"kind": "header",
+										},
+										map[string]any{
+											"name": "x_platform_id",
+											"orig": "X-Platform-Id",
+											"type": "`$STRING`",
+											"kind": "header",
+										},
+									},
+									"params": []any{
+										map[string]any{
+											"name": "employee_id",
+											"orig": "employee_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"employee_id",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+						},
+					},
+					"list": map[string]any{
+						"input": "data",
+						"name": "list",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/employees/{employee_id}/salaries",
+								"segments": []any{
+									map[string]any{
+										"lit": "employees",
+									},
+									map[string]any{
+										"var": "employee_id",
+									},
+									map[string]any{
+										"lit": "salaries",
+									},
+								},
+								"parts": []any{
+									"employees",
+									"{employee_id}",
+									"salaries",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.items`",
+								},
+								"args": map[string]any{
+									"header": []any{
+										map[string]any{
+											"name": "x_platform_id",
+											"orig": "X-Platform-Id",
+											"type": "`$STRING`",
+											"kind": "header",
+										},
+									},
+									"params": []any{
+										map[string]any{
+											"name": "employee_id",
+											"orig": "employee_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page_size",
+											"orig": "page_size",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"employee_id",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+						},
+					},
+					"load": map[string]any{
+						"input": "data",
+						"name": "load",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/employees/{employee_id}/salaries/{salary_id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "employees",
+									},
+									map[string]any{
+										"var": "employee_id",
+									},
+									map[string]any{
+										"lit": "salaries",
+									},
+									map[string]any{
+										"var": "id",
+									},
+								},
+								"parts": []any{
+									"employees",
+									"{employee_id}",
+									"salaries",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"salary_id": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"header": []any{
+										map[string]any{
+											"name": "x_platform_id",
+											"orig": "X-Platform-Id",
+											"type": "`$STRING`",
+											"kind": "header",
+										},
+									},
+									"params": []any{
+										map[string]any{
+											"name": "employee_id",
+											"orig": "employee_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "salary_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"employee_id",
+										"id",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/employees/{employee_id}/salaries/current",
+								"segments": []any{
+									map[string]any{
+										"lit": "employees",
+									},
+									map[string]any{
+										"var": "employee_id",
+									},
+									map[string]any{
+										"lit": "salaries",
+									},
+									map[string]any{
+										"lit": "current",
+									},
+								},
+								"parts": []any{
+									"employees",
+									"{employee_id}",
+									"salaries",
+									"current",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"header": []any{
+										map[string]any{
+											"name": "x_platform_id",
+											"orig": "X-Platform-Id",
+											"type": "`$STRING`",
+											"kind": "header",
+										},
+									},
+									"params": []any{
+										map[string]any{
+											"name": "employee_id",
+											"orig": "employee_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+									},
+								},
+								"select": map[string]any{
+									"$action": "current",
+									"exist": []any{
+										"employee_id",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+						},
+					},
+					"remove": map[string]any{
+						"input": "data",
+						"name": "remove",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "DELETE",
+								"orig": "/employees/{employee_id}/salaries/{salary_id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "employees",
+									},
+									map[string]any{
+										"var": "employee_id",
+									},
+									map[string]any{
+										"lit": "salaries",
+									},
+									map[string]any{
+										"var": "id",
+									},
+								},
+								"parts": []any{
+									"employees",
+									"{employee_id}",
+									"salaries",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"salary_id": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"header": []any{
+										map[string]any{
+											"name": "x_platform_id",
+											"orig": "X-Platform-Id",
+											"type": "`$STRING`",
+											"kind": "header",
+										},
+									},
+									"params": []any{
+										map[string]any{
+											"name": "employee_id",
+											"orig": "employee_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "salary_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"employee_id",
+										"id",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+						},
+					},
+				},
+				"relations": map[string]any{
+					"ancestors": []any{
+						[]any{
+							"$.main.kit.entity.employee",
+						},
+					},
 				},
 			},
 			"webhook_endpoint": map[string]any{

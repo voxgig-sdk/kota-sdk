@@ -120,7 +120,7 @@ class TestProviderEntity:
         client = KotaSDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.Provider(None).list({"page": "x"}, None)
+            client.Provider(None).list({"country": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):

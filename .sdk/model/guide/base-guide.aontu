@@ -4,9 +4,9 @@
 #   guide.aontu
 
 guide: {
-  metrics: count: entity: 38
-  metrics: count: path: 69
-  metrics: count: method: 85
+  metrics: count: entity: 39
+  metrics: count: path: 72
+  metrics: count: method: 90
 
   entity: associated_person: {
     path: "/employees/{employee_id}/associated_persons": {
@@ -326,7 +326,7 @@ guide: {
 
   entity: group_quote: {
     path: "/group_quote_intents/{group_quote_intent_id}/quote": {
-      op: load: method: *GET
+      op: list: method: *GET
     }
   }
 
@@ -420,6 +420,23 @@ guide: {
     path: "/providers/{provider_id}": {
       rename: param: "provider_id": *"id"
       op: load: method: *GET
+    }
+  }
+
+  entity: salary: {
+    path: "/employees/{employee_id}/salaries": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
+    }
+    path: "/employees/{employee_id}/salaries/current": {
+      action: "current": {}
+      op: load: method: *GET
+    }
+    path: "/employees/{employee_id}/salaries/{salary_id}": {
+      rename: param: "salary_id": *"id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
     }
   }
 

@@ -128,7 +128,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 38 entities.
+below — this SDK exposes 39 entities.
 
 ## Reference
 
@@ -183,9 +183,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 38 entities this SDK exposes (any is valid as `<entity>`):
+The 39 entities this SDK exposes (any is valid as `<entity>`):
 
-associated_person associated_person_eligibility_response_paged_list contribution_report contribution_report_employee_breakdown contribution_report_employee_breakdown_response_paged_list create_hosted_session_token create_session_token dependent dependents_management_intent eligibility_check employee employee_health_insurance_offer employee_health_insurance_offer_response_paged_list employee_health_insurance_policy employee_health_insurance_policy_response_paged_list employer employer_health_insurance_policy employer_health_insurance_policy_response_paged_list employer_health_insurance_quote employer_health_insurance_quote_response_paged_list enrolment_intent enrolment_intent_requirement_response_paged_list event group group_employee group_employee_response_paged_list group_policy group_policy_intent group_policy_intent_requirement_response_paged_list group_quote group_quote_intent group_quote_intent_requirement_response_paged_list plan policy policy_amendment_intent policy_import_intent provider webhook_endpoint
+associated_person associated_person_eligibility_response_paged_list contribution_report contribution_report_employee_breakdown contribution_report_employee_breakdown_response_paged_list create_hosted_session_token create_session_token dependent dependents_management_intent eligibility_check employee employee_health_insurance_offer employee_health_insurance_offer_response_paged_list employee_health_insurance_policy employee_health_insurance_policy_response_paged_list employer employer_health_insurance_policy employer_health_insurance_policy_response_paged_list employer_health_insurance_quote employer_health_insurance_quote_response_paged_list enrolment_intent enrolment_intent_requirement_response_paged_list event group group_employee group_employee_response_paged_list group_policy group_policy_intent group_policy_intent_requirement_response_paged_list group_quote group_quote_intent group_quote_intent_requirement_response_paged_list plan policy policy_amendment_intent policy_import_intent provider salary webhook_endpoint
 
 ## Explanation
 

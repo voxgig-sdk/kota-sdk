@@ -99,9 +99,12 @@ type ContributionReportListMatch struct {
 // ContributionReportCreateData is the typed request payload for ContributionReport.CreateTyped.
 type ContributionReportCreateData struct {
 	Id string `json:"id"`
+	Aggregates any `json:"aggregates"`
 	CreatedAt string `json:"created_at"`
 	EmployerId string `json:"employer_id"`
 	ExternalCustomerId *any `json:"external_customer_id,omitempty"`
+	FileId *any `json:"file_id,omitempty"`
+	FileStatus *any `json:"file_status,omitempty"`
 	FinalizedAt *any `json:"finalized_at,omitempty"`
 	LastUpdatedAt string `json:"last_updated_at"`
 	Object *string `json:"object,omitempty"`
@@ -257,7 +260,7 @@ type EmployeeCreateData struct {
 	Nationality *any `json:"nationality,omitempty"`
 	Object *string `json:"object,omitempty"`
 	OffboardOn *any `json:"offboard_on,omitempty"`
-	PhoneNumber string `json:"phone_number"`
+	PhoneNumber any `json:"phone_number"`
 	PlatformId *string `json:"platform_id,omitempty"`
 	SexAtBirth string `json:"sex_at_birth"`
 	StartOn *string `json:"start_on,omitempty"`
@@ -281,7 +284,7 @@ type EmployeeUpdateData struct {
 	Nationality *any `json:"nationality,omitempty"`
 	Object *string `json:"object,omitempty"`
 	OffboardOn *any `json:"offboard_on,omitempty"`
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber *any `json:"phone_number,omitempty"`
 	PlatformId *string `json:"platform_id,omitempty"`
 	SexAtBirth *string `json:"sex_at_birth,omitempty"`
 	StartOn *string `json:"start_on,omitempty"`
@@ -349,6 +352,7 @@ type EmployerListMatch struct {
 
 // EmployerCreateData is the typed request payload for Employer.CreateTyped.
 type EmployerCreateData struct {
+	ApplicableCollectiveAgreement *any `json:"applicable_collective_agreement,omitempty"`
 	Contact any `json:"contact"`
 	EarliestBenefitsStartDate *any `json:"earliest_benefits_start_date,omitempty"`
 	Id string `json:"id"`
@@ -365,6 +369,7 @@ type EmployerCreateData struct {
 // EmployerUpdateData is the typed request payload for Employer.UpdateTyped.
 type EmployerUpdateData struct {
 	Id string `json:"id"`
+	ApplicableCollectiveAgreement *any `json:"applicable_collective_agreement,omitempty"`
 	Contact *any `json:"contact,omitempty"`
 	EarliestBenefitsStartDate *any `json:"earliest_benefits_start_date,omitempty"`
 	LegalAddress *any `json:"legal_address,omitempty"`
@@ -485,7 +490,7 @@ type EnrolmentIntentRequirementResponsePagedList struct {
 type EnrolmentIntentRequirementResponsePagedListListMatch struct {
 	Id string `json:"id"`
 	ObjectId *string `json:"object_id,omitempty"`
-	ObjectType *any `json:"object_type,omitempty"`
+	ObjectType *string `json:"object_type,omitempty"`
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
 }
@@ -502,10 +507,10 @@ type EventLoadMatch struct {
 // EventListMatch is the typed request payload for Event.ListTyped.
 type EventListMatch struct {
 	CreatedAfter *string `json:"created_after,omitempty"`
-	OrderDirection *any `json:"order_direction,omitempty"`
+	OrderDirection *string `json:"order_direction,omitempty"`
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
-	Version *any `json:"version,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
 // EventCreateData is the typed request payload for Event.CreateTyped.
@@ -632,6 +637,7 @@ type GroupPolicyIntentListMatch struct {
 	PageSize *int `json:"page_size,omitempty"`
 	PlanId *string `json:"plan_id,omitempty"`
 	Status *string `json:"status,omitempty"`
+	Type *string `json:"type,omitempty"`
 }
 
 // GroupPolicyIntentCreateData is the typed request payload for GroupPolicyIntent.CreateTyped.
@@ -641,12 +647,15 @@ type GroupPolicyIntentCreateData struct {
 	CostSharing *any `json:"cost_sharing,omitempty"`
 	Disclosures []any `json:"disclosures"`
 	DueDate *any `json:"due_date,omitempty"`
-	GroupId string `json:"group_id"`
+	GroupId any `json:"group_id"`
+	GroupPolicyIds []any `json:"group_policy_ids"`
 	Id string `json:"id"`
+	Items []any `json:"items"`
 	Object *string `json:"object,omitempty"`
-	PlanId string `json:"plan_id"`
+	PlanId any `json:"plan_id"`
 	QuoteIntentId string `json:"quote_intent_id"`
 	Status string `json:"status"`
+	Type *any `json:"type,omitempty"`
 }
 
 // GroupPolicyIntentRequirementResponsePagedList is the typed data model for the group_policy_intent_requirement_response_paged_list entity.
@@ -657,7 +666,7 @@ type GroupPolicyIntentRequirementResponsePagedList struct {
 type GroupPolicyIntentRequirementResponsePagedListListMatch struct {
 	Id string `json:"id"`
 	ObjectId *string `json:"object_id,omitempty"`
-	ObjectType *any `json:"object_type,omitempty"`
+	ObjectType *string `json:"object_type,omitempty"`
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
 }
@@ -666,8 +675,8 @@ type GroupPolicyIntentRequirementResponsePagedListListMatch struct {
 type GroupQuote struct {
 }
 
-// GroupQuoteLoadMatch is the typed request payload for GroupQuote.LoadTyped.
-type GroupQuoteLoadMatch struct {
+// GroupQuoteListMatch is the typed request payload for GroupQuote.ListTyped.
+type GroupQuoteListMatch struct {
 	GroupQuoteIntentId string `json:"group_quote_intent_id"`
 }
 
@@ -687,6 +696,7 @@ type GroupQuoteIntentListMatch struct {
 	PageSize *int `json:"page_size,omitempty"`
 	PlanId *string `json:"plan_id,omitempty"`
 	Status *string `json:"status,omitempty"`
+	Type *string `json:"type,omitempty"`
 }
 
 // GroupQuoteIntentCreateData is the typed request payload for GroupQuoteIntent.CreateTyped.
@@ -697,11 +707,13 @@ type GroupQuoteIntentCreateData struct {
 	CoverageSelections *any `json:"coverage_selections,omitempty"`
 	Disclosures []any `json:"disclosures"`
 	ExpectedStartDate *any `json:"expected_start_date,omitempty"`
-	GroupId string `json:"group_id"`
+	GroupId any `json:"group_id"`
 	Id string `json:"id"`
+	Items []any `json:"items"`
 	Object *string `json:"object,omitempty"`
-	PlanId string `json:"plan_id"`
+	PlanId any `json:"plan_id"`
 	Status string `json:"status"`
+	Type *any `json:"type,omitempty"`
 }
 
 // GroupQuoteIntentRequirementResponsePagedList is the typed data model for the group_quote_intent_requirement_response_paged_list entity.
@@ -712,7 +724,7 @@ type GroupQuoteIntentRequirementResponsePagedList struct {
 type GroupQuoteIntentRequirementResponsePagedListListMatch struct {
 	Id string `json:"id"`
 	ObjectId *string `json:"object_id,omitempty"`
-	ObjectType *any `json:"object_type,omitempty"`
+	ObjectType *string `json:"object_type,omitempty"`
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
 }
@@ -731,13 +743,13 @@ type PlanLoadMatch struct {
 // PlanListMatch is the typed request payload for Plan.ListTyped.
 type PlanListMatch struct {
 	AvailableOn *string `json:"available_on,omitempty"`
-	Country *any `json:"country,omitempty"`
+	Country *string `json:"country,omitempty"`
 	GroupId *string `json:"group_id,omitempty"`
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
 	ProviderId *string `json:"provider_id,omitempty"`
-	SortBy *any `json:"sort_by,omitempty"`
-	SortDir *any `json:"sort_dir,omitempty"`
+	SortBy *string `json:"sort_by,omitempty"`
+	SortDir *string `json:"sort_dir,omitempty"`
 	StartDate *string `json:"start_date,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
@@ -836,9 +848,43 @@ type ProviderLoadMatch struct {
 
 // ProviderListMatch is the typed request payload for Provider.ListTyped.
 type ProviderListMatch struct {
-	Country *any `json:"country,omitempty"`
+	Country *string `json:"country,omitempty"`
 	Page *int `json:"page,omitempty"`
 	PageSize *int `json:"page_size,omitempty"`
+}
+
+// Salary is the typed data model for the salary entity.
+type Salary struct {
+}
+
+// SalaryLoadMatch is the typed request payload for Salary.LoadTyped.
+type SalaryLoadMatch struct {
+	EmployeeId string `json:"employee_id"`
+	Id string `json:"id"`
+}
+
+// SalaryListMatch is the typed request payload for Salary.ListTyped.
+type SalaryListMatch struct {
+	EmployeeId string `json:"employee_id"`
+	Page *int `json:"page,omitempty"`
+	PageSize *int `json:"page_size,omitempty"`
+}
+
+// SalaryCreateData is the typed request payload for Salary.CreateTyped.
+type SalaryCreateData struct {
+	EmployeeId string `json:"employee_id"`
+	Amount float64 `json:"amount"`
+	Currency string `json:"currency"`
+	EffectiveFrom string `json:"effective_from"`
+	Id string `json:"id"`
+	Object *string `json:"object,omitempty"`
+	PayFrequency string `json:"pay_frequency"`
+}
+
+// SalaryRemoveMatch is the typed request payload for Salary.RemoveTyped.
+type SalaryRemoveMatch struct {
+	EmployeeId string `json:"employee_id"`
+	Id string `json:"id"`
 }
 
 // WebhookEndpoint is the typed data model for the webhook_endpoint entity.

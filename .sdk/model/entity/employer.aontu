@@ -5,6 +5,19 @@ main: kit: entity: employer: {
   alias: field: {}
 
   fields: {
+    applicable_collective_agreement: {
+      h: "Applicable Collective Agreement"
+      n: "applicable_collective_agreement"
+      r: false
+      sh: "Name of the collective agreement that applies to the employer's workforce, if any."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
     contact: {
       h: "Contact"
       n: "contact"
@@ -209,6 +222,7 @@ main: kit: entity: employer: {
         }
         {
           bf: [
+            "applicable_collective_agreement"
             "contact"
             "earliest_benefits_start_date"
             "legal_address"
@@ -384,6 +398,7 @@ main: kit: entity: employer: {
       points: [
         {
           bf: [
+            "applicable_collective_agreement"
             "contact"
             "earliest_benefits_start_date"
             "legal_address"

@@ -68,6 +68,20 @@ main: kit: entity: group_policy: {
       sh: "Unique identifier for the group policy."
       t: "`$STRING`"
     }
+    life_assurance: {
+      h: "Life Assurance"
+      n: "life_assurance"
+      r: false
+      sh: "Life assurance–specific fields (present when `type=life_assurance`)."
+      t: "`$NULL`"
+    }
+    linked_group_policy_ids: {
+      h: "Linked Group Policy Ids"
+      n: "linked_group_policy_ids"
+      r: true
+      sh: "The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase."
+      t: "`$ARRAY`"
+    }
     object: {
       h: "Object"
       n: "object"

@@ -2,59 +2,67 @@
   "existing": {
     "group_quote_intent": {
       "GROUP_QUOTE_INTENT00": {
-        "action_required": "s6e",
+        "action_required": "s82",
         "consent_links": [],
-        "cost_sharing": "s70",
-        "coverage_selections": "s71",
+        "cost_sharing": "s84",
+        "coverage_selections": "s85",
         "disclosures": [],
-        "expected_start_date": "s73",
+        "expected_start_date": "s87",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT00",
-        "object": "s76",
+        "items": [],
+        "object": "s8b",
         "plan_id": "PLAN01",
-        "status": "s78"
+        "status": "s8d",
+        "type": "s8e"
       },
       "GROUP_QUOTE_INTENT01": {
-        "action_required": "sdc",
+        "action_required": "s104",
         "consent_links": [],
-        "cost_sharing": "sde",
-        "coverage_selections": "sdf",
+        "cost_sharing": "s106",
+        "coverage_selections": "s107",
         "disclosures": [],
-        "expected_start_date": "se1",
+        "expected_start_date": "s109",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT01",
-        "object": "se4",
+        "items": [],
+        "object": "s10d",
         "plan_id": "PLAN01",
-        "status": "se6"
+        "status": "s10f",
+        "type": "s110"
       },
       "GROUP_QUOTE_INTENT02": {
-        "action_required": "s14a",
+        "action_required": "s186",
         "consent_links": [],
-        "cost_sharing": "s14c",
-        "coverage_selections": "s14d",
+        "cost_sharing": "s188",
+        "coverage_selections": "s189",
         "disclosures": [],
-        "expected_start_date": "s14f",
+        "expected_start_date": "s18b",
         "group_id": "GROUP01",
         "id": "GROUP_QUOTE_INTENT02",
-        "object": "s152",
+        "items": [],
+        "object": "s18f",
         "plan_id": "PLAN01",
-        "status": "s154"
+        "status": "s191",
+        "type": "s192"
       }
     }
   },
   "new": {
     "group_quote_intent": {
       "group_quote_intent_ref01": {
-        "action_required": "s1b8",
+        "action_required": "s208",
         "consent_links": [],
-        "cost_sharing": "s1ba",
-        "coverage_selections": "s1bb",
+        "cost_sharing": "s20a",
+        "coverage_selections": "s20b",
         "disclosures": [],
-        "expected_start_date": "s1bd",
+        "expected_start_date": "s20d",
         "group_id": "GROUP01",
-        "object": "s1c0",
+        "items": [],
+        "object": "s211",
         "plan_id": "PLAN01",
-        "status": "s1c2"
+        "status": "s213",
+        "type": "s214"
       }
     }
   },

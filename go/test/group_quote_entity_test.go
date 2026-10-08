@@ -38,7 +38,7 @@ func TestGroupQuoteEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.GroupQuote(nil).Load(map[string]any{"group_quote_intent_id": 1}, nil)
+		_, err := client.GroupQuote(nil).List(map[string]any{"group_quote_intent_id": 1}, nil)
 		if sdkerr, ok := err.(*core.KotaError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -53,7 +53,7 @@ func TestGroupQuoteEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{} {
+		for _, _op := range []string{"list"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "group_quote." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -62,6 +62,15 @@ func TestGroupQuoteEntity(t *testing.T) {
 				return
 			}
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"group_quote_intent01"} {
+				if setup.syntheticOnly || setup.idmap[_liveKey] == nil {
+					liveMiss(t, group_quoteEntityLiveStrict, "Live entity test blocked: needs %s via KOTA_TEST_GROUP_QUOTE_ENTID", _liveKey)
+				}
+			}
+		}
+		client := setup.client
+
 		// Bootstrap entity data from existing test data (no create step in flow).
 		groupQuoteRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.group_quote")))
 		var groupQuoteRef01Data map[string]any
@@ -71,6 +80,21 @@ func TestGroupQuoteEntity(t *testing.T) {
 		// Discard guards against Go's unused-var check when the flow's steps
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = groupQuoteRef01Data
+
+		// LIST
+		groupQuoteRef01Ent := client.GroupQuote(nil)
+		groupQuoteRef01Match := map[string]any{
+			"group_quote_intent_id": setup.idmap["group_quote_intent01"],
+		}
+
+		groupQuoteRef01ListResult, err := groupQuoteRef01Ent.List(groupQuoteRef01Match, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		_, groupQuoteRef01ListOk := groupQuoteRef01ListResult.([]any)
+		if !groupQuoteRef01ListOk {
+			t.Fatalf("expected list result to be an array, got %T", groupQuoteRef01ListResult)
+		}
 
 	})
 }

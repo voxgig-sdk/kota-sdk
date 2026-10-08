@@ -85,7 +85,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local groupquoteintents, err = client:GroupQuoteIntent():list()
+local contributionreports, err = client:ContributionReport():list()
 if err then error(err) end
 ```
 
@@ -143,7 +143,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:GroupQuoteIntent():list()
+local result, err = client:ContributionReport():list()
 -- result is an array of entities, one per mock record; err is set on failure
 ```
 
@@ -261,6 +261,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `PolicyAmendmentIntent` | `(data) -> PolicyAmendmentIntentEntity` | Create a PolicyAmendmentIntent entity instance. |
 | `PolicyImportIntent` | `(data) -> PolicyImportIntentEntity` | Create a PolicyImportIntent entity instance. |
 | `Provider` | `(data) -> ProviderEntity` | Create a Provider entity instance. |
+| `Salary` | `(data) -> SalaryEntity` | Create a Salary entity instance. |
 | `WebhookEndpoint` | `(data) -> WebhookEndpointEntity` | Create a WebhookEndpoint entity instance. |
 
 ### Entity interface
@@ -344,9 +345,12 @@ API path: `/dependents_management_intents/{dependents_management_intent_id}/asso
 
 | Field | Description |
 | --- | --- |
+| `aggregates` | Summary figures for the report, meant for dashboards and overviews. |
 | `created_at` | Date and time the report was created |
 | `employer_id` | Unique identifier of the employer for which the report is created |
 | `external_customer_id` | Unique identifier of the customer for which the report is created. |
+| `file_id` | Identifier of the report's downloadable CSV file. |
+| `file_status` | Whether the report's downloadable CSV is ready yet. |
 | `finalized_at` | Date and time the report was finalized, if applicable |
 | `id` | Unique identifier for the contribution report |
 | `last_updated_at` | Date and time of the last update to the report |
@@ -589,6 +593,7 @@ API path: `/employees/{employee_id}/health_insurance/policies`
 
 | Field | Description |
 | --- | --- |
+| `applicable_collective_agreement` | Name of the collective agreement that applies to the employer's workforce, if any. |
 | `contact` |  |
 | `earliest_benefits_start_date` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` |  |
@@ -791,6 +796,8 @@ API path: `/groups/{group_id}/employees`
 | `group_id` | Identifier for the group associated with this group policy. |
 | `health_insurance` | Health insurance–specific fields (present when `type=health_insurance`). |
 | `id` | Unique identifier for the group policy. |
+| `life_assurance` | Life assurance–specific fields (present when `type=life_assurance`). |
+| `linked_group_policy_ids` | The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase. |
 | `object` | The object type |
 | `plan` | Plan information for this policy |
 | `provider` | Provider information for this policy. |
@@ -808,15 +815,18 @@ API path: `/group_policies`
 | --- | --- |
 | `action_required` | Details of the required action when the intent is in ActionRequired status. |
 | `consent_approvals` | Consent approvals to record at the time of intent creation |
-| `cost_sharing` | Cost sharing configuration for the policy intent |
+| `cost_sharing` | Cost sharing configuration for the policy intent. |
 | `disclosures` | Disclosures associated with this intent. |
 | `due_date` | Due date for the policy intent |
-| `group_id` | Unique identifier for the group |
+| `group_id` | Unique identifier for the group. |
+| `group_policy_ids` | The group policies created for this intent, one per level, once they exist. |
 | `id` | Unique identifier for the group policy intent |
+| `items` | The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent. |
 | `object` | Object type identifier |
-| `plan_id` | Unique identifier for the plan |
+| `plan_id` | Unique identifier for the plan. |
 | `quote_intent_id` | Unique identifier for the group quote intent this policy intent was created from |
 | `status` | Current status of the group policy intent |
+| `type` | Whether the accepted quote covers one (group, plan) pair or several levels. |
 
 Operations: Create, List, Load.
 
@@ -836,17 +846,21 @@ API path: `/group_policy_intents/{group_policy_intent_id}/requirements`
 
 | Field | Description |
 | --- | --- |
-| `cost_sharing` | Cost sharing configuration for the quote |
+| `breakdown` | What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. |
+| `cost_sharing` | Cost sharing configuration for the quote. |
 | `currency` | Currency of the premium (e.g. |
-| `employee_count` | Number of employees covered by the quote |
+| `employee_count` | Number of employees covered by the quote. |
 | `expires_at` | When the quote expires |
 | `generated_at` | When the quote was generated |
+| `levels` | The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position. |
 | `object` | Object type identifier |
 | `pdf_expires_at` | When the PDF URL expires |
-| `pdf_url` | URL to download the quote PDF |
-| `total_monthly_premium` | Total monthly premium for the group |
+| `pdf_url` | URL to download the quote PDF. |
+| `quote_pdfs` | The documents the provider issued for the quote as a whole. |
+| `total_annual_premium` | Total annual premium for the group, excluding any insurance premium tax. |
+| `total_monthly_premium` | Total monthly premium for the group, excluding any insurance premium tax. |
 
-Operations: Load.
+Operations: List.
 
 API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 
@@ -855,16 +869,18 @@ API path: `/group_quote_intents/{group_quote_intent_id}/quote`
 | Field | Description |
 | --- | --- |
 | `action_required` | Details of the action required from the caller, if the intent is in action_required status. |
-| `consent_links` | Consent links that need to be acknowledged |
-| `cost_sharing` | Cost sharing configuration for the quote |
+| `consent_links` | The statements the customer must accept to proceed, each a sentence and the documents it names. |
+| `cost_sharing` | Cost sharing configuration for the quote. |
 | `coverage_selections` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | Disclosures associated with this intent. |
 | `expected_start_date` | Expected start date for the insurance coverage |
-| `group_id` | Unique identifier for the group |
+| `group_id` | Unique identifier for the group. |
 | `id` | Unique identifier for the group quote intent |
+| `items` | The benefits this intent quotes and the levels they are quoted at. |
 | `object` | Object type identifier |
-| `plan_id` | Unique identifier for the plan |
+| `plan_id` | Unique identifier for the plan. |
 | `status` | Current status of the group quote intent |
+| `type` | Whether the intent quotes one (group, plan) pair or several levels. |
 
 Operations: Create, List, Load.
 
@@ -896,7 +912,9 @@ API path: `/group_quote_intents/{group_quote_intent_id}/requirements`
 | `employer_eligibility_criteria` | Eligibility criteria that employers must meet. |
 | `health_insurance` | Health insurance-specific details. |
 | `id` | Unique identifier for the plan. |
+| `indicative_pricing` | Average monthly guide prices used when exact catalog pricing is unavailable. |
 | `ineligible_count` | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `life_assurance` | Life assurance-specific details. |
 | `name` | The name of the plan. |
 | `object` | Object type. |
 | `provider` | The provider offering this plan. |
@@ -920,7 +938,9 @@ API path: `/plans`
 | `group_policy_id` | Identifier of the group policy id associated with this policy. |
 | `health_insurance` | Health insurance–specific fields (present when `type=health_insurance`) |
 | `id` | Unique identifier for the policy. |
+| `life_assurance` | Life assurance–specific fields (present when `type=life_assurance`). |
 | `object` | Object type |
+| `opted_out_at` | UTC timestamp of the moment the member opted out of this policy during the cooling-off window. |
 | `plan` | Plan information for this policy |
 | `provider` | Provider information for this policy |
 | `start_date` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
@@ -987,6 +1007,22 @@ API path: `/policy_import_intents`
 Operations: List, Load.
 
 API path: `/providers`
+
+#### Salary
+
+| Field | Description |
+| --- | --- |
+| `amount` | Salary amount, in the given currency and pay frequency |
+| `currency` | ISO currency code the amount is denominated in |
+| `effective_from` | Date from which this salary is effective |
+| `employee_id` | Unique identifier for the employee this salary belongs to |
+| `id` | Unique identifier for the salary record |
+| `object` | The object type |
+| `pay_frequency` | The period this amount represents (e.g. |
+
+Operations: Create, List, Load, Remove.
+
+API path: `/employees/{employee_id}/salaries`
 
 #### WebhookEndpoint
 
@@ -1111,9 +1147,12 @@ Create an instance: `local contribution_report = client:ContributionReport(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `aggregates` | `any` | Summary figures for the report, meant for dashboards and overviews. |
 | `created_at` | `string` | Date and time the report was created |
 | `employer_id` | `string` | Unique identifier of the employer for which the report is created |
 | `external_customer_id` | `nil|string` | Unique identifier of the customer for which the report is created. |
+| `file_id` | `nil|string` | Identifier of the report's downloadable CSV file. |
+| `file_status` | `nil` | Whether the report's downloadable CSV is ready yet. |
 | `finalized_at` | `nil|string` | Date and time the report was finalized, if applicable |
 | `id` | `string` | Unique identifier for the contribution report |
 | `last_updated_at` | `string` | Date and time of the last update to the report |
@@ -1138,6 +1177,7 @@ local contribution_reports, err = client:ContributionReport():list()
 ```lua
 local contribution_report, err = client:ContributionReport():create({
   id = "example_id", -- string
+  aggregates = "example_aggregates", -- any
   created_at = "example_created_at", -- string
   employer_id = "example_employer_id", -- string
   last_updated_at = "example_last_updated_at", -- string
@@ -1427,7 +1467,7 @@ Create an instance: `local employee = client:Employee(nil)`
 | `nationality` | `nil` | Nationality of the employee (e.g. |
 | `object` | `string` | The object type |
 | `offboard_on` | `nil|string` | Date when the employee was or will be offboarded |
-| `phone_number` | `string` | Phone number in E.164 international format (e.g. |
+| `phone_number` | `nil|string` | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | Unique identifier for the platform |
 | `sex_at_birth` | `string` | The sex assigned to the employee at birth |
 | `start_on` | `string` | Employment start date |
@@ -1454,7 +1494,7 @@ local employee, err = client:Employee():create({
   first_name = "example_first_name", -- string
   last_name = "example_last_name", -- string
   national_tax_id = "example_national_tax_id", -- string
-  phone_number = "example_phone_number", -- string
+  phone_number = "example_phone_number", -- nil|string
   sex_at_birth = "example_sex_at_birth", -- string
 })
 ```
@@ -1613,6 +1653,7 @@ Create an instance: `local employer = client:Employer(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `applicable_collective_agreement` | `nil|string` | Name of the collective agreement that applies to the employer's workforce, if any. |
 | `contact` | `any` |  |
 | `earliest_benefits_start_date` | `nil|string` | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` |  |
@@ -2053,6 +2094,8 @@ Create an instance: `local group_policy = client:GroupPolicy(nil)`
 | `group_id` | `string` | Identifier for the group associated with this group policy. |
 | `health_insurance` | `nil` | Health insurance–specific fields (present when `type=health_insurance`). |
 | `id` | `string` | Unique identifier for the group policy. |
+| `life_assurance` | `nil` | Life assurance–specific fields (present when `type=life_assurance`). |
+| `linked_group_policy_ids` | `table` | The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase. |
 | `object` | `string` | The object type |
 | `plan` | `any` | Plan information for this policy |
 | `provider` | `any` | Provider information for this policy. |
@@ -2091,15 +2134,18 @@ Create an instance: `local group_policy_intent = client:GroupPolicyIntent(nil)`
 | --- | --- | --- |
 | `action_required` | `nil` | Details of the required action when the intent is in ActionRequired status. |
 | `consent_approvals` | `nil|table` | Consent approvals to record at the time of intent creation |
-| `cost_sharing` | `nil` | Cost sharing configuration for the policy intent |
+| `cost_sharing` | `nil` | Cost sharing configuration for the policy intent. |
 | `disclosures` | `table` | Disclosures associated with this intent. |
 | `due_date` | `nil|string` | Due date for the policy intent |
-| `group_id` | `string` | Unique identifier for the group |
+| `group_id` | `nil|string` | Unique identifier for the group. |
+| `group_policy_ids` | `table` | The group policies created for this intent, one per level, once they exist. |
 | `id` | `string` | Unique identifier for the group policy intent |
+| `items` | `table` | The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent. |
 | `object` | `string` | Object type identifier |
-| `plan_id` | `string` | Unique identifier for the plan |
+| `plan_id` | `nil|string` | Unique identifier for the plan. |
 | `quote_intent_id` | `string` | Unique identifier for the group quote intent this policy intent was created from |
 | `status` | `string` | Current status of the group policy intent |
+| `type` | `nil` | Whether the accepted quote covers one (group, plan) pair or several levels. |
 
 #### Example: Load
 
@@ -2118,9 +2164,11 @@ local group_policy_intents, err = client:GroupPolicyIntent():list()
 ```lua
 local group_policy_intent, err = client:GroupPolicyIntent():create({
   disclosures = {}, -- table
-  group_id = "example_group_id", -- string
+  group_id = "example_group_id", -- nil|string
+  group_policy_ids = {}, -- table
   id = "example_id", -- string
-  plan_id = "example_plan_id", -- string
+  items = {}, -- table
+  plan_id = "example_plan_id", -- nil|string
   quote_intent_id = "example_quote_intent_id", -- string
   status = "example_status", -- string
 })
@@ -2158,26 +2206,30 @@ Create an instance: `local group_quote = client:GroupQuote(nil)`
 
 | Method | Description |
 | --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
+| `list(match)` | List entities matching the criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost_sharing` | `any` | Cost sharing configuration for the quote |
+| `breakdown` | `table` | What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. |
+| `cost_sharing` | `nil` | Cost sharing configuration for the quote. |
 | `currency` | `string` | Currency of the premium (e.g. |
-| `employee_count` | `number` | Number of employees covered by the quote |
+| `employee_count` | `number` | Number of employees covered by the quote. |
 | `expires_at` | `string` | When the quote expires |
 | `generated_at` | `string` | When the quote was generated |
+| `levels` | `table` | The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position. |
 | `object` | `string` | Object type identifier |
 | `pdf_expires_at` | `nil|string` | When the PDF URL expires |
-| `pdf_url` | `nil|string` | URL to download the quote PDF |
-| `total_monthly_premium` | `number` | Total monthly premium for the group |
+| `pdf_url` | `nil|string` | URL to download the quote PDF. |
+| `quote_pdfs` | `table` | The documents the provider issued for the quote as a whole. |
+| `total_annual_premium` | `number` | Total annual premium for the group, excluding any insurance premium tax. |
+| `total_monthly_premium` | `number` | Total monthly premium for the group, excluding any insurance premium tax. |
 
-#### Example: Load
+#### Example: List
 
 ```lua
-local group_quote, err = client:GroupQuote():load({ group_quote_intent_id = "group_quote_intent_id" })
+local group_quotes, err = client:GroupQuote():list({ group_quote_intent_id = "example" })
 ```
 
 
@@ -2198,16 +2250,18 @@ Create an instance: `local group_quote_intent = client:GroupQuoteIntent(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `action_required` | `nil` | Details of the action required from the caller, if the intent is in action_required status. |
-| `consent_links` | `table` | Consent links that need to be acknowledged |
-| `cost_sharing` | `nil` | Cost sharing configuration for the quote |
+| `consent_links` | `table` | The statements the customer must accept to proceed, each a sentence and the documents it names. |
+| `cost_sharing` | `nil` | Cost sharing configuration for the quote. |
 | `coverage_selections` | `nil|table` | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `table` | Disclosures associated with this intent. |
 | `expected_start_date` | `nil|string` | Expected start date for the insurance coverage |
-| `group_id` | `string` | Unique identifier for the group |
+| `group_id` | `nil|string` | Unique identifier for the group. |
 | `id` | `string` | Unique identifier for the group quote intent |
+| `items` | `table` | The benefits this intent quotes and the levels they are quoted at. |
 | `object` | `string` | Object type identifier |
-| `plan_id` | `string` | Unique identifier for the plan |
+| `plan_id` | `nil|string` | Unique identifier for the plan. |
 | `status` | `string` | Current status of the group quote intent |
+| `type` | `nil` | Whether the intent quotes one (group, plan) pair or several levels. |
 
 #### Example: Load
 
@@ -2227,9 +2281,10 @@ local group_quote_intents, err = client:GroupQuoteIntent():list()
 local group_quote_intent, err = client:GroupQuoteIntent():create({
   consent_links = {}, -- table
   disclosures = {}, -- table
-  group_id = "example_group_id", -- string
+  group_id = "example_group_id", -- nil|string
   id = "example_id", -- string
-  plan_id = "example_plan_id", -- string
+  items = {}, -- table
+  plan_id = "example_plan_id", -- nil|string
   status = "example_status", -- string
 })
 ```
@@ -2285,7 +2340,9 @@ Create an instance: `local plan = client:Plan(nil)`
 | `employer_eligibility_criteria` | `table` | Eligibility criteria that employers must meet. |
 | `health_insurance` | `nil` | Health insurance-specific details. |
 | `id` | `string` | Unique identifier for the plan. |
+| `indicative_pricing` | `nil` | Average monthly guide prices used when exact catalog pricing is unavailable. |
 | `ineligible_count` | `nil|number` | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `life_assurance` | `nil` | Life assurance-specific details. |
 | `name` | `string` | The name of the plan. |
 | `object` | `string` | Object type. |
 | `provider` | `any` | The provider offering this plan. |
@@ -2329,7 +2386,9 @@ Create an instance: `local policy = client:Policy(nil)`
 | `group_policy_id` | `string` | Identifier of the group policy id associated with this policy. |
 | `health_insurance` | `nil` | Health insurance–specific fields (present when `type=health_insurance`) |
 | `id` | `string` | Unique identifier for the policy. |
+| `life_assurance` | `nil` | Life assurance–specific fields (present when `type=life_assurance`). |
 | `object` | `string` | Object type |
+| `opted_out_at` | `nil|string` | UTC timestamp of the moment the member opted out of this policy during the cooling-off window. |
 | `plan` | `any` | Plan information for this policy |
 | `provider` | `any` | Provider information for this policy |
 | `start_date` | `string` | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
@@ -2493,6 +2552,57 @@ local provider, err = client:Provider():load({ id = "provider_id" })
 
 ```lua
 local providers, err = client:Provider():list()
+```
+
+
+### Salary
+
+Create an instance: `local salary = client:Salary(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `amount` | `number` | Salary amount, in the given currency and pay frequency |
+| `currency` | `string` | ISO currency code the amount is denominated in |
+| `effective_from` | `string` | Date from which this salary is effective |
+| `employee_id` | `string` | Unique identifier for the employee this salary belongs to |
+| `id` | `string` | Unique identifier for the salary record |
+| `object` | `string` | The object type |
+| `pay_frequency` | `string` | The period this amount represents (e.g. |
+
+#### Example: Load
+
+```lua
+local salary, err = client:Salary():load({ id = "salary_id", employee_id = "employee_id" })
+```
+
+#### Example: List
+
+```lua
+local salarys, err = client:Salary():list({ employee_id = "example" })
+```
+
+#### Example: Create
+
+```lua
+local salary, err = client:Salary():create({
+  employee_id = "example_employee_id", -- string
+  amount = 1, -- number
+  currency = "example_currency", -- string
+  effective_from = "example_effective_from", -- string
+  id = "example_id", -- string
+  pay_frequency = "example_pay_frequency", -- string
+})
 ```
 
 
@@ -2750,11 +2860,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local groupquoteintent = client:GroupQuoteIntent()
-groupquoteintent:list()
+local contributionreport = client:ContributionReport()
+contributionreport:list()
 
--- groupquoteintent:data_get() now returns the groupquoteintent data from the last list
--- groupquoteintent:match_get() returns the last match criteria
+-- contributionreport:data_get() now returns the contributionreport data from the last list
+-- contributionreport:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

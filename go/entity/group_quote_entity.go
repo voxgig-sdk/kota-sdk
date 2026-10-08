@@ -293,11 +293,16 @@ func (e *GroupQuoteEntity) streamSteps(ctx *core.Context) error {
 	return nil
 }
 
+func (e *GroupQuoteEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
+	return core.UnsupportedOp("load", e.name)
+}
 
-func (e *GroupQuoteEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+
+
+func (e *GroupQuoteEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
 	ctx := utility.MakeContext(map[string]any{
-		"opname":   "load",
+		"opname":   "list",
 		"ctrl":     ctrl,
 		"match":    e.match,
 		"data":     e.data,
@@ -309,32 +314,21 @@ func (e *GroupQuoteEntity) Load(reqmatch map[string]any, ctrl map[string]any) (a
 			if ctx.Result.Resmatch != nil {
 				e.match = ctx.Result.Resmatch
 			}
-			if ctx.Result.Resdata != nil {
-				e.data = core.ToMapAny(vs.Clone(ctx.Result.Resdata))
-				if e.data == nil {
-					e.data = map[string]any{}
-				}
-			}
 		}
 	})
 }
 
-// LoadTyped is the statically-typed variant of Load: it takes an
-// GroupQuoteLoadMatch and returns an GroupQuote. It delegates to the untyped
-// Load (identical runtime) and converts at the typed boundary.
-func (e *GroupQuoteEntity) LoadTyped(reqmatch GroupQuoteLoadMatch, ctrl map[string]any) (GroupQuote, error) {
-	res, err := e.Load(asMap(reqmatch), ctrl)
+// ListTyped is the statically-typed variant of List: it takes an
+// GroupQuoteListMatch and returns []GroupQuote. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *GroupQuoteEntity) ListTyped(reqmatch GroupQuoteListMatch, ctrl map[string]any) ([]GroupQuote, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
 	if err != nil {
-		return GroupQuote{}, err
+		return nil, err
 	}
-	return typedFrom[GroupQuote](res), nil
+	return typedSliceFrom[GroupQuote](res), nil
 }
 
-
-
-func (e *GroupQuoteEntity) List(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("list", e.name)
-}
 
 
 func (e *GroupQuoteEntity) Create(_ map[string]any, _ map[string]any) (any, error) {

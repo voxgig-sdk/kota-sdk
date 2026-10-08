@@ -5,6 +5,13 @@ main: kit: entity: contribution_report: {
   alias: field: {}
 
   fields: {
+    aggregates: {
+      h: "Aggregates"
+      n: "aggregates"
+      r: true
+      sh: "Summary figures for the report, meant for dashboards and overviews."
+      t: "`$ANY`"
+    }
     created_at: {
       fo: "date-time"
       h: "Created At"
@@ -32,6 +39,26 @@ main: kit: entity: contribution_report: {
           "`$STRING`"
         ]
       ]
+    }
+    file_id: {
+      h: "File Id"
+      n: "file_id"
+      r: false
+      sh: "Identifier of the report's downloadable CSV file."
+      t: [
+        "`$ONE`"
+        [
+          "`$NULL`"
+          "`$STRING`"
+        ]
+      ]
+    }
+    file_status: {
+      h: "File Status"
+      n: "file_status"
+      r: false
+      sh: "Whether the report's downloadable CSV is ready yet."
+      t: "`$NULL`"
     }
     finalized_at: {
       fo: "date-time"

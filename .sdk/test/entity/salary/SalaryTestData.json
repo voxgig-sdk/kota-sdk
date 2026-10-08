@@ -1,0 +1,72 @@
+{
+  "existing": {
+    "salary": {
+      "SALARY00": {
+        "amount": 70,
+        "currency": "s47",
+        "effective_from": "s48",
+        "employee_id": "EMPLOYEE01",
+        "id": "SALARY00",
+        "object": "s4b",
+        "pay_frequency": "s4c"
+      },
+      "SALARY01": {
+        "amount": 140,
+        "currency": "s8d",
+        "effective_from": "s8e",
+        "employee_id": "EMPLOYEE01",
+        "id": "SALARY01",
+        "object": "s91",
+        "pay_frequency": "s92"
+      },
+      "SALARY02": {
+        "amount": 210,
+        "currency": "sd3",
+        "effective_from": "sd4",
+        "employee_id": "EMPLOYEE01",
+        "id": "SALARY02",
+        "object": "sd7",
+        "pay_frequency": "sd8"
+      }
+    }
+  },
+  "new": {
+    "salary": {
+      "salary_ref01": {
+        "amount": 280,
+        "currency": "s119",
+        "effective_from": "s11a",
+        "employee_id": "EMPLOYEE01",
+        "object": "s11d",
+        "pay_frequency": "s11e"
+      }
+    }
+  },
+  "requests": {
+    "POST /employees/{employee_id}/salaries": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /employees/{employee_id}/salaries": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /employees/{employee_id}/salaries/{salary_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /employees/{employee_id}/salaries/current": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /employees/{employee_id}/salaries/{salary_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

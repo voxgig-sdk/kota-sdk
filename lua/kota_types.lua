@@ -75,9 +75,12 @@
 ---@field page_size? number
 
 ---@class ContributionReport
+---@field aggregates any
 ---@field created_at string
 ---@field employer_id string
 ---@field external_customer_id? nil|string
+---@field file_id? nil|string
+---@field file_status? nil
 ---@field finalized_at? nil|string
 ---@field id string
 ---@field last_updated_at string
@@ -99,9 +102,12 @@
 
 ---@class ContributionReportCreateData
 ---@field id string
+---@field aggregates any
 ---@field created_at string
 ---@field employer_id string
 ---@field external_customer_id? nil|string
+---@field file_id? nil|string
+---@field file_status? nil
 ---@field finalized_at? nil|string
 ---@field last_updated_at string
 ---@field object? string
@@ -255,7 +261,7 @@
 ---@field nationality? nil
 ---@field object? string
 ---@field offboard_on? nil|string
----@field phone_number string
+---@field phone_number nil|string
 ---@field platform_id? string
 ---@field sex_at_birth string
 ---@field start_on? string
@@ -288,7 +294,7 @@
 ---@field nationality? nil
 ---@field object? string
 ---@field offboard_on? nil|string
----@field phone_number string
+---@field phone_number nil|string
 ---@field platform_id? string
 ---@field sex_at_birth string
 ---@field start_on? string
@@ -310,7 +316,7 @@
 ---@field nationality? nil
 ---@field object? string
 ---@field offboard_on? nil|string
----@field phone_number? string
+---@field phone_number? nil|string
 ---@field platform_id? string
 ---@field sex_at_birth? string
 ---@field start_on? string
@@ -392,6 +398,7 @@
 ---@field status? string
 
 ---@class Employer
+---@field applicable_collective_agreement? nil|string
 ---@field contact any
 ---@field earliest_benefits_start_date? nil|string
 ---@field id string
@@ -413,6 +420,7 @@
 ---@field page_size? number
 
 ---@class EmployerCreateData
+---@field applicable_collective_agreement? nil|string
 ---@field contact any
 ---@field earliest_benefits_start_date? nil|string
 ---@field id string
@@ -427,6 +435,7 @@
 
 ---@class EmployerUpdateData
 ---@field id string
+---@field applicable_collective_agreement? nil|string
 ---@field contact? any
 ---@field earliest_benefits_start_date? nil|string
 ---@field legal_address? any
@@ -571,7 +580,7 @@
 ---@class EnrolmentIntentRequirementResponsePagedListListMatch
 ---@field id string
 ---@field object_id? string
----@field object_type? any
+---@field object_type? string
 ---@field page? number
 ---@field page_size? number
 
@@ -588,10 +597,10 @@
 
 ---@class EventListMatch
 ---@field created_after? string
----@field order_direction? any
+---@field order_direction? string
 ---@field page? number
 ---@field page_size? number
----@field version? any
+---@field version? string
 
 ---@class EventCreateData
 ---@field id string
@@ -696,6 +705,8 @@
 ---@field group_id? string
 ---@field health_insurance? nil
 ---@field id string
+---@field life_assurance? nil
+---@field linked_group_policy_ids table
 ---@field object? string
 ---@field plan any
 ---@field provider any
@@ -719,12 +730,15 @@
 ---@field cost_sharing? nil
 ---@field disclosures table
 ---@field due_date? nil|string
----@field group_id string
+---@field group_id nil|string
+---@field group_policy_ids table
 ---@field id string
+---@field items table
 ---@field object? string
----@field plan_id string
+---@field plan_id nil|string
 ---@field quote_intent_id string
 ---@field status string
+---@field type? nil
 
 ---@class GroupPolicyIntentLoadMatch
 ---@field id string
@@ -735,6 +749,7 @@
 ---@field page_size? number
 ---@field plan_id? string
 ---@field status? string
+---@field type? string
 
 ---@class GroupPolicyIntentCreateData
 ---@field action_required? nil
@@ -742,12 +757,15 @@
 ---@field cost_sharing? nil
 ---@field disclosures table
 ---@field due_date? nil|string
----@field group_id string
+---@field group_id nil|string
+---@field group_policy_ids table
 ---@field id string
+---@field items table
 ---@field object? string
----@field plan_id string
+---@field plan_id nil|string
 ---@field quote_intent_id string
 ---@field status string
+---@field type? nil
 
 ---@class GroupPolicyIntentRequirementResponsePagedList
 ---@field id? string
@@ -755,22 +773,26 @@
 ---@class GroupPolicyIntentRequirementResponsePagedListListMatch
 ---@field id string
 ---@field object_id? string
----@field object_type? any
+---@field object_type? string
 ---@field page? number
 ---@field page_size? number
 
 ---@class GroupQuote
----@field cost_sharing any
+---@field breakdown table
+---@field cost_sharing? nil
 ---@field currency string
 ---@field employee_count number
 ---@field expires_at string
 ---@field generated_at string
+---@field levels table
 ---@field object? string
 ---@field pdf_expires_at? nil|string
 ---@field pdf_url? nil|string
+---@field quote_pdfs table
+---@field total_annual_premium number
 ---@field total_monthly_premium number
 
----@class GroupQuoteLoadMatch
+---@class GroupQuoteListMatch
 ---@field group_quote_intent_id string
 
 ---@class GroupQuoteIntent
@@ -780,11 +802,13 @@
 ---@field coverage_selections? nil|table
 ---@field disclosures table
 ---@field expected_start_date? nil|string
----@field group_id string
+---@field group_id nil|string
 ---@field id string
+---@field items table
 ---@field object? string
----@field plan_id string
+---@field plan_id nil|string
 ---@field status string
+---@field type? nil
 
 ---@class GroupQuoteIntentLoadMatch
 ---@field id string
@@ -795,6 +819,7 @@
 ---@field page_size? number
 ---@field plan_id? string
 ---@field status? string
+---@field type? string
 
 ---@class GroupQuoteIntentCreateData
 ---@field action_required? nil
@@ -803,11 +828,13 @@
 ---@field coverage_selections? nil|table
 ---@field disclosures table
 ---@field expected_start_date? nil|string
----@field group_id string
+---@field group_id nil|string
 ---@field id string
+---@field items table
 ---@field object? string
----@field plan_id string
+---@field plan_id nil|string
 ---@field status string
+---@field type? nil
 
 ---@class GroupQuoteIntentRequirementResponsePagedList
 ---@field id? string
@@ -815,7 +842,7 @@
 ---@class GroupQuoteIntentRequirementResponsePagedListListMatch
 ---@field id string
 ---@field object_id? string
----@field object_type? any
+---@field object_type? string
 ---@field page? number
 ---@field page_size? number
 
@@ -832,7 +859,9 @@
 ---@field employer_eligibility_criteria table
 ---@field health_insurance? nil
 ---@field id string
+---@field indicative_pricing? nil
 ---@field ineligible_count? nil|number
+---@field life_assurance? nil
 ---@field name string
 ---@field object? string
 ---@field provider any
@@ -846,13 +875,13 @@
 
 ---@class PlanListMatch
 ---@field available_on? string
----@field country? any
+---@field country? string
 ---@field group_id? string
 ---@field page? number
 ---@field page_size? number
 ---@field provider_id? string
----@field sort_by? any
----@field sort_dir? any
+---@field sort_by? string
+---@field sort_dir? string
 ---@field start_date? string
 ---@field type? string
 
@@ -866,7 +895,9 @@
 ---@field group_policy_id string
 ---@field health_insurance? nil
 ---@field id string
+---@field life_assurance? nil
 ---@field object? string
+---@field opted_out_at? nil|string
 ---@field plan any
 ---@field provider any
 ---@field start_date string
@@ -968,9 +999,40 @@
 ---@field id string
 
 ---@class ProviderListMatch
----@field country? any
+---@field country? string
 ---@field page? number
 ---@field page_size? number
+
+---@class Salary
+---@field amount number
+---@field currency string
+---@field effective_from string
+---@field employee_id string
+---@field id string
+---@field object? string
+---@field pay_frequency string
+
+---@class SalaryLoadMatch
+---@field employee_id string
+---@field id string
+
+---@class SalaryListMatch
+---@field employee_id string
+---@field page? number
+---@field page_size? number
+
+---@class SalaryCreateData
+---@field employee_id string
+---@field amount number
+---@field currency string
+---@field effective_from string
+---@field id string
+---@field object? string
+---@field pay_frequency string
+
+---@class SalaryRemoveMatch
+---@field employee_id string
+---@field id string
 
 ---@class WebhookEndpoint
 ---@field created_at string

@@ -940,6 +940,20 @@ function KotaSDK:Provider(data)
 end
 
 
+-- Idiomatic facade: client:Salary():list() / client:Salary():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function KotaSDK:Salary(data)
+  local EntityMod = require("entity.salary_entity")
+  if data == nil then
+    if self._salary == nil then
+      self._salary = EntityMod.new(self, nil)
+    end
+    return self._salary
+  end
+  return EntityMod.new(self, data)
+end
+
+
 -- Idiomatic facade: client:WebhookEndpoint():list() / client:WebhookEndpoint():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
 function KotaSDK:WebhookEndpoint(data)

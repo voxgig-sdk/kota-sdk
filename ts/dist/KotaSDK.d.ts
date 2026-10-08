@@ -35,6 +35,7 @@ import { PolicyEntity } from './entity/PolicyEntity';
 import { PolicyAmendmentIntentEntity } from './entity/PolicyAmendmentIntentEntity';
 import { PolicyImportIntentEntity } from './entity/PolicyImportIntentEntity';
 import { ProviderEntity } from './entity/ProviderEntity';
+import { SalaryEntity } from './entity/SalaryEntity';
 import { WebhookEndpointEntity } from './entity/WebhookEndpointEntity';
 export type * from './KotaTypes';
 import { inspect } from 'node:util';
@@ -107,6 +108,7 @@ declare class KotaSDK {
     PolicyAmendmentIntent(entopts?: Record<string, any>): PolicyAmendmentIntentEntity;
     PolicyImportIntent(entopts?: Record<string, any>): PolicyImportIntentEntity;
     Provider(entopts?: Record<string, any>): ProviderEntity;
+    Salary(entopts?: Record<string, any>): SalaryEntity;
     WebhookEndpoint(entopts?: Record<string, any>): WebhookEndpointEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): KotaSDK;
     tester(testopts?: any, sdkopts?: any): KotaSDK;

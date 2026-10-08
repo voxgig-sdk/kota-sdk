@@ -493,6 +493,18 @@ Create a new `Provider` entity instance.
 
 **Returns:** `ProviderEntity` instance.
 
+#### `Salary(data?: object)`
+
+Create a new `Salary` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `SalaryEntity` instance.
+
 #### `WebhookEndpoint(data?: object)`
 
 Create a new `WebhookEndpoint` entity instance.
@@ -750,9 +762,12 @@ const contribution_report = client.ContributionReport()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `aggregates` | `any` | Yes | Summary figures for the report, meant for dashboards and overviews. |
 | `created_at` | `string` | Yes | Date and time the report was created |
 | `employer_id` | `string` | Yes | Unique identifier of the employer for which the report is created |
 | `external_customer_id` | `null | string` | No | Unique identifier of the customer for which the report is created. |
+| `file_id` | `null | string` | No | Identifier of the report's downloadable CSV file. |
+| `file_status` | `null` | No | Whether the report's downloadable CSV is ready yet. |
 | `finalized_at` | `null | string` | No | Date and time the report was finalized, if applicable |
 | `id` | `string` | Yes | Unique identifier for the contribution report |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
@@ -789,6 +804,7 @@ Create a new entity with the given data. Resolves to the created entity.
 ```ts
 const result = await client.ContributionReport().create({
   id: 'example_id',
+  aggregates: 'example_aggregates',
   created_at: 'example_created_at',
   employer_id: 'example_employer_id',
   last_updated_at: 'example_last_updated_at',
@@ -1352,7 +1368,7 @@ const employee = client.Employee()
 | `nationality` | `null` | No | Nationality of the employee (e.g. |
 | `object` | `string` | No | The object type |
 | `offboard_on` | `null | string` | No | Date when the employee was or will be offboarded |
-| `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
+| `phone_number` | `null | string` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
 | `sex_at_birth` | `string` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `string` | No | Employment start date |
@@ -1377,7 +1393,7 @@ const employee = client.Employee()
 | `nationality` | - | - | - | - |
 | `object` | - | - | - | - |
 | `offboard_on` | - | - | - | - |
-| `phone_number` | - | - | - | Yes |
+| `phone_number` | - | - | Yes | Yes |
 | `platform_id` | - | - | - | - |
 | `sex_at_birth` | - | - | - | - |
 | `start_on` | - | - | Yes | - |
@@ -1731,6 +1747,7 @@ const employer = client.Employer()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `applicable_collective_agreement` | `null | string` | No | Name of the collective agreement that applies to the employer's workforce, if any. |
 | `contact` | `any` | Yes |  |
 | `earliest_benefits_start_date` | `null | string` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` | Yes |  |
@@ -1747,6 +1764,7 @@ const employer = client.Employer()
 
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
+| `applicable_collective_agreement` | - | - | - | - |
 | `contact` | - | - | - | Yes |
 | `earliest_benefits_start_date` | - | - | - | - |
 | `id` | - | - | - | - |
@@ -2642,6 +2660,8 @@ const group_policy = client.GroupPolicy()
 | `group_id` | `string` | No | Identifier for the group associated with this group policy. |
 | `health_insurance` | `null` | No | Health insurance–specific fields (present when `type=health_insurance`). |
 | `id` | `string` | Yes | Unique identifier for the group policy. |
+| `life_assurance` | `null` | No | Life assurance–specific fields (present when `type=life_assurance`). |
+| `linked_group_policy_ids` | `any[]` | Yes | The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase. |
 | `object` | `string` | No | The object type |
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy. |
@@ -2707,15 +2727,18 @@ const group_policy_intent = client.GroupPolicyIntent()
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the required action when the intent is in ActionRequired status. |
 | `consent_approvals` | `null | any[]` | No | Consent approvals to record at the time of intent creation |
-| `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent. |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this intent. |
 | `due_date` | `null | string` | No | Due date for the policy intent |
-| `group_id` | `string` | Yes | Unique identifier for the group |
+| `group_id` | `null | string` | Yes | Unique identifier for the group. |
+| `group_policy_ids` | `any[]` | Yes | The group policies created for this intent, one per level, once they exist. |
 | `id` | `string` | Yes | Unique identifier for the group policy intent |
+| `items` | `any[]` | Yes | The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent. |
 | `object` | `string` | No | Object type identifier |
-| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `plan_id` | `null | string` | Yes | Unique identifier for the plan. |
 | `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
 | `status` | `string` | Yes | Current status of the group policy intent |
+| `type` | `null` | No | Whether the accepted quote covers one (group, plan) pair or several levels. |
 
 ### Operations
 
@@ -2727,7 +2750,9 @@ Create a new entity with the given data. Resolves to the created entity.
 const result = await client.GroupPolicyIntent().create({
   disclosures: [],
   group_id: 'example_group_id',
+  group_policy_ids: [],
   id: 'example_id',
+  items: [],
   plan_id: 'example_plan_id',
   quote_intent_id: 'example_quote_intent_id',
   status: 'example_status',
@@ -2858,24 +2883,28 @@ const group_quote = client.GroupQuote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `any` | Yes | Cost sharing configuration for the quote |
+| `breakdown` | `any[]` | Yes | What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the quote. |
 | `currency` | `string` | Yes | Currency of the premium (e.g. |
-| `employee_count` | `number` | Yes | Number of employees covered by the quote |
+| `employee_count` | `number` | Yes | Number of employees covered by the quote. |
 | `expires_at` | `string` | Yes | When the quote expires |
 | `generated_at` | `string` | Yes | When the quote was generated |
+| `levels` | `any[]` | Yes | The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position. |
 | `object` | `string` | No | Object type identifier |
 | `pdf_expires_at` | `null | string` | No | When the PDF URL expires |
-| `pdf_url` | `null | string` | No | URL to download the quote PDF |
-| `total_monthly_premium` | `number` | Yes | Total monthly premium for the group |
+| `pdf_url` | `null | string` | No | URL to download the quote PDF. |
+| `quote_pdfs` | `any[]` | Yes | The documents the provider issued for the quote as a whole. |
+| `total_annual_premium` | `number` | Yes | Total annual premium for the group, excluding any insurance premium tax. |
+| `total_monthly_premium` | `number` | Yes | Total monthly premium for the group, excluding any insurance premium tax. |
 
 ### Operations
 
-#### `load(match: object, ctrl?: object)`
+#### `list(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const result = await client.GroupQuote().load({ group_quote_intent_id: 'group_quote_intent_id' })
+const results = await client.GroupQuote().list({ group_quote_intent_id: "example" })
 ```
 
 ### Common Methods
@@ -2917,16 +2946,36 @@ const group_quote_intent = client.GroupQuoteIntent()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the action required from the caller, if the intent is in action_required status. |
-| `consent_links` | `any[]` | Yes | Consent links that need to be acknowledged |
-| `cost_sharing` | `null` | No | Cost sharing configuration for the quote |
+| `consent_links` | `any[]` | Yes | The statements the customer must accept to proceed, each a sentence and the documents it names. |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the quote. |
 | `coverage_selections` | `null | any[]` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `any[]` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `null | string` | No | Expected start date for the insurance coverage |
-| `group_id` | `string` | Yes | Unique identifier for the group |
+| `group_id` | `null | string` | Yes | Unique identifier for the group. |
 | `id` | `string` | Yes | Unique identifier for the group quote intent |
+| `items` | `any[]` | Yes | The benefits this intent quotes and the levels they are quoted at. |
 | `object` | `string` | No | Object type identifier |
-| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `plan_id` | `null | string` | Yes | Unique identifier for the plan. |
 | `status` | `string` | Yes | Current status of the group quote intent |
+| `type` | `null` | No | Whether the intent quotes one (group, plan) pair or several levels. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `action_required` | - | - | - |
+| `consent_links` | - | - | - |
+| `cost_sharing` | - | - | - |
+| `coverage_selections` | - | - | - |
+| `disclosures` | - | - | - |
+| `expected_start_date` | - | - | - |
+| `group_id` | - | - | Yes |
+| `id` | - | - | - |
+| `items` | - | - | Yes |
+| `object` | - | - | - |
+| `plan_id` | - | - | Yes |
+| `status` | - | - | - |
+| `type` | - | - | - |
 
 ### Actions
 
@@ -2960,6 +3009,7 @@ const result = await client.GroupQuoteIntent().create({
   disclosures: [],
   group_id: 'example_group_id',
   id: 'example_id',
+  items: [],
   plan_id: 'example_plan_id',
   status: 'example_status',
 })
@@ -3101,7 +3151,9 @@ const plan = client.Plan()
 | `employer_eligibility_criteria` | `any[]` | Yes | Eligibility criteria that employers must meet. |
 | `health_insurance` | `null` | No | Health insurance-specific details. |
 | `id` | `string` | Yes | Unique identifier for the plan. |
+| `indicative_pricing` | `null` | No | Average monthly guide prices used when exact catalog pricing is unavailable. |
 | `ineligible_count` | `null | number` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `life_assurance` | `null` | No | Life assurance-specific details. |
 | `name` | `string` | Yes | The name of the plan. |
 | `object` | `string` | No | Object type. |
 | `provider` | `any` | Yes | The provider offering this plan. |
@@ -3173,7 +3225,9 @@ const policy = client.Policy()
 | `group_policy_id` | `string` | Yes | Identifier of the group policy id associated with this policy. |
 | `health_insurance` | `null` | No | Health insurance–specific fields (present when `type=health_insurance`) |
 | `id` | `string` | Yes | Unique identifier for the policy. |
+| `life_assurance` | `null` | No | Life assurance–specific fields (present when `type=life_assurance`). |
 | `object` | `string` | No | Object type |
+| `opted_out_at` | `null | string` | No | UTC timestamp of the moment the member opted out of this policy during the cooling-off window. |
 | `plan` | `any` | Yes | Plan information for this policy |
 | `provider` | `any` | Yes | Provider information for this policy |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
@@ -3482,6 +3536,113 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `ProviderEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `KotaSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## SalaryEntity
+
+```ts
+const salary = client.Salary()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `amount` | `number` | Yes | Salary amount, in the given currency and pay frequency |
+| `currency` | `string` | Yes | ISO currency code the amount is denominated in |
+| `effective_from` | `string` | Yes | Date from which this salary is effective |
+| `employee_id` | `string` | Yes | Unique identifier for the employee this salary belongs to |
+| `id` | `string` | Yes | Unique identifier for the salary record |
+| `object` | `string` | No | The object type |
+| `pay_frequency` | `string` | Yes | The period this amount represents (e.g. |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `current` | `/employees/{employee_id}/salaries/current` | `client.Salary().load({ $action: 'current', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Salary record — check the API definition for its shape.
+
+```ts
+const result = await client.Salary().load({
+  $action: 'current',
+  /* ...the action's own arguments */
+})
+```
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.Salary().create({
+  employee_id: 'example_employee_id',
+  amount: 1,
+  currency: 'example_currency',
+  effective_from: 'example_effective_from',
+  id: 'example_id',
+  pay_frequency: 'example_pay_frequency',
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Salary().list({ employee_id: "example" })
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+
+```ts
+const result = await client.Salary().load({ id: 'salary_id', employee_id: 'employee_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Salary().remove({ id: 'salary_id', employee_id: 'employee_id' })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `SalaryEntity` instance with the same client and
 options.
 
 #### `client()`

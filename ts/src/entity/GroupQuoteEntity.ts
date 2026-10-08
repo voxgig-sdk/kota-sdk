@@ -16,7 +16,7 @@ import type {
 
 import type {
   GroupQuote,
-  GroupQuoteLoadMatch,
+  GroupQuoteListMatch,
 } from '../KotaTypes'
 
 class GroupQuoteEntity extends KotaEntityBase<GroupQuote> {
@@ -35,7 +35,8 @@ class GroupQuoteEntity extends KotaEntityBase<GroupQuote> {
 
 
 
-  async load(this: any, reqmatch?: GroupQuoteLoadMatch, ctrl?: Control): Promise<GroupQuoteEntity> {
+
+  async list(this: any, reqmatch?: GroupQuoteListMatch, ctrl?: Control): Promise<GroupQuoteEntity[]> {
 
     const utility = this._utility
 
@@ -55,7 +56,7 @@ class GroupQuoteEntity extends KotaEntityBase<GroupQuote> {
     let fres: Promise<any> | undefined = undefined
 
     let ctx: Context = makeContext({
-      opname: 'load',
+      opname: 'list',
       ctrl,
       match: this._match,
       data: this._data,
@@ -121,15 +122,9 @@ class GroupQuoteEntity extends KotaEntityBase<GroupQuote> {
         if (null != ctx.result.resmatch) {
           this._match = ctx.result.resmatch
         }
-
-        if (null != ctx.result.resdata) {
-          this._data = ctx.result.resdata
-        }
       }
 
-      const out = done(ctx)
-
-      return (ctx.result && ctx.result.ok) ? this : out
+      return done(ctx)
     }
     catch (err: any) {
       // What a hook throws here must not escape the cleaning below.
@@ -149,12 +144,11 @@ class GroupQuoteEntity extends KotaEntityBase<GroupQuote> {
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<GroupQuoteEntity> return stays clean under strict null checks.
+        // Promise<GroupQuoteEntity[]> return stays clean under strict null checks.
         return undefined as any
       }
     }
   }
-
 
 
 

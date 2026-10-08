@@ -38,9 +38,9 @@ describe('GroupQuoteDirect', async () => {
   })
 
 
-  test('direct-load-group_quote', async (t) => {
+  test('direct-list-group_quote', async (t) => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
-    const setup = directSetup({ id: 'direct01' })
+    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (skipIfMissingIds(t, setup, ["group_quote_intent01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
@@ -59,16 +59,16 @@ describe('GroupQuoteDirect', async () => {
 
     if (setup.live) {
       if (!result.ok || result.status < 200 || result.status >= 300) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load failed: ' + describeLive(result))
+        return void liveMiss(t, LIVE_STRICT, 'Live list failed: ' + describeLive(result))
       }
-      if (!(null != result.data)) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load returned no data: ' + describeLive(result))
+      if (!(Array.isArray(result.data))) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list returned no list: ' + describeLive(result))
       }
     } else {
       assert(result.ok === true)
       assert(result.status === 200)
-      assert(null != result.data)
-      assert(result.data.id === 'direct01')
+      assert(Array.isArray(result.data))
+      assert(result.data.length === 2)
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))

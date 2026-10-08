@@ -165,6 +165,9 @@ func init() {
 	core.NewProviderEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
 		return entity.NewProviderEntity(client, entopts)
 	}
+	core.NewSalaryEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
+		return entity.NewSalaryEntity(client, entopts)
+	}
 	core.NewWebhookEndpointEntityFunc = func(client *core.KotaSDK, entopts map[string]any) core.KotaEntity {
 		return entity.NewWebhookEndpointEntity(client, entopts)
 	}

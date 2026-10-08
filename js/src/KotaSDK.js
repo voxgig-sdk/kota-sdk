@@ -37,6 +37,7 @@ const { PolicyEntity } = require('./entity/PolicyEntity')
 const { PolicyAmendmentIntentEntity } = require('./entity/PolicyAmendmentIntentEntity')
 const { PolicyImportIntentEntity } = require('./entity/PolicyImportIntentEntity')
 const { ProviderEntity } = require('./entity/ProviderEntity')
+const { SalaryEntity } = require('./entity/SalaryEntity')
 const { WebhookEndpointEntity } = require('./entity/WebhookEndpointEntity')
 
 
@@ -693,6 +694,15 @@ class KotaSDK {
   Provider(entopts) {
     const self = this
     return new ProviderEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Salary().list()` / `client.Salary().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Salary(entopts) {
+    const self = this
+    return new SalaryEntity(self, entopts)
   }
 
 

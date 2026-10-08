@@ -62,7 +62,7 @@ main: kit: entity: group_quote_intent_requirement_response_paged_list: {
                 n: "object_type"
                 or: "object_type"
                 r: false
-                t: "`$ANY`"
+                t: "`$STRING`"
               }
               {
                 k: "query"

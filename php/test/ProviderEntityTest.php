@@ -182,7 +182,7 @@ class ProviderEntityTest extends TestCase
         $client = KotaSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
         $err = null;
         try {
-            $client->Provider(null)->list(["page" => 'x'], null);
+            $client->Provider(null)->list(["country" => 1], null);
         } catch (\Throwable $e) {
             $err = $e;
         }

@@ -149,7 +149,7 @@ main: kit: entity: event: {
                 n: "order_direction"
                 or: "order_direction"
                 r: false
-                t: "`$ANY`"
+                t: "`$STRING`"
               }
               {
                 k: "query"
@@ -170,7 +170,7 @@ main: kit: entity: event: {
                 n: "version"
                 or: "version"
                 r: false
-                t: "`$ANY`"
+                t: "`$STRING`"
               }
             ]
           }

@@ -894,6 +894,14 @@
             "field": {}
           },
           "fields": {
+            "aggregates": {
+              "a": true,
+              "h": "Aggregates",
+              "n": "aggregates",
+              "r": true,
+              "sh": "Summary figures for the report, meant for dashboards and overviews.",
+              "t": "`$ANY`"
+            },
             "created_at": {
               "a": true,
               "fo": "date-time",
@@ -924,6 +932,28 @@
                   "`$STRING`"
                 ]
               ]
+            },
+            "file_id": {
+              "a": true,
+              "h": "File Id",
+              "n": "file_id",
+              "r": false,
+              "sh": "Identifier of the report's downloadable CSV file.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
+            "file_status": {
+              "a": true,
+              "h": "File Status",
+              "n": "file_status",
+              "r": false,
+              "sh": "Whether the report's downloadable CSV is ready yet.",
+              "t": "`$NULL`"
             },
             "finalized_at": {
               "a": true,
@@ -2843,6 +2873,16 @@
               "h": "Phone Number",
               "n": "phone_number",
               "op": {
+                "create": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                },
                 "update": {
                   "req": false,
                   "type": [
@@ -2856,7 +2896,13 @@
               },
               "r": true,
               "sh": "Phone number in E.164 international format (e.g.",
-              "t": "`$STRING`"
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "platform_id": {
               "a": true,
@@ -4259,6 +4305,20 @@
             "field": {}
           },
           "fields": {
+            "applicable_collective_agreement": {
+              "a": true,
+              "h": "Applicable Collective Agreement",
+              "n": "applicable_collective_agreement",
+              "r": false,
+              "sh": "Name of the collective agreement that applies to the employer's workforce, if any.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
             "contact": {
               "a": true,
               "h": "Contact",
@@ -4479,6 +4539,7 @@
                 {
                   "a": true,
                   "bf": [
+                    "applicable_collective_agreement",
                     "contact",
                     "earliest_benefits_start_date",
                     "legal_address",
@@ -4675,6 +4736,7 @@
                 {
                   "a": true,
                   "bf": [
+                    "applicable_collective_agreement",
                     "contact",
                     "earliest_benefits_start_date",
                     "legal_address",
@@ -6228,7 +6290,7 @@
                         "n": "object_type",
                         "or": "object_type",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -6453,7 +6515,7 @@
                         "n": "order_direction",
                         "or": "order_direction",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -6477,7 +6539,7 @@
                         "n": "version",
                         "or": "version",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       }
                     ]
                   },
@@ -7385,6 +7447,22 @@
               "sh": "Unique identifier for the group policy.",
               "t": "`$STRING`"
             },
+            "life_assurance": {
+              "a": true,
+              "h": "Life Assurance",
+              "n": "life_assurance",
+              "r": false,
+              "sh": "Life assurance–specific fields (present when `type=life_assurance`).",
+              "t": "`$NULL`"
+            },
+            "linked_group_policy_ids": {
+              "a": true,
+              "h": "Linked Group Policy Ids",
+              "n": "linked_group_policy_ids",
+              "r": true,
+              "sh": "The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase.",
+              "t": "`$ARRAY`"
+            },
             "object": {
               "a": true,
               "h": "Object",
@@ -7634,7 +7712,7 @@
               "h": "Cost Sharing",
               "n": "cost_sharing",
               "r": false,
-              "sh": "Cost sharing configuration for the policy intent",
+              "sh": "Cost sharing configuration for the policy intent.",
               "t": "`$NULL`"
             },
             "disclosures": {
@@ -7665,8 +7743,22 @@
               "h": "Group Id",
               "n": "group_id",
               "r": true,
-              "sh": "Unique identifier for the group",
-              "t": "`$STRING`"
+              "sh": "Unique identifier for the group.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
+            },
+            "group_policy_ids": {
+              "a": true,
+              "h": "Group Policy Ids",
+              "n": "group_policy_ids",
+              "r": true,
+              "sh": "The group policies created for this intent, one per level, once they exist.",
+              "t": "`$ARRAY`"
             },
             "id": {
               "a": true,
@@ -7675,6 +7767,14 @@
               "r": true,
               "sh": "Unique identifier for the group policy intent",
               "t": "`$STRING`"
+            },
+            "items": {
+              "a": true,
+              "h": "Items",
+              "n": "items",
+              "r": true,
+              "sh": "The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent.",
+              "t": "`$ARRAY`"
             },
             "object": {
               "a": true,
@@ -7690,8 +7790,14 @@
               "h": "Plan Id",
               "n": "plan_id",
               "r": true,
-              "sh": "Unique identifier for the plan",
-              "t": "`$STRING`"
+              "sh": "Unique identifier for the plan.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "quote_intent_id": {
               "a": true,
@@ -7708,6 +7814,14 @@
               "r": true,
               "sh": "Current status of the group policy intent",
               "t": "`$STRING`"
+            },
+            "type": {
+              "a": true,
+              "h": "Type",
+              "n": "type",
+              "r": false,
+              "sh": "Whether the accepted quote covers one (group, plan) pair or several levels.",
+              "t": "`$NULL`"
             }
           },
           "id": {
@@ -7724,7 +7838,6 @@
                   "a": true,
                   "bf": [
                     "consent_approvals",
-                    "cost_sharing",
                     "quote_intent_id"
                   ],
                   "co": {
@@ -7827,6 +7940,14 @@
                         "k": "query",
                         "n": "status",
                         "or": "status",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "k": "query",
+                        "n": "type",
+                        "or": "type",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -7992,7 +8113,7 @@
                         "n": "object_type",
                         "or": "object_type",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -8059,13 +8180,21 @@
             "field": {}
           },
           "fields": {
+            "breakdown": {
+              "a": true,
+              "h": "Breakdown",
+              "n": "breakdown",
+              "r": true,
+              "sh": "What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any.",
+              "t": "`$ARRAY`"
+            },
             "cost_sharing": {
               "a": true,
               "h": "Cost Sharing",
               "n": "cost_sharing",
-              "r": true,
-              "sh": "Cost sharing configuration for the quote",
-              "t": "`$ANY`"
+              "r": false,
+              "sh": "Cost sharing configuration for the quote.",
+              "t": "`$NULL`"
             },
             "currency": {
               "a": true,
@@ -8081,7 +8210,7 @@
               "h": "Employee Count",
               "n": "employee_count",
               "r": true,
-              "sh": "Number of employees covered by the quote",
+              "sh": "Number of employees covered by the quote.",
               "t": "`$INTEGER`"
             },
             "expires_at": {
@@ -8101,6 +8230,14 @@
               "r": true,
               "sh": "When the quote was generated",
               "t": "`$STRING`"
+            },
+            "levels": {
+              "a": true,
+              "h": "Levels",
+              "n": "levels",
+              "r": true,
+              "sh": "The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position.",
+              "t": "`$ARRAY`"
             },
             "object": {
               "a": true,
@@ -8131,7 +8268,7 @@
               "h": "Pdf Url",
               "n": "pdf_url",
               "r": false,
-              "sh": "URL to download the quote PDF",
+              "sh": "URL to download the quote PDF.",
               "t": [
                 "`$ONE`",
                 [
@@ -8140,21 +8277,38 @@
                 ]
               ]
             },
+            "quote_pdfs": {
+              "a": true,
+              "h": "Quote Pdfs",
+              "n": "quote_pdfs",
+              "r": true,
+              "sh": "The documents the provider issued for the quote as a whole.",
+              "t": "`$ARRAY`"
+            },
+            "total_annual_premium": {
+              "a": true,
+              "fo": "double",
+              "h": "Total Annual Premium",
+              "n": "total_annual_premium",
+              "r": true,
+              "sh": "Total annual premium for the group, excluding any insurance premium tax.",
+              "t": "`$NUMBER`"
+            },
             "total_monthly_premium": {
               "a": true,
               "fo": "double",
               "h": "Total Monthly Premium",
               "n": "total_monthly_premium",
               "r": true,
-              "sh": "Total monthly premium for the group",
+              "sh": "Total monthly premium for the group, excluding any insurance premium tax.",
               "t": "`$NUMBER`"
             }
           },
           "name": "group_quote",
           "op": {
-            "load": {
+            "list": {
               "input": "data",
-              "name": "load",
+              "name": "list",
               "points": [
                 {
                   "a": true,
@@ -8245,7 +8399,7 @@
               "h": "Consent Links",
               "n": "consent_links",
               "r": true,
-              "sh": "Consent links that need to be acknowledged",
+              "sh": "The statements the customer must accept to proceed, each a sentence and the documents it names.",
               "t": "`$ARRAY`"
             },
             "cost_sharing": {
@@ -8253,7 +8407,7 @@
               "h": "Cost Sharing",
               "n": "cost_sharing",
               "r": false,
-              "sh": "Cost sharing configuration for the quote",
+              "sh": "Cost sharing configuration for the quote.",
               "t": "`$NULL`"
             },
             "coverage_selections": {
@@ -8297,9 +8451,27 @@
               "a": true,
               "h": "Group Id",
               "n": "group_id",
+              "op": {
+                "create": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
-              "sh": "Unique identifier for the group",
-              "t": "`$STRING`"
+              "sh": "Unique identifier for the group.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "id": {
               "a": true,
@@ -8308,6 +8480,26 @@
               "r": true,
               "sh": "Unique identifier for the group quote intent",
               "t": "`$STRING`"
+            },
+            "items": {
+              "a": true,
+              "h": "Items",
+              "n": "items",
+              "op": {
+                "create": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$ARRAY`"
+                    ]
+                  ]
+                }
+              },
+              "r": true,
+              "sh": "The benefits this intent quotes and the levels they are quoted at.",
+              "t": "`$ARRAY`"
             },
             "object": {
               "a": true,
@@ -8322,9 +8514,27 @@
               "a": true,
               "h": "Plan Id",
               "n": "plan_id",
+              "op": {
+                "create": {
+                  "req": false,
+                  "type": [
+                    "`$ONE`",
+                    [
+                      "`$NULL`",
+                      "`$STRING`"
+                    ]
+                  ]
+                }
+              },
               "r": true,
-              "sh": "Unique identifier for the plan",
-              "t": "`$STRING`"
+              "sh": "Unique identifier for the plan.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "status": {
               "a": true,
@@ -8333,6 +8543,14 @@
               "r": true,
               "sh": "Current status of the group quote intent",
               "t": "`$STRING`"
+            },
+            "type": {
+              "a": true,
+              "h": "Type",
+              "n": "type",
+              "r": false,
+              "sh": "Whether the intent quotes one (group, plan) pair or several levels.",
+              "t": "`$NULL`"
             }
           },
           "id": {
@@ -8412,6 +8630,7 @@
                     "coverage_selections",
                     "expected_start_date",
                     "group_id",
+                    "items",
                     "plan_id"
                   ],
                   "co": {
@@ -8514,6 +8733,14 @@
                         "k": "query",
                         "n": "status",
                         "or": "status",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "k": "query",
+                        "n": "type",
+                        "or": "type",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -8679,7 +8906,7 @@
                         "n": "object_type",
                         "or": "object_type",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -8863,6 +9090,14 @@
               "sh": "Unique identifier for the plan.",
               "t": "`$STRING`"
             },
+            "indicative_pricing": {
+              "a": true,
+              "h": "Indicative Pricing",
+              "n": "indicative_pricing",
+              "r": false,
+              "sh": "Average monthly guide prices used when exact catalog pricing is unavailable.",
+              "t": "`$NULL`"
+            },
             "ineligible_count": {
               "a": true,
               "fo": "int32",
@@ -8877,6 +9112,14 @@
                   "`$INTEGER`"
                 ]
               ]
+            },
+            "life_assurance": {
+              "a": true,
+              "h": "Life Assurance",
+              "n": "life_assurance",
+              "r": false,
+              "sh": "Life assurance-specific details.",
+              "t": "`$NULL`"
             },
             "name": {
               "a": true,
@@ -8970,7 +9213,7 @@
                         "n": "country",
                         "or": "country",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -9011,7 +9254,7 @@
                         "n": "sort_by",
                         "or": "sort_by",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -9019,7 +9262,7 @@
                         "n": "sort_dir",
                         "or": "sort_dir",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -9242,6 +9485,14 @@
               "sh": "Unique identifier for the policy.",
               "t": "`$STRING`"
             },
+            "life_assurance": {
+              "a": true,
+              "h": "Life Assurance",
+              "n": "life_assurance",
+              "r": false,
+              "sh": "Life assurance–specific fields (present when `type=life_assurance`).",
+              "t": "`$NULL`"
+            },
             "object": {
               "a": true,
               "h": "Object",
@@ -9250,6 +9501,21 @@
               "ro": true,
               "sh": "Object type",
               "t": "`$STRING`"
+            },
+            "opted_out_at": {
+              "a": true,
+              "fo": "date-time",
+              "h": "Opted Out At",
+              "n": "opted_out_at",
+              "r": false,
+              "sh": "UTC timestamp of the moment the member opted out of this policy during the cooling-off window.",
+              "t": [
+                "`$ONE`",
+                [
+                  "`$NULL`",
+                  "`$STRING`"
+                ]
+              ]
             },
             "plan": {
               "a": true,
@@ -10429,7 +10695,7 @@
                         "n": "country",
                         "or": "country",
                         "r": false,
-                        "t": "`$ANY`"
+                        "t": "`$STRING`"
                       },
                       {
                         "a": true,
@@ -10539,6 +10805,476 @@
           },
           "relations": {
             "ancestors": []
+          }
+        },
+        "salary": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": {
+            "amount": {
+              "a": true,
+              "fo": "double",
+              "h": "Amount",
+              "n": "amount",
+              "r": true,
+              "sh": "Salary amount, in the given currency and pay frequency",
+              "t": "`$NUMBER`"
+            },
+            "currency": {
+              "a": true,
+              "h": "Currency",
+              "n": "currency",
+              "r": true,
+              "sh": "ISO currency code the amount is denominated in",
+              "t": "`$STRING`"
+            },
+            "effective_from": {
+              "a": true,
+              "fo": "date",
+              "h": "Effective From",
+              "n": "effective_from",
+              "r": true,
+              "sh": "Date from which this salary is effective",
+              "t": "`$STRING`"
+            },
+            "employee_id": {
+              "a": true,
+              "h": "Employee Id",
+              "n": "employee_id",
+              "r": true,
+              "sh": "Unique identifier for the employee this salary belongs to",
+              "t": "`$STRING`"
+            },
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": true,
+              "sh": "Unique identifier for the salary record",
+              "t": "`$STRING`"
+            },
+            "object": {
+              "a": true,
+              "h": "Object",
+              "n": "object",
+              "r": false,
+              "ro": true,
+              "sh": "The object type",
+              "t": "`$STRING`"
+            },
+            "pay_frequency": {
+              "a": true,
+              "h": "Pay Frequency",
+              "n": "pay_frequency",
+              "r": true,
+              "sh": "The period this amount represents (e.g.",
+              "t": "`$STRING`"
+            }
+          },
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "salary",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "a": true,
+                  "bf": [
+                    "amount",
+                    "currency",
+                    "effective_from",
+                    "pay_frequency"
+                  ],
+                  "co": {
+                    "id": "POST /employees/{employee_id}/salaries",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "header": [
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "idempotency_key",
+                        "or": "Idempotency-Key",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "x_platform_id",
+                        "or": "X-Platform-Id",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "employee_id",
+                        "or": "employee_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/employees/{employee_id}/salaries",
+                  "q": {
+                    "exist": [
+                      "employee_id"
+                    ]
+                  },
+                  "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "salaries"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /employees/{employee_id}/salaries",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "header": [
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "x_platform_id",
+                        "or": "X-Platform-Id",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "employee_id",
+                        "or": "employee_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "a": true,
+                        "k": "query",
+                        "n": "page",
+                        "or": "page",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "k": "query",
+                        "n": "page_size",
+                        "or": "page_size",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/employees/{employee_id}/salaries",
+                  "q": {
+                    "exist": [
+                      "employee_id"
+                    ]
+                  },
+                  "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "salaries"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body.items`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /employees/{employee_id}/salaries/{salary_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "header": [
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "x_platform_id",
+                        "or": "X-Platform-Id",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "employee_id",
+                        "or": "employee_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "id",
+                        "or": "salary_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/employees/{employee_id}/salaries/{salary_id}",
+                  "q": {
+                    "exist": [
+                      "employee_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "salary_id": "id"
+                    }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "salaries"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /employees/{employee_id}/salaries/current",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "header": [
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "x_platform_id",
+                        "or": "X-Platform-Id",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "employee_id",
+                        "or": "employee_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/employees/{employee_id}/salaries/current",
+                  "q": {
+                    "$action": "current",
+                    "exist": [
+                      "employee_id"
+                    ]
+                  },
+                  "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "salaries"
+                    },
+                    {
+                      "lit": "current"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "DELETE /employees/{employee_id}/salaries/{salary_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "header": [
+                      {
+                        "a": true,
+                        "k": "header",
+                        "n": "x_platform_id",
+                        "or": "X-Platform-Id",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "employee_id",
+                        "or": "employee_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+                        "k": "param",
+                        "n": "id",
+                        "or": "salary_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "DELETE",
+                  "o": "/employees/{employee_id}/salaries/{salary_id}",
+                  "q": {
+                    "exist": [
+                      "employee_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "salary_id": "id"
+                    }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "employees"
+                    },
+                    {
+                      "var": "employee_id"
+                    },
+                    {
+                      "lit": "salaries"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "$.main.kit.entity.employee"
+              ]
+            ]
           }
         },
         "webhook_endpoint": {
@@ -12848,21 +13584,17 @@
             {
               "a": true,
               "d": {},
-              "i": {
-                "ref": "group_quote_ref01",
-                "srcdatavar": "group_quote_ref01_data",
-                "suffix": "_dt0"
-              },
+              "i": {},
               "m": {
-                "id": "group_quote01"
+                "group_quote_intent_id": "group_quote_intent01"
               },
-              "o": "load",
+              "o": "list",
               "s": [],
               "v": [
                 {
-                  "apply": "TextFieldMark",
+                  "apply": "ItemExists",
                   "def": {
-                    "mark": "Mark01-group_quote_ref01"
+                    "ref": "group_quote_ref01"
                   }
                 }
               ]
@@ -13217,6 +13949,104 @@
                   "apply": "TextFieldMark",
                   "def": {
                     "mark": "Mark01-provider_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicSalaryFlow": {
+          "active": true,
+          "entity": "salary",
+          "key$": "BasicSalaryFlow",
+          "kind": "basic",
+          "name": "BasicSalaryFlow",
+          "param": {},
+          "step": [
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "salary_ref01"
+              },
+              "m": {
+                "employee_id": "employee01"
+              },
+              "o": "create",
+              "s": [],
+              "v": []
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {
+                "employee_id": "employee01"
+              },
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "salary_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "salary_ref01",
+                "srcdatavar": "salary_ref01_data",
+                "suffix": "_dt0"
+              },
+              "m": {
+                "id": "salary01"
+              },
+              "o": "load",
+              "s": [],
+              "v": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-salary_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "salary_ref01",
+                "suffix": "_rm0"
+              },
+              "m": {
+                "employee_id": "employee01",
+                "id": "salary01"
+              },
+              "o": "remove",
+              "s": [],
+              "v": []
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "suffix": "_rt0"
+              },
+              "m": {
+                "employee_id": "employee01"
+              },
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemNotExists",
+                  "def": {
+                    "ref": "salary_ref01"
                   }
                 }
               ]

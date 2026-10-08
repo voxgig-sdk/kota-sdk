@@ -175,7 +175,7 @@ func TestProviderEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.Provider(nil).List(map[string]any{"page": "x"}, nil)
+		_, err := client.Provider(nil).List(map[string]any{"country": 1}, nil)
 		if sdkerr, ok := err.(*core.KotaError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}

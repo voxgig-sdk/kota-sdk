@@ -92,9 +92,12 @@
 
 /**
  * @typedef {Object} ContributionReport
+ * @property {*} aggregates
  * @property {string} created_at
  * @property {string} employer_id
  * @property {null|string} [external_customer_id]
+ * @property {null|string} [file_id]
+ * @property {null} [file_status]
  * @property {null|string} [finalized_at]
  * @property {string} id
  * @property {string} last_updated_at
@@ -122,9 +125,12 @@
 /**
  * @typedef {Object} ContributionReportCreateData
  * @property {string} id
+ * @property {*} aggregates
  * @property {string} created_at
  * @property {string} employer_id
  * @property {null|string} [external_customer_id]
+ * @property {null|string} [file_id]
+ * @property {null} [file_status]
  * @property {null|string} [finalized_at]
  * @property {string} last_updated_at
  * @property {string} [object]
@@ -312,7 +318,7 @@
  * @property {null} [nationality]
  * @property {string} [object]
  * @property {null|string} [offboard_on]
- * @property {string} phone_number
+ * @property {null|string} phone_number
  * @property {string} [platform_id]
  * @property {string} sex_at_birth
  * @property {string} [start_on]
@@ -351,7 +357,7 @@
  * @property {null} [nationality]
  * @property {string} [object]
  * @property {null|string} [offboard_on]
- * @property {string} phone_number
+ * @property {null|string} phone_number
  * @property {string} [platform_id]
  * @property {string} sex_at_birth
  * @property {string} [start_on]
@@ -375,7 +381,7 @@
  * @property {null} [nationality]
  * @property {string} [object]
  * @property {null|string} [offboard_on]
- * @property {string} [phone_number]
+ * @property {null|string} [phone_number]
  * @property {string} [platform_id]
  * @property {string} [sex_at_birth]
  * @property {string} [start_on]
@@ -475,6 +481,7 @@
 
 /**
  * @typedef {Object} Employer
+ * @property {null|string} [applicable_collective_agreement]
  * @property {*} contact
  * @property {null|string} [earliest_benefits_start_date]
  * @property {string} id
@@ -502,6 +509,7 @@
 
 /**
  * @typedef {Object} EmployerCreateData
+ * @property {null|string} [applicable_collective_agreement]
  * @property {*} contact
  * @property {null|string} [earliest_benefits_start_date]
  * @property {string} id
@@ -518,6 +526,7 @@
 /**
  * @typedef {Object} EmployerUpdateData
  * @property {string} id
+ * @property {null|string} [applicable_collective_agreement]
  * @property {*} [contact]
  * @property {null|string} [earliest_benefits_start_date]
  * @property {*} [legal_address]
@@ -692,7 +701,7 @@
  * @typedef {Object} EnrolmentIntentRequirementResponsePagedListListMatch
  * @property {string} id
  * @property {string} [object_id]
- * @property {*} [object_type]
+ * @property {string} [object_type]
  * @property {number} [page]
  * @property {number} [page_size]
  */
@@ -715,10 +724,10 @@
 /**
  * @typedef {Object} EventListMatch
  * @property {string} [created_after]
- * @property {*} [order_direction]
+ * @property {string} [order_direction]
  * @property {number} [page]
  * @property {number} [page_size]
- * @property {*} [version]
+ * @property {string} [version]
  */
 
 /**
@@ -845,6 +854,8 @@
  * @property {string} [group_id]
  * @property {null} [health_insurance]
  * @property {string} id
+ * @property {null} [life_assurance]
+ * @property {Array} linked_group_policy_ids
  * @property {string} [object]
  * @property {*} plan
  * @property {*} provider
@@ -874,12 +885,15 @@
  * @property {null} [cost_sharing]
  * @property {Array} disclosures
  * @property {null|string} [due_date]
- * @property {string} group_id
+ * @property {null|string} group_id
+ * @property {Array} group_policy_ids
  * @property {string} id
+ * @property {Array} items
  * @property {string} [object]
- * @property {string} plan_id
+ * @property {null|string} plan_id
  * @property {string} quote_intent_id
  * @property {string} status
+ * @property {null} [type]
  */
 
 /**
@@ -894,6 +908,7 @@
  * @property {number} [page_size]
  * @property {string} [plan_id]
  * @property {string} [status]
+ * @property {string} [type]
  */
 
 /**
@@ -903,12 +918,15 @@
  * @property {null} [cost_sharing]
  * @property {Array} disclosures
  * @property {null|string} [due_date]
- * @property {string} group_id
+ * @property {null|string} group_id
+ * @property {Array} group_policy_ids
  * @property {string} id
+ * @property {Array} items
  * @property {string} [object]
- * @property {string} plan_id
+ * @property {null|string} plan_id
  * @property {string} quote_intent_id
  * @property {string} status
+ * @property {null} [type]
  */
 
 /**
@@ -920,26 +938,30 @@
  * @typedef {Object} GroupPolicyIntentRequirementResponsePagedListListMatch
  * @property {string} id
  * @property {string} [object_id]
- * @property {*} [object_type]
+ * @property {string} [object_type]
  * @property {number} [page]
  * @property {number} [page_size]
  */
 
 /**
  * @typedef {Object} GroupQuote
- * @property {*} cost_sharing
+ * @property {Array} breakdown
+ * @property {null} [cost_sharing]
  * @property {string} currency
  * @property {number} employee_count
  * @property {string} expires_at
  * @property {string} generated_at
+ * @property {Array} levels
  * @property {string} [object]
  * @property {null|string} [pdf_expires_at]
  * @property {null|string} [pdf_url]
+ * @property {Array} quote_pdfs
+ * @property {number} total_annual_premium
  * @property {number} total_monthly_premium
  */
 
 /**
- * @typedef {Object} GroupQuoteLoadMatch
+ * @typedef {Object} GroupQuoteListMatch
  * @property {string} group_quote_intent_id
  */
 
@@ -951,11 +973,13 @@
  * @property {null|Array} [coverage_selections]
  * @property {Array} disclosures
  * @property {null|string} [expected_start_date]
- * @property {string} group_id
+ * @property {null|string} group_id
  * @property {string} id
+ * @property {Array} items
  * @property {string} [object]
- * @property {string} plan_id
+ * @property {null|string} plan_id
  * @property {string} status
+ * @property {null} [type]
  */
 
 /**
@@ -970,6 +994,7 @@
  * @property {number} [page_size]
  * @property {string} [plan_id]
  * @property {string} [status]
+ * @property {string} [type]
  */
 
 /**
@@ -980,11 +1005,13 @@
  * @property {null|Array} [coverage_selections]
  * @property {Array} disclosures
  * @property {null|string} [expected_start_date]
- * @property {string} group_id
+ * @property {null|string} group_id
  * @property {string} id
+ * @property {Array} items
  * @property {string} [object]
- * @property {string} plan_id
+ * @property {null|string} plan_id
  * @property {string} status
+ * @property {null} [type]
  */
 
 /**
@@ -996,7 +1023,7 @@
  * @typedef {Object} GroupQuoteIntentRequirementResponsePagedListListMatch
  * @property {string} id
  * @property {string} [object_id]
- * @property {*} [object_type]
+ * @property {string} [object_type]
  * @property {number} [page]
  * @property {number} [page_size]
  */
@@ -1015,7 +1042,9 @@
  * @property {Array} employer_eligibility_criteria
  * @property {null} [health_insurance]
  * @property {string} id
+ * @property {null} [indicative_pricing]
  * @property {null|number} [ineligible_count]
+ * @property {null} [life_assurance]
  * @property {string} name
  * @property {string} [object]
  * @property {*} provider
@@ -1033,13 +1062,13 @@
 /**
  * @typedef {Object} PlanListMatch
  * @property {string} [available_on]
- * @property {*} [country]
+ * @property {string} [country]
  * @property {string} [group_id]
  * @property {number} [page]
  * @property {number} [page_size]
  * @property {string} [provider_id]
- * @property {*} [sort_by]
- * @property {*} [sort_dir]
+ * @property {string} [sort_by]
+ * @property {string} [sort_dir]
  * @property {string} [start_date]
  * @property {string} [type]
  */
@@ -1055,7 +1084,9 @@
  * @property {string} group_policy_id
  * @property {null} [health_insurance]
  * @property {string} id
+ * @property {null} [life_assurance]
  * @property {string} [object]
+ * @property {null|string} [opted_out_at]
  * @property {*} plan
  * @property {*} provider
  * @property {string} start_date
@@ -1183,9 +1214,50 @@
 
 /**
  * @typedef {Object} ProviderListMatch
- * @property {*} [country]
+ * @property {string} [country]
  * @property {number} [page]
  * @property {number} [page_size]
+ */
+
+/**
+ * @typedef {Object} Salary
+ * @property {number} amount
+ * @property {string} currency
+ * @property {string} effective_from
+ * @property {string} employee_id
+ * @property {string} id
+ * @property {string} [object]
+ * @property {string} pay_frequency
+ */
+
+/**
+ * @typedef {Object} SalaryLoadMatch
+ * @property {string} employee_id
+ * @property {string} id
+ */
+
+/**
+ * @typedef {Object} SalaryListMatch
+ * @property {string} employee_id
+ * @property {number} [page]
+ * @property {number} [page_size]
+ */
+
+/**
+ * @typedef {Object} SalaryCreateData
+ * @property {string} employee_id
+ * @property {number} amount
+ * @property {string} currency
+ * @property {string} effective_from
+ * @property {string} id
+ * @property {string} [object]
+ * @property {string} pay_frequency
+ */
+
+/**
+ * @typedef {Object} SalaryRemoveMatch
+ * @property {string} employee_id
+ * @property {string} id
  */
 
 /**

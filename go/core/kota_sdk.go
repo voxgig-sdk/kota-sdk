@@ -668,6 +668,14 @@ func (sdk *KotaSDK) Provider(data map[string]any) KotaEntity {
 }
 
 
+// Salary returns a Salary entity bound to this client.
+// Idiomatic usage: client.Salary(nil).List(nil, nil) or
+// client.Salary(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *KotaSDK) Salary(data map[string]any) KotaEntity {
+	return NewSalaryEntityFunc(sdk, data)
+}
+
+
 // WebhookEndpoint returns a WebhookEndpoint entity bound to this client.
 // Idiomatic usage: client.WebhookEndpoint(nil).List(nil, nil) or
 // client.WebhookEndpoint(nil).Load(map[string]any{"id": ...}, nil).

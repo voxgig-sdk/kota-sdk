@@ -190,6 +190,10 @@ Create a new `PolicyImportIntentEntity` instance. Pass `null` for no initial dat
 
 Create a new `ProviderEntity` instance. Pass `null` for no initial data.
 
+#### `Salary($data = null)`
+
+Create a new `SalaryEntity` instance. Pass `null` for no initial data.
+
 #### `WebhookEndpoint($data = null)`
 
 Create a new `WebhookEndpointEntity` instance. Pass `null` for no initial data.
@@ -423,9 +427,12 @@ $contribution_report = $client->ContributionReport();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `aggregates` | `mixed` | Yes | Summary figures for the report, meant for dashboards and overviews. |
 | `created_at` | `string` | Yes | Date and time the report was created |
 | `employer_id` | `string` | Yes | Unique identifier of the employer for which the report is created |
 | `external_customer_id` | `mixed` | No | Unique identifier of the customer for which the report is created. |
+| `file_id` | `mixed` | No | Identifier of the report's downloadable CSV file. |
+| `file_status` | `null` | No | Whether the report's downloadable CSV is ready yet. |
 | `finalized_at` | `mixed` | No | Date and time the report was finalized, if applicable |
 | `id` | `string` | Yes | Unique identifier for the contribution report |
 | `last_updated_at` | `string` | Yes | Date and time of the last update to the report |
@@ -442,6 +449,7 @@ Create a new entity with the given data. Returns the created entity and throws o
 ```php
 $result = $client->ContributionReport()->create([
   "id" => null, // string
+  "aggregates" => null, // mixed
   "created_at" => null, // string
   "employer_id" => null, // string
   "last_updated_at" => null, // string
@@ -980,7 +988,7 @@ $employee = $client->Employee();
 | `nationality` | `null` | No | Nationality of the employee (e.g. |
 | `object` | `string` | No | The object type |
 | `offboard_on` | `mixed` | No | Date when the employee was or will be offboarded |
-| `phone_number` | `string` | Yes | Phone number in E.164 international format (e.g. |
+| `phone_number` | `mixed` | Yes | Phone number in E.164 international format (e.g. |
 | `platform_id` | `string` | No | Unique identifier for the platform |
 | `sex_at_birth` | `string` | Yes | The sex assigned to the employee at birth |
 | `start_on` | `string` | No | Employment start date |
@@ -1005,7 +1013,7 @@ $employee = $client->Employee();
 | `nationality` | - | - | - | - |
 | `object` | - | - | - | - |
 | `offboard_on` | - | - | - | - |
-| `phone_number` | - | - | - | Yes |
+| `phone_number` | - | - | Yes | Yes |
 | `platform_id` | - | - | - | - |
 | `sex_at_birth` | - | - | - | - |
 | `start_on` | - | - | Yes | - |
@@ -1024,7 +1032,7 @@ $result = $client->Employee()->create([
   "first_name" => null, // string
   "last_name" => null, // string
   "national_tax_id" => null, // string
-  "phone_number" => null, // string
+  "phone_number" => null, // mixed
   "sex_at_birth" => null, // string
 ]);
 ```
@@ -1348,6 +1356,7 @@ $employer = $client->Employer();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `applicable_collective_agreement` | `mixed` | No | Name of the collective agreement that applies to the employer's workforce, if any. |
 | `contact` | `mixed` | Yes |  |
 | `earliest_benefits_start_date` | `mixed` | No | The earliest date this employer is permitted to set up any benefits scheme. |
 | `id` | `string` | Yes |  |
@@ -1364,6 +1373,7 @@ $employer = $client->Employer();
 
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
+| `applicable_collective_agreement` | - | - | - | - |
 | `contact` | - | - | - | Yes |
 | `earliest_benefits_start_date` | - | - | - | - |
 | `id` | - | - | - | - |
@@ -2179,6 +2189,8 @@ $group_policy = $client->GroupPolicy();
 | `group_id` | `string` | No | Identifier for the group associated with this group policy. |
 | `health_insurance` | `null` | No | Health insurance–specific fields (present when `type=health_insurance`). |
 | `id` | `string` | Yes | Unique identifier for the group policy. |
+| `life_assurance` | `null` | No | Life assurance–specific fields (present when `type=life_assurance`). |
+| `linked_group_policy_ids` | `array` | Yes | The other `group_policy` objects bought together with this one as a single scheme — the policies created from the same multi-level purchase. |
 | `object` | `string` | No | The object type |
 | `plan` | `mixed` | Yes | Plan information for this policy |
 | `provider` | `mixed` | Yes | Provider information for this policy. |
@@ -2246,15 +2258,18 @@ $group_policy_intent = $client->GroupPolicyIntent();
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the required action when the intent is in ActionRequired status. |
 | `consent_approvals` | `mixed` | No | Consent approvals to record at the time of intent creation |
-| `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the policy intent. |
 | `disclosures` | `array` | Yes | Disclosures associated with this intent. |
 | `due_date` | `mixed` | No | Due date for the policy intent |
-| `group_id` | `string` | Yes | Unique identifier for the group |
+| `group_id` | `mixed` | Yes | Unique identifier for the group. |
+| `group_policy_ids` | `array` | Yes | The group policies created for this intent, one per level, once they exist. |
 | `id` | `string` | Yes | Unique identifier for the group policy intent |
+| `items` | `array` | Yes | The benefits the accepted quote covers and the levels they were quoted at, echoed from the quote intent. |
 | `object` | `string` | No | Object type identifier |
-| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `plan_id` | `mixed` | Yes | Unique identifier for the plan. |
 | `quote_intent_id` | `string` | Yes | Unique identifier for the group quote intent this policy intent was created from |
 | `status` | `string` | Yes | Current status of the group policy intent |
+| `type` | `null` | No | Whether the accepted quote covers one (group, plan) pair or several levels. |
 
 ### Operations
 
@@ -2265,9 +2280,11 @@ Create a new entity with the given data. Returns the created entity and throws o
 ```php
 $result = $client->GroupPolicyIntent()->create([
   "disclosures" => null, // array
-  "group_id" => null, // string
+  "group_id" => null, // mixed
+  "group_policy_ids" => null, // array
   "id" => null, // string
-  "plan_id" => null, // string
+  "items" => null, // array
+  "plan_id" => null, // mixed
   "quote_intent_id" => null, // string
   "status" => null, // string
 ]);
@@ -2381,24 +2398,28 @@ $group_quote = $client->GroupQuote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost_sharing` | `mixed` | Yes | Cost sharing configuration for the quote |
+| `breakdown` | `array` | Yes | What makes up the annual cost: the premium, and the insurance premium tax charged on it when there is any. |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the quote. |
 | `currency` | `string` | Yes | Currency of the premium (e.g. |
-| `employee_count` | `int` | Yes | Number of employees covered by the quote |
+| `employee_count` | `int` | Yes | Number of employees covered by the quote. |
 | `expires_at` | `string` | Yes | When the quote expires |
 | `generated_at` | `string` | Yes | When the quote was generated |
+| `levels` | `array` | Yes | The priced levels of the quote, one per level of the intent — match them up by `group_id` and `plan_id` rather than by position. |
 | `object` | `string` | No | Object type identifier |
 | `pdf_expires_at` | `mixed` | No | When the PDF URL expires |
-| `pdf_url` | `mixed` | No | URL to download the quote PDF |
-| `total_monthly_premium` | `float` | Yes | Total monthly premium for the group |
+| `pdf_url` | `mixed` | No | URL to download the quote PDF. |
+| `quote_pdfs` | `array` | Yes | The documents the provider issued for the quote as a whole. |
+| `total_annual_premium` | `float` | Yes | Total annual premium for the group, excluding any insurance premium tax. |
+| `total_monthly_premium` | `float` | Yes | Total monthly premium for the group, excluding any insurance premium tax. |
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$result = $client->GroupQuote()->load(["group_quote_intent_id" => "group_quote_intent_id"]);
+$results = $client->GroupQuote()->list(["group_quote_intent_id" => "example"]);
 ```
 
 ### Common Methods
@@ -2442,16 +2463,36 @@ $group_quote_intent = $client->GroupQuoteIntent();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `action_required` | `null` | No | Details of the action required from the caller, if the intent is in action_required status. |
-| `consent_links` | `array` | Yes | Consent links that need to be acknowledged |
-| `cost_sharing` | `null` | No | Cost sharing configuration for the quote |
+| `consent_links` | `array` | Yes | The statements the customer must accept to proceed, each a sentence and the documents it names. |
+| `cost_sharing` | `null` | No | Cost sharing configuration for the quote. |
 | `coverage_selections` | `mixed` | No | Plan coverage option selections for group-policy-scoped configurations. |
 | `disclosures` | `array` | Yes | Disclosures associated with this intent. |
 | `expected_start_date` | `mixed` | No | Expected start date for the insurance coverage |
-| `group_id` | `string` | Yes | Unique identifier for the group |
+| `group_id` | `mixed` | Yes | Unique identifier for the group. |
 | `id` | `string` | Yes | Unique identifier for the group quote intent |
+| `items` | `array` | Yes | The benefits this intent quotes and the levels they are quoted at. |
 | `object` | `string` | No | Object type identifier |
-| `plan_id` | `string` | Yes | Unique identifier for the plan |
+| `plan_id` | `mixed` | Yes | Unique identifier for the plan. |
 | `status` | `string` | Yes | Current status of the group quote intent |
+| `type` | `null` | No | Whether the intent quotes one (group, plan) pair or several levels. |
+
+### Field Usage by Operation
+
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `action_required` | - | - | - |
+| `consent_links` | - | - | - |
+| `cost_sharing` | - | - | - |
+| `coverage_selections` | - | - | - |
+| `disclosures` | - | - | - |
+| `expected_start_date` | - | - | - |
+| `group_id` | - | - | Yes |
+| `id` | - | - | - |
+| `items` | - | - | Yes |
+| `object` | - | - | - |
+| `plan_id` | - | - | Yes |
+| `status` | - | - | - |
+| `type` | - | - | - |
 
 ### Operations
 
@@ -2463,9 +2504,10 @@ Create a new entity with the given data. Returns the created entity and throws o
 $result = $client->GroupQuoteIntent()->create([
   "consent_links" => null, // array
   "disclosures" => null, // array
-  "group_id" => null, // string
+  "group_id" => null, // mixed
   "id" => null, // string
-  "plan_id" => null, // string
+  "items" => null, // array
+  "plan_id" => null, // mixed
   "status" => null, // string
 ]);
 ```
@@ -2590,7 +2632,9 @@ $plan = $client->Plan();
 | `employer_eligibility_criteria` | `array` | Yes | Eligibility criteria that employers must meet. |
 | `health_insurance` | `null` | No | Health insurance-specific details. |
 | `id` | `string` | Yes | Unique identifier for the plan. |
+| `indicative_pricing` | `null` | No | Average monthly guide prices used when exact catalog pricing is unavailable. |
 | `ineligible_count` | `mixed` | No | Number of employees in the queried group ineligible for this plan as-of `start_date`. |
+| `life_assurance` | `null` | No | Life assurance-specific details. |
 | `name` | `string` | Yes | The name of the plan. |
 | `object` | `string` | No | Object type. |
 | `provider` | `mixed` | Yes | The provider offering this plan. |
@@ -2664,7 +2708,9 @@ $policy = $client->Policy();
 | `group_policy_id` | `string` | Yes | Identifier of the group policy id associated with this policy. |
 | `health_insurance` | `null` | No | Health insurance–specific fields (present when `type=health_insurance`) |
 | `id` | `string` | Yes | Unique identifier for the policy. |
+| `life_assurance` | `null` | No | Life assurance–specific fields (present when `type=life_assurance`). |
 | `object` | `string` | No | Object type |
+| `opted_out_at` | `mixed` | No | UTC timestamp of the moment the member opted out of this policy during the cooling-off window. |
 | `plan` | `mixed` | Yes | Plan information for this policy |
 | `provider` | `mixed` | Yes | Provider information for this policy |
 | `start_date` | `string` | Yes | Policy start (effective) date in ISO 8601 (YYYY-MM-DD) |
@@ -2964,6 +3010,95 @@ Set the entity match criteria.
 #### `make(): ProviderEntity`
 
 Create a new `ProviderEntity` instance with the same client and
+options.
+
+#### `get_name(): string`
+
+Return the entity name.
+
+
+---
+
+## SalaryEntity
+
+```php
+$salary = $client->Salary();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `amount` | `float` | Yes | Salary amount, in the given currency and pay frequency |
+| `currency` | `string` | Yes | ISO currency code the amount is denominated in |
+| `effective_from` | `string` | Yes | Date from which this salary is effective |
+| `employee_id` | `string` | Yes | Unique identifier for the employee this salary belongs to |
+| `id` | `string` | Yes | Unique identifier for the salary record |
+| `object` | `string` | No | The object type |
+| `pay_frequency` | `string` | Yes | The period this amount represents (e.g. |
+
+### Operations
+
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
+
+Create a new entity with the given data. Returns the created entity and throws on error.
+
+```php
+$result = $client->Salary()->create([
+  "employee_id" => null, // string
+  "amount" => null, // float
+  "currency" => null, // string
+  "effective_from" => null, // string
+  "id" => null, // string
+  "pay_frequency" => null, // string
+]);
+```
+
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
+
+```php
+$results = $client->Salary()->list(["employee_id" => "example"]);
+```
+
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
+
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
+
+```php
+$result = $client->Salary()->load(["id" => "salary_id", "employee_id" => "employee_id"]);
+```
+
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
+
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
+
+```php
+$result = $client->Salary()->remove(["id" => "salary_id", "employee_id" => "employee_id"]);
+```
+
+### Common Methods
+
+#### `data_get(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set($data): void`
+
+Set the entity data.
+
+#### `match_get(): array`
+
+Get the entity match criteria.
+
+#### `match_set($match): void`
+
+Set the entity match criteria.
+
+#### `make(): SalaryEntity`
+
+Create a new `SalaryEntity` instance with the same client and
 options.
 
 #### `get_name(): string`

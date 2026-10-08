@@ -94,5 +94,7 @@ var NewPolicyImportIntentEntityFunc func(client *KotaSDK, entopts map[string]any
 
 var NewProviderEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity
 
+var NewSalaryEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity
+
 var NewWebhookEndpointEntityFunc func(client *KotaSDK, entopts map[string]any) KotaEntity
 

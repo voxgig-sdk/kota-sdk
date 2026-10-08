@@ -2,59 +2,71 @@
   "existing": {
     "group_policy_intent": {
       "GROUP_POLICY_INTENT00": {
-        "action_required": "s6e",
-        "consent_approvals": "s6f",
-        "cost_sharing": "s70",
+        "action_required": "s8c",
+        "consent_approvals": "s8d",
+        "cost_sharing": "s8e",
         "disclosures": [],
-        "due_date": "s72",
+        "due_date": "s90",
         "group_id": "GROUP01",
+        "group_policy_ids": [],
         "id": "GROUP_POLICY_INTENT00",
-        "object": "s75",
+        "items": [],
+        "object": "s95",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "s78"
+        "status": "s98",
+        "type": "s99"
       },
       "GROUP_POLICY_INTENT01": {
-        "action_required": "sdc",
-        "consent_approvals": "sdd",
-        "cost_sharing": "sde",
+        "action_required": "s118",
+        "consent_approvals": "s119",
+        "cost_sharing": "s11a",
         "disclosures": [],
-        "due_date": "se0",
+        "due_date": "s11c",
         "group_id": "GROUP01",
+        "group_policy_ids": [],
         "id": "GROUP_POLICY_INTENT01",
-        "object": "se3",
+        "items": [],
+        "object": "s121",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "se6"
+        "status": "s124",
+        "type": "s125"
       },
       "GROUP_POLICY_INTENT02": {
-        "action_required": "s14a",
-        "consent_approvals": "s14b",
-        "cost_sharing": "s14c",
+        "action_required": "s1a4",
+        "consent_approvals": "s1a5",
+        "cost_sharing": "s1a6",
         "disclosures": [],
-        "due_date": "s14e",
+        "due_date": "s1a8",
         "group_id": "GROUP01",
+        "group_policy_ids": [],
         "id": "GROUP_POLICY_INTENT02",
-        "object": "s151",
+        "items": [],
+        "object": "s1ad",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "s154"
+        "status": "s1b0",
+        "type": "s1b1"
       }
     }
   },
   "new": {
     "group_policy_intent": {
       "group_policy_intent_ref01": {
-        "action_required": "s1b8",
-        "consent_approvals": "s1b9",
-        "cost_sharing": "s1ba",
+        "action_required": "s230",
+        "consent_approvals": "s231",
+        "cost_sharing": "s232",
         "disclosures": [],
-        "due_date": "s1bc",
+        "due_date": "s234",
         "group_id": "GROUP01",
-        "object": "s1bf",
+        "group_policy_ids": [],
+        "items": [],
+        "object": "s239",
         "plan_id": "PLAN01",
         "quote_intent_id": "QUOTE_INTENT01",
-        "status": "s1c2"
+        "status": "s23c",
+        "type": "s23d"
       }
     }
   },

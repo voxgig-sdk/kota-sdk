@@ -430,8 +430,21 @@ const PLAN: any[] = [
       },
       "status": "open",
       "finalized_at": "2024-12-01T00:00:00Z",
+      "file_id": "file_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "file_status": "pending",
       "created_at": "2024-12-01T00:00:00Z",
-      "last_updated_at": "2024-12-01T00:00:00Z"
+      "last_updated_at": "2024-12-01T00:00:00Z",
+      "aggregates": {
+        "employee_count": 123,
+        "totals": [
+          {
+            "currency": "eur",
+            "total_amount": 123.45,
+            "employer_amount": 123.45,
+            "employee_amount": 123.45
+          }
+        ]
+      }
     },
     "idField": "id"
   },
@@ -524,8 +537,16 @@ const PLAN: any[] = [
           },
           "status": "open",
           "finalized_at": "2024-12-01T00:00:00Z",
+          "file_id": "file_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "file_status": "pending",
           "created_at": "2024-12-01T00:00:00Z",
-          "last_updated_at": "2024-12-01T00:00:00Z"
+          "last_updated_at": "2024-12-01T00:00:00Z",
+          "aggregates": {
+            "employee_count": 123,
+            "totals": [
+              {}
+            ]
+          }
         }
       ],
       "page": 123,
@@ -584,8 +605,21 @@ const PLAN: any[] = [
       },
       "status": "open",
       "finalized_at": "2024-12-01T00:00:00Z",
+      "file_id": "file_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "file_status": "pending",
       "created_at": "2024-12-01T00:00:00Z",
-      "last_updated_at": "2024-12-01T00:00:00Z"
+      "last_updated_at": "2024-12-01T00:00:00Z",
+      "aggregates": {
+        "employee_count": 123,
+        "totals": [
+          {
+            "currency": "eur",
+            "total_amount": 123.45,
+            "employer_amount": 123.45,
+            "employee_amount": 123.45
+          }
+        ]
+      }
     },
     "idField": "id"
   },
@@ -942,7 +976,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "action_required": {
@@ -1063,7 +1106,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "action_required": {
@@ -1184,7 +1236,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "action_required": {
@@ -1300,7 +1361,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "action_required": {
@@ -1492,7 +1562,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "action_required": {
@@ -2473,6 +2552,7 @@ const PLAN: any[] = [
       },
       "offboard_on": "2024-12-01T00:00:00Z",
       "earliest_benefits_start_date": "2024-12-01",
+      "applicable_collective_agreement": "x",
       "metadata": {},
       "object": "x"
     },
@@ -2535,6 +2615,7 @@ const PLAN: any[] = [
       },
       "offboard_on": "2024-12-01T00:00:00Z",
       "earliest_benefits_start_date": "2024-12-01",
+      "applicable_collective_agreement": "x",
       "metadata": {},
       "object": "x"
     },
@@ -2615,6 +2696,7 @@ const PLAN: any[] = [
           },
           "offboard_on": "2024-12-01T00:00:00Z",
           "earliest_benefits_start_date": "2024-12-01",
+          "applicable_collective_agreement": "x",
           "metadata": {},
           "object": "x"
         }
@@ -2685,6 +2767,7 @@ const PLAN: any[] = [
       },
       "offboard_on": "2024-12-01T00:00:00Z",
       "earliest_benefits_start_date": "2024-12-01",
+      "applicable_collective_agreement": "x",
       "metadata": {},
       "object": "x"
     },
@@ -2748,6 +2831,7 @@ const PLAN: any[] = [
       },
       "offboard_on": "2024-12-01T00:00:00Z",
       "earliest_benefits_start_date": "2024-12-01",
+      "applicable_collective_agreement": "x",
       "metadata": {},
       "object": "x"
     },
@@ -3283,6 +3367,9 @@ const PLAN: any[] = [
             "currency": "eur",
             "documents": [
               {}
+            ],
+            "coverage_options": [
+              {}
             ]
           },
           "health_insurance": {
@@ -3327,7 +3414,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ]
     },
@@ -3441,7 +3537,10 @@ const PLAN: any[] = [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ]
         }
@@ -3517,6 +3616,9 @@ const PLAN: any[] = [
             "currency": "eur",
             "documents": [
               {}
+            ],
+            "coverage_options": [
+              {}
             ]
           },
           "health_insurance": {
@@ -3561,7 +3663,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ]
     },
@@ -3630,6 +3741,9 @@ const PLAN: any[] = [
             "currency": "eur",
             "documents": [
               {}
+            ],
+            "coverage_options": [
+              {}
             ]
           },
           "health_insurance": {
@@ -3674,7 +3788,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ]
     },
@@ -4466,6 +4589,9 @@ const PLAN: any[] = [
             "currency": "eur",
             "documents": [
               {}
+            ],
+            "coverage_options": [
+              {}
             ]
           },
           "health_insurance": {
@@ -4473,11 +4599,22 @@ const PLAN: any[] = [
             "renewal": {},
             "configuration": {}
           },
+          "life_assurance": {
+            "group_policy_number": "x",
+            "renewal": {},
+            "configuration": {}
+          },
+          "linked_group_policy_ids": [
+            "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+          ],
           "disclosures": [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ],
           "object": "x"
@@ -4557,6 +4694,23 @@ const PLAN: any[] = [
             "title": "x",
             "link": "x"
           }
+        ],
+        "coverage_options": [
+          {
+            "id": "pc_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+            "name": "x",
+            "description": "x",
+            "scope": "group_policy",
+            "input_type": "single_select",
+            "required": true,
+            "min_selections": 1,
+            "max_selections": 1,
+            "sort_order": 1,
+            "group_label": "x",
+            "options": [
+              {}
+            ]
+          }
         ]
       },
       "health_insurance": {
@@ -4572,11 +4726,36 @@ const PLAN: any[] = [
           "cost_sharing": {}
         }
       },
+      "life_assurance": {
+        "group_policy_number": "x",
+        "renewal": {
+          "renewal_date": "2024-12-01",
+          "window_start_date": "2024-12-01",
+          "window_end_date": "2024-12-01",
+          "status": "upcoming",
+          "renewed_policy_id": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+        },
+        "configuration": {
+          "cost_sharing": {}
+        }
+      },
+      "linked_group_policy_ids": [
+        "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      ],
       "disclosures": [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "object": "x"
@@ -4616,6 +4795,7 @@ const PLAN: any[] = [
     "status": 200,
     "sample": {
       "id": "gpi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "type": "single",
       "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "quote_intent_id": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
@@ -4631,13 +4811,40 @@ const PLAN: any[] = [
           "partner": true,
           "children": true
         },
+        "member_selection_percentage_based": {
+          "partner": true,
+          "children": true,
+          "percentage": 123
+        },
         "percentage": {
           "percentage": 123
         },
         "family_type": {
           "type": "single"
+        },
+        "fixed_amount": {
+          "monthly_amount": 123.45
         }
       },
+      "items": [
+        {
+          "benefit_type": "health_insurance",
+          "ref": "x",
+          "levels": [
+            {
+              "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "cost_sharing": {},
+              "coverage_selections": [
+                {}
+              ]
+            }
+          ]
+        }
+      ],
+      "group_policy_ids": [
+        "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      ],
       "action_required": {
         "code": "provide_dependant_information",
         "reason": "x",
@@ -4648,7 +4855,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "object": "x"
@@ -4667,7 +4883,8 @@ const PLAN: any[] = [
       "page": "v1",
       "page_size": "v1",
       "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
-      "status": "v1"
+      "status": "v1",
+      "type": "v1"
     },
     "headers": [
       {
@@ -4683,6 +4900,7 @@ const PLAN: any[] = [
     "query": [
       "group_id",
       "plan_id",
+      "type",
       "status",
       "page",
       "page_size"
@@ -4707,6 +4925,10 @@ const PLAN: any[] = [
       {
         "name": "status",
         "wire": "status"
+      },
+      {
+        "name": "type",
+        "wire": "type"
       }
     ],
     "auth": [
@@ -4723,6 +4945,7 @@ const PLAN: any[] = [
       "items": [
         {
           "id": "gpi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "type": "single",
           "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
           "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
           "quote_intent_id": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
@@ -4732,9 +4955,23 @@ const PLAN: any[] = [
             "type": "member_count",
             "member_count": {},
             "member_selection": {},
+            "member_selection_percentage_based": {},
             "percentage": {},
-            "family_type": {}
+            "family_type": {},
+            "fixed_amount": {}
           },
+          "items": [
+            {
+              "benefit_type": "health_insurance",
+              "ref": "x",
+              "levels": [
+                {}
+              ]
+            }
+          ],
+          "group_policy_ids": [
+            "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+          ],
           "action_required": {
             "code": "provide_dependant_information",
             "reason": "x",
@@ -4745,7 +4982,10 @@ const PLAN: any[] = [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ],
           "object": "x"
@@ -4798,6 +5038,7 @@ const PLAN: any[] = [
     "status": 200,
     "sample": {
       "id": "gpi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "type": "single",
       "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "quote_intent_id": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
@@ -4813,13 +5054,40 @@ const PLAN: any[] = [
           "partner": true,
           "children": true
         },
+        "member_selection_percentage_based": {
+          "partner": true,
+          "children": true,
+          "percentage": 123
+        },
         "percentage": {
           "percentage": 123
         },
         "family_type": {
           "type": "single"
+        },
+        "fixed_amount": {
+          "monthly_amount": 123.45
         }
       },
+      "items": [
+        {
+          "benefit_type": "health_insurance",
+          "ref": "x",
+          "levels": [
+            {
+              "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "cost_sharing": {},
+              "coverage_selections": [
+                {}
+              ]
+            }
+          ]
+        }
+      ],
+      "group_policy_ids": [
+        "gp_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      ],
       "action_required": {
         "code": "provide_dependant_information",
         "reason": "x",
@@ -4830,7 +5098,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "object": "x"
@@ -4924,7 +5201,7 @@ const PLAN: any[] = [
   {
     "entity": "group_quote",
     "accessor": "GroupQuote",
-    "op": "load",
+    "op": "list",
     "method": "GET",
     "path": "/group_quote_intents/{group_quote_intent_id}/quote",
     "args": [
@@ -4970,17 +5247,64 @@ const PLAN: any[] = [
           "partner": true,
           "children": true
         },
+        "member_selection_percentage_based": {
+          "partner": true,
+          "children": true,
+          "percentage": 123
+        },
         "percentage": {
           "percentage": 123
         },
         "family_type": {
           "type": "single"
+        },
+        "fixed_amount": {
+          "monthly_amount": 123.45
         }
       },
       "total_monthly_premium": 123.45,
+      "total_annual_premium": 123.45,
       "currency": "x",
+      "breakdown": [
+        {
+          "type": "premium",
+          "currency": "x",
+          "amount": 123.45
+        }
+      ],
       "pdf_url": "x",
       "pdf_expires_at": "2024-12-01T00:00:00Z",
+      "quote_pdfs": [
+        {
+          "url": "x",
+          "expires_at": "2024-12-01T00:00:00Z"
+        }
+      ],
+      "levels": [
+        {
+          "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "employee_count": 123,
+          "currency": "x",
+          "monthly_premium": 123.45,
+          "annual_premium": 123.45,
+          "cost_sharing": {
+            "type": "member_count",
+            "member_count": {},
+            "member_selection": {},
+            "member_selection_percentage_based": {},
+            "percentage": {},
+            "family_type": {},
+            "fixed_amount": {}
+          },
+          "quote_pdfs": [
+            {
+              "url": "x",
+              "expires_at": "2024-12-01T00:00:00Z"
+            }
+          ]
+        }
+      ],
       "generated_at": "2024-12-01T00:00:00Z",
       "expires_at": "2024-12-01T00:00:00Z",
       "object": "x"
@@ -5058,6 +5382,7 @@ const PLAN: any[] = [
     "status": 200,
     "sample": {
       "id": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "type": "single",
       "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "status": "processing",
@@ -5071,14 +5396,38 @@ const PLAN: any[] = [
           "partner": true,
           "children": true
         },
+        "member_selection_percentage_based": {
+          "partner": true,
+          "children": true,
+          "percentage": 123
+        },
         "percentage": {
           "percentage": 123
         },
         "family_type": {
           "type": "single"
+        },
+        "fixed_amount": {
+          "monthly_amount": 123.45
         }
       },
       "expected_start_date": "2024-12-01",
+      "items": [
+        {
+          "benefit_type": "health_insurance",
+          "ref": "x",
+          "levels": [
+            {
+              "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "cost_sharing": {},
+              "coverage_selections": [
+                {}
+              ]
+            }
+          ]
+        }
+      ],
       "action_required": {
         "code": "provide_dependant_information",
         "reason": "x",
@@ -5087,16 +5436,34 @@ const PLAN: any[] = [
       },
       "consent_links": [
         {
-          "type": "terms_of_business",
-          "url": "x",
-          "version": "x"
+          "id": "cst_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "terms_of_business",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ],
+          "object": "x"
         }
       ],
       "disclosures": [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "object": "x"
@@ -5115,7 +5482,8 @@ const PLAN: any[] = [
       "page": "v1",
       "page_size": "v1",
       "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
-      "status": "v1"
+      "status": "v1",
+      "type": "v1"
     },
     "headers": [
       {
@@ -5131,6 +5499,7 @@ const PLAN: any[] = [
     "query": [
       "group_id",
       "plan_id",
+      "type",
       "status",
       "page",
       "page_size"
@@ -5155,6 +5524,10 @@ const PLAN: any[] = [
       {
         "name": "status",
         "wire": "status"
+      },
+      {
+        "name": "type",
+        "wire": "type"
       }
     ],
     "auth": [
@@ -5171,6 +5544,7 @@ const PLAN: any[] = [
       "items": [
         {
           "id": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "type": "single",
           "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
           "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
           "status": "processing",
@@ -5178,10 +5552,21 @@ const PLAN: any[] = [
             "type": "member_count",
             "member_count": {},
             "member_selection": {},
+            "member_selection_percentage_based": {},
             "percentage": {},
-            "family_type": {}
+            "family_type": {},
+            "fixed_amount": {}
           },
           "expected_start_date": "2024-12-01",
+          "items": [
+            {
+              "benefit_type": "health_insurance",
+              "ref": "x",
+              "levels": [
+                {}
+              ]
+            }
+          ],
           "action_required": {
             "code": "provide_dependant_information",
             "reason": "x",
@@ -5190,16 +5575,22 @@ const PLAN: any[] = [
           },
           "consent_links": [
             {
-              "type": "terms_of_business",
-              "url": "x",
-              "version": "x"
+              "id": "cst_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "text": "x",
+              "links": [
+                {}
+              ],
+              "object": "x"
             }
           ],
           "disclosures": [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ],
           "object": "x"
@@ -5252,6 +5643,7 @@ const PLAN: any[] = [
     "status": 200,
     "sample": {
       "id": "gqi_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "type": "single",
       "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
       "status": "processing",
@@ -5265,14 +5657,38 @@ const PLAN: any[] = [
           "partner": true,
           "children": true
         },
+        "member_selection_percentage_based": {
+          "partner": true,
+          "children": true,
+          "percentage": 123
+        },
         "percentage": {
           "percentage": 123
         },
         "family_type": {
           "type": "single"
+        },
+        "fixed_amount": {
+          "monthly_amount": 123.45
         }
       },
       "expected_start_date": "2024-12-01",
+      "items": [
+        {
+          "benefit_type": "health_insurance",
+          "ref": "x",
+          "levels": [
+            {
+              "group_id": "gr_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "plan_id": "pl_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+              "cost_sharing": {},
+              "coverage_selections": [
+                {}
+              ]
+            }
+          ]
+        }
+      ],
       "action_required": {
         "code": "provide_dependant_information",
         "reason": "x",
@@ -5281,16 +5697,34 @@ const PLAN: any[] = [
       },
       "consent_links": [
         {
-          "type": "terms_of_business",
-          "url": "x",
-          "version": "x"
+          "id": "cst_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "terms_of_business",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ],
+          "object": "x"
         }
       ],
       "disclosures": [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "object": "x"
@@ -5518,16 +5952,36 @@ const PLAN: any[] = [
             "supported_cost_sharing_options": [
               "percentage"
             ],
+            "supported_cost_sharing_restrictions": [
+              {}
+            ],
             "supported_member_types": [
               "policyholder"
             ],
             "pricing": {}
           },
+          "life_assurance": {
+            "life_assurance_type": "international",
+            "supported_cost_sharing_options": [
+              "percentage"
+            ],
+            "supported_cost_sharing_restrictions": [
+              {}
+            ]
+          },
+          "indicative_pricing": {
+            "currency": "eur",
+            "adult_monthly_premium": 1,
+            "child_monthly_premium": 1
+          },
           "disclosures": [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ],
           "available_from": "2024-12-01",
@@ -5668,6 +6122,13 @@ const PLAN: any[] = [
         "supported_cost_sharing_options": [
           "percentage"
         ],
+        "supported_cost_sharing_restrictions": [
+          {
+            "type": "percentage",
+            "percentage": {},
+            "member_selection_percentage_based": {}
+          }
+        ],
         "supported_member_types": [
           "policyholder"
         ],
@@ -5677,11 +6138,38 @@ const PLAN: any[] = [
           "tier_based": {}
         }
       },
+      "life_assurance": {
+        "life_assurance_type": "international",
+        "supported_cost_sharing_options": [
+          "percentage"
+        ],
+        "supported_cost_sharing_restrictions": [
+          {
+            "type": "percentage",
+            "percentage": {},
+            "member_selection_percentage_based": {}
+          }
+        ]
+      },
+      "indicative_pricing": {
+        "currency": "eur",
+        "adult_monthly_premium": 1,
+        "child_monthly_premium": 1
+      },
       "disclosures": [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "available_from": "2024-12-01",
@@ -5819,11 +6307,15 @@ const PLAN: any[] = [
             "currency": "eur",
             "documents": [
               {}
+            ],
+            "coverage_options": [
+              {}
             ]
           },
           "start_date": "2024-12-01",
           "end_date": "2024-12-01",
           "cancellation_date": "2024-12-01",
+          "opted_out_at": "2024-12-01T00:00:00Z",
           "type": "health_insurance",
           "health_insurance": {
             "policy_number": "x",
@@ -5837,11 +6329,21 @@ const PLAN: any[] = [
             ],
             "estimated_gross_premium": {}
           },
+          "life_assurance": {
+            "policy_number": "x",
+            "opt_out_deadline": "2024-12-01",
+            "renewal": {},
+            "configuration": {},
+            "estimated_gross_premium": {}
+          },
           "disclosures": [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ],
           "object": "x"
@@ -5919,11 +6421,29 @@ const PLAN: any[] = [
             "title": "x",
             "link": "x"
           }
+        ],
+        "coverage_options": [
+          {
+            "id": "pc_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+            "name": "x",
+            "description": "x",
+            "scope": "group_policy",
+            "input_type": "single_select",
+            "required": true,
+            "min_selections": 1,
+            "max_selections": 1,
+            "sort_order": 1,
+            "group_label": "x",
+            "options": [
+              {}
+            ]
+          }
         ]
       },
       "start_date": "2024-12-01",
       "end_date": "2024-12-01",
       "cancellation_date": "2024-12-01",
+      "opted_out_at": "2024-12-01T00:00:00Z",
       "type": "health_insurance",
       "health_insurance": {
         "policy_number": "x",
@@ -5958,11 +6478,39 @@ const PLAN: any[] = [
           "term": {}
         }
       },
+      "life_assurance": {
+        "policy_number": "x",
+        "opt_out_deadline": "2024-12-01",
+        "renewal": {
+          "renewal_date": "2024-12-01",
+          "window_start_date": "2024-12-01",
+          "window_end_date": "2024-12-01",
+          "status": "upcoming",
+          "renewed_policy_id": "p_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+        },
+        "configuration": {
+          "cost_sharing": {}
+        },
+        "estimated_gross_premium": {
+          "currency": "eur",
+          "monthly": {},
+          "term": {}
+        }
+      },
       "disclosures": [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ],
       "object": "x"
@@ -6144,7 +6692,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ]
     },
@@ -6248,7 +6805,10 @@ const PLAN: any[] = [
             {
               "category": "regulatory",
               "type": "intermediary_role",
-              "text": "x"
+              "text": "x",
+              "links": [
+                {}
+              ]
             }
           ]
         }
@@ -6355,7 +6915,16 @@ const PLAN: any[] = [
         {
           "category": "regulatory",
           "type": "intermediary_role",
-          "text": "x"
+          "text": "x",
+          "links": [
+            {
+              "token": "x",
+              "type": "intermediary_role",
+              "label": "x",
+              "url": "x",
+              "version": "x"
+            }
+          ]
         }
       ]
     },
@@ -6695,6 +7264,286 @@ const PLAN: any[] = [
       "supported_countries": [
         "af"
       ]
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "salary",
+    "accessor": "Salary",
+    "op": "create",
+    "method": "POST",
+    "path": "/employees/{employee_id}/salaries",
+    "args": [
+      {
+        "name": "employee_id",
+        "wire": "employee_id",
+        "value": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      }
+    ],
+    "select": {},
+    "headers": [
+      {
+        "name": "idempotency_key",
+        "wire": "Idempotency-Key",
+        "value": "h1"
+      },
+      {
+        "name": "x_platform_id",
+        "wire": "X-Platform-Id",
+        "value": "h2"
+      }
+    ],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
+    "query": [],
+    "queryArgs": [],
+    "auth": [
+      [
+        {
+          "in": "header",
+          "name": "authorization",
+          "scheme": "bearer"
+        }
+      ]
+    ],
+    "status": 200,
+    "sample": {
+      "id": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "employee_id": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "amount": 123.45,
+      "currency": "eur",
+      "pay_frequency": "annual",
+      "effective_from": "2024-12-01",
+      "object": "x"
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "salary",
+    "accessor": "Salary",
+    "op": "list",
+    "method": "GET",
+    "path": "/employees/{employee_id}/salaries",
+    "args": [
+      {
+        "name": "employee_id",
+        "wire": "employee_id",
+        "value": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      }
+    ],
+    "select": {
+      "page": "v1",
+      "page_size": "v1"
+    },
+    "headers": [
+      {
+        "name": "x_platform_id",
+        "wire": "X-Platform-Id",
+        "value": "h1"
+      }
+    ],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
+    "query": [
+      "page",
+      "page_size"
+    ],
+    "queryArgs": [
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "page_size",
+        "wire": "page_size"
+      }
+    ],
+    "auth": [
+      [
+        {
+          "in": "header",
+          "name": "authorization",
+          "scheme": "bearer"
+        }
+      ]
+    ],
+    "status": 200,
+    "sample": {
+      "items": [
+        {
+          "id": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "employee_id": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+          "amount": 123.45,
+          "currency": "eur",
+          "pay_frequency": "annual",
+          "effective_from": "2024-12-01",
+          "object": "x"
+        }
+      ],
+      "page": 123,
+      "page_size": 123,
+      "total_count": 123,
+      "has_next_page": true,
+      "has_previous_page": true
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "salary",
+    "accessor": "Salary",
+    "op": "load",
+    "method": "GET",
+    "path": "/employees/{employee_id}/salaries/{salary_id}",
+    "args": [
+      {
+        "name": "employee_id",
+        "wire": "employee_id",
+        "value": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      },
+      {
+        "name": "id",
+        "wire": "salary_id",
+        "value": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      }
+    ],
+    "select": {},
+    "headers": [
+      {
+        "name": "x_platform_id",
+        "wire": "X-Platform-Id",
+        "value": "h1"
+      }
+    ],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
+    "query": [],
+    "queryArgs": [],
+    "auth": [
+      [
+        {
+          "in": "header",
+          "name": "authorization",
+          "scheme": "bearer"
+        }
+      ]
+    ],
+    "status": 200,
+    "sample": {
+      "id": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "employee_id": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "amount": 123.45,
+      "currency": "eur",
+      "pay_frequency": "annual",
+      "effective_from": "2024-12-01",
+      "object": "x"
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "salary",
+    "accessor": "Salary",
+    "op": "load",
+    "method": "GET",
+    "path": "/employees/{employee_id}/salaries/current",
+    "action": "current",
+    "args": [
+      {
+        "name": "employee_id",
+        "wire": "employee_id",
+        "value": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      }
+    ],
+    "select": {},
+    "headers": [
+      {
+        "name": "x_platform_id",
+        "wire": "X-Platform-Id",
+        "value": "h1"
+      }
+    ],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
+    "query": [],
+    "queryArgs": [],
+    "auth": [
+      [
+        {
+          "in": "header",
+          "name": "authorization",
+          "scheme": "bearer"
+        }
+      ]
+    ],
+    "status": 200,
+    "sample": {
+      "id": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "employee_id": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "amount": 123.45,
+      "currency": "eur",
+      "pay_frequency": "annual",
+      "effective_from": "2024-12-01",
+      "object": "x"
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "salary",
+    "accessor": "Salary",
+    "op": "remove",
+    "method": "DELETE",
+    "path": "/employees/{employee_id}/salaries/{salary_id}",
+    "args": [
+      {
+        "name": "employee_id",
+        "wire": "employee_id",
+        "value": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      },
+      {
+        "name": "id",
+        "wire": "salary_id",
+        "value": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a"
+      }
+    ],
+    "select": {},
+    "headers": [
+      {
+        "name": "x_platform_id",
+        "wire": "X-Platform-Id",
+        "value": "h1"
+      }
+    ],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
+    "query": [],
+    "queryArgs": [],
+    "auth": [
+      [
+        {
+          "in": "header",
+          "name": "authorization",
+          "scheme": "bearer"
+        }
+      ]
+    ],
+    "status": 200,
+    "sample": {
+      "id": "sal_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "employee_id": "ee_3b1333d87d9d4fd6ad83ba7f6b0e951a",
+      "amount": 123.45,
+      "currency": "eur",
+      "pay_frequency": "annual",
+      "effective_from": "2024-12-01",
+      "object": "x"
     },
     "idField": "id"
   },

@@ -37,6 +37,7 @@ import { PolicyEntity } from './entity/PolicyEntity'
 import { PolicyAmendmentIntentEntity } from './entity/PolicyAmendmentIntentEntity'
 import { PolicyImportIntentEntity } from './entity/PolicyImportIntentEntity'
 import { ProviderEntity } from './entity/ProviderEntity'
+import { SalaryEntity } from './entity/SalaryEntity'
 import { WebhookEndpointEntity } from './entity/WebhookEndpointEntity'
 
 export type * from './KotaTypes'
@@ -686,6 +687,15 @@ class KotaSDK {
   Provider(entopts?: Record<string, any>) {
     const self = this
     return new ProviderEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Salary().list()` / `client.Salary().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Salary(entopts?: Record<string, any>) {
+    const self = this
+    return new SalaryEntity(self, entopts)
   }
 
 
