@@ -94,6 +94,7 @@ const utility_1 = require("../../utility");
         (0, node_assert_1.default)(salary_ref01_data_dt0.id === salary_ref01_data.id);
         // REMOVE
         const salary_ref01_match_rm0 = { id: salary_ref01_data.id };
+        salary_ref01_match_rm0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01'];
         await salary_ref01_ent.remove(salary_ref01_match_rm0);
         // LIST
         const salary_ref01_match_rt0 = {};

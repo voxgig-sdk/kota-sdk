@@ -70,6 +70,7 @@ class EmployeeHealthInsuranceOfferEntityTest extends TestCase
         $employee_health_insurance_offer_ref01_match_dt0 = [
             "id" => $employee_health_insurance_offer_ref01_data["id"],
         ];
+        $employee_health_insurance_offer_ref01_match_dt0["employee_id"] = $setup["idmap"]["employee_id"] ?? $setup["idmap"]["employee01"] ?? null;
         $employee_health_insurance_offer_ref01_data_dt0_loaded = $employee_health_insurance_offer_ref01_ent->load($employee_health_insurance_offer_ref01_match_dt0, null);
         $employee_health_insurance_offer_ref01_data_dt0_load_result = Helpers::to_map(is_object($employee_health_insurance_offer_ref01_data_dt0_loaded) && method_exists($employee_health_insurance_offer_ref01_data_dt0_loaded, 'data_get') ? $employee_health_insurance_offer_ref01_data_dt0_loaded->data_get() : $employee_health_insurance_offer_ref01_data_dt0_loaded);
         $this->assertNotNull($employee_health_insurance_offer_ref01_data_dt0_load_result);

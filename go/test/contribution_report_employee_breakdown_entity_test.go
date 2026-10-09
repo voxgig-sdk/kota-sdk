@@ -66,6 +66,7 @@ func TestContributionReportEmployeeBreakdownEntity(t *testing.T) {
 			liveMiss(t, contribution_report_employee_breakdownEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a contribution_report_employee_breakdown record it has no list to find")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		contributionReportEmployeeBreakdownRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.contribution_report_employee_breakdown")))
@@ -81,6 +82,11 @@ func TestContributionReportEmployeeBreakdownEntity(t *testing.T) {
 		contributionReportEmployeeBreakdownRef01Ent := client.ContributionReportEmployeeBreakdown(nil)
 		contributionReportEmployeeBreakdownRef01MatchDt0 := map[string]any{
 			"id": contributionReportEmployeeBreakdownRef01Data["id"],
+		}
+		if v := setup.idmap["contribution_report_id"]; v != nil {
+			contributionReportEmployeeBreakdownRef01MatchDt0["contribution_report_id"] = v
+		} else {
+			contributionReportEmployeeBreakdownRef01MatchDt0["contribution_report_id"] = setup.idmap["contribution_report01"]
 		}
 		contributionReportEmployeeBreakdownRef01DataDt0Loaded, err := contributionReportEmployeeBreakdownRef01Ent.Load(contributionReportEmployeeBreakdownRef01MatchDt0, nil)
 		if err != nil {

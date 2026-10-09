@@ -100,6 +100,7 @@ describe("AssociatedPersonEntity", function()
     local associated_person_ref01_match_dt0 = {
       id = associated_person_ref01_data["id"],
     }
+    associated_person_ref01_match_dt0["employee_id"] = setup.idmap["employee_id"] or setup.idmap["employee01"]
     local associated_person_ref01_data_dt0_loaded, err = associated_person_ref01_ent:load(associated_person_ref01_match_dt0, nil)
     assert.is_nil(err)
     local associated_person_ref01_data_dt0_load_result = helpers.to_map(type(associated_person_ref01_data_dt0_loaded) == 'table' and associated_person_ref01_data_dt0_loaded.data_get and associated_person_ref01_data_dt0_loaded:data_get() or associated_person_ref01_data_dt0_loaded)
@@ -110,6 +111,7 @@ describe("AssociatedPersonEntity", function()
     local associated_person_ref01_match_rm0 = {
       id = associated_person_ref01_data["id"],
     }
+    associated_person_ref01_match_rm0["employee_id"] = setup.idmap["employee_id"] or setup.idmap["employee01"]
     local _, err = associated_person_ref01_ent:remove(associated_person_ref01_match_rm0, nil)
     assert.is_nil(err)
 

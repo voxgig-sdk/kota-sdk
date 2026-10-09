@@ -67,6 +67,7 @@ class TestContributionReportEmployeeBreakdownEntity:
         contribution_report_employee_breakdown_ref01_match_dt0 = {
             "id": contribution_report_employee_breakdown_ref01_data["id"],
         }
+        contribution_report_employee_breakdown_ref01_match_dt0["contribution_report_id"] = setup["idmap"].get("contribution_report_id") or setup["idmap"].get("contribution_report01")
         contribution_report_employee_breakdown_ref01_data_dt0_loaded = contribution_report_employee_breakdown_ref01_ent.load(contribution_report_employee_breakdown_ref01_match_dt0, None)
         contribution_report_employee_breakdown_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(contribution_report_employee_breakdown_ref01_data_dt0_loaded))
         assert contribution_report_employee_breakdown_ref01_data_dt0_load_result is not None

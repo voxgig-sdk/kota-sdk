@@ -201,6 +201,7 @@ func TestEnrolmentIntentEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		enrolmentIntentRef01Ent := client.EnrolmentIntent(nil)

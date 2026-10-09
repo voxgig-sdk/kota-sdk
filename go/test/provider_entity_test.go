@@ -200,6 +200,7 @@ func TestProviderEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 		if setup.live {
 			liveExisting(t, providerEntityLiveStrict, setup.data, "provider", func() (any, error) {
 				return client.Provider(nil).List(map[string]any{}, nil)

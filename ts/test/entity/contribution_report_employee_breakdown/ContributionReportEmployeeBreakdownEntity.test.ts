@@ -77,6 +77,7 @@ describe('ContributionReportEmployeeBreakdownEntity', async () => {
     const contribution_report_employee_breakdown_ref01_ent = client.ContributionReportEmployeeBreakdown()
     const contribution_report_employee_breakdown_ref01_match_dt0: any = {}
     contribution_report_employee_breakdown_ref01_match_dt0.id = contribution_report_employee_breakdown_ref01_data.id
+    contribution_report_employee_breakdown_ref01_match_dt0['contribution_report_id'] = setup.idmap['contribution_report_id'] ?? setup.idmap['contribution_report01']
     const contribution_report_employee_breakdown_ref01_data_dt0 = (await contribution_report_employee_breakdown_ref01_ent.load(contribution_report_employee_breakdown_ref01_match_dt0)).data()
     assert(contribution_report_employee_breakdown_ref01_data_dt0.id === contribution_report_employee_breakdown_ref01_data.id)
 

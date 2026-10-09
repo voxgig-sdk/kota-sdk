@@ -786,7 +786,7 @@ local result, err = client:Dependent():create({
 Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:Dependent():remove({ dependents_management_intent_id = "dependents_management_intent_id", id = "id" })
+local result, err = client:Dependent():remove({ id = "dependent_id", dependents_management_intent_id = "dependents_management_intent_id" })
 ```
 
 ### Common Methods

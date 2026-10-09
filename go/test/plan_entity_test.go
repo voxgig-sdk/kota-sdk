@@ -200,6 +200,7 @@ func TestPlanEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 		if setup.live {
 			liveExisting(t, planEntityLiveStrict, setup.data, "plan", func() (any, error) {
 				return client.Plan(nil).List(map[string]any{}, nil)

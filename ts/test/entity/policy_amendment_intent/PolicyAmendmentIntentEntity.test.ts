@@ -77,6 +77,7 @@ describe('PolicyAmendmentIntentEntity', async () => {
     const policy_amendment_intent_ref01_ent = client.PolicyAmendmentIntent()
     const policy_amendment_intent_ref01_match_dt0: any = {}
     policy_amendment_intent_ref01_match_dt0.id = policy_amendment_intent_ref01_data.id
+    policy_amendment_intent_ref01_match_dt0['policy_id'] = setup.idmap['policy_id'] ?? setup.idmap['policy01']
     const policy_amendment_intent_ref01_data_dt0 = (await policy_amendment_intent_ref01_ent.load(policy_amendment_intent_ref01_match_dt0)).data()
     assert(policy_amendment_intent_ref01_data_dt0.id === policy_amendment_intent_ref01_data.id)
 

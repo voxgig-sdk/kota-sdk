@@ -201,6 +201,7 @@ func TestGroupEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		groupRef01Ent := client.Group(nil)

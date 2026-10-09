@@ -200,6 +200,7 @@ func TestWebhookEndpointEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 		if setup.live {
 			liveExisting(t, webhook_endpointEntityLiveStrict, setup.data, "webhook_endpoint", func() (any, error) {
 				return client.WebhookEndpoint(nil).List(map[string]any{}, nil)

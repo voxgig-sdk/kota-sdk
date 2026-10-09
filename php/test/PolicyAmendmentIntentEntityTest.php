@@ -70,6 +70,7 @@ class PolicyAmendmentIntentEntityTest extends TestCase
         $policy_amendment_intent_ref01_match_dt0 = [
             "id" => $policy_amendment_intent_ref01_data["id"],
         ];
+        $policy_amendment_intent_ref01_match_dt0["policy_id"] = $setup["idmap"]["policy_id"] ?? $setup["idmap"]["policy01"] ?? null;
         $policy_amendment_intent_ref01_data_dt0_loaded = $policy_amendment_intent_ref01_ent->load($policy_amendment_intent_ref01_match_dt0, null);
         $policy_amendment_intent_ref01_data_dt0_load_result = Helpers::to_map(is_object($policy_amendment_intent_ref01_data_dt0_loaded) && method_exists($policy_amendment_intent_ref01_data_dt0_loaded, 'data_get') ? $policy_amendment_intent_ref01_data_dt0_loaded->data_get() : $policy_amendment_intent_ref01_data_dt0_loaded);
         $this->assertNotNull($policy_amendment_intent_ref01_data_dt0_load_result);

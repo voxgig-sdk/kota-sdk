@@ -70,6 +70,7 @@ func TestDependentEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		dependentRef01Ent := client.Dependent(nil)
@@ -92,6 +93,11 @@ func TestDependentEntity(t *testing.T) {
 		// REMOVE
 		dependentRef01MatchRm0 := map[string]any{
 			"id": dependentRef01Data["id"],
+		}
+		if v := setup.idmap["dependents_management_intent_id"]; v != nil {
+			dependentRef01MatchRm0["dependents_management_intent_id"] = v
+		} else {
+			dependentRef01MatchRm0["dependents_management_intent_id"] = setup.idmap["dependents_management_intent01"]
 		}
 		_, err = dependentRef01Ent.Remove(dependentRef01MatchRm0, nil)
 		if err != nil {

@@ -99,6 +99,7 @@ describe('SalaryEntity', async () => {
 
     // REMOVE
     const salary_ref01_match_rm0: any = { id: salary_ref01_data.id }
+    salary_ref01_match_rm0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01']
     await salary_ref01_ent.remove(salary_ref01_match_rm0)
   
 

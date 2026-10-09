@@ -200,6 +200,7 @@ func TestGroupPolicyIntentEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		groupPolicyIntentRef01Ent := client.GroupPolicyIntent(nil)

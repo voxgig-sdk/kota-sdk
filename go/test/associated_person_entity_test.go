@@ -71,6 +71,7 @@ func TestAssociatedPersonEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		associatedPersonRef01Ent := client.AssociatedPerson(nil)
@@ -138,6 +139,11 @@ func TestAssociatedPersonEntity(t *testing.T) {
 		associatedPersonRef01MatchDt0 := map[string]any{
 			"id": associatedPersonRef01Data["id"],
 		}
+		if v := setup.idmap["employee_id"]; v != nil {
+			associatedPersonRef01MatchDt0["employee_id"] = v
+		} else {
+			associatedPersonRef01MatchDt0["employee_id"] = setup.idmap["employee01"]
+		}
 		associatedPersonRef01DataDt0Loaded, err := associatedPersonRef01Ent.Load(associatedPersonRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
@@ -153,6 +159,11 @@ func TestAssociatedPersonEntity(t *testing.T) {
 		// REMOVE
 		associatedPersonRef01MatchRm0 := map[string]any{
 			"id": associatedPersonRef01Data["id"],
+		}
+		if v := setup.idmap["employee_id"]; v != nil {
+			associatedPersonRef01MatchRm0["employee_id"] = v
+		} else {
+			associatedPersonRef01MatchRm0["employee_id"] = setup.idmap["employee01"]
 		}
 		_, err = associatedPersonRef01Ent.Remove(associatedPersonRef01MatchRm0, nil)
 		if err != nil {

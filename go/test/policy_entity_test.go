@@ -200,6 +200,7 @@ func TestPolicyEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 		if setup.live {
 			liveExisting(t, policyEntityLiveStrict, setup.data, "policy", func() (any, error) {
 				return client.Policy(nil).List(map[string]any{}, nil)

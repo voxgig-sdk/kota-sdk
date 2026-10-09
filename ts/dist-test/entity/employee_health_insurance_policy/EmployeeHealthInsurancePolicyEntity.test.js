@@ -81,6 +81,7 @@ const utility_1 = require("../../utility");
         const employee_health_insurance_policy_ref01_ent = client.EmployeeHealthInsurancePolicy();
         const employee_health_insurance_policy_ref01_match_dt0 = {};
         employee_health_insurance_policy_ref01_match_dt0.id = employee_health_insurance_policy_ref01_data.id;
+        employee_health_insurance_policy_ref01_match_dt0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01'];
         const employee_health_insurance_policy_ref01_data_dt0 = (await employee_health_insurance_policy_ref01_ent.load(employee_health_insurance_policy_ref01_match_dt0)).data();
         (0, node_assert_1.default)(employee_health_insurance_policy_ref01_data_dt0.id === employee_health_insurance_policy_ref01_data.id);
     });

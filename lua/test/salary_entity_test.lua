@@ -93,6 +93,7 @@ describe("SalaryEntity", function()
     local salary_ref01_match_rm0 = {
       id = salary_ref01_data["id"],
     }
+    salary_ref01_match_rm0["employee_id"] = setup.idmap["employee_id"] or setup.idmap["employee01"]
     local _, err = salary_ref01_ent:remove(salary_ref01_match_rm0, nil)
     assert.is_nil(err)
 

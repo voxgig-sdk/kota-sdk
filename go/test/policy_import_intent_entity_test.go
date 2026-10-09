@@ -200,6 +200,7 @@ func TestPolicyImportIntentEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		policyImportIntentRef01Ent := client.PolicyImportIntent(nil)

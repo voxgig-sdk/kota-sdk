@@ -84,6 +84,7 @@ const utility_1 = require("../../utility");
         (0, node_assert_1.default)(null != dependent_ref01_data.id);
         // REMOVE
         const dependent_ref01_match_rm0 = { id: dependent_ref01_data.id };
+        dependent_ref01_match_rm0['dependents_management_intent_id'] = setup.idmap['dependents_management_intent_id'] ?? setup.idmap['dependents_management_intent01'];
         await dependent_ref01_ent.remove(dependent_ref01_match_rm0);
     });
 });

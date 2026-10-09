@@ -99,6 +99,7 @@ class TestAssociatedPersonEntity:
         associated_person_ref01_match_dt0 = {
             "id": associated_person_ref01_data["id"],
         }
+        associated_person_ref01_match_dt0["employee_id"] = setup["idmap"].get("employee_id") or setup["idmap"].get("employee01")
         associated_person_ref01_data_dt0_loaded = associated_person_ref01_ent.load(associated_person_ref01_match_dt0, None)
         associated_person_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(associated_person_ref01_data_dt0_loaded))
         assert associated_person_ref01_data_dt0_load_result is not None
@@ -108,6 +109,7 @@ class TestAssociatedPersonEntity:
         associated_person_ref01_match_rm0 = {
             "id": associated_person_ref01_data["id"],
         }
+        associated_person_ref01_match_rm0["employee_id"] = setup["idmap"].get("employee_id") or setup["idmap"].get("employee01")
         associated_person_ref01_ent.remove(associated_person_ref01_match_rm0, None)
 
         # LIST

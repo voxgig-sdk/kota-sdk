@@ -201,6 +201,7 @@ func TestEmployerEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		employerRef01Ent := client.Employer(nil)

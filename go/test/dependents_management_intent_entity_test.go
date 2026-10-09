@@ -66,6 +66,7 @@ func TestDependentsManagementIntentEntity(t *testing.T) {
 			liveMiss(t, dependents_management_intentEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a dependents_management_intent record it has no list to find")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		dependentsManagementIntentRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.dependents_management_intent")))

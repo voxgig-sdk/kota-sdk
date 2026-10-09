@@ -63,6 +63,7 @@ func TestCreateHostedSessionTokenEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		createHostedSessionTokenRef01Ent := client.CreateHostedSessionToken(nil)

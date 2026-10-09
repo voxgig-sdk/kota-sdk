@@ -105,6 +105,7 @@ class AssociatedPersonEntityTest extends TestCase
         $associated_person_ref01_match_dt0 = [
             "id" => $associated_person_ref01_data["id"],
         ];
+        $associated_person_ref01_match_dt0["employee_id"] = $setup["idmap"]["employee_id"] ?? $setup["idmap"]["employee01"] ?? null;
         $associated_person_ref01_data_dt0_loaded = $associated_person_ref01_ent->load($associated_person_ref01_match_dt0, null);
         $associated_person_ref01_data_dt0_load_result = Helpers::to_map(is_object($associated_person_ref01_data_dt0_loaded) && method_exists($associated_person_ref01_data_dt0_loaded, 'data_get') ? $associated_person_ref01_data_dt0_loaded->data_get() : $associated_person_ref01_data_dt0_loaded);
         $this->assertNotNull($associated_person_ref01_data_dt0_load_result);
@@ -114,6 +115,7 @@ class AssociatedPersonEntityTest extends TestCase
         $associated_person_ref01_match_rm0 = [
             "id" => $associated_person_ref01_data["id"],
         ];
+        $associated_person_ref01_match_rm0["employee_id"] = $setup["idmap"]["employee_id"] ?? $setup["idmap"]["employee01"] ?? null;
         $associated_person_ref01_ent->remove($associated_person_ref01_match_rm0, null);
 
         // LIST

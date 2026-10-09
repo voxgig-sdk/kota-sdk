@@ -70,6 +70,7 @@ func TestAssociatedPersonEligibilityResponsePagedListEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		associatedPersonEligibilityResponsePagedListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.associated_person_eligibility_response_paged_list")))

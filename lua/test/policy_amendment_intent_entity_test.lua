@@ -62,6 +62,7 @@ describe("PolicyAmendmentIntentEntity", function()
     local policy_amendment_intent_ref01_match_dt0 = {
       id = policy_amendment_intent_ref01_data["id"],
     }
+    policy_amendment_intent_ref01_match_dt0["policy_id"] = setup.idmap["policy_id"] or setup.idmap["policy01"]
     local policy_amendment_intent_ref01_data_dt0_loaded, err = policy_amendment_intent_ref01_ent:load(policy_amendment_intent_ref01_match_dt0, nil)
     assert.is_nil(err)
     local policy_amendment_intent_ref01_data_dt0_load_result = helpers.to_map(type(policy_amendment_intent_ref01_data_dt0_loaded) == 'table' and policy_amendment_intent_ref01_data_dt0_loaded.data_get and policy_amendment_intent_ref01_data_dt0_loaded:data_get() or policy_amendment_intent_ref01_data_dt0_loaded)

@@ -70,6 +70,7 @@ func TestEligibilityCheckEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		eligibilityCheckRef01Ent := client.EligibilityCheck(nil)

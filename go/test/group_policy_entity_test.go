@@ -200,6 +200,7 @@ func TestGroupPolicyEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 		if setup.live {
 			liveExisting(t, group_policyEntityLiveStrict, setup.data, "group_policy", func() (any, error) {
 				return client.GroupPolicy(nil).List(map[string]any{}, nil)

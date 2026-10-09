@@ -69,6 +69,7 @@ describe("DependentEntity", function()
     local dependent_ref01_match_rm0 = {
       id = dependent_ref01_data["id"],
     }
+    dependent_ref01_match_rm0["dependents_management_intent_id"] = setup.idmap["dependents_management_intent_id"] or setup.idmap["dependents_management_intent01"]
     local _, err = dependent_ref01_ent:remove(dependent_ref01_match_rm0, nil)
     assert.is_nil(err)
 

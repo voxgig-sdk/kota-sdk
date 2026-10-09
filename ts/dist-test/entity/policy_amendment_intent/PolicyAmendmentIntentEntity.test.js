@@ -81,6 +81,7 @@ const utility_1 = require("../../utility");
         const policy_amendment_intent_ref01_ent = client.PolicyAmendmentIntent();
         const policy_amendment_intent_ref01_match_dt0 = {};
         policy_amendment_intent_ref01_match_dt0.id = policy_amendment_intent_ref01_data.id;
+        policy_amendment_intent_ref01_match_dt0['policy_id'] = setup.idmap['policy_id'] ?? setup.idmap['policy01'];
         const policy_amendment_intent_ref01_data_dt0 = (await policy_amendment_intent_ref01_ent.load(policy_amendment_intent_ref01_match_dt0)).data();
         (0, node_assert_1.default)(policy_amendment_intent_ref01_data_dt0.id === policy_amendment_intent_ref01_data.id);
     });

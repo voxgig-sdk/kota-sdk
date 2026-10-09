@@ -67,6 +67,7 @@ class TestEmployerHealthInsuranceQuoteEntity:
         employer_health_insurance_quote_ref01_match_dt0 = {
             "id": employer_health_insurance_quote_ref01_data["id"],
         }
+        employer_health_insurance_quote_ref01_match_dt0["employer_id"] = setup["idmap"].get("employer_id") or setup["idmap"].get("employer01")
         employer_health_insurance_quote_ref01_data_dt0_loaded = employer_health_insurance_quote_ref01_ent.load(employer_health_insurance_quote_ref01_match_dt0, None)
         employer_health_insurance_quote_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(employer_health_insurance_quote_ref01_data_dt0_loaded))
         assert employer_health_insurance_quote_ref01_data_dt0_load_result is not None

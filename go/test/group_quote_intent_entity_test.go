@@ -200,6 +200,7 @@ func TestGroupQuoteIntentEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		groupQuoteIntentRef01Ent := client.GroupQuoteIntent(nil)

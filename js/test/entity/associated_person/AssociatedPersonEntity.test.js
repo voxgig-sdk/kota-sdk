@@ -85,7 +85,7 @@ describe('AssociatedPersonEntity', async () => {
     // UPDATE
     const associated_person_ref01_data_up0 = {}
     associated_person_ref01_data_up0.id = associated_person_ref01_data.id
-    associated_person_ref01_data_up0 ['employee_id'] = setup.idmap['employee_id']
+    associated_person_ref01_data_up0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01']
 
     const associated_person_ref01_markdef_up0 = { name: 'date_of_birth', value: 'Mark01-associated_person_ref01_' + setup.now }
     associated_person_ref01_data_up0 [associated_person_ref01_markdef_up0.name] = associated_person_ref01_markdef_up0.value
@@ -99,6 +99,7 @@ describe('AssociatedPersonEntity', async () => {
     // LOAD
     const associated_person_ref01_match_dt0 = {}
     associated_person_ref01_match_dt0.id = associated_person_ref01_data.id
+    associated_person_ref01_match_dt0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01']
     const associated_person_ref01_data_dt0 = (await associated_person_ref01_ent.load(associated_person_ref01_match_dt0)).data()
     assert(associated_person_ref01_data_dt0.id === associated_person_ref01_data.id)
 
@@ -106,6 +107,7 @@ describe('AssociatedPersonEntity', async () => {
     // REMOVE
     const associated_person_ref01_match_rm0 = {}
     associated_person_ref01_match_rm0.id = associated_person_ref01_data.id
+    associated_person_ref01_match_rm0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01']
     await associated_person_ref01_ent.remove(associated_person_ref01_match_rm0)
   
 

@@ -788,7 +788,7 @@ $result = $client->Dependent()->create([
 Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
-$result = $client->Dependent()->remove(["dependents_management_intent_id" => "dependents_management_intent_id", "id" => "id"]);
+$result = $client->Dependent()->remove(["id" => "dependent_id", "dependents_management_intent_id" => "dependents_management_intent_id"]);
 ```
 
 ### Common Methods

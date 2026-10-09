@@ -66,6 +66,7 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 			liveMiss(t, policy_amendment_intentEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a policy_amendment_intent record it has no list to find")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		policyAmendmentIntentRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.policy_amendment_intent")))
@@ -81,6 +82,11 @@ func TestPolicyAmendmentIntentEntity(t *testing.T) {
 		policyAmendmentIntentRef01Ent := client.PolicyAmendmentIntent(nil)
 		policyAmendmentIntentRef01MatchDt0 := map[string]any{
 			"id": policyAmendmentIntentRef01Data["id"],
+		}
+		if v := setup.idmap["policy_id"]; v != nil {
+			policyAmendmentIntentRef01MatchDt0["policy_id"] = v
+		} else {
+			policyAmendmentIntentRef01MatchDt0["policy_id"] = setup.idmap["policy01"]
 		}
 		policyAmendmentIntentRef01DataDt0Loaded, err := policyAmendmentIntentRef01Ent.Load(policyAmendmentIntentRef01MatchDt0, nil)
 		if err != nil {

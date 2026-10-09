@@ -200,6 +200,7 @@ func TestContributionReportEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 		if setup.live {
 			liveExisting(t, contribution_reportEntityLiveStrict, setup.data, "contribution_report", func() (any, error) {
 				return client.ContributionReport(nil).List(map[string]any{}, nil)

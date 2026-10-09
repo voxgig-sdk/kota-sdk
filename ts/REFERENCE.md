@@ -1153,7 +1153,7 @@ const result = await client.Dependent().create({
 Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
 
 ```ts
-const result = await client.Dependent().remove({ dependents_management_intent_id: 'dependents_management_intent_id', id: 'id' })
+const result = await client.Dependent().remove({ id: 'dependent_id', dependents_management_intent_id: 'dependents_management_intent_id' })
 ```
 
 ### Common Methods

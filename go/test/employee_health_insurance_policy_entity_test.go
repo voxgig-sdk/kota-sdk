@@ -66,6 +66,7 @@ func TestEmployeeHealthInsurancePolicyEntity(t *testing.T) {
 			liveMiss(t, employee_health_insurance_policyEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a employee_health_insurance_policy record it has no list to find")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		employeeHealthInsurancePolicyRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.employee_health_insurance_policy")))
@@ -81,6 +82,11 @@ func TestEmployeeHealthInsurancePolicyEntity(t *testing.T) {
 		employeeHealthInsurancePolicyRef01Ent := client.EmployeeHealthInsurancePolicy(nil)
 		employeeHealthInsurancePolicyRef01MatchDt0 := map[string]any{
 			"id": employeeHealthInsurancePolicyRef01Data["id"],
+		}
+		if v := setup.idmap["employee_id"]; v != nil {
+			employeeHealthInsurancePolicyRef01MatchDt0["employee_id"] = v
+		} else {
+			employeeHealthInsurancePolicyRef01MatchDt0["employee_id"] = setup.idmap["employee01"]
 		}
 		employeeHealthInsurancePolicyRef01DataDt0Loaded, err := employeeHealthInsurancePolicyRef01Ent.Load(employeeHealthInsurancePolicyRef01MatchDt0, nil)
 		if err != nil {

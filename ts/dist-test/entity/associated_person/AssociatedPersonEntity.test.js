@@ -90,7 +90,7 @@ const utility_1 = require("../../utility");
         // UPDATE
         const associated_person_ref01_data_up0 = {};
         associated_person_ref01_data_up0.id = associated_person_ref01_data.id;
-        associated_person_ref01_data_up0['employee_id'] = setup.idmap['employee_id'];
+        associated_person_ref01_data_up0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01'];
         const associated_person_ref01_markdef_up0 = { name: 'date_of_birth', value: 'Mark01-associated_person_ref01_' + setup.now };
         associated_person_ref01_data_up0[associated_person_ref01_markdef_up0.name] = associated_person_ref01_markdef_up0.value;
         const associated_person_ref01_resdata_up0 = (await associated_person_ref01_ent.update(associated_person_ref01_data_up0)).data();
@@ -99,10 +99,12 @@ const utility_1 = require("../../utility");
         // LOAD
         const associated_person_ref01_match_dt0 = {};
         associated_person_ref01_match_dt0.id = associated_person_ref01_data.id;
+        associated_person_ref01_match_dt0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01'];
         const associated_person_ref01_data_dt0 = (await associated_person_ref01_ent.load(associated_person_ref01_match_dt0)).data();
         (0, node_assert_1.default)(associated_person_ref01_data_dt0.id === associated_person_ref01_data.id);
         // REMOVE
         const associated_person_ref01_match_rm0 = { id: associated_person_ref01_data.id };
+        associated_person_ref01_match_rm0['employee_id'] = setup.idmap['employee_id'] ?? setup.idmap['employee01'];
         await associated_person_ref01_ent.remove(associated_person_ref01_match_rm0);
         // LIST
         const associated_person_ref01_match_rt0 = {};

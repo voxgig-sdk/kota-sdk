@@ -62,6 +62,7 @@ describe("EmployerHealthInsurancePolicyEntity", function()
     local employer_health_insurance_policy_ref01_match_dt0 = {
       id = employer_health_insurance_policy_ref01_data["id"],
     }
+    employer_health_insurance_policy_ref01_match_dt0["employer_id"] = setup.idmap["employer_id"] or setup.idmap["employer01"]
     local employer_health_insurance_policy_ref01_data_dt0_loaded, err = employer_health_insurance_policy_ref01_ent:load(employer_health_insurance_policy_ref01_match_dt0, nil)
     assert.is_nil(err)
     local employer_health_insurance_policy_ref01_data_dt0_load_result = helpers.to_map(type(employer_health_insurance_policy_ref01_data_dt0_loaded) == 'table' and employer_health_insurance_policy_ref01_data_dt0_loaded.data_get and employer_health_insurance_policy_ref01_data_dt0_loaded:data_get() or employer_health_insurance_policy_ref01_data_dt0_loaded)

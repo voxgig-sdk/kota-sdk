@@ -70,6 +70,7 @@ func TestSalaryEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		salaryRef01Ent := client.Salary(nil)
@@ -127,6 +128,11 @@ func TestSalaryEntity(t *testing.T) {
 		// REMOVE
 		salaryRef01MatchRm0 := map[string]any{
 			"id": salaryRef01Data["id"],
+		}
+		if v := setup.idmap["employee_id"]; v != nil {
+			salaryRef01MatchRm0["employee_id"] = v
+		} else {
+			salaryRef01MatchRm0["employee_id"] = setup.idmap["employee01"]
 		}
 		_, err = salaryRef01Ent.Remove(salaryRef01MatchRm0, nil)
 		if err != nil {

@@ -70,6 +70,7 @@ func TestEmployeeHealthInsuranceOfferResponsePagedListEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		employeeHealthInsuranceOfferResponsePagedListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.employee_health_insurance_offer_response_paged_list")))

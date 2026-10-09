@@ -879,7 +879,7 @@ fmt.Println(result.(sdk.Entity).Data())
 Remove the entity matching the given criteria. Returns the entity, marked as deleted; `err` is non-nil on failure.
 
 ```go
-result, err := client.Dependent(nil).Remove(map[string]any{"dependents_management_intent_id": "dependents_management_intent_id", "id": "id"}, nil)
+result, err := client.Dependent(nil).Remove(map[string]any{"id": "dependent_id", "dependents_management_intent_id": "dependents_management_intent_id"}, nil)
 if err != nil {
     panic(err)
 }
